@@ -1,0 +1,7 @@
+- [Shared memory across accounts](shared-memory-across-accounts.md) — this folder is tracked in git and shared by Emranul and Marshal; pull first, push memory changes, name who said what
+- [Users and AI Project team](user-ai-project-team.md) — Emranul Hoque and Marshal Sebastine, team M, Project 6 Niryo imitation learning, who uses which machine, key dates
+- [Coding style: emran-code-style skill](coding-style-emran-code-style.md) — load it for any Python for the team; structured, minimal, well-organised
+- [Step-by-step preference](feedback-step-by-step.md) — Emranul is a beginner; propose one step, explain plainly, ask before implementing
+- [No Claude in git](feedback-no-claude-in-git.md) — no Co-Authored-By lines; commits under the students' own names
+- [AI Project workspace set-up](ai-project-workspace-setup.md) — sheet 5 cm in front of the base, line pointing away; magnet block on the rod as pusher; camera on the wrist link, sees 9 cm across and 7 cm ahead, always away from the base
+- [Test before hardware changes](feedback-test-before-hardware-changes.md) — never advise a physical change on a theory; test first, say what is known vs guessed

@@ -1,0 +1,19 @@
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Large data: never in version control (README rule); back up 03_data/raw to a second disk instead
+03_data/
+04_runs/**/checkpoints/
+*.pt
+*.ckpt
+*.safetensors
+
+# Personal Claude settings (the shared memory lives in claude_memory/, which IS tracked)
+.claude/settings.local.json
+
+# Operating system clutter
+.DS_Store
+Thumbs.db
+desktop.ini

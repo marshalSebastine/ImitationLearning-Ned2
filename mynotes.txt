@@ -1,0 +1,19 @@
+Conceptual Questions 
+
+- so why did we use 16fps instead of more ? is it because we want to compress the image so that we dont have a lot of image data , and 16fps make sure that we get the desire output without compromising anything ? 
+
+- so I have anothe question , lets say we generated more SVG for training and in the final exam , somehow one of the training set is 95% similar , is it okay or how would how model performs
+
+
+
+
+Structure Questions 
+
+-So This is only one session here in claude , I want this session to be the orchestrator , and more each task we might have some sub session , like for git,data collection , model building , testing , my current session is getting overcrowded and overwhelming , I am a beginner so I dont have  any idea how to maintain this , can u help me build this modular system so we can work better and make sure that there is no compromise on performance , u can suggest me ideas , I will read and decide , also u can look into famous git repo or reddit methods people are using for this kind of issue like mine , I also want to optimize token usuage and I also want to make sure that all the session knows what happened in each sessions . ALso maybe a sub seesion where I can ask my silly questions . Also maybe one more session for structuing stuff ? 
+
+
+
+
+Relevant Questions
+ 
+- So I still dont get it , we will get the mount but how about the screw , how are we suppose to screw them together ?  

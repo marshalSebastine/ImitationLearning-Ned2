@@ -1,0 +1,1 @@
+WITHDRAWN on 26.10.26 (evening): the two collar pictures describe a camera position that collides with the forearm fork; see ../design_review_one_print.md, risks B1 to B4. Kept only as a record of the rejected idea.

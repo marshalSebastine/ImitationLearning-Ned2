@@ -1,0 +1,479 @@
+{
+ "hfov_52": {
+  "window_fit": {
+   "forward_cm": 3.96,
+   "up_cm": 1.31,
+   "right_cm": 0.0,
+   "tilt_deg": 12.4,
+   "yaw_deg": 0.0,
+   "roll_deg": 0.0,
+   "residual_cm": [
+    -0.04,
+    0.04,
+    -0.01,
+    -0.03
+   ],
+   "rms_cm": 0.03,
+   "window_cm": {
+    "near_m": 1.81,
+    "far_m": 8.89,
+    "near_width_m": 8.49,
+    "far_width_m": 9.97,
+    "near_sideways_m": 0.0,
+    "far_sideways_m": 0.0
+   },
+   "lens_height_above_table_cm": 9.2
+  },
+  "pixel_fit": {
+   "forward_cm": 3.4,
+   "up_cm": 0.64,
+   "right_cm": 1.17,
+   "forward_of_rod_axis_cm": 2.47,
+   "tilt_deg": 22.4,
+   "yaw_deg": -7.2,
+   "roll_deg": 9.3,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 2.2,
+   "max_px_fit_run_1430": 4.6,
+   "rms_px_check_run_1419": 5.1,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 2.8,
+    "far_m": 10.24,
+    "near_width_m": 7.84,
+    "far_width_m": 10.61,
+    "near_sideways_m": -0.66,
+    "far_sideways_m": -0.84
+   },
+   "lens_height_above_table_cm": 8.52,
+   "lens_above_wrist_axis_cm": 0.64,
+   "vfov_deg": 40.2
+  },
+  "pixel_fit_roll_zero": {
+   "forward_cm": 3.39,
+   "up_cm": 0.82,
+   "right_cm": 0.66,
+   "forward_of_rod_axis_cm": 2.47,
+   "tilt_deg": 22.1,
+   "yaw_deg": 1.3,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 2.2,
+   "max_px_fit_run_1430": 4.5,
+   "rms_px_check_run_1419": 5.0,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 2.79,
+    "far_m": 10.37,
+    "near_width_m": 7.97,
+    "far_width_m": 10.75,
+    "near_sideways_m": -0.67,
+    "far_sideways_m": -0.85
+   },
+   "lens_height_above_table_cm": 8.71,
+   "lens_above_wrist_axis_cm": 0.82,
+   "vfov_deg": 40.2
+  },
+  "combined_fit": {
+   "forward_cm": 3.94,
+   "up_cm": 0.99,
+   "right_cm": 0.68,
+   "forward_of_rod_axis_cm": 3.01,
+   "tilt_deg": 19.4,
+   "yaw_deg": 1.0,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 2.88,
+   "rms_px_fit_run_1430": 2.0,
+   "max_px_fit_run_1430": 4.0,
+   "rms_px_check_run_1419": 5.0,
+   "soft_residuals_sigma_units": {
+    "near_edge": 0.03,
+    "far_edge": 1.54,
+    "near_width": -0.93,
+    "far_width": 1.04,
+    "puck_offset": 2.6
+   },
+   "window_cm": {
+    "near_m": 2.91,
+    "far_m": 10.32,
+    "near_width_m": 8.13,
+    "far_width_m": 10.52,
+    "near_sideways_m": -0.67,
+    "far_sideways_m": -0.81
+   },
+   "lens_height_above_table_cm": 8.88,
+   "lens_above_wrist_axis_cm": 0.99,
+   "vfov_deg": 40.2,
+   "camera_parameters": {
+    "hfov_deg": 52.0,
+    "mount": "wrist",
+    "offset_m": [
+     0.03936,
+     0.00991,
+     0.00675
+    ],
+    "tilt_deg": 19.36,
+    "yaw_deg": 1.02,
+    "roll_deg": 0.0
+   }
+  },
+  "lean20_check": {
+   "high": {
+    "tip_z_m": 0.0459,
+    "rod_tilt_deg": 19.6,
+    "camera_axis_from_down_deg": 2.1,
+    "lens_height_above_table_cm": 8.43,
+    "puck_top_row": 416.0,
+    "line_width_px_rows_5_160_340": [
+     78.0,
+     78.0,
+     78.0
+    ]
+   },
+   "low": {
+    "tip_z_m": 0.0164,
+    "rod_tilt_deg": 19.5,
+    "camera_axis_from_down_deg": 10.3,
+    "lens_height_above_table_cm": 5.5,
+    "puck_top_row": 659.0,
+    "line_width_px_rows_5_160_340": [
+     152.0,
+     151.0,
+     149.0
+    ]
+   }
+  },
+  "lean20_measured": {
+   "lean_90_width_px_rows_5_160_340": [
+    61,
+    65,
+    71
+   ],
+   "lean_90_puck_top_row": 353,
+   "lean_110_width_px_rows_5_160_200": [
+    83,
+    81,
+    81
+   ],
+   "lean_110_puck_top_row": "245 to 270"
+  }
+ },
+ "hfov_104": {
+  "window_fit": {
+   "forward_cm": 5.68,
+   "up_cm": -4.3,
+   "right_cm": 0.0,
+   "tilt_deg": 4.8,
+   "yaw_deg": 0.0,
+   "roll_deg": 0.0,
+   "residual_cm": [
+    0.02,
+    -0.02,
+    0.01,
+    0.01
+   ],
+   "rms_cm": 0.01,
+   "window_cm": {
+    "near_m": 1.87,
+    "far_m": 8.83,
+    "near_width_m": 8.51,
+    "far_width_m": 10.01,
+    "near_sideways_m": 0.0,
+    "far_sideways_m": 0.0
+   },
+   "lens_height_above_table_cm": 3.58
+  },
+  "pixel_fit": {
+   "forward_cm": 4.83,
+   "up_cm": -4.23,
+   "right_cm": 0.74,
+   "forward_of_rod_axis_cm": 3.9,
+   "tilt_deg": 11.3,
+   "yaw_deg": 17.3,
+   "roll_deg": -15.0,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 4.4,
+   "max_px_fit_run_1430": 8.0,
+   "rms_px_check_run_1419": 6.3,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 1.54,
+    "far_m": 9.08,
+    "near_width_m": 8.09,
+    "far_width_m": 11.84,
+    "near_sideways_m": -0.82,
+    "far_sideways_m": -1.15
+   },
+   "lens_height_above_table_cm": 3.66,
+   "lens_above_wrist_axis_cm": -4.23,
+   "vfov_deg": 87.7
+  },
+  "pixel_fit_roll_zero": {
+   "forward_cm": 4.81,
+   "up_cm": -4.35,
+   "right_cm": 0.91,
+   "forward_of_rod_axis_cm": 3.89,
+   "tilt_deg": 10.2,
+   "yaw_deg": 2.4,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 4.5,
+   "max_px_fit_run_1430": 8.2,
+   "rms_px_check_run_1419": 6.3,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 1.55,
+    "far_m": 8.75,
+    "near_width_m": 7.83,
+    "far_width_m": 11.09,
+    "near_sideways_m": -0.82,
+    "far_sideways_m": -1.12
+   },
+   "lens_height_above_table_cm": 3.53,
+   "lens_above_wrist_axis_cm": -4.35,
+   "vfov_deg": 87.7
+  },
+  "combined_fit": {
+   "forward_cm": 3.0,
+   "up_cm": -6.26,
+   "right_cm": 0.13,
+   "forward_of_rod_axis_cm": 2.08,
+   "tilt_deg": 39.1,
+   "yaw_deg": 11.5,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 2.49,
+   "rms_px_fit_run_1430": 43.2,
+   "max_px_fit_run_1430": 80.6,
+   "rms_px_check_run_1419": 719735.7,
+   "soft_residuals_sigma_units": {
+    "near_edge": -0.54,
+    "far_edge": 10.92,
+    "near_width": -13.69,
+    "far_width": 29.02,
+    "puck_offset": 1.31
+   },
+   "window_cm": {
+    "near_m": 1.95,
+    "far_m": 14.98,
+    "near_width_m": 3.02,
+    "far_width_m": 24.46,
+    "near_sideways_m": -0.1,
+    "far_sideways_m": -2.75
+   },
+   "lens_height_above_table_cm": 1.63,
+   "lens_above_wrist_axis_cm": -6.26,
+   "vfov_deg": 87.7,
+   "camera_parameters": {
+    "hfov_deg": 104.0,
+    "mount": "wrist",
+    "offset_m": [
+     0.03004,
+     -0.0626,
+     0.00128
+    ],
+    "tilt_deg": 39.12,
+    "yaw_deg": 11.48,
+    "roll_deg": 0.0
+   }
+  },
+  "lean20_check": {
+   "high": {
+    "tip_z_m": 0.0459,
+    "rod_tilt_deg": 19.6,
+    "camera_axis_from_down_deg": 19.6,
+    "lens_height_above_table_cm": 1.93,
+    "puck_top_row": 190.0,
+    "line_width_px_rows_5_160_340": [
+     82.0,
+     109.0,
+     140.0
+    ]
+   },
+   "low": {
+    "tip_z_m": 0.0164,
+    "rod_tilt_deg": 19.5,
+    "camera_axis_from_down_deg": 21.8,
+    "lens_height_above_table_cm": -0.97,
+    "puck_top_row": 287.0,
+    "line_width_px_rows_5_160_340": [
+     141.0,
+     183.0,
+     233.0
+    ]
+   }
+  },
+  "lean20_measured": {
+   "lean_90_width_px_rows_5_160_340": [
+    61,
+    65,
+    71
+   ],
+   "lean_90_puck_top_row": 353,
+   "lean_110_width_px_rows_5_160_200": [
+    83,
+    81,
+    81
+   ],
+   "lean_110_puck_top_row": "245 to 270"
+  }
+ },
+ "hfov_64": {
+  "window_fit": {
+   "forward_cm": 4.75,
+   "up_cm": -0.69,
+   "right_cm": 0.0,
+   "tilt_deg": 9.7,
+   "yaw_deg": 0.0,
+   "roll_deg": 0.0,
+   "residual_cm": [
+    -0.02,
+    0.02,
+    -0.0,
+    -0.01
+   ],
+   "rms_cm": 0.01,
+   "window_cm": {
+    "near_m": 1.83,
+    "far_m": 8.87,
+    "near_width_m": 8.5,
+    "far_width_m": 9.99,
+    "near_sideways_m": 0.0,
+    "far_sideways_m": 0.0
+   },
+   "lens_height_above_table_cm": 7.2
+  },
+  "pixel_fit": {
+   "forward_cm": 4.19,
+   "up_cm": -0.86,
+   "right_cm": 0.1,
+   "forward_of_rod_axis_cm": 3.26,
+   "tilt_deg": 20.0,
+   "yaw_deg": 15.9,
+   "roll_deg": -15.0,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 2.6,
+   "max_px_fit_run_1430": 5.4,
+   "rms_px_check_run_1419": 5.2,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 2.53,
+    "far_m": 10.22,
+    "near_width_m": 8.13,
+    "far_width_m": 11.43,
+    "near_sideways_m": -0.7,
+    "far_sideways_m": -0.94
+   },
+   "lens_height_above_table_cm": 7.03,
+   "lens_above_wrist_axis_cm": -0.86,
+   "vfov_deg": 50.6
+  },
+  "pixel_fit_roll_zero": {
+   "forward_cm": 4.2,
+   "up_cm": -1.03,
+   "right_cm": 0.71,
+   "forward_of_rod_axis_cm": 3.27,
+   "tilt_deg": 19.2,
+   "yaw_deg": 1.9,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 2.6,
+   "rms_px_fit_run_1430": 2.6,
+   "max_px_fit_run_1430": 5.5,
+   "rms_px_check_run_1419": 5.3,
+   "observations": 57,
+   "window_cm": {
+    "near_m": 2.55,
+    "far_m": 10.01,
+    "near_width_m": 7.85,
+    "far_width_m": 10.94,
+    "near_sideways_m": -0.68,
+    "far_sideways_m": -0.93
+   },
+   "lens_height_above_table_cm": 6.86,
+   "lens_above_wrist_axis_cm": -1.03,
+   "vfov_deg": 50.6
+  },
+  "combined_fit": {
+   "forward_cm": 4.98,
+   "up_cm": -0.87,
+   "right_cm": 0.7,
+   "forward_of_rod_axis_cm": 4.06,
+   "tilt_deg": 15.6,
+   "yaw_deg": 1.3,
+   "roll_deg": 0.0,
+   "puck_offset_cm": 3.14,
+   "rms_px_fit_run_1430": 2.1,
+   "max_px_fit_run_1430": 4.1,
+   "rms_px_check_run_1419": 5.0,
+   "soft_residuals_sigma_units": {
+    "near_edge": -0.27,
+    "far_edge": 1.16,
+    "near_width": -1.0,
+    "far_width": 1.11,
+    "puck_offset": 3.47
+   },
+   "window_cm": {
+    "near_m": 2.87,
+    "far_m": 10.13,
+    "near_width_m": 8.1,
+    "far_width_m": 10.55,
+    "near_sideways_m": -0.67,
+    "far_sideways_m": -0.84
+   },
+   "lens_height_above_table_cm": 7.01,
+   "lens_above_wrist_axis_cm": -0.87,
+   "vfov_deg": 50.6,
+   "camera_parameters": {
+    "hfov_deg": 64.4,
+    "mount": "wrist",
+    "offset_m": [
+     0.04983,
+     -0.00874,
+     0.00701
+    ],
+    "tilt_deg": 15.59,
+    "yaw_deg": 1.27,
+    "roll_deg": 0.0
+   }
+  },
+  "lean20_check": {
+   "high": {
+    "tip_z_m": 0.0459,
+    "rod_tilt_deg": 19.6,
+    "camera_axis_from_down_deg": 4.4,
+    "lens_height_above_table_cm": 6.32,
+    "puck_top_row": 473.0,
+    "line_width_px_rows_5_160_340": [
+     83.0,
+     81.0,
+     79.0
+    ]
+   },
+   "low": {
+    "tip_z_m": 0.0164,
+    "rod_tilt_deg": 19.5,
+    "camera_axis_from_down_deg": 10.0,
+    "lens_height_above_table_cm": 3.44,
+    "puck_top_row": 1799.0,
+    "line_width_px_rows_5_160_340": [
+     215.0,
+     208.0,
+     200.0
+    ]
+   }
+  },
+  "lean20_measured": {
+   "lean_90_width_px_rows_5_160_340": [
+    61,
+    65,
+    71
+   ],
+   "lean_90_puck_top_row": 353,
+   "lean_110_width_px_rows_5_160_200": [
+    83,
+    81,
+    81
+   ],
+   "lean_110_puck_top_row": "245 to 270"
+  }
+ }
+}

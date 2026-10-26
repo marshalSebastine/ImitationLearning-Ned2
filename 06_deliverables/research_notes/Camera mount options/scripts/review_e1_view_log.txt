@@ -1,0 +1,141 @@
+
+[52.0 deg] E1 as proposed (lens 30 out, hand-face height, tilt auto, pan +-145)
+   tilt 32.0 deg; window from rod axis 4.3 / 10.6 cm, from puck centre 1.4 / 7.7 cm, widths 5.6 / 8.9 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 5.5 cm, furthest 7.5 cm, puck edge visible True at row 381, puck top fraction 0.29
+   covered headings [[-165, 165]] (333.0 deg); look-ahead 0/45/90/135/180: 8.2 / 8.2 / 8.2 / 8.2 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 1.0, '03_two_curve': 1.0, '04_meander': 1.0, '05_alpha_loop': 1.0, '06_alpha_loop_dashed': 1.0}
+   (10 s)
+
+[52.0 deg] E1 proposed geometry but pan limited to the collision-free +-5 deg
+   tilt 32.0 deg; window from rod axis 4.3 / 10.6 cm, from puck centre 1.4 / 7.7 cm, widths 5.6 / 8.9 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 5.5 cm, furthest 7.5 cm, puck edge visible True at row 381, puck top fraction 0.29
+   covered headings [[-24, 24]] (51.0 deg); look-ahead 0/45/90/135/180: 7.8 / 0.0 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.397, '03_two_curve': 0.491, '04_meander': 0.318, '05_alpha_loop': 0.345, '06_alpha_loop_dashed': 0.345}
+   (10 s)
+
+[52.0 deg] E1 lens 45 out, hand-face height, pan limited to +-17 deg
+   tilt 4.5 deg; window from rod axis 2.8 / 7.2 cm, from puck centre -0.1 / 4.3 cm, widths 5.7 / 6.0 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 3.3 cm, furthest 4.3 cm, puck edge visible True at row 379, puck top fraction 0.29
+   covered headings [[-36, 36]] (75.0 deg); look-ahead 0/45/90/135/180: 4.5 / 3.2 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.537, '03_two_curve': 0.549, '04_meander': 0.403, '05_alpha_loop': 0.463, '06_alpha_loop_dashed': 0.463}
+   (10 s)
+
+[52.0 deg] E1 lens 50 out, hand-face height, pan limited to +-30 deg
+   tilt 0.0 deg; window from rod axis 2.8 / 7.2 cm, from puck centre -0.1 / 4.3 cm, widths 5.8 / 5.8 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 3.3 cm, furthest 4.3 cm, puck edge visible True at row 434, puck top fraction 0.21
+   covered headings [[-45, 45]] (93.0 deg); look-ahead 0/45/90/135/180: 4.2 / 4.5 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.654, '03_two_curve': 0.597, '04_meander': 0.478, '05_alpha_loop': 0.537, '06_alpha_loop_dashed': 0.537}
+   (10 s)
+
+[52.0 deg] E1 lens 55 out, hand-face height, pan limited to +-50 deg
+   tilt 0.0 deg; window from rod axis 3.3 / 7.7 cm, from puck centre 0.4 / 4.8 cm, widths 5.8 / 5.8 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 3.7 cm, furthest 4.8 cm, puck edge visible False at row 541, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 5.2 / 5.2 / 1.5 / 0.0 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (10 s)
+
+[52.0 deg] Lowered: lens 40 out, 22 below face (37.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 3.3 / 6.2 cm, from puck centre 0.4 / 3.3 cm, widths 3.5 / 4.0 cm; lens 3.8 cm up
+   pan 0, heading 0: line visible 1.8 cm, furthest 3.3 cm, puck edge visible True at row 278, puck top fraction 0.12
+   covered headings [[-150, -150], [-141, -141], [141, 141], [150, 150]] (12.0 deg); look-ahead 0/45/90/135/180: 3.2 / 3.2 / 3.2 / 3.2 / 0.0
+   sheets: {'01_straight_line': 0.283, '02_arc': 0.118, '03_two_curve': 0.227, '04_meander': 0.093, '05_alpha_loop': 0.171, '06_alpha_loop_dashed': 0.171}
+   (10 s)
+
+[52.0 deg] Lowered: lens 55 out, 22 below face (37.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 4.8 / 7.7 cm, from puck centre 1.9 / 4.8 cm, widths 3.5 / 4.0 cm; lens 3.8 cm up
+   pan 0, heading 0: line visible 3.0 cm, furthest 4.8 cm, puck edge visible False at row 1926, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 4.8 / 4.8 / 4.8 / 4.8 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[52.0 deg] Lowered: lens 40 out, 24 below face (35.5 mm up), tilt 0, pan +-145
+   tilt 0.0 deg; window from rod axis 2.7 / 5.3 cm, from puck centre -0.2 / 2.4 cm, widths 3.5 / 3.5 cm; lens 3.6 cm up
+   pan 0, heading 0: line visible 0.7 cm, furthest 2.2 cm, puck edge visible True at row 139, puck top fraction 0.12
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 2.2 / 2.2 / 2.2 / 2.2 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[52.0 deg] Lowered: lens 30 out, 24 below face (35.5 mm up), tilt 0, pan +-145
+   tilt 0.0 deg; window from rod axis 1.7 / 4.3 cm, from puck centre -1.2 / 1.4 cm, widths 3.5 / 3.5 cm; lens 3.6 cm up
+   pan 0, heading 0: line visible 0.0 cm, furthest 0.0 cm, puck edge visible False at row -870, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 0.0 / 0.0 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[52.0 deg] Lowered bare board: lens 55 out, 28 below face (31.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 4.9 / 7.3 cm, from puck centre 2.0 / 4.4 cm, widths 2.9 / 3.3 cm; lens 3.2 cm up
+   pan 0, heading 0: line visible 2.2 cm, furthest 4.3 cm, puck edge visible False at row 301764, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 4.5 / 4.5 / 4.5 / 4.5 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[64.4 deg] E1 as proposed (lens 30 out, hand-face height, tilt auto, pan +-145)
+   tilt 35.0 deg; window from rod axis 4.0 / 13.4 cm, from puck centre 1.1 / 10.5 cm, widths 6.9 / 13.6 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 8.5 cm, furthest 10.5 cm, puck edge visible True at row 378, puck top fraction 0.29
+   covered headings [[-168, 168]] (339.0 deg); look-ahead 0/45/90/135/180: 11.2 / 11.2 / 11.2 / 11.2 / 4.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 1.0, '03_two_curve': 1.0, '04_meander': 1.0, '05_alpha_loop': 1.0, '06_alpha_loop_dashed': 1.0}
+   (8 s)
+
+[64.4 deg] E1 proposed geometry but pan limited to the collision-free +-5 deg
+   tilt 35.0 deg; window from rod axis 4.0 / 13.4 cm, from puck centre 1.1 / 10.5 cm, widths 6.9 / 13.6 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 8.5 cm, furthest 10.5 cm, puck edge visible True at row 378, puck top fraction 0.29
+   covered headings [[-30, 30]] (63.0 deg); look-ahead 0/45/90/135/180: 10.5 / 2.5 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.515, '03_two_curve': 0.524, '04_meander': 0.362, '05_alpha_loop': 0.415, '06_alpha_loop_dashed': 0.415}
+   (8 s)
+
+[64.4 deg] E1 lens 45 out, hand-face height, pan limited to +-17 deg
+   tilt 8.0 deg; window from rod axis 2.7 / 8.4 cm, from puck centre -0.2 / 5.5 cm, widths 7.1 / 8.1 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 4.5 cm, furthest 5.5 cm, puck edge visible True at row 381, puck top fraction 0.29
+   covered headings [[-42, 42]] (87.0 deg); look-ahead 0/45/90/135/180: 5.8 / 5.5 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.64, '03_two_curve': 0.571, '04_meander': 0.452, '05_alpha_loop': 0.512, '06_alpha_loop_dashed': 0.512}
+   (8 s)
+
+[64.4 deg] E1 lens 50 out, hand-face height, pan limited to +-30 deg
+   tilt 0.0 deg; window from rod axis 2.2 / 7.8 cm, from puck centre -0.7 / 4.9 cm, widths 7.5 / 7.5 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 3.7 cm, furthest 4.8 cm, puck edge visible True at row 390, puck top fraction 0.29
+   covered headings [[-54, 54]] (111.0 deg); look-ahead 0/45/90/135/180: 5.2 / 5.2 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 0.779, '03_two_curve': 0.652, '04_meander': 0.571, '05_alpha_loop': 0.603, '06_alpha_loop_dashed': 0.603}
+   (8 s)
+
+[64.4 deg] E1 lens 55 out, hand-face height, pan limited to +-50 deg
+   tilt 0.0 deg; window from rod axis 2.7 / 8.3 cm, from puck centre -0.2 / 5.4 cm, widths 7.5 / 7.5 cm; lens 6.0 cm up
+   pan 0, heading 0: line visible 4.3 cm, furthest 5.2 cm, puck edge visible False at row 473, puck top fraction 0.04
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 5.8 / 5.8 / 2.8 / 0.0 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[64.4 deg] Lowered: lens 40 out, 22 below face (37.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 3.0 / 6.7 cm, from puck centre 0.1 / 3.8 cm, widths 4.4 / 5.2 cm; lens 3.8 cm up
+   pan 0, heading 0: line visible 2.2 cm, furthest 3.7 cm, puck edge visible True at row 269, puck top fraction 0.12
+   covered headings [[-150, 150]] (303.0 deg); look-ahead 0/45/90/135/180: 3.8 / 3.8 / 3.8 / 3.8 / 0.0
+   sheets: {'01_straight_line': 1.0, '02_arc': 1.0, '03_two_curve': 1.0, '04_meander': 1.0, '05_alpha_loop': 1.0, '06_alpha_loop_dashed': 1.0}
+   (8 s)
+
+[64.4 deg] Lowered: lens 55 out, 22 below face (37.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 4.5 / 8.2 cm, from puck centre 1.6 / 5.3 cm, widths 4.4 / 5.2 cm; lens 3.8 cm up
+   pan 0, heading 0: line visible 3.7 cm, furthest 5.2 cm, puck edge visible False at row 1546, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 5.2 / 5.2 / 5.2 / 5.2 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[64.4 deg] Lowered: lens 40 out, 24 below face (35.5 mm up), tilt 0, pan +-145
+   tilt 0.0 deg; window from rod axis 2.3 / 5.7 cm, from puck centre -0.6 / 2.8 cm, widths 4.5 / 4.5 cm; lens 3.6 cm up
+   pan 0, heading 0: line visible 1.3 cm, furthest 2.8 cm, puck edge visible True at row 162, puck top fraction 0.12
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 2.8 / 2.8 / 2.8 / 2.8 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[64.4 deg] Lowered: lens 30 out, 24 below face (35.5 mm up), tilt 0, pan +-145
+   tilt 0.0 deg; window from rod axis 1.3 / 4.7 cm, from puck centre -1.6 / 1.8 cm, widths 4.5 / 4.5 cm; lens 3.6 cm up
+   pan 0, heading 0: line visible 0.0 cm, furthest 0.0 cm, puck edge visible False at row -620, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 0.0 / 0.0 / 0.0 / 0.0 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+
+[64.4 deg] Lowered bare board: lens 55 out, 28 below face (31.5 mm up), tilt 10, pan +-145
+   tilt 10.0 deg; window from rod axis 4.6 / 7.7 cm, from puck centre 1.7 / 4.8 cm, widths 3.7 / 4.4 cm; lens 3.2 cm up
+   pan 0, heading 0: line visible 3.3 cm, furthest 4.8 cm, puck edge visible False at row 233772, puck top fraction 0.00
+   covered headings [] (0.0 deg); look-ahead 0/45/90/135/180: 4.8 / 4.8 / 4.8 / 4.8 / 0.0
+   sheets: {'01_straight_line': 0.0, '02_arc': 0.0, '03_two_curve': 0.0, '04_meander': 0.0, '05_alpha_loop': 0.0, '06_alpha_loop_dashed': 0.0}
+   (8 s)
+done

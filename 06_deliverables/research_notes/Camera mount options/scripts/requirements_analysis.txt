@@ -1,0 +1,8 @@
+# for the analysis scripts in this folder, system Python 3.13: py -3.13 -m pip install -r requirements_analysis.txt
+numpy
+scipy
+opencv-python
+pillow
+pymupdf
+matplotlib
+reportlab

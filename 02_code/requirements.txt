@@ -1,0 +1,4 @@
+pyniryo==1.2.5
+opencv-python
+numpy
+# pyniryo's own image decoder (uncompress_image) fails with numpy 2; the scripts decode the JPEG with cv2.imdecode instead.

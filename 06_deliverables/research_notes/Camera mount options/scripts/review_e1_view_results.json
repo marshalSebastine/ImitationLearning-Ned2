@@ -1,0 +1,4728 @@
+{
+ "52.0|E1 as proposed (lens 30 out, hand-face height, tilt auto, pan +-145)": {
+  "fov": 52.0,
+  "L_mm": 30,
+  "h_mm_below_face": 0,
+  "tilt_deg": 32.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -165,
+      165
+     ]
+    ],
+    "covered_width_deg": 333.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 551.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -165,
+      165
+     ]
+    ],
+    "covered_width_deg": 333.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 551.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -165,
+      165
+     ]
+    ],
+    "covered_width_deg": 333.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 8.2,
+      "visible_cm": 6.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 433.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 551.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 1.0,
+   "03_two_curve": 1.0,
+   "04_meander": 1.0,
+   "05_alpha_loop": 1.0,
+   "06_alpha_loop_dashed": 1.0
+  }
+ },
+ "52.0|E1 proposed geometry but pan limited to the collision-free +-5 deg": {
+  "fov": 52.0,
+  "L_mm": 30,
+  "h_mm_below_face": 0,
+  "tilt_deg": 32.0,
+  "pan_limit_deg": 5.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -24,
+      24
+     ]
+    ],
+    "covered_width_deg": 51.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 7.8,
+      "visible_cm": 5.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 385.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -5.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 609.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2374.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10256.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4044.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -24,
+      24
+     ]
+    ],
+    "covered_width_deg": 51.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 7.8,
+      "visible_cm": 5.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 385.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -5.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 609.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2374.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10256.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4044.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.3,
+     "far_from_rod_axis_cm": 10.6,
+     "near_from_puck_centre_cm": 1.4,
+     "far_from_puck_centre_cm": 7.7,
+     "near_width_cm": 5.6,
+     "far_width_cm": 8.9,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 32.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.055,
+     "line_furthest_m": 0.075,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.146,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 381.468,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -24,
+      24
+     ]
+    ],
+    "covered_width_deg": 51.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 7.8,
+      "visible_cm": 5.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 385.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -5.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 609.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2374.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10256.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4044.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.397,
+   "03_two_curve": 0.491,
+   "04_meander": 0.318,
+   "05_alpha_loop": 0.345,
+   "06_alpha_loop_dashed": 0.345
+  }
+ },
+ "52.0|E1 lens 45 out, hand-face height, pan limited to +-17 deg": {
+  "fov": 52.0,
+  "L_mm": 45,
+  "h_mm_below_face": 0,
+  "tilt_deg": 4.5,
+  "pan_limit_deg": 17.5,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.7,
+     "far_width_cm": 6.0,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 4.5,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 379.117,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -36,
+      36
+     ]
+    ],
+    "covered_width_deg": 75.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 421.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 2.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 483.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1064.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1949.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2617.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.7,
+     "far_width_cm": 6.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 4.5,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 379.117,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -36,
+      36
+     ]
+    ],
+    "covered_width_deg": 75.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 421.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 2.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 483.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1064.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1949.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2617.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.7,
+     "far_width_cm": 6.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 4.5,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 379.117,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -36,
+      36
+     ]
+    ],
+    "covered_width_deg": 75.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 421.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 2.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 483.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1064.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1949.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2617.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.537,
+   "03_two_curve": 0.549,
+   "04_meander": 0.403,
+   "05_alpha_loop": 0.463,
+   "06_alpha_loop_dashed": 0.463
+  }
+ },
+ "52.0|E1 lens 50 out, hand-face height, pan limited to +-30 deg": {
+  "fov": 52.0,
+  "L_mm": 50,
+  "h_mm_below_face": 0,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 30.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.208,
+     "puck_edge_visible": true,
+     "puck_edge_row": 433.602,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -45,
+      45
+     ]
+    ],
+    "covered_width_deg": 93.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.2,
+      "visible_cm": 3.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 434.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -30.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 875.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1544.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2079.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.208,
+     "puck_edge_visible": true,
+     "puck_edge_row": 433.602,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -45,
+      45
+     ]
+    ],
+    "covered_width_deg": 93.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.2,
+      "visible_cm": 3.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 434.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -30.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 875.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1544.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2079.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.8,
+     "far_from_rod_axis_cm": 7.2,
+     "near_from_puck_centre_cm": -0.1,
+     "far_from_puck_centre_cm": 4.3,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.208,
+     "puck_edge_visible": true,
+     "puck_edge_row": 433.602,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -45,
+      45
+     ]
+    ],
+    "covered_width_deg": 93.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.2,
+      "visible_cm": 3.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 434.0,
+      "puck_top_fraction": 0.21,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 3.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -30.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 875.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1544.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2079.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.654,
+   "03_two_curve": 0.597,
+   "04_meander": 0.478,
+   "05_alpha_loop": 0.537,
+   "06_alpha_loop_dashed": 0.537
+  }
+ },
+ "52.0|E1 lens 55 out, hand-face height, pan limited to +-50 deg": {
+  "fov": 52.0,
+  "L_mm": 55,
+  "h_mm_below_face": 0,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 50.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.188,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 541.159,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 1.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 748.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1346.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1990.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.188,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 541.159,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 1.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 748.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1346.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1990.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 5.8,
+     "far_width_cm": 5.8,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.188,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 541.159,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 594.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 1.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 748.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1346.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1990.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "52.0|Lowered: lens 40 out, 22 below face (37.5 mm up), tilt 10, pan +-145": {
+  "fov": 52.0,
+  "L_mm": 40,
+  "h_mm_below_face": 22,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 6.2,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 3.3,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.018,
+     "line_furthest_m": 0.033,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.25,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 277.717,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      -150
+     ],
+     [
+      -141,
+      -141
+     ],
+     [
+      141,
+      141
+     ],
+     [
+      150,
+      150
+     ]
+    ],
+    "covered_width_deg": 12.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 946.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 6.2,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 3.3,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.018,
+     "line_furthest_m": 0.033,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.25,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 277.717,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      -150
+     ],
+     [
+      -141,
+      -141
+     ],
+     [
+      141,
+      141
+     ],
+     [
+      150,
+      150
+     ]
+    ],
+    "covered_width_deg": 12.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 946.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 3.3,
+     "far_from_rod_axis_cm": 6.2,
+     "near_from_puck_centre_cm": 0.4,
+     "far_from_puck_centre_cm": 3.3,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.018,
+     "line_furthest_m": 0.033,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.25,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 277.717,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      -150
+     ],
+     [
+      -141,
+      -141
+     ],
+     [
+      141,
+      141
+     ],
+     [
+      150,
+      150
+     ]
+    ],
+    "covered_width_deg": 12.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.2,
+      "visible_cm": 1.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 278.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 946.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.283,
+   "02_arc": 0.118,
+   "03_two_curve": 0.227,
+   "04_meander": 0.093,
+   "05_alpha_loop": 0.171,
+   "06_alpha_loop_dashed": 0.171
+  }
+ },
+ "52.0|Lowered: lens 55 out, 22 below face (37.5 mm up), tilt 10, pan +-145": {
+  "fov": 52.0,
+  "L_mm": 55,
+  "h_mm_below_face": 22,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.8,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.9,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.03,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.02,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1925.955,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 3427.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.8,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.9,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.03,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.02,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1925.955,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 3427.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.8,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.9,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.5,
+     "far_width_cm": 4.0,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.03,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.02,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1925.955,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1926.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 3427.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "52.0|Lowered: lens 40 out, 24 below face (35.5 mm up), tilt 0, pan +-145": {
+  "fov": 52.0,
+  "L_mm": 40,
+  "h_mm_below_face": 24,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 5.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 2.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.5,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.007,
+     "line_furthest_m": 0.022,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.333,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 139.062,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 889.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 5.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 2.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.007,
+     "line_furthest_m": 0.022,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.333,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 139.062,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 889.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 5.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 2.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.007,
+     "line_furthest_m": 0.022,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.333,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 139.062,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.2,
+      "visible_cm": 0.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 139.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 889.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "52.0|Lowered: lens 30 out, 24 below face (35.5 mm up), tilt 0, pan +-145": {
+  "fov": 52.0,
+  "L_mm": 30,
+  "h_mm_below_face": 24,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 1.7,
+     "far_from_rod_axis_cm": 4.3,
+     "near_from_puck_centre_cm": -1.2,
+     "far_from_puck_centre_cm": 1.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.5,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.479,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -870.318,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -120.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 1.7,
+     "far_from_rod_axis_cm": 4.3,
+     "near_from_puck_centre_cm": -1.2,
+     "far_from_puck_centre_cm": 1.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.479,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -870.318,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -120.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 1.7,
+     "far_from_rod_axis_cm": 4.3,
+     "near_from_puck_centre_cm": -1.2,
+     "far_from_puck_centre_cm": 1.4,
+     "near_width_cm": 3.5,
+     "far_width_cm": 3.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.479,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -870.318,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -870.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -120.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "52.0|Lowered bare board: lens 55 out, 28 below face (31.5 mm up), tilt 10, pan +-145": {
+  "fov": 52.0,
+  "L_mm": 55,
+  "h_mm_below_face": 28,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.9,
+     "far_from_rod_axis_cm": 7.3,
+     "near_from_puck_centre_cm": 2.0,
+     "far_from_puck_centre_cm": 4.4,
+     "near_width_cm": 2.9,
+     "far_width_cm": 3.3,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.1,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 301764.374,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -10.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -55.0
+     },
+     "90": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -100.0
+     },
+     "135": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -127188.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10981.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.9,
+     "far_from_rod_axis_cm": 7.3,
+     "near_from_puck_centre_cm": 2.0,
+     "far_from_puck_centre_cm": 4.4,
+     "near_width_cm": 2.9,
+     "far_width_cm": 3.3,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.2,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 301764.374,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -10.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -55.0
+     },
+     "90": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -100.0
+     },
+     "135": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -127188.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10981.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.9,
+     "far_from_rod_axis_cm": 7.3,
+     "near_from_puck_centre_cm": 2.0,
+     "far_from_puck_centre_cm": 4.4,
+     "near_width_cm": 2.9,
+     "far_width_cm": 3.3,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.1,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.043,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 301764.374,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -10.0
+     },
+     "45": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -55.0
+     },
+     "90": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -125808.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -100.0
+     },
+     "135": {
+      "furthest_cm": 4.5,
+      "visible_cm": 2.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": -127188.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -10981.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "64.4|E1 as proposed (lens 30 out, hand-face height, tilt auto, pan +-145)": {
+  "fov": 64.4,
+  "L_mm": 30,
+  "h_mm_below_face": 0,
+  "tilt_deg": 35.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -168,
+      168
+     ]
+    ],
+    "covered_width_deg": 339.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 4.0,
+      "visible_cm": 2.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -168,
+      168
+     ]
+    ],
+    "covered_width_deg": 339.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 4.0,
+      "visible_cm": 2.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -168,
+      168
+     ]
+    ],
+    "covered_width_deg": 339.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -65.0
+     },
+     "90": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -110.0
+     },
+     "135": {
+      "furthest_cm": 11.2,
+      "visible_cm": 9.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 419.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -115.0
+     },
+     "180": {
+      "furthest_cm": 4.0,
+      "visible_cm": 2.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.08,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 1.0,
+   "03_two_curve": 1.0,
+   "04_meander": 1.0,
+   "05_alpha_loop": 1.0,
+   "06_alpha_loop_dashed": 1.0
+  }
+ },
+ "64.4|E1 proposed geometry but pan limited to the collision-free +-5 deg": {
+  "fov": 64.4,
+  "L_mm": 30,
+  "h_mm_below_face": 0,
+  "tilt_deg": 35.0,
+  "pan_limit_deg": 5.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -30,
+      30
+     ]
+    ],
+    "covered_width_deg": 63.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 10.5,
+      "visible_cm": 8.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 378.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 562.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2264.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4167.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -2212.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -30,
+      30
+     ]
+    ],
+    "covered_width_deg": 63.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 10.5,
+      "visible_cm": 8.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 378.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 562.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2264.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4167.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -2212.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.0,
+     "far_from_rod_axis_cm": 13.4,
+     "near_from_puck_centre_cm": 1.1,
+     "far_from_puck_centre_cm": 10.5,
+     "near_width_cm": 6.9,
+     "far_width_cm": 13.6,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 35.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.085,
+     "line_furthest_m": 0.105,
+     "line_nearest_m": 0.022,
+     "puck_fraction": 0.208,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 377.756,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -30,
+      30
+     ]
+    ],
+    "covered_width_deg": 63.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 10.5,
+      "visible_cm": 8.5,
+      "puck_edge_visible": true,
+      "puck_edge_row": 378.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.5,
+      "visible_cm": 0.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 562.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2264.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -4167.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -2212.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -5.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.515,
+   "03_two_curve": 0.524,
+   "04_meander": 0.362,
+   "05_alpha_loop": 0.415,
+   "06_alpha_loop_dashed": 0.415
+  }
+ },
+ "64.4|E1 lens 45 out, hand-face height, pan limited to +-17 deg": {
+  "fov": 64.4,
+  "L_mm": 45,
+  "h_mm_below_face": 0,
+  "tilt_deg": 8.0,
+  "pan_limit_deg": 17.5,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.4,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.5,
+     "near_width_cm": 7.1,
+     "far_width_cm": 8.1,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 8.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.045,
+     "line_furthest_m": 0.055,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 380.651,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -42,
+      42
+     ]
+    ],
+    "covered_width_deg": 87.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 414.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 5.5,
+      "visible_cm": 4.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.17,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 965.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1851.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2644.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.4,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.5,
+     "near_width_cm": 7.1,
+     "far_width_cm": 8.1,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 8.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.045,
+     "line_furthest_m": 0.055,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 380.651,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -42,
+      42
+     ]
+    ],
+    "covered_width_deg": 87.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 414.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 5.5,
+      "visible_cm": 4.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.17,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 965.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1851.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2644.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.4,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.5,
+     "near_width_cm": 7.1,
+     "far_width_cm": 8.1,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 8.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 4.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.045,
+     "line_furthest_m": 0.055,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.417,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 380.651,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -42,
+      42
+     ]
+    ],
+    "covered_width_deg": 87.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": true,
+      "puck_edge_row": 414.0,
+      "puck_top_fraction": 0.29,
+      "pan_deg": -18.0
+     },
+     "45": {
+      "furthest_cm": 5.5,
+      "visible_cm": 4.5,
+      "puck_edge_visible": false,
+      "puck_edge_row": 464.0,
+      "puck_top_fraction": 0.17,
+      "pan_deg": -18.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 965.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1851.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2644.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -18.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.64,
+   "03_two_curve": 0.571,
+   "04_meander": 0.452,
+   "05_alpha_loop": 0.512,
+   "06_alpha_loop_dashed": 0.512
+  }
+ },
+ "64.4|E1 lens 50 out, hand-face height, pan limited to +-30 deg": {
+  "fov": 64.4,
+  "L_mm": 50,
+  "h_mm_below_face": 0,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 30.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.2,
+     "far_from_rod_axis_cm": 7.8,
+     "near_from_puck_centre_cm": -0.7,
+     "far_from_puck_centre_cm": 4.9,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 389.946,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -54,
+      54
+     ]
+    ],
+    "covered_width_deg": 111.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 731.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1250.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1665.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.2,
+     "far_from_rod_axis_cm": 7.8,
+     "near_from_puck_centre_cm": -0.7,
+     "far_from_puck_centre_cm": 4.9,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 389.946,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -54,
+      54
+     ]
+    ],
+    "covered_width_deg": 111.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 731.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1250.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1665.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.2,
+     "far_from_rod_axis_cm": 7.8,
+     "near_from_puck_centre_cm": -0.7,
+     "far_from_puck_centre_cm": 4.9,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.292,
+     "puck_edge_visible": true,
+     "puck_edge_row": 389.946,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -54,
+      54
+     ]
+    ],
+    "covered_width_deg": 111.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 4.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 431.0,
+      "puck_top_fraction": 0.25,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 731.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1250.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1665.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -30.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 0.779,
+   "03_two_curve": 0.652,
+   "04_meander": 0.571,
+   "05_alpha_loop": 0.603,
+   "06_alpha_loop_dashed": 0.603
+  }
+ },
+ "64.4|E1 lens 55 out, hand-face height, pan limited to +-50 deg": {
+  "fov": 64.4,
+  "L_mm": 55,
+  "h_mm_below_face": 0,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 50.0,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.4,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.043,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.042,
+     "puck_edge_visible": false,
+     "puck_edge_row": 473.25,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 633.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1097.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1595.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.4,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 6.0,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.043,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.042,
+     "puck_edge_visible": false,
+     "puck_edge_row": 473.25,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 633.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1097.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1595.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.7,
+     "far_from_rod_axis_cm": 8.3,
+     "near_from_puck_centre_cm": -0.2,
+     "far_from_puck_centre_cm": 5.4,
+     "near_width_cm": 7.5,
+     "far_width_cm": 7.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 5.9,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.043,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.013,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.042,
+     "puck_edge_visible": false,
+     "puck_edge_row": 473.25,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -20.0
+     },
+     "45": {
+      "furthest_cm": 5.8,
+      "visible_cm": 4.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 514.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -25.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 633.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1097.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1595.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -50.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "64.4|Lowered: lens 40 out, 22 below face (37.5 mm up), tilt 10, pan +-145": {
+  "fov": 64.4,
+  "L_mm": 40,
+  "h_mm_below_face": 22,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 3.0,
+     "far_from_rod_axis_cm": 6.7,
+     "near_from_puck_centre_cm": 0.1,
+     "far_from_puck_centre_cm": 3.8,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.037,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 269.212,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      150
+     ]
+    ],
+    "covered_width_deg": 303.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 787.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 3.0,
+     "far_from_rod_axis_cm": 6.7,
+     "near_from_puck_centre_cm": 0.1,
+     "far_from_puck_centre_cm": 3.8,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.037,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 269.212,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      150
+     ]
+    ],
+    "covered_width_deg": 303.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 787.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 3.0,
+     "far_from_rod_axis_cm": 6.7,
+     "near_from_puck_centre_cm": 0.1,
+     "far_from_puck_centre_cm": 3.8,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.022,
+     "line_furthest_m": 0.037,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.292,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 269.212,
+     "puck_edge_column": 320.0
+    },
+    "covered": [
+     [
+      -150,
+      150
+     ]
+    ],
+    "covered_width_deg": 303.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 3.8,
+      "visible_cm": 2.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 269.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 787.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 1.0,
+   "02_arc": 1.0,
+   "03_two_curve": 1.0,
+   "04_meander": 1.0,
+   "05_alpha_loop": 1.0,
+   "06_alpha_loop_dashed": 1.0
+  }
+ },
+ "64.4|Lowered: lens 55 out, 22 below face (37.5 mm up), tilt 10, pan +-145": {
+  "fov": 64.4,
+  "L_mm": 55,
+  "h_mm_below_face": 22,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.5,
+     "far_from_rod_axis_cm": 8.2,
+     "near_from_puck_centre_cm": 1.6,
+     "far_from_puck_centre_cm": 5.3,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1545.783,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2708.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.5,
+     "far_from_rod_axis_cm": 8.2,
+     "near_from_puck_centre_cm": 1.6,
+     "far_from_puck_centre_cm": 5.3,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.8,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1545.783,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2708.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.5,
+     "far_from_rod_axis_cm": 8.2,
+     "near_from_puck_centre_cm": 1.6,
+     "far_from_puck_centre_cm": 5.3,
+     "near_width_cm": 4.4,
+     "far_width_cm": 5.2,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.7,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.037,
+     "line_furthest_m": 0.052,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 1545.783,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 5.2,
+      "visible_cm": 3.8,
+      "puck_edge_visible": false,
+      "puck_edge_row": 1546.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 2708.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "64.4|Lowered: lens 40 out, 24 below face (35.5 mm up), tilt 0, pan +-145": {
+  "fov": 64.4,
+  "L_mm": 40,
+  "h_mm_below_face": 24,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 2.3,
+     "far_from_rod_axis_cm": 5.7,
+     "near_from_puck_centre_cm": -0.6,
+     "far_from_puck_centre_cm": 2.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.5,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.013,
+     "line_furthest_m": 0.028,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 161.823,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 743.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 2.3,
+     "far_from_rod_axis_cm": 5.7,
+     "near_from_puck_centre_cm": -0.6,
+     "far_from_puck_centre_cm": 2.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.013,
+     "line_furthest_m": 0.028,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 161.823,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 743.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 2.3,
+     "far_from_rod_axis_cm": 5.7,
+     "near_from_puck_centre_cm": -0.6,
+     "far_from_puck_centre_cm": 2.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 4.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.013,
+     "line_furthest_m": 0.028,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.375,
+     "puck_top_fraction": 0.125,
+     "puck_edge_visible": true,
+     "puck_edge_row": 161.823,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 2.8,
+      "visible_cm": 1.2,
+      "puck_edge_visible": true,
+      "puck_edge_row": 162.0,
+      "puck_top_fraction": 0.12,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": 743.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "64.4|Lowered: lens 30 out, 24 below face (35.5 mm up), tilt 0, pan +-145": {
+  "fov": 64.4,
+  "L_mm": 30,
+  "h_mm_below_face": 24,
+  "tilt_deg": 0.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 1.3,
+     "far_from_rod_axis_cm": 4.7,
+     "near_from_puck_centre_cm": -1.6,
+     "far_from_puck_centre_cm": 1.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -65.6,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.5,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -619.948,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -39.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 1.3,
+     "far_from_rod_axis_cm": 4.7,
+     "near_from_puck_centre_cm": -1.6,
+     "far_from_puck_centre_cm": 1.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -55.8,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -619.948,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -39.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 1.3,
+     "far_from_rod_axis_cm": 4.7,
+     "near_from_puck_centre_cm": -1.6,
+     "far_from_puck_centre_cm": 1.8,
+     "near_width_cm": 4.5,
+     "far_width_cm": 4.5,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -143.7,
+     "camera_axis_from_down_deg": 0.0,
+     "lens_height_above_table_cm": 3.6,
+     "lens_ahead_of_rod_axis_cm": 3.0
+    },
+    "pan0_view": {
+     "line_visible_m": 0.0,
+     "line_furthest_m": 0.0,
+     "line_nearest_m": NaN,
+     "puck_fraction": 0.5,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": -619.948,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -620.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -39.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ },
+ "64.4|Lowered bare board: lens 55 out, 28 below face (31.5 mm up), tilt 10, pan +-145": {
+  "fov": 64.4,
+  "L_mm": 55,
+  "h_mm_below_face": 28,
+  "tilt_deg": 10.0,
+  "pan_limit_deg": 144.96,
+  "per_radius": {
+   "0.14": {
+    "window": {
+     "near_from_rod_axis_cm": 4.6,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.7,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.7,
+     "far_width_cm": 4.4,
+     "near_sideways_cm": 0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.1,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 233772.499,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -8451.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.26": {
+    "window": {
+     "near_from_rod_axis_cm": 4.6,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.7,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.7,
+     "far_width_cm": 4.4,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.2,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 233772.499,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -8451.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   },
+   "0.42": {
+    "window": {
+     "near_from_rod_axis_cm": 4.6,
+     "far_from_rod_axis_cm": 7.7,
+     "near_from_puck_centre_cm": 1.7,
+     "far_from_puck_centre_cm": 4.8,
+     "near_width_cm": 3.7,
+     "far_width_cm": 4.4,
+     "near_sideways_cm": -0.0,
+     "window_measured_along_deg": 0.0,
+     "camera_azimuth_deg": -0.0,
+     "camera_axis_from_down_deg": 10.0,
+     "lens_height_above_table_cm": 3.1,
+     "lens_ahead_of_rod_axis_cm": 5.5
+    },
+    "pan0_view": {
+     "line_visible_m": 0.033,
+     "line_furthest_m": 0.048,
+     "line_nearest_m": 0.018,
+     "puck_fraction": 0.0,
+     "puck_top_fraction": 0.0,
+     "puck_edge_visible": false,
+     "puck_edge_row": 233772.499,
+     "puck_edge_column": 320.0
+    },
+    "covered": [],
+    "covered_width_deg": 0.0,
+    "lookahead": {
+     "0": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": 0.0
+     },
+     "45": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -45.0
+     },
+     "90": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -90.0
+     },
+     "135": {
+      "furthest_cm": 4.8,
+      "visible_cm": 3.2,
+      "puck_edge_visible": false,
+      "puck_edge_row": 233772.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -135.0
+     },
+     "180": {
+      "furthest_cm": 0.0,
+      "visible_cm": 0.0,
+      "puck_edge_visible": false,
+      "puck_edge_row": -8451.0,
+      "puck_top_fraction": 0.0,
+      "pan_deg": -145.0
+     }
+    }
+   }
+  },
+  "sheets": {
+   "01_straight_line": 0.0,
+   "02_arc": 0.0,
+   "03_two_curve": 0.0,
+   "04_meander": 0.0,
+   "05_alpha_loop": 0.0,
+   "06_alpha_loop_dashed": 0.0
+  }
+ }
+}

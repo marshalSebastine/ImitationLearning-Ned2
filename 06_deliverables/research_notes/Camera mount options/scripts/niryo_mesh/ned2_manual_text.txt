@@ -1,0 +1,1206 @@
+===== D:/AI_Project/06_deliverables/research_notes/Camera mount options/niryo_files/ned2_user_manual_v1.0.0_generationrobots.pdf  pages=38
+--- page 1 ---
+Ned2 User Manual
+Ned2
+Robot
+Ned2 is a six-axis collaborative robot, based on open-source technologies. It is intended for
+education, research and Industry 4.0.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 2 ---
+With the same aluminum structure as Ned, Ned2 will continue to meet your requirements in terms of
+robustness, precision (0.5 mm) and repeatability (0.5 mm).
+Ned2 is based on Ubuntu 18.04 and ROS Melodic and bene ts from the capabilities of the Raspberry PI
+4, a high performance 64-bit ARM V8 processor and 4gb of RAM.
+Discover a robot with increased performances, thanks to new servo motors featuring Silent Stepper
+Technology, significantly reduces the noise level of the robot.
+Ned2 is a collaborative robot based on Ubuntu 18.04 and ROS (Robot Operating System) Melodic, an
+open-source solution created for robotics. Through ROS, Ned2 has multiple libraries allowing you to
+conceive many programs, from the most simple to the most complex ones, responding then, in a +exible
+way, to your needs.
+Ned2 tools technical specifications
+Mounting a tool on Ned2 is made easy with our brand new EasyConnect system. Simply plug your tool,
+connect its cable to the control panel, and it is ready to use.
+Ned2’s package includes a Custom Gripper. Its standard jaws can manipulate small objects, and you can
+3D print your own custom jaws.
+Ned2 can also be used with:
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 3 ---
+The Large Gripper (index.html#large-gripper) which has the ability to grab larger objects while keeping
+the ability to close entirely;
+The Adaptive Gripper (index.html#adaptive-gripper) which allow Ned2 to grab non-standard objects
+with complex shapes (eg. an egg);
+The Vacuum Pump (index.html#vacuum-pump) to grab objects with plane and non-porous surfaces;
+The Electromagnet (index.html#electromagnet) that is useful to manipulate metallic objects, from one
+to many (eg. screws, bolts…).
+Ned2’s Ecosystem is designed to let you reproduce advanced use cases of industry 4.0.
+Vision Set
+The Vision Set gives Ned2 the ability to detect objects and select the ones you want to interact with. It
+comes with a camera and objects of di9erent shapes and colors to allow you to study topics such as image
+processing, machine learning and Arti cial Intelligence thanks to the contribution of vision. This set
+includes:
+A camera;
+A workspace which is designed around a specific repositionnable material;
+6 objects (3 rounds, 3 squares) of di9erent colors to use our built-in recognition system based on colors
+and shapes. The squares are designed to be able to act as containers for the circles. Easily create an
+industry 4.0 pick & pack application with no particular knowledge of programming;
+A calibration tip to set your workspace up.
+Conveyor Belt (v2)
+The Conveyor Belt (v2) is the key add-on to prototype industry 4.0 production lines.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 4 ---
+The Conveyor Belt (v2) is composed of:
+A mountable workspace to use vision functions directly on the Conveyor Belt;
+A slope that can help to create complex or multi-robot processes;
+An end-stop to stop the objects when they reach the end of the Conveyor Belt;
+The 6 objects of the Vision Set to extend the quantity of objects you can use on your production line.
+With Ned2’s ecosystem, you have the optimal solution to discover, learn and prototype industry 4.0
+processes.
+Overview of this manual
+This manual contains instructions for:
+Safety Information about Ned2;
+Mechanical and electrical installation of the robot;
+Software of the robot;
+Maintenance and troubleshooting.
+This manual should be read before:
+Installation and electrical connections;
+First usage of the robot;
+Maintenance and repair.
+Safety notice
+Warning
+You must read, understand, and follow all safety information in this manual.
+It is important that the safety instruction on this manual and the electrical and the mechanical instructions
+are followed. The robot speci cations should be respected to avoid all damage to the machine or to the
+user.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 5 ---
+Additional content
+You can find additional content by clicking on the link here (https://docs.niryo.com/).
+Hardware introduction
+This document contains a description of the Ned2 product, including details of the following:
+Mechanical and electrical installation instructions;
+precautions for safe use;
+technical characteristics of the robot;
+product warranty details.
+Please refer to software documentation (index.html#advanced-programming) for programming details.
+Important safety notice
+Warning
+The robot is assessed as a partly completed machinery. A risk assessement in accordance
+with the safety regulations applicable in your country is necessary prior to each installation
+and use of the robot. Be sure to follow the safety instructions in this manual.
+Please note that:
+The robot can only be used under the proper technical conditions, for its intended uses, while
+taking into consideration potential hazards;
+the robot must be used in accordance with the instructions in this manual;
+Niryo is not liable for any modi cation made to the software or physical characteristics of the
+robot by the user.
+We shall not be liable for any damage caused if it is used in a way that does not comply with the
+instructions given in this manual.
+Safety instructions
+User responsibility
+Make sure that the aforementioned risk assessment is performed before each use of the robot.
+Make sure that the incorporation of the robot into other applications or ecosystems does not a9ect the
+robot’s safety aspects.
+Hardware and/or software modifications
+Any modification of the equipment is prohibited.
+Niryo relies on the open-source philosophy. Software modi cations are permitted. However, the
+modification of the software elements indicated below is prohibited:
+Low-level programming files (stack hardware).
+Configuration of the Raspberry Pi.
+Robot configuration file (speed and acceleration limits, position axes and torque limits).
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 6 ---
+Embedded software and configuration of the motor parameters.
+Niryo disclaims all liability for any damage caused to and by the robot as a result of these modifications.
+Safety symbols
+This section speci es all dangers that can arise when doing the work described in the User Manual. Each
+danger consists of:
+A caption specifying the danger level (DANGER, WARNING, or CAUTION) and the type of danger;
+A brief description of the danger;
+Instruction about how to eliminate danger.
+Symbol
+Designation
+Description
+DANGER
+Warns that if instructions are not followed, an accident will occur
+resulting in personal injury.
+WARNING
+Warns that if instructions are not followed, an accident will occur
+which could lead to personal injury or damage to the product.
+CAUTION
+Warns of possible damage to the product.
+NOTE
+Describes an important fact or condition.
+ADVICE
+Describes additional information or an easy way to use the function.
+ELECTROSTATIC
+DISCHARGE
+Warns of a possible electrostatic discharge which could damage the
+robot.
+ELECTRICAL
+SHOCK
+Warns of an electrical hazard.
+CHRUSHING OF
+HANDS
+Warns of the risk of crushing hands between two mechanical parts.
+General safety information
+Danger
+Before installing, using or programming Ned2, you must read the speci cations and the
+product manual.
+Install Ned2 and all the electrical equipment in accordance with the speci cations and
+warnings in the Installation, Mechanical interface and Electrical interface chapters.
+It is important to ensure that any modi cation to the robot’s software will not cause any danger or
+damage to the user and the product.
+Children are not permitted to handle the robot.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 7 ---
+Warning
+Make sure that the robot is properly installed on a  rm surface with enough clearance to
+avoid shocks and collisions. (Refer to part 12.3. Range of motion of the robot).
+Cutting the power or activating the emergency stop button can cause the arm to drop. This
+drop is cushioned. Do not touch the robot when activating the emergency stop in order to avoid
+any collision.
+Be careful not to use the robot in unsuitable environments (e.g. outdoors).
+Do not put or install Ned2 in a damp environment or near water.
+Do not install or use Ned2 in hazardous environments (e.g. in a strong magnetic  eld, hazardous
+gas,  re or near +ammable products) to prevent the hazards that can occur as a result of outdoor
+conditions.
+Make sure that external modi cations to the motor parameters or robot software do not damage
+the product.
+The robot and motors generate heat when they are running. Do not touch or handle the robot
+during operation or after prolonged use, the high temperature may cause pain.
+Regularly monitor the motor and arm temperature in Niryo Studio.
+When the Ned2 is activated, keep away from the areas labeled with the pinch warning sticker, to
+avoid any injury.
+Make sure to move to robot to home position before:
+powering Off;
+powering On;
+reboot motors with Niryo Studio.
+Caution
+Do not turn o9 the robot during a sequence or movement, except when absolutely
+necessary, as this can shorten the lifetime of the robot.
+Preferably switch o9 the robot using the push button. Avoid using the emergency stop
+button except in case of danger.
+Failure to follow the connection instructions could damage the tool or robot.
+Voltage related risks, robot
+A danger of high voltage is associated with the robot in:
+The power supply of the motors (12V , 11.4V, 5V);
+Ned2’s grippers are powered by 5V. A risk of short circuit and sparks exists. Be sure to make the
+installations with the power disconnected.
+Safety actions
+Fire extinguishing
+Note
+Use a CARBON DIOXIDE (CO2) extinguisher in the event of a fire in Ned2’s system.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 8 ---
+Manually stopping or overriding the arm: if needed, Ned2 arm can be stopped manually. This is
+possible since Ned2 arm is light, the arm force is limited, and the drivetrain power is limited.
+To prevent unnecessary damage and wear of Ned2 arm, it is recommended to use the normal stopping
+functions of Ned2 (by the software or the top button).
+Note
+Ned2 is not equipped with brakes since its weight and design do not require a holding brake.
+Installation and commissioning
+This section specifies the procedures to follow during unpacking and transportation.
+Transport
+Be sure to transport the robot in its original box to avoid damage.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 9 ---
+Warning
+Maintain good posture when handling the arm or arm cartons to avoid back injuries.
+What the box contains
+When you order Ned2 you receive a box with the following items:
+1x Ned2 Robot
+1x Custom Gripper
+1x Power supply
+1x Safety box
+2x Analog I/O connector
+2x Digital I/O connector
+1x Universal travel plug adapter
+1x SD card reader
+1x manual instruction
+1x Quickstart
+Intended use
+The Ned2 robot is intended for educational, and research and development purposes, i.e.:
+learning robotics;
+research and development in robotics;
+simulation and prototyping of complete industrial scenarios such as “Pick & Place” (take an object to
+move it), “Pick & Pack” (take an object to insert it into a packaging);
+hardware application: connect and control the robot with sensors and external actuators in order to
+simulate an application, while respecting the conditions defined in this instruction manual.
+The operations below do not comply with the uses set by Niryo. They include:
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 10 ---
+use as a children’s toy;
+use for industrial tasks;
+use for handling inappropriate objects (with unsuitable grippers, objects whose mass is greater than
+the maximum authorized load);
+use that exceeds the stated specifications.
+Any use of the robot and its ecosystem that does not comply with the uses initially intended by Niryo must
+be expressly authorized by Niryo.
+Unpacking and installation
+1. Inspect Ned2’s packaging to make sure that nothing is damaged;
+2. Remove the packaging and make sure that the product has not been damaged in any way and that
+nothing has been mislaid during transport;
+3. Put Ned2 in a location that has been specifically allocated to its use;
+4. Pay attention to the commissioning and safety instructions.
+Warning
+Maintain good posture when handling the arm or arm cartons to avoid back injuries.
+Make sure the robot is handled correctly so that the arm cannot fall during packing, loading,
+unloading or unpacking. Handling areas are provided to facilitate the transport of the robot
+(see below).
+Make sure that the robot is handled correctly so that hands cannot get caught in the joints. To do
+this, respect the handling zones specified below.
+Robot handling area
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 11 ---
+Technical specifications
+This section describes the technical specifications of Ned2.
+Parameters
+Value
+Weight (kg)
+7
+Payload (g)
+300
+Reach (mm)
+440
+Degree of freedom
+6 rotating joints
+Joints range (rad)
+-2,949 ≤ Joint 1 ≤ 2,949 
+-2,09 ≤ Joint 2 ≤ 0,61 
+-1.34 ≤ Joint 3 ≤ 1,57 
+-2,089 ≤ Joint 4 ≤ 2,089 
+-1,919 ≤ Joint 5 ≤ 1.922 
+-2,53 ≤ Joint 6 ≤ -2,53
+Joints speed limit (rad/s)
+Joint 1 ≤ 0.785 
+Joint 2 ≤ 0.5235 
+Joint 3 ≤ 0.785 
+Joint 4 ≤ 1.57 
+Joint 5 ≤ 1.57 
+Joint 6 ≤ 1.775
+TCP max speed (mm/s)
+468
+Repeatability (mm)
++/- 0,5
+Footprint (mm)
+200x200
+Mounting
+Table
+Temperature (°C)
+5 - 45
+Human-Machine
+interface
+3 control buttons (‘‘FreeMotion’’ button, button to save a pose and
+‘‘Custom’’ button) 
+LED Ring 
+Speakers 
+Microphone 
+Power supply
+Input: AC100-240V / 50-60Hz, 2,5A 
+Output: DC 12V - 7A ; 5V - 7A
+I/O power supply
+5V
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 12 ---
+Inputs/ Outputs Back
+panel
+Digital inputs x3 
+Digital outputs x3 
+Analog outputs x2 
+Analog inputs x2 
+Inputs/ Outputs Control
+panel
+Digital inputs x1 
+Digital outputs x1
+Robot interface
+2 x USB2.0 
+2 x USB3.0 
+1 x ETHERNET GIGABIT
+Communication
+Modbus TCP (master) 
+TCP/IP 
+Materials
+Aluminum 
+ABS-PC (injection moulding)
+Programming
+Environment
+Niryo Studio 
+C++ 
+PyNiryoRos 
+PyNiryo 
+ROS
+Collision detection
+Accelerometer and gyroscope in the control panel
+Certification
+CE Conformity
+Parameters
+Value
+Tools technical specifications
+Tools Overview
+Ned2 is compatible with 5 different sorts of tools:
+3 x Grippers
+1 x Electromagnet
+1 x Vacuum Pump
+Specifications
+Custom Gripper
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 13 ---
+ 
+(_images/GRIPPER12.png) 
+ (_images/GRIPPER1.png)
+Parameter
+Description
+Max operating width
+43 mm
+Picking distance from end effector
+base
+85 mm
+Motor
+XL330 Servo Motor
+Weight
+87 g
+Power Supply
+5 V
+Operating temperature
+5-45°C
+Large Gripper
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 14 ---
+ 
+(_images/GRIPPER2.png) 
+ 
+(_images/GRIPPER23.png) 
+(_images/GRIPPER22.png)
+Parameter
+Description
+Max operating width
+79.2 mm
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 15 ---
+Picking distance from end effector
+base
+109.35 mm
+Motor
+XL330 Servo Motor
+Weight
+72.5 g
+Power Supply
+5 V
+Operating temperature
+5-45°C
+Parameter
+Description
+Adaptive Gripper
+ 
+(_images/GRIPPER3.png) 
+ 
+(_images/GRIPPER32.png) 
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 16 ---
+(_images/GRIPPER33.png)
+Parameter
+Description
+Max operating width
+97.49 mm
+Picking distance from end effector
+base
+113.79 mm
+Motor
+XL330 Servo Motor
+Weight
+83 g
+Power Supply
+5 V
+Operating temperature
+5-45°C
+Electromagnet
+ 
+(_images/ELECTROAIMANT1.png) 
+(_images/ELECTROAIMANT2.png) 
+(_images/ELECTROAIMANT3.png)
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 17 ---
+Parameter
+Description
+Max operating width
+20 mm
+Picking surface
+20 mm
+Picking distance from end effector
+base
+27 mm
+Control interface
+Digital
+output
+Weight
+44.5 g
+Power Supply
+5 V
+Operating temperature
+5-45°C
+Vacuum Pump
+ (_images/VP.png) 
+ (_images/VP2.png) 
+ (_images/VP3.jpg)
+Parameter
+Description
+Vacuum Pump control
+Integrated XL330 servo
+motor
+Weight
+18 g
+Total weight
+183 g
+Payload
+300 g
+Power Supply
+5 V
+Operating temperature
+5-45°C
+Vacuum Tube dimension
+20 mm
+Picking distance from end effector
+base
+47.5 mm
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 18 ---
+Advice
+In order to program the di9erent tools, please refer to Software documentation
+(index.html#advanced-programming).
+Robot operating mode
+Ne2 Robot comes with 3 diffrent operating modes.
+Current mode can be determined visually via the color of the Led Ring (index.html#led-ring-indications) on
+the robot’s base.
+The different modes are listed in the table below
+Operating Mode
+Description
+Manual mode - Robot calibration
+The robot automatically defines the Zero positions of each
+axis.
+Collaborative mode -
+Programming
+Programming, editing, loading and execution of the
+programs
+Manual mode - FreeMotion
+The axes of the robot can be moved by hand.
+Robot calibration
+Ned2 does not have a mechanical calibration. The calibration phase is fully automatic and must be
+completed in order to control the robot. This matches up the position of each motor with its controller.
+The procedure is as follows for the first 3 axes:
+1. the axis rotates in the direction as shown in the photo below until it stops;
+2. the axis stops when the limit is detected;
+3. the axis moves back in the opposite direction;
+4. the axis rotates in the direction up to the limit stop;
+5. the axis stops when the limit stop is detected, and the Zero position is set at this point.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 19 ---
+Warning
+Make sure that the robot is properly installed on a  rm surface with enough clearance to
+avoid shocks and collisions. (Refer to Range of motion of the robot (index.html#robot-
+workspace))
+It is strictly forbidden to put your fingers and hands in the joints of the robot when it is in motion.
+Manual mode- FreeMotion
+This mode is used to move the joints of the robot by hand in order to put the robot back in the required
+position. This mode is activated either by pressing and holding the FreeMotion button located on the
+control panel (index.html#control-panel) or by pressing and holding the button available on the Niryo
+Studio programming interface (index.html#advanced-programming) .
+Warning
+Be careful not to put your  ngers and hands in the joints or openings of the robot during
+FreeMotion mode.
+Take great care when moving the robot by hand.
+Be mindful of the gripping zones for the learning mode (see diagram below) and do not touch the
+motors.
+Collaborative mode - Programming
+This mode can be used to program, edit, load and run the robot’s programs. The robot automatically
+switches to this mode once it has been calibrated.
+Warning
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 20 ---
+Be careful not to enter the robot’s working area to avoid any collision.
+Watch the robot’s movements while using Niryo Studio.
+Activate the emergency stop button in emergency or abnormal situations.
+Operating conditions
+Parameters
+Value
+Minimum Ambient Temperature
++5°C
+Maximum Ambient Temperature
++45°C
+Mechanical interface
+Mechanical Overview
+This chapter introduces the mechanical and the electrical interfaces of Ned2.
+Ned2 is a 6-axis collaborative robotic arm. It consists mainly of six robot joints of aluminum with plastic
+covers. Ned2 consists of 7 parts :
+3D view of the robot
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 21 ---
+Robot workspace
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 22 ---
+Installation
+The robot must be placed on a table or flat surface that is larger than the surface of its support unit.
+Warning
+Make sure that the robot is properly installed on a  rm surface with enough clearance to
+avoid shocks and collisions.
+Tool mounting
+Each tool has the same mechanical connector interface. This option allows a quick-change option of the
+tool and good stability.
+Put the groove on the side of the motor, pointing down;
+fix the gripper to the robot axis using the magnetic part.
+Please  nd more information about Niryo tools in the section tools technical speci cations
+(index.html#specifications).
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 23 ---
+Warning
+Be careful not to mount a gripper that is not supplied by Niryo. If you would like to design
+your own gripping tool, contact our Support Service;
+Never use loads greater than those stated in the robot speci cations (chapter 9) as this could
+cause mechanical crushing should the object or the gripper fall. Such improper use could also
+damage the robot;
+Make sure that the tool is mounted correctly by following the assembly instructions above;
+Be careful not to put your fingers between the jaws of the gripper.
+Vision Set mounting
+To mount the Vision Set, all you need to do is attach the camera to Ned2’s wrist. The cable of the vision set
+need to pass through the wrist to avoid trouble during movement of the robot. You can set up and  x your
+workspace to Ned2’s structure to have a stable environment.
+Electrical interface
+Electrical interface overview
+Electrical architecture
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 24 ---
+Back Panel interface
+Ned2 comes with I/O interface that can be used for wide range of equipements and Ned2 ecosystem.
+The illustration below shows the di9erents electrical and communication interfaces present of the back
+panel of the robot.
+Connector table
+1
+2 x USB 2.0
+2
+2 x USB 3.0
+3
+RJ45 port
+4
+Wi-Fi status indicator
+5
+Wi-Fi button
+6
+3 x digital inputs
+7
+3 x digital outputs
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 25 ---
+8
+2 x analog inputs
+9
+2 x analog outputs
+10
+Conveyor control interface
+11
+Conveyor control interface
+12
+Infrared sensor interface
+13
+Vacuum pump control interface
+14
+On/off button
+15
+General power input
+Warning
+Take great care in following the safety guidelines in the next section to avoid damaging the
+robot. 
+Be sure to respect the order of connection and the characteristics of the robot’s inputs/outputs. 
+Make sure all the equipment and cables are dry. If water gets into the equipment, unplug the power
+cable. 
+Do not unplug or turn o9 the robot while it is in use, as this could damage the robot’s Raspberry Pi 4 or
+the micro SD card inside. 
+Before plugging in or unplugging the power supply, be sure to turn off the robot.
+General power input
+Ned2 is powered with AC/DC adapter with two output ratings: 12V and 5V
+Settings
+Value
+Frequency
+50/60 Hz
+Input
+AC 100-240 V , 2.5 A
+Output
+12 V – 7 A; 5 V – 7 A
+On/Off button
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 26 ---
+The robot is turned on by pressing the power button on the back panel.
+When the robot is starting on , the led ring displays white light.
+After the robot start up completed, the indication of led ring will display blue light, the robot can be used
+normally at this time.
+The robot is turned off by pressing the same power button on the back panel.
+When pressing the button ,the robot will start the Shutdown sequence. The led ring will display white
+Breath for 2 seconds.
+Warning
+Make sure the robot is in home position when powering off or on the robot.
+Digital inputs
+The electrical specifications of the digital inputs are showen below:
+Connector
+Settings
+Min
+Max
+Units
+Digital inputs: Type –> NPN
+[ DI1 - DI2 -DI3 ]
+Voltage
+0
+5
+V
+Current
+0
+5
+mA
+This illustration below shows how to connect a switch to a digital input.
+Digital outputs
+The electrical specifications of the digital outputs are showen below:
+Connector
+Settings
+Min
+Max
+Units
+Digital outputs: Type –> PNP
+[ DO1 - DO2 -DO3 ]
+Voltage
+0
+5
+V
+Current
+0
+250
+mA
+This example shows how to connect a load in order to be controlled from a digital output.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 27 ---
+Analog inputs
+The analog inputs can be used to measure voltage ( 0-5V) form an external equipement.
+The electrical specifications are shown below:
+Connector
+Settings
+Min
+Max
+Units
+Analog input
+[ AI1 - AI2 ]
+Voltage
+0
+5
+V
+Current
+0
+20
+mA
+Resolution
+12
+bit
+This illustration below shows how to connect a potentiometer for reading values from 0-5V.
+Analog outputs
+The analog outputs can be used to set voltage ( 0-5V) to an external equipement.
+The electrical specifications are shown below:
+Connector
+Settings
+Min
+Max
+Units
+Analog output
+[ AO1 - AO2 ]
+Voltage
+0
+5
+V
+Current
+0
+30
+mA
+Resolution
+12
+bit
+This example shows how to connect a load in order to be controlled from an analog output.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 28 ---
+Conveyor control interfaces
+Advice
+Please refer to the conveyor v2 documentation (https://docs.niryo.com/product/conveyor-
+belt/v1.0.0/en/index.html) for more information.
+Infrared sensor interface
+Vacuum pump control interface
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 29 ---
+Wi-Fi mode
+The Wi-Fi indicator is used to display the Wi-Fi status in the robot.
+Color
+Description
+Trigger
+Solid blue
+The robot is hotspot mode
+Hotspot activated using Niryo Studio or the Wi-
+Fi button
+2 blue blinks
+followed by a
+pause
+The robot is connected to a
+network
+The robot is connected to the network either
+with an Ethernet cable or via Wi-Fi
+Quick blinking
+blue light
+Wi-Fi mode change in
+progress
+Press the Wi-Fi button
+LED off
+The robot’s hotspot and
+Wi-Fi are not activated
+In order to activate a mode, you must press
+the Wi-Fi button
+Wi-Fi button
+Function
+Type of action
+Condition
+Status after action
+Activate the
+hotspot
+Short press
+The robot is in a Wi-Fi mode
+The robot is in
+hotspot mode
+Activate the Wi-Fi
+Short press
+The Wi-Fi is not activated or the
+robot is in hotspot mode
+The robot is in a Wi-
+Fi mode
+Deactivate the
+hotspot and wifi
+Long press
+The Wi-Fi or hotspot mode is
+activated
+The Wi-Fi (and
+hotspot) are
+disabled
+Top button
+The top button on the Ned2 has multiple functions, depending on how long your press on it or the
+number of presses.
+Time/Number of presses
+Function
+A program is running
+1 short press (0.1 and 2 seconds)
+Pauses the program
+1 long press (> 2 seconds)
+Stops the program
+A program is paused
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 30 ---
+1 short press (0.1 and 2 seconds)
+Resumes the program where it left
+off
+1 long press (> 2 seconds)
+Stops the program
+A program is defined with an automatic start
+1 short press (0.1 and 2 seconds)
+Starts a saved program
+Time/Number of presses
+Function
+Control Panel
+FreeMotion button
+Pressing and holding this button deactivates the torques in the motors and performs the FreeMotion
+operation ( nd out more information on operation mode section (index.html#manual-mode-
+freemotion).
+Save button
+A short press on this button saves the robot’s position on Niryo Studio.
+Custom button
+This button is programmable and allows the user to choose the type of action and the function of the
+button.
+For 
+more 
+information, 
+please 
+refer 
+to Niryo 
+Studio 
+documentation
+(https://docs.niryo.com/product/niryo-studio/v4.0.0/en/source/blockly_api.html#i-o-for-ned2)
+Gripper connector
+This connector is used to control the Custom Gripper, Large Gripper or Adaptive Gripper.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 31 ---
+Electromagnet connector
+This connector is specifically for connecting Niryo’s electromagnet.
+There is also a digital input for connecting a sensor, for example.
+Programming the input/output can be done through Niryo Studio.
+Connector
+Settings
+Min
+Max
+Units
+Digital inputs: Type –> PNP
+[ DO4]
+Voltage
+0
+5
+V
+Current
+0
+250
+mA
+Digital inputs: Type –> NPN
+[ DI4]
+Voltage
+0
+5
+V
+Current
+0
+5
+mA
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 32 ---
+Safety box
+The safety box contain the emergency stop. Activate the emergency stop button to immediately stop all
+robot motion.
+Warning
+The safety box should be always be wired to the robot.
+Electrical connection
+Powering ON
+To turn on the robot, make the connection as explained above. Make sure that the emergency stop
+button is deactivated and that the robot is installed according to the instructions given in the Safety
+instructions chapter.
+Press the On button and wait a few moments for the LED ring to light up ( please refer to led ring
+section).
+Find more information on how to program and use the robot in the Niryo Studio manual.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 33 ---
+Advice
+Hardware can be tested for the very >rst time without using any software, as a
+program is pre-recorded at the factory to start automatically. To do this, follow the
+steps below:
+Make the electrical connection and switch on the robot as explained above
+Wait until the LED ring performs a slow blue “Chase” (go to the led ring section) and the robot
+start-up sound starts (if this is the  rst time you are using the Ned2, it takes about two
+minutes)
+Press the top button: the Ned2 will start with a calibration, then it will perform a pre-recorded
+sequence.
+LED ring indications
+Warning
+If software changes are made to the robot LED ring indications, then the indications given in
+this section may be wrong.
+Color
+Condition
+Operating mode
+Description
+Troubleshooting
+White Breath
+Normal
+condition
+Robot is
+booting
+N/A
+White to blue
+Breath
+Normal
+condition
+Starting the
+robot
+N/A
+Slow blue Chase
+Normal
+condition
+Manual mode -
+Calibration
+Calibration
+required
+Press the Custom button,
+or launch a calibration
+Blue Snake
+Normal
+condition
+Manual mode -
+Calibration
+Calibration
+in progress
+N/A
+3 yellow Flashing
+Normal
+condition
+Manual mode -
+Calibration
+Calibration
+warning
+N/A
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 34 ---
+Solid orange
+Warning
+Manual mode
+One or
+more robot
+axes are
+outside the
+motion
+limits
+Return the axes to within
+the limits and start a
+calibration.
+1 white Breath
+lasting 2 seconds
+then 6 blinks in
+white
+Normal
+condition
+Manual mode
+Shutdown
+in progress
+N/A
+Flashing red
+Emergency
+Manual mode
+Motor error
+Check the motor error
+codes in the “Hardware
+Status” panel of Niryo
+Studio. 
+Contact the after-sales
+service if it persists, as
+there may be defective
+fan.
+Solid white
+Normal
+condition
+Update in
+progres
+N/A
+Breath blue
+Normal
+condition
+Manual mode -
+FreeMotion
+FreeMotion
+activated
+N/A
+Breath green
+Normal
+condition
+Manual mode
+FreeMotion
+disabled
+N/A
+Solid green
+Normal
+condition
+Manual mode -
+Programming
+Program
+running
+N/A
+Chase green
+Normal
+condition
+Manual mode -
+Programming
+Program
+paused
+A short press on the
+button to resume, a long
+press on the top button
+to cancel the current
+program
+Chase orange
+Warning
+Manual mode -
+Programming
+Error in the
+program
+Check the logs on Niryo
+Studio 
+and Launch a new action
+to clear this state
+Solid red
+Emergency
+Fatal error
+Check the logs on Niryo
+Studio and restart the
+robot
+Flashing orange
+Warning
+A collision is
+detected
+Perform a new action to
+remove the warning and
+check if the robot has
+collided with an obstacle
+Flashing purple
+Normal
+condition
+Manual mode
+Login to
+Niryo Studio
+N/A
+1 Flashing white
+Normal
+condition
+Manual mode –
+programming
+Saving a
+position
+N/A
+Color
+Condition
+Operating mode
+Description
+Troubleshooting
+Note
+Glossary of light indications:
+Breath: The light intensity increases and decreases periodically, suggesting a breath.
+Snake: The LED chaser runs through the LEDs at moderate speed. Several LEDs light up one
+after the other.
+Chase: Every third LED is on. All of them shift across, one LED after another.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 35 ---
+Animation
+Appearance
+Gif
+None
+LEDs are turned off
+Solid
+Set the whole LED Ring to the same color at
+once
+Flashing
+Flashes a color according to a frequency
+Alternate
+The different colors are alternated one after the other.
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 36 ---
+Chase
+Movie theater light style chase animation.
+Rainbow
+Draws rainbow that fades across all LEDs at once.
+Breath
+Variation of light intensity to imitate breathing.
+Snake
+Luminous snake that turns around the LED Ring.
+Animation
+Appearance
+Gif
+Note
+In order to program the di9erent electrical interfaces of the robot , please refer to Niryo
+Studio Documentation (https://docs.niryo.com/product/niryo-studio/v3.2.1/en/index.html).
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 37 ---
+Maintenance, support and updating
+Updating
+The software version of the robot and the Firmware versions of the circuit boards can be updated in just a
+few steps using Niryo Studio. For more information, follow the online documentation at this link
+(https://docs.niryo.com/product/niryo-studio/v4.0.0/en/source/settings.html).
+Warning
+The robot will restart automatically when the update has been installed. Do not do any other
+operations with the robot before launching an update.
+Maintenance and support
+Niryo provides a support team dedicated to maintaining your robot and resolving technical problems. It
+will respond within 48 hours of your request.
+Maintenance and repair procedures must be carried out in accordance with the safety instructions
+(Chapter 7) and the rules set out by our support team.
+It can also provide answers to your questions on how to operate the robot.
+Contact our team at support@niryo.com (mailto:support%40niryo.com) for more information.
+Warranty condition
+All products manufactured by Niryo are guaranteed for one year from the date the invoice was issued. In
+the event of a warranty claim, provide the invoice, serial number, and photos and videos to explain the
+problem. We can then perform a remote diagnosis and help you resolve the problem.
+For more information, go to our warranty conditions in our terms of sale using the following link:
+https://niryo.com/fr/conditions-generales-de-vente/ (https://niryo.com/fr/conditions-generales-de-vente/)
+Disposal
+This robot complies with European Directive 2012/19/CE on used electrical and electronic appliances
+(waste electrical and electronic equipment – WEEE).
+Disposal must be done in accordance with the laws in force in each country.
+Do not dispose of your robot with the residual waste. Find out about the collection points for electronic
+and electrical devices near you.
+For more information on the disposal of our products, visit www.niryo.com/fr/mise_au_rebut.
+Advanced Programming
+There are many other ways to develop on Ned2.
+For more information, please refer to the following links:
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+
+--- page 38 ---
+Niryo Studio (https://docs.niryo.com/product/niryo-studio/index.html)
+Python (https://docs.niryo.com/dev/pyniryo/index.html)
+ROS (https://docs.niryo.com/dev/ros/index.html)
+Modbus (https://docs.niryo.com/dev/modbus/index.html)
+Suggest a modification
+ 
+Download as PDF
+Ned2 User Manual (v1.0.0)
+2022, Niryo All rights reserved. No part of this document may be reproduced or transmitted in any form or by any means without prior written consent of Niryo SAS
+

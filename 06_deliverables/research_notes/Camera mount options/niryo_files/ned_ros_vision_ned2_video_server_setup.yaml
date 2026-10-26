@@ -1,0 +1,10 @@
+# -- Editable settings
+frame_rate:         15  # 15, 25 or 30
+camera_port:        -1
+
+flip_img: true
+
+is_active_rate: 2.0
+
+stream_compression_quality: 55
+debug_compression_quality: 70
