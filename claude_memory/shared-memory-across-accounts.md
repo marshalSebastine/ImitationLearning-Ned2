@@ -13,5 +13,6 @@ On 26.10.26 Marshal asked that the project-specific Claude memory from every fut
 **How to apply:**
 - Claude's memory folder for this project is a link to `claude_memory/` in the repo (made by `setup_claude.sh` / `setup_claude.ps1`), so memory writes land in git automatically. If it is not linked on this machine, write project memory into `claude_memory/` directly anyway.
 - Only project facts go here; both people read every file. Say who said or decided something ("Marshal said …"), never "the user", and use absolute dates.
-- At the start of a session run `git pull`; after changing memory, commit it with the work it belongs to (or on its own as "Update Claude memory") and push, so the other side sees it. Before pushing, pull and merge; in `MEMORY.md` keep both sides' lines when merging.
+- Workflow decided 27.10.26 (Marshal asked for it, details in `COLLABORATION.md`): work on `<person>/<topic>` branches merged into `main` by pull request; at session start pull `main` and merge it into the branch; at session end commit and push the branch. Memory changes ride along on the branch; a fact the other person needs at once is committed straight to `main`. In `MEMORY.md` keep both sides' lines when merging.
+- Personal, one-person memory goes in `personal-<name>-<topic>.md` (git-ignored, not indexed in `MEMORY.md`).
 - Commits follow [[feedback-no-claude-in-git]].

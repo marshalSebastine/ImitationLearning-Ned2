@@ -37,6 +37,7 @@ AI_Project/
 ├── README.md            start here
 ├── HANDOFF_2026-10-26.md  state of the project for a teammate taking over; read right after this file
 ├── CLAUDE.md            working rules for Claude in this project
+├── COLLABORATION.md     how the two of us (and our two Claude accounts) work through git: branches, session rhythm, owners
 ├── setup_claude.sh      links claude_memory/ and claude_skills/ into Claude Code; run once per laptop (setup_claude.ps1 on Windows)
 ├── claude_memory/       Claude's shared project memory, tracked in git so both Claude accounts share it (MEMORY.md is the index)
 ├── claude_skills/       Claude skills for this project (emran-code-style)

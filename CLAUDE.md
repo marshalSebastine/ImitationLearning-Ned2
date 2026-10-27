@@ -27,7 +27,10 @@ Start by reading `HANDOFF_2026-10-26.md` (state of the project) and `README.md` 
 - Project memory lives in `claude_memory/` (index below). `setup_claude.sh` (macOS) or `setup_claude.ps1` (Windows) links
   Claude's own memory folder for this project to it, so new memories land in git. If the link is missing, write project
   memories into `claude_memory/` directly. Name who said or decided what, never "the user".
-- Start of a session: `git pull`. End of a piece of work: commit (memory changes included) and push, after asking.
+- Read `COLLABORATION.md` at the start of every session: branches (`<person>/<topic>`, merged into `main` by pull
+  request), the session rhythm, who owns what.
+- Start of a session: pull `main` and merge it into the working branch. End of every session: commit (memory changes
+  included) and push the branch, after asking. Never commit straight to `main` except an urgent memory fact.
 - When a session ends with something the other person must know (state, decision, open question), add it to the memory
   or to `05_meetings` notes, not only to the chat.
 

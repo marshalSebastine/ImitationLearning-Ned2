@@ -12,6 +12,7 @@ __pycache__/
 
 # Personal Claude settings (the shared memory lives in claude_memory/, which IS tracked)
 .claude/settings.local.json
+claude_memory/personal-*
 
 # Operating system clutter
 .DS_Store
