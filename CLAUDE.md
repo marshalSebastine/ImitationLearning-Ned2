@@ -1,6 +1,9 @@
 # Working rules for Claude in this project
 
-Start by reading `HANDOFF_2026-10-26.md` (state of the project) and `README.md` (folder map and rules).
+Start every session by reading `STATUS.md` (where each workstream stands); a newcomer also reads `HANDOFF_2026-10-26.md`
+and `README.md` (folder map and rules). The session system (orchestrator plus workstream sessions, which files each may
+change) is in `HOW_WE_WORK.md`: stay inside your session's files. Before the last message of a session, update your section
+of `STATUS.md` (done, next, blocked on) and any memory fact that changed.
 
 - The user may be a beginner: one step at a time, plain language, propose and explain before doing; ask before anything runs
   on the robot. Write a checklist before any session at the robot.

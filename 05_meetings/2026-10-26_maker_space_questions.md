@@ -64,4 +64,22 @@ Emranul Hoque und Marshal Sebastine, Team M
 
 ## Answers
 
-- (none yet)
+Received by e-mail on 27.10.26 (filed by the Robot and hardware session on Emranul's instruction). They write that Prof.
+Nierhoff has already told them about the project and that they are happy to support it. Design decisions are ours; they help
+with manufacturing questions.
+
+1. **Material and parameters.** Normally PLA or PETG; ABS also available. Standard: 0.4 mm nozzle, 0.2 mm layer height
+   (0.2, 0.6 and 0.8 mm nozzles may be available; 0.4 is enough for us). Standard Bambu Studio profiles, adjusted to the part.
+2. **Several bodies in one file.** Yes, in one STL or 3MF, as long as the bodies do not overlap.
+3. **Corrective reprint.** The design should be right before the first print, but a corrective reprint is generally not a
+   problem. Avoid massive or oversized designs to keep material use reasonable.
+4. **Screws, nuts, inserts.** Our choice. A limited number of heat-set inserts may exist in the lab but is not guaranteed.
+   Specific screws, nuts or inserts: coordinate beforehand or provide them ourselves.
+5. **Turnaround.** Printing normally starts 1 to 2 working days after the file arrives, depending on workload. Print time
+   depends on the part; they send an estimate by e-mail once the file is prepared, and an e-mail when the part is ready.
+6. **Units.** Export in millimetres at the correct scale. An STL stores no units, so the scale must be checked at export.
+7. **Calipers.** Can be borrowed while the lab is staffed, usually 8:00 to 13:00; outside those hours by prior arrangement.
+   Return them to the lab after use.
+
+What this changes in the plan: see `06_deliverables/research_notes/Camera mount options/checklist_camera_mount.md`, steps 1,
+2, 3, 7 and 9 (updated 27.10.26).

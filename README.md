@@ -35,7 +35,10 @@ All four meetings are on BBB and mandatory: points are deducted for each absence
 ```
 AI_Project/
 ├── README.md            start here
-├── HANDOFF_2026-10-26.md  state of the project for a teammate taking over; read right after this file
+├── STATUS.md            the live state per workstream; every Claude session reads it first and updates it last
+├── HOW_WE_WORK.md       the session system: orchestrator, workstream sessions, the open-and-close ritual
+├── how_we_work.pdf      PDF copy of HOW_WE_WORK.md, to print
+├── HANDOFF_2026-10-26.md  full background for a teammate taking over; read once
 ├── CLAUDE.md            working rules for Claude in this project
 ├── COLLABORATION.md     how the two of us (and our two Claude accounts) work through git: branches, session rhythm, owners
 ├── setup_claude.sh      links claude_memory/ and claude_skills/ into Claude Code; run once per laptop (setup_claude.ps1 on Windows)

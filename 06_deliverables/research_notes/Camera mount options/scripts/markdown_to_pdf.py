@@ -2,6 +2,7 @@
 
 import html
 import re
+import pathlib
 import sys
 
 from reportlab.lib import colors
@@ -11,6 +12,7 @@ from reportlab.lib.units import cm
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 source_path, output_path = sys.argv[1], sys.argv[2]
+footer_title = sys.argv[3] if len(sys.argv) > 3 else pathlib.Path(source_path).stem
 
 styles = getSampleStyleSheet()
 body = ParagraphStyle("body", parent = styles["Normal"], fontSize = 9.4, leading = 12.6, spaceAfter = 5)
@@ -123,11 +125,11 @@ flush_table()
 
 def page_number(canvas, document) -> None:
     canvas.setFont("Helvetica", 8)
-    canvas.drawRightString(A4[0] - 1.5 * cm, 1.0 * cm, f"Imitation learning puck pushing SOTA, page {document.page}")
+    canvas.drawRightString(A4[0] - 1.5 * cm, 1.0 * cm, f"{footer_title}, page {document.page}")
 
 
 document = SimpleDocTemplate(output_path, pagesize = A4, leftMargin = 1.5 * cm, rightMargin = 1.5 * cm,
                              topMargin = 1.6 * cm, bottomMargin = 1.6 * cm,
-                             title = "Imitation learning puck pushing SOTA", author = "Team M")
+                             title = footer_title, author = "Team M")
 document.build(story, onFirstPage = page_number, onLaterPages = page_number)
 print("written", output_path)
