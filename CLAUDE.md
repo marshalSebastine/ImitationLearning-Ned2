@@ -29,8 +29,10 @@ Start by reading `HANDOFF_2026-10-26.md` (state of the project) and `README.md` 
   memories into `claude_memory/` directly. Name who said or decided what, never "the user".
 - Read `COLLABORATION.md` at the start of every session: branches (`<person>/<topic>`, merged into `main` by pull
   request), the session rhythm, who owns what.
-- Start of a session: pull `main` and merge it into the working branch. End of every session: commit (memory changes
-  included) and push the branch, after asking. Never commit straight to `main` except an urgent memory fact.
+- Claude runs git proactively (section "Claude runs git, proactively" in `COLLABORATION.md`): at the start of every
+  session, unasked, fetch, say what the other person changed, get onto the right branch and merge `main` into it; commit as
+  steps work; before the session ends commit and push the branch (memory changes included; ask before pushing). Never
+  commit straight to `main` except an urgent memory fact.
 - When a session ends with something the other person must know (state, decision, open question), add it to the memory
   or to `05_meetings` notes, not only to the chat.
 

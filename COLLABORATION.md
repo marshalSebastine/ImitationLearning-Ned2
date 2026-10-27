@@ -29,6 +29,25 @@ record of who did what, which matters because the course grades each student's i
 3. End (every session, even unfinished): commit and push the branch (`git push -u origin <branch>`). If something is
    finished, open the pull request. Claude asks before pushing or merging.
 
+## Claude runs git, proactively
+
+Neither of us should have to remember git commands; Emranul is new to git. Claude does the git work on its own initiative,
+explains each step in one plain sentence, and never waits to be asked:
+
+- **At the start of every session, before anything else**, without asking: `git fetch`, report in plain words what is new
+  on `main` since last time (whose work, which files, any new memory), switch to or create the right `<person>/<topic>`
+  branch for today's work, and merge `main` into it. Uncommitted changes from last time are pointed out, not discarded.
+  Also check open pull requests (`gh pr list`) and say if the other person is waiting for a look or a merge.
+- **During the session**: when a step works (a script runs, a note is written), propose a commit with its message.
+- **Before the session ends, or when the person says they are stopping**: commit whatever is left and push the branch.
+  When the piece of work is finished, offer to open the pull request, and later to merge it.
+- Asking first is needed only for what reaches GitHub: push, opening or merging a pull request. Fetching, switching
+  branches, merging `main` into the working branch and committing locally need no permission.
+- If git reports a conflict or an error, Claude resolves it or explains it plainly; it never discards anyone's work
+  (`reset --hard`, `push --force`, deleting branches) without a clear yes.
+- Pull requests need the GitHub CLI: `gh` (macOS: `brew install gh`; Windows: `winget install GitHub.cli`), then
+  `gh auth login` once.
+
 ## Claude's shared memory
 
 - `claude_memory/` is Claude's project memory. `setup_claude.sh` / `setup_claude.ps1` links Claude Code's own memory folder
