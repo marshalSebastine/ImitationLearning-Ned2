@@ -7,8 +7,9 @@ memory, so knowledge lives in files, and every session reads the same files at i
 
 - `CLAUDE.md`: the working rules, loaded automatically in every session. Keep it short.
 - `STATUS.md`: where each workstream stands. Read at the start; your section updated at the end.
-- The memory folder (`C:\Users\<name>\.claude\projects\D--AI-Project\memory\`): facts and preferences Claude keeps across
-  sessions. Updated when Claude learns something that must not be forgotten.
+- The memory folder (`claude_memory/` in the repo, linked into Claude by `setup_claude.ps1` or `setup_claude.sh`): facts and
+  preferences Claude keeps across sessions and shares with the other laptop through git. Updated when Claude learns
+  something that must not be forgotten.
 
 ## The sessions
 
