@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 27.10.26 by the Robot and hardware session (measurement sheet, mock-up checklist, Maker Space answers filed).
+Last updated: 27.10.26 by the git set-up session (repo connected on Emranul's laptop, laptop work merged into main).
 
 ## Dates that cannot move
 
@@ -18,9 +18,14 @@ Last updated: 27.10.26 by the Robot and hardware session (measurement sheet, moc
 - Done 27.10: orchestrator session running in the sidebar group "AI Project (Team M)"; briefs written for three
   workstream sessions (Robot and hardware: measurement-hour sheet and mock-up checklist; Recording and data: recording-tool
   design for approval before code; Questions: answers only, never edits). All three started on 27.10 and sit in the same sidebar group.
-- Next: read the three sessions' reports and their `STATUS.md` sections;
-  fill in the marked lines of `HANDOFF_2026-10-26.md`; agree who does what (provisional table in the meeting-1 note);
-  start the contribution log.
+- Done 27.10 (git set-up, Emranul's laptop): Git and the GitHub CLI installed, signed in as `emrantawsif`; the shared repo
+  cloned to `D:\AI_Project` (the pre-git folder kept as `D:\AI_Project_pre_git`); `.venv` and `03_data` copied over;
+  `setup_claude.ps1` run, so Claude's memory and the code-style skill now live in the repo (`claude_memory/`,
+  `claude_skills/`); the laptop's work from 27.10 merged into `main` by pull request 1. All sessions now follow
+  `COLLABORATION.md`: branch per topic, pull request into `main`, commits under the students' names.
+- Next: read the three sessions' reports and their `STATUS.md` sections; fill in the remaining "[Emranul: fill in]"
+  lines of `HANDOFF_2026-10-26.md` (Emranul gives the facts; only the git-hosting line is filled); agree who does what
+  (provisional table in the meeting-1 note); start the contribution log.
 - Blocked on: nothing.
 
 ## Robot and hardware (camera mount, measurements, robot tests)
