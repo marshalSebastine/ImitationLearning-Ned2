@@ -5,6 +5,8 @@ Every script reads its settings from these dictionaries, so a value is changed
 in one place only. Later phases add the keys named in the work plan.
 """
 
+import math
+
 ROBOT_PARAMETERS = {
     "ip_address": "169.254.200.200",
     "software_version": "6.1.2-b374",
@@ -198,3 +200,77 @@ def goal_pose() -> list:
     """The rod behind the puck when the puck has reached the end of the line."""
 
     return rod_pose_behind(WORKSPACE_PARAMETERS["line_end_xy"])
+
+
+# The recording tool (record_episodes.py), designed 28.10.26. Actions are 1 cm steps of the pusher's tip, named in
+# the PICTURE's frame, as Emranul and Marshal decided on 28.10.26: "forward" is towards the top of the picture,
+# "left" towards its left side. The angle is measured from "forward", counter-clockwise seen from above. Stop has no
+# angle; it is recorded as its own step so the model learns when to stop. Keys are the ones pressed in the
+# recording window; Esc always quits. "steps_until_fresh_picture" new pictures are waited for after a move has
+# returned before the picture is taken, because a picture finished during the move can still arrive just after it
+# (a stale frame was found in run 1419, step 23). Hand-guided episodes are replayed by the robot from the path the
+# hand drew, snapped back onto that path at every step; "guided_path_sample_m" is how far the tip must move before
+# the next path point is logged.
+RECORDING_PARAMETERS = {
+    "step_m": 0.01,
+    "actions": {
+        "forward": 0,
+        "forward_left": 45,
+        "forward_right": -45,
+        "left": 90,
+        "right": -90,
+        "back": 180,
+        "stop": None
+    },
+    "keys": {
+        "w": "forward",
+        "q": "forward_left",
+        "e": "forward_right",
+        "a": "left",
+        "d": "right",
+        "s": "back",
+        " ": "stop",
+        "x": "discard",
+        "p": "pause"
+    },
+    "steps_until_fresh_picture": 2,
+    "fresh_picture_timeout_s": 3.0,
+    "step_budget": 80,
+    "approach_height_m": 0.05,
+    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    "guided_path_sample_m": 0.002,
+    "guided_path_poll_s": 0.05,
+    "replay_key_wait_ms": 400,
+    # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
+    # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
+    # move the scene to the right in the picture. If it moves left, set this to -1.
+    "picture_left_sign": 1,
+    "raw_folder": "03_data/raw"
+}
+
+
+def camera_heading_rad(
+        x: float,
+        y: float
+) -> float:
+    """
+    The table direction that the top of the picture points to, when the rod's end is at (x, y).
+
+    With the camera in Niryo's wrist holder and the rod vertical, the picture always looks straight away from the
+    base (CAMERA_VIEW_PARAMETERS), so its top points along the line from the base through the rod. A new camera
+    mount needs this function checked again.
+    """
+
+    return math.atan2(y, x)
+
+
+def picture_step_to_table(
+        action: str,
+        x: float,
+        y: float
+) -> list:
+    """The table displacement [dx, dy] in metres of one step of ``action`` taken with the rod's end at (x, y)."""
+
+    angle = (camera_heading_rad(x, y)
+             + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(RECORDING_PARAMETERS["actions"][action]))
+    return [RECORDING_PARAMETERS["step_m"] * math.cos(angle), RECORDING_PARAMETERS["step_m"] * math.sin(angle)]

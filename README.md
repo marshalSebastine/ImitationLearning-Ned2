@@ -61,7 +61,10 @@ AI_Project/
 ├── 02_code/             all Python, flat; runs on the laptop and on the GPU pool
 │   └── requirements.txt packages for .venv on the laptop (pip install -r)
 ├── 03_data/             large files, never in version control
-│   ├── raw/             <yyyy-mm-dd>_session_NN/: session_notes.md plus <path_id>_episode_NNN.mp4/.csv (recording sessions, none yet)
+│   ├── raw/             <yyyy-mm-dd>_session_NN/: session_notes.md plus one <path_id>_episode_NNN/ per episode, written by
+│   │                    record_episodes.py: frames/NNN.jpg (the robot's JPEGs, unchanged), steps.csv, episode.json,
+│   │                    guided_path.csv (hand-guided only)
+│   ├── raw_simulated/   the same layout from record_episodes.py --simulated; practice only, never training data
 │   │   ├── camera_check/   pictures, videos and notes from the set-up days (never renamed, even the WhatsApp video)
 │   │   ├── robot_survey/   survey_robot.py results (JSON)
 │   │   └── workspace/      taught positions, test pictures, push_straight/ runs, camera_tests/
