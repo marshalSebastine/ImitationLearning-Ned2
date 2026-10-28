@@ -52,5 +52,5 @@ Team M, AI Project (Project 6), OTH Amberg-Weiden
 - 27.10.26: automatic reply only. Niryo says a ticket will be created, but that since November 2024 only requests sent
   through their form are accepted: https://niryo.com/contact-product-support/ . To be safe, the same text is submitted once
   through that form (subject and body above; attach nothing). Chase after two working days from the form submission.
-- Form submitted: (date and time to fill in)
+- Form submitted by Emranul on 27./28.10.26 (same text).
 - Real answer: (none yet)
