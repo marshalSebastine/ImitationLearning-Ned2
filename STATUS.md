@@ -58,7 +58,7 @@ Last updated: 29.10.26 by the Robot and hardware session (bracket print file mad
   the file gives 58 ahead, 60 up, -10. Paper pattern B fits the holder (hole rows 16 mm apart confirmed). Assumed, not measured: boss under 19 mm wide, pin 2 mm, ear 3 mm, cover rim
   under 12 mm (`README_bracket_F.md` lists all). Paper test PDF and the Maker Space e-mail text are in `bracket_design/`.
   Cardboard block 58 x 42 x 36 made. Calipers returned.
-- Next: Emranul prints the paper test and checks patterns A and B tonight, sends the 3MF to the Maker Space (print 30.10);
+- Done 29.10 evening: paper test done (B fits the holder; A showed the raised boss, foot redesigned), holder back on the robot, file sent to the Maker Space (3MF + STEP, Friday print asked for). Next:
   two extra M2.5 screws 6 to 10 mm from the Maker Space or the lab. Then, before the bracket goes on the robot: hold the
   printed part with the holder against the wrist (step 11 pre-check), step 4 (focus sweep) and the cardboard check of the
   forearm gap at tip x 0.14 to 0.18 (the reviewers predict a touch at 0.14; keep the tip at x >= 0.16 if so).

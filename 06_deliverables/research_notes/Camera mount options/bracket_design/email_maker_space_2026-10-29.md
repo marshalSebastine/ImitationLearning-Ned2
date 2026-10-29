@@ -45,3 +45,7 @@ If you have two spare M2.5 screws (6 to 10 mm long) we would be grateful; otherw
 Kind regards
 Emranul Hoque
 Team M, AI Project (Project 6), OTH Amberg-Weiden
+
+## Sent
+
+Sent by Emranul on 29.10.26 in the evening, in a shorter English form (both files attached, 3MF and STEP; Friday print asked for politely, "next week is fine too"; two spare M2.5 screws asked for as a favour). Reply: (none yet).
