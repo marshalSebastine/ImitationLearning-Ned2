@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 28.10.26 by Marshal's session (recording tool built on branch marshal/recording-tool, not yet tested on the robot).
+Last updated: 29.10.26 by Marshal's session (recording tool merged into main, not yet tested on the robot; action list kept at seven).
 
 ## Dates that cannot move
 
@@ -66,10 +66,15 @@ Last updated: 28.10.26 by Marshal's session (recording tool built on branch mars
   data, so its pictures match keyboard and exam pictures. `robot_link.py` (real robot or simulated sheet, puck and
   camera) and `test_record_episodes.py` (both modes, headless) pass on the simulator. Settings in
   `config.RECORDING_PARAMETERS`. Nothing tested on the robot yet.
-- Next, first robot test (sheet 01, current camera): confirm one "left" step moves the scene RIGHT in the picture
+- Next, first robot test on 30.10 (Marshal; checklist `06_deliverables/research_notes/Recording tool/first_robot_test_checklist.md`;
+  sheet 01, current camera): confirm one "left" step moves the scene RIGHT in the picture
   (`picture_left_sign` in config, marked UNTESTED); a few keyboard episodes; one hand-guided episode; check the logged
   pictures are fresh. Then the keyboard-versus-hand-guiding trial (three pushes each) and a method decision record.
-- Open for the team: the action list (now forward, forward-left, forward-right, left, right, back, stop); the stepping
+- Decided 29.10 (Marshal): keep the seven actions (forward, forward-left, forward-right, left, right, back, stop) for the
+  first robot test; back-left, back-right and a hop over the puck are deferred. While recording, note each time an
+  operator wishes for one of them and in what situation; add one only if it recurs and the camera can see its effect
+  (a hop to the puck's far side would leave the puck out of the picture). Reasons in `claude_memory/project-recording-tool.md`.
+- Open for the team: Emranul's view on the action list above; the stepping
   rule both follow; varied starts; how raw recordings are shared between the two laptops (episode numbers count per
   laptop, so two laptops can produce the same episode name).
 - Blocked on: the camera mount for real data; a robot session for the first test.

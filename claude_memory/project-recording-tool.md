@@ -3,12 +3,14 @@ name: project-recording-tool
 description: "Recording tool decisions of 28.10.26: actions in the picture's frame, keyboard plus hand-guided (guide then replay) modes, one shared step loop; what is untested"
 metadata:
   type: project
-  modified: 2026-10-28T18:00:00.000Z
+  modified: 2026-10-29T12:00:00.000Z
 ---
 
 On 28.10.26 Emranul and Marshal decided (Marshal reported it): step directions are named in the **picture's frame** (forward = top of the picture, left = picture's left), not the robot base's; and the recording tool must support **both keyboard and hand-guided** demonstrations. Marshal builds the tool (`02_code/record_episodes.py`, branch `marshal/recording-tool`).
 
 Design (Marshal approved "guide, then replay" for hand-guiding): every mode runs one loop (move finished → first fresh picture → decider → log → 1 cm tip move). Hand-guided = motors off, a person pushes the puck to the goal while the tip's path is logged; then the puck goes back and the robot replays the path in 1 cm steps, snapped onto it at every step, with per-step key override and a discard key. Only the replay is training data, because hand-guided pictures are blurred, show the hand and are taken mid-motion (SOTA report, Li, Cui and Sadigh 2025). Marshal raised that a smooth hand push and a 1 cm replay may move the puck differently: the override, discard and per-episode count of overridden steps handle it, and the phase-2 trial should measure how often it happens. Later the trained model becomes the decider in the same loop, and model plus key override is the correction-round mode.
+
+Action list (Marshal, 29.10.26): keep the seven actions (forward, forward-left, forward-right, left, right, back, stop) for the first robot test. Marshal proposed back-left, back-right and a "hop over the puck to the other side"; after discussing the costs they were deferred: fewer examples per action (rare actions learnt badly), inconsistent labels between near-equal actions and two operators, large hard-to-undo moves compound errors, a one-picture model without memory can oscillate on back moves, and a hop to the puck's far side leaves the puck out of the picture (calculated from the measured view, which starts at about the puck's centre and points away from the base). Rule agreed: while recording, note each time an operator wishes for one of these actions and in what situation; add an action only if the same situation recurs and its effect is visible to the camera. A sideways hop (to the puck's left or right) is the strongest candidate if pucks often drift off the line; a far-side hop is ruled out with this camera.
 
 **Why:** pictures in training must look like pictures at test time; the model's input is the picture only, so actions are defined where the model can see them.
 
