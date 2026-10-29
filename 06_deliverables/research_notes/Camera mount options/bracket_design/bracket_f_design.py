@@ -60,7 +60,17 @@ DEFAULT_BRACKET_PARAMETERS = {
     "post_thickness_x": 12.0,           # camera moves forward by arm + post
     "post_width_z": 16.0,               # narrow so a hex key reaches the foot screws
     "top_plate_thickness_x": 6.0,
-    "gusset_size": 10.0,
+    # The brace plate has a raised rounded boss around the shaft in its middle
+    # (seen 29.10, not measured; the stock holder has a gap around it).  The
+    # foot therefore only touches the plate on two side strips, like the
+    # holder's ears, and nothing of the bracket comes closer to the plate than
+    # pocket_depth_x within half_pocket_width_z of the centre line.
+    "half_pocket_width_z": 9.5,
+    "pocket_depth_x": 10.0,
+    # Below this height the legs and cross-bar may fill the space in front of
+    # the plate; above it the space in front of the screw heads stays open so
+    # the hex key reaches them.
+    "open_above_y": 5.0,
     "clearance_hole_extra": 0.5,        # printed holes shrink; M2.5 needs about 3.0
     "self_tap_hole_diameter": 2.2,      # M2.5 cuts its own thread in PLA
     "pin_hole_extra": 0.6,
@@ -135,8 +145,8 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
     post_top_y = top_plate_centre_y + half_height
     tilt = math.radians(geometry["plate_tilt_degrees"])
 
-    # Foot: a plate on the brace face with two clearance holes for the stock
-    # screws.  The brace's lower pin holes stay free.
+    # Foot: a 3 mm plate on the brace face with two clearance holes for the
+    # stock screws; its middle is cut away below (pocket) for the plate's boss.
     clearance_diameter = p["screw_thread_diameter"] + p["clearance_hole_extra"]
     foot = (
         cadquery.Workplane("YZ")
@@ -148,30 +158,39 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
         .hole(clearance_diameter)
     )
 
-    # Arm: a bar leaving the cover window, the full foot height but only the
-    # post's width, so the screw heads beside it stay reachable with the key.
-    arm = (
-        cadquery.Workplane("YZ")
-        .rect(p["plate_height_y"], p["post_width_z"])
-        .extrude(post_front_x)
+    # Legs: from the foot forward to the cross-bar, only below the screw heads.
+    legs_height = p["open_above_y"] + half_height
+    legs = (
+        cadquery.Workplane("XY")
+        .center(p["pocket_depth_x"] / 2.0, -half_height + legs_height / 2.0)
+        .rect(p["pocket_depth_x"], legs_height)
+        .extrude(p["plate_width_z"] / 2.0, both = True)
     )
 
-    # Post: rises from the arm to the top plate.
+    # Cross-bar: full width, in front of the boss, joins the legs to the post.
+    cross_bar = (
+        cadquery.Workplane("XY")
+        .center((p["pocket_depth_x"] + post_front_x) / 2.0, -half_height + legs_height / 2.0)
+        .rect(post_front_x - p["pocket_depth_x"], legs_height)
+        .extrude(p["plate_width_z"] / 2.0, both = True)
+    )
+
+    # Pocket for the boss: nothing within half_pocket_width_z of the centre
+    # line closer to the plate than pocket_depth_x.
+    pocket = (
+        cadquery.Workplane("XY")
+        .center(p["pocket_depth_x"] / 2.0 - 1.0, 0.0)
+        .rect(p["pocket_depth_x"] + 2.0, p["plate_height_y"] + 4.0)
+        .extrude(p["half_pocket_width_z"], both = True)
+    )
+
+    # Post: rises from the cross-bar to the top plate; narrow, so the hex key
+    # reaches the foot screws beside it.
+    post_bottom_y = p["open_above_y"]
     post = (
         cadquery.Workplane("XY")
-        .center((post_back_x + post_front_x) / 2.0, (half_height + post_top_y) / 2.0)
-        .rect(p["post_thickness_x"], post_top_y - half_height)
-        .extrude(p["post_width_z"] / 2.0, both = True)
-    )
-
-    # Gusset behind the post, inside the cover window, against the bending load.
-    gusset = (
-        cadquery.Workplane("XY")
-        .polyline([
-            (post_back_x, half_height),
-            (post_back_x, half_height + p["gusset_size"]),
-            (post_back_x - p["gusset_size"] + 2.0, half_height),
-        ]).close()
+        .center((post_back_x + post_front_x) / 2.0, (post_bottom_y + post_top_y) / 2.0)
+        .rect(p["post_thickness_x"], post_top_y - post_bottom_y)
         .extrude(p["post_width_z"] / 2.0, both = True)
     )
 
@@ -211,7 +230,7 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
         .extrude(p["post_width_z"] / 2.0, both = True)
     )
 
-    bracket = foot.union(arm).union(post).union(gusset).union(wedge).union(top_plate)
+    bracket = foot.union(legs).union(cross_bar).cut(pocket).union(post).union(wedge).union(top_plate)
     return bracket
 
 
@@ -263,8 +282,14 @@ def draw_side_view(parameters: dict, stem: str = "ned2_camera_bracket_F") -> str
     angle = -geometry["plate_tilt_degrees"]
 
     figure, axis = pyplot.subplots(figsize = (6, 8))
-    axis.add_patch(pyplot.Rectangle((0, -half_height), post_front_x, p["plate_height_y"], color = "tab:blue"))
-    axis.add_patch(pyplot.Rectangle((p["arm_length_x"], half_height), p["post_thickness_x"], centre_y, color = "tab:blue"))
+    legs_height = p["open_above_y"] + half_height
+    axis.add_patch(pyplot.Rectangle((0, -half_height), p["foot_thickness_x"], p["plate_height_y"], color = "tab:blue"))
+    axis.add_patch(pyplot.Rectangle((0, -half_height), post_front_x, legs_height, color = "tab:blue"))
+    axis.add_patch(pyplot.Rectangle((0, -half_height), p["pocket_depth_x"], p["plate_height_y"], color = "white", alpha = 0.5,
+                                    hatch = "//", edgecolor = "grey"))
+    axis.text(1, -half_height - 3, "open in the middle\nfor the plate's boss", fontsize = 7, color = "grey", va = "top")
+    axis.add_patch(pyplot.Rectangle((p["arm_length_x"], p["open_above_y"]), p["post_thickness_x"],
+                                    centre_y - p["open_above_y"], color = "tab:blue"))
     axis.add_patch(pyplot.Rectangle(pivot, p["top_plate_thickness_x"], p["plate_height_y"],
                                     angle = angle, rotation_point = pivot, color = "tab:blue"))
     # Camera as today: its lens face lies along x (53 long), the case 31 tall

@@ -52,10 +52,10 @@ Last updated: 29.10.26 by the Robot and hardware session (bracket print file mad
   Camera screwed back on. Calipers to be returned to the Maker Space the same day. Niryo: e-mail 27.10 got only an
   automatic reply; the same text was submitted through https://niryo.com/contact-product-support/ on 28.10; no real answer yet.
 - Done 29.10 (Emranul's decision, to use a Friday print slot): checklist step 7 done before steps 4 to 6. The print file
-  `bracket_design/TeamM_Project6_ned2_camera_bracket_F.3mf` (+ STEP, 1:1 mm, 41 x 34 x 86 mm, 29 cm3) was built with CadQuery
+  `bracket_design/TeamM_Project6_ned2_camera_bracket_F.3mf` (+ STEP, 1:1 mm, 41 x 34 x 86 mm, 30 cm3; foot open in the middle for the raised boss found on the plate 29.10) was built with CadQuery
   from the measured numbers (`bracket_design/bracket_f_design.py`, parametric) and the camera pose fitted on 26.10 (lens 25 mm
   ahead of the rod axis, 6 above joint 5, 22 degrees forward). Target: option F (lens 51 ahead, 60 up, 10 degrees back);
-  the file gives 58 ahead, 60 up, -10. Assumed, not measured: the holes' vertical spacing 16 mm, pin 2 mm, ear 3 mm, cover rim
+  the file gives 58 ahead, 60 up, -10. Paper pattern B fits the holder (hole rows 16 mm apart confirmed). Assumed, not measured: boss under 19 mm wide, pin 2 mm, ear 3 mm, cover rim
   under 12 mm (`README_bracket_F.md` lists all). Paper test PDF and the Maker Space e-mail text are in `bracket_design/`.
   Cardboard block 58 x 42 x 36 made. Calipers returned.
 - Next: Emranul prints the paper test and checks patterns A and B tonight, sends the 3MF to the Maker Space (print 30.10);

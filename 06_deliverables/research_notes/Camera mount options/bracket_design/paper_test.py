@@ -93,7 +93,9 @@ def leaning(dx: float, dy: float) -> tuple:
 
 profile = [(0, -foot_half), (post_front, -foot_half), pivot,
            leaning(plate_thickness, 0), leaning(plate_thickness, plate_height), leaning(0, plate_height),
-           (post_front, raise_mm + foot_half), (post_back, raise_mm + foot_half), (post_back, foot_half), (0, foot_half)]
+           (post_front, raise_mm + foot_half), (post_back, raise_mm + foot_half),
+           (post_back, parameters["open_above_y"]), (parameters["pocket_depth_x"], parameters["open_above_y"]),
+           (parameters["pocket_depth_x"], foot_half), (0, foot_half)]
 path = page.beginPath()
 path.moveTo(origin_x + profile[0][0] * mm, origin_y + profile[0][1] * mm)
 for x, y in profile[1:]:

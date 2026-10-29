@@ -7,10 +7,14 @@ from the team's own pictures. Files for the Maker Space: `TeamM_Project6_ned2_ca
 
 ## What it is
 
-An L-shaped riser, one piece, about 41 x 34 x 86 mm, 29 cm3 of plastic (about 36 g in PLA):
+An L-shaped riser, one piece, about 41 x 34 x 86 mm, 30 cm3 of plastic (about 37 g in PLA):
 
-1. **Foot**: a 34 x 22 x 3 mm plate that sits on the aluminium plate in the wrist, held by the two existing screw holes.
-2. **Arm**: 24 mm forward, out of the cover window.
+1. **Foot**: two 3 mm thick side strips (the outer 7.5 mm of a 34 x 22 mm plate) that sit on the aluminium plate like
+   the holder's ears, held by the two existing screw holes. The middle is open, 19 mm wide and 10 mm deep, for the raised
+   rounded boss around the shaft in the plate's centre (seen 29.10 when pattern A would not lie flat; its size is not
+   measured, the stock holder has a similar gap).
+2. **Legs and cross-bar**: 24 mm forward, out of the cover window, only below the screw heads, so the hex key reaches the two
+   foot screws straight from the front.
 3. **Post**: 12 mm thick, 16 mm wide, 64 mm up. Narrow on purpose, so the hex key still reaches the two foot screws.
 4. **Top plate**: a copy of the aluminium plate's four-hole pattern (26 mm across, 16 mm up and down), leaning forward by
    32 degrees. Niryo's black camera holder screws onto it exactly as it screws onto the robot today: two M2.5 screws in the
@@ -28,7 +32,8 @@ tilt -10); the extra 7 mm forward comes from the leaning plate and is accepted.
 | Plate 34 x 22, holes 26 apart sideways | measured | Emranul, calipers, 28.10 |
 | Screws M2.5 x 6, 2 mm hex key | measured | same |
 | Camera case 37 x 53 x 31, cable 5.3 mm | measured | same |
-| Holes 16 apart up and down | **assumed** (Ned v1 holder pattern, 27 x 16) | Niryo STL; the paper test checks it |
+| Holes 16 apart up and down | confirmed: paper pattern B fits the holder's back (Emranul, 29.10) | paper test |
+| Boss in the plate's middle: under 19 mm wide, under 10 mm high | **assumed** from the 29.10 photo | the open middle of the foot |
 | Pin diameter 2 mm, ear thickness 3 mm | **assumed** from the photos | paper test and the fit of the real holder |
 | Lens today: 25 ahead, 6 up, 22 degrees forward | fitted from pictures, +-3 mm, +-3 degrees | `cam_calibration.json` |
 | Lens 16 mm in front of the plate face at pattern-centre height | **assumed** (+-5 mm) | photo 02 |
