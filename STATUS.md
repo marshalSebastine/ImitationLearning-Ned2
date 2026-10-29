@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 28.10.26 by the Robot and hardware session (measurement hour done, camera back on).
+Last updated: 29.10.26 by the Robot and hardware session (bracket print file made, going to the Maker Space).
 
 ## Dates that cannot move
 
@@ -51,10 +51,18 @@ Last updated: 28.10.26 by the Robot and hardware session (measurement hour done,
   cable; cover window 37.3 x 77.5 mm; rod 21 mm (STEP confirmed), 27 mm visible below the cover; cable 5.3 mm, sleeve ok.
   Camera screwed back on. Calipers to be returned to the Maker Space the same day. Niryo: e-mail 27.10 got only an
   automatic reply; the same text was submitted through https://niryo.com/contact-product-support/ on 28.10; no real answer yet.
-- Next: a check picture with `view_camera.py` at the start pose against the 25.10 reference (no motion); then on another
-  robot day step 4 (field of view and focus sweep) and step 5 (cardboard mock-up, block 37 x 53 x 31 mm plus 5 mm);
-  step 6 at the desk; then buy M2.5 screws about 12 to 16 mm long (step 2).
-- Blocked on: the next robot day (date open).
+- Done 29.10 (Emranul's decision, to use a Friday print slot): checklist step 7 done before steps 4 to 6. The print file
+  `bracket_design/TeamM_Project6_ned2_camera_bracket_F.3mf` (+ STEP, 1:1 mm, 41 x 34 x 86 mm, 29 cm3) was built with CadQuery
+  from the measured numbers (`bracket_design/bracket_f_design.py`, parametric) and the camera pose fitted on 26.10 (lens 25 mm
+  ahead of the rod axis, 6 above joint 5, 22 degrees forward). Target: option F (lens 51 ahead, 60 up, 10 degrees back);
+  the file gives 58 ahead, 60 up, -10. Assumed, not measured: the holes' vertical spacing 16 mm, pin 2 mm, ear 3 mm, cover rim
+  under 12 mm (`README_bracket_F.md` lists all). Paper test PDF and the Maker Space e-mail text are in `bracket_design/`.
+  Cardboard block 58 x 42 x 36 made. Calipers returned.
+- Next: Emranul prints the paper test and checks patterns A and B tonight, sends the 3MF to the Maker Space (print 30.10);
+  two extra M2.5 screws 6 to 10 mm from the Maker Space or the lab. Then, before the bracket goes on the robot: hold the
+  printed part with the holder against the wrist (step 11 pre-check), step 4 (focus sweep) and the cardboard check of the
+  forearm gap at tip x 0.14 to 0.18 (the reviewers predict a touch at 0.14; keep the tip at x >= 0.16 if so).
+- Blocked on: the print; the next robot day (date open).
 
 ## Recording and data (recording tool, demonstrations, datasets)
 
