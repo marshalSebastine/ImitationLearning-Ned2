@@ -66,7 +66,8 @@ Last updated: 29.10.26 by Marshal's session (recording tool merged into main, no
   data, so its pictures match keyboard and exam pictures. `robot_link.py` (real robot or simulated sheet, puck and
   camera) and `test_record_episodes.py` (both modes, headless) pass on the simulator. Settings in
   `config.RECORDING_PARAMETERS`. Nothing tested on the robot yet.
-- Next, first robot test (sheet 01, current camera): confirm one "left" step moves the scene RIGHT in the picture
+- Next, first robot test on 30.10 (Marshal; checklist `06_deliverables/research_notes/Recording tool/first_robot_test_checklist.md`;
+  sheet 01, current camera): confirm one "left" step moves the scene RIGHT in the picture
   (`picture_left_sign` in config, marked UNTESTED); a few keyboard episodes; one hand-guided episode; check the logged
   pictures are fresh. Then the keyboard-versus-hand-guiding trial (three pushes each) and a method decision record.
 - Decided 29.10 (Marshal): keep the seven actions (forward, forward-left, forward-right, left, right, back, stop) for the
