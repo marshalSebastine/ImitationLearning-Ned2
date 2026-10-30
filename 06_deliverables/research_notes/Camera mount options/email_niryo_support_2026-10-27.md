@@ -53,4 +53,8 @@ Team M, AI Project (Project 6), OTH Amberg-Weiden
   through their form are accepted: https://niryo.com/contact-product-support/ . To be safe, the same text is submitted once
   through that form (subject and body above; attach nothing). Chase after two working days from the form submission.
 - Form submitted by Emranul on 27./28.10.26 (same text).
-- Real answer: (none yet)
+- Real answer 30.10.26: Niryo support sent `Assembly 1.zip`, STL files of the whole camera assembly (holder, cover, camera
+  module, M2 x 8 screw, 2 x 8 pin, cable). Filed in `niryo_files/ned2_camera_assembly_from_niryo_support_2026-10-30/`;
+  measured and compared with bracket F in `bracket_design/niryo_support_cad_check_2026-10-30.md` (two points to check
+  Monday: hole spacing 26 or 27 mm, screw M2.5 or M2). Questions 3 and 5 (hole position in the wrist, field of view) are
+  not answered by the files.

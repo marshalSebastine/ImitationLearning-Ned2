@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 29.10.26 by the Robot and hardware session (bracket print file sent to the Maker Space) and by Marshal's
+Last updated: 30.10.26 by the Robot and hardware session (Niryo CAD checked against the print file) and by Marshal's
 session (recording tool merged into main, not yet tested on the robot; action list kept at seven).
 
 ## Dates that cannot move
@@ -63,7 +63,13 @@ session (recording tool merged into main, not yet tested on the robot; action li
   two extra M2.5 screws 6 to 10 mm from the Maker Space or the lab. Then, before the bracket goes on the robot: hold the
   printed part with the holder against the wrist (step 11 pre-check), step 4 (focus sweep) and the cardboard check of the
   forearm gap at tip x 0.14 to 0.18 (the reviewers predict a touch at 0.14; keep the tip at x >= 0.16 if so).
-- Blocked on: the print; the next robot day (date open).
+- Done 30.10: Niryo support answered with CAD files of the camera holder (filed in `niryo_files/ned2_camera_assembly_from_niryo_support_2026-10-30/`,
+  compared in `bracket_design/niryo_support_cad_check_2026-10-30.md`). The CAD agrees with the print file on width 34, rows 16 apart, pin 2 mm and the
+  19 mm gap for the boss; it disagrees on two measured numbers: hole spacing 27 (we measured 26) and screw M2 x 8 (we measured M2.5 x 6).
+  Two two-minute checks with the printed part and the holder on Monday decide (checks A and B in the note); a corrected file is one parameter away.
+  The lens sits about 29 mm in front of the plate face per CAD (we assumed 16): it ends about 7 mm lower than aimed, no change to the part.
+  Bracket hand-over by the Maker Space: Monday 2.11.
+- Blocked on: the print (Monday 2.11); the next robot day (date open).
 
 ## Recording and data (recording tool, demonstrations, datasets)
 
