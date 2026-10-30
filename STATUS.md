@@ -69,26 +69,28 @@ session (recording tool merged into main, not yet tested on the robot; action li
 
 - Done: design chosen (SOTA report section 2): keyboard stepping, capture after the move returns, stale-frame guard, six
   joints and the action logged per frame, explicit stop step, LeRobot-style layout. Timings and camera rate measured.
-- Decided 28.10 (Emranul and Marshal): step directions are named in the PICTURE's frame (forward = top of the picture),
-  not the robot base's; the tool supports both keyboard and hand-guided demonstrations.
-- Done 28.10 (Marshal, branch `marshal/recording-tool`): `02_code/record_episodes.py` with both modes. Hand-guided =
-  guide the puck to the goal with motors off while the tip's path is logged, then the robot replays that path in 1 cm
-  steps (snapped back onto it each step), with a key override per step and a discard key; only the replay is training
-  data, so its pictures match keyboard and exam pictures. `robot_link.py` (real robot or simulated sheet, puck and
-  camera) and `test_record_episodes.py` (both modes, headless) pass on the simulator. Settings in
-  `config.RECORDING_PARAMETERS`. Nothing tested on the robot yet.
-- Next, first robot test on 30.10 (Marshal; checklist `06_deliverables/research_notes/Recording tool/first_robot_test_checklist.md`;
-  sheet 01, current camera): confirm one "left" step moves the scene RIGHT in the picture
-  (`picture_left_sign` in config, marked UNTESTED); a few keyboard episodes; one hand-guided episode; check the logged
-  pictures are fresh. Then the keyboard-versus-hand-guiding trial (three pushes each) and a method decision record.
-- Decided 29.10 (Marshal): keep the seven actions (forward, forward-left, forward-right, left, right, back, stop) for the
-  first robot test; back-left, back-right and a hop over the puck are deferred. While recording, note each time an
-  operator wishes for one of them and in what situation; add one only if it recurs and the camera can see its effect
-  (a hop to the puck's far side would leave the puck out of the picture). Reasons in `claude_memory/project-recording-tool.md`.
-- Open for the team: Emranul's view on the action list above; the stepping
-  rule both follow; varied starts; how raw recordings are shared between the two laptops (episode numbers count per
-  laptop, so two laptops can produce the same episode name).
-- Blocked on: the camera mount for real data; a robot session for the first test.
+- Decided 28.10 (Emranul and Marshal): step directions are named in the PICTURE's frame (forward = top of the picture);
+  the tool supports both keyboard and hand-guided demonstrations.
+- Done 28.10 (Marshal): `02_code/record_episodes.py` with both modes (hand-guided = guide with motors off, then the robot
+  replays the tip path in 1 cm steps with key override and discard); `robot_link.py`, `test_record_episodes.py` pass on
+  the simulator. Settings in `config.RECORDING_PARAMETERS`. Nothing tested on the robot yet.
+- Done 30.10 (Emranul's session, branch `emranul/weekend-recording-plan`): the data-collection analysis
+  `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_analysis.md`: 13 collection approaches
+  criticised, 100 sources checked (80 sound, 20 with caveats; 190 more cited only as unverified), state-of-the-art table,
+  episode budget per sheet and method (recommended about 410 episodes and 30 of 36 robot hours until 20 Dec, with the
+  traced sheet lengths 24/27/55/77/57/57 cm), an extended first-robot-test checklist with pass thresholds, 14 questions
+  for the professor, and corrections to the SOTA report. Recommendations: keyboard stepping primary; guide-then-replay
+  only as a measured pilot with "Enter accepts, key overrides" instead of the 400 ms timeout; keep the seven classes and
+  add tool keys (mistake, lost) instead; train a first model after 30 to 40 episodes and start human-gated correction
+  rounds early; 30 percent offset starts and 25 percent near-end starts; real data only with bracket F.
+- Open (decisions for Emranul and Marshal, not yet taken on 30.10): decision 1 (hand-guided method) and decision 2 (class
+  set); the analysis recommends settling both by the measured thresholds in its section 6 during the first robot test.
+  Also open: the stepping rule both follow; varied starts; how raw recordings are shared between the two laptops.
+- Next: the two decisions, written into `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_decisions.md`
+  with names; the tool fixes from the analysis (key drain, mistake key, three timestamps, metadata fields, session names
+  with the laptop, puck-centre guard, exception-safe guiding, confirm-by-key replay, per-sheet step budget); the first
+  robot test with Marshal's checklist plus the analysis' section 6; then the keyboard-versus-hand-guiding pilot numbers.
+- Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
 
 ## Model and training
 
