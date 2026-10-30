@@ -44,8 +44,13 @@ hand-guided mode, holding the arm).
 
 - [ ] Switch the robot on and wait until its start-up and **automatic** calibration have finished.
 - [ ] Connect the cable or the hotspot.
+- [ ] In NiryoStudio, check two things, then disconnect NiryoStudio: the robot is calibrated (if it asks for a
+      calibration, choose the **automatic** one, never manual), and the camera picture shows in NiryoStudio's camera panel
+      (if not, the camera's USB cable is probably not plugged into the robot). On 30.10 `check_hardware.py` reported
+      "Calibration needed: True" and `view_camera.py` showed no picture.
 - [ ] From `02_code`: `../.venv/bin/python check_hardware.py`.
-      Pass: it prints the pose and the joints with no error. If it fails, stop here and write down the error.
+      Pass: it prints the pose and the joints with no error, and **"Calibration needed: False"**. If it fails, stop here
+      and write down the error.
 - [ ] `../.venv/bin/python view_camera.py`. Pass: a live picture. Press `q` to close it (it must be closed before step 3).
 
 ## 3. Direction test, no puck (the most important check)
@@ -53,9 +58,11 @@ hand-guided mode, holding the arm).
 - [ ] Clear the sheet; keep the puck off it.
 - [ ] Start: `../.venv/bin/python record_episodes.py --operator marshal --mode keyboard`
       (use your own name after `--operator`).
-- [ ] The robot moves to its home pose. Press **Enter** in the terminal: the robot goes to 5 cm above the line start,
-      then comes down. Pass: the tip stops about **5 mm above the paper** and does not touch it.
-- [ ] A window shows the camera picture. **Click the window** so it gets the key presses.
+- [ ] The robot moves to its home pose and a window "recording" opens with the camera picture. On macOS it may open
+      BEHIND the Terminal: find it with Mission Control or the Python icon in the Dock. **Click the window**: every
+      key, Enter included, is read in that window, never in the Terminal.
+- [ ] Press **Enter** (window selected): the robot goes to 5 cm above the line start, then comes down. Pass: the tip
+      stops about **5 mm above the paper** and does not touch it.
 - [ ] Press `w` once (forward). Pass: the line in the picture moves **down** (towards the bottom of the picture), and
       the picture visibly changes.
 - [ ] Press `a` once (left). Pass: the scene moves **to the right** in the picture.
