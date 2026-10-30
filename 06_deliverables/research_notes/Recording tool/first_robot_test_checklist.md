@@ -58,7 +58,7 @@ hand-guided mode, holding the arm).
 - [ ] Clear the sheet; keep the puck off it.
 - [ ] Start: `../.venv/bin/python record_episodes.py --operator marshal --mode keyboard`
       (use your own name after `--operator`).
-- [ ] The robot moves to its home pose and a window "recording" opens with the camera picture. On macOS it may open
+- [ ] The robot moves to its home pose and a window "record_episodes" opens with the camera picture. On macOS it may open
       BEHIND the Terminal: find it with Mission Control or the Python icon in the Dock. **Click the window**: every
       key, Enter included, is read in that window, never in the Terminal.
 - [ ] Press **Enter** (window selected): the robot goes to 5 cm above the line start, then comes down. Pass: the tip
