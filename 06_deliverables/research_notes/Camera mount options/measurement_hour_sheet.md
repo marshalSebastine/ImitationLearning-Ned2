@@ -10,7 +10,32 @@ Part 2 without harm if you are short of time or patience.
 
 | Date | Measured by | Calipers (make, resolution) | Start | End |
 |---|---|---|---|---|
-| | | | | |
+| 28.10.26 | Emranul Hoque | digital calipers borrowed from the Maker Space, 0.1 mm, checked on a 20 cent coin (22.3 mm, true 22.25) | morning | |
+
+**Result 28.10.26: Part 1 complete (rows 1 to 10), camera screwed back on with the same two screws. Part 2 rows 11, 12 and 21
+done, the rest skipped on purpose (Niryo's STEP confirmed by rows 11 and 12). Photos in `03_data/raw/camera_check/`, named
+`2026-10-28_measure_photo01` to `photo11`. Surprises: holder hole spacing 26 mm (not 40 to 45); screws M2.5 x 6 with a 2 mm hex
+key; the brace is a 34 x 22 mm plate with four corner holes, the holder uses the top two for screws and the bottom two for
+pins; camera 37 wide, 53 tall, 31 deep; the cover window is 37.3 wide, so the camera only just fits through it.**
+
+## Plain steps for Part 1 (written 28.10.26 for Emranul)
+
+Before: robot on, FreeMotion pressed (arm soft), two photos of the camera in place (front and side, ruler next to it).
+Key: 2 mm hex key fits the two screws (measured 28.10). Screws into a cup. Lift the camera with its black frame out,
+cable stays plugged in, carry it to the table.
+
+1. Row 1. One screw, big jaws on the threaded part. Write the number.
+2. Row 2. Same screw, big jaws from under the head to the tip. Write it.
+3. Row 3. Middle of one frame hole to middle of the other. Write it.
+4. Row 4. Small jaws inside one hole, open until they touch. Write it.
+5. Row 5. Big jaws across the camera front, left to right, then top to bottom. Write both.
+6. Row 6. Big jaws from the lens front to the back of the frame. Write it.
+7. Row 7. Big jaws on the cable. Write it. Cable where it enters the case: "ok" or "split".
+8. Photos of the camera: front, side, back, underneath, ruler next to it.
+9. Row 8, at the wrist. In the opening: metal with two holes. Middle to middle. Then rod to the nearer hole. Write both.
+10. Row 9. The opening in the blue cover: wide and tall. Write both.
+11. Photo of the opening with the ruler.
+12. Camera back in, same as photo 1. Both screws in, turn right, gently tight.
 
 ## Rules
 
@@ -43,15 +68,15 @@ from a photo or a reseller page, written only so a surprise is noticed. **unknow
 
 | # | What to measure | Expected | Tool | Measured | Photo |
 |---|---|---|---|---|---|
-| 1 | The two screws: outer diameter of the thread | unknown; M3 (3.0 mm) or M2.5 (2.5 mm) most likely [guess] | calipers | | |
-| 2 | The two screws: length under the head, and the hex key size that fits | unknown | calipers, Allen key | | |
-| 3 | Holder ears: distance between the two holes, centre to centre | 40 to 45 mm [guess from photo scale] | calipers | | |
-| 4 | Holder ears: hole diameter, and whether the hole is round or a slot | unknown; 3.2 to 3.5 mm would fit an M3 screw [guess] | calipers | | |
-| 5 | Camera case: width and height of the face with the lens | about 37 x 37 mm [guess: old Ned holder, simulation stand-in] | calipers | | |
-| 6 | Camera case: depth from the lens front to the back, including the focus ring and the ears | 15 to 30 mm [guess] | calipers | | |
-| 7 | Cable: which side of the case it leaves, and its outer diameter. Also look at the sleeve near the case (it looked split in the 26.10 photo): write "intact" or describe | unknown | calipers, eye | | |
-| 8 | At the arm, holder off: the two screw holes in the aluminium brace: distance between them, and distance from the centre of the rod to the holes (sideways and up/down) | hole spacing should equal item 3; rest unknown | calipers or ruler | | |
-| 9 | At the arm: the opening in the blue cover where the holder sits: width and height, and how far its lower edge is above the rod's top | unknown | calipers | | |
+| 1 | The two screws: outer diameter of the thread | unknown; M3 (3.0 mm) or M2.5 (2.5 mm) most likely [guess] | calipers | **2.5 to 2.6 mm: M2.5** (Emranul, 28.10.26) | |
+| 2 | The two screws: length under the head, and the hex key size that fits | unknown | calipers, Allen key | **5.7 mm under the head** (whole screw 8.2, head 2.5; so M2.5 x 6); **2 mm hex key** (Emranul, 28.10.26) | |
+| 3 | Holder ears: distance between the two holes, centre to centre | 40 to 45 mm [guess from photo scale] | calipers | **26 mm** (Emranul, 28.10.26). **Differs from the guess by 15 to 19 mm; the guess is dropped** | 3 |
+| 4 | Holder ears: hole diameter, and whether the hole is round or a slot | unknown; 3.2 to 3.5 mm would fit an M3 screw [guess] | calipers | **2.4 to 2.5 mm, round** (Emranul, 28.10.26); the M2.5 screw cuts its own way through | 3 |
+| 5 | Camera case: width and height of the face with the lens | about 37 x 37 mm [guess: old Ned holder, simulation stand-in] | calipers | **Upper part (lens) 37.0 mm wide; lower part (label) 34 mm wide; total height 53.1 mm bottom tabs included, 48 mm from the top to the notch at the bottom; the notch between the two bottom tabs is 18.5 mm wide, widening towards the ears** (Emranul, 28.10.26). Width as guessed; height 16 mm more than guessed | 5 |
+| 6 | Camera case: depth from the lens front to the back, including the focus ring and the ears | 15 to 30 mm [guess] | calipers | **31 mm**, lens front to the back of the frame (Emranul, 28.10.26) | 6 |
+| 7 | Cable: which side of the case it leaves, and its outer diameter. Also look at the sleeve near the case (it looked split in the 26.10 photo): write "intact" or describe | unknown | calipers, eye | **5.3 mm**; leaves at the back of the case near the bottom, through a small plug (Emranul, 28.10.26). Sleeve at the case: **ok**, not split (checked by eye) | 7 |
+| 8 | At the arm, holder off: the two screw holes in the aluminium brace: distance between them, and distance from the centre of the rod to the holes (sideways and up/down) | hole spacing should equal item 3; rest unknown | calipers or ruler | **The brace is a square plate with four holes, one per corner, the rod through its middle. The M2.5 screws go in the top two holes, two small pins on the back of the holder go in the bottom two. Top holes about 26 mm apart, by eye (calipers do not fit inside the cover)** (Emranul, 28.10.26). **Plate 34.0 to 34.2 mm wide, 22.0 to 22.5 mm tall** (calipers, Emranul, 28.10.26); the four holes sit near the corners, the rod passes through the plate's middle, so each top hole is about 13 mm sideways from the rod axis (calculated from 26 mm spacing) | 8, 10, 11 |
+| 9 | At the arm: the opening in the blue cover where the holder sits: width and height, and how far its lower edge is above the rod's top | unknown | calipers | **37.3 mm wide** (blue edge to blue edge at the plate's height, calipers); **77.5 mm tall** (top of the opening to the bottom of the blue, ruler) (Emranul, 28.10.26). Note: the camera's 37.0 mm upper part just fits the 37.3 mm window | 8 |
 | 10 | Photos with a ruler: holder with camera from the front, side, back and underneath; the brace holes through the cover opening with the holder off | | phone | | |
 
 ### Putting the holder back (5 minutes, at the arm)
@@ -74,8 +99,8 @@ changes nothing.
 
 | # | What to measure | Expected | Tool | Measured | Photo |
 |---|---|---|---|---|---|
-| 11 | Rod diameter on the full-diameter part (one height, two directions) | 21.0 mm [Niryo STEP]; about 18 mm [team] | calipers | | |
-| 12 | Rod visible below the cover edge, cover to rod end | 24.5 mm [team]; 28.5 mm total below the rod's top [Niryo STEP] | calipers | | |
+| 11 | Rod diameter on the full-diameter part (one height, two directions) | 21.0 mm [Niryo STEP]; about 18 mm [team] | calipers | **21 mm** (Emranul, 28.10.26); matches the STEP, the earlier 18 was wrong | |
+| 12 | Rod visible below the cover edge, cover to rod end | 24.5 mm [team]; 28.5 mm total below the rod's top [Niryo STEP] | calipers | **27 mm** (Emranul, 28.10.26) | |
 | 13 | Is the rod magnetic? (hold a small magnet to its side) | unknown | small magnet | yes / no | |
 | 14 | Fork arms: how far their lowest edge hangs below the rod's top, each arm | 5.3 mm below [calc] | calipers | | |
 | 15 | Gap between the two fork arms, inside to inside | 46 to 48 mm [calc] | calipers | | |
@@ -84,7 +109,7 @@ changes nothing.
 | 18 | Magnet block: width, depth, height from top face to magnet tip | 37 x 32 x 28.5 mm [Niryo STEP]; height 26 mm [team] | calipers | | |
 | 19 | Magnet block: diameter of the face that touches the puck | 20.5 to 26 mm nose [Niryo STEP]; 13 mm [team] | calipers | | |
 | 20 | Puck offset: block and puck in contact by hand, photo from above with a ruler: rod centre to puck centre | 27 to 33 mm [calc] | ruler, photo | | |
-| 21 | Mass of camera plus holder plus cable | 30 to 50 g camera alone [guess] | kitchen scale | | |
+| 21 | Mass of camera plus holder plus cable | 30 to 50 g camera alone [guess] | kitchen scale | **58 g** (camera, frame and USB cable together; Emranul, 28.10.26) | |
 
 ---
 

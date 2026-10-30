@@ -4,7 +4,8 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 29.10.26 by Marshal's session (recording tool merged into main, not yet tested on the robot; action list kept at seven).
+Last updated: 29.10.26 by the Robot and hardware session (bracket print file sent to the Maker Space) and by Marshal's
+session (recording tool merged into main, not yet tested on the robot; action list kept at seven).
 
 ## Dates that cannot move
 
@@ -44,15 +45,25 @@ Last updated: 29.10.26 by Marshal's session (recording tool merged into main, no
   ours to buy; print starts 1 to 2 working days after the file; files in mm; calipers lent 8:00 to 13:00, same-day return.
   Checklist step 1 is done; step 2 moved after step 3 and reduced to screws only (no clamp prototype needed, the mock-up uses
   a cardboard block); steps 3, 7, 9 updated with the answers.
-- Next: book a morning robot session (calipers only 8:00 to 13:00); then in order step 3 (measurement hour, print the
-  sheet), step 4 (field of view and focus sweep, `view_camera.py` only), step 5 (mock-up with a cardboard block of the
-  measured camera size), step 6 at the desk; then buy the screws of the measured thread (step 2). Also check the camera
-  cable's sleeve near the case (row D10 of the sheet).
-- Also 27.10: e-mail to Niryo support drafted (`06_deliverables/research_notes/Camera mount options/email_niryo_support_2026-10-27.md`,
-  to support@niryo.com, asks for the holder drawing, screw size, brace hole positions, camera case size). Sent by Emranul
-  27.10 09:16; only an automatic reply so far, which says requests must go through https://niryo.com/contact-product-support/ ,
-  so the same text goes through that form once; chase two working days after that. An answer would shrink the measurement hour to a check.
-- Blocked on: the morning robot session (date open).
+- Done 28.10 (Emranul at the robot, guided from this session): checklist step 3, Part 1 complete, values in
+  `measurement_hour_sheet.md`, photos `03_data/raw/camera_check/2026-10-28_measure_photo01..11`. Key numbers: holder screws
+  M2.5 x 6, 2 mm hex key; holder holes 26 mm apart (the 40 to 45 guess was wrong); brace is a 34 x 22 mm plate with four
+  corner holes (top two: screws, bottom two: locating pins of the holder); camera 37 wide x 53 tall x 31 deep, 58 g with
+  cable; cover window 37.3 x 77.5 mm; rod 21 mm (STEP confirmed), 27 mm visible below the cover; cable 5.3 mm, sleeve ok.
+  Camera screwed back on. Calipers to be returned to the Maker Space the same day. Niryo: e-mail 27.10 got only an
+  automatic reply; the same text was submitted through https://niryo.com/contact-product-support/ on 28.10; no real answer yet.
+- Done 29.10 (Emranul's decision, to use a Friday print slot): checklist step 7 done before steps 4 to 6. The print file
+  `bracket_design/TeamM_Project6_ned2_camera_bracket_F.3mf` (+ STEP, 1:1 mm, 41 x 34 x 86 mm, 30 cm3; foot open in the middle for the raised boss found on the plate 29.10) was built with CadQuery
+  from the measured numbers (`bracket_design/bracket_f_design.py`, parametric) and the camera pose fitted on 26.10 (lens 25 mm
+  ahead of the rod axis, 6 above joint 5, 22 degrees forward). Target: option F (lens 51 ahead, 60 up, 10 degrees back);
+  the file gives 58 ahead, 60 up, -10. Paper pattern B fits the holder (hole rows 16 mm apart confirmed). Assumed, not measured: boss under 19 mm wide, pin 2 mm, ear 3 mm, cover rim
+  under 12 mm (`README_bracket_F.md` lists all). Paper test PDF and the Maker Space e-mail text are in `bracket_design/`.
+  Cardboard block 58 x 42 x 36 made. Calipers returned.
+- Done 29.10 evening: paper test done (B fits the holder; A showed the raised boss, foot redesigned), holder back on the robot, file sent to the Maker Space (3MF + STEP, Friday print asked for). Next:
+  two extra M2.5 screws 6 to 10 mm from the Maker Space or the lab. Then, before the bracket goes on the robot: hold the
+  printed part with the holder against the wrist (step 11 pre-check), step 4 (focus sweep) and the cardboard check of the
+  forearm gap at tip x 0.14 to 0.18 (the reviewers predict a touch at 0.14; keep the tip at x >= 0.16 if so).
+- Blocked on: the print; the next robot day (date open).
 
 ## Recording and data (recording tool, demonstrations, datasets)
 

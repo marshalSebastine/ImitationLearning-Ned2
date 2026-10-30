@@ -1,0 +1,58 @@
+{
+  "bounding_box_mm": {
+    "x_forward": [
+      -0.0,
+      40.86
+    ],
+    "y_up": [
+      -11.0,
+      75.3
+    ],
+    "z_sideways": [
+      -17.0,
+      17.0
+    ]
+  },
+  "volume_cm3": 30.2,
+  "derived_geometry": {
+    "plate_tilt_degrees": 32.4,
+    "raise_mm": 64.3,
+    "lens_moves_forward_mm": 33.4,
+    "lens_moves_up_mm": 54.0,
+    "lens_ahead_of_rod_axis_mm": 58.4,
+    "lens_above_joint5_axis_mm": 60.0,
+    "lens_tilt_degrees_forward": -10.0
+  },
+  "parameters": {
+    "plate_width_z": 34.0,
+    "plate_height_y": 22.0,
+    "hole_spacing_z": 26.0,
+    "screw_thread_diameter": 2.5,
+    "screw_head_diameter": 4.5,
+    "hole_spacing_y": 16.0,
+    "pin_diameter": 2.0,
+    "ear_thickness": 3.0,
+    "lens_today_ahead_of_brace_face": 16.0,
+    "lens_today_above_pattern_centre": 0.0,
+    "lens_today_tilt_forward_degrees": 22.4,
+    "lens_up_mm": 54.0,
+    "lens_tilt_back_degrees": 10.0,
+    "foot_thickness_x": 3.0,
+    "arm_length_x": 12.0,
+    "post_thickness_x": 12.0,
+    "post_width_z": 16.0,
+    "top_plate_thickness_x": 6.0,
+    "half_pocket_width_z": 9.5,
+    "pocket_depth_x": 10.0,
+    "open_above_y": 5.0,
+    "clearance_hole_extra": 0.5,
+    "self_tap_hole_diameter": 2.2,
+    "pin_hole_extra": 0.6,
+    "corner_radius": 3.0
+  },
+  "files": {
+    "step": "D:\\AI_Project\\06_deliverables\\research_notes\\Camera mount options\\bracket_design\\ned2_camera_bracket_F.step",
+    "stl": "D:\\AI_Project\\06_deliverables\\research_notes\\Camera mount options\\bracket_design\\ned2_camera_bracket_F.stl",
+    "3mf": "D:\\AI_Project\\06_deliverables\\research_notes\\Camera mount options\\bracket_design\\ned2_camera_bracket_F.3mf"
+  }
+}
