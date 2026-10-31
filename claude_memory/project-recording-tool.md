@@ -1,9 +1,9 @@
 ---
 name: project-recording-tool
-description: "Recording tool decisions of 28.10.26: actions in the picture's frame, keyboard plus hand-guided (guide then replay) modes, one shared step loop; what is untested"
+description: "Recording tool: decisions of 28.10.26 (picture-frame actions, keyboard plus guide-then-replay), the 30.10.26 data-collection analysis and its recommendations, what is untested"
 metadata:
   type: project
-  modified: 2026-10-29T12:00:00.000Z
+  modified: 2026-10-30T18:00:00.000Z
 ---
 
 On 28.10.26 Emranul and Marshal decided (Marshal reported it): step directions are named in the **picture's frame** (forward = top of the picture, left = picture's left), not the robot base's; and the recording tool must support **both keyboard and hand-guided** demonstrations. Marshal builds the tool (`02_code/record_episodes.py`, branch `marshal/recording-tool`).
@@ -15,3 +15,18 @@ Action list (Marshal, 29.10.26): keep the seven actions (forward, forward-left, 
 **Why:** pictures in training must look like pictures at test time; the model's input is the picture only, so actions are defined where the model can see them.
 
 **How to apply:** UNTESTED on the robot: `picture_left_sign` (whether picture-left is counter-clockwise; the first robot test checks one "left" step moves the scene right in the picture) and the camera-heading model `config.camera_heading_rad` (radial from the base; must be re-checked for the new mount). The simulator (`--simulated`, writes to `03_data/raw_simulated`) has rough, unmeasured push physics; never draw conclusions about the puck from it. On sheet 01 the line runs about 10 degrees off the picture's forward at the start (line 2 cm right of the base axis), so "forward" alone drifts; the operator corrects with forward-left/right. See [[ai-project-workspace-setup]].
+
+**Analysis of 30.10.26 (Emranul's session, with Emranul and Marshal present; branch `emranul/weekend-recording-plan`):**
+`06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_analysis.md` criticises 13 collection approaches
+against 100 checked sources. Its recommendations, not yet decided by the students: keyboard stepping stays primary (training
+pictures equal test pictures); guide-then-replay only as a measured pilot with "Enter accepts, a direction key overrides"
+(the 400 ms timeout is shorter than a seven-way choice), kept only if overrides stay under 15 percent of steps, discards
+under 20 percent of episodes and time under 1.5 times keyboard; raw kinesthetic frames logged for free but never trained on
+without a closed-loop test; trace-then-replay, a scripted line teacher and an action-choosing colour detector dropped as
+label sources (outside "we push the puck ourselves"); human-gated correction rounds from the first model on, trained after
+30 to 40 episodes; 30 percent of episodes start with a deliberate offset and 25 percent near the line end; keep the seven
+classes and add tool keys (`u` marks the previous step a mistake, `l` marks lost) instead of classes. Budget: about 410
+episodes and 30 of 36 robot hours until 20 Dec with the traced sheet lengths (24, 27, 55, 77, 57, 57 cm; the meander needs a
+step budget of 116, the tool's is 80). Corrections to the SOTA report are listed at the end of its section 7 (for example
+the Li, Cui and Sadigh mixture gain is about 5 percent, not 20; HG-DAgger's behaviour-cloning counts are 1 and 6, not 11 and
+66). Emranul chose on 30.10 to cap the source checks at 100 to save time; 190 sources are cited only as unverified.

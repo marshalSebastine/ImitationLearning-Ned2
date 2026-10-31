@@ -29,14 +29,15 @@ tilt -10); the extra 7 mm forward comes from the leaning plate and is accepted.
 
 | Number | Value | Source |
 |---|---|---|
-| Plate 34 x 22, holes 26 apart sideways | measured | Emranul, calipers, 28.10 |
-| Screws M2.5 x 6, 2 mm hex key | measured | same |
+| Plate 34 x 22, holes 26 apart sideways | measured; **Niryo's CAD of 30.10 says 27** | Emranul, calipers, 28.10; `niryo_support_cad_check_2026-10-30.md` |
+| Screws M2.5 x 6, 2 mm hex key | measured; **Niryo's CAD says M2 x 8** | same; CAD check 30.10 |
 | Camera case 37 x 53 x 31, cable 5.3 mm | measured | same |
 | Holes 16 apart up and down | confirmed: paper pattern B fits the holder's back (Emranul, 29.10) | paper test |
 | Boss in the plate's middle: under 19 mm wide, under 10 mm high | **assumed** from the 29.10 photo | the open middle of the foot |
-| Pin diameter 2 mm, ear thickness 3 mm | **assumed** from the photos | paper test and the fit of the real holder |
+| Pin diameter 2 mm | confirmed by Niryo's CAD (2 x 8 pin) | CAD check 30.10 |
+| Ear thickness 3 mm | CAD: ear 6 mm, the screw passes 3 mm of it (counterbore for the head) | CAD check 30.10 |
 | Lens today: 25 ahead, 6 up, 22 degrees forward | fitted from pictures, +-3 mm, +-3 degrees | `cam_calibration.json` |
-| Lens 16 mm in front of the plate face at pattern-centre height | **assumed** (+-5 mm) | photo 02 |
+| Lens 16 mm in front of the plate face at pattern-centre height | **assumed**; Niryo's CAD puts the camera board centre about 29 mm in front: the lens then ends about 7 mm lower than aimed | photo 02; CAD check 30.10 |
 | Cover rim sticks out less than 12 mm beyond the plate face | **assumed** from photo 01 and 08 | the arm is 12 mm before the post |
 | Target: 51 ahead, 60 up, -10 degrees | calculated by the reviewers, not tested on the robot | design review, M17 |
 | Clearance to the forearm at tip x 0.14 m | calculated: about -1 mm (touches), +6 at 0.16, +12 at 0.18 | design review, M17; the real camera body is larger than the one modelled there, so **the mock-up is still the test** |
@@ -56,6 +57,7 @@ lab; nothing to buy.
 
 ## After the print, before it goes on the robot
 
+0. Checks A and B of `niryo_support_cad_check_2026-10-30.md`: pins and screw holes of the holder on the top plate (26 or 27 mm), a stock screw in a 2.2 mm hole (M2.5 or M2).
 1. Hold the foot on the paper pattern A, the top plate on pattern B: holes in line.
 2. Screw the holder onto the top plate with the stock screws, camera in it, cable on. Hold the whole thing against the wrist
    where the holder was: the foot's two holes over the two screw holes, and look that nothing touches the cover rim.
