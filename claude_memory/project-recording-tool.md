@@ -3,7 +3,7 @@ name: project-recording-tool
 description: "Recording tool: decisions of 28.10.26 (picture-frame actions, keyboard plus guide-then-replay), the 30.10.26 data-collection analysis and its recommendations, what is untested"
 metadata:
   type: project
-  modified: 2026-10-30T18:00:00.000Z
+  modified: 2026-10-31T12:00:00.000Z
 ---
 
 On 28.10.26 Emranul and Marshal decided (Marshal reported it): step directions are named in the **picture's frame** (forward = top of the picture, left = picture's left), not the robot base's; and the recording tool must support **both keyboard and hand-guided** demonstrations. Marshal builds the tool (`02_code/record_episodes.py`, branch `marshal/recording-tool`).
@@ -30,3 +30,5 @@ episodes and 30 of 36 robot hours until 20 Dec with the traced sheet lengths (24
 step budget of 116, the tool's is 80). Corrections to the SOTA report are listed at the end of its section 7 (for example
 the Li, Cui and Sadigh mixture gain is about 5 percent, not 20; HG-DAgger's behaviour-cloning counts are 1 and 6, not 11 and
 66). Emranul chose on 30.10 to cap the source checks at 100 to save time; 190 sources are cited only as unverified.
+
+**Decided 31.10.26 by Emranul and Marshal:** both recommendations adopted. Keyboard stepping is the main method; guide-then-replay stays only as a measured pilot with Enter-to-confirm (kept if overrides under 15 percent of steps, discards under 20 percent, time under 1.5 x keyboard; dropped if the Ctrl-C safety test fails). The seven classes stay; tool keys `u` (previous step was a mistake) and `l` (line lost) are added instead of classes. Record in `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_decisions.md`.

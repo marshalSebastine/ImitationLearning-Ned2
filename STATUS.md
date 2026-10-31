@@ -89,11 +89,12 @@ session (recording tool merged into main, not yet tested on the robot; action li
   only as a measured pilot with "Enter accepts, key overrides" instead of the 400 ms timeout; keep the seven classes and
   add tool keys (mistake, lost) instead; train a first model after 30 to 40 episodes and start human-gated correction
   rounds early; 30 percent offset starts and 25 percent near-end starts; real data only with bracket F.
-- Open (decisions for Emranul and Marshal, not yet taken on 30.10): decision 1 (hand-guided method) and decision 2 (class
-  set); the analysis recommends settling both by the measured thresholds in its section 6 during the first robot test.
-  Also open: the stepping rule both follow; varied starts; how raw recordings are shared between the two laptops.
-- Next: the two decisions, written into `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_decisions.md`
-  with names; the tool fixes from the analysis (key drain, mistake key, three timestamps, metadata fields, session names
+- Decided 31.10 (Emranul and Marshal, `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_decisions.md`):
+  decision 1: keyboard stepping is the main method, hand-guided replay only as a measured pilot with Enter-to-confirm (kept if
+  overrides under 15 percent, discards under 20 percent, time under 1.5 x keyboard; dropped if the Ctrl-C safety test fails);
+  decision 2: the seven classes stay, tool keys `u` (mistake) and `l` (lost) are added instead. Still open: the written stepping
+  rule; how raw recordings are shared between the two laptops.
+- Next: the tool fixes from the analysis (key drain, mistake key, three timestamps, metadata fields, session names
   with the laptop, puck-centre guard, exception-safe guiding, confirm-by-key replay, per-sheet step budget); the first
   robot test with Marshal's checklist plus the analysis' section 6; then the keyboard-versus-hand-guiding pilot numbers.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
