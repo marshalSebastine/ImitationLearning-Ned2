@@ -269,9 +269,10 @@ RECORDING_PARAMETERS = {
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
     "camera_mount": "stock_wrist_holder",
     "mapping_version": "picture_frame_v1_stock_wrist_2026-10-28",
-    # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
-    # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
-    # move the scene to the right in the picture. If it moves left, set this to -1.
+    # TESTED 31.10.26 on the robot with the stock wrist holder (Emranul, session 2026-10-31_session_01_emranul,
+    # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
+    # picture from column about 150 to about 430, i.e. the picture content moved RIGHT, so picture-left is
+    # counter-clockwise from the camera heading seen from above and this sign is 1. Re-test after any mount change.
     "picture_left_sign": 1,
     "raw_folder": "03_data/raw"
 }

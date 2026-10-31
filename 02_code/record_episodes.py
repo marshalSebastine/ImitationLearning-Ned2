@@ -53,7 +53,7 @@ WINDOW_NAME = "record_episodes"
 # Three times per step: when the move returned, when the logged picture was read, when the action was chosen.
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
-STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5",
+STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
@@ -83,6 +83,12 @@ def read_window_key(wait_ms: int) -> Optional[str]:
     if code == 27:
         return "escape"
     return chr(code).lower()
+
+
+def sharpness_of(picture: numpy.ndarray) -> float:
+    """Variance of the Laplacian, the same number view_camera.py shows: higher is sharper (about 100 to 150 when in focus)."""
+
+    return float(cv2.Laplacian(cv2.cvtColor(picture, cv2.COLOR_BGR2GRAY), cv2.CV_64F).var())
 
 
 def drain_window_keys(most_keys: int = 50) -> int:
@@ -520,7 +526,9 @@ class EpisodeRecorder:
             print(f"warning: step {step} has the same picture as the step before")
         self.last_picture_md5 = picture_md5
 
+        picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         row = {"step": step, "unix_time": round(time.time(), 3), "frame": f"frames/{frame_name}", "frame_md5": picture_md5,
+               "sharpness": round(sharpness_of(picture), 1),
                "action": action, "source": source, "is_mistake": 0, "is_lost": int(self.is_lost_pending)}
         row.update({name: round(value, 3) for name, value in times.items()})
         row.update({name: round(value, 5) for name, value in zip(["x", "y", "z", "roll", "pitch", "yaw"], state["pose"])})
@@ -732,7 +740,7 @@ class EpisodeRecorder:
 
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         status_bar = numpy.zeros((32, picture.shape[1], 3), dtype = numpy.uint8)
-        cv2.putText(status_bar, status, (8, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        cv2.putText(status_bar, f"sharpness {sharpness_of(picture):.0f} | {status}", (8, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
         cv2.imshow(WINDOW_NAME, numpy.vstack([picture, status_bar]))
 
 
