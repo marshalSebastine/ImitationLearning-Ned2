@@ -94,9 +94,15 @@ session (recording tool merged into main, not yet tested on the robot; action li
   overrides under 15 percent, discards under 20 percent, time under 1.5 x keyboard; dropped if the Ctrl-C safety test fails);
   decision 2: the seven classes stay, tool keys `u` (mistake) and `l` (lost) are added instead. Still open: the written stepping
   rule; how raw recordings are shared between the two laptops.
-- Next: the tool fixes from the analysis (key drain, mistake key, three timestamps, metadata fields, session names
-  with the laptop, puck-centre guard, exception-safe guiding, confirm-by-key replay, per-sheet step budget); the first
-  robot test with Marshal's checklist plus the analysis' section 6; then the keyboard-versus-hand-guiding pilot numbers.
+- Done 31.10 (Emranul's session, branch `emranul/recording-tool-fixes`, simulator tests pass): the tool fixes from the
+  decisions: keys pressed during a move are thrown away; `u` flags the previous step as a mistake, `l` flags "line lost"
+  (columns is_mistake, is_lost); a replay step runs only on Enter (no 400 ms timeout); motors stay off after any
+  interruption of guiding until the person confirms the arm is released; the workspace guard checks the predicted puck
+  centre against the box and the sheet plus 2 cm; step budget per sheet (`config.step_budget_for`, meander 116); three
+  timestamps per step; camera mount, mapping version, orientation, start index, offset, lighting and laptop in
+  `episode.json` (CLI flags); session folders carry the operator's name.
+- Next: the first robot test with Marshal's checklist plus the analysis' section 6 (the 10-versus-10 pilot decides the
+  hand-guided mode); set `camera_mount` and `mapping_version` in config when bracket F is fitted; the dataset builder.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
 
 ## Model and training
