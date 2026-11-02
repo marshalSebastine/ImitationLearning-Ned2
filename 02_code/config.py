@@ -259,7 +259,7 @@ RECORDING_PARAMETERS = {
     # sheet whose length is unknown. Lengths: sheet 01 measured (24 cm); 02 to 06 traced from the sheet photos on
     # 26.10.26 (06_deliverables/research_notes/Camera mount options/scripts/sheet_paths.json, calc, about 5 percent
     # uncertain; the dashed sheet 06 is taken as long as the loop it copies). Replace with the SVG arc lengths.
-    "step_budget_per_cm": 1.5,
+    "step_budget_per_cm": 2.0,  # was 1.5; the meander took 116 steps on 2.11 with its hairpins and ran out
     "step_budget": 80,
     "line_length_cm": {
         "path_01_straight_line": 24,

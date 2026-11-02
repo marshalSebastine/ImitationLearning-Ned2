@@ -74,7 +74,7 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
     assert episode_folder.parent.name.endswith("_test_person"), episode_folder.parent.name
-    assert summary["camera_mount"] and summary["mapping_version"] and summary["step_budget"] == 36, summary
+    assert summary["camera_mount"] and summary["mapping_version"] and summary["step_budget"] == 48, summary
     assert len(rows) == 23 and rows[-1]["action"] == "stop", len(rows)
     assert [row["is_mistake"] for row in rows] == ["1" if row["step"] == "9" else "0" for row in rows], "mistake flag"
     assert [row["is_lost"] for row in rows] == ["1" if row["step"] == "14" else "0" for row in rows], "lost flag"
@@ -144,8 +144,8 @@ def test_workspace_guard_protects_the_puck(raw_folder: Path) -> None:
 def test_step_budget_per_sheet() -> None:
     """The budget is 1.5 times the traced line length, and the fallback holds for an unknown sheet."""
 
-    assert step_budget_for("path_01_straight_line") == 36
-    assert step_budget_for("path_04_meander") == 116
+    assert step_budget_for("path_01_straight_line") == 48
+    assert step_budget_for("path_04_meander") == 154
     assert step_budget_for("path_99_unknown") == RECORDING_PARAMETERS["step_budget"]
 
 
