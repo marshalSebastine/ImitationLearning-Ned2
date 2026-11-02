@@ -39,4 +39,4 @@ Team M, AI Project (Projekt 6)
 
 ## Sent
 
-(not yet)
+Sent by Emranul on 2.11.26 around midday, English version, 3MF and STEP attached. Reply: (none yet).
