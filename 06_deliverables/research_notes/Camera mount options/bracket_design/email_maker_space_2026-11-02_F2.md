@@ -12,7 +12,8 @@ thank you very much for printing our camera bracket last week. It fits the robot
 found one problem that was our mistake in the design: the post touches the robot's forearm when the wrist tilts up.
 The attached version fixes it with a slightly leaning post, same material and settings as last time, about 78 x 34 x 90 mm.
 
-Would it be possible to print it again? Whenever it fits your schedule is fine, and sorry for the extra work.
+Would it be possible to print it again? Whenever it fits your schedule is fine, and if it is not possible I fully
+understand. Sorry for the extra work.
 
 Kind regards
 Emranul Hoque
@@ -29,7 +30,8 @@ sich ein Problem gezeigt, das an unserem Entwurf lag: der Steg berührt den Unte
 nach oben kippt. Die angehängte Version behebt das mit einem leicht geneigten Steg, gleiches Material und gleiche
 Einstellungen wie beim letzten Mal, etwa 78 x 34 x 90 mm.
 
-Wäre es möglich, das Teil noch einmal zu drucken? Wann immer es bei euch passt, und entschuldigt die Extraarbeit.
+Wäre es möglich, das Teil noch einmal zu drucken? Wann immer es bei euch passt, und falls es nicht geht, habe ich
+volles Verständnis. Entschuldigt die Extraarbeit.
 
 Viele Grüße
 Emranul Hoque
