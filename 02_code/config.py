@@ -239,8 +239,20 @@ RECORDING_PARAMETERS = {
         "x": "discard",
         "u": "mistake",
         "l": "lost",
-        "enter": "accept"
+        "enter": "accept",
+        "y": "lean_left",
+        "c": "lean_right"
     },
+    # TEST keys of 31.10.26 (Emranul and Marshal asked for them after the camera lost the line at the meander's
+    # hairpins): rod and camera lean together about the camera's forward axis by "lean_step_deg" per press, at most
+    # "max_lean_deg" either way, the rod's end staying in place. Not one of the seven classes; logged as
+    # lean_left / lean_right so their effect on the pictures and on the puck can be judged afterwards. The magnet tip
+    # (2.6 cm below the rod's end) moves about 4.5 mm sideways per 10 degrees (calc).
+    "lean_actions": {
+        "lean_left": 10,
+        "lean_right": -10
+    },
+    "max_lean_deg": 20,
     "steps_until_fresh_picture": 2,
     "fresh_picture_timeout_s": 3.0,
     # The step budget is 1.5 times the line length in centimetres, per sheet; "step_budget" is the fallback for a

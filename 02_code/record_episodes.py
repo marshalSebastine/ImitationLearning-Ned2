@@ -35,6 +35,7 @@ import csv
 import datetime
 import hashlib
 import json
+import math
 import platform
 import re
 import subprocess
@@ -46,7 +47,7 @@ import cv2
 import numpy
 
 from config import (RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
-                    picture_step_to_table, pushing_height, rod_pose_behind, step_budget_for)
+                    camera_heading_rad, picture_step_to_table, pushing_height, step_budget_for)
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
@@ -89,6 +90,42 @@ def sharpness_of(picture: numpy.ndarray) -> float:
     """Variance of the Laplacian, the same number view_camera.py shows: higher is sharper (about 100 to 150 when in focus)."""
 
     return float(cv2.Laplacian(cv2.cvtColor(picture, cv2.COLOR_BGR2GRAY), cv2.CV_64F).var())
+
+
+def rotation_from_roll_pitch_yaw(
+        roll: float,
+        pitch: float,
+        yaw: float
+) -> numpy.ndarray:
+    """The rotation matrix of pyniryo's pose angles: extrinsic rotations about x (roll), then y (pitch), then z (yaw)."""
+
+    cos_r, sin_r = math.cos(roll), math.sin(roll)
+    cos_p, sin_p = math.cos(pitch), math.sin(pitch)
+    cos_y, sin_y = math.cos(yaw), math.sin(yaw)
+    rotation_x = numpy.array([[1, 0, 0], [0, cos_r, -sin_r], [0, sin_r, cos_r]])
+    rotation_y = numpy.array([[cos_p, 0, sin_p], [0, 1, 0], [-sin_p, 0, cos_p]])
+    rotation_z = numpy.array([[cos_y, -sin_y, 0], [sin_y, cos_y, 0], [0, 0, 1]])
+    return rotation_z @ rotation_y @ rotation_x
+
+
+def roll_pitch_yaw_from_rotation(rotation: numpy.ndarray) -> Tuple[float, float, float]:
+    """The pose angles (roll, pitch, yaw) of a rotation matrix, the inverse of rotation_from_roll_pitch_yaw."""
+
+    pitch = math.asin(max(-1.0, min(1.0, -rotation[2, 0])))
+    roll = math.atan2(rotation[2, 1], rotation[2, 2])
+    yaw = math.atan2(rotation[1, 0], rotation[0, 0])
+    return roll, pitch, yaw
+
+
+def rotation_about_axis(
+        axis: numpy.ndarray,
+        angle: float
+) -> numpy.ndarray:
+    """Rodrigues' rotation matrix for ``angle`` radians about the unit vector ``axis``."""
+
+    axis = axis / numpy.linalg.norm(axis)
+    cross = numpy.array([[0, -axis[2], axis[1]], [axis[2], 0, -axis[0]], [-axis[1], axis[0], 0]])
+    return numpy.eye(3) + math.sin(angle) * cross + (1 - math.cos(angle)) * (cross @ cross)
 
 
 def drain_window_keys(most_keys: int = 50) -> int:
@@ -242,7 +279,17 @@ class EpisodeRecorder:
             "picture_left_sign": self.recorder_parameters["picture_left_sign"]
         }
 
-        self.__lower_to_start()
+        try:
+            self.__lower_to_start()
+        except Exception as error:
+            # Seen on 31.10.26: a start 12 cm from the base axis cannot be reached with the rod vertical. Say so, lift
+            # what was reached and go back to the prompt instead of crashing with the robot low over the sheet.
+            print(f"cannot reach the start pose ({error}). Move the sheet so the line start is at least about 16 cm "
+                  f"from the base, teach it again with teach_sheet_start.py, and restart with the new --start-x and --start-y.")
+            summary["status"] = "start_unreachable"
+            self.__lift()
+            return self.__finish_episode(episode_folder, summary, [])
+
         if mode == "hand_guided":
             guided_path = self.__record_guided_path(episode_folder)
             if guided_path is None:
@@ -292,6 +339,24 @@ class EpisodeRecorder:
             if action in ("discard", "quit"):
                 return ("discarded" if action == "discard" else "quit"), rows
 
+            if action in self.recorder_parameters["lean_actions"]:
+                target_pose = self.__leaned_pose(state["pose"], self.recorder_parameters["lean_actions"][action])
+                if target_pose is None:
+                    print(f"refused: already leaning {self.recorder_parameters['max_lean_deg']} degrees that way")
+                    continue
+                times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
+                rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
+                try:
+                    self.robot_link.move_to(target_pose, is_linear = False)
+                except Exception as error:
+                    print(f"the robot refused that lean ({error}); choose another step")
+                    rows.pop()
+                    (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                    self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                    continue
+                move_return_time = time.time()
+                continue
+
             if action != "stop":
                 x, y = state["pose"][0], state["pose"][1]
                 step_x, step_y = picture_step_to_table(action, x, y)
@@ -306,10 +371,49 @@ class EpisodeRecorder:
                 return "completed", rows
 
             pose = state["pose"]
-            self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]])
+            try:
+                self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]])
+            except Exception as error:
+                # The robot refused the step (seen on 31.10.26 near the base: "cannot be reached with a linear
+                # trajectory"). The step did not happen, so its row and picture are taken back and the person
+                # chooses another step from the same picture; the episode goes on.
+                print(f"the robot refused that step ({error}); choose another step")
+                rows.pop()
+                (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                continue
             move_return_time = time.time()
 
         return "step_budget_reached", rows
+
+
+    def __leaned_pose(
+            self,
+            pose: List[float],
+            lean_deg: float
+    ) -> Optional[List[float]]:
+        """
+        The pose after leaning rod and camera together by ``lean_deg`` about the camera's forward axis, the rod's end
+        staying in place; None when the lean would exceed ``max_lean_deg``.
+
+        The orientation is rotated as a matrix (pyniryo's roll, pitch, yaw are extrinsic x, y, z), because at the
+        vertical rod's pitch of 90 degrees roll and yaw both spin the rod about its own axis and cannot express a lean.
+        """
+
+        x, y, z = pose[:3]
+        heading = camera_heading_rad(x, y)
+        forward_axis = numpy.array([math.cos(heading), math.sin(heading), 0.0])
+        current = rotation_from_roll_pitch_yaw(*pose[3:])
+        leaned = rotation_about_axis(forward_axis, math.radians(lean_deg)) @ current
+
+        # Niryo's tool frame points along its x axis (pitch 90 degrees = rod straight down), so the rod's own axis is
+        # the first column; its angle from straight down is the total lean.
+        rod_axis = leaned[:, 0]
+        total_lean_deg = math.degrees(math.acos(max(-1.0, min(1.0, -rod_axis[2]))))
+        if total_lean_deg > self.recorder_parameters["max_lean_deg"] + 0.5:
+            return None
+
+        return [x, y, z] + list(roll_pitch_yaw_from_rotation(leaned))
 
 
     def __handle_flag_key(
@@ -351,7 +455,7 @@ class EpisodeRecorder:
             action = self.recorder_parameters["keys"].get(key)
             if self.__handle_flag_key(action, picture_bytes, step):
                 continue
-            if action in self.recorder_parameters["actions"] or action == "discard":
+            if self.__is_executable(action):
                 return action, "human"
 
 
@@ -401,10 +505,18 @@ class EpisodeRecorder:
                     continue
                 if action == "accept":
                     return proposal, "replay"
-                if action in self.recorder_parameters["actions"] or action == "discard":
+                if self.__is_executable(action):
                     return action, "human"
 
         return replay_decider
+
+
+    def __is_executable(self, action: Optional[str]) -> bool:
+        """True for a key that ends the wait for a decision: one of the classes, a lean test key or discard."""
+
+        return (action in self.recorder_parameters["actions"]
+                or action in self.recorder_parameters["lean_actions"]
+                or action == "discard")
 
 
     @staticmethod
@@ -600,18 +712,36 @@ class EpisodeRecorder:
 
 
     def __start_pose(self) -> List[float]:
+        """
+        The rod's pose behind the puck at the start point: on the base's side of the puck along the camera's own
+        direction, which is also the picture's "forward", so the first forward step pushes the puck straight ahead.
+        """
 
-        return rod_pose_behind(self.recorder_parameters["start_point_xy"])
+        puck_x, puck_y = self.recorder_parameters["start_point_xy"]
+        heading = camera_heading_rad(puck_x, puck_y)
+        offset = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
+        x = puck_x - offset * math.cos(heading)
+        y = puck_y - offset * math.sin(heading)
+        return [x, y, pushing_height(x, y), 0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0]
 
 
     def __lower_to_start(self) -> None:
-        """Come down onto the start pose from above, so the pusher does not sweep across the sheet."""
+        """
+        Come down onto the start pose from above, so the pusher does not sweep across the sheet.
+
+        Close to the base the robot can refuse a straight-line descent ("cannot be reached with a linear trajectory",
+        seen on 31.10.26 at x = 0.12 m); the joint-wise descent is then used, a slight arc over 5 cm before any contact.
+        """
 
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
         self.robot_link.move_to(above, is_linear = False)
-        self.robot_link.move_to(start)
+        try:
+            self.robot_link.move_to(start)
+        except Exception as error:
+            print(f"straight descent refused ({error}); descending joint-wise instead")
+            self.robot_link.move_to(start, is_linear = False)
 
 
     def __lift(self) -> None:
