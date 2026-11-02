@@ -60,7 +60,11 @@ DEFAULT_BRACKET_PARAMETERS = {
     # about 120 mm above the paper at pushing height, 82 mm ahead of the rod and
     # looking 20 degrees back, it aims about 38 mm ahead of the rod axis, where
     # F aimed with 58 mm and 10 degrees (calc; the mock-up picture decides).
-    "lens_tilt_back_degrees": 22.0,
+    # 30 on 2.11.26 (afternoon), after the meander test showed that a leg running back towards the robot must be
+    # pushed from the far side of the puck, where a camera aimed ahead of the rod sees neither puck nor line. At 30
+    # degrees the picture covers from 7.8 cm behind the rod axis to 8.3 cm ahead (calc, lens 93 mm ahead and
+    # 120 mm up, 25 degree vertical half-angle): about 5 cm of line beyond the puck in both pushing directions.
+    "lens_tilt_back_degrees": 30.0,
     # Print and strength choices (Maker Space: PLA or PETG, 0.4 mm nozzle).
     "foot_thickness_x": 3.0,            # same as the ear, so the stock screws fit
     "arm_length_x": 12.0,               # foot to post, clears the cover rim

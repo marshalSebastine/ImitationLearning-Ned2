@@ -89,11 +89,14 @@ What changed (parameters in `bracket_f_design.py`, files `ned2_camera_bracket_F2
   Checked against Niryo's own forearm STL (`scripts/review_f2_clearance.py`, the design review's method): the model shows F's
   post touching the forearm at wrist +4 degrees (the robot showed -2, so the model is about 5 mm optimistic); with a 20 degree
   lean the modelled clearance at the near poses was 2 to 6 mm, with 25 degrees it is 6 to 10 mm (13 mm further out).
-- `lens_tilt_back_degrees` 22 instead of 10: the lens, now 93 mm ahead of the rod axis instead of 58, keeps aiming about 4.5 cm
-  ahead of the rod on the table (calc with the lens 120 mm above the paper). The camera-mount study's variant with a 20
+- `lens_tilt_back_degrees` 30 instead of 10 (22 in the version e-mailed at midday on 2.11): the meander test the same
+  afternoon showed that a leg running back towards the robot must be pushed from the far side of the puck, where a camera aimed
+  ahead of the rod sees neither puck nor line. At 30 degrees the picture covers from 7.8 cm behind the rod axis to 8.3 cm ahead
+  (calc: lens 93 mm ahead of the rod axis, 120 mm above the paper, 25 degree vertical half-angle), about 5 cm of line beyond
+  the puck in both pushing directions; at 22 it covered 3.6 cm behind to 9.9 ahead, half a centimetre of line behind the puck. The camera-mount study's variant with a 20
   degree lean (`G2_F_lean20` in `scripts/cam_options_results.json`) sees 100 / 100 / 100 / 91 / 89 / 89 percent of sheets 01
   to 06, slightly more than F.
-- Bounding box 78 x 34 x 90 mm (was 41 x 34 x 86), 32.1 cm3 (was 30.2). Still printed lying on its side, supports under the post.
+- Bounding box about 81 x 34 x 93 mm (was 41 x 34 x 86), 33.1 cm3 (was 30.2). Still printed lying on its side, supports under the post.
 - Expected wrist travel gained: about 25 degrees more before contact. Verify after fitting with `wrist_limit_by_hand.py`; the
   goal is contact at +18 degrees or later (the pose 14 cm from the base needs +14.6 in the model, +14.1 measured on 31.10).
 
@@ -102,8 +105,8 @@ were available on 2.11). The mesh check above stands in for that measurement; it
 20 degrees.
 
 Compromises, honestly: the camera hangs 35 mm further forward (a little more load on the wrist motor, which held F without
-error at every pose except the contact ones); the camera looks 12 degrees more towards the robot, so it sees about 2 cm
-less far ahead and the puck sits a little higher in the picture; the longer post bends a little more (12 x 16 mm PLA, fine).
+error at every pose except the contact ones); the camera looks 20 degrees more towards the robot, so it sees about 1.6 cm
+less far ahead and the puck sits nearer the middle of the picture and the puck sits a little higher in the picture; the longer post bends a little more (12 x 16 mm PLA, fine).
 Focus: at 12 cm above the paper the lens is out of focus (sharpness 10 to 39 against 160 far away); the one planned refocus
 is still to do, with the camera at pushing height.
 

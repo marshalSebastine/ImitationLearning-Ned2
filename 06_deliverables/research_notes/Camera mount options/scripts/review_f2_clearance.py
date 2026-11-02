@@ -28,7 +28,7 @@ PLATE_FACE_AHEAD_OF_ROD_AXIS_MM = 9.0
 PATTERN_CENTRE_ABOVE_JOINT5_MM = 6.0
 JOINT5_ABOVE_HAND_FACE_MM = 19.7
 CAMERA_BODY_DEPTH_MM = 25.0
-ROD_DISTANCES_M = [0.13, 0.14, 0.15, 0.16, 0.18, 0.20, 0.26, 0.42]
+ROD_DISTANCES_M = [0.13, 0.14, 0.16, 0.20, 0.42]
 
 rb.XR, rb.YR, rb.ZR = (-95, 150), (-95, 95), (-150, 75)
 
@@ -99,7 +99,8 @@ def main() -> None:
     meshes = rb.load_meshes()
     variants = {"F (printed, straight post)": {"post_lean_degrees": 0.0, "lens_tilt_back_degrees": 10.0},
                 "F2 (post leaning 20 deg)": {"post_lean_degrees": 20.0, "lens_tilt_back_degrees": 20.0},
-                "F2b (post leaning 25 deg)": {"post_lean_degrees": 25.0, "lens_tilt_back_degrees": 22.0}}
+                "F2b (post leaning 25 deg)": {"post_lean_degrees": 25.0, "lens_tilt_back_degrees": 22.0},
+                "F2c (lean 25, camera 30 back)": {"post_lean_degrees": 25.0, "lens_tilt_back_degrees": 30.0}}
     parts = {name: bracket_points(parameters) for name, parameters in variants.items()}
 
     print("clearance to the forearm mesh in mm (negative = overlap); wrist = joint 5 the pose needs")

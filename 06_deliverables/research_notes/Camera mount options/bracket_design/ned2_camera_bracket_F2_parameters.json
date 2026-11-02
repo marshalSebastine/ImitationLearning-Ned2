@@ -2,28 +2,28 @@
   "bounding_box_mm": {
     "x_forward": [
       -0.0,
-      78.38
+      80.99
     ],
     "y_up": [
       -11.0,
-      79.3
+      82.0
     ],
     "z_sideways": [
       -17.0,
       17.0
     ]
   },
-  "volume_cm3": 32.1,
+  "volume_cm3": 33.1,
   "derived_geometry": {
-    "plate_tilt_degrees": 44.4,
-    "raise_mm": 68.3,
+    "plate_tilt_degrees": 52.4,
+    "raise_mm": 71.0,
     "post_lean_degrees": 25.0,
-    "post_top_shift_mm": 34.7,
-    "lens_moves_forward_mm": 67.8,
+    "post_top_shift_mm": 35.9,
+    "lens_moves_forward_mm": 68.4,
     "lens_moves_up_mm": 54.0,
-    "lens_ahead_of_rod_axis_mm": 92.8,
+    "lens_ahead_of_rod_axis_mm": 93.4,
     "lens_above_joint5_axis_mm": 60.0,
-    "lens_tilt_degrees_forward": -22.0
+    "lens_tilt_degrees_forward": -30.0
   },
   "parameters": {
     "plate_width_z": 34.0,
@@ -38,7 +38,7 @@
     "lens_today_above_pattern_centre": 0.0,
     "lens_today_tilt_forward_degrees": 22.4,
     "lens_up_mm": 54.0,
-    "lens_tilt_back_degrees": 22.0,
+    "lens_tilt_back_degrees": 30.0,
     "foot_thickness_x": 3.0,
     "arm_length_x": 12.0,
     "post_thickness_x": 12.0,
