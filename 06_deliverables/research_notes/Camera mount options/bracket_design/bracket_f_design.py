@@ -58,7 +58,7 @@ DEFAULT_BRACKET_PARAMETERS = {
     # about 120 mm above the paper at pushing height, 82 mm ahead of the rod and
     # looking 20 degrees back, it aims about 38 mm ahead of the rod axis, where
     # F aimed with 58 mm and 10 degrees (calc; the mock-up picture decides).
-    "lens_tilt_back_degrees": 20.0,
+    "lens_tilt_back_degrees": 22.0,
     # Print and strength choices (Maker Space: PLA or PETG, 0.4 mm nozzle).
     "foot_thickness_x": 3.0,            # same as the ear, so the stock screws fit
     "arm_length_x": 12.0,               # foot to post, clears the cover rim
@@ -70,7 +70,10 @@ DEFAULT_BRACKET_PARAMETERS = {
     # degrees more travel. A point 65 mm above the joint-5 axis sweeps about
     # 22 mm over 20 degrees; a 70 mm post leaning 20 degrees moves its top back
     # edge 25 mm forward. The foot and the cross-bar stay as printed in F.
-    "post_lean_degrees": 20.0,
+    # Set to 25 after the mesh check (scripts/review_f2_clearance.py, Niryo's forearm STL): the model predicts F
+    # touching at wrist +4 degrees where the robot showed -2, so it is about 5 mm optimistic; 20 degrees left 2 to
+    # 6 mm of modelled clearance at the near poses, 25 degrees leaves 6 to 10 mm.
+    "post_lean_degrees": 25.0,
     "post_width_z": 16.0,               # narrow so a hex key reaches the foot screws
     "top_plate_thickness_x": 6.0,
     # The brace plate has a raised rounded boss around the shaft in its middle

@@ -61,12 +61,49 @@ class RobotLink:
         and the wrist motor trips (2.11.26, three times).
         """
 
+        limit = RECORDING_PARAMETERS["wrist_pitch_max_rad"]
         joints = self.robot.inverse_kinematics(PoseObject(*pose))
-        wrist = joints[4]
-        if wrist > RECORDING_PARAMETERS["wrist_pitch_max_rad"]:
-            raise RuntimeError(f"pose refused: the wrist would be at {wrist:+.3f} rad, above the bracket's safe limit of "
-                               f"{RECORDING_PARAMETERS['wrist_pitch_max_rad']} rad (the camera body would press on the forearm)")
+        if joints[4] > limit:
+            pose = self.__leaned_within_limit(pose, joints[4], limit)
         self.robot.move(PoseObject(*pose), linear = is_linear)
+
+
+    def __leaned_within_limit(
+            self,
+            pose: List[float],
+            wrist_rad: float,
+            limit: float
+    ) -> List[float]:
+        """
+        Lean the rod about the sideways axis, tip ahead of the wrist, until the wrist stays within ``limit``.
+
+        Tries both lean directions in steps of ``auto_lean_step_deg`` up to ``auto_lean_max_deg`` and keeps the first
+        orientation whose inverse kinematics put the wrist within the limit; raises when none does.
+        """
+
+        from record_episodes import rotation_from_roll_pitch_yaw, roll_pitch_yaw_from_rotation, rotation_about_axis
+
+        heading = camera_heading_rad(pose[0], pose[1])
+        sideways_axis = numpy.array([-math.sin(heading), math.cos(heading), 0.0])
+        current = rotation_from_roll_pitch_yaw(*pose[3:])
+        step = RECORDING_PARAMETERS["auto_lean_step_deg"]
+        lean = step
+        while lean <= RECORDING_PARAMETERS["auto_lean_max_deg"] + 1e-6:
+            for sign in (1.0, -1.0):
+                leaned = rotation_about_axis(sideways_axis, math.radians(sign * lean)) @ current
+                candidate = list(pose[:3]) + list(roll_pitch_yaw_from_rotation(leaned))
+                try:
+                    joints = self.robot.inverse_kinematics(PoseObject(*candidate))
+                except Exception:
+                    continue
+                if joints[4] <= limit:
+                    print(f"wrist would be at {wrist_rad:+.2f} rad (limit {limit}); leaning the rod {lean:.0f} degrees "
+                          f"so the bracket stays clear of the forearm (wrist now {joints[4]:+.2f} rad)")
+                    return candidate
+            lean += step
+
+        raise RuntimeError(f"pose refused: the wrist would be at {wrist_rad:+.3f} rad, above the bracket's safe limit of "
+                           f"{limit} rad, and no lean up to {RECORDING_PARAMETERS['auto_lean_max_deg']} degrees brings it within")
 
 
     def move_home(self, home_joints: List[float]) -> None:

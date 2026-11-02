@@ -22,7 +22,8 @@ PARK_PARAMETERS = {
     "velocity_percent": ROBOT_PARAMETERS["arm_max_velocity_percent"],
     "home_joints": RECORDING_PARAMETERS["home_joints"],
     "approach_height_m": RECORDING_PARAMETERS["approach_height_m"],
-    "tip_xy": [0.22, 0.0]
+    # 26 cm out: with bracket F the wrist is then at about -10 degrees, clear of the forearm (2.11.26).
+    "tip_xy": [0.26, 0.0]
 }
 
 

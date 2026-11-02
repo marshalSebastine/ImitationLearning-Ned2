@@ -281,6 +281,12 @@ RECORDING_PARAMETERS = {
     # out of reach with this bracket. RobotLink refuses any pose whose inverse kinematics put joint 5 above this value;
     # find_wrist_limit.py prints where the usable range begins.
     "wrist_pitch_max_rad": -0.09,
+    # Automatic lean (2.11.26, Emranul's test on sheet 01 with bracket F): where a vertical rod would need the wrist
+    # above the limit, RobotLink leans the rod about the sideways axis, tip ahead of the wrist, in steps of
+    # "auto_lean_step_deg" up to "auto_lean_max_deg", until the wrist is within the limit; the camera tilts with it
+    # (looks further ahead) and the magnet tip shifts about 4.5 mm per 10 degrees. Logged by the terminal line.
+    "auto_lean_step_deg": 5.0,
+    "auto_lean_max_deg": 25.0,
     "guided_path_sample_m": 0.002,
     "guided_path_poll_s": 0.05,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the

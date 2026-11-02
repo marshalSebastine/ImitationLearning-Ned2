@@ -80,21 +80,25 @@ the rod can push only from about 25 cm out to the table edge; sheet 01's line do
 
 What changed (parameters in `bracket_f_design.py`, files `ned2_camera_bracket_F2.*`):
 
-- `post_lean_degrees` 20 (new): the post is a parallelogram leaning forward, its top 27 mm further forward than its foot. The
+- `post_lean_degrees` 25 (new): the post is a parallelogram leaning forward, its top 35 mm further forward than its foot. The
   foot, the legs, the cross-bar and both hole patterns are unchanged, so patterns A and B of the paper test still apply.
-- `lens_tilt_back_degrees` 20 instead of 10: the lens, now 85 mm ahead of the rod axis instead of 58, keeps aiming about 4 cm
+  Checked against Niryo's own forearm STL (`scripts/review_f2_clearance.py`, the design review's method): the model shows F's
+  post touching the forearm at wrist +4 degrees (the robot showed -2, so the model is about 5 mm optimistic); with a 20 degree
+  lean the modelled clearance at the near poses was 2 to 6 mm, with 25 degrees it is 6 to 10 mm (13 mm further out).
+- `lens_tilt_back_degrees` 22 instead of 10: the lens, now 93 mm ahead of the rod axis instead of 58, keeps aiming about 4.5 cm
   ahead of the rod on the table (calc with the lens 120 mm above the paper). The camera-mount study's variant with a 20
   degree lean (`G2_F_lean20` in `scripts/cam_options_results.json`) sees 100 / 100 / 100 / 91 / 89 / 89 percent of sheets 01
   to 06, slightly more than F.
-- Bounding box 70 x 34 x 90 mm (was 41 x 34 x 86), 31.7 cm3 (was 30.2). Still printed lying on its side, supports under the post.
-- Expected wrist travel gained: 20 degrees more before contact (calc from the sweep of a point 65 mm above the joint-5 axis).
-  Verify after fitting with `wrist_limit_by_hand.py`; the goal is contact at +18 degrees or later.
+- Bounding box 78 x 34 x 90 mm (was 41 x 34 x 86), 32.1 cm3 (was 30.2). Still printed lying on its side, supports under the post.
+- Expected wrist travel gained: about 25 degrees more before contact. Verify after fitting with `wrist_limit_by_hand.py`; the
+  goal is contact at +18 degrees or later (the pose 14 cm from the base needs +14.6 in the model, +14.1 measured on 31.10).
 
-What is NOT changed and still assumed: the cover rim's distance in front of the brace face (assumed under 12 mm, never
-measured with calipers); measure it before sending, because it decides whether 20 degrees of lean is enough.
+What is NOT changed and still assumed: the cover rim's distance in front of the brace face (assumed under 12 mm; no calipers
+were available on 2.11). The mesh check above stands in for that measurement; its 5 mm optimism is the reason for 25 instead of
+20 degrees.
 
-Compromises, honestly: the camera hangs 27 mm further forward (a little more load on the wrist motor, which held F without
-error at every pose except the contact ones); the camera looks 10 degrees more towards the robot, so it sees about 2 cm
+Compromises, honestly: the camera hangs 35 mm further forward (a little more load on the wrist motor, which held F without
+error at every pose except the contact ones); the camera looks 12 degrees more towards the robot, so it sees about 2 cm
 less far ahead and the puck sits a little higher in the picture; the longer post bends a little more (12 x 16 mm PLA, fine).
 Focus: at 12 cm above the paper the lens is out of focus (sharpness 10 to 39 against 160 far away); the one planned refocus
 is still to do, with the camera at pushing height.

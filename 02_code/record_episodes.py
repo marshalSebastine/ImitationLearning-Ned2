@@ -370,7 +370,10 @@ class EpisodeRecorder:
             if action == "stop":
                 return "completed", rows
 
-            pose = state["pose"]
+            # The rod is asked to be vertical at every step (the start pose's orientation); if the bracket's wrist
+            # limit forbids that near the base, RobotLink leans it just enough and says so (2.11.26). A lean from the
+            # y / c test keys therefore lasts one step only.
+            pose = self.__start_pose()
             try:
                 self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]])
             except Exception as error:
