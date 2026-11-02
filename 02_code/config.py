@@ -26,6 +26,9 @@ ROBOT_PARAMETERS = {
 # from there the puck stays at the bottom of every picture over the whole line (scripted push).
 # Reference picture 03_data/raw/camera_check/view_reference_rod_camera_start_pose.jpg. Do not touch
 # the camera or its focus ring. Calibration: only the automatic one after a restart, never manual.
+# 2.11.26: camera on bracket F (lens about 12 cm above the paper at pushing height); the one planned refocus was done
+# at that distance: sharpness 416 at pushing height, 287 seven centimetres higher (focus_sweep.py). Do not touch the
+# ring again unless the mount changes its distance to the paper.
 CAMERA_PARAMETERS = {
     "source": "robot",
     "usb_index": 1,
