@@ -308,7 +308,9 @@ RECORDING_PARAMETERS = {
     # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
     # picture from column about 150 to about 430, i.e. the picture content moved RIGHT, so picture-left is
     # counter-clockwise from the camera heading seen from above and this sign is 1.
-    # UNTESTED for bracket F (fitted 2.11.26): the direction test of 2.11 must confirm it again.
+    # TESTED again for bracket F on 2.11.26 (session 2026-11-02_session_01_emranul, path_04_meander_episode_013, steps 1
+    # to 3): three left steps moved the tip by +0.9 cm in y each and the line's end in the picture from column about
+    # 300 to about 450, i.e. the content moved RIGHT: the sign stays 1 with bracket F.
     "picture_left_sign": 1,
     "raw_folder": "03_data/raw"
 }
