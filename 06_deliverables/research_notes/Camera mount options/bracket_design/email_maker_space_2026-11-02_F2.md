@@ -11,7 +11,7 @@ Hi Julian,
 thank you for printing our camera bracket last week; it fits the robot and the camera, and the pictures are good.
 We found one flaw when it was on the arm: the straight post touches the robot's forearm cover whenever the wrist
 tilts up, which the robot needs for pushing close to its base. The attached version F2 fixes this with the post
-leaning forward by 25 degrees; the foot, the holes and the camera plate are unchanged. Could you print it as a
+leaning forward by 25 degrees and the screw holes 1 mm further apart (27 mm, as in Niryo's drawing); otherwise it is the same part. Could you print it as a
 corrective reprint?
 
 - File: TeamM_Project6_ned2_camera_bracket_F2.3mf (millimetres, 1:1; the STEP as a fallback)
@@ -36,7 +36,7 @@ Hallo Julian,
 vielen Dank für den Druck unseres Kamerahalters letzte Woche; er passt an den Roboter und an die Kamera, und die Bilder
 sind gut. Am Arm hat sich ein Fehler gezeigt: der gerade Steg berührt die Unterarm-Abdeckung des Roboters, sobald das
 Handgelenk nach oben kippt, was der Roboter zum Schieben nahe an seinem Sockel braucht. Die angehängte Version F2
-behebt das mit einem um 25 Grad nach vorn geneigten Steg; Fuß, Löcher und Kameraplatte sind unverändert. Könntet ihr
+behebt das mit einem um 25 Grad nach vorn geneigten Steg und 1 mm weiter auseinander liegenden Schraubenlöchern (27 mm, wie in Niryos Zeichnung); sonst ist es dasselbe Teil. Könntet ihr
 sie als Korrekturdruck drucken?
 
 - Datei: TeamM_Project6_ned2_camera_bracket_F2.3mf (Millimeter, 1:1; zur Sicherheit auch als STEP)

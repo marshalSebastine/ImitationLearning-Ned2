@@ -28,7 +28,7 @@
   "parameters": {
     "plate_width_z": 34.0,
     "plate_height_y": 22.0,
-    "hole_spacing_z": 26.0,
+    "hole_spacing_z": 27.0,
     "screw_thread_diameter": 2.5,
     "screw_head_diameter": 4.5,
     "hole_spacing_y": 16.0,

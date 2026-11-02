@@ -80,6 +80,10 @@ the rod can push only from about 25 cm out to the table edge; sheet 01's line do
 
 What changed (parameters in `bracket_f_design.py`, files `ned2_camera_bracket_F2.*`):
 
+- `hole_spacing_z` 27 instead of 26: Niryo's CAD of the holder (check of 30.10) gives 27.0 mm between the screw holes and
+  between the pin holes; fitting F on 2.11 the screws were hard to get in (Emranul: 0.5 to 1.5 mm more would be better), so
+  the CAD wins over the 28.10 caliper reading. Applies to the foot (brace holes) and the top plate (holder holes); pattern
+  A and B of the F2 paper test are therefore new and must be held on the brace and the holder before sending.
 - `post_lean_degrees` 25 (new): the post is a parallelogram leaning forward, its top 35 mm further forward than its foot. The
   foot, the legs, the cross-bar and both hole patterns are unchanged, so patterns A and B of the paper test still apply.
   Checked against Niryo's own forearm STL (`scripts/review_f2_clearance.py`, the design review's method): the model shows F's

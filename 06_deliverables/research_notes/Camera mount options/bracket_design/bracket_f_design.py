@@ -34,7 +34,9 @@ DEFAULT_BRACKET_PARAMETERS = {
     # Measured on the robot by Emranul, 28.10.26 (measurement_hour_sheet.md).
     "plate_width_z": 34.0,              # brace plate 34.0 to 34.2 wide
     "plate_height_y": 22.0,             # brace plate 22.0 to 22.5 tall
-    "hole_spacing_z": 26.0,             # holder ear holes, centre to centre
+    # F2 (2.11.26): 27.0 as in Niryo's CAD of the holder (cad check of 30.10), not the 26 the calipers gave on 28.10;
+    # fitting F on 2.11 Emranul found the screws hard to get in and wanted 0.5 to 1.5 mm more between the holes.
+    "hole_spacing_z": 27.0,             # holder ear holes and brace holes, centre to centre
     "screw_thread_diameter": 2.5,       # M2.5 x 6, 2 mm hex key
     "screw_head_diameter": 4.5,         # typical M2.5 socket head (assumed)
     # Assumed until measured (ask for them before printing).
