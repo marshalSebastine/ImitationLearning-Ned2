@@ -110,6 +110,8 @@ less far ahead and the puck sits nearer the middle of the picture and the puck s
 Focus: at 12 cm above the paper the lens is out of focus (sharpness 10 to 39 against 160 far away); the one planned refocus
 is still to do, with the camera at pushing height.
 
-Files for the Maker Space: `ned2_camera_bracket_F2.3mf` (preferred) and `.step`, millimetres, 1:1. Paper test:
+Files for the Maker Space: the folder `current_version_F3/` (sent on 2.11 as "current_version_F3", which is this F2 design
+with the 30 degree camera plate; the earlier `F2/` folder with the 22 degree plate was e-mailed at midday and withdrawn).
+Source files: `ned2_camera_bracket_F2.3mf` (preferred) and `.step`, millimetres, 1:1. Paper test:
 `ned2_camera_bracket_F2_paper_test.pdf` (pattern C is the new side outline). Views: `ned2_camera_bracket_F2_views.png`,
 `ned2_camera_bracket_F2_side_view.png`.

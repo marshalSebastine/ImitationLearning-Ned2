@@ -41,16 +41,18 @@ Team M, AI Project (Projekt 6)
 
 Sent by Emranul on 2.11.26 around midday, English version, 3MF and STEP attached. Reply: (none yet).
 
-## Follow-up (2.11.26, afternoon): camera plate angle changed, same part otherwise
+## Follow-up (2.11.26, afternoon): camera plate angle changed, sent as "current_version_F3"
 
-Attach: the F2 folder's two files again (regenerated at 16:33 with the camera plate 30 degrees back instead of 22).
+Attach: the two files in `current_version_F3/` (the same part as F2 with the camera plate 30 degrees back instead of 22;
+named F3 for Julian so the two e-mails cannot be confused).
 
 **Subject:** Re: Team M (Project 6): corrective reprint of our camera bracket
 
 Hi Julian,
 
-sorry, one more small change before you print: the attached file replaces the one from this morning. It is the same part;
-only the small plate at the top that holds the camera is angled a little differently. Same size, material and settings.
+please ignore my previous e-mail. Attached is the current version of the part, named current_version_F3; it replaces
+the file from this morning. It is the same part, only the small plate at the top that holds the camera is angled a
+little differently. Same size, material and settings as before.
 
 Thank you again, and apologies for the back-and-forth.
 
