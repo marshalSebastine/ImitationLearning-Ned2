@@ -69,3 +69,36 @@ lab; nothing to buy.
 Edit `DEFAULT_BRACKET_PARAMETERS` in `bracket_f_design.py` (for example `lens_up_mm`, `lens_tilt_back_degrees`,
 `hole_spacing_y`) and run the script; the 3MF, STEP, STL, the side-view picture and the parameter JSON are rewritten. Then run
 `paper_test.py` for the PDF.
+
+## F2: the corrective version of 2.11.26 (leaning post)
+
+Why: F was fitted on 2.11.26 (Emranul and Marshal). It mounts and the pictures are good, but the back of its straight post
+meets the forearm cover when the wrist (joint 5) is tilted up to -2 degrees (measured by hand with the motors off,
+`02_code/wrist_limit_by_hand.py`). The pushing pose nearest the base (rod 14 cm out) needs the wrist at +14 degrees, so with F
+the rod can push only from about 25 cm out to the table edge; sheet 01's line does not fit. The wrist motor tripped
+(hardware error 32) three times before this was understood. Details: `03_data/raw/camera_check/2026-11-02_bracket_F_notes.md`.
+
+What changed (parameters in `bracket_f_design.py`, files `ned2_camera_bracket_F2.*`):
+
+- `post_lean_degrees` 20 (new): the post is a parallelogram leaning forward, its top 27 mm further forward than its foot. The
+  foot, the legs, the cross-bar and both hole patterns are unchanged, so patterns A and B of the paper test still apply.
+- `lens_tilt_back_degrees` 20 instead of 10: the lens, now 85 mm ahead of the rod axis instead of 58, keeps aiming about 4 cm
+  ahead of the rod on the table (calc with the lens 120 mm above the paper). The camera-mount study's variant with a 20
+  degree lean (`G2_F_lean20` in `scripts/cam_options_results.json`) sees 100 / 100 / 100 / 91 / 89 / 89 percent of sheets 01
+  to 06, slightly more than F.
+- Bounding box 70 x 34 x 90 mm (was 41 x 34 x 86), 31.7 cm3 (was 30.2). Still printed lying on its side, supports under the post.
+- Expected wrist travel gained: 20 degrees more before contact (calc from the sweep of a point 65 mm above the joint-5 axis).
+  Verify after fitting with `wrist_limit_by_hand.py`; the goal is contact at +18 degrees or later.
+
+What is NOT changed and still assumed: the cover rim's distance in front of the brace face (assumed under 12 mm, never
+measured with calipers); measure it before sending, because it decides whether 20 degrees of lean is enough.
+
+Compromises, honestly: the camera hangs 27 mm further forward (a little more load on the wrist motor, which held F without
+error at every pose except the contact ones); the camera looks 10 degrees more towards the robot, so it sees about 2 cm
+less far ahead and the puck sits a little higher in the picture; the longer post bends a little more (12 x 16 mm PLA, fine).
+Focus: at 12 cm above the paper the lens is out of focus (sharpness 10 to 39 against 160 far away); the one planned refocus
+is still to do, with the camera at pushing height.
+
+Files for the Maker Space: `ned2_camera_bracket_F2.3mf` (preferred) and `.step`, millimetres, 1:1. Paper test:
+`ned2_camera_bracket_F2_paper_test.pdf` (pattern C is the new side outline). Views: `ned2_camera_bracket_F2_views.png`,
+`ned2_camera_bracket_F2_side_view.png`.

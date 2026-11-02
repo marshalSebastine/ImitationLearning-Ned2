@@ -53,11 +53,24 @@ DEFAULT_BRACKET_PARAMETERS = {
     # lens 51 mm ahead of the rod axis, 60 mm above the joint-5 axis, looking
     # 10 degrees back towards the robot.  Expressed as the change from today.
     "lens_up_mm": 54.0,                 # 60 - 6
-    "lens_tilt_back_degrees": 10.0,     # target: 10 degrees towards the robot
+    # F2 (2.11.26): 20 degrees instead of 10, so the lens, which the leaning post
+    # carries about 24 mm further forward, still aims at the puck: with the lens
+    # about 120 mm above the paper at pushing height, 82 mm ahead of the rod and
+    # looking 20 degrees back, it aims about 38 mm ahead of the rod axis, where
+    # F aimed with 58 mm and 10 degrees (calc; the mock-up picture decides).
+    "lens_tilt_back_degrees": 20.0,
     # Print and strength choices (Maker Space: PLA or PETG, 0.4 mm nozzle).
     "foot_thickness_x": 3.0,            # same as the ear, so the stock screws fit
     "arm_length_x": 12.0,               # foot to post, clears the cover rim
     "post_thickness_x": 12.0,           # camera moves forward by arm + post
+    # F2 (2.11.26): the post leans forward by this angle. Measured on the robot
+    # with F fitted: the back of the straight post meets the forearm cover when
+    # the wrist (joint 5) is tilted up to -2 degrees; the pushing pose nearest
+    # the base (rod 14 cm out) needs +14 degrees, so +18 with margin, i.e. 20
+    # degrees more travel. A point 65 mm above the joint-5 axis sweeps about
+    # 22 mm over 20 degrees; a 70 mm post leaning 20 degrees moves its top back
+    # edge 25 mm forward. The foot and the cross-bar stay as printed in F.
+    "post_lean_degrees": 20.0,
     "post_width_z": 16.0,               # narrow so a hex key reaches the foot screws
     "top_plate_thickness_x": 6.0,
     # The brace plate has a raised rounded boss around the shaft in its middle
@@ -104,10 +117,15 @@ def derived_geometry(p: dict) -> dict:
     rotated_x = offset_x * math.cos(angle) + offset_y * math.sin(angle)
     rotated_y = -offset_x * math.sin(angle) + offset_y * math.cos(angle)
     raise_mm = p["lens_up_mm"] + (offset_y - rotated_y)
-    lens_forward_change = post_front_x + p["top_plate_thickness_x"] + rotated_x - offset_x
+    # The leaning post carries its top, and with it the top plate, forward.
+    post_height = raise_mm + half_height - p["open_above_y"]
+    post_top_shift = post_height * math.tan(math.radians(p.get("post_lean_degrees", 0.0)))
+    lens_forward_change = post_front_x + post_top_shift + p["top_plate_thickness_x"] + rotated_x - offset_x
     return {
         "plate_tilt_degrees": round(plate_tilt, 1),
         "raise_mm": round(raise_mm, 1),
+        "post_lean_degrees": p.get("post_lean_degrees", 0.0),
+        "post_top_shift_mm": round(post_top_shift, 1),
         "lens_moves_forward_mm": round(lens_forward_change, 1),
         "lens_moves_up_mm": p["lens_up_mm"],
         "lens_ahead_of_rod_axis_mm": round(25.0 + lens_forward_change, 1),
@@ -144,6 +162,10 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
     top_plate_centre_y = geometry["raise_mm"]
     post_top_y = top_plate_centre_y + half_height
     tilt = math.radians(geometry["plate_tilt_degrees"])
+    # F2: the post leans forward, so everything above it (top plate, wedge, camera)
+    # sits post_top_shift further forward than the post's foot.
+    shift = geometry["post_top_shift_mm"]
+    top_front_x = post_front_x + shift
 
     # Foot: a 3 mm plate on the brace face with two clearance holes for the
     # stock screws; its middle is cut away below (pocket) for the plate's boss.
@@ -187,10 +209,15 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
     # Post: rises from the cross-bar to the top plate; narrow, so the hex key
     # reaches the foot screws beside it.
     post_bottom_y = p["open_above_y"]
+    # A parallelogram: straight for F (shift 0), leaning forward for F2.
     post = (
         cadquery.Workplane("XY")
-        .center((post_back_x + post_front_x) / 2.0, (post_bottom_y + post_top_y) / 2.0)
-        .rect(p["post_thickness_x"], post_top_y - post_bottom_y)
+        .polyline([
+            (post_back_x, post_bottom_y),
+            (post_front_x, post_bottom_y),
+            (post_front_x + shift, post_top_y),
+            (post_back_x + shift, post_top_y),
+        ]).close()
         .extrude(p["post_width_z"] / 2.0, both = True)
     )
 
@@ -199,7 +226,7 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
     # lower pair takes the holder's two locating pins (blind).
     top_plate = (
         cadquery.Workplane("YZ")
-        .workplane(offset = post_front_x)
+        .workplane(offset = top_front_x)
         .center(top_plate_centre_y, 0.0)
         .rect(p["plate_height_y"], p["plate_width_z"])
         .extrude(p["top_plate_thickness_x"])
@@ -213,19 +240,24 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
         .pushPoints([(top_plate_centre_y - hole_y, -hole_z), (top_plate_centre_y - hole_y, hole_z)])
         .hole(p["pin_diameter"] + p["pin_hole_extra"], depth = p["top_plate_thickness_x"] - 1.5)
     )
-    pivot = cadquery.Vector(post_front_x, top_plate_centre_y - half_height, 0.0)
+    pivot = cadquery.Vector(top_front_x, top_plate_centre_y - half_height, 0.0)
     # Negative angle: the plate's top leans forward, so the holder's lens, which
     # looks down (-y), turns back towards the rod (-x).
     top_plate = top_plate.rotate(pivot, pivot + cadquery.Vector(0, 0, 1), -geometry["plate_tilt_degrees"])
 
-    # A wedge filling the gap between the straight post and the leaning plate.
+    # A wedge filling the gap between the post's front and the leaning plate.
+    # Its lower corner sits where the post's front face is at the plate's
+    # bottom edge, which for a leaning post lies a little behind top_front_x.
+    plate_bottom_y = top_plate_centre_y - half_height
+    lean = math.radians(p.get("post_lean_degrees", 0.0))
+    front_at_plate_bottom = post_front_x + (plate_bottom_y - post_bottom_y) * math.tan(lean)
     wedge = (
         cadquery.Workplane("XY")
         .polyline([
-            (post_front_x, top_plate_centre_y - half_height),
-            (post_front_x, post_top_y),
-            (post_front_x + p["plate_height_y"] * math.sin(tilt),
-             top_plate_centre_y - half_height + p["plate_height_y"] * math.cos(tilt)),
+            (front_at_plate_bottom, plate_bottom_y),
+            (top_front_x, post_top_y),
+            (top_front_x + p["plate_height_y"] * math.sin(tilt),
+             plate_bottom_y + p["plate_height_y"] * math.cos(tilt)),
         ]).close()
         .extrude(p["post_width_z"] / 2.0, both = True)
     )
@@ -277,8 +309,9 @@ def draw_side_view(parameters: dict, stem: str = "ned2_camera_bracket_F") -> str
     geometry = derived_geometry(p)
     half_height = p["plate_height_y"] / 2.0
     post_front_x = p["arm_length_x"] + p["post_thickness_x"]
+    shift = geometry["post_top_shift_mm"]
     centre_y = geometry["raise_mm"]
-    pivot = (post_front_x, centre_y - half_height)
+    pivot = (post_front_x + shift, centre_y - half_height)
     angle = -geometry["plate_tilt_degrees"]
 
     figure, axis = pyplot.subplots(figsize = (6, 8))
@@ -288,16 +321,18 @@ def draw_side_view(parameters: dict, stem: str = "ned2_camera_bracket_F") -> str
     axis.add_patch(pyplot.Rectangle((0, -half_height), p["pocket_depth_x"], p["plate_height_y"], color = "white", alpha = 0.5,
                                     hatch = "//", edgecolor = "grey"))
     axis.text(1, -half_height - 3, "open in the middle\nfor the plate's boss", fontsize = 7, color = "grey", va = "top")
-    axis.add_patch(pyplot.Rectangle((p["arm_length_x"], p["open_above_y"]), p["post_thickness_x"],
-                                    centre_y - p["open_above_y"], color = "tab:blue"))
+    post_top_y = centre_y + half_height
+    axis.add_patch(pyplot.Polygon([
+        (p["arm_length_x"], p["open_above_y"]), (post_front_x, p["open_above_y"]),
+        (post_front_x + shift, post_top_y), (p["arm_length_x"] + shift, post_top_y)], color = "tab:blue"))
     axis.add_patch(pyplot.Rectangle(pivot, p["top_plate_thickness_x"], p["plate_height_y"],
                                     angle = angle, rotation_point = pivot, color = "tab:blue"))
     # Camera as today: its lens face lies along x (53 long), the case 31 tall
     # above it; drawn in the plate's frame and rotated with the plate.
-    case_x = post_front_x + p["top_plate_thickness_x"] + p["ear_thickness"]
+    case_x = post_front_x + shift + p["top_plate_thickness_x"] + p["ear_thickness"]
     axis.add_patch(pyplot.Rectangle((case_x, centre_y - half_height), 53.1, 31.0,
                                     angle = angle, rotation_point = pivot, color = "black", alpha = 0.6))
-    lens_x = post_front_x + p["top_plate_thickness_x"] + p["lens_today_ahead_of_brace_face"]
+    lens_x = post_front_x + shift + p["top_plate_thickness_x"] + p["lens_today_ahead_of_brace_face"]
     lens_y = centre_y + p["lens_today_above_pattern_centre"]
     a = math.radians(angle)
     lx = pivot[0] + (lens_x - pivot[0]) * math.cos(a) - (lens_y - pivot[1]) * math.sin(a)
@@ -306,17 +341,18 @@ def draw_side_view(parameters: dict, stem: str = "ned2_camera_bracket_F") -> str
     look = math.radians(geometry["lens_tilt_degrees_forward"])
     axis.annotate("", xy = (lx + 40 * math.sin(look), ly - 40 * math.cos(look)), xytext = (lx, ly),
                   arrowprops = {"arrowstyle": "->", "color": "red"})
-    axis.text(lx + 3, ly + 3, "lens: looks down,\n10 deg back", color = "red", fontsize = 8)
+    axis.text(lx + 3, ly + 3, f"lens: looks down,\n{p['lens_tilt_back_degrees']:.0f} deg back", color = "red", fontsize = 8)
     axis.axvline(0, color = "grey", linestyle = "--")
     axis.text(-1.5, 125, "metal plate face (wrist)", rotation = 90, ha = "right", va = "top", color = "grey")
     axis.axvline(-9.0, color = "grey", linestyle = ":")
     axis.text(-10.5, 125, "rod axis (Niryo STEP)", rotation = 90, ha = "right", va = "top", color = "grey", fontsize = 8)
-    axis.set_xlim(-30, 90)
+    axis.set_xlim(-30, 120)
     axis.set_ylim(-35, 130)
     axis.set_aspect("equal")
     axis.set_xlabel("x: forward from the metal plate face (mm)")
     axis.set_ylabel("y: up from the screw-pattern centre (mm)")
-    axis.set_title(f"Bracket F: plate {centre_y:.0f} mm up, {post_front_x:.0f} mm forward, leaning {-angle:.0f} deg", fontsize = 10)
+    axis.set_title(f"Bracket {stem[-2:]}: plate {centre_y:.0f} mm up, post leaning {p.get('post_lean_degrees', 0):.0f} deg, "
+                   f"top {post_front_x + shift:.0f} mm forward, plate {-angle:.0f} deg", fontsize = 9)
     path = OUTPUT_DIRECTORY / f"{stem}_side_view.png"
     figure.tight_layout()
     figure.savefig(path, dpi = 150)
@@ -324,8 +360,10 @@ def draw_side_view(parameters: dict, stem: str = "ned2_camera_bracket_F") -> str
 
 
 if __name__ == "__main__":
+    # F2 = the corrective version of 2.11.26 (leaning post); the printed F keeps its files.
+    STEM = "ned2_camera_bracket_F2"
     parameters = dict(DEFAULT_BRACKET_PARAMETERS)
     bracket = build_bracket(parameters)
-    summary = export_bracket(bracket, parameters)
-    summary["side_view"] = draw_side_view(parameters)
+    summary = export_bracket(bracket, parameters, stem = STEM)
+    summary["side_view"] = draw_side_view(parameters, stem = STEM)
     print(json.dumps({key: value for key, value in summary.items() if key != "parameters"}, indent = 2))

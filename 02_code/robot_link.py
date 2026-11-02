@@ -16,8 +16,8 @@ import cv2
 import numpy
 from pyniryo import JointsPosition, NiryoRobot, PoseObject
 
-from config import (CAMERA_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, ROBOT_PARAMETERS, WORKSPACE_PARAMETERS,
-                    camera_heading_rad, pushing_height, start_pose)
+from config import (CAMERA_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS,
+                    WORKSPACE_PARAMETERS, camera_heading_rad, pushing_height, start_pose)
 
 
 class RobotLink:
@@ -39,6 +39,12 @@ class RobotLink:
         """
 
         self.robot = NiryoRobot(ip_address)
+        # Seen on 2.11.26: with "calibration needed" the robot acknowledges every move and performs none, so a whole
+        # test ran with the arm standing still. Refuse to start rather than record nothing.
+        if self.robot.need_calibration():
+            self.robot.close_connection()
+            raise RuntimeError("the robot needs its automatic calibration first (run calibrate_robot.py); "
+                               "until then it accepts moves without performing them")
         self.robot.set_arm_max_velocity(velocity_percent)
 
 
@@ -47,8 +53,19 @@ class RobotLink:
             pose: List[float],
             is_linear: bool = True
     ) -> None:
-        """Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished."""
+        """
+        Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished.
 
+        Refuses the pose when the robot's own inverse kinematics put the wrist (joint 5) above
+        ``RECORDING_PARAMETERS["wrist_pitch_max_rad"]``: with bracket F the camera body then presses on the forearm
+        and the wrist motor trips (2.11.26, three times).
+        """
+
+        joints = self.robot.inverse_kinematics(PoseObject(*pose))
+        wrist = joints[4]
+        if wrist > RECORDING_PARAMETERS["wrist_pitch_max_rad"]:
+            raise RuntimeError(f"pose refused: the wrist would be at {wrist:+.3f} rad, above the bracket's safe limit of "
+                               f"{RECORDING_PARAMETERS['wrist_pitch_max_rad']} rad (the camera body would press on the forearm)")
         self.robot.move(PoseObject(*pose), linear = is_linear)
 
 

@@ -270,7 +270,17 @@ RECORDING_PARAMETERS = {
         "path_06_alpha_loop_dashed": 57
     },
     "approach_height_m": 0.05,
-    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    # Parking pose. Changed 2.11.26 with bracket F: at the old pose (wrist joint 5 at 0.0) the bracket stops the wrist
+    # about 2 degrees before 0, the motor pushed against that stop and raised hardware error 32 (overload) twice,
+    # 10 to 15 s after arriving. With the wrist tilted down to -0.3 rad the pose held for 60 s with zero errors and
+    # 0.1 degree of drift (hold_test.py). Rule: never command the wrist (joint 5) above about -0.05 rad with the bracket.
+    "home_joints": [0.0, 0.5, -1.25, 0.0, -0.3, 0.0],
+    # The wrist's safe range with bracket F. Measured by hand on 2.11.26 (wrist_limit_by_hand.py, motors off): the
+    # bracket's camera body meets the forearm at joint 5 = -0.035 rad (-2 degrees); with 3 degrees of margin the limit
+    # is -0.09 rad. At the pushing pose 14 cm from the base the robot needs the wrist at about 0 rad, so that pose is
+    # out of reach with this bracket. RobotLink refuses any pose whose inverse kinematics put joint 5 above this value;
+    # find_wrist_limit.py prints where the usable range begins.
+    "wrist_pitch_max_rad": -0.09,
     "guided_path_sample_m": 0.002,
     "guided_path_poll_s": 0.05,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
@@ -279,12 +289,17 @@ RECORDING_PARAMETERS = {
     "sheet_margin_m": 0.02,
     # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
-    "camera_mount": "stock_wrist_holder",
-    "mapping_version": "picture_frame_v1_stock_wrist_2026-10-28",
+    # Bracket F fitted on 2.11.26 (Emranul and Marshal): the camera sits about 5 cm ahead of the rod axis and 6 cm above
+    # the wrist axis, looking nearly straight down; lens about 12 cm above the paper at pushing height; sharpness 160 to
+    # 172 at every height tried, no refocus. The picture's forward direction and left sign are re-tested in the
+    # direction test of the same day; see the mapping version below.
+    "camera_mount": "bracket_F",
+    "mapping_version": "picture_frame_v2_bracket_F_2026-11-02",
     # TESTED 31.10.26 on the robot with the stock wrist holder (Emranul, session 2026-10-31_session_01_emranul,
     # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
     # picture from column about 150 to about 430, i.e. the picture content moved RIGHT, so picture-left is
-    # counter-clockwise from the camera heading seen from above and this sign is 1. Re-test after any mount change.
+    # counter-clockwise from the camera heading seen from above and this sign is 1.
+    # UNTESTED for bracket F (fitted 2.11.26): the direction test of 2.11 must confirm it again.
     "picture_left_sign": 1,
     "raw_folder": "03_data/raw"
 }
