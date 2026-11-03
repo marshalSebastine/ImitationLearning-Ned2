@@ -61,4 +61,25 @@ Emranul Hoque
 
 ### Sent
 
+Sent by Emranul on 2.11.26 in the afternoon. Reply from Julian on 3.11 (morning): the model has a gap at the top (plate not joined to the post) and cannot print; corrected file wanted by about 10:00 for a print by about 12:00.
+
+## 3.11.26, morning: corrected file after Julian's screenshot
+
+Cause: the wedge between the leaning post and the camera plate was drawn with three corners from the post's front face;
+with the plate at 52 degrees it touched the plate only at one corner, so the slicer saw two bodies. Fix in
+`bracket_f_design.py`: the wedge reaches 3 mm into the post and 1.5 mm into the plate (volume overlap), checked as one
+solid for F, F2 and F3. Files in `current_version_F3/` regenerated 09:03.
+
+**Subject:** Re: Team M (Project 6): corrective reprint of our camera bracket
+
+Hi Julian,
+
+thank you for catching that, and sorry. The top plate was not joined to the post in the file. Attached is the corrected
+file, now one solid body; everything else is unchanged.
+
+Kind regards
+Emranul Hoque
+
+### Sent
+
 (not yet)

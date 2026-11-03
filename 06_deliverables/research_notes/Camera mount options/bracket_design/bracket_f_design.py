@@ -260,14 +260,26 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
     plate_bottom_y = top_plate_centre_y - half_height
     lean = math.radians(p.get("post_lean_degrees", 0.0))
     front_at_plate_bottom = post_front_x + (plate_bottom_y - post_bottom_y) * math.tan(lean)
+    # Four corners (3.11.26): the plate's bottom-back corner (the pivot) is included, so the wedge fills the whole
+    # space between the post's front face and the plate's back face. With three corners and a leaning post the plate
+    # touched the wedge only at its top corner, which the Maker Space caught in the slicer on 3.11.
+    # The wedge reaches 3 mm into the post and 1.5 mm into the plate (3.11.26), so the three bodies overlap in volume
+    # instead of merely touching: touching faces fused for F and F2 but not for F3 (two solids, the plate loose).
+    # The plate's holes sit 13.5 mm off the centre line, outside the 16 mm wide wedge, so nothing is filled.
+    into_post = 3.0
+    into_plate = 1.5
+    normal_x, normal_y = math.cos(tilt), -math.sin(tilt)
+    plate_top_back_x = top_front_x + p["plate_height_y"] * math.sin(tilt)
+    plate_top_back_y = plate_bottom_y + p["plate_height_y"] * math.cos(tilt)
+    wedge_corners = [
+        (front_at_plate_bottom - into_post, plate_bottom_y),
+        (top_front_x + into_plate * normal_x, plate_bottom_y + into_plate * normal_y),
+        (plate_top_back_x + into_plate * normal_x, plate_top_back_y + into_plate * normal_y),
+        (top_front_x - into_post, post_top_y),
+    ]
     wedge = (
         cadquery.Workplane("XY")
-        .polyline([
-            (front_at_plate_bottom, plate_bottom_y),
-            (top_front_x, post_top_y),
-            (top_front_x + p["plate_height_y"] * math.sin(tilt),
-             plate_bottom_y + p["plate_height_y"] * math.cos(tilt)),
-        ]).close()
+        .polyline(wedge_corners).close()
         .extrude(p["post_width_z"] / 2.0, both = True)
     )
 
