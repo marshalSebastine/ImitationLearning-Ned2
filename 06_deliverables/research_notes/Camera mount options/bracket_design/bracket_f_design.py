@@ -94,8 +94,11 @@ DEFAULT_BRACKET_PARAMETERS = {
     # the hex key reaches them.
     "open_above_y": 5.0,
     "clearance_hole_extra": 0.5,        # printed holes shrink; M2.5 needs about 3.0
+    # 3.11.26: the foot's two clearance holes are short slots across the wrist (this much longer than their diameter),
+    # so the bracket mounts whether the brace's holes are 26 or 27 mm apart (calipers said 26, Niryo's CAD 27).
+    "foot_slot_extra_length": 1.5,
     "self_tap_hole_diameter": 2.2,      # M2.5 cuts its own thread in PLA
-    "pin_hole_extra": 0.6,
+    "pin_hole_extra": 1.0,              # 3.0 mm holes for the 2 mm pins (0.6 until 3.11.26), same reason
     "corner_radius": 3.0,
 }
 
@@ -186,7 +189,9 @@ def build_bracket(parameters: dict = None) -> cadquery.Workplane:
         .edges("|X").fillet(p["corner_radius"])
         .faces(">X").workplane()
         .pushPoints([(hole_y, -hole_z), (hole_y, hole_z)])
-        .hole(clearance_diameter)
+        # On this workplane the local y axis is the wrist's sideways (z) direction: slots across the wrist.
+        .slot2D(clearance_diameter + p["foot_slot_extra_length"], clearance_diameter, angle = 90)
+        .cutThruAll()
     )
 
     # Legs: from the foot forward to the cross-bar, only below the screw heads.

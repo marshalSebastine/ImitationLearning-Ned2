@@ -115,3 +115,14 @@ with the 30 degree camera plate; the earlier `F2/` folder with the 22 degree pla
 Source files: `ned2_camera_bracket_F2.3mf` (preferred) and `.step`, millimetres, 1:1. Paper test:
 `ned2_camera_bracket_F2_paper_test.pdf` (pattern C is the new side outline). Views: `ned2_camera_bracket_F2_views.png`,
 `ned2_camera_bracket_F2_side_view.png`.
+
+### 3.11.26: two corrections before the print
+
+- Julian (Maker Space) found the camera plate loose from the post in the slicer: the wedge between the leaning post and the
+  plate had three corners and touched the plate only at one of them. The wedge now reaches 3 mm into the post and 1.5 mm
+  into the plate; the design check (`b.solids()`) shows one solid for F, F2 and F3.
+- Insurance against the 26-or-27 mm question: the foot's clearance holes are slots 1.5 mm longer than their diameter across
+  the wrist, and the pin holes are 3.0 mm. The top plate's self-tapping screw holes stay round at 27 mm.
+- Known limit, so nobody expects more of the 30 degree plate than it gives: directly behind the rod the magnet block and the
+  rod hide a strip about 4 cm wide for about 9 cm; the backward view is useful beside the rod and at corners, not for a leg
+  pushed straight back. A camera offset to one side of the rod would be the next design if a further print is ever made.
