@@ -211,6 +211,12 @@ def goal_pose() -> list:
 # (a stale frame was found in run 1419, step 23). Hand-guided episodes are replayed by the robot from the path the
 # hand drew, snapped back onto that path at every step; "guided_path_sample_m" is how far the tip must move before
 # the next path point is logged.
+# Changed 31.10.26 after the data-collection decisions (06_deliverables/research_notes/Recording tool/
+# 2026-10-30_data_collection_decisions.md): a replay step runs only when Enter is pressed (a direction key overrides,
+# no timeout); "u" marks the previous step as a mistake and "l" marks the current picture as "line lost", both without
+# a new action class; the step budget is 1.5 times the line length per sheet (the meander needs 116, not 80); the
+# workspace guard checks the predicted puck centre, not only the rod; every episode records the camera mount and the
+# version of the picture-to-table mapping, so pictures from different mounts are never mixed in one training set.
 RECORDING_PARAMETERS = {
     "step_m": 0.01,
     "actions": {
@@ -231,22 +237,57 @@ RECORDING_PARAMETERS = {
         "s": "back",
         " ": "stop",
         "x": "discard",
-        "p": "pause"
+        "u": "mistake",
+        "l": "lost",
+        "enter": "accept"
     },
     "steps_until_fresh_picture": 2,
     "fresh_picture_timeout_s": 3.0,
+    # The step budget is 1.5 times the line length in centimetres, per sheet; "step_budget" is the fallback for a
+    # sheet whose length is unknown. Lengths: sheet 01 measured (24 cm); 02 to 06 traced from the sheet photos on
+    # 26.10.26 (06_deliverables/research_notes/Camera mount options/scripts/sheet_paths.json, calc, about 5 percent
+    # uncertain; the dashed sheet 06 is taken as long as the loop it copies). Replace with the SVG arc lengths.
+    "step_budget_per_cm": 1.5,
     "step_budget": 80,
+    "line_length_cm": {
+        "path_01_straight_line": 24,
+        "path_02_arc": 27,
+        "path_03_two_curve": 55,
+        "path_04_meander": 77,
+        "path_05_alpha_loop": 57,
+        "path_06_alpha_loop_dashed": 57
+    },
     "approach_height_m": 0.05,
     "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
     "guided_path_sample_m": 0.002,
     "guided_path_poll_s": 0.05,
-    "replay_key_wait_ms": 400,
+    # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
+    # workspace guard refuses a step that would carry it outside the box or beyond the sheet plus "sheet_margin_m".
+    "puck_centre_ahead_of_tip_m": PUCK_PARAMETERS["diameter_m"] / 2 + PUSHER_PARAMETERS["tip_diameter_m"] / 2,
+    "sheet_margin_m": 0.02,
+    # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
+    # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
+    "camera_mount": "stock_wrist_holder",
+    "mapping_version": "picture_frame_v1_stock_wrist_2026-10-28",
     # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
     # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
     # move the scene to the right in the picture. If it moves left, set this to -1.
     "picture_left_sign": 1,
     "raw_folder": "03_data/raw"
 }
+
+
+def step_budget_for(path_id: str) -> int:
+    """
+    The most steps one episode on sheet ``path_id`` may take: 1.5 times the line length in centimetres.
+
+    Falls back to ``RECORDING_PARAMETERS["step_budget"]`` for a sheet whose length is not listed.
+    """
+
+    length_cm = RECORDING_PARAMETERS["line_length_cm"].get(path_id)
+    if length_cm is None:
+        return RECORDING_PARAMETERS["step_budget"]
+    return int(math.ceil(RECORDING_PARAMETERS["step_budget_per_cm"] * length_cm))
 
 
 def camera_heading_rad(

@@ -63,6 +63,8 @@ hand-guided mode, holding the arm).
       `config.py` and repeat this step. Write down which it was.
 - [ ] Press `d` once (right): the scene moves back.
 - [ ] Watch the terminal: no line saying "warning: step N has the same picture as the step before".
+- [ ] Press `w` twice quickly while the robot is still moving: the terminal must report that a key press made during
+      the move was ignored, and only one step must follow (key drain, added 31.10).
 - [ ] Press `x` (discard: the episode stays on disk, marked discarded).
 
 ## 4. Keyboard episodes with the puck (three)
@@ -86,15 +88,18 @@ hand-guided mode, holding the arm).
 - [ ] The person beside the robot **holds the arm at the elbow first**. Then press **Enter**: the motors go OFF and the
       arm sags into the holding hand.
 - [ ] Guide the pusher so it pushes the puck smoothly along the line to the goal. Keep the tip low, just above the paper.
-- [ ] At the goal, press **Space**. Still holding the arm, press **Enter**: the motors come back ON. Only then let go.
+- [ ] At the goal, press **Space**. The tool says "MOTORS OFF. Let go of the arm completely, then press Enter": let go
+      first, then press **Enter**, and the motors come back ON (changed 31.10; the same prompt appears after Ctrl-C or
+      any error while guiding, so the arm is never powered against a hand).
 - [ ] The robot lifts. Put the puck back on the line start and press **Enter**.
-- [ ] The robot replays your path in 1 cm steps, showing its planned step each time. If the puck drifts, press a direction
-      key to correct that step; `p` pauses; `x` discards. Pass: "completed", the puck at the goal.
+- [ ] The robot replays your path in 1 cm steps, showing its planned step each time and waiting: press **Enter** to run
+      the shown step, or a direction key to do a different one instead; `x` discards (changed 31.10: no step runs
+      without a key). Pass: "completed", the puck at the goal.
 
 ## 6. Check the files (Mac, robot can stay on)
 
 - [ ] Press `Esc` to finish: the robot goes home and the tool disconnects.
-- [ ] Open `03_data/raw/<today>_session_01/`. One folder per episode: `frames/` (one photo per step), `steps.csv`,
+- [ ] Open `03_data/raw/<today>_session_01_<operator>/`. One folder per episode: `frames/` (one photo per step), `steps.csv`,
       `episode.json`, plus `guided_path.csv` for the hand-guided one. `session_notes.md` lists the episodes.
 - [ ] Open a few photos: sharp, the puck at the bottom, the line ahead, no hand in view (replay photos).
 - [ ] Copy the session folder to a second disk the same day (README rule 3).
