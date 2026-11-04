@@ -204,8 +204,9 @@ def test_step_over_reverses_without_touching_the_puck(raw_folder: Path) -> None:
     start = [0.25, 0.0]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start})
     keys = ["enter"] + ["w"] * 3 + ["r"] + ["s"] * 3 + ["f"] + ["w"] + [" ", "escape"]
+    step_over_keys = dict(RECORDING_PARAMETERS["keys"], r = "step_over_forward", f = "step_over_back")  # unbound by default since 4.11
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start},
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start, "keys": step_over_keys},
         key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 

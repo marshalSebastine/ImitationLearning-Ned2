@@ -282,10 +282,6 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
-        "z": "back_left",
-        "c": "back_right",
-        "r": "step_over_forward",
-        "f": "step_over_back",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
@@ -296,8 +292,10 @@ RECORDING_PARAMETERS = {
         "v": "turn_left",
         "b": "turn_right"
     },
-    # Key clash resolved 4.11.26 when Marshal's keys (z c back diagonals, r f step over, from stepping rule v1) were
-    # merged: the lean test keys moved from y / c to n / m, the camera turn keys from r / t to v (side view) / b (back).
+    # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
+    # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
+    # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
+    # keys moved from y / c to n / m and the camera turn keys from r / t to v (side view) / b (back).
     # Hand turn about the vertical rod at the start of every episode, in degrees; positive = towards picture-left of
     # the untouched hand. 4.11.26: Emranul tried 90 (camera beside the rod, looking along the line both ways) as the
     # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
