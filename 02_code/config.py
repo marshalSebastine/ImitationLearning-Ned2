@@ -288,10 +288,10 @@ RECORDING_PARAMETERS = {
         "l": "lost",
         "enter": "accept",
         "n": "lean_left",
-        "m": "lean_right",
-        "v": "turn_left",
-        "b": "turn_right"
+        "m": "lean_right"
     },
+    # 4.11.26 evening (Emranul): the camera moved to the forearm cover, so the forearm turn keys v / b are unbound
+    # (they would only lean the rod); the turn code stays for a camera on the hand.
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
@@ -379,7 +379,9 @@ RECORDING_PARAMETERS = {
     # (Emranul, wrist_limit_by_hand.py, motors off): the bracket meets the forearm cover at joint 5 = +0.321 rad
     # (+18.4 degrees), as the design predicted; with 3 degrees of margin the limit is +0.27 rad. The pushing poses
     # from about 14 cm from the base are reachable again with a vertical rod (bracket F: from about 25 cm).
-    "wrist_pitch_max_rad": 0.27,
+    # 4.11.26 evening: the bracket left the hand (camera taped to the forearm cover), so the hand is bare and the
+    # wrist may use the robot's own range again; 1.5 rad (86 degrees) is in effect no limit for the pushing poses.
+    "wrist_pitch_max_rad": 1.5,
     # Automatic lean (2.11.26, Emranul's test on sheet 01 with bracket F): where a vertical rod would need the wrist
     # above the limit, RobotLink leans the rod about the sideways axis, tip ahead of the wrist, in steps of
     # "auto_lean_step_deg" up to "auto_lean_max_deg", until the wrist is within the limit; the camera tilts with it
@@ -409,10 +411,18 @@ RECORDING_PARAMETERS = {
     # v5 (4.11.26): hand untouched again; the actions measured from the pusher's direction; dropped the same day.
     # v6 (4.11.26): actions in the PICTURE's frame again, read from the camera's current direction, also while the
     # forearm is turned (v / b keys); the forearm angle is in every row.
-    "camera_mount": "bracket_F3",
-    "mapping_version": "picture_frame_v6_F3_forearm_turn_2026-11-04",
-    # The direction the top of the picture points to, measured from the tool's own z axis (which points from the rod
-    # towards the camera for the stock holder, bracket F and F3): 0 for all three, tested in the direction tests below.
+    # v7 (4.11.26 evening, Emranul and Marshal): the camera, in its F3 bracket, is taped with double-sided tape to
+    # the black forearm cover under the elbow, looking down the forearm towards the wrist and beyond. The picture
+    # no longer follows the hand: its top points the way the forearm points, away from the base, so the heading is
+    # the direction from the base to the rod ("camera_heading_model" forearm). NOT YET TESTED: the first episode
+    # starts with three "left" steps; the content must move RIGHT, else picture_left_sign becomes -1.
+    "camera_mount": "forearm_cover_tape_F3_bracket",
+    "mapping_version": "picture_frame_v7_forearm_camera_2026-11-04",
+    # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
+    # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
+    "camera_heading_model": "forearm",
+    # The direction the top of the picture points to, measured from the model's reference direction: 0 for the hand
+    # mounts (tested in the direction tests below) and, untested, 0 for the forearm camera.
     "picture_top_offset_rad": 0.0,
     # TESTED 31.10.26 on the robot with the stock wrist holder (Emranul, session 2026-10-31_session_01_emranul,
     # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
@@ -454,17 +464,27 @@ def step_budget_for(path_id: str) -> int:
     return int(math.ceil(RECORDING_PARAMETERS["step_budget_per_cm"] * length_cm))
 
 
-def camera_heading_rad(pose: list) -> float:
+def camera_heading_rad(
+        pose: list,
+        model: str = RECORDING_PARAMETERS["camera_heading_model"]
+) -> float:
     """
     The table direction that the top of the picture points to, for the rod's ``pose`` = [x, y, z, roll, pitch, yaw].
 
-    The camera sits on the hand, so the picture's top follows the hand's orientation, not the arm's direction. With
-    the orientation the tool asks for ([roll 0, pitch 1.57, yaw 0]) the hand is held the same way everywhere: joint 6
-    cancels joint 1, and the camera looks along the table's +x axis at every point (checked 4.11.26 on all 154 steps
-    of path_04_meander_episode_018: heading 0.0 +- 0.4 degrees from the robot's own orientation reading, while the
-    previous model atan2(y, x) gave up to -24 degrees). The heading is the direction of the tool's z axis in the table
-    plane (pyniryo's roll, pitch, yaw are extrinsic rotations about x, y, z) plus the mount's "picture_top_offset_rad".
+    ``model`` "hand": the camera sits on the hand, so the picture's top follows the hand's orientation, not the arm's
+    direction. With the orientation the tool asks for ([roll 0, pitch 1.57, yaw 0]) the hand is held the same way
+    everywhere: joint 6 cancels joint 1, and the camera looks along the table's +x axis at every point (checked
+    4.11.26 on all 154 steps of path_04_meander_episode_018: heading 0.0 +- 0.4 degrees from the robot's own
+    orientation reading, while atan2(y, x) gave up to -24 degrees). The heading is the direction of the tool's z axis
+    in the table plane (pyniryo's roll, pitch, yaw are extrinsic rotations about x, y, z).
+
+    ``model`` "forearm": the camera sits on the forearm cover (since 4.11.26 evening) and looks down the forearm, which
+    lies in the vertical plane through the base and the rod, so the picture's top points from the base towards the
+    rod: atan2(y, x). Both plus the mount's "picture_top_offset_rad".
     """
+
+    if model == "forearm":
+        return math.atan2(pose[1], pose[0]) + RECORDING_PARAMETERS["picture_top_offset_rad"]
 
     roll, pitch, yaw = pose[3:6]
     forward_x = math.sin(pitch) * math.cos(roll) * math.cos(yaw) + math.sin(roll) * math.sin(yaw)

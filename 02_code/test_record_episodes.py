@@ -50,21 +50,22 @@ def read_episode(raw_folder: Path) -> tuple:
 
 def test_picture_steps_point_the_right_way() -> None:
     """
-    With the hand untouched, "forward" is table +x and "left" is table +y wherever the rod stands. With the hand
-    turned 90 degrees (camera looking along +y) and that turn taken off, the pusher still points along +x.
+    Camera on the hand: with the hand untouched, the picture's top is table +x wherever the rod stands, and turned
+    90 degrees it is +y. Camera on the forearm: the picture's top points from the base towards the rod. Straight
+    ahead of the base both agree, and "forward" is +x and "left" is +y there.
     """
 
     for x, y in ((0.25, 0.0), (0.22, -0.11)):
         pose = [x, y, 0.03, 0.0, 1.57, 0.0]
-        forward = action_step_to_table("forward", pose, 0.0)
-        left = action_step_to_table("left", pose, 0.0)
-        assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-9, forward
-        assert abs(left[0]) < 1e-9 and math.isclose(left[1], 0.01), left
-        assert abs(math.degrees(camera_heading_rad(pose))) < 0.1, camera_heading_rad(pose)
+        assert abs(math.degrees(camera_heading_rad(pose, "hand"))) < 0.1, camera_heading_rad(pose, "hand")
+        assert math.isclose(math.degrees(camera_heading_rad(pose, "forearm")), math.degrees(math.atan2(y, x)), abs_tol = 1e-9)
     turned = [0.25, 0.0, 0.03, 0.0, 1.57, math.pi / 2]
-    assert math.isclose(math.degrees(camera_heading_rad(turned)), 90.0, abs_tol = 0.1), camera_heading_rad(turned)
-    forward = action_step_to_table("forward", turned, 90.0)
+    assert math.isclose(math.degrees(camera_heading_rad(turned, "hand")), 90.0, abs_tol = 0.1), camera_heading_rad(turned, "hand")
+    ahead = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
+    forward = action_step_to_table("forward", ahead, 0.0)
+    left = action_step_to_table("left", ahead, 0.0)
     assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-9, forward
+    assert abs(left[0]) < 1e-9 and math.isclose(left[1], 0.01), left
 
 
 def test_camera_side_view_turn(raw_folder: Path) -> None:
@@ -79,9 +80,10 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     start_point = [0.25, 0.0]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start_point})
     keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", "b", " ", "y", "escape"]
+    turn_keys = dict(RECORDING_PARAMETERS["keys"], v = "turn_left", b = "turn_right")  # unbound by default since the camera left the hand
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point},
-        key_reader = scripted_keys(keys))
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point,
+        "keys": turn_keys}, key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
     episode_folder, summary, rows = read_episode(raw_folder)
@@ -104,7 +106,6 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     def direction_deg(index: int) -> float:
         return math.degrees(math.atan2(positions[index + 1][1] - positions[index][1], positions[index + 1][0] - positions[index][0]))
 
-    assert abs(heading_deg(rows[2])) > 45.0, heading_deg(rows[2])
     for index in (2, 3):
         assert abs((direction_deg(index) - heading_deg(rows[index]) + 180) % 360 - 180) < 8.0, "turned, forward should go where the picture's top points"
         assert math.isclose(math.hypot(positions[index + 1][0] - positions[index][0], positions[index + 1][1] - positions[index][1]), 0.01, abs_tol = 0.002)
