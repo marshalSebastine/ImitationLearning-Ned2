@@ -285,6 +285,8 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
+        "z": "back_left",
+        "c": "back_right",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
@@ -451,8 +453,10 @@ RECORDING_PARAMETERS = {
     # land 1.5 cm back from the puck.
     # v10 (4.11.26 evening, before test 3): q / e diagonal steps at 60 degrees instead of 45.
     # v11 (4.11.26 evening, after test 3): forearm turns in 30 degree steps (30, 60, 90) instead of 45.
+    # v12 (4.11.26 evening, during test 4): back-left / back-right (z / c, Marshal's 135 degree steps) bound again
+    # (Emranul); every step row also stores the picture's direction on the table ("picture_heading_deg").
     "camera_mount": "forearm_cover_tape_F3_bracket",
-    "mapping_version": "picture_frame_v11_forearm_camera_turns_30_2026-11-04",
+    "mapping_version": "picture_frame_v12_forearm_camera_back_diagonals_2026-11-04",
     # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
     "camera_heading_model": "forearm",

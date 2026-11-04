@@ -147,6 +147,7 @@ def test_turn_hint(raw_folder: Path) -> None:
     assert "+30 degrees" in hint or "+60 degrees" in hint, hint
     assert " b " in hint, hint
 
+    assert RECORDING_PARAMETERS["keys"]["z"] == "back_left" and RECORDING_PARAMETERS["keys"]["c"] == "back_right"
     untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
     back_left = action_step_to_table("back_left", untouched, 0.0)
     back_right = action_step_to_table("back_right", untouched, 0.0)
@@ -180,6 +181,7 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     assert [row["is_mistake"] for row in rows] == ["1" if row["step"] == "9" else "0" for row in rows], "mistake flag"
     assert [row["is_lost"] for row in rows] == ["1" if row["step"] == "14" else "0" for row in rows], "lost flag"
     assert summary["mistake_steps"] == 1 and summary["lost_steps"] == 1, summary
+    assert all(row["picture_heading_deg"] != "" for row in rows), "every row stores the picture's direction"
     assert all(float(row["capture_time"]) >= float(row["move_return_time"]) for row in rows), "capture before the move returned"
     assert all(float(row["decision_time"]) >= float(row["capture_time"]) for row in rows), "decision before the picture"
     assert all((episode_folder / row["frame"]).exists() for row in rows)

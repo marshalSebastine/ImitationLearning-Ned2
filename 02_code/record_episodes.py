@@ -47,17 +47,18 @@ from typing import Callable, Dict, List, Optional, Tuple
 import cv2
 import numpy
 
-from config import (PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
+from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
                     action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
+ORIENTATION_WINDOW_NAME = "orientation"
 # Three times per step: when the move returned, when the logged picture was read, when the action was chosen.
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
-                "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "x", "y", "z", "roll", "pitch", "yaw",
+                "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -870,6 +871,55 @@ class EpisodeRecorder:
         return False
 
 
+    def __show_orientation(self, state: Dict) -> None:
+        """
+        A second window, "orientation": the table from above with the robot's base at the bottom, the sheet, the
+        believed puck position, the tip, and an arrow for every step key showing where that key moves the tip now
+        (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious from the picture alone).
+        """
+
+        if not self.recorder_parameters["is_window_shown"]:
+            return
+
+        scale = 900.0
+        width, height = 400, 440
+        centre_x, bottom = width // 2, height - 20
+
+        def pixel(point_xy) -> tuple:
+            return (int(round(centre_x - point_xy[1] * scale)), int(round(bottom - point_xy[0] * scale)))
+
+        canvas = numpy.full((height, width, 3), 245, dtype = numpy.uint8)
+        cv2.circle(canvas, pixel([0.0, 0.0]), int(0.07 * scale), (200, 160, 90), -1)
+        cv2.putText(canvas, "robot base", (centre_x - 40, bottom - 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
+        corners = numpy.array([pixel(corner) for corner in WORKSPACE_PARAMETERS["sheet_corners_xy"]], dtype = numpy.int32)
+        cv2.polylines(canvas, [corners], isClosed = True, color = (150, 150, 150), thickness = 1)
+
+        tip_xy = list(self.tip_xy) if self.forearm_turn_deg and self.tip_xy is not None else list(state["pose"][:2])
+        puck_xy = getattr(self, "puck_xy_estimate", None)
+        if puck_xy is not None:
+            cv2.circle(canvas, pixel(puck_xy), int(PUCK_PARAMETERS["diameter_m"] / 2 * scale), (60, 60, 210), -1)
+        cv2.circle(canvas, pixel(tip_xy), 5, (40, 40, 40), -1)
+
+        heading_rad = picture_heading_rad(state, self.recorder_parameters)
+        key_of = {action: key for key, action in self.recorder_parameters["keys"].items()}
+        for action, angle in self.recorder_parameters["actions"].items():
+            if angle is None or action not in key_of:
+                continue
+            step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"], heading_rad = heading_rad)
+            length = math.hypot(step_x, step_y)
+            end = [tip_xy[0] + 0.045 * step_x / length, tip_xy[1] + 0.045 * step_y / length]
+            colour = (40, 160, 40) if action == "forward" else (90, 90, 90)
+            cv2.arrowedLine(canvas, pixel(tip_xy), pixel(end), colour, 2 if action == "forward" else 1, tipLength = 0.2)
+            label_at = [tip_xy[0] + 0.055 * step_x / length, tip_xy[1] + 0.055 * step_y / length]
+            label_pixel = pixel(label_at)
+            cv2.putText(canvas, key_of[action], (label_pixel[0] - 5, label_pixel[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, colour, 2)
+
+        cv2.putText(canvas, f"forearm turned {self.forearm_turn_deg:+.0f} deg", (8, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        cv2.putText(canvas, f"picture top points {math.degrees(heading_rad):+.0f} deg (0 = straight out)", (8, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
+        cv2.imshow(ORIENTATION_WINDOW_NAME, canvas)
+
+
     def __keyboard_decider(
             self,
             picture_bytes: bytes,
@@ -879,7 +929,8 @@ class EpisodeRecorder:
         """The person chooses the step from the picture on screen."""
 
         turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
-        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = steps, v b = forearm turn, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_orientation(state)
+        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d / z c = steps, v b = forearm turn, Space = stop, u l x Esc")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -928,6 +979,7 @@ class EpisodeRecorder:
                     position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"],
                                                                 heading_rad = picture_heading_rad(state, self.recorder_parameters))) - target))
 
+            self.__show_orientation(state)
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
             while True:
@@ -1079,7 +1131,11 @@ class EpisodeRecorder:
         row = {"step": step, "unix_time": round(time.time(), 3), "frame": f"frames/{frame_name}", "frame_md5": picture_md5,
                "sharpness": round(sharpness_of(picture), 1),
                "action": action, "source": source, "is_mistake": 0, "is_lost": int(self.is_lost_pending),
-               "forearm_turn_deg": float(self.forearm_turn_deg)}
+               "forearm_turn_deg": float(self.forearm_turn_deg),
+               # The table direction the picture's top pointed to (degrees from the table's x axis, counter-clockwise):
+               # the key's table direction is this plus the action's angle. Not a model input (the camera is the only
+               # input); for checking and relabelling the data, and the controller reads it live from the robot.
+               "picture_heading_deg": round(math.degrees(picture_heading_rad(state, self.recorder_parameters)), 2)}
         row.update({name: round(value, 3) for name, value in times.items()})
         row.update({name: round(value, 5) for name, value in zip(["x", "y", "z", "roll", "pitch", "yaw"], state["pose"])})
         row.update({f"joint_{index + 1}": round(value, 5) for index, value in enumerate(state["joints"])})
