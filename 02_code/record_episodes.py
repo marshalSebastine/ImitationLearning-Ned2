@@ -298,6 +298,7 @@ class EpisodeRecorder:
             "start_pose": self.__start_pose(),
             "step_m": self.recorder_parameters["step_m"],
             "step_budget": self.recorder_parameters["step_budget"],
+            "max_turn_lean_deg": self.recorder_parameters["max_turn_lean_deg"],
             "actions": self.recorder_parameters["actions"],
             "turn_actions": self.recorder_parameters["turn_actions"],
             "step_over_actions": self.recorder_parameters["step_over_actions"],
@@ -1133,6 +1134,8 @@ def main() -> None:
     parser.add_argument("--offset-cm", type = float, default = 0.0, help = "deliberate sideways offset of the puck from the line, in cm")
     parser.add_argument("--offset-deg", type = float, default = 0.0, help = "deliberate angle of the rod off the line's tangent, in degrees")
     parser.add_argument("--lighting", default = "", help = "a short note on the room light, e.g. 'ceiling lamps, blinds closed'")
+    parser.add_argument("--max-turn-lean-deg", type = float, default = RECORDING_PARAMETERS["max_turn_lean_deg"],
+                        help = "for a measurement run only: the rod lean allowed with the forearm turned, tip down (config: the measured limit)")
     arguments = parser.parse_args()
 
     recorder_parameters = {
@@ -1142,8 +1145,11 @@ def main() -> None:
         "sheet_orientation": arguments.orientation,
         "start_index": arguments.start_index,
         "deliberate_offset": {"lateral_cm": arguments.offset_cm, "angle_deg": arguments.offset_deg},
-        "lighting_note": arguments.lighting
+        "lighting_note": arguments.lighting,
+        "max_turn_lean_deg": arguments.max_turn_lean_deg
     }
+    if arguments.max_turn_lean_deg != RECORDING_PARAMETERS["max_turn_lean_deg"]:
+        print(f"MEASUREMENT RUN: turned steps allowed up to a {arguments.max_turn_lean_deg} degree lean (config: {RECORDING_PARAMETERS['max_turn_lean_deg']})")
     if arguments.start_x is not None and arguments.start_y is not None:
         recorder_parameters["start_point_xy"] = [arguments.start_x, arguments.start_y]
 
