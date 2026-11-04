@@ -303,6 +303,13 @@ class SimulatedRobotLink:
             forearm_path = self.simulation_parameters.get("hand_path_forearm_rad")
             if forearm_path:
                 self.joints[3] = float(forearm_path[self.hand_path_index])
+            joints_path = self.simulation_parameters.get("hand_path_joints")
+            if joints_path:
+                # Full joint angles for the hand's path (exact-replay tests): the pose follows from the arm model.
+                from side_view_test import ned2_fk
+                self.joints = [float(value) for value in joints_path[self.hand_path_index]]
+                position, orientation = ned2_fk.tool_pose(self.joints)
+                self.pose = [float(position[0]), float(position[1]), float(position[2])] + [float(value) for value in orientation]
             self.hand_path_index += 1
             self.__push_puck(motion)
 

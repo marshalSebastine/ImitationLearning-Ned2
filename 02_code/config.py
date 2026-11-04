@@ -425,6 +425,15 @@ RECORDING_PARAMETERS = {
     "auto_lean_max_deg": 25.0,
     "guided_path_sample_m": 0.002,
     "guided_path_poll_s": 0.05,
+    # Exact hand-guided replay (mode hand_guided_exact, Emranul 4.11.26: "move any way we like with the motors off and
+    # replicate that same movement"): a waypoint every "exact_waypoint_m" of tip travel or "exact_waypoint_joint_deg" of
+    # any joint, each visited joint by joint with a picture before it. Each step is labelled with the nearest fixed move
+    # (a turn when the forearm changes by "exact_turn_label_deg" or more, "small_motion" when the tip moves less than
+    # "exact_small_motion_m"); the exact movement is stored beside the label.
+    "exact_waypoint_m": 0.01,
+    "exact_waypoint_joint_deg": 5.0,
+    "exact_turn_label_deg": 15.0,
+    "exact_small_motion_m": 0.003,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
     # workspace guard refuses a step that would carry it outside the box or beyond the sheet plus "sheet_margin_m".
     "puck_centre_ahead_of_tip_m": PUCK_PARAMETERS["diameter_m"] / 2 + PUSHER_PARAMETERS["tip_diameter_m"] / 2,

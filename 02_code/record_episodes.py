@@ -58,7 +58,8 @@ ORIENTATION_WINDOW_NAME = "orientation"
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
-                "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg", "x", "y", "z", "roll", "pitch", "yaw",
+                "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
+                "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -419,7 +420,7 @@ class EpisodeRecorder:
             self.__lift()
             return self.__finish_episode(episode_folder, summary, [])
 
-        if mode == "hand_guided":
+        if mode in ("hand_guided", "hand_guided_exact"):
             guided_path = self.__record_guided_path(episode_folder)
             if guided_path is None:
                 summary["status"] = "discarded_while_guiding"
@@ -431,7 +432,14 @@ class EpisodeRecorder:
             self.__wait_for(["enter"])
             self.__simulate_puck_reset()
             self.__lower_to_start()
-            decider = self.__make_replay_decider(guided_path)
+            if mode == "hand_guided_exact":
+                self.exact_waypoints = self.__exact_waypoints(guided_path)
+                self.exact_index = 0
+                self.is_auto_running = False
+                self.__say(f"exact replay: {len(self.exact_waypoints)} waypoints from {len(guided_path)} guided points")
+                decider = self.__exact_replay_decider
+            else:
+                decider = self.__make_replay_decider(guided_path[:, [0, 1, 5]])
         else:
             decider = self.__keyboard_decider
 
@@ -502,6 +510,31 @@ class EpisodeRecorder:
 
             if action in ("discard", "quit"):
                 return ("discarded" if action == "discard" else "quit"), rows
+
+            if action == "waypoint":
+                # Exact replay (4.11.26, Emranul): move to the next guided waypoint joint by joint. The row's action is
+                # the nearest fixed move; the exact movement is stored beside it and in the next row's joints.
+                joints_next = [float(value) for value in self.exact_waypoints[self.exact_index]]
+                label, motion = self.__label_motion(state, joints_next)
+                motion["waypoint"] = self.exact_index
+                times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
+                row = self.__log_step(episode_folder, len(rows), picture_bytes, state, label, source, times)
+                row.update(motion)
+                rows.append(row)
+                try:
+                    self.robot_link.move_joints(joints_next)
+                except Exception as error:
+                    self.__say(f"the robot refused waypoint {self.exact_index} ({str(error).splitlines()[0]}); Enter tries again")
+                    rows.pop()
+                    (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                    self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                    self.is_auto_running = False
+                    continue
+                self.exact_index += 1
+                self.forearm_turn_deg = math.degrees(joints_next[3])
+                self.tip_xy = [float(value) for value in magnet_tip_and_lean(joints_next)[0][:2]]
+                move_return_time = time.time()
+                continue
 
             if action in self.recorder_parameters["turn_actions"]:
                 least, most = self.recorder_parameters["min_turn_deg"], self.recorder_parameters["max_turn_deg"]
@@ -641,6 +674,97 @@ class EpisodeRecorder:
             move_return_time = time.time()
 
         return "step_budget_reached", rows
+
+
+    def __exact_waypoints(self, guided_path: numpy.ndarray) -> List[numpy.ndarray]:
+        """
+        The joint positions the exact replay visits: the first guided point, then every point where the tip has moved
+        "exact_waypoint_m" or any joint has turned "exact_waypoint_joint_deg" since the last waypoint, and the last.
+        ``guided_path`` columns: tip x, tip y, joints 1 to 6.
+        """
+
+        waypoints = [guided_path[0, 2:8]]
+        last = guided_path[0]
+        for point in guided_path[1:]:
+            tip_moved = float(numpy.hypot(point[0] - last[0], point[1] - last[1]))
+            joint_turned = float(numpy.max(numpy.abs(point[2:8] - last[2:8])))
+            if tip_moved >= self.recorder_parameters["exact_waypoint_m"] or joint_turned >= math.radians(self.recorder_parameters["exact_waypoint_joint_deg"]):
+                waypoints.append(point[2:8])
+                last = point
+        if last is not guided_path[-1]:
+            waypoints.append(guided_path[-1, 2:8])
+        return waypoints
+
+
+    def __exact_replay_decider(
+            self,
+            picture_bytes: bytes,
+            state: Dict,
+            step: int
+    ) -> Tuple[str, str]:
+        """
+        Exact replay: Enter moves to the next guided waypoint; g runs through the rest without waiting (any key
+        pauses); u / l flag as usual; x discards; Esc quits. No direction keys: the replay copies the hand.
+        """
+
+        total = len(self.exact_waypoints)
+        proposal = "waypoint" if self.exact_index < total else "stop"
+        self.__show_orientation(state)
+        if self.is_auto_running and proposal == "waypoint":
+            self.__show_picture(picture_bytes, f"exact replay running: waypoint {self.exact_index + 1} of {total}. Any key = pause")
+            if self.key_reader(1) is None:
+                return proposal, "replay_exact"
+            self.is_auto_running = False
+            self.key_drainer()
+        self.__show_picture(picture_bytes, f"exact replay: waypoint {min(self.exact_index + 1, total)} of {total}, next = {proposal}. "
+                                           f"Enter = next, g = run to the end, u l = flags, x = discard, Esc = quit")
+        self.__drain_keys(step)
+        while True:
+            key = self.key_reader(0)
+            if key == "escape":
+                return "quit", "human"
+            if key == "g" and proposal == "waypoint":
+                self.is_auto_running = True
+                return proposal, "replay_exact"
+            action = self.recorder_parameters["keys"].get(key)
+            if self.__handle_flag_key(action, picture_bytes, step):
+                continue
+            if action == "accept":
+                return proposal, "replay_exact"
+            if action == "discard":
+                return "discard", "human"
+
+
+    def __label_motion(
+            self,
+            state: Dict,
+            joints_next: List[float]
+    ) -> Tuple[str, Dict]:
+        """
+        The nearest fixed move for the motion from ``state`` to ``joints_next``, and the motion itself: the magnet
+        tip's move in the picture's frame (forward towards the picture's top, left towards its left) and the
+        forearm's change. A forearm change of "exact_turn_label_deg" or more is labelled as a turn; a tip move under
+        "exact_small_motion_m" as "small_motion".
+        """
+
+        tip_now = magnet_tip_and_lean(list(state["joints"]))[0][:2]
+        tip_next = magnet_tip_and_lean(list(joints_next))[0][:2]
+        moved = numpy.array(tip_next) - numpy.array(tip_now)
+        heading = picture_heading_rad(state, self.recorder_parameters)
+        sign = self.recorder_parameters["picture_left_sign"]
+        forward_m = float(moved @ numpy.array([math.cos(heading), math.sin(heading)]))
+        left_m = float(moved @ numpy.array([math.cos(heading + sign * math.pi / 2), math.sin(heading + sign * math.pi / 2)]))
+        forearm_change_deg = math.degrees(joints_next[3] - state["joints"][3])
+        motion = {"tip_forward_m": round(forward_m, 5), "tip_left_m": round(left_m, 5), "forearm_change_deg": round(forearm_change_deg, 2)}
+
+        if abs(forearm_change_deg) >= self.recorder_parameters["exact_turn_label_deg"]:
+            return ("turn_left" if forearm_change_deg > 0 else "turn_right"), motion
+        if math.hypot(forward_m, left_m) < self.recorder_parameters["exact_small_motion_m"]:
+            return "small_motion", motion
+        picture_angle = math.degrees(math.atan2(left_m, forward_m))
+        moving = {action: angle for action, angle in self.recorder_parameters["actions"].items() if angle is not None}
+        nearest = min(moving, key = lambda action: abs((picture_angle - moving[action] + 180.0) % 360.0 - 180.0))
+        return nearest, motion
 
 
     def __say(self, message: str) -> None:
@@ -1100,13 +1224,15 @@ class EpisodeRecorder:
                     position = list(state["pose"][:2])
                 else:
                     position = [float(value) for value in magnet_tip_and_lean(state["joints"])[0][:2]]
-                forearm_rad = float(state["joints"][3])
-                # A point when the tip has moved, or when the forearm has been twisted by 5 degrees in place (4.11.26,
-                # Emranul: the replay did not copy the forearm turns made by hand).
+                joints = [float(value) for value in state["joints"]]
+                # A point when the tip has moved, or when any joint has turned by 5 degrees in place (4.11.26, Emranul:
+                # the replay did not copy the forearm turns made by hand; the exact replay copies every joint).
                 if (not rows or numpy.hypot(position[0] - rows[-1]["x"], position[1] - rows[-1]["y"]) >= self.recorder_parameters["guided_path_sample_m"]
-                        or abs(forearm_rad - rows[-1]["joint_4"]) >= math.radians(5.0)):
-                    rows.append({"unix_time": round(time.time(), 3), "x": position[0], "y": position[1], "z": state["pose"][2],
-                                 "roll": state["pose"][3], "pitch": state["pose"][4], "yaw": state["pose"][5], "joint_4": forearm_rad})
+                        or max(abs(joint - rows[-1][f"joint_{index + 1}"]) for index, joint in enumerate(joints)) >= math.radians(5.0)):
+                    row = {"unix_time": round(time.time(), 3), "x": position[0], "y": position[1], "z": state["pose"][2],
+                           "roll": state["pose"][3], "pitch": state["pose"][4], "yaw": state["pose"][5]}
+                    row.update({f"joint_{index + 1}": joint for index, joint in enumerate(joints)})
+                    rows.append(row)
 
                 self.__show_picture(self.robot_link.read_picture_bytes(), f"MOTORS OFF, guiding: {len(rows)} points. Space = puck at goal, x = discard")
                 key = self.key_reader(int(self.recorder_parameters["guided_path_poll_s"] * 1000))
@@ -1119,13 +1245,13 @@ class EpisodeRecorder:
             self.__release_arm_then_motors_on()
 
         with open(episode_folder / "guided_path.csv", "w", newline = "", encoding = "utf-8") as file:
-            writer = csv.DictWriter(file, fieldnames = ["unix_time", "x", "y", "z", "roll", "pitch", "yaw", "joint_4"])
+            writer = csv.DictWriter(file, fieldnames = ["unix_time", "x", "y", "z", "roll", "pitch", "yaw"] + [f"joint_{index}" for index in range(1, 7)])
             writer.writeheader()
             writer.writerows(rows)
 
         if is_discarded or len(rows) < 2:
             return None
-        return numpy.array([[row["x"], row["y"], row["joint_4"]] for row in rows])
+        return numpy.array([[row["x"], row["y"]] + [row[f"joint_{index}"] for index in range(1, 7)] for row in rows])
 
 
     def __fresh_picture(self) -> bytes:
@@ -1438,7 +1564,8 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description = "Record demonstration episodes, one fresh picture and one 1 cm step at a time.")
     parser.add_argument("--operator", required = True, help = "who records, e.g. marshal or emranul")
-    parser.add_argument("--mode", choices = ["keyboard", "hand_guided"], default = "keyboard")
+    parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact"], default = "keyboard",
+                        help = "hand_guided replays the guided path in 1 cm steps of the fixed moves; hand_guided_exact replays every joint")
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")

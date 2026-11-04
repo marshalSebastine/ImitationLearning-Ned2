@@ -10,6 +10,8 @@ import json
 import math
 import tempfile
 from pathlib import Path
+
+import numpy
 from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
@@ -154,6 +156,46 @@ def test_replay_copies_forearm_turn(raw_folder: Path) -> None:
     assert 0 < turn_index < len(actions) - 1 and rows[turn_index + 1]["forearm_turn_deg"] == "30.0", (turn_index, rows[turn_index + 1]["forearm_turn_deg"])
     with open(episode_folder / "guided_path.csv", encoding = "utf-8") as file:
         assert "joint_4" in file.readline()
+
+
+def test_exact_replay(raw_folder: Path) -> None:
+    """
+    A guided path of 7 cm straight out with a 30 degree forearm twist halfway is replayed waypoint by waypoint ("g"
+    runs it through): the robot ends at the guided joints, the twist is labelled as one turn, the rest as forward
+    moves, and the exact movement is stored beside each label.
+    """
+
+    from side_view_test import solve_least_lean
+    from config import PUSHER_PARAMETERS
+
+    joints_path = []
+    for index in range(36):
+        x = 0.20 + 0.002 * index
+        target = numpy.array([x, 0.0, pushing_height(x, 0.0) - PUSHER_PARAMETERS["extension_below_rod_end_m"]])
+        joints = solve_least_lean(target, math.radians(0.0 if index < 18 else 30.0), wrist_range_deg = (-30.0, 30.0))
+        if index < 18:
+            joints[5] = joints[0]
+        joints_path.append(joints)
+    hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(36)]
+    robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
+    keys = ["enter", "enter"] + [None] * 40 + [" ", "enter", "enter", "g"] + [None] * 30 + ["enter", "y", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("hand_guided_exact")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed", summary
+    actions = [row["action"] for row in rows]
+    assert actions[-1] == "stop" and actions.count("turn_left") == 1, actions
+    assert all(row["source"] == "replay_exact" for row in rows[:-1]), [row["source"] for row in rows]
+    assert sum(action == "forward" for action in actions) >= 4, actions
+    with open(episode_folder / "guided_path.csv", encoding = "utf-8") as file:
+        last_guided = list(csv.DictReader(file))[-1]
+    final_joints = [float(rows[-1][f"joint_{index}"]) for index in range(1, 7)]
+    guided_joints = [float(last_guided[f"joint_{index}"]) for index in range(1, 7)]
+    assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
+    assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
 
 
 def test_turn_hint(raw_folder: Path) -> None:
@@ -350,7 +392,7 @@ if __name__ == "__main__":
     test_step_budget_per_sheet()
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
-                 test_replay_copies_forearm_turn):
+                 test_replay_copies_forearm_turn, test_exact_replay):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")
