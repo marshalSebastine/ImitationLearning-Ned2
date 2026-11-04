@@ -278,8 +278,8 @@ RECORDING_PARAMETERS = {
     "step_over_m": (PUCK_PARAMETERS["diameter_m"] + PUSHER_PARAMETERS["tip_diameter_m"]) + 0.005,
     "keys": {
         "w": "forward",
-        "q": "flick_left",
-        "e": "flick_right",
+        "q": "forward_left",
+        "e": "forward_right",
         "a": "left",
         "d": "right",
         "s": "back",
@@ -295,10 +295,10 @@ RECORDING_PARAMETERS = {
     },
     # 4.11.26 evening (Emranul): the camera moved to the forearm cover and the forearm turn keys v / b stay bound; the
     # picture then turns with the forearm (see "forearm_camera_turns_with_joint_4").
-    # 4.11.26 evening, after test 1 (Emranul): q and e no longer step diagonally; they flick the hand. The hand turns
-    # fast about the rod by "flick_actions" degrees (joint 6 only, the rod stays where it is) and straight back, so the
-    # block's front end sweeps the puck sharply to that side. Left is counter-clockwise seen from above when
-    # picture_left_sign is 1. The diagonal steps stay in "actions" for the replay, without a key.
+    # Hand flick (4.11.26 evening, after test 1, Emranul): the hand turns fast about the rod by "flick_actions" degrees
+    # (joint 6 only, the rod stays where it is) and straight back. Bound to q / e for test 2 only; after test 2 q / e
+    # are the diagonal steps again and the flick has no key (code kept, bound again by adding keys here). Left is
+    # counter-clockwise seen from above when picture_left_sign is 1.
     "flick_actions": {
         "flick_left": 45,
         "flick_right": -45
@@ -338,12 +338,14 @@ RECORDING_PARAMETERS = {
     # about 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The tool keeps count of how far the block
     # already stands back (back steps add to it, pushing steps clear it) and only moves the rest, so two turns in a row
     # or a turn after backing off do not carry the tip far away (Emranul, 4.11.26: "landing in a far away place").
-    "turn_landing_retreat_m": 0.025,
-    # Close to the paper the arm rises and comes down in these heights, one solved position each, so the tip moves
-    # nearly straight up and down instead of swinging in a joint-space arc over the puck (the landing jams of 4.11.26).
-    "turn_near_paper_heights_m": [0.01, 0.02],
-    # How high the tip is lifted for a forearm turn (Emranul, 4.11.26 test 1: 3 cm is enough; was 5 cm).
-    "turn_lift_m": 0.03,
+    # 2.5 cm until test 2; 1.5 cm since (Emranul, 4.11.26: the step back was too much). The wide side overlaps the
+    # puck's place by about 12 mm after 90 degrees (calc), so 15 mm leaves about 3 mm.
+    "turn_landing_retreat_m": 0.015,
+    # Intermediate heights for the rise and the descent of a turn, one solved position each. [0.01, 0.02] until test
+    # 2; empty since (Emranul, 4.11.26: up in one move, down in one move).
+    "turn_near_paper_heights_m": [],
+    # How high the tip is lifted for a forearm turn (Emranul, 4.11.26: 5 cm, 3 cm after test 1, 2.5 cm after test 2).
+    "turn_lift_m": 0.025,
     # Smaller steps of the lifted turn keep the lifted tip closer to its spot (was 30, from side_view_test.py).
     "turn_increment_deg": 15.0,
     # Camera on the forearm cover: True if the cover turns with joint 4, so the picture turns with the forearm and the
@@ -440,9 +442,11 @@ RECORDING_PARAMETERS = {
     # no longer follows the hand: its top points the way the forearm points, away from the base, so the heading is
     # the direction from the base to the rod ("camera_heading_model" forearm). NOT YET TESTED: the first episode
     # starts with three "left" steps; the content must move RIGHT, else picture_left_sign becomes -1.
-    # v8 (4.11.26 evening, after test 1): q / e are hand flicks instead of diagonal steps; forearm turns lift 3 cm.
+    # v8 (4.11.26 evening, test 2): q / e were hand flicks instead of diagonal steps; forearm turns lifted 3 cm.
+    # v9 (4.11.26 evening, after test 2): q / e diagonal steps again (as v7); turns lift 2.5 cm in one move each way and
+    # land 1.5 cm back from the puck.
     "camera_mount": "forearm_cover_tape_F3_bracket",
-    "mapping_version": "picture_frame_v8_forearm_camera_flicks_2026-11-04",
+    "mapping_version": "picture_frame_v9_forearm_camera_2026-11-04",
     # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
     "camera_heading_model": "forearm",

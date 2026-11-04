@@ -280,14 +280,15 @@ def test_discard_stores_its_reason(raw_folder: Path) -> None:
 
 
 def test_hand_flick(raw_folder: Path) -> None:
-    """q and e flick the hand and leave the rod where it was; both are logged as their own actions."""
+    """With the flick keys bound, q and e flick the hand and leave the rod where it was; both are logged as their own actions."""
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
     keys = ["enter", "q", "e", "w", " ", "y", "escape"]
+    flick_keys = dict(RECORDING_PARAMETERS["keys"], q = "flick_left", e = "flick_right")  # unbound by default since test 2
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
-        key_reader = scripted_keys(keys))
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0],
+        "keys": flick_keys}, key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
     episode_folder, summary, rows = read_episode(raw_folder)

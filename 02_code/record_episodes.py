@@ -859,7 +859,7 @@ class EpisodeRecorder:
         """The person chooses the step from the picture on screen."""
 
         turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
-        self.__show_picture(picture_bytes, f"step {step}{turned}: w a s d = steps, q e = flick, v b = forearm turn, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = steps, v b = forearm turn, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
