@@ -260,8 +260,10 @@ RECORDING_PARAMETERS = {
     "step_m": 0.01,
     "actions": {
         "forward": 0,
-        "forward_left": 45,
-        "forward_right": -45,
+        # 45 until test 2; 60 since (Emranul, 4.11.26: sharper diagonals for the tight turns of the meander). Steeper
+        # than about 60 the block tends to slide along the puck instead of pushing it (pushing physics, not measured).
+        "forward_left": 60,
+        "forward_right": -60,
         "left": 90,
         "right": -90,
         "back": 180,
@@ -445,8 +447,9 @@ RECORDING_PARAMETERS = {
     # v8 (4.11.26 evening, test 2): q / e were hand flicks instead of diagonal steps; forearm turns lifted 3 cm.
     # v9 (4.11.26 evening, after test 2): q / e diagonal steps again (as v7); turns lift 2.5 cm in one move each way and
     # land 1.5 cm back from the puck.
+    # v10 (4.11.26 evening, before test 3): q / e diagonal steps at 60 degrees instead of 45.
     "camera_mount": "forearm_cover_tape_F3_bracket",
-    "mapping_version": "picture_frame_v9_forearm_camera_2026-11-04",
+    "mapping_version": "picture_frame_v10_forearm_camera_diagonals_60_2026-11-04",
     # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
     "camera_heading_model": "forearm",

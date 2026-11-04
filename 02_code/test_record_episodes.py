@@ -201,7 +201,9 @@ def test_hand_guided_episode(raw_folder: Path) -> None:
     assert distance_to_path_end < 0.01, distance_to_path_end
     assert len(rows) >= int((path_end[0] - start_pose()[0]) / 0.01), len(rows)
     distances_to_path = [min(math.hypot(float(row["x"]) - point[0], float(row["y"]) - point[1]) for point in hand_path) for row in rows]
-    assert max(distances_to_path) < 0.005, max(distances_to_path)
+    # 5 mm until 4.11.26; 6 mm since the diagonals went from 45 to 60 degrees, which matches gentle curves more coarsely
+    # (the replay strayed up to 5.5 mm in this test).
+    assert max(distances_to_path) < 0.006, max(distances_to_path)
 
 
 def test_workspace_guard_protects_the_puck(raw_folder: Path) -> None:
