@@ -130,10 +130,11 @@ Last updated: 4.11.26 by Emranul's paper-publication session (publication assess
   `06_deliverables/research_notes/Paper publication/2026-11-04_publication_assessment.md`. Verdict (a recommendation, not
   yet decided): plan the paper for after the course; best candidate is a 4-page workshop paper (ICRA 2027 or RSS 2027
   workshop, deadlines likely March to June 2027) comparing keyboard stepping with hand-guided replay for the one-picture
-  classifier, with the occlusion-when-backing and step-over results as a section; arXiv copy needs an endorser.
+  classifier (Emranul's own idea), occlusion and step-over as a section. Seven more ideas added on Emranul's request;
+  the cheapest is an education paper on the course project for Robotics in Education 2027 (Prague, deadline ~late Jan).
 - Next: no extra robot work before 10 Jan; pre-register the keyboard-against-replay comparison and the final evaluation,
-  keep every number, take figure photos; ask the professor section 4's nine questions; go or no-go in late January.
-- Blocked on: the professor's view. The brief said "Prof. Rebholz", the supervisor is Prof. Nierhoff: Emranul to confirm.
+  keep every number, take figure photos; ask Prof. Nierhoff section 4's eleven questions; go or no-go in late January.
+- Blocked on: Prof. Nierhoff's view (co-authorship, publishing data and code).
 
 ## Open questions for the professor (meeting 2)
 

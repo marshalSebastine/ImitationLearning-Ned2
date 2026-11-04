@@ -6,4 +6,4 @@
 - [AI Project workspace set-up](ai-project-workspace-setup.md) — sheet 5 cm in front of the base, line pointing away; magnet block on the rod as pusher; camera on the wrist link, sees 9 cm across and 7 cm ahead, always away from the base
 - [Test before hardware changes](feedback-test-before-hardware-changes.md) — never advise a physical change on a theory; test first, say what is known vs guessed
 - [Recording tool](project-recording-tool.md) — 28.10.26: actions in the picture frame; keyboard and hand-guided (guide, then replay) modes in one loop; picture_left_sign untested
-- [Paper publication](project-paper-publication.md) — 4.11.26: assessment recommends a 4-page workshop paper after the course (keyboard vs hand-guided replay); questions for the professor open; nothing decided
+- [Paper publication](project-paper-publication.md) — 4.11.26: Emranul's teleop-vs-hand-guiding idea plus seven more (education paper at RiE 2027 cheapest); workshop paper after the course; nothing decided

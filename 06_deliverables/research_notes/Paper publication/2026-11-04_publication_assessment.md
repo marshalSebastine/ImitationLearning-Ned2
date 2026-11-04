@@ -6,11 +6,6 @@ decide. Sources read: `STATUS.md`, the three data-collection notes of 30 and 31.
 bracket F README, and the web pages linked in section 2 (all checked on 4.11.26). Nothing was run on the robot and
 nothing under `03_data` was touched. Dates marked **verified** were read on the organiser's own page on 4.11.26;
 dates marked **pattern** are last year's dates and may shift; **unverified** means no source was found.
-
-Name check: the request for this note named "Prof. Rebholz" as the professor. The course supervisor in `README.md` and
-in the shared memory is Prof. Dr.-Ing. Thomas Nierhoff, so the questions in section 4 are addressed to him. If
-Prof. Rebholz is meant as an additional adviser or co-author, Emranul should say so and the note is updated.
-
 ## 0. The short answer
 
 - Yes, there is probably one publishable result in this project, but not before 10 January 2027. The course
@@ -25,6 +20,12 @@ Prof. Rebholz is meant as an additional adviser or co-author, Emranul should say
   workshop list appears on 31 January 2027, paper deadlines usually March to April) or at RSS 2027 (Athens, 6 to
   11 July 2027; workshop paper deadlines usually early June), plus a copy on arXiv. A full conference paper (IROS
   2027, deadline 1 March 2027) is only reachable if the course results are strong and the professor wants to push for it.
+- The fastest archival paper is an education paper about the whole course project (idea K in section 1). It could go
+  to Robotics in Education 2027 in Prague, whose deadline is probably late January 2027, right after the course
+  submission. It reuses the course documentation and needs no extra experiment.
+- Seven more research ideas for this project (E to K: camera placement, memory against occlusion, classify or regress,
+  corrections against demonstrations, variety against repetition, two-operator agreement, education) are in section 1,
+  grouped into three possible papers.
 - What to do now: nothing extra on the robot. Only collect "paper-ready": pre-register the comparison, keep every
   measured number, and ask the professor the questions in section 4 at meeting 2 on 9 November.
 
@@ -112,6 +113,90 @@ likely they are to pass a reviewer. "Work" is extra work beyond the course plan 
 The CadQuery bracket (parametric script, STEP and 3MF, measured numbers, Niryo's CAD cross-check) is a reproducibility
 asset, not a reviewable result. It belongs in a GitHub release with a DOI, one figure and two sentences in the paper.
 
+### More ideas for this project (added 4.11.26 at Emranul's request)
+
+Emranul's own idea is A: compare keyboard teleoperation with hand-guiding for this task. Three cheap ways to make A
+stronger:
+
+- **Make it three-way.** Compare keyboard, hand-guided replay, and the raw pictures taken while the hand guides. The 30.10
+  analysis (section 2.3) recommended saving the guide-phase pictures, since they come for free. The tool does not save
+  them yet (no `guided_frames` in `02_code` on 4.11), so this needs a small code change on Marshal's side.
+- **Measure replay divergence.** After each hand-guided replay, measure how far the puck ends from where the hand left
+  it, using a photo or the last camera picture. This is the effect that would make replay labels wrong, and no paper in
+  the analysis measured it for pushing.
+- **Compare at equal robot time, not equal episode counts.** "Success per robot hour" is the number another lab can use.
+
+New ideas, each with its question, why it fits this project and its extra cost. Robot time is calculated from the
+analysis's figure of 6.5 h for about 220 trials. So 40 extra trials (20 on each of two sheets) cost about 1.2 h.
+
+**E. Where to put a wrist camera for pushing: a visibility model.**
+- Question: from the track geometry and the camera pose alone, can we predict which stretches the policy sees blind,
+  and do the failures happen exactly there?
+- Why here: we have two camera poses (stock holder and bracket F), traced line shapes for six sheets, a fitted camera
+  pose (`cam_calibration.json`) and a measured 9 x 7 cm view. A short script can compute the blind fraction per sheet
+  and per pose. The bracket F dry run already in the plan counts the real blind frames to check it against.
+- Cost: 2 to 3 days of desk work, almost no robot time. Stock-holder pictures from the rehearsal are fine for counting
+  blind frames, though never for training.
+- Strength: a design rule others can apply. Fits with C (occlusion when backing) in one paper.
+
+**F. One picture or a short memory when the pusher hides the target.**
+- Question: does a policy that sees the last 2 or 3 pictures, or the last picture plus its previous action, handle
+  pulls, hairpins and crossings better than a one-picture policy?
+- Why here: the 29.10 discussion and the step-over design both rest on "a model without memory cannot tell how far
+  round it has got". This tests that claim on our own data.
+- Cost: training only (same dataset, two or three model variants) plus about 1.2 h of robot evaluation per variant.
+  Stacked pictures are still camera-only. Ask Prof. Nierhoff whether the previous action counts as an extra input.
+- Strength: good. It turns C from a sketch into a measured remedy.
+
+**G. Classify or regress the step.**
+- Question: on the same data, does the 11-class head beat a head that regresses the step direction, as in Diffusion
+  Meets DAgger (Zhang et al. 2024)?
+- Why here: the 30.10 analysis notes that the closest pushing paper does not validate a class head. RT-1 found discrete
+  outputs better than continuous ones, but not for pushing.
+- Cost: training only plus about 1.2 h of evaluation. A clean section, not a paper of its own.
+
+**H. Corrections against more demonstrations, at the same robot time.**
+- Question: is one hour of human-gated corrections worth more than one hour of plain keyboard episodes? In a
+  human-gated correction, the model proposes each step and a person accepts or overrides it.
+- Why here: our blocking loop at one step per second removes reaction lag, the main weakness of earlier human DAgger
+  studies, so the result may differ from IWR and HG-DAgger.
+- Cost: the correction rounds are already in the course plan. The equal-time control arm adds about 3 to 4 robot hours.
+  It needs Prof. Nierhoff's yes to question 2 of the 30.10 analysis.
+- Strength: strong and easy for a reviewer to follow.
+
+**I. Variety or repetition for an unseen track.**
+- Question: for a fixed number of episodes, is it better to record many episodes on few sheets or few on many sheets?
+- Why here: the course evaluates on an unseen path. Lin et al. (2025) found that variety beats repetition, but for
+  grasping, not line following.
+- Cost: needs permission to print our own sheets, and it needs the most robot time of all the ideas (several hours per
+  arm). Realistic only after the course.
+- Strength: the most "research" question, and the most expensive.
+
+**J. Two novice operators: does a written rule make them label like one?**
+- Question: how far do Emranul and Marshal agree (kappa) before and after the stepping rule and the on-screen band? How
+  does a policy trained on Emranul's data only, Marshal's only, or both compare?
+- Cost: the agreement test is already in the plan; the extra models need training plus about 1.2 h of evaluation each.
+- Strength: modest alone, good next to A in a "data collection" paper.
+
+**K. A full imitation-learning pipeline on a classroom robot in one semester (education paper).**
+- What: the course project written up for teachers and students. It covers cost, hours, what went wrong (camera mount,
+  occlusion, line ends), the tool, the protocol and the results. The Ned2 is sold as an education robot.
+- Venue: Robotics in Education (RiE) 2027, Prague, 26 to 28 May 2027, short papers up to 6 pages, Springer proceedings
+  (archival) ([call](https://easychair.org/cfp/rie2027)). The 2027 deadline is not posted yet. RiE 2026 closed on
+  31 January 2026, extended from 15 January (pattern only). If the 2027 deadline is also late January, the 7-page course
+  documentation due on 10 January can be cut down to it in about two weeks.
+- Cost: the lowest of all, with no extra experiment and about one week of rewriting. It is the only idea that could
+  give an archival paper right after the course.
+- Strength: lower research novelty, but the highest chance of acceptance, and Prague is close to Amberg.
+
+**How the ideas combine into papers:**
+
+1. **Data-collection paper:** A in its three-way form, plus J, with D as the method section. Workshop, spring 2027.
+2. **Occlusion paper:** C plus E plus F. Workshop, or the IROS or CASE main track if the numbers are strong.
+3. **Education paper:** K, with whatever numbers the course produced. RiE 2027, deadline probably late January 2027.
+
+G and H fit as extra sections into paper 1 or 2.
+
 ## 2. Venues, checked on 4.11.26
 
 A **workshop paper** is a short (usually 4 pages plus references), lightly reviewed, usually non-archival paper
@@ -133,6 +218,8 @@ paper** is 6 to 8 pages, reviewed by three people, and archival.
 | KI 2027, German Conference on AI ([KI 2026 call](https://ki2026.gi.de/calls/call-for-papers)) | Main track, Springer LNAI; some years a student day | not announced; 2026 pattern: abstract late March, paper early April, conference August | 12 | yes | yes, but AI-general audience, robotics is a side topic | unverified for 2027 |
 | IEEE CASE 2027, Linz, 23 to 27 Aug 2027 (place and dates from [beri.net](https://www.beri.net/events/ieee-case-2027)) | Main track | 1 Mar 2027 ([IEEE RAS dates](https://www.ieee-ras.org/events/category/important-dates/list/)) | not checked | yes | barely, same as IROS; Linz is close to Amberg | deadline verified; place and dates unverified |
 | Applied Research Conference 2027 (Bavarian universities of applied sciences) ([2026 call](https://mediapool.hm.edu/media/dachmarke/dm_lokal/konferenzen/2026_arc_fk03/CfP_BF.pdf)) | Student paper sessions and posters; proceedings | 2026: paper 3 Jun, conference 3 Jul; 2027 host and dates not announced | not stated | **only students of the MAPR (Applied Research) master**; the team is in MAI, so probably not eligible; the Moodle course is hosted by OTH Amberg-Weiden, so the professor can ask | yes | 2026 verified; 2027 unverified |
+| Robotics in Education (RiE) 2027, Prague, 26 to 28 May 2027 ([call](https://easychair.org/cfp/rie2027)) | Regular (12 pages) and short papers or posters (6 pages), Springer LNNS, archival | not posted; 2026 pattern: 15 Jan, extended to 31 Jan ([RiE 2026](https://easychair.org/cfp/rie2026)) | 6 (short) | yes; "exemplary robotics projects in classes" is a listed topic | yes, if late January again: right after the course submission | place, dates, pages verified; deadline pattern |
+| IEEE EDUCON 2027, Timisoara, 5 to 9 Apr 2027 ([call](https://educon-conference.org/2027/authors/call-for-papers)) | Engineering-education papers | abstract 30 Oct 2026 (passed), paper 7 Dec 2026 | 6 | yes | no, abstract deadline passed | verified |
 | OTH Amberg-Weiden research report (Forschungsbericht) | One-page project summary, not peer-reviewed | annual, date unverified | 1 | professors submit; students as co-authors unverified | yes | unverified |
 | arXiv, cs.RO ([endorsement rules](https://info.arxiv.org/help/endorsement.html)) | Preprint, no review | none | none | yes, but since 21 Jan 2026 a university e-mail no longer endorses a new author: an established cs.RO author (the professor, if he has arXiv papers) must endorse the first submission | yes | verified |
 
@@ -153,7 +240,7 @@ the faculty funds student conference travel.
 | Nov to 20 Dec | Course plan only. "Paper-ready" habits: pre-register the keyboard-against-replay comparison and the 20-trial evaluation in a dated note before running them; keep the agreement-test numbers; store every time, override and discard count; take the figure photos (set-up, camera view, occlusion when backing) | both |
 | 9 to 17 Dec | Exam registration (binding) | both |
 | 20 Dec to 8 Jan | Documentation and presentation; freeze on 8 Jan; submission 10 Jan; presentation 11 Jan | both |
-| 12 to 31 Jan 2027 | Rest. Then one meeting with the professor: go or no-go for a workshop paper, which contribution (A with C as a section is the recommendation), authorship order. Check the ICRA 2027 workshop list on 31 Jan and the GRC 2027 call (probably already closed) | both, professor |
+| 12 to 31 Jan 2027 | If the professor agreed to the education paper (idea K): cut the course documentation down to a 6-page RiE 2027 short paper, deadline probably late January (check rie.science in December). Then one meeting with the professor: go or no-go for a workshop paper, which contribution (A with C as a section is the recommendation), authorship order. Check the ICRA 2027 workshop list on 31 Jan and the GRC 2027 call (probably already closed) | both, professor |
 | February | Half a day of dedicated literature search on line-following imitation learning and demonstration-interface comparisons (the 100-source check of 30.10 was about collection methods, not about this exact task); at most two extra robot sessions if one experiment is missing (likely the hand-guided model's 20-trial evaluation); draft v1, 4 pages, by 28 Feb; professor's comments | Emranul writes sections 1, 3, 6; Marshal sections 4, 5 (provisional, mirrors who built what) |
 | March | Pick the workshop (ICRA: deadline likely March or April; RSS: June); draft v2; data and code release prepared if allowed | both |
 | April to June | Submit; on acceptance, poster and arXiv copy; travel | one of the two presents |
@@ -210,6 +297,9 @@ course, the paper can only contain what the course plan measured, which is why t
 8. His own thesis used hand-guiding: would he see value in the keyboard-against-replay comparison, and does he know a
    paper that already did it for a discrete, camera-only policy (which would change contribution A)?
 9. May the unseen evaluation sheet from the course be described and shown in a paper?
+10. Would he support an education paper about the course project (idea K, RiE 2027), and may the course documentation
+    be reused for it?
+11. For idea F: does the previous action count as an input beyond the camera, or only stacked camera pictures?
 
 ## 5. Risks and verdict
 
@@ -231,7 +321,9 @@ Verdict: **better planned for after the course, with the groundwork laid now.** 
 work worth doing is free: pre-register the comparison, keep the numbers, take the photos, ask the professor. From
 February 2027 a 4-page workshop paper on contribution A (with C as a section and D as its method) at an ICRA 2027 or
 RSS 2027 workshop, plus an arXiv copy, is realistic if the professor supports it and two or three robot sessions exist.
-Contribution B (the benchmark) only if data release is allowed and someone outside the team wants to use it.
+Contribution B (the benchmark) only if data release is allowed and someone outside the team wants to use it. The
+education paper (K) at RiE 2027 is the low-risk extra: no new experiments, an archival paper, about one week of
+writing in late January, if the deadline falls there and the professor agrees.
 
 ## Sources found on 4.11.26 (not in the 30.10 analysis)
 

@@ -1,6 +1,6 @@
 ---
 name: project-paper-publication
-description: "Paper idea of 3.11.26 (Emranul): assessment of 4.11.26 recommends a workshop paper after the course, not before 10.1.27; open questions for the professor"
+description: "Paper idea of 3.11.26 (Emranul): his teleop-vs-hand-guiding comparison plus seven more ideas; workshop paper after the course, education paper at RiE 2027 as the cheap option; open questions for Prof. Nierhoff"
 metadata:
   type: project
   modified: 2026-11-04T18:00:00.000Z
@@ -29,10 +29,19 @@ The Bavarian Applied Research Conference is for MAPR students only, so probably 
 
 **Open questions for Prof. Nierhoff:** support and co-authorship, author order; whether data, code and bracket files
 may be published openly; whether the wrist-camera-only rule may be relaxed for a comparison after the course; robot
-time in Feb and Mar 2027; arXiv endorsement; travel funding. Full list of nine in section 4 of the note.
+time in Feb and Mar 2027; arXiv endorsement; travel funding. Full list of eleven in section 4 of the note, including whether he supports the education paper and whether the previous action counts as an input.
 
-**Name check:** Emranul's brief named "Prof. Rebholz"; the course supervisor is Prof. Nierhoff ([[user-ai-project-team]]).
-Emranul has to say whether Rebholz is meant as an extra adviser.
+**Emranul's own idea (4.11.26):** compare keyboard teleoperation with hand-guiding for this task (contribution A). He
+asked for more ideas; seven were added to section 1 of the note: E, a visibility model for wrist-camera placement
+(stock holder against bracket F); F, one picture against a short memory when the pusher hides the target; G, classify
+against regress the step; H, corrections against more demonstrations at equal robot time; I, variety against
+repetition of sheets for the unseen track; J, two-operator label agreement; K, an education paper about the whole
+course project for Robotics in Education 2027 (Prague, 26 to 28 May 2027, 6-page short papers, Springer; deadline not
+posted, 2026 pattern late January), the cheapest, needing no new experiment. Grouped into three papers:
+data collection (A three-way + J), occlusion (C + E + F), education (K).
+
+**The professor is Prof. Nierhoff** ([[user-ai-project-team]]). Emranul confirmed this on 4.11.26 after a brief to
+this session wrongly named someone else; never use another name for the course supervisor.
 
 **Why:** the course deadline (10.01.27) and the robot plan (about 30 of 36 hours until 20 Dec, see
 [[project-recording-tool]]) leave no room for paper-only experiments; the paper's evidence is the course's evidence.
