@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, eleven classes; step-over untested on the robot).
+Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view test written for Emranul to run, not yet run on the robot).
 
 ## Dates that cannot move
 
@@ -105,6 +105,9 @@ Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, 
 - Decided 4.11 (Marshal; Emranul to confirm): back_left, back_right (keys z, c) and step_over_forward, step_over_back (keys r, f)
   added, eleven classes, because pulls towards the base cannot be avoided by reorienting the sheet. Pulling works by teleoperation
   (Marshal). Simulator tests pass; step-over untested on the robot. Next: try the step-over on the robot with no puck, then with it.
+- Proposed 4.11 (Marshal), to test: turn the forearm for a side view when pulling. The rod leans when turned (calc: 1.5, 9.5 and 14
+  degrees at 20, 25 and 28 cm with a 90 degree turn, near-vertical only at 18 to 20 cm). Emranul runs
+  `02_code/side_view_test.py` from `06_deliverables/research_notes/Recording tool/side_view_test_checklist.md`. Not yet run on the robot, and nothing is built into the recording tool.
 - Done 4.11 (Marshal): every episode.json stores stepping_rule_version, outcome and discard_reason (the tool asks after each
   episode); camera_mount now defaults to bracket_F. Raise `stepping_rule_version` in config when the rule changes.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.

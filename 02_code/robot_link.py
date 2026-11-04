@@ -58,6 +58,19 @@ class RobotLink:
         self.robot.move(JointsPosition(*home_joints))
 
 
+    def move_joints(self, joints: List[float]) -> None:
+        """Move to the joint angles ``joints``; returns when the move is finished."""
+
+        self.robot.move(JointsPosition(*joints))
+
+
+    def predicted_position(self, joints: List[float]) -> List[float]:
+        """Where the robot's own kinematics put the rod's end for ``joints``; nothing moves."""
+
+        pose = self.robot.forward_kinematics(JointsPosition(*joints))
+        return [pose.x, pose.y, pose.z]
+
+
     def read_state(self) -> Dict[str, List[float]]:
         """The rod end's pose [x, y, z, roll, pitch, yaw] and the six joint angles, read now."""
 

@@ -150,6 +150,31 @@ WORKSPACE_PARAMETERS = {
 }
 
 
+# The side-view test of 4.11.26 (side_view_test.py): forearm roll (joint 4) turned so the camera looks along a pull
+# towards the base. The rod cannot be kept vertical when turned, except where the forearm is vertical; the lean is
+# calculated from the arm model (about 1.5, 9.5 and 14 degrees at 20, 25 and 28 cm with a 90 degree turn), not measured.
+SIDE_VIEW_TEST_PARAMETERS = {
+    "distances_m": [0.20, 0.25, 0.28],
+    "line_y_m": -0.02,
+    "turn_deg": 90.0,
+    "turn_increment_deg": 30.0,
+    "lift_height_m": 0.05,
+    "step_m": 0.01,
+    "pull_steps": 10,
+    "minimum_distance_m": 0.17,
+    # Lean is limited tightly with the tip down, where the rod meets the puck, and loosely with it lifted, where the
+    # same turn leans more (calc: about 17 degrees at 25 cm) but touches nothing.
+    "maximum_lean_deg": 16.0,
+    "maximum_lifted_lean_deg": 30.0,
+    "model_tolerance_mm": 3.0,
+    "velocity_percent": 20,
+    "settle_s": 0.4,
+    "fresh_picture_timeout_s": 3.0,
+    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    "output_folder": "03_data/raw/camera_check/side_view_test"
+}
+
+
 def table_height(
         x: float,
         y: float
