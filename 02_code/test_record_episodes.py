@@ -48,12 +48,42 @@ def read_episode(raw_folder: Path) -> tuple:
 
 
 def test_picture_steps_point_the_right_way() -> None:
-    """With the rod straight ahead of the base, picture-forward is table +x and picture-left is table +y."""
+    """
+    With the rod vertical in the usual orientation, picture-forward is table +x and picture-left is table +y wherever
+    the rod stands; with the hand turned 90 degrees about the vertical, picture-forward is table +y.
+    """
 
-    forward = picture_step_to_table("forward", 0.25, 0.0)
-    left = picture_step_to_table("left", 0.25, 0.0)
-    assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-12, forward
-    assert abs(left[0]) < 1e-12 and math.isclose(left[1], 0.01), left
+    for x, y in ((0.25, 0.0), (0.22, -0.11)):
+        forward = picture_step_to_table("forward", [x, y, 0.03, 0.0, 1.57, 0.0])
+        left = picture_step_to_table("left", [x, y, 0.03, 0.0, 1.57, 0.0])
+        assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-9, forward
+        assert abs(left[0]) < 1e-9 and math.isclose(left[1], 0.01), left
+    turned_forward = picture_step_to_table("forward", [0.25, 0.0, 0.03, 0.0, 1.57, math.pi / 2])
+    assert abs(turned_forward[0]) < 1e-9 and math.isclose(turned_forward[1], 0.01), turned_forward
+
+
+def test_camera_turn_episode(raw_folder: Path) -> None:
+    """
+    After "turn_left" the rod stays put and a forward step goes to table +y; after turning back, forward goes to +x
+    again; every row carries the camera's turn angle.
+    """
+
+    radial_line = [[0.156, 0.0], [0.398, 0.0]]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
+    keys = ["enter", "r", "r", "w", "w", "t", "w", " ", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed", summary
+    assert [row["action"] for row in rows] == ["turn_left", "forward", "forward", "turn_right", "forward", "stop"], [row["action"] for row in rows]
+    assert [row["camera_turn_deg"] for row in rows] == ["0.0", "90.0", "90.0", "90.0", "0.0", "0.0"], [row["camera_turn_deg"] for row in rows]
+    positions = [(float(row["x"]), float(row["y"])) for row in rows]
+    assert math.isclose(positions[1][0], positions[0][0], abs_tol = 1e-6) and math.isclose(positions[1][1], positions[0][1], abs_tol = 1e-6), "the turn moved the rod"
+    assert math.isclose(positions[3][1] - positions[1][1], 0.02, abs_tol = 1e-6) and abs(positions[3][0] - positions[1][0]) < 1e-6, "turned forward steps should go to +y"
+    assert math.isclose(positions[5][0] - positions[4][0], 0.01, abs_tol = 1e-6) and abs(positions[5][1] - positions[4][1]) < 1e-6, "after turning back, forward should go to +x"
 
 
 def test_keyboard_episode(raw_folder: Path) -> None:
@@ -152,7 +182,7 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck):
+    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_camera_turn_episode):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

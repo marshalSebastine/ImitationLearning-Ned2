@@ -28,7 +28,7 @@ Order for the call: 4, 9, 1, 6, then 8 if time allows. Question 7 is moved to me
 | 13 | May a non-printed, reversible clamp mount for the camera (hose clamp plus aluminium strip, no marks on the robot) be used for recording while the printed mount is pending, or even for the final run? | The one print must copy a geometry already photographed working; a clamp prototype gives those pictures and could start the recording earlier | open; added 26.10.26 after the design review |
 | 14 | Only if a hand-mounted camera ever survives the prototype: may the mount clamp on the rod above the magnet block, turning with joint 6? | The FAQ allows a modified camera mount; a rod clamp touches the end effector's rod | open, low priority; added 26.10.26 |
 | 15 | May we print our own training tracks (generated lines of the same size and line thickness)? Question 1 was answered only for the files that will follow | The plan needs 20 to 30 printed paths for variety | open; added 26.10.26 |
-| 16 | Is a second camera allowed (fixed overhead or on the arm), or must the input be the end-effector camera only? | Decides whether an overhead view may help on loops | open; added 26.10.26 (asked in 9b, not answered) |
+| 16 | Is a second camera allowed (fixed overhead or on the arm), or must the input be the end-effector camera only? | Decides whether an overhead view may help on loops | answered in effect 4.11.26, per Emranul: the camera may be mounted anywhere on the robot (other teams tape it to the upper-arm cover). Still one camera. Tape test planned, see `06_deliverables/research_notes/Camera mount options/upper_arm_tape_test_checklist.md` |
 
 ## Meeting 3 (23.11.26): needed for the submission
 

@@ -55,7 +55,7 @@ WINDOW_NAME = "record_episodes"
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
-                "action", "source", "is_mistake", "is_lost", "x", "y", "z", "roll", "pitch", "yaw",
+                "action", "source", "is_mistake", "is_lost", "camera_turn_deg", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -276,6 +276,7 @@ class EpisodeRecorder:
             "step_m": self.recorder_parameters["step_m"],
             "step_budget": self.recorder_parameters["step_budget"],
             "actions": self.recorder_parameters["actions"],
+            "turn_actions": self.recorder_parameters["turn_actions"],
             "picture_left_sign": self.recorder_parameters["picture_left_sign"]
         }
 
@@ -328,6 +329,7 @@ class EpisodeRecorder:
         rows = []
         self.current_rows = rows
         self.is_lost_pending = False
+        self.camera_turn_deg = 0.0
         move_return_time = time.time()
         while len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -338,6 +340,27 @@ class EpisodeRecorder:
 
             if action in ("discard", "quit"):
                 return ("discarded" if action == "discard" else "quit"), rows
+
+            if action in self.recorder_parameters["turn_actions"]:
+                most = self.recorder_parameters["max_turn_deg"]
+                turn_deg = max(-most, min(most, self.camera_turn_deg + self.recorder_parameters["turn_actions"][action]))
+                if turn_deg == self.camera_turn_deg:
+                    print(f"refused: the camera is already turned {most} degrees that way")
+                    continue
+                times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
+                rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
+                try:
+                    self.robot_link.move_to(list(state["pose"][:3]) + self.__turned_orientation(turn_deg), is_linear = False)
+                except Exception as error:
+                    print(f"the robot refused that turn ({error}); choose another step")
+                    rows.pop()
+                    (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                    self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                    continue
+                self.camera_turn_deg = turn_deg
+                print(f"camera turned {turn_deg:+.0f} degrees; the picture's top now points {math.degrees(camera_heading_rad(self.robot_link.read_state()['pose'])):+.0f} degrees from the table's x axis")
+                move_return_time = time.time()
+                continue
 
             if action in self.recorder_parameters["lean_actions"]:
                 target_pose = self.__leaned_pose(state["pose"], self.recorder_parameters["lean_actions"][action])
@@ -359,7 +382,7 @@ class EpisodeRecorder:
 
             if action != "stop":
                 x, y = state["pose"][0], state["pose"][1]
-                step_x, step_y = picture_step_to_table(action, x, y)
+                step_x, step_y = picture_step_to_table(action, state["pose"])
                 target_x, target_y = x + step_x, y + step_y
                 if not self.__is_step_allowed(target_x, target_y, step_x, step_y):
                     print(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
@@ -370,12 +393,12 @@ class EpisodeRecorder:
             if action == "stop":
                 return "completed", rows
 
-            # The rod is asked to be vertical at every step (the start pose's orientation); if the bracket's wrist
-            # limit forbids that near the base, RobotLink leans it just enough and says so (2.11.26). A lean from the
-            # y / c test keys therefore lasts one step only.
-            pose = self.__start_pose()
+            # The rod is asked to be vertical at every step (the start pose's orientation, turned by the current camera
+            # turn); if the bracket's wrist limit forbids that near the base, RobotLink leans it just enough and says
+            # so (2.11.26). A lean from the y / c test keys therefore lasts one step only; a camera turn lasts.
+            orientation = self.__turned_orientation(self.camera_turn_deg)
             try:
-                self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]])
+                self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y)] + orientation)
             except Exception as error:
                 # The robot refused the step (seen on 31.10.26 near the base: "cannot be reached with a linear
                 # trajectory"). The step did not happen, so its row and picture are taken back and the person
@@ -404,7 +427,7 @@ class EpisodeRecorder:
         """
 
         x, y, z = pose[:3]
-        heading = camera_heading_rad(x, y)
+        heading = camera_heading_rad(pose)
         forward_axis = numpy.array([math.cos(heading), math.sin(heading), 0.0])
         current = rotation_from_roll_pitch_yaw(*pose[3:])
         leaned = rotation_about_axis(forward_axis, math.radians(lean_deg)) @ current
@@ -417,6 +440,20 @@ class EpisodeRecorder:
             return None
 
         return [x, y, z] + list(roll_pitch_yaw_from_rotation(leaned))
+
+
+    def __turned_orientation(self, turn_deg: float) -> List[float]:
+        """
+        The start pose's orientation (rod vertical) turned by ``turn_deg`` about the vertical, as [roll, pitch, yaw].
+
+        A positive turn carries the picture's top towards picture-left (``picture_left_sign`` sets which way round
+        that is on the table), so after "turn_left" the camera looks where "left" pointed before.
+        """
+
+        start = self.__start_pose()
+        turned = rotation_about_axis(numpy.array([0.0, 0.0, 1.0]),
+                                     self.recorder_parameters["picture_left_sign"] * math.radians(turn_deg)) @ rotation_from_roll_pitch_yaw(*start[3:])
+        return list(roll_pitch_yaw_from_rotation(turned))
 
 
     def __handle_flag_key(
@@ -449,7 +486,8 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        self.__show_picture(picture_bytes, f"step {step}: q w e / a s d = move, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        turned = f", camera turned {self.camera_turn_deg:+.0f}" if self.camera_turn_deg else ""
+        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = move, r t = turn camera, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -495,7 +533,7 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(picture_step_to_table(action, position[0], position[1])) - target))
+                    position + numpy.array(picture_step_to_table(action, state["pose"])) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
@@ -515,10 +553,11 @@ class EpisodeRecorder:
 
 
     def __is_executable(self, action: Optional[str]) -> bool:
-        """True for a key that ends the wait for a decision: one of the classes, a lean test key or discard."""
+        """True for a key that ends the wait for a decision: one of the classes, a lean or turn key, or discard."""
 
         return (action in self.recorder_parameters["actions"]
                 or action in self.recorder_parameters["lean_actions"]
+                or action in self.recorder_parameters["turn_actions"]
                 or action == "discard")
 
 
@@ -644,7 +683,8 @@ class EpisodeRecorder:
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         row = {"step": step, "unix_time": round(time.time(), 3), "frame": f"frames/{frame_name}", "frame_md5": picture_md5,
                "sharpness": round(sharpness_of(picture), 1),
-               "action": action, "source": source, "is_mistake": 0, "is_lost": int(self.is_lost_pending)}
+               "action": action, "source": source, "is_mistake": 0, "is_lost": int(self.is_lost_pending),
+               "camera_turn_deg": float(self.camera_turn_deg)}
         row.update({name: round(value, 3) for name, value in times.items()})
         row.update({name: round(value, 5) for name, value in zip(["x", "y", "z", "roll", "pitch", "yaw"], state["pose"])})
         row.update({f"joint_{index + 1}": round(value, 5) for index, value in enumerate(state["joints"])})
@@ -721,11 +761,12 @@ class EpisodeRecorder:
         """
 
         puck_x, puck_y = self.recorder_parameters["start_point_xy"]
-        heading = camera_heading_rad(puck_x, puck_y)
+        orientation = [0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0]
+        heading = camera_heading_rad([puck_x, puck_y, 0.0] + orientation)
         offset = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
         x = puck_x - offset * math.cos(heading)
         y = puck_y - offset * math.sin(heading)
-        return [x, y, pushing_height(x, y), 0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0]
+        return [x, y, pushing_height(x, y)] + orientation
 
 
     def __lower_to_start(self) -> None:
@@ -751,7 +792,13 @@ class EpisodeRecorder:
 
         pose = list(self.robot_link.read_state()["pose"])
         pose[2] += self.recorder_parameters["approach_height_m"]
-        self.robot_link.move_to(pose)
+        try:
+            self.robot_link.move_to(pose)
+        except Exception as error:
+            # 3.11.26: after a refused start the arm was still at the parking pose, 5 cm above which is out of reach;
+            # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
+            print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
+            self.robot_link.move_home(self.recorder_parameters["home_joints"])
 
 
     @staticmethod

@@ -62,10 +62,29 @@ class RobotLink:
         """
 
         limit = RECORDING_PARAMETERS["wrist_pitch_max_rad"]
-        joints = self.robot.inverse_kinematics(PoseObject(*pose))
+        joints = self.solve_joints(pose)
         if joints[4] > limit:
             pose = self.__leaned_within_limit(pose, joints[4], limit)
         self.robot.move(PoseObject(*pose), linear = is_linear)
+
+
+    def solve_joints(self, pose: List[float]) -> List[float]:
+        """
+        The joint angles the robot's own inverse kinematics find for ``pose``.
+
+        The service sometimes refuses a pose it solves a moment later (3.11.26), so it is asked up to
+        ``ROBOT_PARAMETERS["inverse_kinematics_attempts"]`` times; the last refusal is raised.
+        """
+
+        attempts = ROBOT_PARAMETERS["inverse_kinematics_attempts"]
+        for attempt in range(1, attempts + 1):
+            try:
+                return [float(value) for value in self.robot.inverse_kinematics(PoseObject(*pose))]
+            except Exception as error:
+                if attempt == attempts:
+                    raise
+                print(f"inverse kinematics refused the pose (attempt {attempt} of {attempts}); asking again")
+                time.sleep(ROBOT_PARAMETERS["inverse_kinematics_retry_pause_s"])
 
 
     def __leaned_within_limit(
@@ -83,7 +102,7 @@ class RobotLink:
 
         from record_episodes import rotation_from_roll_pitch_yaw, roll_pitch_yaw_from_rotation, rotation_about_axis
 
-        heading = camera_heading_rad(pose[0], pose[1])
+        heading = camera_heading_rad(pose)
         sideways_axis = numpy.array([-math.sin(heading), math.cos(heading), 0.0])
         current = rotation_from_roll_pitch_yaw(*pose[3:])
         step = RECORDING_PARAMETERS["auto_lean_step_deg"]
@@ -271,7 +290,7 @@ class SimulatedRobotLink:
 
         width, height = CAMERA_PARAMETERS["width"], CAMERA_PARAMETERS["height"]
         pixels_per_m = self.simulation_parameters["pixels_per_m"]
-        heading = camera_heading_rad(self.pose[0], self.pose[1])
+        heading = camera_heading_rad(self.pose)
         forward = numpy.array([math.cos(heading), math.sin(heading)])
         left = numpy.array([-math.sin(heading), math.cos(heading)])
         bottom_centre = numpy.array(self.pose[:2]) + forward * self.simulation_parameters["picture_bottom_ahead_of_rod_m"]
