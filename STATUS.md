@@ -4,8 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 30.10.26 by the Robot and hardware session (Niryo CAD checked against the print file) and by Marshal's
-session (recording tool merged into main, not yet tested on the robot; action list kept at seven).
+Last updated: 4.11.26 by Marshal's session (back_left and back_right added, nine classes; pulling towards the base untested).
 
 ## Dates that cannot move
 
@@ -103,6 +102,9 @@ session (recording tool merged into main, not yet tested on the robot; action li
   `episode.json` (CLI flags); session folders carry the operator's name.
 - Next: the first robot test with Marshal's checklist plus the analysis' section 6 (the 10-versus-10 pilot decides the
   hand-guided mode); set `camera_mount` and `mapping_version` in config when bracket F is fitted; the dataset builder.
+- Decided 4.11 (Marshal; Emranul to confirm): back_left and back_right added (nine classes, keys z and c), because pulls towards
+  the base cannot be avoided by reorienting the sheet. Next: straight-pull test on sheet 01 with bracket F (does the puck stay on the
+  tip, does the red sliver show slips). Open: reverse direction by a step-over action or by directional steps.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
 
 ## Model and training

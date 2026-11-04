@@ -211,6 +211,8 @@ def goal_pose() -> list:
 # (a stale frame was found in run 1419, step 23). Hand-guided episodes are replayed by the robot from the path the
 # hand drew, snapped back onto that path at every step; "guided_path_sample_m" is how far the tip must move before
 # the next path point is logged.
+# Changed 4.11.26 (Marshal): back_left and back_right added, because a pull towards the base could otherwise only be
+# steered by stopping to shift sideways; 1 cm steps at 135 degrees to each side of forward, keys z and c.
 # Changed 31.10.26 after the data-collection decisions (06_deliverables/research_notes/Recording tool/
 # 2026-10-30_data_collection_decisions.md): a replay step runs only when Enter is pressed (a direction key overrides,
 # no timeout); "u" marks the previous step as a mistake and "l" marks the current picture as "line lost", both without
@@ -226,6 +228,8 @@ RECORDING_PARAMETERS = {
         "left": 90,
         "right": -90,
         "back": 180,
+        "back_left": 135,
+        "back_right": -135,
         "stop": None
     },
     "keys": {
@@ -235,6 +239,8 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
+        "z": "back_left",
+        "c": "back_right",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
@@ -268,7 +274,7 @@ RECORDING_PARAMETERS = {
     # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
     "camera_mount": "stock_wrist_holder",
-    "mapping_version": "picture_frame_v1_stock_wrist_2026-10-28",
+    "mapping_version": "picture_frame_v2_nine_actions_2026-11-04",
     # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
     # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
     # move the scene to the right in the picture. If it moves left, set this to -1.

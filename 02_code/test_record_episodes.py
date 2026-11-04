@@ -55,6 +55,12 @@ def test_picture_steps_point_the_right_way() -> None:
     assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-12, forward
     assert abs(left[0]) < 1e-12 and math.isclose(left[1], 0.01), left
 
+    back_left = picture_step_to_table("back_left", 0.25, 0.0)
+    back_right = picture_step_to_table("back_right", 0.25, 0.0)
+    assert back_left[0] < 0 and back_left[1] > 0, back_left
+    assert back_right[0] < 0 and back_right[1] < 0, back_right
+    assert math.isclose(math.hypot(*back_left), 0.01) and math.isclose(math.hypot(*back_right), 0.01)
+
 
 def test_keyboard_episode(raw_folder: Path) -> None:
     """

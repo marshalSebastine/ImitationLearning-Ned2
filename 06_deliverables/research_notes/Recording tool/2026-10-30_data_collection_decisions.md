@@ -36,6 +36,14 @@ The analysis was prepared by Emranul's Claude session; the decisions are the stu
 - `config.py`: `RECORDING_PARAMETERS["step_budget"]` per sheet (1.5 x line length in centimetres; the meander needs 116), the new keys,
   `replay_key_wait_ms` replaced by the confirm rule.
 
+## Change of 4 November 2026 to decision 2 (Marshal; Emranul to confirm)
+
+- Two classes added: `back_left` and `back_right` (1 cm at 135 degrees to each side of forward, keys `z` and `c`), nine classes in
+  all. Reason: a bracket F picture of a pull towards the base showed that pulling cannot be avoided by reorienting the sheet, and with
+  only `back` a pull can be steered only by stopping to shift sideways. `mapping_version` was raised, so episodes before and after
+  this change can be told apart.
+- Still open: how to reverse direction (a step-over action or a group of directional steps). Not implemented.
+
 ## Open for the professor (meeting 2, 9 November)
 
 Whether a confirmed replay and human-gated correction rounds count as "pushing the puck ourselves"; printed training sheets; a visible

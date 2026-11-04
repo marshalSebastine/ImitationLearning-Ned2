@@ -14,7 +14,7 @@ Two modes:
                  a direction key overrides it, and the episode can be discarded if the puck does not follow. Only
                  the replay becomes training data.
 
-Keys (RECORDING_PARAMETERS in config): q w e = forward-left, forward, forward-right; a s d = left, back, right;
+Keys (RECORDING_PARAMETERS in config): q w e = forward-left, forward, forward-right; a s d = left, back, right; z c = back-left, back-right;
 Space = stop; x = discard the episode; u = the previous step was a mistake (kept in the file, flagged); l = the line
 is lost in this picture (the next step is flagged); Enter = accept a proposed step, or go on; Esc = quit. Keys pressed
 while the robot moves are thrown away, so a key always refers to the picture on screen.
@@ -336,7 +336,7 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        self.__show_picture(picture_bytes, f"step {step}: q w e / a s d = move, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_picture(picture_bytes, f"step {step}: q w e / a s d / z c = move, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)

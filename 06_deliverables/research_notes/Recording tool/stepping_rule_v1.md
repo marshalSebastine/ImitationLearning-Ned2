@@ -39,6 +39,9 @@ reference (both operators use the same one).
    because the goal "looks close".
 6. **Crossings** (later sheets): straight through, following the line you came in on.
 
+7. **back-left (`z`) / back-right (`c`)**, added 4.11.26: when pulling the puck towards the base, one diagonal when the line
+   leading into the block drifts to that side, then `back` again. Pull rules are a first draft and have not been tried.
+
 ## When something goes wrong
 
 - Pressed the wrong key: press **`u`** straight away (marks the previous step as a mistake; the episode is kept), then
