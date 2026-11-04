@@ -484,11 +484,10 @@ class EpisodeRecorder:
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
         self.is_arm_model_checked = False
-        # Where the puck is, as far as the tool knows: along "push_direction" from the tip, "clearance_from_puck_m"
-        # beyond the block's contact. At the start the block touches the puck along the start push.
-        push = math.radians(self.recorder_parameters["start_push_direction_deg"])
-        self.push_direction = numpy.array([math.cos(push), math.sin(push)])
-        self.clearance_from_puck_m = 0.0
+        # Where the puck is believed to be, for the landing after a forearm turn: at the start point, then moved by
+        # every step that reaches it (see __track_puck). Since 4.11.26 after test 3; a running count of how far the
+        # block stood back drifted to 10 cm when sideways and back steps were taken in a turned picture.
+        self.puck_xy_estimate = numpy.array(self.recorder_parameters["start_point_xy"], dtype = float)
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -510,10 +509,14 @@ class EpisodeRecorder:
                 # (rod upright above the tip). Test 1 of 4.11.26 (episode 033, step 72) landed 14.9 cm away because a
                 # tip remembered from an earlier turn back to straight was used after 33 ordinary steps.
                 tip_xy = list(self.tip_xy) if self.forearm_turn_deg and self.tip_xy is not None else list(state["pose"][:2])
-                # Land back from the puck only by what the block does not already stand back (4.11.26: two turns in a
-                # row put the tip 5 cm away; a turn after backing off moved it further still).
-                retreat_m = max(0.0, self.recorder_parameters["turn_landing_retreat_m"] - self.clearance_from_puck_m)
-                landing_xy = list(numpy.array(tip_xy) - retreat_m * self.push_direction)
+                # Land back from the puck, straight away from it, only by what the block does not already stand back
+                # (4.11.26: two turns in a row put the tip 5 cm away; a turn after backing off moved it further still).
+                away_from_puck = numpy.array(tip_xy) - self.puck_xy_estimate
+                distance_to_puck = float(numpy.linalg.norm(away_from_puck))
+                clearance_m = max(0.0, distance_to_puck - self.recorder_parameters["puck_centre_ahead_of_tip_m"])
+                retreat_m = max(0.0, self.recorder_parameters["turn_landing_retreat_m"] - clearance_m)
+                retreat_direction = away_from_puck / distance_to_puck if distance_to_puck > 1e-9 else numpy.array([-1.0, 0.0])
+                landing_xy = list(numpy.array(tip_xy) + retreat_m * retreat_direction)
                 if not self.__is_inside_workspace(landing_xy[0], landing_xy[1]):
                     print("refused: the landing point behind the puck would be outside the workspace")
                     continue
@@ -536,9 +539,8 @@ class EpisodeRecorder:
                     continue
                 self.forearm_turn_deg = turn_deg
                 self.tip_xy = landing_xy if turn_deg else None
-                self.clearance_from_puck_m += retreat_m
                 print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip moved "
-                      f"{100 * retreat_m:.1f} cm back from the puck ({100 * self.clearance_from_puck_m:.1f} cm clear); the picture's top now points "
+                      f"{100 * retreat_m:.1f} cm back from the puck ({100 * (clearance_m + retreat_m):.1f} cm clear); the picture's top now points "
                       f"{math.degrees(picture_heading_rad(self.robot_link.read_state(), self.recorder_parameters)):+.0f} degrees from the table's x axis")
                 move_return_time = time.time()
                 continue
@@ -617,11 +619,13 @@ class EpisodeRecorder:
                 # trajectory"). The step did not happen, so its row and picture are taken back and the person
                 # chooses another step from the same picture; the episode goes on.
                 print(f"the robot refused that step ({error}); choose another step")
+                if self.forearm_turn_deg and "lean" in str(error):
+                    print(self.__turn_hint([target_x, target_y]))
                 rows.pop()
                 (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                 self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                 continue
-            self.__track_puck(action, step_x, step_y)
+            self.__track_puck(action, [target_x, target_y], step_x, step_y)
             move_return_time = time.time()
 
         return "step_budget_reached", rows
@@ -630,33 +634,49 @@ class EpisodeRecorder:
     def __track_puck(
             self,
             action: str,
+            tip_xy: List[float],
             step_x: float,
             step_y: float
     ) -> None:
         """
-        Update where the puck is believed to be after a step that happened, for the landing after a forearm turn.
+        Move the believed puck position after a step that happened, for the landing after a forearm turn.
 
-        A step with a clear component towards the puck (within 60 degrees of the push direction) reaches it and pushes
-        it: the push direction becomes the step's and the clearance shrinks to what is left (zero once touching). A
-        step with a clear component away from it adds that component to the clearance. A sideways step changes
-        neither. A step-over lands on the puck's far side, so the puck is then behind the tip by the landing gap.
+        When the tip ends closer to the believed puck centre than the contact distance (puck radius plus tip radius),
+        the step has reached the puck and pushed it: the puck is put at contact distance ahead of the tip along the
+        step. Otherwise the puck stays. A step-over passes above the puck and leaves it where it is.
         """
 
         step = numpy.array([step_x, step_y])
         length = float(numpy.linalg.norm(step))
-        if length < 1e-12:
+        if length < 1e-12 or self.__is_step_over(action):
             return
-        if self.__is_step_over(action):
-            self.push_direction = -step / length
-            self.clearance_from_puck_m = max(0.0, self.recorder_parameters["step_over_m"] - 2 * self.recorder_parameters["puck_centre_ahead_of_tip_m"])
-            return
-        towards_puck = float(step @ self.push_direction)
-        if towards_puck > 0.5 * length:
-            self.clearance_from_puck_m = max(0.0, self.clearance_from_puck_m - towards_puck)
-            if self.clearance_from_puck_m == 0.0:
-                self.push_direction = step / length
-        elif towards_puck < -0.5 * length:
-            self.clearance_from_puck_m += -towards_puck
+        contact = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
+        tip = numpy.array(tip_xy, dtype = float)
+        if float(numpy.linalg.norm(self.puck_xy_estimate - tip)) < contact - 1e-9:
+            self.puck_xy_estimate = tip + contact * step / length
+
+
+    def __turn_hint(self, target_xy: List[float]) -> str:
+        """
+        After a turned step was refused for the rod's lean: the largest forearm turn, in key presses back towards
+        straight, at which the same step would go through (straight always does).
+        """
+
+        turn_step_deg = abs(self.recorder_parameters["turn_actions"]["turn_left"])
+        back_action = "turn_right" if self.forearm_turn_deg > 0 else "turn_left"
+        back_key = next((key for key, action in self.recorder_parameters["keys"].items() if action == back_action), "?")
+        candidate_deg = self.forearm_turn_deg
+        presses = 0
+        while abs(candidate_deg) > 1e-9:
+            candidate_deg -= math.copysign(min(turn_step_deg, abs(candidate_deg)), candidate_deg)
+            presses += 1
+            try:
+                self.__turned_joints(target_xy, candidate_deg, 0.0)
+                break
+            except Exception:
+                continue
+        return (f"hint: that spot can be reached with the forearm at {candidate_deg:+.0f} degrees: press {back_key} {presses} "
+                f"time{'s' if presses > 1 else ''} (the picture turns, so the keys point differently afterwards)")
 
 
     def __leaned_pose(

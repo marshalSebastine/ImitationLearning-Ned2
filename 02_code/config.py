@@ -330,8 +330,10 @@ RECORDING_PARAMETERS = {
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
     "turn_actions": {
-        "turn_left": 45,  # 45 per press (Emranul, 4.11.26): one press a half-turned view, two the full side view
-        "turn_right": -45
+        # 45 per press until test 3; 30 since (Emranul, 4.11.26): at the far end of sheet 04 (37 to 42 cm from the base)
+        # a 90 or even 45 degree turn needs more than the 28 degree rod lean, a 30 degree turn does not (calc).
+        "turn_left": 30,
+        "turn_right": -30
     },
     "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
     "max_turn_deg": 90,
@@ -448,8 +450,9 @@ RECORDING_PARAMETERS = {
     # v9 (4.11.26 evening, after test 2): q / e diagonal steps again (as v7); turns lift 2.5 cm in one move each way and
     # land 1.5 cm back from the puck.
     # v10 (4.11.26 evening, before test 3): q / e diagonal steps at 60 degrees instead of 45.
+    # v11 (4.11.26 evening, after test 3): forearm turns in 30 degree steps (30, 60, 90) instead of 45.
     "camera_mount": "forearm_cover_tape_F3_bracket",
-    "mapping_version": "picture_frame_v10_forearm_camera_diagonals_60_2026-11-04",
+    "mapping_version": "picture_frame_v11_forearm_camera_turns_30_2026-11-04",
     # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
     "camera_heading_model": "forearm",

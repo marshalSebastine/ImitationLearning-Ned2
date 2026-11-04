@@ -84,16 +84,16 @@ def test_picture_steps_point_the_right_way() -> None:
 
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
-    Two "v" presses turn the forearm 45 then 90 degrees, each landing the tip 2.5 cm back from the puck (opposite to
-    the last push); a third is refused (-90 to 90 allowed); while turned, forward goes where the turned picture's top
-    points and left 90 degrees from it; two "b" turn back and forward is +x again; a further "b" turns to -45; every
-    row logs the forearm angle.
+    Three "v" presses turn the forearm 30, 60 and 90 degrees, the first landing the tip back from the puck (away from
+    it), the others not again; a fourth is refused (-90 to 90 allowed); while turned, forward goes where the turned
+    picture's top points and left 90 degrees from it; three "b" turn back and forward is +x again; after five steps a
+    further "b" turns to -30 and lands near the tip as it is then; every row logs the forearm angle.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     start_point = [0.25, 0.0]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start_point})
-    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b"] + ["w"] * 5 + ["b", " ", "y", "escape"]
+    keys = ["enter", "v", "v", "v", "v", "w", "w", "a", "b", "b", "b"] + ["w"] * 5 + ["b", " ", "y", "escape"]
     turn_keys = dict(RECORDING_PARAMETERS["keys"], v = "turn_left", b = "turn_right")  # unbound by default since the camera left the hand
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point,
@@ -103,19 +103,20 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
     actions = [row["action"] for row in rows]
-    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right"] + ["forward"] * 5 + ["turn_right", "stop"], actions
+    assert actions == ["turn_left"] * 3 + ["forward", "forward", "left"] + ["turn_right"] * 3 + ["forward"] * 5 + ["turn_right", "stop"], actions
     turns = [row["forearm_turn_deg"] for row in rows]
-    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0"] + ["0.0"] * 6 + ["-45.0"], turns
+    assert turns == ["0.0", "30.0", "60.0", "90.0", "90.0", "90.0", "90.0", "60.0", "30.0"] + ["0.0"] * 6 + ["-30.0"], turns
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
     retreat = RECORDING_PARAMETERS["turn_landing_retreat_m"]
     assert math.isclose(positions[1][0] - positions[0][0], -retreat, abs_tol = 0.008) and abs(positions[1][1] - positions[0][1]) < 0.008, \
-        "the first turn should land the tip back from the puck, opposite to the start push"
-    assert math.hypot(positions[2][0] - positions[1][0], positions[2][1] - positions[1][1]) < 0.008, \
-        "a second turn straight after the first should not retreat again"
-    assert float(rows[13]["joint_4"]) < -0.7, rows[13]["joint_4"]
+        "the first turn should land the tip back from the puck, away from it"
+    for index in (1, 2):
+        assert math.hypot(positions[index + 1][0] - positions[index][0], positions[index + 1][1] - positions[index][1]) < 0.008, \
+            "a turn straight after another should not retreat again"
+    assert float(rows[15]["joint_4"]) < -0.4, rows[15]["joint_4"]
     # After five ordinary steps, the next turn must land near the tip as it is now, not where an earlier turn left it
     # (test 1 of 4.11.26 landed 14.9 cm away).
-    landing_jump = math.hypot(positions[13][0] - positions[12][0], positions[13][1] - positions[12][1])
+    landing_jump = math.hypot(positions[15][0] - positions[14][0], positions[15][1] - positions[14][1])
     assert landing_jump < 0.035, landing_jump
 
     def heading_deg(row) -> float:
@@ -126,12 +127,25 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     def direction_deg(index: int) -> float:
         return math.degrees(math.atan2(positions[index + 1][1] - positions[index][1], positions[index + 1][0] - positions[index][0]))
 
-    for index in (2, 3):
+    for index in (3, 4):
         assert abs((direction_deg(index) - heading_deg(rows[index]) + 180) % 360 - 180) < 8.0, "turned, forward should go where the picture's top points"
         assert math.isclose(math.hypot(positions[index + 1][0] - positions[index][0], positions[index + 1][1] - positions[index][1]), 0.01, abs_tol = 0.002)
-    assert abs((direction_deg(4) - heading_deg(rows[4]) - 90 + 180) % 360 - 180) < 8.0, "turned, left should go 90 degrees left of the picture's top"
-    assert math.isclose(positions[8][0] - positions[7][0], 0.01, abs_tol = 0.002) and abs(positions[8][1] - positions[7][1]) < 0.002, "turned back, forward should go to +x"
-    assert all(float(row["joint_4"]) > 1.0 for row in rows[2:5]), [row["joint_4"] for row in rows]
+    assert abs((direction_deg(5) - heading_deg(rows[5]) - 90 + 180) % 360 - 180) < 8.0, "turned, left should go 90 degrees left of the picture's top"
+    assert math.isclose(positions[10][0] - positions[9][0], 0.01, abs_tol = 0.002) and abs(positions[10][1] - positions[9][1]) < 0.002, "turned back, forward should go to +x"
+    assert all(float(row["joint_4"]) > 1.0 for row in rows[3:6]), [row["joint_4"] for row in rows]
+
+
+def test_turn_hint(raw_folder: Path) -> None:
+    """At the far end of sheet 04 with the forearm at 90 degrees the hint names a smaller turn that keeps the lean
+    within the limit (calc: 40 cm needs 33 degrees at 90, 18 at 30)."""
+
+    robot_link = SimulatedRobotLink()
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = scripted_keys([]))
+    recorder.forearm_turn_deg = 90.0
+    hint = recorder._EpisodeRecorder__turn_hint([0.40, 0.0])
+    assert "+30 degrees" in hint or "+60 degrees" in hint, hint
+    assert " b " in hint, hint
 
     untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
     back_left = action_step_to_table("back_left", untouched, 0.0)
@@ -312,7 +326,7 @@ if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
-                 test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick):
+                 test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")
