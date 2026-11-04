@@ -444,9 +444,11 @@ class EpisodeRecorder:
 
             if action != "stop":
                 # While the forearm is turned the rod leans, so the commanded magnet tip is tracked instead of the
-                # rod's end; the keys are measured from the pusher's direction at the start pose in both cases.
+                # rod's end. The keys are measured in the PICTURE's frame, read from the camera's current direction
+                # (Emranul, 4.11.26: he steers from the picture, so "forward" must be the top of the picture also
+                # when the forearm is turned; the model sees nothing but the picture either).
                 x, y = self.tip_xy if self.forearm_turn_deg else state["pose"][:2]
-                step_x, step_y = action_step_to_table(action, self.__start_pose(), self.recorder_parameters["hand_turn_deg"])
+                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])
                 target_x, target_y = x + step_x, y + step_y
                 # A step-over leaves the puck where it is, so only the rod's landing point needs checking.
                 is_allowed = (self.__is_inside_workspace(target_x, target_y) if self.__is_step_over(action)
@@ -695,7 +697,7 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(action_step_to_table(action, self.__start_pose(), self.recorder_parameters["hand_turn_deg"])) - target))
+                    position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)

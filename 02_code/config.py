@@ -309,7 +309,7 @@ RECORDING_PARAMETERS = {
     # refused above "max_turn_lean_deg"). The turn is done lifted by "approach_height_m" in "turn_increment_deg"
     # steps, then the tip comes down again; while turned, every step is solved the same way. Before the first turn of
     # an episode the arm model is checked against the robot's own kinematics ("turn_model_tolerance_mm"). The keys
-    # stay measured from the pusher's direction at the start, so w always pushes along the line. Logged as
+    # follow the picture: w is towards the top of the turned picture (Emranul steers from the picture). Logged as
     # turn_left / turn_right with the forearm angle in every row. A hand turn about the vertical rod (joint 6, no
     # lean) was tried earlier the same day and dropped: it stopped 16 degrees short on both sides (cable or motor).
     # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
@@ -396,10 +396,11 @@ RECORDING_PARAMETERS = {
     # the turn actions were added. Episodes of v2 on sheet 04 carry step labels up to 24 degrees off the picture frame
     # (the logged x, y of consecutive steps give the true direction; relabel before training).
     # v4 (4.11.26, same day): the hand held turned 90 degrees (side camera); withdrawn the same day.
-    # v5 (4.11.26): hand untouched again; the actions are measured from the pusher's direction (the camera heading
-    # with the current camera turn taken off), so a side-view turn during an episode does not change what w does.
+    # v5 (4.11.26): hand untouched again; the actions measured from the pusher's direction; dropped the same day.
+    # v6 (4.11.26): actions in the PICTURE's frame again, read from the camera's current direction, also while the
+    # forearm is turned (v / b keys); the forearm angle is in every row.
     "camera_mount": "bracket_F3",
-    "mapping_version": "push_frame_v5_F3_2026-11-04",
+    "mapping_version": "picture_frame_v6_F3_forearm_turn_2026-11-04",
     # The direction the top of the picture points to, measured from the tool's own z axis (which points from the rod
     # towards the camera for the stock holder, bracket F and F3): 0 for all three, tested in the direction tests below.
     "picture_top_offset_rad": 0.0,

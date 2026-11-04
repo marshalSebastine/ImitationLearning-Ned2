@@ -70,8 +70,9 @@ def test_picture_steps_point_the_right_way() -> None:
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
     Two "v" presses turn the forearm 45 then 90 degrees with the magnet tip kept on its spot (the rod's end moves by
-    at most the lean's few millimetres); a third is refused (0 to 90 allowed); forward and left steps still go along
-    +x and +y while turned; two "b" turn back; every row logs the forearm angle; the camera's heading has swung.
+    at most the lean's few millimetres); a third is refused (0 to 90 allowed); while turned, forward goes where the
+    turned picture's top points and left 90 degrees from it; two "b" turn back and forward is +x again; every row
+    logs the forearm angle.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
@@ -91,11 +92,19 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0"], turns
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
     assert all(math.hypot(positions[index][0] - positions[0][0], positions[index][1] - positions[0][1]) < 0.008 for index in (1, 2)), "the turns moved the rod's end"
-    assert math.isclose(positions[4][0] - positions[2][0], 0.02, abs_tol = 0.002) and abs(positions[4][1] - positions[2][1]) < 0.002, "turned, forward should push along +x"
-    assert math.isclose(positions[5][1] - positions[4][1], 0.01, abs_tol = 0.002) and abs(positions[5][0] - positions[4][0]) < 0.002, "turned, left should go to +y"
+
+    def heading_deg(row) -> float:
+        return math.degrees(camera_heading_rad([float(row[name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")]))
+
+    def direction_deg(index: int) -> float:
+        return math.degrees(math.atan2(positions[index + 1][1] - positions[index][1], positions[index + 1][0] - positions[index][0]))
+
+    assert abs(heading_deg(rows[2])) > 45.0, heading_deg(rows[2])
+    for index in (2, 3):
+        assert abs((direction_deg(index) - heading_deg(rows[index]) + 180) % 360 - 180) < 8.0, "turned, forward should go where the picture's top points"
+        assert math.isclose(math.hypot(positions[index + 1][0] - positions[index][0], positions[index + 1][1] - positions[index][1]), 0.01, abs_tol = 0.002)
+    assert abs((direction_deg(4) - heading_deg(rows[4]) - 90 + 180) % 360 - 180) < 8.0, "turned, left should go 90 degrees left of the picture's top"
     assert math.isclose(positions[8][0] - positions[7][0], 0.01, abs_tol = 0.002) and abs(positions[8][1] - positions[7][1]) < 0.002, "turned back, forward should go to +x"
-    heading_turned = math.degrees(camera_heading_rad([float(rows[2][name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")]))
-    assert abs(heading_turned) > 45.0, heading_turned
     assert all(float(row["joint_4"]) > 1.0 for row in rows[2:5]), [row["joint_4"] for row in rows]
 
     untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
