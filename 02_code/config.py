@@ -249,17 +249,20 @@ RECORDING_PARAMETERS = {
         "l": "lost",
         "enter": "accept",
         "y": "lean_left",
-        "c": "lean_right",
-        "r": "turn_left",
-        "t": "turn_right"
+        "c": "lean_right"
     },
-    # Camera turn (4.11.26, Emranul's request after the hand-guided trial where turning the wrist by hand gave a side
-    # view of the line): rod and camera turn together about the vertical rod by "turn_actions" degrees per press, at
-    # most "max_turn_deg" either way, the rod's end staying in place and the rod vertical. The camera, 9 cm ahead of
-    # the rod, swings to the side of it and then looks along the line both ahead of and behind the rod, which the
-    # straight view cannot (the block hides the line behind). The turn lasts until turned back; the picture frame
-    # follows it (camera_heading_rad reads the orientation), so "forward" is always the top of the picture on screen.
-    # Logged as turn_left / turn_right with the turn angle in every row; a candidate class, not yet one of the seven.
+    # Side camera (4.11.26): the hand is held turned by "hand_turn_deg" about the vertical rod, so the camera, 9 cm
+    # from the rod, sits BESIDE it and looks along the line both ahead of and behind the rod, which the straight view
+    # could not (the block hid the line behind). Tested by Emranul on 4.11 with the r / t turn keys on sheet 04 and
+    # made the default; the keys were removed again (the turn code stays, unbound). Positive = towards picture-left of
+    # the untouched hand, i.e. the camera on the +y side when the line runs along +x. The block's narrow face then
+    # points along the line and pushes the puck. The actions are measured from the narrow face's direction
+    # (push_heading_rad): "forward" (w) pushes the puck, whichever way the camera looks; in the picture that is
+    # towards the right with the camera on the +y side.
+    "hand_turn_deg": 90,
+    # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
+    # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
+    "start_push_direction_deg": 0.0,
     "turn_actions": {
         "turn_left": 90,
         "turn_right": -90
@@ -332,8 +335,10 @@ RECORDING_PARAMETERS = {
     # v3 (4.11.26): the heading is read from the tool's orientation instead of atan2(y, x), see camera_heading_rad;
     # the turn actions were added. Episodes of v2 on sheet 04 carry step labels up to 24 degrees off the picture frame
     # (the logged x, y of consecutive steps give the true direction; relabel before training).
+    # v4 (4.11.26, same day): the hand is held turned 90 degrees (side camera, "hand_turn_deg"); the start pose lies
+    # behind the puck along "start_push_direction_deg".
     "camera_mount": "bracket_F3",
-    "mapping_version": "picture_frame_v3_bracket_F3_2026-11-04",
+    "mapping_version": "picture_frame_v4_side_camera_F3_2026-11-04",
     # The direction the top of the picture points to, measured from the tool's own z axis (which points from the rod
     # towards the camera for the stock holder, bracket F and F3): 0 for all three, tested in the direction tests below.
     "picture_top_offset_rad": 0.0,
@@ -380,12 +385,27 @@ def camera_heading_rad(pose: list) -> float:
     return math.atan2(forward_y, forward_x) + RECORDING_PARAMETERS["picture_top_offset_rad"]
 
 
-def picture_step_to_table(
+def push_heading_rad(
+        pose: list,
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
+) -> float:
+    """
+    The table direction the block's narrow face points to, for the rod's ``pose``: the camera heading turned back by
+    ``hand_turn_deg``. The actions are measured from this direction (4.11.26, Emranul: with the side camera the keys
+    were confusing in the picture frame; "forward" is now the way the pusher pushes). The camera is fixed to the hand,
+    so for the model this is the picture frame turned by a constant angle, nothing more.
+    """
+
+    return camera_heading_rad(pose) - RECORDING_PARAMETERS["picture_left_sign"] * math.radians(hand_turn_deg)
+
+
+def action_step_to_table(
         action: str,
-        pose: list
+        pose: list,
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
 ) -> list:
     """The table displacement [dx, dy] in metres of one step of ``action`` taken with the rod at ``pose``."""
 
-    angle = (camera_heading_rad(pose)
+    angle = (push_heading_rad(pose, hand_turn_deg)
              + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(RECORDING_PARAMETERS["actions"][action]))
     return [RECORDING_PARAMETERS["step_m"] * math.cos(angle), RECORDING_PARAMETERS["step_m"] * math.sin(angle)]

@@ -3,7 +3,7 @@ Record demonstration episodes: one fresh picture and one 1 cm step at a time.
 
 Every step runs the same loop the trained model will later run: wait until the move has finished, take the first
 fresh picture, ask a decider for an action, log the picture with the action and the robot's state, then move the
-pusher's tip 1 cm in that direction, measured in the picture's frame (config.picture_step_to_table). An episode ends
+pusher's tip 1 cm in that direction, measured from the pusher's narrow face (config.action_step_to_table). An episode ends
 with an explicit "stop" step.
 
 Two modes:
@@ -47,7 +47,7 @@ import cv2
 import numpy
 
 from config import (RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
-                    camera_heading_rad, picture_step_to_table, pushing_height, step_budget_for)
+                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
@@ -126,6 +126,22 @@ def rotation_about_axis(
     axis = axis / numpy.linalg.norm(axis)
     cross = numpy.array([[0, -axis[2], axis[1]], [axis[2], 0, -axis[0]], [-axis[1], axis[0], 0]])
     return numpy.eye(3) + math.sin(angle) * cross + (1 - math.cos(angle)) * (cross @ cross)
+
+
+def hand_orientation(
+        turn_deg: float,
+        picture_left_sign: int = RECORDING_PARAMETERS["picture_left_sign"]
+) -> List[float]:
+    """
+    The orientation [roll, pitch, yaw] of the vertical rod with the hand turned by ``turn_deg`` about the vertical.
+
+    A positive turn carries the picture's top towards picture-left of the untouched hand (``picture_left_sign`` sets
+    which way round that is on the table). The untouched hand is [0, tool_pitch_rad, 0], camera looking along +x.
+    """
+
+    untouched = rotation_from_roll_pitch_yaw(0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0)
+    turned = rotation_about_axis(numpy.array([0.0, 0.0, 1.0]), picture_left_sign * math.radians(turn_deg)) @ untouched
+    return list(roll_pitch_yaw_from_rotation(turned))
 
 
 def drain_window_keys(most_keys: int = 50) -> int:
@@ -329,7 +345,7 @@ class EpisodeRecorder:
         rows = []
         self.current_rows = rows
         self.is_lost_pending = False
-        self.camera_turn_deg = 0.0
+        self.camera_turn_deg = float(self.recorder_parameters["hand_turn_deg"])
         move_return_time = time.time()
         while len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -382,7 +398,7 @@ class EpisodeRecorder:
 
             if action != "stop":
                 x, y = state["pose"][0], state["pose"][1]
-                step_x, step_y = picture_step_to_table(action, state["pose"])
+                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])
                 target_x, target_y = x + step_x, y + step_y
                 if not self.__is_step_allowed(target_x, target_y, step_x, step_y):
                     print(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
@@ -443,17 +459,9 @@ class EpisodeRecorder:
 
 
     def __turned_orientation(self, turn_deg: float) -> List[float]:
-        """
-        The start pose's orientation (rod vertical) turned by ``turn_deg`` about the vertical, as [roll, pitch, yaw].
+        """The vertical rod's orientation with the hand turned by ``turn_deg``; see hand_orientation."""
 
-        A positive turn carries the picture's top towards picture-left (``picture_left_sign`` sets which way round
-        that is on the table), so after "turn_left" the camera looks where "left" pointed before.
-        """
-
-        start = self.__start_pose()
-        turned = rotation_about_axis(numpy.array([0.0, 0.0, 1.0]),
-                                     self.recorder_parameters["picture_left_sign"] * math.radians(turn_deg)) @ rotation_from_roll_pitch_yaw(*start[3:])
-        return list(roll_pitch_yaw_from_rotation(turned))
+        return hand_orientation(turn_deg, self.recorder_parameters["picture_left_sign"])
 
 
     def __handle_flag_key(
@@ -486,8 +494,7 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        turned = f", camera turned {self.camera_turn_deg:+.0f}" if self.camera_turn_deg else ""
-        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = move, r t = turn camera, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_picture(picture_bytes, f"step {step}: w = push, q e = push diagonally, a d = sideways, s = back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -533,7 +540,7 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(picture_step_to_table(action, state["pose"])) - target))
+                    position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
@@ -756,17 +763,17 @@ class EpisodeRecorder:
 
     def __start_pose(self) -> List[float]:
         """
-        The rod's pose behind the puck at the start point: on the base's side of the puck along the camera's own
-        direction, which is also the picture's "forward", so the first forward step pushes the puck straight ahead.
+        The rod's pose behind the puck at the start point: opposite to the first push ("start_push_direction_deg"),
+        the hand turned by "hand_turn_deg" so the camera sits beside the rod (4.11.26; until then the rod stood on
+        the camera's side of the puck, which was the same thing while the camera looked along the push).
         """
 
         puck_x, puck_y = self.recorder_parameters["start_point_xy"]
-        orientation = [0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0]
-        heading = camera_heading_rad([puck_x, puck_y, 0.0] + orientation)
+        push = math.radians(self.recorder_parameters["start_push_direction_deg"])
         offset = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
-        x = puck_x - offset * math.cos(heading)
-        y = puck_y - offset * math.sin(heading)
-        return [x, y, pushing_height(x, y)] + orientation
+        x = puck_x - offset * math.cos(push)
+        y = puck_y - offset * math.sin(push)
+        return [x, y, pushing_height(x, y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
 
 
     def __lower_to_start(self) -> None:

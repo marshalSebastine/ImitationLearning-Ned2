@@ -12,7 +12,8 @@ import sys
 
 from pyniryo import NiryoRobot, PoseObject
 
-from config import RECORDING_PARAMETERS, ROBOT_PARAMETERS, WORKSPACE_PARAMETERS, camera_heading_rad, pushing_height
+from config import RECORDING_PARAMETERS, ROBOT_PARAMETERS, WORKSPACE_PARAMETERS, pushing_height
+from record_episodes import hand_orientation
 
 
 def start_pose_for(
@@ -21,12 +22,11 @@ def start_pose_for(
 ) -> list:
     """The rod's pose behind the puck, as the recording tool computes it."""
 
-    orientation = [0.0, WORKSPACE_PARAMETERS["tool_pitch_rad"], 0.0]
-    heading = camera_heading_rad([puck_x, puck_y, 0.0] + orientation)
+    push = math.radians(RECORDING_PARAMETERS["start_push_direction_deg"])
     offset = RECORDING_PARAMETERS["puck_centre_ahead_of_tip_m"]
-    x = puck_x - offset * math.cos(heading)
-    y = puck_y - offset * math.sin(heading)
-    return [x, y, pushing_height(x, y)] + orientation
+    x = puck_x - offset * math.cos(push)
+    y = puck_y - offset * math.sin(push)
+    return [x, y, pushing_height(x, y)] + hand_orientation(RECORDING_PARAMETERS["hand_turn_deg"])
 
 
 def try_inverse_kinematics(
@@ -71,6 +71,11 @@ def report(ip_address: str = ROBOT_PARAMETERS["ip_address"]) -> None:
         above[2] += RECORDING_PARAMETERS["approach_height_m"]
         try_inverse_kinematics(robot, "start", start)
         try_inverse_kinematics(robot, "above start", above)
+        for turn_deg in (0, 45, 90, -45, -90):
+            turned = list(start[:3]) + hand_orientation(turn_deg)
+            try_inverse_kinematics(robot, f"start with the hand turned {turn_deg:+d} deg", turned)
+            ahead = [start[0] + 0.1, start[1], pushing_height(start[0] + 0.1, start[1])] + hand_orientation(turn_deg)
+            try_inverse_kinematics(robot, f"10 cm further out, hand turned {turn_deg:+d} deg", ahead)
         lifted = [pose.x, pose.y, pose.z + RECORDING_PARAMETERS["approach_height_m"], pose.roll, pose.pitch, pose.yaw]
         try_inverse_kinematics(robot, "5 cm above where the arm is", lifted)
     finally:

@@ -102,8 +102,10 @@ class RobotLink:
 
         from record_episodes import rotation_from_roll_pitch_yaw, roll_pitch_yaw_from_rotation, rotation_about_axis
 
-        heading = camera_heading_rad(pose)
-        sideways_axis = numpy.array([-math.sin(heading), math.cos(heading), 0.0])
+        # The lean that relaxes the wrist lies in the arm's own plane (tip away from the base), whatever way the camera
+        # looks, so the axis is perpendicular to the direction from the base to the rod, not to the camera heading.
+        radial = math.atan2(pose[1], pose[0])
+        sideways_axis = numpy.array([-math.sin(radial), math.cos(radial), 0.0])
         current = rotation_from_roll_pitch_yaw(*pose[3:])
         step = RECORDING_PARAMETERS["auto_lean_step_deg"]
         lean = step

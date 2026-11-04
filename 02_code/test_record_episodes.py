@@ -12,7 +12,7 @@ import tempfile
 from pathlib import Path
 from typing import Callable, List, Optional
 
-from config import RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, picture_step_to_table, start_pose, step_budget_for
+from config import RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, start_pose, step_budget_for
 from record_episodes import EpisodeRecorder
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
@@ -49,28 +49,28 @@ def read_episode(raw_folder: Path) -> tuple:
 
 def test_picture_steps_point_the_right_way() -> None:
     """
-    With the rod vertical in the usual orientation, picture-forward is table +x and picture-left is table +y wherever
-    the rod stands; with the hand turned 90 degrees about the vertical, picture-forward is table +y.
+    With the hand turned by the default 90 degrees (camera looking along +y), the narrow face points along +x
+    wherever the rod stands: "forward" is table +x and "left" is table +y; the camera heading itself is +y.
     """
 
     for x, y in ((0.25, 0.0), (0.22, -0.11)):
-        forward = picture_step_to_table("forward", [x, y, 0.03, 0.0, 1.57, 0.0])
-        left = picture_step_to_table("left", [x, y, 0.03, 0.0, 1.57, 0.0])
+        pose = [x, y, 0.03, 0.0, 1.57, math.pi / 2]
+        forward = action_step_to_table("forward", pose)
+        left = action_step_to_table("left", pose)
         assert math.isclose(forward[0], 0.01) and abs(forward[1]) < 1e-9, forward
         assert abs(left[0]) < 1e-9 and math.isclose(left[1], 0.01), left
-    turned_forward = picture_step_to_table("forward", [0.25, 0.0, 0.03, 0.0, 1.57, math.pi / 2])
-    assert abs(turned_forward[0]) < 1e-9 and math.isclose(turned_forward[1], 0.01), turned_forward
+        assert math.isclose(math.degrees(camera_heading_rad(pose)), 90.0, abs_tol = 0.1), camera_heading_rad(pose)
 
 
-def test_camera_turn_episode(raw_folder: Path) -> None:
+def test_side_camera_default(raw_folder: Path) -> None:
     """
-    After "turn_left" the rod stays put and a forward step goes to table +y; after turning back, forward goes to +x
-    again; every row carries the camera's turn angle.
+    With the default hand turn of 90 degrees the rod starts behind the puck along +x with the camera looking along
+    +y: "forward" steps push the puck along +x, a "left" step goes to +y, and every row carries the turn angle.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
-    keys = ["enter", "r", "r", "w", "w", "t", "w", " ", "escape"]
+    keys = ["enter", "w", "w", "a", " ", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
         key_reader = scripted_keys(keys))
@@ -78,12 +78,14 @@ def test_camera_turn_episode(raw_folder: Path) -> None:
 
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
-    assert [row["action"] for row in rows] == ["turn_left", "forward", "forward", "turn_right", "forward", "stop"], [row["action"] for row in rows]
-    assert [row["camera_turn_deg"] for row in rows] == ["0.0", "90.0", "90.0", "90.0", "0.0", "0.0"], [row["camera_turn_deg"] for row in rows]
+    assert [row["action"] for row in rows] == ["forward", "forward", "left", "stop"], [row["action"] for row in rows]
+    assert all(row["camera_turn_deg"] == "90.0" for row in rows), [row["camera_turn_deg"] for row in rows]
+    start = summary["start_pose"]
+    assert math.isclose(start[0], radial_line[0][0] - RECORDING_PARAMETERS["puck_centre_ahead_of_tip_m"], abs_tol = 1e-9) and abs(start[1]) < 1e-9, start
+    assert math.isclose(math.degrees(camera_heading_rad(start)), 90.0, abs_tol = 0.1), math.degrees(camera_heading_rad(start))
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
-    assert math.isclose(positions[1][0], positions[0][0], abs_tol = 1e-6) and math.isclose(positions[1][1], positions[0][1], abs_tol = 1e-6), "the turn moved the rod"
-    assert math.isclose(positions[3][1] - positions[1][1], 0.02, abs_tol = 1e-6) and abs(positions[3][0] - positions[1][0]) < 1e-6, "turned forward steps should go to +y"
-    assert math.isclose(positions[5][0] - positions[4][0], 0.01, abs_tol = 1e-6) and abs(positions[5][1] - positions[4][1]) < 1e-6, "after turning back, forward should go to +x"
+    assert math.isclose(positions[2][0] - positions[0][0], 0.02, abs_tol = 1e-6) and abs(positions[2][1] - positions[0][1]) < 1e-6, "forward steps should push along +x"
+    assert math.isclose(positions[3][1] - positions[2][1], 0.01, abs_tol = 1e-6) and abs(positions[3][0] - positions[2][0]) < 1e-6, "left should go to +y"
 
 
 def test_keyboard_episode(raw_folder: Path) -> None:
@@ -97,8 +99,8 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     # "u" after the tenth step flags step 9 as a mistake; "l" before the fifteenth step flags step 14 as line lost.
     keys = ["enter"] + ["w"] * 10 + ["u"] + ["w"] * 4 + ["l"] + ["w"] * 8 + [" ", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "Test Person", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
-        key_reader = scripted_keys(keys))
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0],
+        "hand_turn_deg": 0}, key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
     episode_folder, summary, rows = read_episode(raw_folder)
@@ -129,7 +131,8 @@ def test_hand_guided_episode(raw_folder: Path) -> None:
     robot_link = SimulatedRobotLink({"hand_path_xy": hand_path})
     keys = ["enter", "enter"] + [None] * (len(hand_path) + 5) + [" ", "enter", "enter"] + ["enter"] * 40 + ["escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = scripted_keys(keys))
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "hand_turn_deg": 0},
+        key_reader = scripted_keys(keys))
     recorder.record_session("hand_guided")
 
     episode_folder, summary, rows = read_episode(raw_folder)
@@ -158,7 +161,8 @@ def test_workspace_guard_protects_the_puck(raw_folder: Path) -> None:
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start})
     keys = ["enter"] + ["w"] * 12 + [" ", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start},
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start,
+        "hand_turn_deg": 0},
         key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
@@ -182,7 +186,7 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_camera_turn_episode):
+    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_side_camera_default):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")
