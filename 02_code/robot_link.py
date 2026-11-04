@@ -237,6 +237,24 @@ class SimulatedRobotLink:
         self.pose[2] = start_pose()[2] + 0.10
 
 
+    def move_joints(self, joints: List[float]) -> None:
+        """Move to ``joints``: the rod's end goes where the arm model (ned2_fk) puts it, pushing the puck on the way."""
+
+        from side_view_test import ned2_fk
+
+        position, (roll, pitch, yaw) = ned2_fk.tool_pose(list(joints))
+        self.move_to([position[0], position[1], position[2], roll, pitch, yaw], is_linear = False)
+        self.joints = [float(value) for value in joints]
+
+
+    def predicted_position(self, joints: List[float]) -> List[float]:
+        """The arm model's own answer, so the model check always passes in simulation."""
+
+        from side_view_test import ned2_fk
+
+        return [float(value) for value in ned2_fk.fk(list(joints))["tool"][0]]
+
+
     def read_state(self) -> Dict[str, List[float]]:
 
         hand_path = self.simulation_parameters["hand_path_xy"]

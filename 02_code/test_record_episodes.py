@@ -69,15 +69,17 @@ def test_picture_steps_point_the_right_way() -> None:
 
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
-    Two "v" presses turn the camera 45 then 90 degrees to the side without moving the rod; a third is refused (0 to
-    90 allowed); forward steps still push along +x while the camera is turned; two "b" turn back; every row logs the angle.
+    Two "v" presses turn the forearm 45 then 90 degrees with the magnet tip kept on its spot (the rod's end moves by
+    at most the lean's few millimetres); a third is refused (0 to 90 allowed); forward and left steps still go along
+    +x and +y while turned; two "b" turn back; every row logs the forearm angle; the camera's heading has swung.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
-    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
+    start_point = [0.25, 0.0]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start_point})
     keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", " ", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
-        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point},
         key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
@@ -85,17 +87,16 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     assert summary["status"] == "completed", summary
     actions = [row["action"] for row in rows]
     assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right", "forward", "stop"], actions
-    turns = [row["camera_turn_deg"] for row in rows]
+    turns = [row["forearm_turn_deg"] for row in rows]
     assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0"], turns
-    start = summary["start_pose"]
-    assert abs(math.degrees(camera_heading_rad(start))) < 0.1, math.degrees(camera_heading_rad(start))
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
-    assert all(math.isclose(positions[index][0], positions[0][0], abs_tol = 1e-6) and math.isclose(positions[index][1], positions[0][1], abs_tol = 1e-6)
-               for index in (1, 2)), "the turns moved the rod"
-    assert math.isclose(positions[4][0] - positions[2][0], 0.02, abs_tol = 1e-6) and abs(positions[4][1] - positions[2][1]) < 1e-6, "turned, forward should still push along +x"
-    assert math.isclose(positions[5][1] - positions[4][1], 0.01, abs_tol = 1e-6) and abs(positions[5][0] - positions[4][0]) < 1e-6, "turned, left should go to +y"
-    assert math.isclose(positions[8][0] - positions[7][0], 0.01, abs_tol = 1e-6) and abs(positions[8][1] - positions[7][1]) < 1e-6, "turned back, forward should go to +x"
-    assert math.isclose(math.degrees(camera_heading_rad([float(rows[2][name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")])), 90.0, abs_tol = 0.1)
+    assert all(math.hypot(positions[index][0] - positions[0][0], positions[index][1] - positions[0][1]) < 0.008 for index in (1, 2)), "the turns moved the rod's end"
+    assert math.isclose(positions[4][0] - positions[2][0], 0.02, abs_tol = 0.002) and abs(positions[4][1] - positions[2][1]) < 0.002, "turned, forward should push along +x"
+    assert math.isclose(positions[5][1] - positions[4][1], 0.01, abs_tol = 0.002) and abs(positions[5][0] - positions[4][0]) < 0.002, "turned, left should go to +y"
+    assert math.isclose(positions[8][0] - positions[7][0], 0.01, abs_tol = 0.002) and abs(positions[8][1] - positions[7][1]) < 0.002, "turned back, forward should go to +x"
+    heading_turned = math.degrees(camera_heading_rad([float(rows[2][name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")]))
+    assert abs(heading_turned) > 45.0, heading_turned
+    assert all(float(row["joint_4"]) > 1.0 for row in rows[2:5]), [row["joint_4"] for row in rows]
 
     untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
     back_left = action_step_to_table("back_left", untouched, 0.0)

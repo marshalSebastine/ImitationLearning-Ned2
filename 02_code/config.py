@@ -301,14 +301,17 @@ RECORDING_PARAMETERS = {
     # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
     # side view stays available during an episode with the turn keys below.
     "hand_turn_deg": 0,
-    # Camera turn keys (v = turn to the side view, b = turn back): rod and camera turn together about the vertical rod
-    # by "turn_actions" degrees per press, the rod staying vertical and in place (joint 6 alone turns; nothing leans).
-    # The camera, 9 cm from the rod, then sits beside it and sees the line ahead of and behind the rod, which the
-    # straight view cannot (the block hides the line behind). Only the +90 side is allowed ("min_turn_deg" 0): on
-    # 4.11.26 the -90 side stopped at -72 degrees with joint 6 near its limit (+104 degrees) and the solver refused
-    # every step after it; +90 needs joint 6 at only -76 degrees. The keys stay measured from the pusher
-    # (push_heading_rad takes the current turn off the camera heading), so w always pushes along the line; in the
-    # turned picture that is towards the right. Logged as turn_left / turn_right with the angle in every row.
+    # Forearm turn keys (v = turn, b = turn back), Emranul's request of 4.11.26 after the hand-guided trial: the
+    # FOREARM (joint 4) turns by "turn_actions" degrees per press, between "min_turn_deg" and "max_turn_deg", so the
+    # camera swings to the side and sees the line ahead of and behind the rod. The magnet tip stays on its spot and
+    # the rod leans only as much as the arm's geometry forces, found with Marshal's solver from side_view_test.py
+    # (least lean, calc: about 1.5 degrees at 20 cm, 9.5 at 25 cm, 14 at 28 cm from the base with a 90 degree turn;
+    # refused above "max_turn_lean_deg"). The turn is done lifted by "approach_height_m" in "turn_increment_deg"
+    # steps, then the tip comes down again; while turned, every step is solved the same way. Before the first turn of
+    # an episode the arm model is checked against the robot's own kinematics ("turn_model_tolerance_mm"). The keys
+    # stay measured from the pusher's direction at the start, so w always pushes along the line. Logged as
+    # turn_left / turn_right with the forearm angle in every row. A hand turn about the vertical rod (joint 6, no
+    # lean) was tried earlier the same day and dropped: it stopped 16 degrees short on both sides (cable or motor).
     # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
@@ -318,6 +321,10 @@ RECORDING_PARAMETERS = {
     },
     "min_turn_deg": 0,
     "max_turn_deg": 90,
+    "turn_increment_deg": SIDE_VIEW_TEST_PARAMETERS["turn_increment_deg"],
+    "max_turn_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lean_deg"],
+    "max_turn_lifted_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lifted_lean_deg"],
+    "turn_model_tolerance_mm": SIDE_VIEW_TEST_PARAMETERS["model_tolerance_mm"],
     # TEST keys of 31.10.26 (Emranul and Marshal asked for them after the camera lost the line at the meander's
     # hairpins): rod and camera lean together about the camera's forward axis by "lean_step_deg" per press, at most
     # "max_lean_deg" either way, the rod's end staying in place. Not one of the seven classes; logged as

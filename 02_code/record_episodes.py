@@ -47,8 +47,9 @@ from typing import Callable, Dict, List, Optional, Tuple
 import cv2
 import numpy
 
-from config import (RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
+from config import (PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
                     action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
@@ -56,7 +57,7 @@ WINDOW_NAME = "record_episodes"
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
-                "action", "source", "is_mistake", "is_lost", "camera_turn_deg", "x", "y", "z", "roll", "pitch", "yaw",
+                "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -226,6 +227,9 @@ class EpisodeRecorder:
         })
         self.last_picture_md5 = None
         self.is_free_motion = False
+        self.forearm_turn_deg = 0.0
+        self.tip_xy = None
+        self.is_arm_model_checked = False
         self.is_lost_pending = False
         self.current_rows = []
 
@@ -375,7 +379,9 @@ class EpisodeRecorder:
         rows = []
         self.current_rows = rows
         self.is_lost_pending = False
-        self.camera_turn_deg = float(self.recorder_parameters["hand_turn_deg"])
+        self.forearm_turn_deg = 0.0
+        self.tip_xy = None
+        self.is_arm_model_checked = False
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -389,22 +395,32 @@ class EpisodeRecorder:
 
             if action in self.recorder_parameters["turn_actions"]:
                 least, most = self.recorder_parameters["min_turn_deg"], self.recorder_parameters["max_turn_deg"]
-                turn_deg = max(least, min(most, self.camera_turn_deg + self.recorder_parameters["turn_actions"][action]))
-                if turn_deg == self.camera_turn_deg:
-                    print(f"refused: the camera cannot turn further that way (allowed {least} to {most} degrees)")
+                turn_deg = max(least, min(most, self.forearm_turn_deg + self.recorder_parameters["turn_actions"][action]))
+                if turn_deg == self.forearm_turn_deg:
+                    print(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
+                    continue
+                tip_xy = self.tip_xy if self.tip_xy is not None else list(state["pose"][:2])
+                try:
+                    plan = self.__turn_plan(self.forearm_turn_deg, turn_deg, tip_xy)
+                    self.__check_arm_model(plan[-1])
+                except Exception as error:
+                    print(f"refused: {error}; nothing moved")
                     continue
                 times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
                 rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
                 try:
-                    self.robot_link.move_to(list(state["pose"][:3]) + self.__turned_orientation(turn_deg), is_linear = False)
+                    for joints in plan:
+                        self.robot_link.move_joints(joints)
                 except Exception as error:
                     print(f"the robot refused that turn ({error}); choose another step")
                     rows.pop()
                     (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                     continue
-                self.camera_turn_deg = turn_deg
-                print(f"camera turned {turn_deg:+.0f} degrees; the picture's top now points {math.degrees(camera_heading_rad(self.robot_link.read_state()['pose'])):+.0f} degrees from the table's x axis")
+                self.forearm_turn_deg = turn_deg
+                self.tip_xy = list(tip_xy)
+                print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees; the picture's top "
+                      f"now points {math.degrees(camera_heading_rad(self.robot_link.read_state()['pose'])):+.0f} degrees from the table's x axis")
                 move_return_time = time.time()
                 continue
 
@@ -427,8 +443,10 @@ class EpisodeRecorder:
                 continue
 
             if action != "stop":
-                x, y = state["pose"][0], state["pose"][1]
-                step_x, step_y = action_step_to_table(action, state["pose"], self.camera_turn_deg)
+                # While the forearm is turned the rod leans, so the commanded magnet tip is tracked instead of the
+                # rod's end; the keys are measured from the pusher's direction at the start pose in both cases.
+                x, y = self.tip_xy if self.forearm_turn_deg else state["pose"][:2]
+                step_x, step_y = action_step_to_table(action, self.__start_pose(), self.recorder_parameters["hand_turn_deg"])
                 target_x, target_y = x + step_x, y + step_y
                 # A step-over leaves the puck where it is, so only the rod's landing point needs checking.
                 is_allowed = (self.__is_inside_workspace(target_x, target_y) if self.__is_step_over(action)
@@ -442,12 +460,16 @@ class EpisodeRecorder:
             if action == "stop":
                 return "completed", rows
 
-            # The rod is asked to be vertical at every step (the start pose's orientation, turned by the current camera
-            # turn); if the bracket's wrist limit forbids that near the base, RobotLink leans it just enough and says
-            # so (2.11.26). A lean from the n / m test keys therefore lasts one step only; a camera turn lasts.
-            target_pose = [target_x, target_y, pushing_height(target_x, target_y)] + self.__turned_orientation(self.camera_turn_deg)
+            # The rod is asked to be vertical at every step (the start pose's orientation); if the bracket's wrist
+            # limit forbids that near the base, RobotLink leans it just enough and says so (2.11.26). A lean from the
+            # n / m test keys therefore lasts one step only. With the forearm turned, the step is solved as joints
+            # (least lean, magnet tip on the target) and the turn lasts.
+            target_pose = [target_x, target_y, pushing_height(target_x, target_y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
             try:
-                if self.__is_step_over(action):
+                if self.forearm_turn_deg:
+                    self.robot_link.move_joints(self.__turned_joints([target_x, target_y], self.forearm_turn_deg, 0.0))
+                    self.tip_xy = [target_x, target_y]
+                elif self.__is_step_over(action):
                     self.__step_over(target_pose)
                 else:
                     self.robot_link.move_to(target_pose)
@@ -500,6 +522,88 @@ class EpisodeRecorder:
         return hand_orientation(turn_deg, self.recorder_parameters["picture_left_sign"])
 
 
+    def __turned_joints(
+            self,
+            tip_xy: List[float],
+            turn_deg: float,
+            lift: float
+    ) -> List[float]:
+        """
+        The joints that put the magnet tip at ``tip_xy``, ``lift`` metres above pushing height, with the forearm
+        (joint 4) turned by ``turn_deg`` and the rod leaning least (Marshal's solver, 4.11.26).
+
+        Raises when no joint angles within the limits reach the point, or when the rod would lean more than the
+        limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted). The wrist (joint 5) is
+        kept below the bracket's limit.
+        """
+
+        height = pushing_height(tip_xy[0], tip_xy[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"] + lift
+        wrist_max_deg = min(60.0, math.degrees(self.recorder_parameters["wrist_pitch_max_rad"]))
+        joints = solve_least_lean(numpy.array([tip_xy[0], tip_xy[1], height]), math.radians(turn_deg), wrist_range_deg = (-60.0, wrist_max_deg))
+        if joints is None:
+            raise RuntimeError(f"no arm position reaches ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm turned {turn_deg:.0f} degrees")
+        lean_deg = magnet_tip_and_lean(joints)[1]
+        limit = self.recorder_parameters["max_turn_lifted_lean_deg" if lift > 0.0 else "max_turn_lean_deg"]
+        if lean_deg > limit:
+            raise RuntimeError(f"the rod would lean {lean_deg:.1f} degrees at ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm "
+                               f"turned {turn_deg:.0f} degrees, above the limit of {limit}")
+        return joints
+
+
+    def __turn_plan(
+            self,
+            from_turn_deg: float,
+            to_turn_deg: float,
+            tip_xy: List[float]
+    ) -> List[List[float]]:
+        """
+        The joint positions of a forearm turn: lifted at the current turn, lifted at every "turn_increment_deg" on the
+        way, then down again at the new turn. All are solved before anything moves, so a refusal moves nothing.
+        """
+
+        lift = self.recorder_parameters["approach_height_m"]
+        increment = self.recorder_parameters["turn_increment_deg"]
+        stops = [(from_turn_deg, lift)]
+        turn_deg = from_turn_deg
+        while abs(to_turn_deg - turn_deg) > 1e-9:
+            turn_deg += math.copysign(min(increment, abs(to_turn_deg - turn_deg)), to_turn_deg - turn_deg)
+            stops.append((turn_deg, lift))
+        stops.append((to_turn_deg, 0.0))
+        return [self.__turned_joints(tip_xy, turn_deg, lift) for turn_deg, lift in stops]
+
+
+    def __check_arm_model(self, joints: List[float]) -> None:
+        """
+        Once per episode, before the first forearm turn: the arm model and the robot's own kinematics must agree on
+        where ``joints`` put the rod's end, within "turn_model_tolerance_mm"; nothing moves for the check.
+        """
+
+        if self.is_arm_model_checked:
+            return
+        model = numpy.array(ned2_fk.fk(list(joints))["tool"][0])
+        robot = numpy.array(self.robot_link.predicted_position(list(joints)))
+        error_mm = 1000.0 * float(numpy.linalg.norm(model - robot))
+        if error_mm > self.recorder_parameters["turn_model_tolerance_mm"]:
+            raise RuntimeError(f"the arm model and the robot disagree by {error_mm:.1f} mm on the turned position")
+        self.is_arm_model_checked = True
+
+
+    def __turn_back_lifted(self) -> None:
+        """Lift at the current forearm turn and turn back to straight in increments; the arm stays lifted."""
+
+        lift = self.recorder_parameters["approach_height_m"]
+        increment = self.recorder_parameters["turn_increment_deg"]
+        turn_deg = self.forearm_turn_deg
+        stops = [(turn_deg, lift)]
+        while turn_deg > 0.0:
+            turn_deg = max(turn_deg - increment, 0.0)
+            stops.append((turn_deg, lift))
+        for joints in [self.__turned_joints(self.tip_xy, turn_deg, lift) for turn_deg, lift in stops]:
+            self.robot_link.move_joints(joints)
+        self.forearm_turn_deg = 0.0
+        self.tip_xy = None
+
+
     def __is_step_over(self, action: str) -> bool:
 
         return action in self.recorder_parameters["step_over_actions"]
@@ -544,8 +648,8 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        turned = f" (camera turned {self.camera_turn_deg:+.0f})" if self.camera_turn_deg else ""
-        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = steps, v b = camera side view / back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
+        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = steps, v b = forearm turn / back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -591,7 +695,7 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(action_step_to_table(action, state["pose"], self.camera_turn_deg)) - target))
+                    position + numpy.array(action_step_to_table(action, self.__start_pose(), self.recorder_parameters["hand_turn_deg"])) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
@@ -743,7 +847,7 @@ class EpisodeRecorder:
         row = {"step": step, "unix_time": round(time.time(), 3), "frame": f"frames/{frame_name}", "frame_md5": picture_md5,
                "sharpness": round(sharpness_of(picture), 1),
                "action": action, "source": source, "is_mistake": 0, "is_lost": int(self.is_lost_pending),
-               "camera_turn_deg": float(self.camera_turn_deg)}
+               "forearm_turn_deg": float(self.forearm_turn_deg)}
         row.update({name: round(value, 3) for name, value in times.items()})
         row.update({name: round(value, 5) for name, value in zip(["x", "y", "z", "roll", "pitch", "yaw"], state["pose"])})
         row.update({f"joint_{index + 1}": round(value, 5) for index, value in enumerate(state["joints"])})
@@ -850,6 +954,18 @@ class EpisodeRecorder:
 
 
     def __lift(self) -> None:
+
+        if self.forearm_turn_deg:
+            # Lift first so the tip cannot sweep the puck, then turn the forearm straight again (Marshal's retreat).
+            try:
+                self.__turn_back_lifted()
+                return
+            except Exception as error:
+                print(f"turning the forearm back failed ({str(error).splitlines()[0]}); going to the parking pose instead")
+                self.forearm_turn_deg = 0.0
+                self.tip_xy = None
+                self.robot_link.move_home(self.recorder_parameters["home_joints"])
+                return
 
         pose = list(self.robot_link.read_state()["pose"])
         pose[2] += self.recorder_parameters["approach_height_m"]
