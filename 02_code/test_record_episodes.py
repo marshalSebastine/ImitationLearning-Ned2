@@ -69,16 +69,16 @@ def test_picture_steps_point_the_right_way() -> None:
 
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
-    Two "v" presses turn the forearm 45 then 90 degrees with the magnet tip kept on its spot (the rod's end moves by
-    at most the lean's few millimetres); a third is refused (0 to 90 allowed); while turned, forward goes where the
-    turned picture's top points and left 90 degrees from it; two "b" turn back and forward is +x again; every row
-    logs the forearm angle.
+    Two "v" presses turn the forearm 45 then 90 degrees, each landing the tip 2.5 cm back from the puck (opposite to
+    the last push); a third is refused (-90 to 90 allowed); while turned, forward goes where the turned picture's top
+    points and left 90 degrees from it; two "b" turn back and forward is +x again; a further "b" turns to -45; every
+    row logs the forearm angle.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     start_point = [0.25, 0.0]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start_point})
-    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", " ", "y", "escape"]
+    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", "b", " ", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point},
         key_reader = scripted_keys(keys))
@@ -87,11 +87,15 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
     actions = [row["action"] for row in rows]
-    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right", "forward", "stop"], actions
+    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right", "forward", "turn_right", "stop"], actions
     turns = [row["forearm_turn_deg"] for row in rows]
-    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0"], turns
+    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0", "-45.0"], turns
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
-    assert all(math.hypot(positions[index][0] - positions[0][0], positions[index][1] - positions[0][1]) < 0.008 for index in (1, 2)), "the turns moved the rod's end"
+    retreat = RECORDING_PARAMETERS["turn_landing_retreat_m"]
+    for index in (0, 1):
+        assert math.isclose(positions[index + 1][0] - positions[index][0], -retreat, abs_tol = 0.008) and abs(positions[index + 1][1] - positions[index][1]) < 0.008, \
+            "each turn should land the tip back from the puck, opposite to the start push"
+    assert float(rows[9]["joint_4"]) < -0.7, rows[9]["joint_4"]
 
     def heading_deg(row) -> float:
         return math.degrees(camera_heading_rad([float(row[name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")]))

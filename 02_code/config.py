@@ -301,7 +301,7 @@ RECORDING_PARAMETERS = {
     # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
     # side view stays available during an episode with the turn keys below.
     "hand_turn_deg": 0,
-    # Forearm turn keys (v = turn, b = turn back), Emranul's request of 4.11.26 after the hand-guided trial: the
+    # Forearm turn keys (v = turn towards +, b = towards -), Emranul's request of 4.11.26 after the hand-guided trial: the
     # FOREARM (joint 4) turns by "turn_actions" degrees per press, between "min_turn_deg" and "max_turn_deg", so the
     # camera swings to the side and sees the line ahead of and behind the rod. The magnet tip stays on its spot and
     # the rod leans only as much as the arm's geometry forces, found with Marshal's solver from side_view_test.py
@@ -319,8 +319,12 @@ RECORDING_PARAMETERS = {
         "turn_left": 45,  # 45 per press (Emranul, 4.11.26): one press a half-turned view, two the full side view
         "turn_right": -45
     },
-    "min_turn_deg": 0,
+    "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
     "max_turn_deg": 90,
+    # After a turn the tip lands this far back from the puck, opposite to the last push, instead of on its old spot:
+    # the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by about
+    # 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The person closes the gap with the keys.
+    "turn_landing_retreat_m": 0.025,
     "turn_increment_deg": SIDE_VIEW_TEST_PARAMETERS["turn_increment_deg"],
     "max_turn_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lean_deg"],
     "max_turn_lifted_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lifted_lean_deg"],
