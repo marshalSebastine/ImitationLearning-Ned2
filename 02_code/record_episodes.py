@@ -14,9 +14,10 @@ Two modes:
                  a direction key overrides it, and the episode can be discarded if the puck does not follow. Only
                  the replay becomes training data.
 
-Keys (RECORDING_PARAMETERS in config): q w e = forward-left, forward, forward-right; a s d = left, back, right;
+Keys (RECORDING_PARAMETERS in config): q w e = forward-left, forward, forward-right; a s d = left, back, right; z c = back-left, back-right; r f = step over the puck forward, back;
 Space = stop; x = discard the episode; u = the previous step was a mistake (kept in the file, flagged); l = the line
-is lost in this picture (the next step is flagged); Enter = accept a proposed step, or go on; Esc = quit. Keys pressed
+is lost in this picture (the next step is flagged); Enter = accept a proposed step, or go on; Esc = quit. After each
+episode the tool asks whether the puck reached the goal, or why the episode was discarded. Keys pressed
 while the robot moves are thrown away, so a key always refers to the picture on screen.
 
 Output, one folder per episode, never edited afterwards:
@@ -25,7 +26,7 @@ Output, one folder per episode, never edited afterwards:
     (hand_guided also guided_path.csv)
 
 Run from 02_code, robot connected, nothing else connected to it, stop button in reach:
-    python record_episodes.py --operator marshal --mode keyboard --camera-mount stock_wrist_holder
+    python record_episodes.py --operator marshal --mode keyboard
 Without the robot (simulated sheet, puck and camera):
     python record_episodes.py --operator marshal --mode keyboard --simulated
 """
@@ -182,6 +183,7 @@ class EpisodeRecorder:
         """
 
         summaries = []
+        print(f"camera mount: {self.recorder_parameters['camera_mount']}, stepping rule: {self.recorder_parameters['stepping_rule_version']}")
         self.__append_session_notes(f"\n## {time.strftime('%H:%M')}: {self.operator}, {mode}, {self.path_id}"
                                     f"{', simulated robot' if self.recorder_parameters['is_simulated'] else ''}\n\n")
         try:
@@ -225,6 +227,7 @@ class EpisodeRecorder:
             "laptop": self.recorder_parameters["laptop"],
             "camera_mount": self.recorder_parameters["camera_mount"],
             "mapping_version": self.recorder_parameters["mapping_version"],
+            "stepping_rule_version": self.recorder_parameters["stepping_rule_version"],
             "sheet_orientation": self.recorder_parameters["sheet_orientation"],
             "start_index": self.recorder_parameters["start_index"],
             "deliberate_offset": self.recorder_parameters["deliberate_offset"],
@@ -233,6 +236,8 @@ class EpisodeRecorder:
             "step_m": self.recorder_parameters["step_m"],
             "step_budget": self.recorder_parameters["step_budget"],
             "actions": self.recorder_parameters["actions"],
+            "step_over_actions": self.recorder_parameters["step_over_actions"],
+            "step_over_m": self.recorder_parameters["step_over_m"],
             "picture_left_sign": self.recorder_parameters["picture_left_sign"]
         }
 
@@ -242,6 +247,7 @@ class EpisodeRecorder:
             if guided_path is None:
                 summary["status"] = "discarded_while_guiding"
                 self.__lift()
+                self.__ask_how_episode_ended(summary)
                 return self.__finish_episode(episode_folder, summary, [])
             self.__lift()
             self.__show_message("Motors on. Put the puck back at the start of the line, then press Enter.")
@@ -255,7 +261,31 @@ class EpisodeRecorder:
         status, rows = self.__run_steps(episode_folder, decider)
         summary["status"] = status
         self.__lift()
+        self.__ask_how_episode_ended(summary)
         return self.__finish_episode(episode_folder, summary, rows)
+
+
+    def __ask_how_episode_ended(self, summary: Dict) -> None:
+        """Store whether the puck reached the goal, or why the episode was discarded; a quit episode asks nothing."""
+
+        summary.update({"outcome": None, "discard_reason": None})
+        if summary["status"] in ("completed", "step_budget_reached"):
+            summary["outcome"] = self.__ask_choice("Puck in the goal? y = yes, n = no", self.recorder_parameters["outcome_keys"])
+        elif summary["status"] in ("discarded", "discarded_while_guiding"):
+            summary["discard_reason"] = self.__ask_choice("Why discard? t tipped, o off sheet, r robot, h hand, m other",
+                                                          self.recorder_parameters["discard_reason_keys"])
+
+
+    def __ask_choice(
+            self,
+            message: str,
+            choices: Dict[str, str]
+    ) -> str:
+        """Show ``message`` and return the meaning of the key pressed; Esc returns "not_recorded"."""
+
+        self.key_drainer()
+        self.__show_message(message)
+        return choices.get(self.__wait_for(list(choices) + ["escape"]), "not_recorded")
 
 
     def __run_steps(
@@ -290,7 +320,10 @@ class EpisodeRecorder:
                 x, y = state["pose"][0], state["pose"][1]
                 step_x, step_y = picture_step_to_table(action, x, y)
                 target_x, target_y = x + step_x, y + step_y
-                if not self.__is_step_allowed(target_x, target_y, step_x, step_y):
+                # A step-over leaves the puck where it is, so only the rod's landing point needs checking.
+                is_allowed = (self.__is_inside_workspace(target_x, target_y) if self.__is_step_over(action)
+                              else self.__is_step_allowed(target_x, target_y, step_x, step_y))
+                if not is_allowed:
                     print(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
                     continue
 
@@ -300,10 +333,35 @@ class EpisodeRecorder:
                 return "completed", rows
 
             pose = state["pose"]
-            self.robot_link.move_to([target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]])
+            target_pose = [target_x, target_y, pushing_height(target_x, target_y), pose[3], pose[4], pose[5]]
+            if self.__is_step_over(action):
+                self.__step_over(target_pose)
+            else:
+                self.robot_link.move_to(target_pose)
             move_return_time = time.time()
 
         return "step_budget_reached", rows
+
+
+    def __is_step_over(self, action: str) -> bool:
+
+        return action in self.recorder_parameters["step_over_actions"]
+
+
+    def __is_chosen_action(self, action: Optional[str]) -> bool:
+        """True when ``action`` is a key's step, step-over or discard, not a flag or an unknown key."""
+
+        return (action in self.recorder_parameters["actions"] or action == "discard"
+                or action in self.recorder_parameters["step_over_actions"])
+
+
+    def __step_over(self, target_pose: List[float]) -> None:
+        """Lift, cross above the puck and come down on its other side, so the puck is not touched."""
+
+        height = self.recorder_parameters["approach_height_m"]
+        self.__lift()
+        self.robot_link.move_to([target_pose[0], target_pose[1], target_pose[2] + height] + target_pose[3:])
+        self.robot_link.move_to(target_pose)
 
 
     def __handle_flag_key(
@@ -336,7 +394,7 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        self.__show_picture(picture_bytes, f"step {step}: q w e / a s d = move, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_picture(picture_bytes, f"step {step}: q w e / a s d / z c = move, r f = step over, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -345,7 +403,7 @@ class EpisodeRecorder:
             action = self.recorder_parameters["keys"].get(key)
             if self.__handle_flag_key(action, picture_bytes, step):
                 continue
-            if action in self.recorder_parameters["actions"] or action == "discard":
+            if self.__is_chosen_action(action):
                 return action, "human"
 
 
@@ -395,7 +453,7 @@ class EpisodeRecorder:
                     continue
                 if action == "accept":
                     return proposal, "replay"
-                if action in self.recorder_parameters["actions"] or action == "discard":
+                if self.__is_chosen_action(action):
                     return action, "human"
 
         return replay_decider
@@ -579,8 +637,10 @@ class EpisodeRecorder:
         (episode_folder / "episode.json").write_text(json.dumps(summary, indent = 2), encoding = "utf-8")
 
         overrides = f", {human_steps} overridden by hand" if summary["mode"] == "hand_guided" else ""
-        self.__append_session_notes(f"- {episode_folder.name}: {summary['status']}, {len(rows)} steps{overrides}\n")
-        print(f"{episode_folder.name}: {summary['status']}, {len(rows)} steps")
+        ending = summary["outcome"] or summary["discard_reason"]
+        ending = f", {ending}" if ending else ""
+        self.__append_session_notes(f"- {episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps{overrides}\n")
+        print(f"{episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps")
         return summary
 
 
