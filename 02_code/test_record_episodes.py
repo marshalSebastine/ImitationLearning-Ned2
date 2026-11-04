@@ -93,7 +93,7 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     start_point = [0.25, 0.0]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start_point})
-    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", "b", " ", "y", "escape"]
+    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b"] + ["w"] * 5 + ["b", " ", "y", "escape"]
     turn_keys = dict(RECORDING_PARAMETERS["keys"], v = "turn_left", b = "turn_right")  # unbound by default since the camera left the hand
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point,
@@ -103,16 +103,20 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
     actions = [row["action"] for row in rows]
-    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right", "forward", "turn_right", "stop"], actions
+    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right"] + ["forward"] * 5 + ["turn_right", "stop"], actions
     turns = [row["forearm_turn_deg"] for row in rows]
-    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0", "-45.0"], turns
+    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0"] + ["0.0"] * 6 + ["-45.0"], turns
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
     retreat = RECORDING_PARAMETERS["turn_landing_retreat_m"]
     assert math.isclose(positions[1][0] - positions[0][0], -retreat, abs_tol = 0.008) and abs(positions[1][1] - positions[0][1]) < 0.008, \
         "the first turn should land the tip back from the puck, opposite to the start push"
     assert math.hypot(positions[2][0] - positions[1][0], positions[2][1] - positions[1][1]) < 0.008, \
         "a second turn straight after the first should not retreat again"
-    assert float(rows[9]["joint_4"]) < -0.7, rows[9]["joint_4"]
+    assert float(rows[13]["joint_4"]) < -0.7, rows[13]["joint_4"]
+    # After five ordinary steps, the next turn must land near the tip as it is now, not where an earlier turn left it
+    # (test 1 of 4.11.26 landed 14.9 cm away).
+    landing_jump = math.hypot(positions[13][0] - positions[12][0], positions[13][1] - positions[12][1])
+    assert landing_jump < 0.035, landing_jump
 
     def heading_deg(row) -> float:
         state = {"pose": [float(row[name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")],
@@ -275,6 +279,24 @@ def test_discard_stores_its_reason(raw_folder: Path) -> None:
     assert summary["discard_reason"] == "puck_tipped" and summary["outcome"] is None, summary
 
 
+def test_hand_flick(raw_folder: Path) -> None:
+    """q and e flick the hand and leave the rod where it was; both are logged as their own actions."""
+
+    radial_line = [[0.156, 0.0], [0.398, 0.0]]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
+    keys = ["enter", "q", "e", "w", " ", "y", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert [row["action"] for row in rows] == ["flick_left", "flick_right", "forward", "stop"], [row["action"] for row in rows]
+    assert robot_link.hand_flicks == 2, robot_link.hand_flicks
+    positions = [(float(row["x"]), float(row["y"])) for row in rows]
+    assert all(math.hypot(position[0] - positions[0][0], position[1] - positions[0][1]) < 1e-9 for position in positions[:3]), positions
+
+
 def test_step_budget_per_sheet() -> None:
     """The budget is 1.5 times the traced line length, and the fallback holds for an unknown sheet."""
 
@@ -287,7 +309,7 @@ if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
-                 test_discard_stores_its_reason, test_camera_side_view_turn):
+                 test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

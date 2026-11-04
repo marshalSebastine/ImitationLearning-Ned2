@@ -506,7 +506,10 @@ class EpisodeRecorder:
                 if turn_deg == self.forearm_turn_deg:
                     print(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
                     continue
-                tip_xy = self.tip_xy if self.tip_xy is not None else list(state["pose"][:2])
+                # The tip now: tracked while the forearm is turned (the rod leans), the rod's end when it is straight
+                # (rod upright above the tip). Test 1 of 4.11.26 (episode 033, step 72) landed 14.9 cm away because a
+                # tip remembered from an earlier turn back to straight was used after 33 ordinary steps.
+                tip_xy = list(self.tip_xy) if self.forearm_turn_deg and self.tip_xy is not None else list(state["pose"][:2])
                 # Land back from the puck only by what the block does not already stand back (4.11.26: two turns in a
                 # row put the tip 5 cm away; a turn after backing off moved it further still).
                 retreat_m = max(0.0, self.recorder_parameters["turn_landing_retreat_m"] - self.clearance_from_puck_m)
@@ -532,11 +535,28 @@ class EpisodeRecorder:
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                     continue
                 self.forearm_turn_deg = turn_deg
-                self.tip_xy = landing_xy
+                self.tip_xy = landing_xy if turn_deg else None
                 self.clearance_from_puck_m += retreat_m
                 print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip moved "
                       f"{100 * retreat_m:.1f} cm back from the puck ({100 * self.clearance_from_puck_m:.1f} cm clear); the picture's top now points "
                       f"{math.degrees(picture_heading_rad(self.robot_link.read_state(), self.recorder_parameters)):+.0f} degrees from the table's x axis")
+                move_return_time = time.time()
+                continue
+
+            if action in self.recorder_parameters["flick_actions"]:
+                # q / e (4.11.26 evening): a fast turn of the hand about the rod and straight back; the rod stays put.
+                times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
+                rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
+                counter_clockwise_rad = self.recorder_parameters["picture_left_sign"] * math.radians(self.recorder_parameters["flick_actions"][action])
+                try:
+                    # Joint 6 turns the hand clockwise seen from above as it grows (with the rod pointing down).
+                    self.robot_link.turn_hand_and_back(-counter_clockwise_rad, self.recorder_parameters["flick_velocity_percent"])
+                except Exception as error:
+                    print(f"the robot refused that flick ({error}); choose another step")
+                    rows.pop()
+                    (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                    self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                    continue
                 move_return_time = time.time()
                 continue
 
@@ -730,9 +750,9 @@ class EpisodeRecorder:
         moves nothing.
         """
 
-        lift = self.recorder_parameters["approach_height_m"]
+        lift = self.recorder_parameters["turn_lift_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
-        near_paper = sorted(self.recorder_parameters["turn_near_paper_heights_m"])
+        near_paper = sorted(height for height in self.recorder_parameters["turn_near_paper_heights_m"] if height < lift)
         stops = [(from_turn_deg, height, tip_xy) for height in near_paper] + [(from_turn_deg, lift, tip_xy)]
         turn_deg = from_turn_deg
         while abs(to_turn_deg - turn_deg) > 1e-9:
@@ -775,10 +795,10 @@ class EpisodeRecorder:
         retreat at 38 cm (lifted lean 34.6 degrees) and the arm went to the parking pose from low down instead.
         """
 
-        lift = self.recorder_parameters["approach_height_m"]
+        lift = self.recorder_parameters["turn_lift_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
         turn_deg = self.forearm_turn_deg
-        stops = [(turn_deg, height) for height in sorted(self.recorder_parameters["turn_near_paper_heights_m"])] + [(turn_deg, lift)]
+        stops = [(turn_deg, height) for height in sorted(self.recorder_parameters["turn_near_paper_heights_m"]) if height < lift] + [(turn_deg, lift)]
         while abs(turn_deg) > 1e-9:
             turn_deg -= math.copysign(min(increment, abs(turn_deg)), turn_deg)
             stops.append((turn_deg, lift))
@@ -839,7 +859,7 @@ class EpisodeRecorder:
         """The person chooses the step from the picture on screen."""
 
         turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
-        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d = steps, v b = forearm turn / back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        self.__show_picture(picture_bytes, f"step {step}{turned}: w a s d = steps, q e = flick, v b = forearm turn, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -909,6 +929,7 @@ class EpisodeRecorder:
         """True for a key that ends the wait for a decision: a class, a step-over, a lean or turn key, or discard."""
 
         return (action in self.recorder_parameters["actions"]
+                or action in self.recorder_parameters["flick_actions"]
                 or action in self.recorder_parameters["step_over_actions"]
                 or action in self.recorder_parameters["lean_actions"]
                 or action in self.recorder_parameters["turn_actions"]

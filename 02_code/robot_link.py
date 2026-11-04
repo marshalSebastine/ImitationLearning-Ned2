@@ -45,7 +45,31 @@ class RobotLink:
             self.robot.close_connection()
             raise RuntimeError("the robot needs its automatic calibration first (run calibrate_robot.py); "
                                "until then it accepts moves without performing them")
+        self.velocity_percent = velocity_percent
         self.robot.set_arm_max_velocity(velocity_percent)
+
+
+    def turn_hand_and_back(
+            self,
+            joint_6_change_rad: float,
+            velocity_percent: int
+    ) -> None:
+        """
+        Turn the hand about the rod (joint 6 only) by ``joint_6_change_rad`` at ``velocity_percent`` and straight back,
+        then restore the usual speed cap. The rod's end does not move. Refuses a turn beyond joint 6's limit.
+        """
+
+        joints = [float(value) for value in self.robot.get_joints()]
+        turned = list(joints)
+        turned[5] += joint_6_change_rad
+        if abs(turned[5]) > math.radians(144.0):
+            raise RuntimeError(f"the hand would turn to {math.degrees(turned[5]):.0f} degrees, beyond joint 6's limit")
+        self.robot.set_arm_max_velocity(velocity_percent)
+        try:
+            self.robot.move(JointsPosition(*turned))
+            self.robot.move(JointsPosition(*joints))
+        finally:
+            self.robot.set_arm_max_velocity(self.velocity_percent)
 
 
     def move_to(
@@ -240,6 +264,16 @@ class SimulatedRobotLink:
     def move_home(self, home_joints: List[float]) -> None:
 
         self.pose[2] = start_pose()[2] + 0.10
+
+
+    def turn_hand_and_back(
+            self,
+            joint_6_change_rad: float,
+            velocity_percent: int
+    ) -> None:
+        """The simulated hand turns and comes back; the rod's end stays put (the simulated puck is not flicked)."""
+
+        self.hand_flicks = getattr(self, "hand_flicks", 0) + 1
 
 
     def move_joints(self, joints: List[float]) -> None:
