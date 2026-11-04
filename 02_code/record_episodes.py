@@ -538,7 +538,8 @@ class EpisodeRecorder:
             self,
             tip_xy: List[float],
             turn_deg: float,
-            lift: float
+            lift: float,
+            is_lean_limited: bool = True
     ) -> List[float]:
         """
         The joints that put the magnet tip at ``tip_xy``, ``lift`` metres above pushing height, with the forearm
@@ -556,7 +557,7 @@ class EpisodeRecorder:
             raise RuntimeError(f"no arm position reaches ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm turned {turn_deg:.0f} degrees")
         lean_deg = magnet_tip_and_lean(joints)[1]
         limit = self.recorder_parameters["max_turn_lifted_lean_deg" if lift > 0.0 else "max_turn_lean_deg"]
-        if lean_deg > limit:
+        if is_lean_limited and lean_deg > limit:
             raise RuntimeError(f"the rod would lean {lean_deg:.1f} degrees at ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm "
                                f"turned {turn_deg:.0f} degrees, above the limit of {limit}")
         return joints
@@ -604,7 +605,12 @@ class EpisodeRecorder:
 
 
     def __turn_back_lifted(self) -> None:
-        """Lift at the current forearm turn and turn back to straight in increments; the arm stays lifted."""
+        """
+        Lift at the current forearm turn and turn back to straight in increments; the arm stays lifted.
+
+        The lean limit does not apply here: lifted, the rod touches nothing, and on 4.11.26 the limit refused the
+        retreat at 38 cm (lifted lean 34.6 degrees) and the arm went to the parking pose from low down instead.
+        """
 
         lift = self.recorder_parameters["approach_height_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
@@ -613,7 +619,7 @@ class EpisodeRecorder:
         while abs(turn_deg) > 1e-9:
             turn_deg -= math.copysign(min(increment, abs(turn_deg)), turn_deg)
             stops.append((turn_deg, lift))
-        for joints in [self.__turned_joints(self.tip_xy, turn_deg, lift) for turn_deg, lift in stops]:
+        for joints in [self.__turned_joints(self.tip_xy, turn_deg, lift, is_lean_limited = False) for turn_deg, lift in stops]:
             self.robot_link.move_joints(joints)
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
