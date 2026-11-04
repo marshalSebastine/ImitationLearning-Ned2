@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, eleven classes; step-over untested on the robot).
+Last updated: 4.11.26 by Emranul's paper-publication session (publication assessment written; earlier the same day Marshal's session added back diagonals and step-over, eleven classes, step-over untested on the robot).
 
 ## Dates that cannot move
 
@@ -123,6 +123,17 @@ Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, 
   intervals, per-path-type reporting; the documentation rule is question 7 for meeting 2 (7 pages per the course catalogue).
 - Next: nothing until a trained model exists; keep the contribution log and the figures folder current.
 - Blocked on: a model.
+
+## Paper publication (side topic, asked for by Emranul on 3.11.26)
+
+- Done 4.11.26 (Emranul's paper-publication session, branch `claude/paper-publication-81bd4c`): assessment in
+  `06_deliverables/research_notes/Paper publication/2026-11-04_publication_assessment.md`. Verdict (a recommendation, not
+  yet decided): plan the paper for after the course; best candidate is a 4-page workshop paper (ICRA 2027 or RSS 2027
+  workshop, deadlines likely March to June 2027) comparing keyboard stepping with hand-guided replay for the one-picture
+  classifier, with the occlusion-when-backing and step-over results as a section; arXiv copy needs an endorser.
+- Next: no extra robot work before 10 Jan; pre-register the keyboard-against-replay comparison and the final evaluation,
+  keep every number, take figure photos; ask the professor section 4's nine questions; go or no-go in late January.
+- Blocked on: the professor's view. The brief said "Prof. Rebholz", the supervisor is Prof. Nierhoff: Emranul to confirm.
 
 ## Open questions for the professor (meeting 2)
 
