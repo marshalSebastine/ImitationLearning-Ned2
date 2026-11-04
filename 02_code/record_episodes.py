@@ -96,6 +96,24 @@ def read_window_key(wait_ms: int) -> Optional[str]:
     return chr(code).lower()
 
 
+def forearm_picture_up_in_forearm_frame() -> numpy.ndarray:
+    """
+    The forearm camera's picture-up axis in the forearm's own frame (joint 4's frame of the arm model): at a reference
+    pose with the tip 25 cm out and the forearm untwisted (it then leans slightly outwards), the part of straight up
+    at right angles to the forearm, which points up and away from the base.
+    """
+
+    reference_joints = [0.0, -0.809, -0.588, 0.0, -0.173, 0.0]
+    rotation = numpy.array(ned2_fk.fk(reference_joints)["joint_4"][1])
+    forearm = rotation[:, 2]
+    straight_up = numpy.array([0.0, 0.0, 1.0])
+    picture_up = straight_up - (straight_up @ forearm) * forearm
+    return rotation.T @ (picture_up / numpy.linalg.norm(picture_up))
+
+
+FOREARM_PICTURE_UP_IN_FOREARM_FRAME = forearm_picture_up_in_forearm_frame()
+
+
 def forearm_camera_heading_rad(
         joints: List[float],
         turns_with_joint_4: bool = RECORDING_PARAMETERS["forearm_camera_turns_with_joint_4"]
@@ -103,29 +121,26 @@ def forearm_camera_heading_rad(
     """
     The table direction the top of the picture points to, for a camera on the forearm cover looking down the forearm.
 
-    The camera's picture-up axis is taken as the part of "straight up" at right angles to the forearm, worked out with
-    the forearm untwisted (joint 4 at zero) and then turned with joint 4 when the cover turns with it. A table point
-    moves straight up the picture when it moves at right angles to the picture's right axis, so the heading is the
-    table direction at right angles to that axis, on the picture-up side. With the forearm untwisted this is the
-    direction from the base towards the rod, as the "forearm" model in config assumes.
+    The camera is fixed to the forearm, so its picture-up axis is a fixed direction in the forearm's own frame: the
+    one that points up and away from the base at a reference pose (tip 25 cm out, forearm untwisted, leaning slightly
+    outwards). The first version (4.11.26 evening) worked it out as "the part of straight up at right angles to the
+    forearm" at every pose, which flips by 180 degrees when the forearm passes upright: closer than about 21 cm to the
+    base the forearm leans back towards the robot, and w went backwards at the start of sheet 04 (Emranul). Without
+    the twist (``turns_with_joint_4`` False) the forearm frame is taken untwisted. A table point moves straight up the
+    picture when it moves at right angles to the picture's right axis, so the heading is the table direction at right
+    angles to that axis, on the picture-up side; with the forearm untwisted it is the direction from the base
+    towards the rod.
     """
 
-    untwisted = list(joints)
-    untwisted[3] = 0.0
-    frames_untwisted = ned2_fk.fk(untwisted)
-    frames_now = ned2_fk.fk(list(joints))
-    rotation_untwisted = numpy.array(frames_untwisted["joint_4"][1])
-    rotation_now = numpy.array(frames_now["joint_4"][1]) if turns_with_joint_4 else rotation_untwisted
-    forearm = rotation_untwisted[:, 2]
+    if turns_with_joint_4:
+        rotation = numpy.array(ned2_fk.fk(list(joints))["joint_4"][1])
+    else:
+        untwisted = list(joints)
+        untwisted[3] = 0.0
+        rotation = numpy.array(ned2_fk.fk(untwisted)["joint_4"][1])
+    looking = rotation[:, 2]
+    picture_up = rotation @ FOREARM_PICTURE_UP_IN_FOREARM_FRAME
     straight_up = numpy.array([0.0, 0.0, 1.0])
-    picture_up = straight_up - (straight_up @ forearm) * forearm
-    if numpy.linalg.norm(picture_up) < 1e-9:
-        picture_up = numpy.array([math.cos(joints[0]), math.sin(joints[0]), 0.0])
-    picture_up = picture_up / numpy.linalg.norm(picture_up)
-
-    twist = rotation_now @ rotation_untwisted.T
-    looking = twist @ forearm
-    picture_up = twist @ picture_up
     picture_right = numpy.cross(looking, picture_up)
     top = numpy.cross(straight_up, numpy.array([picture_right[0], picture_right[1], 0.0]))
     if numpy.linalg.norm(top) < 1e-9:

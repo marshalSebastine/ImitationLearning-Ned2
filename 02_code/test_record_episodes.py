@@ -65,6 +65,10 @@ def test_picture_steps_point_the_right_way() -> None:
     # forearm twisted 90 degrees turns the picture by about 90 degrees, since the forearm stands nearly upright.
     pushing_joints = [0.3, -0.809, -0.588, 0.0, -0.173, 0.3]
     assert math.isclose(math.degrees(forearm_camera_heading_rad(pushing_joints, True)), math.degrees(0.3), abs_tol = 0.5)
+    # Close to the base the forearm leans back towards the robot; the picture must not flip (it did on 4.11.26).
+    near_base_joints = [0.24126, -0.73527, -1.01429, 0.00163, 0.16404, 0.23786]
+    assert math.isclose(math.degrees(forearm_camera_heading_rad(near_base_joints, True)), math.degrees(0.24126), abs_tol = 2.0), \
+        math.degrees(forearm_camera_heading_rad(near_base_joints, True))
     twisted = list(pushing_joints)
     twisted[3] = math.pi / 2
     turned_by = math.degrees(forearm_camera_heading_rad(twisted, True)) - math.degrees(0.3)
