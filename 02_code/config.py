@@ -6,6 +6,7 @@ in one place only. Later phases add the keys named in the work plan.
 """
 
 import math
+from typing import Optional
 
 ROBOT_PARAMETERS = {
     "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
@@ -288,10 +289,12 @@ RECORDING_PARAMETERS = {
         "l": "lost",
         "enter": "accept",
         "n": "lean_left",
-        "m": "lean_right"
+        "m": "lean_right",
+        "v": "turn_left",
+        "b": "turn_right"
     },
-    # 4.11.26 evening (Emranul): the camera moved to the forearm cover, so the forearm turn keys v / b are unbound
-    # (they would only lean the rod); the turn code stays for a camera on the hand.
+    # 4.11.26 evening (Emranul): the camera moved to the forearm cover and the forearm turn keys v / b stay bound; the
+    # picture then turns with the forearm (see "forearm_camera_turns_with_joint_4").
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
@@ -321,11 +324,21 @@ RECORDING_PARAMETERS = {
     },
     "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
     "max_turn_deg": 90,
-    # After a turn the tip lands this far back from the puck, opposite to the last push, instead of on its old spot:
-    # the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by about
-    # 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The person closes the gap with the keys.
+    # After a turn the tip stands at least this far back from the puck, opposite to the last push, instead of on its old
+    # spot: the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by
+    # about 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The tool keeps count of how far the block
+    # already stands back (back steps add to it, pushing steps clear it) and only moves the rest, so two turns in a row
+    # or a turn after backing off do not carry the tip far away (Emranul, 4.11.26: "landing in a far away place").
     "turn_landing_retreat_m": 0.025,
-    "turn_increment_deg": SIDE_VIEW_TEST_PARAMETERS["turn_increment_deg"],
+    # Close to the paper the arm rises and comes down in these heights, one solved position each, so the tip moves
+    # nearly straight up and down instead of swinging in a joint-space arc over the puck (the landing jams of 4.11.26).
+    "turn_near_paper_heights_m": [0.01, 0.02],
+    # Smaller steps of the lifted turn keep the lifted tip closer to its spot (was 30, from side_view_test.py).
+    "turn_increment_deg": 15.0,
+    # Camera on the forearm cover: True if the cover turns with joint 4, so the picture turns with the forearm and the
+    # keys follow it. NOT YET CHECKED on the robot (4.11.26): the first "v" press shows it; if the picture does not
+    # turn, set False.
+    "forearm_camera_turns_with_joint_4": True,
     # MEASURED 4.11.26 by Emranul (session 2026-11-04, path_04_meander_episode_028, a measurement run with the limit
     # raised to 30): forearm turned 90 degrees, the puck pushed 31 steps from 32 to 38.5 cm from the base while the
     # rod's lean grew from 9.7 to 30 degrees; the puck never tipped and stayed on the block. Limit: 28, two degrees
@@ -494,27 +507,32 @@ def camera_heading_rad(
 
 def push_heading_rad(
         pose: list,
-        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"],
+        heading_rad: Optional[float] = None
 ) -> float:
     """
     The table direction the pusher pushes in, for the rod's ``pose``: the camera heading with the hand's current turn
     ``hand_turn_deg`` taken off. The actions are measured from this direction (4.11.26, Emranul: with a turned camera
     the keys were confusing in the picture frame; "forward" is the way the pusher pushes whatever the camera does).
     The camera is fixed to the hand, so for the model this is the picture frame turned by the logged turn angle.
+    ``heading_rad`` replaces camera_heading_rad(pose) when the caller knows the picture's direction better (the
+    recording tool computes it from the joints for the camera on the forearm).
     """
 
-    return camera_heading_rad(pose) - RECORDING_PARAMETERS["picture_left_sign"] * math.radians(hand_turn_deg)
+    picture_heading = camera_heading_rad(pose) if heading_rad is None else heading_rad
+    return picture_heading - RECORDING_PARAMETERS["picture_left_sign"] * math.radians(hand_turn_deg)
 
 
 def action_step_to_table(
         action: str,
         pose: list,
-        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"],
+        heading_rad: Optional[float] = None
 ) -> list:
     """The table displacement [dx, dy] in metres of one ``action`` (a step or a step-over) taken with the rod at ``pose``."""
 
     is_step_over = action in RECORDING_PARAMETERS["step_over_actions"]
     action_angle = RECORDING_PARAMETERS["step_over_actions"][action] if is_step_over else RECORDING_PARAMETERS["actions"][action]
     length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
-    angle = push_heading_rad(pose, hand_turn_deg) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(action_angle)
+    angle = push_heading_rad(pose, hand_turn_deg, heading_rad) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(action_angle)
     return [length * math.cos(angle), length * math.sin(angle)]

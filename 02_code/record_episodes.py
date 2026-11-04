@@ -96,6 +96,56 @@ def read_window_key(wait_ms: int) -> Optional[str]:
     return chr(code).lower()
 
 
+def forearm_camera_heading_rad(
+        joints: List[float],
+        turns_with_joint_4: bool = RECORDING_PARAMETERS["forearm_camera_turns_with_joint_4"]
+) -> float:
+    """
+    The table direction the top of the picture points to, for a camera on the forearm cover looking down the forearm.
+
+    The camera's picture-up axis is taken as the part of "straight up" at right angles to the forearm, worked out with
+    the forearm untwisted (joint 4 at zero) and then turned with joint 4 when the cover turns with it. A table point
+    moves straight up the picture when it moves at right angles to the picture's right axis, so the heading is the
+    table direction at right angles to that axis, on the picture-up side. With the forearm untwisted this is the
+    direction from the base towards the rod, as the "forearm" model in config assumes.
+    """
+
+    untwisted = list(joints)
+    untwisted[3] = 0.0
+    frames_untwisted = ned2_fk.fk(untwisted)
+    frames_now = ned2_fk.fk(list(joints))
+    rotation_untwisted = numpy.array(frames_untwisted["joint_4"][1])
+    rotation_now = numpy.array(frames_now["joint_4"][1]) if turns_with_joint_4 else rotation_untwisted
+    forearm = rotation_untwisted[:, 2]
+    straight_up = numpy.array([0.0, 0.0, 1.0])
+    picture_up = straight_up - (straight_up @ forearm) * forearm
+    if numpy.linalg.norm(picture_up) < 1e-9:
+        picture_up = numpy.array([math.cos(joints[0]), math.sin(joints[0]), 0.0])
+    picture_up = picture_up / numpy.linalg.norm(picture_up)
+
+    twist = rotation_now @ rotation_untwisted.T
+    looking = twist @ forearm
+    picture_up = twist @ picture_up
+    picture_right = numpy.cross(looking, picture_up)
+    top = numpy.cross(straight_up, numpy.array([picture_right[0], picture_right[1], 0.0]))
+    if numpy.linalg.norm(top) < 1e-9:
+        top = picture_up
+    if top @ picture_up < -1e-9 or (abs(top @ picture_up) <= 1e-9 and top @ looking < 0.0):
+        top = -top
+    return math.atan2(top[1], top[0]) + RECORDING_PARAMETERS["picture_top_offset_rad"]
+
+
+def picture_heading_rad(
+        state: Dict[str, List[float]],
+        recorder_parameters: Dict
+) -> float:
+    """The table direction the top of the picture points to now, for the configured camera position."""
+
+    if recorder_parameters["camera_heading_model"] == "forearm":
+        return forearm_camera_heading_rad(state["joints"], recorder_parameters["forearm_camera_turns_with_joint_4"])
+    return camera_heading_rad(state["pose"], "hand")
+
+
 LAST_SHOWN = {"picture": None}
 
 
@@ -419,10 +469,11 @@ class EpisodeRecorder:
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
         self.is_arm_model_checked = False
-        # Where the puck is, as far as the tool knows: ahead along the last moving step (the start push before any).
+        # Where the puck is, as far as the tool knows: along "push_direction" from the tip, "clearance_from_puck_m"
+        # beyond the block's contact. At the start the block touches the puck along the start push.
         push = math.radians(self.recorder_parameters["start_push_direction_deg"])
-        self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
-        self.is_tip_back_from_puck = False
+        self.push_direction = numpy.array([math.cos(push), math.sin(push)])
+        self.clearance_from_puck_m = 0.0
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -441,15 +492,15 @@ class EpisodeRecorder:
                     print(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
                     continue
                 tip_xy = self.tip_xy if self.tip_xy is not None else list(state["pose"][:2])
-                # Land back from the puck only when the block is touching it; after a turn, until the next step, it
-                # already stands back (4.11.26: two turns in a row put the tip 5 cm away).
-                retreat_m = 0.0 if self.is_tip_back_from_puck else self.recorder_parameters["turn_landing_retreat_m"]
-                landing_xy = list(numpy.array(tip_xy) - retreat_m * self.last_step_direction)
+                # Land back from the puck only by what the block does not already stand back (4.11.26: two turns in a
+                # row put the tip 5 cm away; a turn after backing off moved it further still).
+                retreat_m = max(0.0, self.recorder_parameters["turn_landing_retreat_m"] - self.clearance_from_puck_m)
+                landing_xy = list(numpy.array(tip_xy) - retreat_m * self.push_direction)
                 if not self.__is_inside_workspace(landing_xy[0], landing_xy[1]):
                     print("refused: the landing point behind the puck would be outside the workspace")
                     continue
                 try:
-                    plan = self.__turn_plan(self.forearm_turn_deg, turn_deg, tip_xy, landing_xy)
+                    plan = self.__turn_plan(self.forearm_turn_deg, turn_deg, tip_xy, landing_xy, state["joints"])
                     self.__check_arm_model(plan[-1])
                 except Exception as error:
                     print(f"refused: {error}; nothing moved")
@@ -467,10 +518,10 @@ class EpisodeRecorder:
                     continue
                 self.forearm_turn_deg = turn_deg
                 self.tip_xy = landing_xy
-                self.is_tip_back_from_puck = True
-                print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip landed "
-                      f"{100 * retreat_m:.1f} cm back from the puck; the picture's top now points "
-                      f"{math.degrees(camera_heading_rad(self.robot_link.read_state()['pose'])):+.0f} degrees from the table's x axis")
+                self.clearance_from_puck_m += retreat_m
+                print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip moved "
+                      f"{100 * retreat_m:.1f} cm back from the puck ({100 * self.clearance_from_puck_m:.1f} cm clear); the picture's top now points "
+                      f"{math.degrees(picture_heading_rad(self.robot_link.read_state(), self.recorder_parameters)):+.0f} degrees from the table's x axis")
                 move_return_time = time.time()
                 continue
 
@@ -498,7 +549,8 @@ class EpisodeRecorder:
                 # (Emranul, 4.11.26: he steers from the picture, so "forward" must be the top of the picture also
                 # when the forearm is turned; the model sees nothing but the picture either).
                 x, y = self.tip_xy if self.forearm_turn_deg else state["pose"][:2]
-                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])
+                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"],
+                                                      heading_rad = picture_heading_rad(state, self.recorder_parameters))
                 target_x, target_y = x + step_x, y + step_y
                 # A step-over leaves the puck where it is, so only the rod's landing point needs checking.
                 is_allowed = (self.__is_inside_workspace(target_x, target_y) if self.__is_step_over(action)
@@ -518,8 +570,6 @@ class EpisodeRecorder:
             # (least lean, magnet tip on the target) and the turn lasts.
             target_pose = [target_x, target_y, pushing_height(target_x, target_y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
             try:
-                self.last_step_direction = numpy.array([step_x, step_y]) / math.hypot(step_x, step_y)
-                self.is_tip_back_from_puck = False
                 if self.forearm_turn_deg:
                     self.robot_link.move_joints(self.__turned_joints([target_x, target_y], self.forearm_turn_deg, 0.0))
                     self.tip_xy = [target_x, target_y]
@@ -536,9 +586,42 @@ class EpisodeRecorder:
                 (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                 self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                 continue
+            self.__track_puck(action, step_x, step_y)
             move_return_time = time.time()
 
         return "step_budget_reached", rows
+
+
+    def __track_puck(
+            self,
+            action: str,
+            step_x: float,
+            step_y: float
+    ) -> None:
+        """
+        Update where the puck is believed to be after a step that happened, for the landing after a forearm turn.
+
+        A step with a clear component towards the puck (within 60 degrees of the push direction) reaches it and pushes
+        it: the push direction becomes the step's and the clearance shrinks to what is left (zero once touching). A
+        step with a clear component away from it adds that component to the clearance. A sideways step changes
+        neither. A step-over lands on the puck's far side, so the puck is then behind the tip by the landing gap.
+        """
+
+        step = numpy.array([step_x, step_y])
+        length = float(numpy.linalg.norm(step))
+        if length < 1e-12:
+            return
+        if self.__is_step_over(action):
+            self.push_direction = -step / length
+            self.clearance_from_puck_m = max(0.0, self.recorder_parameters["step_over_m"] - 2 * self.recorder_parameters["puck_centre_ahead_of_tip_m"])
+            return
+        towards_puck = float(step @ self.push_direction)
+        if towards_puck > 0.5 * length:
+            self.clearance_from_puck_m = max(0.0, self.clearance_from_puck_m - towards_puck)
+            if self.clearance_from_puck_m == 0.0:
+                self.push_direction = step / length
+        elif towards_puck < -0.5 * length:
+            self.clearance_from_puck_m += -towards_puck
 
 
     def __leaned_pose(
@@ -581,22 +664,34 @@ class EpisodeRecorder:
             tip_xy: List[float],
             turn_deg: float,
             lift: float,
-            is_lean_limited: bool = True
+            is_lean_limited: bool = True,
+            near_wrist_rad: Optional[float] = None
     ) -> List[float]:
         """
         The joints that put the magnet tip at ``tip_xy``, ``lift`` metres above pushing height, with the forearm
         (joint 4) turned by ``turn_deg`` and the rod leaning least (Marshal's solver, 4.11.26).
 
-        Raises when no joint angles within the limits reach the point, or when the rod would lean more than the
-        limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted). The wrist (joint 5) is
-        kept below the bracket's limit.
+        ``near_wrist_rad`` narrows the wrist search to 8 degrees either side of a neighbouring solution (a quarter of
+        the time; the full search is the fallback). With the forearm untwisted, joint 6 is set equal to joint 1, the
+        hand's usual orientation for a vertical rod, so the first step after turning back does not spin the block
+        against the puck. Raises when no joint angles within the limits reach the point, or when the rod would lean
+        more than the limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted). The wrist
+        (joint 5) is kept below the bracket's limit.
         """
 
         height = pushing_height(tip_xy[0], tip_xy[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"] + lift
         wrist_max_deg = min(60.0, math.degrees(self.recorder_parameters["wrist_pitch_max_rad"]))
-        joints = solve_least_lean(numpy.array([tip_xy[0], tip_xy[1], height]), math.radians(turn_deg), wrist_range_deg = (-60.0, wrist_max_deg))
+        target = numpy.array([tip_xy[0], tip_xy[1], height])
+        joints = None
+        if near_wrist_rad is not None:
+            near_deg = math.degrees(near_wrist_rad)
+            joints = solve_least_lean(target, math.radians(turn_deg), wrist_range_deg = (max(-60.0, near_deg - 8.0), min(wrist_max_deg, near_deg + 8.0)))
+        if joints is None:
+            joints = solve_least_lean(target, math.radians(turn_deg), wrist_range_deg = (-60.0, wrist_max_deg))
         if joints is None:
             raise RuntimeError(f"no arm position reaches ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm turned {turn_deg:.0f} degrees")
+        if abs(turn_deg) < 1e-9:
+            joints[5] = joints[0]
         lean_deg = magnet_tip_and_lean(joints)[1]
         limit = self.recorder_parameters["max_turn_lifted_lean_deg" if lift > 0.0 else "max_turn_lean_deg"]
         if is_lean_limited and lean_deg > limit:
@@ -610,24 +705,35 @@ class EpisodeRecorder:
             from_turn_deg: float,
             to_turn_deg: float,
             tip_xy: List[float],
-            landing_xy: List[float]
+            landing_xy: List[float],
+            current_joints: List[float]
     ) -> List[List[float]]:
         """
-        The joint positions of a forearm turn: lifted at the current turn over ``tip_xy``, lifted at every
-        "turn_increment_deg" on the way, lifted over ``landing_xy``, then down there at the new turn. All are solved
-        before anything moves, so a refusal moves nothing.
+        The joint positions of a forearm turn: up over ``tip_xy`` at the current turn (through the near-paper heights,
+        so the tip rises nearly straight), lifted at every "turn_increment_deg" on the way, lifted over ``landing_xy``,
+        then down there at the new turn through the same heights. All are solved before anything moves, so a refusal
+        moves nothing.
         """
 
         lift = self.recorder_parameters["approach_height_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
-        stops = [(from_turn_deg, lift, tip_xy)]
+        near_paper = sorted(self.recorder_parameters["turn_near_paper_heights_m"])
+        stops = [(from_turn_deg, height, tip_xy) for height in near_paper] + [(from_turn_deg, lift, tip_xy)]
         turn_deg = from_turn_deg
         while abs(to_turn_deg - turn_deg) > 1e-9:
             turn_deg += math.copysign(min(increment, abs(to_turn_deg - turn_deg)), to_turn_deg - turn_deg)
             stops.append((turn_deg, lift, tip_xy))
         stops.append((to_turn_deg, lift, landing_xy))
+        stops += [(to_turn_deg, height, landing_xy) for height in reversed(near_paper)]
         stops.append((to_turn_deg, 0.0, landing_xy))
-        return [self.__turned_joints(point_xy, turn_deg, lift) for turn_deg, lift, point_xy in stops]
+
+        plan = []
+        near_wrist_rad = current_joints[4]
+        for turn_deg, height, point_xy in stops:
+            joints = self.__turned_joints(point_xy, turn_deg, height, near_wrist_rad = near_wrist_rad)
+            plan.append(joints)
+            near_wrist_rad = joints[4]
+        return plan
 
 
     def __check_arm_model(self, joints: List[float]) -> None:
@@ -657,11 +763,17 @@ class EpisodeRecorder:
         lift = self.recorder_parameters["approach_height_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
         turn_deg = self.forearm_turn_deg
-        stops = [(turn_deg, lift)]
+        stops = [(turn_deg, height) for height in sorted(self.recorder_parameters["turn_near_paper_heights_m"])] + [(turn_deg, lift)]
         while abs(turn_deg) > 1e-9:
             turn_deg -= math.copysign(min(increment, abs(turn_deg)), turn_deg)
             stops.append((turn_deg, lift))
-        for joints in [self.__turned_joints(self.tip_xy, turn_deg, lift, is_lean_limited = False) for turn_deg, lift in stops]:
+        plan = []
+        near_wrist_rad = self.robot_link.read_state()["joints"][4]
+        for turn_deg, height in stops:
+            joints = self.__turned_joints(self.tip_xy, turn_deg, height, is_lean_limited = False, near_wrist_rad = near_wrist_rad)
+            plan.append(joints)
+            near_wrist_rad = joints[4]
+        for joints in plan:
             self.robot_link.move_joints(joints)
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
@@ -758,7 +870,8 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])) - target))
+                    position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"],
+                                                                heading_rad = picture_heading_rad(state, self.recorder_parameters))) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)

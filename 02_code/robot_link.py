@@ -229,6 +229,11 @@ class SimulatedRobotLink:
                 self.__push_puck(end - start)
 
         self.pose = list(pose)
+        # A Cartesian move leaves the forearm untwisted and the hand in its usual orientation (joint 6 equal to joint
+        # 1); move_joints sets the exact angles afterwards. Enough for the picture direction of a forearm camera.
+        self.joints[0] = math.atan2(pose[1], pose[0])
+        self.joints[3] = 0.0
+        self.joints[5] = self.joints[0]
         time.sleep(self.simulation_parameters["move_seconds"])
 
 

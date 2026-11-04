@@ -14,7 +14,7 @@ from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
                     start_pose, step_budget_for)
-from record_episodes import EpisodeRecorder
+from record_episodes import EpisodeRecorder, forearm_camera_heading_rad, picture_heading_rad
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
 
@@ -61,6 +61,16 @@ def test_picture_steps_point_the_right_way() -> None:
         assert math.isclose(math.degrees(camera_heading_rad(pose, "forearm")), math.degrees(math.atan2(y, x)), abs_tol = 1e-9)
     turned = [0.25, 0.0, 0.03, 0.0, 1.57, math.pi / 2]
     assert math.isclose(math.degrees(camera_heading_rad(turned, "hand")), 90.0, abs_tol = 0.1), camera_heading_rad(turned, "hand")
+    # Forearm camera: untwisted, the picture's top points from the base towards the wrist (joint 1's direction); the
+    # forearm twisted 90 degrees turns the picture by about 90 degrees, since the forearm stands nearly upright.
+    pushing_joints = [0.3, -0.809, -0.588, 0.0, -0.173, 0.3]
+    assert math.isclose(math.degrees(forearm_camera_heading_rad(pushing_joints, True)), math.degrees(0.3), abs_tol = 0.5)
+    twisted = list(pushing_joints)
+    twisted[3] = math.pi / 2
+    turned_by = math.degrees(forearm_camera_heading_rad(twisted, True)) - math.degrees(0.3)
+    assert 70.0 < abs(turned_by) < 110.0, turned_by
+    assert math.isclose(math.degrees(forearm_camera_heading_rad(twisted, False)), math.degrees(0.3), abs_tol = 0.5)
+
     ahead = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
     forward = action_step_to_table("forward", ahead, 0.0)
     left = action_step_to_table("left", ahead, 0.0)
@@ -101,7 +111,9 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     assert float(rows[9]["joint_4"]) < -0.7, rows[9]["joint_4"]
 
     def heading_deg(row) -> float:
-        return math.degrees(camera_heading_rad([float(row[name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")]))
+        state = {"pose": [float(row[name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")],
+                 "joints": [float(row[f"joint_{index}"]) for index in range(1, 7)]}
+        return math.degrees(picture_heading_rad(state, RECORDING_PARAMETERS))
 
     def direction_deg(index: int) -> float:
         return math.degrees(math.atan2(positions[index + 1][1] - positions[index][1], positions[index + 1][0] - positions[index][0]))
