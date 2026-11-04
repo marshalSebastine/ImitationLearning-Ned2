@@ -76,9 +76,17 @@ def read_window_key(wait_ms: int) -> Optional[str]:
         The key as a one-character string, "enter" or "escape", or None when no key came.
     """
 
-    code = cv2.waitKey(wait_ms)
-    if code < 0:
-        return None
+    # Wait in half-second slices so the window can be checked between them: three times on 4.11.26 the picture
+    # window vanished (hidden or closed) while the tool waited for a key, and the keys then went nowhere.
+    deadline = None if wait_ms == 0 else time.monotonic() + wait_ms / 1000.0
+    while True:
+        slice_ms = 500 if deadline is None else max(1, min(500, int(1000 * (deadline - time.monotonic()))))
+        code = cv2.waitKey(slice_ms)
+        if code >= 0:
+            break
+        if deadline is not None and time.monotonic() >= deadline:
+            return None
+        ensure_window_is_shown()
 
     code = code & 0xFF
     if code in (10, 13):
@@ -86,6 +94,34 @@ def read_window_key(wait_ms: int) -> Optional[str]:
     if code == 27:
         return "escape"
     return chr(code).lower()
+
+
+LAST_SHOWN = {"picture": None}
+
+
+def show_in_window(picture: numpy.ndarray) -> None:
+    """Show ``picture`` in the recording window, bring the window to the front, and remember it for re-showing."""
+
+    LAST_SHOWN["picture"] = picture
+    cv2.imshow(WINDOW_NAME, picture)
+    try:
+        cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_TOPMOST, 1)
+    except cv2.error:
+        pass
+
+
+def ensure_window_is_shown() -> None:
+    """Re-open the recording window with the last picture if it was closed or is no longer visible."""
+
+    if LAST_SHOWN["picture"] is None:
+        return
+    try:
+        is_visible = cv2.getWindowProperty(WINDOW_NAME, cv2.WND_PROP_VISIBLE) >= 1
+    except cv2.error:
+        is_visible = False
+    if not is_visible:
+        print("the picture window had gone; opened it again")
+        show_in_window(LAST_SHOWN["picture"])
 
 
 def sharpness_of(picture: numpy.ndarray) -> float:
@@ -1125,7 +1161,7 @@ class EpisodeRecorder:
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         status_bar = numpy.zeros((32, picture.shape[1], 3), dtype = numpy.uint8)
         cv2.putText(status_bar, f"sharpness {sharpness_of(picture):.0f} | {status}", (8, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-        cv2.imshow(WINDOW_NAME, numpy.vstack([picture, status_bar]))
+        show_in_window(numpy.vstack([picture, status_bar]))
 
 
 
