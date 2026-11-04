@@ -326,8 +326,14 @@ RECORDING_PARAMETERS = {
     # 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The person closes the gap with the keys.
     "turn_landing_retreat_m": 0.025,
     "turn_increment_deg": SIDE_VIEW_TEST_PARAMETERS["turn_increment_deg"],
-    "max_turn_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lean_deg"],
-    "max_turn_lifted_lean_deg": SIDE_VIEW_TEST_PARAMETERS["maximum_lifted_lean_deg"],
+    # MEASURED 4.11.26 by Emranul (session 2026-11-04, path_04_meander_episode_028, a measurement run with the limit
+    # raised to 30): forearm turned 90 degrees, the puck pushed 31 steps from 32 to 38.5 cm from the base while the
+    # rod's lean grew from 9.7 to 30 degrees; the puck never tipped and stayed on the block. Limit: 28, two degrees
+    # under the largest lean pushed. One run, one direction (outwards); a sideways push with the block's wide face
+    # is not measured. Marshal's side_view_test.py keeps its own, more cautious 16.
+    "max_turn_lean_deg": 28.0,
+    # Lifted, the rod touches nothing, so only the arm's reach matters; 45 leaves room for the retreat at 38 cm (34.6).
+    "max_turn_lifted_lean_deg": 45.0,
     "turn_model_tolerance_mm": SIDE_VIEW_TEST_PARAMETERS["model_tolerance_mm"],
     # TEST keys of 31.10.26 (Emranul and Marshal asked for them after the camera lost the line at the meander's
     # hairpins): rod and camera lean together about the camera's forward axis by "lean_step_deg" per press, at most
