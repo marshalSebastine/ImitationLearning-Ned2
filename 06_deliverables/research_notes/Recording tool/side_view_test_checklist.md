@@ -62,7 +62,7 @@ All keys go to the picture window: click it first. Enter goes on, Esc ends the t
 
 ## Part 2: pulling with the puck (about 20 minutes)
 
-Only if part 1 looks good. Start at 25 cm, then try 20 cm's neighbour (`--distance 0.22`) and 28 cm.
+Only if part 1 looks good. Start at 25 cm, then 22 cm (`--distance 0.22`), then 28 cm (`--distance 0.28`).
 
 ```
 ..\.venv\Scripts\python.exe side_view_test.py --operator emranul --part pull --distance 0.25
