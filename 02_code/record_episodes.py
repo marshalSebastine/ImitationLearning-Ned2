@@ -358,10 +358,10 @@ class EpisodeRecorder:
                 return ("discarded" if action == "discard" else "quit"), rows
 
             if action in self.recorder_parameters["turn_actions"]:
-                most = self.recorder_parameters["max_turn_deg"]
-                turn_deg = max(-most, min(most, self.camera_turn_deg + self.recorder_parameters["turn_actions"][action]))
+                least, most = self.recorder_parameters["min_turn_deg"], self.recorder_parameters["max_turn_deg"]
+                turn_deg = max(least, min(most, self.camera_turn_deg + self.recorder_parameters["turn_actions"][action]))
                 if turn_deg == self.camera_turn_deg:
-                    print(f"refused: the camera is already turned {most} degrees that way")
+                    print(f"refused: the camera cannot turn further that way (allowed {least} to {most} degrees)")
                     continue
                 times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
                 rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
@@ -398,7 +398,7 @@ class EpisodeRecorder:
 
             if action != "stop":
                 x, y = state["pose"][0], state["pose"][1]
-                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])
+                step_x, step_y = action_step_to_table(action, state["pose"], self.camera_turn_deg)
                 target_x, target_y = x + step_x, y + step_y
                 if not self.__is_step_allowed(target_x, target_y, step_x, step_y):
                     print(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
@@ -494,7 +494,8 @@ class EpisodeRecorder:
     ) -> Tuple[str, str]:
         """The person chooses the step from the picture on screen."""
 
-        self.__show_picture(picture_bytes, f"step {step}: w = push, q e = push diagonally, a d = sideways, s = back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
+        turned = f" (camera turned {self.camera_turn_deg:+.0f})" if self.camera_turn_deg else ""
+        self.__show_picture(picture_bytes, f"step {step}{turned}: w = push, q e = diagonal, a d = sideways, s = back, r t = camera side view / back, Space = stop, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -540,7 +541,7 @@ class EpisodeRecorder:
             else:
                 target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
-                    position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"])) - target))
+                    position + numpy.array(action_step_to_table(action, state["pose"], self.camera_turn_deg)) - target))
 
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)

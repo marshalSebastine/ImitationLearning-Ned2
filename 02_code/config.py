@@ -249,17 +249,23 @@ RECORDING_PARAMETERS = {
         "l": "lost",
         "enter": "accept",
         "y": "lean_left",
-        "c": "lean_right"
+        "c": "lean_right",
+        "r": "turn_left",
+        "t": "turn_right"
     },
-    # Side camera (4.11.26): the hand is held turned by "hand_turn_deg" about the vertical rod, so the camera, 9 cm
-    # from the rod, sits BESIDE it and looks along the line both ahead of and behind the rod, which the straight view
-    # could not (the block hid the line behind). Tested by Emranul on 4.11 with the r / t turn keys on sheet 04 and
-    # made the default; the keys were removed again (the turn code stays, unbound). Positive = towards picture-left of
-    # the untouched hand, i.e. the camera on the +y side when the line runs along +x. The block's narrow face then
-    # points along the line and pushes the puck. The actions are measured from the narrow face's direction
-    # (push_heading_rad): "forward" (w) pushes the puck, whichever way the camera looks; in the picture that is
-    # towards the right with the camera on the +y side.
-    "hand_turn_deg": 90,
+    # Hand turn about the vertical rod at the start of every episode, in degrees; positive = towards picture-left of
+    # the untouched hand. 4.11.26: Emranul tried 90 (camera beside the rod, looking along the line both ways) as the
+    # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
+    # side view stays available during an episode with the turn keys below.
+    "hand_turn_deg": 0,
+    # Camera turn keys (r = turn to the side view, t = turn back): rod and camera turn together about the vertical rod
+    # by "turn_actions" degrees per press, the rod staying vertical and in place (joint 6 alone turns; nothing leans).
+    # The camera, 9 cm from the rod, then sits beside it and sees the line ahead of and behind the rod, which the
+    # straight view cannot (the block hides the line behind). Only the +90 side is allowed ("min_turn_deg" 0): on
+    # 4.11.26 the -90 side stopped at -72 degrees with joint 6 near its limit (+104 degrees) and the solver refused
+    # every step after it; +90 needs joint 6 at only -76 degrees. The keys stay measured from the pusher
+    # (push_heading_rad takes the current turn off the camera heading), so w always pushes along the line; in the
+    # turned picture that is towards the right. Logged as turn_left / turn_right with the angle in every row.
     # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
@@ -267,6 +273,7 @@ RECORDING_PARAMETERS = {
         "turn_left": 90,
         "turn_right": -90
     },
+    "min_turn_deg": 0,
     "max_turn_deg": 90,
     # TEST keys of 31.10.26 (Emranul and Marshal asked for them after the camera lost the line at the meander's
     # hairpins): rod and camera lean together about the camera's forward axis by "lean_step_deg" per press, at most
@@ -338,10 +345,11 @@ RECORDING_PARAMETERS = {
     # v3 (4.11.26): the heading is read from the tool's orientation instead of atan2(y, x), see camera_heading_rad;
     # the turn actions were added. Episodes of v2 on sheet 04 carry step labels up to 24 degrees off the picture frame
     # (the logged x, y of consecutive steps give the true direction; relabel before training).
-    # v4 (4.11.26, same day): the hand is held turned 90 degrees (side camera, "hand_turn_deg"); the start pose lies
-    # behind the puck along "start_push_direction_deg".
+    # v4 (4.11.26, same day): the hand held turned 90 degrees (side camera); withdrawn the same day.
+    # v5 (4.11.26): hand untouched again; the actions are measured from the pusher's direction (the camera heading
+    # with the current camera turn taken off), so a side-view turn during an episode does not change what w does.
     "camera_mount": "bracket_F3",
-    "mapping_version": "picture_frame_v4_side_camera_F3_2026-11-04",
+    "mapping_version": "push_frame_v5_F3_2026-11-04",
     # The direction the top of the picture points to, measured from the tool's own z axis (which points from the rod
     # towards the camera for the stock holder, bracket F and F3): 0 for all three, tested in the direction tests below.
     "picture_top_offset_rad": 0.0,
@@ -393,10 +401,10 @@ def push_heading_rad(
         hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
 ) -> float:
     """
-    The table direction the block's narrow face points to, for the rod's ``pose``: the camera heading turned back by
-    ``hand_turn_deg``. The actions are measured from this direction (4.11.26, Emranul: with the side camera the keys
-    were confusing in the picture frame; "forward" is now the way the pusher pushes). The camera is fixed to the hand,
-    so for the model this is the picture frame turned by a constant angle, nothing more.
+    The table direction the pusher pushes in, for the rod's ``pose``: the camera heading with the hand's current turn
+    ``hand_turn_deg`` taken off. The actions are measured from this direction (4.11.26, Emranul: with a turned camera
+    the keys were confusing in the picture frame; "forward" is the way the pusher pushes whatever the camera does).
+    The camera is fixed to the hand, so for the model this is the picture frame turned by the logged turn angle.
     """
 
     return camera_heading_rad(pose) - RECORDING_PARAMETERS["picture_left_sign"] * math.radians(hand_turn_deg)
