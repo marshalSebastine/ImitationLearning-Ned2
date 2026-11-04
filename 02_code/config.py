@@ -285,7 +285,23 @@ RECORDING_PARAMETERS = {
     "sheet_margin_m": 0.02,
     # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
-    "camera_mount": "stock_wrist_holder",
+    # Bracket F is the default since 4.11.26, because real data is recorded with it; a rehearsal on the old holder passes
+    # --camera-mount stock_wrist_holder.
+    "camera_mount": "bracket_F",
+    # Raise this whenever 06_deliverables/research_notes/Recording tool/stepping_rule_v1.md changes its version.
+    "stepping_rule_version": "v1",
+    # Asked after each episode; Esc at either question stores "not_recorded".
+    "outcome_keys": {
+        "y": "puck_in_goal",
+        "n": "puck_not_in_goal"
+    },
+    "discard_reason_keys": {
+        "t": "puck_tipped",
+        "o": "puck_off_sheet",
+        "r": "robot_stopped",
+        "h": "touched_by_hand",
+        "m": "other"
+    },
     "mapping_version": "picture_frame_v3_step_over_2026-11-04",
     # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
     # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must

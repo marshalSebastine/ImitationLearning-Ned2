@@ -71,7 +71,7 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
     # "u" after the tenth step flags step 9 as a mistake; "l" before the fifteenth step flags step 14 as line lost.
-    keys = ["enter"] + ["w"] * 10 + ["u"] + ["w"] * 4 + ["l"] + ["w"] * 8 + [" ", "escape"]
+    keys = ["enter"] + ["w"] * 10 + ["u"] + ["w"] * 4 + ["l"] + ["w"] * 8 + [" ", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "Test Person", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
         key_reader = scripted_keys(keys))
@@ -81,6 +81,8 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     assert summary["status"] == "completed", summary
     assert episode_folder.parent.name.endswith("_test_person"), episode_folder.parent.name
     assert summary["camera_mount"] and summary["mapping_version"] and summary["step_budget"] == 36, summary
+    assert summary["stepping_rule_version"] == RECORDING_PARAMETERS["stepping_rule_version"], summary
+    assert summary["outcome"] == "puck_in_goal" and summary["discard_reason"] is None, summary
     assert len(rows) == 23 and rows[-1]["action"] == "stop", len(rows)
     assert [row["is_mistake"] for row in rows] == ["1" if row["step"] == "9" else "0" for row in rows], "mistake flag"
     assert [row["is_lost"] for row in rows] == ["1" if row["step"] == "14" else "0" for row in rows], "lost flag"
@@ -180,6 +182,21 @@ def test_step_over_reverses_without_touching_the_puck(raw_folder: Path) -> None:
     assert math.isclose(float(robot_link.puck_xy[0]), start[0] + 0.01, abs_tol = 0.005), robot_link.puck_xy
 
 
+def test_discard_stores_its_reason(raw_folder: Path) -> None:
+    """A discarded episode asks for its reason and stores no outcome; keys other than the listed ones are ignored."""
+
+    robot_link = SimulatedRobotLink()
+    keys = ["enter", "w", "x", "w", "t", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "discarded", summary
+    assert summary["discard_reason"] == "puck_tipped" and summary["outcome"] is None, summary
+
+
 def test_step_budget_per_sheet() -> None:
     """The budget is 1.5 times the traced line length, and the fallback holds for an unknown sheet."""
 
@@ -191,7 +208,8 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck):
+    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
+                 test_discard_stores_its_reason):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

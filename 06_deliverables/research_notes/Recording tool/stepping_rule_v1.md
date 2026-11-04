@@ -54,6 +54,12 @@ reference (both operators use the same one).
 - **`x`** (discard) only when the episode cannot be saved: the puck tipped over or left the sheet, the robot stopped,
   someone touched the puck or the arm.
 
+## After each episode
+
+The robot lifts and the tool asks one question in the picture window. After a finished episode: `y` the puck's centre is
+within about 1.2 cm of the line's end, `n` it is not. After a discard: `t` puck tipped, `o` puck off the sheet, `r` robot
+stopped, `h` touched by hand, `m` other. Answer it honestly: a failed push is kept and is still useful.
+
 ## Hand-guided replay
 
 The replay proposes a step; press **Enter** to accept it only if this rule would choose the same key. Otherwise press the

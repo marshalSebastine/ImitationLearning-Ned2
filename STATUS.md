@@ -105,6 +105,8 @@ Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, 
 - Decided 4.11 (Marshal; Emranul to confirm): back_left, back_right (keys z, c) and step_over_forward, step_over_back (keys r, f)
   added, eleven classes, because pulls towards the base cannot be avoided by reorienting the sheet. Pulling works by teleoperation
   (Marshal). Simulator tests pass; step-over untested on the robot. Next: try the step-over on the robot with no puck, then with it.
+- Done 4.11 (Marshal): every episode.json stores stepping_rule_version, outcome and discard_reason (the tool asks after each
+  episode); camera_mount now defaults to bracket_F. Raise `stepping_rule_version` in config when the rule changes.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
 
 ## Model and training
