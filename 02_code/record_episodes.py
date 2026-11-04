@@ -347,7 +347,7 @@ class EpisodeRecorder:
         self.is_lost_pending = False
         self.camera_turn_deg = float(self.recorder_parameters["hand_turn_deg"])
         move_return_time = time.time()
-        while len(rows) < self.recorder_parameters["step_budget"]:
+        while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
             capture_time = time.time()
             state = self.robot_link.read_state()

@@ -286,6 +286,9 @@ RECORDING_PARAMETERS = {
     # uncertain; the dashed sheet 06 is taken as long as the loop it copies). Replace with the SVG arc lengths.
     "step_budget_per_cm": 2.0,  # was 1.5; the meander took 116 steps on 2.11 with its hairpins and ran out
     "step_budget": 80,
+    # 4.11.26, Emranul: the tool no longer ends an episode when the budget is reached (episode 018 was cut at 154
+    # steps on the meander); the budget is still written into episode.json so long episodes can be found afterwards.
+    "is_step_budget_enforced": False,
     "line_length_cm": {
         "path_01_straight_line": 24,
         "path_02_arc": 27,
