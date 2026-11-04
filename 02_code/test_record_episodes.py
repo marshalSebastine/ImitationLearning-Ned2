@@ -92,9 +92,10 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0", "-45.0"], turns
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
     retreat = RECORDING_PARAMETERS["turn_landing_retreat_m"]
-    for index in (0, 1):
-        assert math.isclose(positions[index + 1][0] - positions[index][0], -retreat, abs_tol = 0.008) and abs(positions[index + 1][1] - positions[index][1]) < 0.008, \
-            "each turn should land the tip back from the puck, opposite to the start push"
+    assert math.isclose(positions[1][0] - positions[0][0], -retreat, abs_tol = 0.008) and abs(positions[1][1] - positions[0][1]) < 0.008, \
+        "the first turn should land the tip back from the puck, opposite to the start push"
+    assert math.hypot(positions[2][0] - positions[1][0], positions[2][1] - positions[1][1]) < 0.008, \
+        "a second turn straight after the first should not retreat again"
     assert float(rows[9]["joint_4"]) < -0.7, rows[9]["joint_4"]
 
     def heading_deg(row) -> float:

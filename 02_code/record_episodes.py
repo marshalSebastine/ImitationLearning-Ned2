@@ -386,6 +386,7 @@ class EpisodeRecorder:
         # Where the puck is, as far as the tool knows: ahead along the last moving step (the start push before any).
         push = math.radians(self.recorder_parameters["start_push_direction_deg"])
         self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
+        self.is_tip_back_from_puck = False
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             picture_bytes = self.__fresh_picture()
@@ -404,7 +405,10 @@ class EpisodeRecorder:
                     print(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
                     continue
                 tip_xy = self.tip_xy if self.tip_xy is not None else list(state["pose"][:2])
-                landing_xy = list(numpy.array(tip_xy) - self.recorder_parameters["turn_landing_retreat_m"] * self.last_step_direction)
+                # Land back from the puck only when the block is touching it; after a turn, until the next step, it
+                # already stands back (4.11.26: two turns in a row put the tip 5 cm away).
+                retreat_m = 0.0 if self.is_tip_back_from_puck else self.recorder_parameters["turn_landing_retreat_m"]
+                landing_xy = list(numpy.array(tip_xy) - retreat_m * self.last_step_direction)
                 if not self.__is_inside_workspace(landing_xy[0], landing_xy[1]):
                     print("refused: the landing point behind the puck would be outside the workspace")
                     continue
@@ -427,8 +431,9 @@ class EpisodeRecorder:
                     continue
                 self.forearm_turn_deg = turn_deg
                 self.tip_xy = landing_xy
+                self.is_tip_back_from_puck = True
                 print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip landed "
-                      f"{100 * self.recorder_parameters['turn_landing_retreat_m']:.1f} cm back from the puck; the picture's top now points "
+                      f"{100 * retreat_m:.1f} cm back from the puck; the picture's top now points "
                       f"{math.degrees(camera_heading_rad(self.robot_link.read_state()['pose'])):+.0f} degrees from the table's x axis")
                 move_return_time = time.time()
                 continue
@@ -478,6 +483,7 @@ class EpisodeRecorder:
             target_pose = [target_x, target_y, pushing_height(target_x, target_y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
             try:
                 self.last_step_direction = numpy.array([step_x, step_y]) / math.hypot(step_x, step_y)
+                self.is_tip_back_from_puck = False
                 if self.forearm_turn_deg:
                     self.robot_link.move_joints(self.__turned_joints([target_x, target_y], self.forearm_turn_deg, 0.0))
                     self.tip_xy = [target_x, target_y]
