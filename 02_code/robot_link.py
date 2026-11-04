@@ -300,6 +300,9 @@ class SimulatedRobotLink:
         if self.is_free_motion and self.hand_path_index < len(hand_path):
             motion = numpy.array(hand_path[self.hand_path_index]) - numpy.array(self.pose[:2])
             self.pose[:2] = list(hand_path[self.hand_path_index])
+            forearm_path = self.simulation_parameters.get("hand_path_forearm_rad")
+            if forearm_path:
+                self.joints[3] = float(forearm_path[self.hand_path_index])
             self.hand_path_index += 1
             self.__push_puck(motion)
 

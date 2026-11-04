@@ -347,6 +347,9 @@ RECORDING_PARAMETERS = {
     # 2.5 cm until test 2; 1.5 cm since (Emranul, 4.11.26: the step back was too much). The wide side overlaps the
     # puck's place by about 12 mm after 90 degrees (calc), so 15 mm leaves about 3 mm.
     "turn_landing_retreat_m": 0.015,
+    # When the believed puck position is further than this from the block, it is taken as lost (test 5 of 4.11.26: it
+    # drifted to 22 cm) and a turn steps back opposite to the last step instead.
+    "puck_estimate_lost_m": 0.04,
     # Intermediate heights for the rise and the descent of a turn, one solved position each. [0.01, 0.02] until test
     # 2; empty since (Emranul, 4.11.26: up in one move, down in one move).
     "turn_near_paper_heights_m": [],

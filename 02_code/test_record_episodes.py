@@ -135,6 +135,27 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     assert all(float(row["joint_4"]) > 1.0 for row in rows[3:6]), [row["joint_4"] for row in rows]
 
 
+def test_replay_copies_forearm_turn(raw_folder: Path) -> None:
+    """A forearm twisted by 30 degrees halfway along the guided path is proposed as one turn_left in the replay."""
+
+    hand_path = simulated_hand_path()
+    forearm = [0.0 if index < len(hand_path) // 2 else math.radians(30.0) for index in range(len(hand_path))]
+    robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_forearm_rad": forearm})
+    keys = ["enter", "enter"] + [None] * (len(hand_path) + 5) + [" ", "enter", "enter"] + ["enter"] * 60 + ["escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "hand_turn_deg": 0},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("hand_guided")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    actions = [row["action"] for row in rows]
+    assert actions.count("turn_left") == 1 and all(row["source"] == "replay" for row in rows), actions
+    turn_index = actions.index("turn_left")
+    assert 0 < turn_index < len(actions) - 1 and rows[turn_index + 1]["forearm_turn_deg"] == "30.0", (turn_index, rows[turn_index + 1]["forearm_turn_deg"])
+    with open(episode_folder / "guided_path.csv", encoding = "utf-8") as file:
+        assert "joint_4" in file.readline()
+
+
 def test_turn_hint(raw_folder: Path) -> None:
     """At the far end of sheet 04 with the forearm at 90 degrees the hint names a smaller turn that keeps the lean
     within the limit (calc: 40 cm needs 33 degrees at 90, 18 at 30)."""
@@ -328,7 +349,8 @@ if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
-                 test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint):
+                 test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
+                 test_replay_copies_forearm_turn):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

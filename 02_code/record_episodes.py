@@ -489,8 +489,11 @@ class EpisodeRecorder:
         # every step that reaches it (see __track_puck). Since 4.11.26 after test 3; a running count of how far the
         # block stood back drifted to 10 cm when sideways and back steps were taken in a turned picture.
         self.puck_xy_estimate = numpy.array(self.recorder_parameters["start_point_xy"], dtype = float)
+        push = math.radians(self.recorder_parameters["start_push_direction_deg"])
+        self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
+            self.current_step = len(rows)
             picture_bytes = self.__fresh_picture()
             capture_time = time.time()
             state = self.robot_link.read_state()
@@ -504,7 +507,7 @@ class EpisodeRecorder:
                 least, most = self.recorder_parameters["min_turn_deg"], self.recorder_parameters["max_turn_deg"]
                 turn_deg = max(least, min(most, self.forearm_turn_deg + self.recorder_parameters["turn_actions"][action]))
                 if turn_deg == self.forearm_turn_deg:
-                    print(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
+                    self.__say(f"refused: the forearm cannot turn further that way (allowed {least} to {most} degrees)")
                     continue
                 # The tip now: tracked while the forearm is turned (the rod leans), the rod's end when it is straight
                 # (rod upright above the tip). Test 1 of 4.11.26 (episode 033, step 72) landed 14.9 cm away because a
@@ -517,15 +520,23 @@ class EpisodeRecorder:
                 clearance_m = max(0.0, distance_to_puck - self.recorder_parameters["puck_centre_ahead_of_tip_m"])
                 retreat_m = max(0.0, self.recorder_parameters["turn_landing_retreat_m"] - clearance_m)
                 retreat_direction = away_from_puck / distance_to_puck if distance_to_puck > 1e-9 else numpy.array([-1.0, 0.0])
+                if clearance_m > self.recorder_parameters["puck_estimate_lost_m"]:
+                    # Test 5 of 4.11.26: the believed puck position fell 22 cm behind the real puck, so no turn stepped
+                    # back any more. Further off than this, assume the block touches the puck ahead of the last step.
+                    self.__say(f"the believed puck position is {100 * clearance_m:.0f} cm off; stepping back opposite to the last step instead")
+                    retreat_m = self.recorder_parameters["turn_landing_retreat_m"]
+                    retreat_direction = -self.last_step_direction
+                    self.puck_xy_estimate = numpy.array(tip_xy) + self.recorder_parameters["puck_centre_ahead_of_tip_m"] * self.last_step_direction
+                    clearance_m = 0.0
                 landing_xy = list(numpy.array(tip_xy) + retreat_m * retreat_direction)
                 if not self.__is_inside_workspace(landing_xy[0], landing_xy[1]):
-                    print("refused: the landing point behind the puck would be outside the workspace")
+                    self.__say("refused: the landing point behind the puck would be outside the workspace")
                     continue
                 try:
                     plan = self.__turn_plan(self.forearm_turn_deg, turn_deg, tip_xy, landing_xy, state["joints"])
                     self.__check_arm_model(plan[-1])
                 except Exception as error:
-                    print(f"refused: {error}; nothing moved")
+                    self.__say(f"refused: {error}; nothing moved")
                     continue
                 times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
                 rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
@@ -533,14 +544,14 @@ class EpisodeRecorder:
                     for joints in plan:
                         self.robot_link.move_joints(joints)
                 except Exception as error:
-                    print(f"the robot refused that turn ({error}); choose another step")
+                    self.__say(f"the robot refused that turn ({error}); choose another step")
                     rows.pop()
                     (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                     continue
                 self.forearm_turn_deg = turn_deg
                 self.tip_xy = landing_xy if turn_deg else None
-                print(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip moved "
+                self.__say(f"forearm turned {turn_deg:+.0f} degrees, rod leaning {magnet_tip_and_lean(plan[-1])[1]:.1f} degrees, tip moved "
                       f"{100 * retreat_m:.1f} cm back from the puck ({100 * (clearance_m + retreat_m):.1f} cm clear); the picture's top now points "
                       f"{math.degrees(picture_heading_rad(self.robot_link.read_state(), self.recorder_parameters)):+.0f} degrees from the table's x axis")
                 move_return_time = time.time()
@@ -555,7 +566,7 @@ class EpisodeRecorder:
                     # Joint 6 turns the hand clockwise seen from above as it grows (with the rod pointing down).
                     self.robot_link.turn_hand_and_back(-counter_clockwise_rad, self.recorder_parameters["flick_velocity_percent"])
                 except Exception as error:
-                    print(f"the robot refused that flick ({error}); choose another step")
+                    self.__say(f"the robot refused that flick ({error}); choose another step")
                     rows.pop()
                     (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
@@ -566,14 +577,14 @@ class EpisodeRecorder:
             if action in self.recorder_parameters["lean_actions"]:
                 target_pose = self.__leaned_pose(state["pose"], self.recorder_parameters["lean_actions"][action])
                 if target_pose is None:
-                    print(f"refused: already leaning {self.recorder_parameters['max_lean_deg']} degrees that way")
+                    self.__say(f"refused: already leaning {self.recorder_parameters['max_lean_deg']} degrees that way")
                     continue
                 times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
                 rows.append(self.__log_step(episode_folder, len(rows), picture_bytes, state, action, source, times))
                 try:
                     self.robot_link.move_to(target_pose, is_linear = False)
                 except Exception as error:
-                    print(f"the robot refused that lean ({error}); choose another step")
+                    self.__say(f"the robot refused that lean ({error}); choose another step")
                     rows.pop()
                     (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
@@ -594,7 +605,7 @@ class EpisodeRecorder:
                 is_allowed = (self.__is_inside_workspace(target_x, target_y) if self.__is_step_over(action)
                               else self.__is_step_allowed(target_x, target_y, step_x, step_y))
                 if not is_allowed:
-                    print(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
+                    self.__say(f"refused: {action} would carry the rod or the puck out of the workspace; choose another step")
                     continue
 
             times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
@@ -619,9 +630,9 @@ class EpisodeRecorder:
                 # The robot refused the step (seen on 31.10.26 near the base: "cannot be reached with a linear
                 # trajectory"). The step did not happen, so its row and picture are taken back and the person
                 # chooses another step from the same picture; the episode goes on.
-                print(f"the robot refused that step ({error}); choose another step")
+                self.__say(f"the robot refused {action} ({str(error).splitlines()[0]}); choose another step")
                 if self.forearm_turn_deg and "lean" in str(error):
-                    print(self.__turn_hint([target_x, target_y]))
+                    self.__say(self.__turn_hint([target_x, target_y]))
                 rows.pop()
                 (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
                 self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
@@ -630,6 +641,12 @@ class EpisodeRecorder:
             move_return_time = time.time()
 
         return "step_budget_reached", rows
+
+
+    def __say(self, message: str) -> None:
+        """Print ``message`` with the number of the step it belongs to (the next step to be logged), for debugging."""
+
+        print(f"[step {getattr(self, 'current_step', 0)}] {message}")
 
 
     def __track_puck(
@@ -651,6 +668,7 @@ class EpisodeRecorder:
         length = float(numpy.linalg.norm(step))
         if length < 1e-12 or self.__is_step_over(action):
             return
+        self.last_step_direction = step / length
         contact = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
         tip = numpy.array(tip_xy, dtype = float)
         if float(numpy.linalg.norm(self.puck_xy_estimate - tip)) < contact - 1e-9:
@@ -953,14 +971,19 @@ class EpisodeRecorder:
         Parameters
         ----------
         guided_path : numpy.ndarray
-            The logged tip positions, shape (points, 2), in metres.
+            The logged tip positions and forearm angles, shape (points, 3): x and y in metres, joint 4 in radians.
+            Where the guided forearm angle, rounded to the nearest turn step, differs from the current turn, the
+            proposal is a turn towards it (4.11.26, Emranul: the replay did not copy the turns made by hand).
         """
 
-        segment_lengths = numpy.linalg.norm(numpy.diff(guided_path, axis = 0), axis = 1)
+        path_xy = guided_path[:, :2]
+        path_forearm_rad = guided_path[:, 2] if guided_path.shape[1] > 2 else numpy.zeros(len(guided_path))
+        segment_lengths = numpy.linalg.norm(numpy.diff(path_xy, axis = 0), axis = 1)
         arc_lengths = numpy.concatenate([[0.0], numpy.cumsum(segment_lengths)])
         progress = {"segment": 0}
         step_m = self.recorder_parameters["step_m"]
         moving_actions = [action for action, angle in self.recorder_parameters["actions"].items() if angle is not None]
+        turn_step_deg = abs(self.recorder_parameters["turn_actions"]["turn_left"])
 
         def replay_decider(
                 picture_bytes: bytes,
@@ -968,18 +991,27 @@ class EpisodeRecorder:
                 step: int
         ) -> Tuple[str, str]:
 
-            position = numpy.array(state["pose"][:2])
-            arc_now = self.__project_onto_path(position, guided_path, arc_lengths, progress)
+            position = numpy.array(self.tip_xy if self.forearm_turn_deg and self.tip_xy is not None else state["pose"][:2])
+            arc_now = self.__project_onto_path(position, path_xy, arc_lengths, progress)
+            # The turn follows the furthest point reached along the guided path: the landing after a turn steps the
+            # tip back, and the projection alone would then ask to turn back again.
+            progress["furthest_arc"] = max(progress.get("furthest_arc", 0.0), arc_now)
+            guided_forearm_deg = math.degrees(float(numpy.interp(progress["furthest_arc"], arc_lengths, path_forearm_rad)))
+            wanted_turn_deg = max(self.recorder_parameters["min_turn_deg"], min(self.recorder_parameters["max_turn_deg"],
+                                  turn_step_deg * round(guided_forearm_deg / turn_step_deg)))
 
-            if arc_lengths[-1] - arc_now < step_m / 2:
+            if abs(wanted_turn_deg - self.forearm_turn_deg) > 1e-9:
+                proposal = "turn_left" if wanted_turn_deg > self.forearm_turn_deg else "turn_right"
+            elif arc_lengths[-1] - arc_now < step_m / 2:
                 proposal = "stop"
             else:
-                target = self.__point_at_arc_length(guided_path, arc_lengths, arc_now + step_m)
+                target = self.__point_at_arc_length(path_xy, arc_lengths, arc_now + step_m)
                 proposal = min(moving_actions, key = lambda action: numpy.linalg.norm(
                     position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"],
                                                                 heading_rad = picture_heading_rad(state, self.recorder_parameters))) - target))
 
             self.__show_orientation(state)
+            print(f"[step {step}] replay proposes {proposal} (guided forearm {guided_forearm_deg:+.0f} deg, now {self.forearm_turn_deg:+.0f} deg)")
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
             while True:
@@ -1062,10 +1094,19 @@ class EpisodeRecorder:
         try:
             while True:
                 state = self.robot_link.read_state()
-                position = state["pose"][:2]
-                if not rows or numpy.hypot(position[0] - rows[-1]["x"], position[1] - rows[-1]["y"]) >= self.recorder_parameters["guided_path_sample_m"]:
+                # The magnet tip from the arm model on the robot (the rod may lean when the forearm is twisted by
+                # hand); the rod's end on the simulated robot, whose joint angles are only approximate.
+                if self.recorder_parameters["is_simulated"]:
+                    position = list(state["pose"][:2])
+                else:
+                    position = [float(value) for value in magnet_tip_and_lean(state["joints"])[0][:2]]
+                forearm_rad = float(state["joints"][3])
+                # A point when the tip has moved, or when the forearm has been twisted by 5 degrees in place (4.11.26,
+                # Emranul: the replay did not copy the forearm turns made by hand).
+                if (not rows or numpy.hypot(position[0] - rows[-1]["x"], position[1] - rows[-1]["y"]) >= self.recorder_parameters["guided_path_sample_m"]
+                        or abs(forearm_rad - rows[-1]["joint_4"]) >= math.radians(5.0)):
                     rows.append({"unix_time": round(time.time(), 3), "x": position[0], "y": position[1], "z": state["pose"][2],
-                                 "roll": state["pose"][3], "pitch": state["pose"][4], "yaw": state["pose"][5]})
+                                 "roll": state["pose"][3], "pitch": state["pose"][4], "yaw": state["pose"][5], "joint_4": forearm_rad})
 
                 self.__show_picture(self.robot_link.read_picture_bytes(), f"MOTORS OFF, guiding: {len(rows)} points. Space = puck at goal, x = discard")
                 key = self.key_reader(int(self.recorder_parameters["guided_path_poll_s"] * 1000))
@@ -1078,13 +1119,13 @@ class EpisodeRecorder:
             self.__release_arm_then_motors_on()
 
         with open(episode_folder / "guided_path.csv", "w", newline = "", encoding = "utf-8") as file:
-            writer = csv.DictWriter(file, fieldnames = ["unix_time", "x", "y", "z", "roll", "pitch", "yaw"])
+            writer = csv.DictWriter(file, fieldnames = ["unix_time", "x", "y", "z", "roll", "pitch", "yaw", "joint_4"])
             writer.writeheader()
             writer.writerows(rows)
 
         if is_discarded or len(rows) < 2:
             return None
-        return numpy.array([[row["x"], row["y"]] for row in rows])
+        return numpy.array([[row["x"], row["y"], row["joint_4"]] for row in rows])
 
 
     def __fresh_picture(self) -> bytes:
@@ -1140,6 +1181,9 @@ class EpisodeRecorder:
         row.update({name: round(value, 5) for name, value in zip(["x", "y", "z", "roll", "pitch", "yaw"], state["pose"])})
         row.update({f"joint_{index + 1}": round(value, 5) for index, value in enumerate(state["joints"])})
         self.is_lost_pending = False
+        # One terminal line per logged step, with the same number as the frame and the row in steps.csv.
+        print(f"[step {step}] {action} ({source}), forearm {self.forearm_turn_deg:+.0f} deg, rod at x {100 * state['pose'][0]:.1f} "
+              f"y {100 * state['pose'][1]:.1f} cm, picture top {row['picture_heading_deg']:+.0f} deg")
         return row
 
 
@@ -1148,7 +1192,7 @@ class EpisodeRecorder:
 
         drained = self.key_drainer()
         if drained:
-            print(f"step {step}: {drained} key press(es) made during the move were ignored")
+            print(f"[step {step}] {drained} key press(es) made during the move were ignored")
 
 
     def __set_free_motion(self, is_enabled: bool) -> None:
