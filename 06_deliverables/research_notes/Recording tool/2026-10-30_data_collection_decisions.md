@@ -42,7 +42,12 @@ The analysis was prepared by Emranul's Claude session; the decisions are the stu
   all. Reason: a bracket F picture of a pull towards the base showed that pulling cannot be avoided by reorienting the sheet, and with
   only `back` a pull can be steered only by stopping to shift sideways. `mapping_version` was raised, so episodes before and after
   this change can be told apart.
-- Still open: how to reverse direction (a step-over action or a group of directional steps). Not implemented.
+- Reversing direction: two step-over classes added, `step_over_forward` and `step_over_back` (keys `r` and `f`), eleven classes in all.
+  The tool lifts about 5 cm, crosses 4.2 cm (calc: 3.7 cm contact to contact plus a 5 mm gap, not yet tried on the robot) and lowers, from
+  one decision. A group of directional steps around the puck was rejected: a model without memory cannot tell how far round it has got,
+  and those pictures look like the off-centre ones where the stepping rule says to go back behind the puck. Marshal reports that the
+  team has pulled the puck by teleoperation, so pulling works physically; whether a model can learn it is untested. Rare classes: they
+  need dedicated short episodes and extra weight in training.
 
 ## Open for the professor (meeting 2, 9 November)
 

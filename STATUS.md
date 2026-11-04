@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 4.11.26 by Marshal's session (back_left and back_right added, nine classes; pulling towards the base untested).
+Last updated: 4.11.26 by Marshal's session (back diagonals and step-over added, eleven classes; step-over untested on the robot).
 
 ## Dates that cannot move
 
@@ -102,9 +102,9 @@ Last updated: 4.11.26 by Marshal's session (back_left and back_right added, nine
   `episode.json` (CLI flags); session folders carry the operator's name.
 - Next: the first robot test with Marshal's checklist plus the analysis' section 6 (the 10-versus-10 pilot decides the
   hand-guided mode); set `camera_mount` and `mapping_version` in config when bracket F is fitted; the dataset builder.
-- Decided 4.11 (Marshal; Emranul to confirm): back_left and back_right added (nine classes, keys z and c), because pulls towards
-  the base cannot be avoided by reorienting the sheet. Next: straight-pull test on sheet 01 with bracket F (does the puck stay on the
-  tip, does the red sliver show slips). Open: reverse direction by a step-over action or by directional steps.
+- Decided 4.11 (Marshal; Emranul to confirm): back_left, back_right (keys z, c) and step_over_forward, step_over_back (keys r, f)
+  added, eleven classes, because pulls towards the base cannot be avoided by reorienting the sheet. Pulling works by teleoperation
+  (Marshal). Simulator tests pass; step-over untested on the robot. Next: try the step-over on the robot with no puck, then with it.
 - Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
 
 ## Model and training

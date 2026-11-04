@@ -42,6 +42,10 @@ reference (both operators use the same one).
 7. **back-left (`z`) / back-right (`c`)**, added 4.11.26: when pulling the puck towards the base, one diagonal when the line
    leading into the block drifts to that side, then `back` again. Pull rules are a first draft and have not been tried.
 
+8. **step over forward (`r`) / step over back (`f`)**, added 4.11.26: only to reverse direction, when the line ahead turns back
+   and the rod cannot follow it round. `r` when pushing, to start pulling; `f` when pulling, to start pushing. The first
+   step afterwards closes a 5 mm gap. First draft, not yet tried.
+
 ## When something goes wrong
 
 - Pressed the wrong key: press **`u`** straight away (marks the previous step as a mistake; the episode is kept), then

@@ -211,6 +211,9 @@ def goal_pose() -> list:
 # (a stale frame was found in run 1419, step 23). Hand-guided episodes are replayed by the robot from the path the
 # hand drew, snapped back onto that path at every step; "guided_path_sample_m" is how far the tip must move before
 # the next path point is logged.
+# Changed 4.11.26 (Marshal): step_over_forward and step_over_back added for reversing direction, keys r and f. A group
+# of directional steps around the puck was rejected: a model without memory cannot tell how far round it has got, and
+# those pictures look like the off-centre ones where the stepping rule says to go back behind the puck.
 # Changed 4.11.26 (Marshal): back_left and back_right added, because a pull towards the base could otherwise only be
 # steered by stopping to shift sideways; 1 cm steps at 135 degrees to each side of forward, keys z and c.
 # Changed 31.10.26 after the data-collection decisions (06_deliverables/research_notes/Recording tool/
@@ -232,6 +235,13 @@ RECORDING_PARAMETERS = {
         "back_right": -135,
         "stop": None
     },
+    # One decision, one lift-across-lower move over the puck, for reversing direction. The length is contact to contact
+    # across the puck (twice "puck_centre_ahead_of_tip_m") plus a gap so the tip does not land on it (calc, untested).
+    "step_over_actions": {
+        "step_over_forward": 0,
+        "step_over_back": 180
+    },
+    "step_over_m": (PUCK_PARAMETERS["diameter_m"] + PUSHER_PARAMETERS["tip_diameter_m"]) + 0.005,
     "keys": {
         "w": "forward",
         "q": "forward_left",
@@ -241,6 +251,8 @@ RECORDING_PARAMETERS = {
         "s": "back",
         "z": "back_left",
         "c": "back_right",
+        "r": "step_over_forward",
+        "f": "step_over_back",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
@@ -274,7 +286,7 @@ RECORDING_PARAMETERS = {
     # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
     "camera_mount": "stock_wrist_holder",
-    "mapping_version": "picture_frame_v2_nine_actions_2026-11-04",
+    "mapping_version": "picture_frame_v3_step_over_2026-11-04",
     # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
     # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
     # move the scene to the right in the picture. If it moves left, set this to -1.
@@ -316,8 +328,10 @@ def picture_step_to_table(
         x: float,
         y: float
 ) -> list:
-    """The table displacement [dx, dy] in metres of one step of ``action`` taken with the rod's end at (x, y)."""
+    """The table displacement [dx, dy] in metres of one ``action`` (a step or a step-over) with the rod's end at (x, y)."""
 
-    angle = (camera_heading_rad(x, y)
-             + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(RECORDING_PARAMETERS["actions"][action]))
-    return [RECORDING_PARAMETERS["step_m"] * math.cos(angle), RECORDING_PARAMETERS["step_m"] * math.sin(angle)]
+    is_step_over = action in RECORDING_PARAMETERS["step_over_actions"]
+    picture_angle = RECORDING_PARAMETERS["step_over_actions"][action] if is_step_over else RECORDING_PARAMETERS["actions"][action]
+    length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
+    angle = camera_heading_rad(x, y) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(picture_angle)
+    return [length * math.cos(angle), length * math.sin(angle)]

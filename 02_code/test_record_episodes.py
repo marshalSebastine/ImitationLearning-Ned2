@@ -12,7 +12,7 @@ import tempfile
 from pathlib import Path
 from typing import Callable, List, Optional
 
-from config import RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, picture_step_to_table, start_pose, step_budget_for
+from config import RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, picture_step_to_table, pushing_height, start_pose, step_budget_for
 from record_episodes import EpisodeRecorder
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
@@ -147,6 +147,39 @@ def test_workspace_guard_protects_the_puck(raw_folder: Path) -> None:
     assert puck_centre_x <= far_edge_x + RECORDING_PARAMETERS["sheet_margin_m"] + 1e-6, puck_centre_x
 
 
+def test_step_over_reverses_without_touching_the_puck(raw_folder: Path) -> None:
+    """
+    Three pushes, a step over the puck that leaves it where it is, three pulls towards the base, a step back over it
+    and one push: the two step-overs each move the rod the full length and end at pushing height.
+    """
+
+    radial_line = [[0.156, 0.0], [0.398, 0.0]]
+    start = [0.25, 0.0]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start})
+    keys = ["enter"] + ["w"] * 3 + ["r"] + ["s"] * 3 + ["f"] + ["w"] + [" ", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed", summary
+    assert [row["action"] for row in rows] == (["forward"] * 3 + ["step_over_forward"] + ["back"] * 3
+                                               + ["step_over_back", "forward", "stop"]), rows
+
+    length = RECORDING_PARAMETERS["step_over_m"]
+    forward_over = float(rows[4]["x"]) - float(rows[3]["x"])
+    back_over = float(rows[8]["x"]) - float(rows[7]["x"])
+    assert math.isclose(forward_over, length, abs_tol = 1e-4), forward_over
+    assert math.isclose(back_over, -length, abs_tol = 1e-4), back_over
+    for row_after_step_over in (rows[4], rows[8]):
+        x, y = float(row_after_step_over["x"]), float(row_after_step_over["y"])
+        assert math.isclose(float(row_after_step_over["z"]), pushing_height(x, y), abs_tol = 1e-4), row_after_step_over
+
+    # Pushed 3 cm, pulled 3 cm less the 5 mm landing gap, pushed 1 cm less the same gap: 1 cm from the start in all.
+    assert math.isclose(float(robot_link.puck_xy[0]), start[0] + 0.01, abs_tol = 0.005), robot_link.puck_xy
+
+
 def test_step_budget_per_sheet() -> None:
     """The budget is 1.5 times the traced line length, and the fallback holds for an unknown sheet."""
 
@@ -158,7 +191,7 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck):
+    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")
