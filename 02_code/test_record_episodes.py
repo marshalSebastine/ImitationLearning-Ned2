@@ -12,7 +12,8 @@ import tempfile
 from pathlib import Path
 from typing import Callable, List, Optional
 
-from config import RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, start_pose, step_budget_for
+from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
+                    start_pose, step_budget_for)
 from record_episodes import EpisodeRecorder
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
@@ -68,13 +69,13 @@ def test_picture_steps_point_the_right_way() -> None:
 
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
-    "r" turns the camera 90 degrees to the side without moving the rod; forward steps still push along +x while the
-    camera is turned; a second "r" is refused (only 0 to 90 allowed) and "t" turns back; every row logs the angle.
+    Two "v" presses turn the camera 45 then 90 degrees to the side without moving the rod; a third is refused (0 to
+    90 allowed); forward steps still push along +x while the camera is turned; two "b" turn back; every row logs the angle.
     """
 
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
-    keys = ["enter", "r", "r", "w", "w", "a", "t", "w", " ", "escape"]
+    keys = ["enter", "v", "v", "v", "w", "w", "a", "b", "b", "w", " ", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0]},
         key_reader = scripted_keys(keys))
@@ -82,15 +83,26 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
 
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed", summary
-    assert [row["action"] for row in rows] == ["turn_left", "forward", "forward", "left", "turn_right", "forward", "stop"], [row["action"] for row in rows]
-    assert [row["camera_turn_deg"] for row in rows] == ["0.0", "90.0", "90.0", "90.0", "90.0", "0.0", "0.0"], [row["camera_turn_deg"] for row in rows]
+    actions = [row["action"] for row in rows]
+    assert actions == ["turn_left", "turn_left", "forward", "forward", "left", "turn_right", "turn_right", "forward", "stop"], actions
+    turns = [row["camera_turn_deg"] for row in rows]
+    assert turns == ["0.0", "45.0", "90.0", "90.0", "90.0", "90.0", "45.0", "0.0", "0.0"], turns
     start = summary["start_pose"]
     assert abs(math.degrees(camera_heading_rad(start))) < 0.1, math.degrees(camera_heading_rad(start))
     positions = [(float(row["x"]), float(row["y"])) for row in rows]
-    assert math.isclose(positions[1][0], positions[0][0], abs_tol = 1e-6) and math.isclose(positions[1][1], positions[0][1], abs_tol = 1e-6), "the turn moved the rod"
-    assert math.isclose(positions[3][0] - positions[1][0], 0.02, abs_tol = 1e-6) and abs(positions[3][1] - positions[1][1]) < 1e-6, "turned, forward should still push along +x"
-    assert math.isclose(positions[4][1] - positions[3][1], 0.01, abs_tol = 1e-6) and abs(positions[4][0] - positions[3][0]) < 1e-6, "turned, left should go to +y"
-    assert math.isclose(positions[6][0] - positions[5][0], 0.01, abs_tol = 1e-6) and abs(positions[6][1] - positions[5][1]) < 1e-6, "turned back, forward should go to +x"
+    assert all(math.isclose(positions[index][0], positions[0][0], abs_tol = 1e-6) and math.isclose(positions[index][1], positions[0][1], abs_tol = 1e-6)
+               for index in (1, 2)), "the turns moved the rod"
+    assert math.isclose(positions[4][0] - positions[2][0], 0.02, abs_tol = 1e-6) and abs(positions[4][1] - positions[2][1]) < 1e-6, "turned, forward should still push along +x"
+    assert math.isclose(positions[5][1] - positions[4][1], 0.01, abs_tol = 1e-6) and abs(positions[5][0] - positions[4][0]) < 1e-6, "turned, left should go to +y"
+    assert math.isclose(positions[8][0] - positions[7][0], 0.01, abs_tol = 1e-6) and abs(positions[8][1] - positions[7][1]) < 1e-6, "turned back, forward should go to +x"
+    assert math.isclose(math.degrees(camera_heading_rad([float(rows[2][name]) for name in ("x", "y", "z", "roll", "pitch", "yaw")])), 90.0, abs_tol = 0.1)
+
+    untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
+    back_left = action_step_to_table("back_left", untouched, 0.0)
+    back_right = action_step_to_table("back_right", untouched, 0.0)
+    assert back_left[0] < 0 and back_left[1] > 0, back_left
+    assert back_right[0] < 0 and back_right[1] < 0, back_right
+    assert math.isclose(math.hypot(*back_left), 0.01) and math.isclose(math.hypot(*back_right), 0.01)
 
 
 def test_keyboard_episode(raw_folder: Path) -> None:
@@ -102,7 +114,7 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     radial_line = [[0.156, 0.0], [0.398, 0.0]]
     robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": radial_line[0]})
     # "u" after the tenth step flags step 9 as a mistake; "l" before the fifteenth step flags step 14 as line lost.
-    keys = ["enter"] + ["w"] * 10 + ["u"] + ["w"] * 4 + ["l"] + ["w"] * 8 + [" ", "escape"]
+    keys = ["enter"] + ["w"] * 10 + ["u"] + ["w"] * 4 + ["l"] + ["w"] * 8 + [" ", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "Test Person", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": radial_line[0],
         "hand_turn_deg": 0}, key_reader = scripted_keys(keys))
@@ -112,6 +124,8 @@ def test_keyboard_episode(raw_folder: Path) -> None:
     assert summary["status"] == "completed", summary
     assert episode_folder.parent.name.endswith("_test_person"), episode_folder.parent.name
     assert summary["camera_mount"] and summary["mapping_version"] and summary["step_budget"] == 48, summary
+    assert summary["stepping_rule_version"] == RECORDING_PARAMETERS["stepping_rule_version"], summary
+    assert summary["outcome"] == "puck_in_goal" and summary["discard_reason"] is None, summary
     assert len(rows) == 23 and rows[-1]["action"] == "stop", len(rows)
     assert [row["is_mistake"] for row in rows] == ["1" if row["step"] == "9" else "0" for row in rows], "mistake flag"
     assert [row["is_lost"] for row in rows] == ["1" if row["step"] == "14" else "0" for row in rows], "lost flag"
@@ -180,6 +194,54 @@ def test_workspace_guard_protects_the_puck(raw_folder: Path) -> None:
     assert puck_centre_x <= far_edge_x + RECORDING_PARAMETERS["sheet_margin_m"] + 1e-6, puck_centre_x
 
 
+def test_step_over_reverses_without_touching_the_puck(raw_folder: Path) -> None:
+    """
+    Three pushes, a step over the puck that leaves it where it is, three pulls towards the base, a step back over it
+    and one push: the two step-overs each move the rod the full length and end at pushing height.
+    """
+
+    radial_line = [[0.156, 0.0], [0.398, 0.0]]
+    start = [0.25, 0.0]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": start})
+    keys = ["enter"] + ["w"] * 3 + ["r"] + ["s"] * 3 + ["f"] + ["w"] + [" ", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed", summary
+    assert [row["action"] for row in rows] == (["forward"] * 3 + ["step_over_forward"] + ["back"] * 3
+                                               + ["step_over_back", "forward", "stop"]), rows
+
+    length = RECORDING_PARAMETERS["step_over_m"]
+    forward_over = float(rows[4]["x"]) - float(rows[3]["x"])
+    back_over = float(rows[8]["x"]) - float(rows[7]["x"])
+    assert math.isclose(forward_over, length, abs_tol = 1e-4), forward_over
+    assert math.isclose(back_over, -length, abs_tol = 1e-4), back_over
+    for row_after_step_over in (rows[4], rows[8]):
+        x, y = float(row_after_step_over["x"]), float(row_after_step_over["y"])
+        assert math.isclose(float(row_after_step_over["z"]), pushing_height(x, y), abs_tol = 1e-4), row_after_step_over
+
+    # Pushed 3 cm, pulled 3 cm less the 5 mm landing gap, pushed 1 cm less the same gap: 1 cm from the start in all.
+    assert math.isclose(float(robot_link.puck_xy[0]), start[0] + 0.01, abs_tol = 0.005), robot_link.puck_xy
+
+
+def test_discard_stores_its_reason(raw_folder: Path) -> None:
+    """A discarded episode asks for its reason and stores no outcome; keys other than the listed ones are ignored."""
+
+    robot_link = SimulatedRobotLink()
+    keys = ["enter", "w", "x", "w", "t", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "discarded", summary
+    assert summary["discard_reason"] == "puck_tipped" and summary["outcome"] is None, summary
+
+
 def test_step_budget_per_sheet() -> None:
     """The budget is 1.5 times the traced line length, and the fallback holds for an unknown sheet."""
 
@@ -191,7 +253,8 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_camera_side_view_turn):
+    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
+                 test_discard_stores_its_reason, test_camera_side_view_turn):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

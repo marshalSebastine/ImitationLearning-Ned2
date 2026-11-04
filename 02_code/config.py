@@ -8,7 +8,7 @@ in one place only. Later phases add the keys named in the work plan.
 import math
 
 ROBOT_PARAMETERS = {
-    "ip_address": "169.254.200.200",
+    "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
     "software_version": "6.1.2-b374",
     "arm_max_velocity_percent": 20,
     # The robot's inverse-kinematics service sometimes refuses a pose it solves a moment later (3.11.26: the
@@ -158,6 +158,31 @@ WORKSPACE_PARAMETERS = {
 }
 
 
+# The side-view test of 4.11.26 (side_view_test.py): forearm roll (joint 4) turned so the camera looks along a pull
+# towards the base. The rod cannot be kept vertical when turned, except where the forearm is vertical; the lean is
+# calculated from the arm model (about 1.5, 9.5 and 14 degrees at 20, 25 and 28 cm with a 90 degree turn), not measured.
+SIDE_VIEW_TEST_PARAMETERS = {
+    "distances_m": [0.20, 0.25, 0.28],
+    "line_y_m": -0.02,
+    "turn_deg": 90.0,
+    "turn_increment_deg": 30.0,
+    "lift_height_m": 0.05,
+    "step_m": 0.01,
+    "pull_steps": 10,
+    "minimum_distance_m": 0.17,
+    # Lean is limited tightly with the tip down, where the rod meets the puck, and loosely with it lifted, where the
+    # same turn leans more (calc: about 17 degrees at 25 cm) but touches nothing.
+    "maximum_lean_deg": 16.0,
+    "maximum_lifted_lean_deg": 30.0,
+    "model_tolerance_mm": 3.0,
+    "velocity_percent": 20,
+    "settle_s": 0.4,
+    "fresh_picture_timeout_s": 3.0,
+    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    "output_folder": "03_data/raw/camera_check/side_view_test"
+}
+
+
 def table_height(
         x: float,
         y: float
@@ -219,6 +244,11 @@ def goal_pose() -> list:
 # (a stale frame was found in run 1419, step 23). Hand-guided episodes are replayed by the robot from the path the
 # hand drew, snapped back onto that path at every step; "guided_path_sample_m" is how far the tip must move before
 # the next path point is logged.
+# Changed 4.11.26 (Marshal): step_over_forward and step_over_back added for reversing direction, keys r and f. A group
+# of directional steps around the puck was rejected: a model without memory cannot tell how far round it has got, and
+# those pictures look like the off-centre ones where the stepping rule says to go back behind the puck.
+# Changed 4.11.26 (Marshal): back_left and back_right added, because a pull towards the base could otherwise only be
+# steered by stopping to shift sideways; 1 cm steps at 135 degrees to each side of forward, keys z and c.
 # Changed 31.10.26 after the data-collection decisions (06_deliverables/research_notes/Recording tool/
 # 2026-10-30_data_collection_decisions.md): a replay step runs only when Enter is pressed (a direction key overrides,
 # no timeout); "u" marks the previous step as a mistake and "l" marks the current picture as "line lost", both without
@@ -234,8 +264,17 @@ RECORDING_PARAMETERS = {
         "left": 90,
         "right": -90,
         "back": 180,
+        "back_left": 135,
+        "back_right": -135,
         "stop": None
     },
+    # One decision, one lift-across-lower move over the puck, for reversing direction. The length is contact to contact
+    # across the puck (twice "puck_centre_ahead_of_tip_m") plus a gap so the tip does not land on it (calc, untested).
+    "step_over_actions": {
+        "step_over_forward": 0,
+        "step_over_back": 180
+    },
+    "step_over_m": (PUCK_PARAMETERS["diameter_m"] + PUSHER_PARAMETERS["tip_diameter_m"]) + 0.005,
     "keys": {
         "w": "forward",
         "q": "forward_left",
@@ -243,22 +282,28 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
+        "z": "back_left",
+        "c": "back_right",
+        "r": "step_over_forward",
+        "f": "step_over_back",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
         "l": "lost",
         "enter": "accept",
-        "y": "lean_left",
-        "c": "lean_right",
-        "r": "turn_left",
-        "t": "turn_right"
+        "n": "lean_left",
+        "m": "lean_right",
+        "v": "turn_left",
+        "b": "turn_right"
     },
+    # Key clash resolved 4.11.26 when Marshal's keys (z c back diagonals, r f step over, from stepping rule v1) were
+    # merged: the lean test keys moved from y / c to n / m, the camera turn keys from r / t to v (side view) / b (back).
     # Hand turn about the vertical rod at the start of every episode, in degrees; positive = towards picture-left of
     # the untouched hand. 4.11.26: Emranul tried 90 (camera beside the rod, looking along the line both ways) as the
     # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
     # side view stays available during an episode with the turn keys below.
     "hand_turn_deg": 0,
-    # Camera turn keys (r = turn to the side view, t = turn back): rod and camera turn together about the vertical rod
+    # Camera turn keys (v = turn to the side view, b = turn back): rod and camera turn together about the vertical rod
     # by "turn_actions" degrees per press, the rod staying vertical and in place (joint 6 alone turns; nothing leans).
     # The camera, 9 cm from the rod, then sits beside it and sees the line ahead of and behind the rod, which the
     # straight view cannot (the block hides the line behind). Only the +90 side is allowed ("min_turn_deg" 0): on
@@ -270,8 +315,8 @@ RECORDING_PARAMETERS = {
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
     "turn_actions": {
-        "turn_left": 90,
-        "turn_right": -90
+        "turn_left": 45,  # 45 per press (Emranul, 4.11.26): one press a half-turned view, two the full side view
+        "turn_right": -45
     },
     "min_turn_deg": 0,
     "max_turn_deg": 90,
@@ -361,6 +406,21 @@ RECORDING_PARAMETERS = {
     # to 3): three left steps moved the tip by +0.9 cm in y each and the line's end in the picture from column about
     # 300 to about 450, i.e. the content moved RIGHT: the sign stays 1 with bracket F.
     "picture_left_sign": 1,
+    # Raise this whenever 06_deliverables/research_notes/Recording tool/stepping_rule_v1.md changes its version
+    # (Marshal, 4.11.26).
+    "stepping_rule_version": "v1",
+    # Asked after each episode (Marshal, 4.11.26); Esc at either question stores "not_recorded".
+    "outcome_keys": {
+        "y": "puck_in_goal",
+        "n": "puck_not_in_goal"
+    },
+    "discard_reason_keys": {
+        "t": "puck_tipped",
+        "o": "puck_off_sheet",
+        "r": "robot_stopped",
+        "h": "touched_by_hand",
+        "m": "other"
+    },
     "raw_folder": "03_data/raw"
 }
 
@@ -415,8 +475,10 @@ def action_step_to_table(
         pose: list,
         hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"]
 ) -> list:
-    """The table displacement [dx, dy] in metres of one step of ``action`` taken with the rod at ``pose``."""
+    """The table displacement [dx, dy] in metres of one ``action`` (a step or a step-over) taken with the rod at ``pose``."""
 
-    angle = (push_heading_rad(pose, hand_turn_deg)
-             + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(RECORDING_PARAMETERS["actions"][action]))
-    return [RECORDING_PARAMETERS["step_m"] * math.cos(angle), RECORDING_PARAMETERS["step_m"] * math.sin(angle)]
+    is_step_over = action in RECORDING_PARAMETERS["step_over_actions"]
+    action_angle = RECORDING_PARAMETERS["step_over_actions"][action] if is_step_over else RECORDING_PARAMETERS["actions"][action]
+    length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
+    angle = push_heading_rad(pose, hand_turn_deg) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(action_angle)
+    return [length * math.cos(angle), length * math.sin(angle)]
