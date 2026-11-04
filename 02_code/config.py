@@ -8,7 +8,7 @@ in one place only. Later phases add the keys named in the work plan.
 import math
 
 ROBOT_PARAMETERS = {
-    "ip_address": "10.10.10.10",  # robot hotspot; 169.254.200.200 over the Ethernet cable
+    "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
     "software_version": "6.1.2-b374",
     "arm_max_velocity_percent": 20
 }
