@@ -930,7 +930,7 @@ class EpisodeRecorder:
 
         turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
         self.__show_orientation(state)
-        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d / z c = steps, v b = forearm turn, Space = stop, u l x Esc")
+        self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d / y c = steps, v b = forearm turn, Space = stop, u l x Esc")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)

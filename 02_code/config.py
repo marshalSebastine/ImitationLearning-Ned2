@@ -285,7 +285,7 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
-        "z": "back_left",
+        "y": "back_left",  # y, not z: Emranul's German keyboard has y where z sits on an English one (4.11.26)
         "c": "back_right",
         " ": "stop",
         "x": "discard",

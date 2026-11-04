@@ -147,7 +147,7 @@ def test_turn_hint(raw_folder: Path) -> None:
     assert "+30 degrees" in hint or "+60 degrees" in hint, hint
     assert " b " in hint, hint
 
-    assert RECORDING_PARAMETERS["keys"]["z"] == "back_left" and RECORDING_PARAMETERS["keys"]["c"] == "back_right"
+    assert RECORDING_PARAMETERS["keys"]["y"] == "back_left" and RECORDING_PARAMETERS["keys"]["c"] == "back_right"
     untouched = [0.25, 0.0, 0.03, 0.0, 1.57, 0.0]
     back_left = action_step_to_table("back_left", untouched, 0.0)
     back_right = action_step_to_table("back_right", untouched, 0.0)
