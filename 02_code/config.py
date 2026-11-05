@@ -430,6 +430,11 @@ RECORDING_PARAMETERS = {
     # any joint, each visited joint by joint with a picture before it. Each step is labelled with the nearest fixed move
     # (a turn when the forearm changes by "exact_turn_label_deg" or more, "small_motion" when the tip moves less than
     # "exact_small_motion_m"); the exact movement is stored beside the label.
+    # Camera shift check at the start of every episode (5.11.26): the picture's bottom strip, [top, bottom, left,
+    # right] as fractions of the picture, holds the robot's hand and the block, which look the same at the same pose;
+    # a shift of more than "camera_shift_warning_px" from the reference picture means the camera has moved on its mount.
+    "camera_check_region": [0.8, 1.0, 0.25, 0.75],
+    "camera_shift_warning_px": 4.0,
     "exact_waypoint_m": 0.01,
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,

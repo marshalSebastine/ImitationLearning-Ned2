@@ -16,7 +16,7 @@ from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
                     start_pose, step_budget_for)
-from record_episodes import EpisodeRecorder, forearm_camera_heading_rad, picture_heading_rad
+from record_episodes import EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad, picture_heading_rad
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
 
@@ -232,6 +232,23 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     assert len(rows) >= 4, len(rows)
 
 
+def test_camera_shift_is_measured() -> None:
+    """A picture moved 6 px right and 3 px down in its bottom strip is measured as such; an unmoved one as zero."""
+
+    import cv2
+
+    generator = numpy.random.default_rng(7)
+    picture = cv2.GaussianBlur((generator.random((480, 640)) * 255).astype(numpy.uint8), (7, 7), 0)
+    picture = cv2.cvtColor(picture, cv2.COLOR_GRAY2BGR)
+    moved = cv2.warpAffine(picture, numpy.float32([[1, 0, 6], [0, 1, 3]]), (640, 480), borderMode = cv2.BORDER_REPLICATE)
+    region = RECORDING_PARAMETERS["camera_check_region"]
+    as_jpeg = lambda image: cv2.imencode(".jpg", image, [cv2.IMWRITE_JPEG_QUALITY, 95])[1].tobytes()
+    shift_x, shift_y = camera_shift_px(as_jpeg(picture), as_jpeg(moved), region)
+    assert abs(shift_x - 6.0) < 0.5 and abs(shift_y - 3.0) < 0.5, (shift_x, shift_y)
+    still_x, still_y = camera_shift_px(as_jpeg(picture), as_jpeg(picture), region)
+    assert abs(still_x) < 0.1 and abs(still_y) < 0.1, (still_x, still_y)
+
+
 def test_turn_hint(raw_folder: Path) -> None:
     """At the far end of sheet 04 with the forearm at 90 degrees the hint names a smaller turn that keeps the lean
     within the limit (calc: 40 cm needs 33 degrees at 90, 18 at 30)."""
@@ -424,6 +441,8 @@ def test_step_budget_per_sheet() -> None:
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
+    test_camera_shift_is_measured()
+    print("test_camera_shift_is_measured: passed")
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction):

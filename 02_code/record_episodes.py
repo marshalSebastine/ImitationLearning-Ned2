@@ -152,6 +152,28 @@ def forearm_camera_heading_rad(
     return math.atan2(top[1], top[0]) + RECORDING_PARAMETERS["picture_top_offset_rad"]
 
 
+def camera_shift_px(
+        reference_bytes: bytes,
+        picture_bytes: bytes,
+        region: List[float]
+) -> Tuple[float, float]:
+    """
+    How far, in pixels (x right, y down), the content of ``region`` = [top, bottom, left, right] as fractions of the
+    picture has moved from the reference picture to this one, by phase correlation on the grey levels.
+    """
+
+    def strip(jpeg: bytes) -> numpy.ndarray:
+        grey = cv2.cvtColor(cv2.imdecode(numpy.frombuffer(jpeg, numpy.uint8), cv2.IMREAD_COLOR), cv2.COLOR_BGR2GRAY)
+        height, width = grey.shape
+        top, bottom, left, right = region
+        return grey[int(top * height):int(bottom * height), int(left * width):int(right * width)].astype(numpy.float32)
+
+    reference, current = strip(reference_bytes), strip(picture_bytes)
+    window = cv2.createHanningWindow((reference.shape[1], reference.shape[0]), cv2.CV_32F)
+    (shift_x, shift_y), _ = cv2.phaseCorrelate(reference, current, window)
+    return float(shift_x), float(shift_y)
+
+
 def picture_heading_rad(
         state: Dict[str, List[float]],
         recorder_parameters: Dict
@@ -417,6 +439,11 @@ class EpisodeRecorder:
             print(f"cannot reach the start pose ({error}). Move the sheet so the line start is at least about 16 cm "
                   f"from the base, teach it again with teach_sheet_start.py, and restart with the new --start-x and --start-y.")
             summary["status"] = "start_unreachable"
+            self.__lift()
+            return self.__finish_episode(episode_folder, summary, [])
+
+        if not self.__check_camera_shift(episode_folder, summary):
+            summary["status"] = "discarded_camera_moved"
             self.__lift()
             return self.__finish_episode(episode_folder, summary, [])
 
@@ -708,6 +735,51 @@ class EpisodeRecorder:
         if last is not guided_path[-1]:
             waypoints.append(guided_path[-1, 2:8])
         return waypoints
+
+
+    def __check_camera_shift(
+            self,
+            episode_folder: Path,
+            summary: Dict
+    ) -> bool:
+        """
+        With the arm at the start position, compare the picture's bottom strip (the robot's hand and the block, the
+        same in every picture taken at this pose) with a reference picture, and measure by phase correlation how
+        many pixels it has shifted (5.11.26, Emranul: the camera is taped to the forearm cover and must not creep).
+
+        The first episode for a camera mount and start position saves its picture as the reference. The shift is
+        written into episode.json; above "camera_shift_warning_px" the person is asked whether to go on.
+
+        Returns
+        -------
+        bool
+            False when the person chose to discard the episode because the camera moved.
+        """
+
+        picture_bytes = self.__fresh_picture()
+        (episode_folder / "camera_check.jpg").write_bytes(picture_bytes)
+        start_x, start_y = self.recorder_parameters["start_point_xy"]
+        reference_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"] / "camera_check" / "camera_reference"
+        reference_path = reference_folder / f"{self.recorder_parameters['camera_mount']}_x{1000 * start_x:.0f}_y{1000 * start_y:.0f}mm.jpg"
+        if not reference_path.exists():
+            reference_folder.mkdir(parents = True, exist_ok = True)
+            reference_path.write_bytes(picture_bytes)
+            summary["camera_shift_px"] = 0.0
+            self.__say(f"camera check: no reference for this mount and start yet; this picture is the reference now ({reference_path.name})")
+            return True
+
+        shift_x, shift_y = camera_shift_px(reference_path.read_bytes(), picture_bytes, self.recorder_parameters["camera_check_region"])
+        shift = math.hypot(shift_x, shift_y)
+        summary["camera_shift_px"] = round(shift, 2)
+        summary["camera_reference"] = reference_path.name
+        limit = self.recorder_parameters["camera_shift_warning_px"]
+        self.__say(f"camera check: the hand at the bottom of the picture is {shift:.1f} px from the reference "
+                   f"(x {shift_x:+.1f}, y {shift_y:+.1f}; warning above {limit})")
+        if shift <= limit:
+            return True
+        self.__show_picture(picture_bytes, f"CAMERA MOVED by {shift:.1f} px since the reference: check the mount. Enter = record anyway, x = discard")
+        self.__say("CAMERA MOVED: check the camera on the forearm cover. Enter = record anyway, x = discard this episode")
+        return self.__wait_for(["enter", "x"]) == "enter"
 
 
     def __reguide(
