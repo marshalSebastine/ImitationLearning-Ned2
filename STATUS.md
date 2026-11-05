@@ -118,11 +118,11 @@ Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view te
   CNN, random-crop augmentation, trained on the laptop; ACT only as an optional comparison on a GPU.
 - Next: ask the professor to activate GPU-pool SSH for both accounts and test the login (pattern in
   `01_course/moodle_snapshot.md`, VPN needed); write the dataset builder and the training script once the first 20 episodes exist.
-- Started 5.11 (Emranul's synthetic-data session, branch `emranul/synthetic-pictures`, not merged): a Webots twin for
-  synthetic pictures. Emranul decided the graded model learns from human demonstrations; a simulated teacher in Webots
-  (written rule first, deep RL only where it fails) is an extra comparison arm for the paper. Arm model exact (0.01 mm);
-  the forearm camera's mount fitted from existing pictures for the tape position since 4.11 test 5 (no robot needed);
-  next: the earlier tape position, a sheet map from the calibrated pictures, a Webots replay beside real pictures.
+- Cancelled 5.11 by Emranul: the Webots twin for synthetic pictures (synthetic-data session). Its code stays on branch
+  `emranul/synthetic-pictures` on GitHub, not merged into main; the graded model learns from human demonstrations.
+  Worth keeping (`claude_memory/project-synthetic-pictures.md`): the URDF arm model (`ned2_fk.py`) reproduces the logged
+  tool position to 0.01 mm; Niryo's generic lens file; how the forearm camera was fitted from existing pictures, why the
+  sheet-based fits failed and the chessboard calibration proposed to measure it; the tape moved once on 4.11.
 - Blocked on: data.
 
 ## Evaluation and write-up
