@@ -1,19 +1,21 @@
 ---
 name: project-forearm-camera-mount
-description: Where the camera is taped on the forearm cover (between the two screws, 4 mm below the seam, three tape strips) and how to put it back
+description: Where the bare camera is taped on the forearm cover (between the two screws, 4 mm below the seam, three tape strips) and how to put it back
 metadata:
   type: project
 ---
 
-Since 4.11.26 evening the camera, in its F3 bracket, is taped to the black forearm cover just below the elbow (Emranul,
-5.11.26): on the lower part that turns with joint 4, **4 mm below the seam** to the upper cover, the foot **centred between
-the two cover screws**, held by **three strips** of clear tape. Photos and steps to put it back:
-`06_deliverables/research_notes/Camera mount options/forearm_mount/README_forearm_mount.md`.
+The **bare camera** (no printed bracket) is taped to the black forearm cover just below the elbow (Emranul, 5.11.26): on
+the lower part that turns with joint 4, **4 mm below the seam** to the upper cover, its foot **centred between the two
+cover screws**, held by **three strips** of clear tape. Photos and steps to put it back:
+`06_deliverables/research_notes/Camera mount options/forearm_mount/README_forearm_mount.md`. Not the F3 bracket: that was the
+plan of 4.11.26 evening; a first version of this fact said F3 and was wrong.
 
-**Why:** all data from test 5 (episode 037) on was recorded from this view; if the tape fails, the camera must go back to
-the same view or the data splits into two camera views.
+**Why:** the camera check shows this view from test 5 (episode 037, 4.11.26) on; if the tape fails, the camera must go back
+to the same view or the data splits into two camera views. Episodes 037 to 043 carry the old mount name
+`forearm_cover_tape_F3_bracket` in episode.json; from 5.11.26 the tool writes `forearm_cover_tape_bare_camera`.
 
 **How to apply:** after any re-taping, compare with the reference picture
-`03_data/raw/camera_check/camera_reference/forearm_cover_tape_F3_bracket_x171_y37mm.jpg`; the recording tool's camera
-check at every episode start must show under 4 px, otherwise give the mount a new `camera_mount` name in config. Related:
-[[project-recording-tool]].
+`03_data/raw/camera_check/camera_reference/forearm_cover_tape_bare_camera_x171_y37mm.jpg`; the recording tool's camera check
+at every episode start must show under 4 px, otherwise give the mount a new `camera_mount` name in config. Related:
+[[project-recording-tool]], [[ai-project-workspace-setup]].

@@ -4,6 +4,6 @@
 - [Step-by-step preference](feedback-step-by-step.md) — Emranul is a beginner; propose one step, explain plainly, ask before implementing
 - [No Claude in git](feedback-no-claude-in-git.md) — no Co-Authored-By lines; commits under the students' own names
 - [AI Project workspace set-up](ai-project-workspace-setup.md) — sheet 5 cm in front of the base, line pointing away; magnet block on the rod as pusher; camera on the wrist until 4.11.26, on the forearm cover since
-- [Forearm camera mount](project-forearm-camera-mount.md) — taped between the two cover screws, 4 mm below the seam, three strips; reference picture and how to put it back
+- [Forearm camera mount](project-forearm-camera-mount.md) — bare camera (no bracket) taped between the two cover screws, 4 mm below the seam, three strips; reference picture and how to put it back
 - [Test before hardware changes](feedback-test-before-hardware-changes.md) — never advise a physical change on a theory; test first, say what is known vs guessed
 - [Recording tool](project-recording-tool.md) — 28.10.26: actions in the picture frame; keyboard and hand-guided (guide, then replay) modes in one loop; picture_left_sign untested; eleven actions since 4.11; forearm-turned side view being tested

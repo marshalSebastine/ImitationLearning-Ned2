@@ -502,7 +502,10 @@ RECORDING_PARAMETERS = {
     # v11 (4.11.26 evening, after test 3): forearm turns in 30 degree steps (30, 60, 90) instead of 45.
     # v12 (4.11.26 evening, during test 4): back-left / back-right (z / c, Marshal's 135 degree steps) bound again
     # (Emranul); every step row also stores the picture's direction on the table ("picture_heading_deg").
-    "camera_mount": "forearm_cover_tape_F3_bracket",
+    # Mount name corrected 5.11.26 (Emranul): the camera on the forearm cover is the BARE camera, no F3 bracket.
+    # Episodes up to 043 carry "forearm_cover_tape_F3_bracket"; from test 5 (episode 037) on that was already this
+    # bare-camera view (camera check), see 06_deliverables/research_notes/Camera mount options/forearm_mount/.
+    "camera_mount": "forearm_cover_tape_bare_camera",
     "mapping_version": "picture_frame_v12_forearm_camera_back_diagonals_2026-11-04",
     # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
