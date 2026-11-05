@@ -198,6 +198,39 @@ def test_exact_replay(raw_folder: Path) -> None:
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
 
 
+def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
+    """
+    Two replayed waypoints, then "h": a second guided path is recorded, the arm returns to where "h" was pressed, and
+    the correction is replayed to its end; the episode counts one correction and keeps its reference picture and path.
+    """
+
+    from side_view_test import solve_least_lean
+    from config import PUSHER_PARAMETERS
+
+    joints_path = []
+    for index in range(20):
+        x = 0.20 + 0.002 * index
+        target = numpy.array([x, 0.0, pushing_height(x, 0.0) - PUSHER_PARAMETERS["extension_below_rod_end_m"]])
+        joints = solve_least_lean(target, 0.0, wrist_range_deg = (-30.0, 30.0))
+        joints[5] = joints[0]
+        joints_path.append(joints)
+    hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(20)]
+    robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
+    guiding = ["enter"] + [None] * 24 + [" ", "enter"]
+    keys = (["enter"] + guiding + ["enter", "enter", "enter", "h"] + guiding + ["enter", "g"] + [None] * 20
+            + ["enter", "y", "escape"])
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
+        key_reader = scripted_keys(keys))
+    recorder.record_session("hand_guided_exact")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed" and summary["hand_corrections"] == 1, summary
+    assert (episode_folder / "correction_01_reference.jpg").exists() and (episode_folder / "correction_01_guided_path.csv").exists()
+    assert rows[-1]["action"] == "stop" and all(row["source"] == "replay_exact" for row in rows[:-1]), [row["source"] for row in rows]
+    assert len(rows) >= 4, len(rows)
+
+
 def test_turn_hint(raw_folder: Path) -> None:
     """At the far end of sheet 04 with the forearm at 90 degrees the hint names a smaller turn that keeps the lean
     within the limit (calc: 40 cm needs 33 degrees at 90, 18 at 30)."""
@@ -392,7 +425,7 @@ if __name__ == "__main__":
     test_step_budget_per_sheet()
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
-                 test_replay_copies_forearm_turn, test_exact_replay):
+                 test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

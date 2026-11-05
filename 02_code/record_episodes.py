@@ -436,6 +436,7 @@ class EpisodeRecorder:
                 self.exact_waypoints = self.__exact_waypoints(guided_path)
                 self.exact_index = 0
                 self.is_auto_running = False
+                self.reguide_count = 0
                 self.__say(f"exact replay: {len(self.exact_waypoints)} waypoints from {len(guided_path)} guided points")
                 decider = self.__exact_replay_decider
             else:
@@ -445,6 +446,8 @@ class EpisodeRecorder:
 
         status, rows = self.__run_steps(episode_folder, decider)
         summary["status"] = status
+        if mode == "hand_guided_exact":
+            summary["hand_corrections"] = getattr(self, "reguide_count", 0)
         self.__lift()
         self.__ask_how_episode_ended(summary)
         return self.__finish_episode(episode_folder, summary, rows)
@@ -510,6 +513,13 @@ class EpisodeRecorder:
 
             if action in ("discard", "quit"):
                 return ("discarded" if action == "discard" else "quit"), rows
+
+            if action == "reguide":
+                # Correction by hand in the exact replay (5.11.26, Emranul): instead of fixing a drifted puck with the
+                # keys, guide again from here with the motors off; the correction is then replayed like the first path.
+                self.__reguide(episode_folder, picture_bytes, state)
+                move_return_time = time.time()
+                continue
 
             if action == "waypoint":
                 # Exact replay (4.11.26, Emranul): move to the next guided waypoint joint by joint. The row's action is
@@ -696,6 +706,65 @@ class EpisodeRecorder:
         return waypoints
 
 
+    def __reguide(
+            self,
+            episode_folder: Path,
+            picture_bytes: bytes,
+            state: Dict
+    ) -> None:
+        """
+        Correct by hand from where the replay stands: keep the picture as a reference, record a new guided path with
+        the motors off, then ask for the puck to be put back as in the reference picture, return to the starting
+        joints from above, and make the new path the rest of the replay. Nothing is logged as a step meanwhile, so
+        every logged picture still comes from the robot moving on its own. A discarded correction returns to the same
+        place and the old replay goes on.
+        """
+
+        self.reguide_count = getattr(self, "reguide_count", 0) + 1
+        number = self.reguide_count
+        (episode_folder / f"correction_{number:02d}_reference.jpg").write_bytes(picture_bytes)
+        start_joints = [float(value) for value in state["joints"]]
+        self.__say(f"correction {number} by hand: start joints {[round(value, 3) for value in start_joints]}")
+
+        new_path = self.__record_guided_path(episode_folder, f"correction_{number:02d}_guided_path.csv")
+        # The hand has moved the arm: the remembered forearm turn and tip no longer hold, so lift straight up from
+        # where the arm is now (a turn-back lift would fly to the old tip, low over the sheet).
+        self.forearm_turn_deg = 0.0
+        self.tip_xy = None
+        self.__lift()
+        if new_path is not None:
+            self.__show_picture(picture_bytes, f"REFERENCE: put the puck back where it is in this picture, then Enter")
+            self.__say("put the puck back where it was when h was pressed (the window shows that picture), then Enter")
+            self.__wait_for(["enter"])
+        self.__return_to_joints_from_above(start_joints)
+        if new_path is None:
+            self.__say(f"correction {number} discarded; the replay goes on where it was")
+            return
+        self.exact_waypoints = self.__exact_waypoints(new_path)
+        self.exact_index = 0
+        self.is_auto_running = False
+        self.__say(f"correction {number}: {len(self.exact_waypoints)} waypoints from {len(new_path)} guided points; Enter or g replays it")
+
+
+    def __return_to_joints_from_above(self, joints: List[float]) -> None:
+        """
+        Go to ``joints`` from above: the rod's end over that place, lifted by "approach_height_m" (5 cm; the puck,
+        2.9 cm tall, may already be back in front of it), then down joint by joint.
+        """
+
+        from side_view_test import ned2_fk as arm_model
+
+        position, orientation = arm_model.tool_pose(list(joints))
+        lifted = [float(position[0]), float(position[1]), float(position[2]) + self.recorder_parameters["approach_height_m"]] + [float(value) for value in orientation]
+        try:
+            self.robot_link.move_to(lifted, is_linear = False)
+        except Exception as error:
+            self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
+        self.robot_link.move_joints(list(joints))
+        self.forearm_turn_deg = math.degrees(joints[3])
+        self.tip_xy = [float(value) for value in magnet_tip_and_lean(list(joints))[0][:2]]
+
+
     def __exact_replay_decider(
             self,
             picture_bytes: bytes,
@@ -717,7 +786,7 @@ class EpisodeRecorder:
             self.is_auto_running = False
             self.key_drainer()
         self.__show_picture(picture_bytes, f"exact replay: waypoint {min(self.exact_index + 1, total)} of {total}, next = {proposal}. "
-                                           f"Enter = next, g = run to the end, u l = flags, x = discard, Esc = quit")
+                                           f"Enter = next, g = run on, h = correct by hand, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -726,6 +795,8 @@ class EpisodeRecorder:
             if key == "g" and proposal == "waypoint":
                 self.is_auto_running = True
                 return proposal, "replay_exact"
+            if key == "h":
+                return "reguide", "human"
             action = self.recorder_parameters["keys"].get(key)
             if self.__handle_flag_key(action, picture_bytes, step):
                 continue
@@ -1203,7 +1274,11 @@ class EpisodeRecorder:
         return numpy.array([numpy.interp(arc_length, arc_lengths, path[:, 0]), numpy.interp(arc_length, arc_lengths, path[:, 1])])
 
 
-    def __record_guided_path(self, episode_folder: Path) -> Optional[numpy.ndarray]:
+    def __record_guided_path(
+            self,
+            episode_folder: Path,
+            file_name: str = "guided_path.csv"
+    ) -> Optional[numpy.ndarray]:
         """
         Let the person push the puck to the goal by hand while the tip's path is logged; None when discarded.
         """
@@ -1244,7 +1319,7 @@ class EpisodeRecorder:
             # has let go and said so; the arm must never be powered against a holding hand.
             self.__release_arm_then_motors_on()
 
-        with open(episode_folder / "guided_path.csv", "w", newline = "", encoding = "utf-8") as file:
+        with open(episode_folder / file_name, "w", newline = "", encoding = "utf-8") as file:
             writer = csv.DictWriter(file, fieldnames = ["unix_time", "x", "y", "z", "roll", "pitch", "yaw"] + [f"joint_{index}" for index in range(1, 7)])
             writer.writeheader()
             writer.writerows(rows)
