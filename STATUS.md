@@ -121,7 +121,8 @@ Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view te
 - Started 5.11 (Emranul's synthetic-data session, branch `emranul/synthetic-pictures`, not merged): a Webots twin for
   synthetic pictures. Emranul decided the graded model learns from human demonstrations; a simulated teacher in Webots
   (written rule first, deep RL only where it fails) is an extra comparison arm for the paper. Arm model exact (0.01 mm);
-  the forearm camera's position is known only roughly; next a 15-minute chessboard calibration at the robot.
+  the forearm camera's mount fitted from existing pictures for the tape position since 4.11 test 5 (no robot needed);
+  next: the earlier tape position, a sheet map from the calibrated pictures, a Webots replay beside real pictures.
 - Blocked on: data.
 
 ## Evaluation and write-up

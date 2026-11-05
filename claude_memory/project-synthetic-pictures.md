@@ -24,13 +24,22 @@ fine-tuning on real demonstrations; simulated demonstrations in the graded model
 cb8f8ee; `python 02_code/synthetic_pictures.py open` shows it). For the current forearm-cover camera: the Ned2 forward
 kinematics from Niryo's URDF reproduce the robot's logged tool position to 0.01 mm (median); Niryo's generic lens
 calibration (fx 508, k1 -0.41) is in `niryo_files/ned_ros_vision_cam_intrinsics.yaml`; the camera turns with joint 4;
-its position on the forearm is known only roughly (set by hand, a few cm). Automatic fits from the existing pictures
-failed, because nothing in them has an exactly known shape and position (sheet traced from a photo, never fully in view).
+its mount on the forearm was then fitted WITHOUT the robot (Emranul asked to use the existing data, 5.11.26): from 552
+pairs of pictures of episodes 037 to 043, because the joints give how the camera moved and the table must look the
+same in both pictures. All six starting guesses gave the same mount (in `config.SYNTHETIC_PARAMETERS
+["forearm_camera_mounts"]`, commit a8113a2); warped pictures line up within a few pixels and the forearm fork from
+Niryo's mesh falls on the blue cheeks seen in every picture. Fitting the sheet's line or outline directly had failed
+(sheet only traced from a phone photo, never fully in view, bluish pictures make wood look like paper).
 
-**Next:** a 15-minute calibration at the robot: a printed chessboard flat where the sheet goes, about 20 arm poses
-including forearm turns logged by the recording tool in keyboard mode, and the sheet corners taught with the rod; then
-the lens and the camera's mount are solved offline (hand-eye calibration). See [[project-paper-publication]] and
-[[project-recording-tool]].
+**Found on the way:** the recording session's camera-shift check (5.11.26) shows the tape moved once, between tests 4
+and 5 on 4.11.26; episodes 033 to 036 need their own mount. The puck at the start of 037 and 042 sits about 1 to 1.5 cm
+further out than the tool's start of 17.07 cm assumes (line start about 17.8 cm on 4.11, 18.9 cm on 5.11, from the
+line fit): worth re-teaching the start with `teach_sheet_start.py` for the forearm camera.
+
+**Next:** bring the fitting script into the repository, fit the earlier tape position, map sheet 04 from the calibrated
+pictures (first map works; line detection in bluish pictures needs tuning), then replay a recorded episode in Webots
+beside the real pictures. A chessboard session stays an optional precision check (the lens is Niryo's generic file).
+See [[project-paper-publication]] and [[project-recording-tool]].
 
 **Why:** a twin is only worth comparing against real demonstrations if its pictures match the real camera.
 
