@@ -417,5 +417,24 @@ SYNTHETIC_PARAMETERS = {
     "first_look_situations": {
         "episode_029_step_000": {"path_id": "path_04_meander", "tip_xy": [0.15137, 0.03722]},
         "episode_018_step_060": {"path_id": "path_04_meander", "tip_xy": [0.28692, 0.03800]}
+    },
+    # The current camera, in its F3 bracket taped to the forearm cover (since 4.11.26 evening). Lens: Niryo's generic
+    # calibration of the Vision Set camera (niryo_files/ned_ros_vision_cam_intrinsics.yaml), not measured on our unit;
+    # its distortion polynomial is used only up to a normalised radius of 0.85 (it folds back beyond about 1.05).
+    # Mount: the camera's pose in the forearm frame (after joint 4, from Niryo's URDF), fitted on 5.11.26 without the
+    # robot from 552 pairs of pictures of episodes 037 to 043: the joints give how the camera moved between two
+    # pictures, and the table must look the same in both (table plane of 25.10.26; the arm and the puck left out). All
+    # six starting guesses ended at the same mount. Checked on pictures the fit did not use: warped pictures line up
+    # within a few pixels (5.11 pictures slightly worse), and the forearm fork drawn from Niryo's mesh falls on the
+    # blue cheeks seen at the bottom of every picture. The tape moved once, between tests 4 and 5 on 4.11.26 (camera
+    # shift check of 5.11.26), so episodes 033 to 036 need their own mount (not fitted yet).
+    "forearm_camera_lens": {"fx": 508.069, "fy": 506.445, "cx": 332.821, "cy": 242.984,
+                            "k1": -0.4146402, "k2": 0.2407384, "k3": -0.1040042, "valid_normalised_radius": 0.85},
+    "forearm_camera_mounts": {
+        "tape_position_since_2026-11-04_test_5": {
+            "episodes": ["2026-11-04 037 to 039", "2026-11-05 042 and 043"],
+            "rotation_vector": [0.059233, 0.145083, 1.571387],
+            "translation_m": [0.058359, -0.003742, 0.022378]
+        }
     }
 }

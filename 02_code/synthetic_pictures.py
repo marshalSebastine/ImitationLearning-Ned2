@@ -28,6 +28,148 @@ import config
 REPOSITORY_FOLDER = pathlib.Path(__file__).resolve().parents[1]
 # Set by ``run_webots_world`` so the controller quits Webots after its pictures; opened in the window, the scene stays.
 QUIT_WHEN_DONE_VARIABLE = "SYNTHETIC_PICTURES_QUIT_WHEN_DONE"
+# The Ned2's joints from Niryo's URDF (06_deliverables/research_notes/Camera mount options/niryo_files/
+# niryo_ned2.urdf.xacro): for each joint, its origin in the parent frame (metres), the fixed roll, pitch and yaw before
+# it turns, and whether it turns about its own z axis; the last entry is the fixed tool frame on the hand. Checked on
+# 5.11.26 against every step of the episodes of 3 to 5.11.26: the tool position agrees with the robot's own reading to
+# 0.01 mm (median), 1.9 mm at the 95th percentile (joints and pose are read at slightly different moments).
+NED2_KINEMATIC_CHAIN = [
+    {"origin_m": (0.0, 0.0, 0.1013), "rpy_rad": (0.0, 0.0, 0.0), "is_turning": True},
+    {"origin_m": (0.0, 0.0, 0.065), "rpy_rad": (math.pi / 2, 0.0, 0.0), "is_turning": True},
+    {"origin_m": (0.012, 0.221, 0.0), "rpy_rad": (0.0, 0.0, math.pi / 2), "is_turning": True},
+    {"origin_m": (0.0325, -0.065, 0.0), "rpy_rad": (math.pi / 2, 0.0, 0.0), "is_turning": True},
+    {"origin_m": (0.0, 0.0, 0.17), "rpy_rad": (-math.pi / 2, 0.0, 0.0), "is_turning": True},
+    {"origin_m": (0.00925, -0.0197, 0.0), "rpy_rad": (math.pi / 2, 0.0, 0.0), "is_turning": True},
+    {"origin_m": (0.0, 0.0, 0.0285), "rpy_rad": (math.pi, -math.pi / 2, 0.0), "is_turning": False}
+]
+
+
+def rotation_from_rpy(
+        roll: float,
+        pitch: float,
+        yaw: float
+) -> numpy.ndarray:
+    """
+    Return the rotation matrix of URDF roll, pitch and yaw angles (fixed axes x, then y, then z).
+
+    Parameters
+    ----------
+    roll, pitch, yaw : float
+        Angles in radians.
+
+    Returns
+    -------
+    numpy.ndarray
+        A 3 by 3 rotation matrix, ``Rz(yaw) Ry(pitch) Rx(roll)``.
+    """
+
+    cos_roll, sin_roll = math.cos(roll), math.sin(roll)
+    cos_pitch, sin_pitch = math.cos(pitch), math.sin(pitch)
+    cos_yaw, sin_yaw = math.cos(yaw), math.sin(yaw)
+    about_x = numpy.array([[1.0, 0.0, 0.0], [0.0, cos_roll, -sin_roll], [0.0, sin_roll, cos_roll]])
+    about_y = numpy.array([[cos_pitch, 0.0, sin_pitch], [0.0, 1.0, 0.0], [-sin_pitch, 0.0, cos_pitch]])
+    about_z = numpy.array([[cos_yaw, -sin_yaw, 0.0], [sin_yaw, cos_yaw, 0.0], [0.0, 0.0, 1.0]])
+    return about_z @ about_y @ about_x
+
+
+def forward_kinematics(joints: list) -> list:
+    """
+    Return the pose of every Ned2 frame for six joint angles, from Niryo's own description of the arm.
+
+    Parameters
+    ----------
+    joints : list of float
+        The six joint angles in radians, as the robot logs them.
+
+    Returns
+    -------
+    list of numpy.ndarray
+        Seven 4 by 4 transforms in the base frame: the frames after joints 1 to 6 (shoulder, arm, elbow, forearm,
+        wrist, hand) and the tool frame, whose origin is the position the robot reports.
+    """
+
+    transform = numpy.eye(4)
+    frames = []
+    joint_index = 0
+    for link in NED2_KINEMATIC_CHAIN:
+        step = numpy.eye(4)
+        step[:3, :3] = rotation_from_rpy(*link["rpy_rad"])
+        step[:3, 3] = link["origin_m"]
+        transform = transform @ step
+        if link["is_turning"]:
+            turn = numpy.eye(4)
+            turn[:3, :3] = rotation_from_rpy(0.0, 0.0, joints[joint_index])
+            transform = transform @ turn
+            joint_index += 1
+        frames.append(transform.copy())
+    return frames
+
+
+def forearm_camera_pose(
+        joints: list,
+        mount: dict
+) -> numpy.ndarray:
+    """
+    Return the pose of the camera taped to the forearm cover, for six joint angles.
+
+    The camera turns with joint 4, so its pose is the forearm frame followed by the fixed mount. The camera's axes
+    follow OpenCV: x to the picture's right, y down the picture, z along the view.
+
+    Parameters
+    ----------
+    joints : list of float
+        The six joint angles in radians.
+    mount : dict
+        ``rotation_vector`` (radians) and ``translation_m`` of the camera in the forearm frame.
+
+    Returns
+    -------
+    numpy.ndarray
+        The camera's 4 by 4 pose in the robot's base frame.
+    """
+
+    mount_transform = numpy.eye(4)
+    mount_transform[:3, :3] = cv2.Rodrigues(numpy.array(mount["rotation_vector"], dtype = float))[0]
+    mount_transform[:3, 3] = mount["translation_m"]
+    return forward_kinematics(joints)[3] @ mount_transform
+
+
+def project_to_picture(
+        points_world: numpy.ndarray,
+        camera_in_world: numpy.ndarray,
+        lens: dict
+) -> tuple:
+    """
+    Project points given in the robot's base frame into the camera's picture, with the lens' distortion.
+
+    Parameters
+    ----------
+    points_world : numpy.ndarray
+        Points of shape ``(n, 3)`` in metres.
+    camera_in_world : numpy.ndarray
+        The camera's 4 by 4 pose, OpenCV axes.
+    lens : dict
+        ``fx``, ``fy``, ``cx``, ``cy`` in pixels and the radial coefficients ``k1``, ``k2``, ``k3``.
+
+    Returns
+    -------
+    tuple of numpy.ndarray
+        Pixel positions of shape ``(n, 2)`` and whether each point is in front of the camera, inside the zone where
+        the distortion model holds, and inside the picture.
+    """
+
+    camera_points = (points_world - camera_in_world[:3, 3]) @ camera_in_world[:3, :3]
+    depth = camera_points[:, 2]
+    safe_depth = numpy.where(depth > 0.02, depth, 1.0)
+    normalised_x, normalised_y = camera_points[:, 0] / safe_depth, camera_points[:, 1] / safe_depth
+    radius_squared = normalised_x ** 2 + normalised_y ** 2
+    radial = 1 + lens["k1"] * radius_squared + lens["k2"] * radius_squared ** 2 + lens["k3"] * radius_squared ** 3
+    pixels = numpy.column_stack([lens["fx"] * normalised_x * radial + lens["cx"],
+                                 lens["fy"] * normalised_y * radial + lens["cy"]])
+    # Niryo's distortion polynomial folds back beyond a normalised radius of about 1.05; stay well inside it.
+    is_visible = ((depth > 0.02) & (radius_squared < lens["valid_normalised_radius"] ** 2)
+                  & (pixels[:, 0] >= 0) & (pixels[:, 0] < 640) & (pixels[:, 1] >= 0) & (pixels[:, 1] < 480))
+    return pixels, is_visible
 
 
 def load_traced_line(path_id: str) -> numpy.ndarray:
