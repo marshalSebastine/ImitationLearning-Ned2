@@ -226,6 +226,7 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
 
     episode_folder, summary, rows = read_episode(raw_folder)
     assert summary["status"] == "completed" and summary["hand_corrections"] == 1, summary
+    assert not (episode_folder / "steps_in_progress.csv").exists(), "the in-progress log is removed when the episode is finished"
     assert (episode_folder / "correction_01_reference.jpg").exists() and (episode_folder / "correction_01_guided_path.csv").exists()
     assert rows[-1]["action"] == "stop" and all(row["source"] == "replay_exact" for row in rows[:-1]), [row["source"] for row in rows]
     assert len(rows) >= 4, len(rows)

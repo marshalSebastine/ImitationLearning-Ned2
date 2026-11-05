@@ -505,6 +505,10 @@ class EpisodeRecorder:
         move_return_time = time.time()
         while not self.recorder_parameters["is_step_budget_enforced"] or len(rows) < self.recorder_parameters["step_budget"]:
             self.current_step = len(rows)
+            # Kept up to date at every decision (5.11.26: a lost robot connection at the end of episode 041 lost all
+            # 177 labels, because steps.csv was only written when the episode finished).
+            if rows:
+                self.__write_steps(episode_folder, rows, "steps_in_progress.csv")
             picture_bytes = self.__fresh_picture()
             capture_time = time.time()
             state = self.robot_link.read_state()
@@ -1414,6 +1418,20 @@ class EpisodeRecorder:
         print("motors ON")
 
 
+    @staticmethod
+    def __write_steps(
+            episode_folder: Path,
+            rows: List[Dict],
+            file_name: str
+    ) -> None:
+        """Write the step rows to ``file_name`` in the episode folder."""
+
+        with open(episode_folder / file_name, "w", newline = "", encoding = "utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames = STEP_COLUMNS)
+            writer.writeheader()
+            writer.writerows(rows)
+
+
     def __finish_episode(
             self,
             episode_folder: Path,
@@ -1422,10 +1440,8 @@ class EpisodeRecorder:
     ) -> Dict:
         """Write steps.csv and episode.json and a line in the session notes."""
 
-        with open(episode_folder / "steps.csv", "w", newline = "", encoding = "utf-8") as file:
-            writer = csv.DictWriter(file, fieldnames = STEP_COLUMNS)
-            writer.writeheader()
-            writer.writerows(rows)
+        self.__write_steps(episode_folder, rows, "steps.csv")
+        (episode_folder / "steps_in_progress.csv").unlink(missing_ok = True)
 
         human_steps = sum(1 for row in rows if row["source"] == "human")
         summary.update({
