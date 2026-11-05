@@ -238,14 +238,16 @@ def goal_pose() -> list:
 
 # Gamepad for the recording tool's gamepad mode (5.11.26, Emranul): a third-party PS4-style pad (HOME and TURBO
 # buttons) on a USB cable, which Windows and pygame see as "Xbox 360 Controller" (USB VID 045E PID 028E, 6 axes, 11
-# buttons, 1 hat); Bluetooth pairing did not work. Numbers are pygame's (SDL 2) axis and button numbers in Xbox order:
-# A 0 = cross, B 1 = circle, X 2 = square, Y 3 = triangle, LB 4 = L1, RB 5 = R1, Back 6 = SHARE, Start 7 = OPTIONS;
-# left stick axes 0 and 1, right stick 2 and 3 (assumed; gamepad_check.py confirms). Stick values below "dead_zone"
-# count as zero; axes in "inverted_axes" are flipped so that up and right are positive.
-# The triggers L2 and R2 are axes 4 and 5 and rest at -1 (seen 5.11.26); "trigger_axes" are read as 0 (released) to
-# 1 (fully pressed).
+# buttons, 1 hat); Bluetooth pairing did not work. Numbers are pygame's (SDL 2) axis and button numbers through
+# SDL's XInput driver (gamepad.py turns SDL's raw-input driver off: through it only the triggers arrived, the sticks
+# and buttons stayed at zero, seen 5.11.26). Buttons in Xbox order: A 0 = cross, B 1 = circle, X 2 = square,
+# Y 3 = triangle, LB 4 = L1, RB 5 = R1, Back 6 = SHARE, Start 7 = OPTIONS. Axes in SDL's XInput order: left stick
+# 0 and 1, L2 2, right stick 3 and 4, R2 5 (the triggers rest at -1 on 2 and 5, seen 5.11.26; which stick axis is
+# which is SDL's order, still to be confirmed with gamepad_check.py). Stick values below "dead_zone" count as zero;
+# axes in "inverted_axes" are flipped so that up and right are positive; "trigger_axes" are read as 0 (released) to
+# 1 (fully pressed). Another computer or pad may number them differently: run gamepad_check.py there first.
 GAMEPAD_PARAMETERS = {
-    "axes": {"move_x": 0, "move_y": 1, "twist": 2, "lean": 3, "down": 4, "up": 5},
+    "axes": {"move_x": 0, "move_y": 1, "down": 2, "twist": 3, "lean": 4, "up": 5},
     "trigger_axes": ["down", "up"],
     "inverted_axes": ["move_y", "lean"],
     "buttons": {"stop": 0, "discard": 1, "mistake": 2, "lost": 3, "quit": 7, "hand_left": 4, "hand_right": 5},

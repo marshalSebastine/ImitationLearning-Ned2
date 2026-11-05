@@ -12,6 +12,10 @@ from typing import Dict, Optional, Set
 
 os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
 os.environ.setdefault("SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS", "1")
+# On Windows SDL reads an Xbox-type pad through raw input by default, which delivers the sticks and buttons only to a
+# program with a window message loop; with the dummy video driver above only the triggers arrived (5.11.26). Through
+# XInput, as the browser reads it, the whole pad arrives without a window. Other systems ignore this setting.
+os.environ.setdefault("SDL_JOYSTICK_RAWINPUT", "0")
 
 import pygame
 
