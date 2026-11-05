@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view test written for Emranul to run, not yet run on the robot).
+Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 to 5.11, forearm camera, gamepad and exact hand-guided modes).
 
 ## Dates that cannot move
 
@@ -72,45 +72,34 @@ Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view te
 
 ## Recording and data (recording tool, demonstrations, datasets)
 
-- Done: design chosen (SOTA report section 2): keyboard stepping, capture after the move returns, stale-frame guard, six
-  joints and the action logged per frame, explicit stop step, LeRobot-style layout. Timings and camera rate measured.
-- Decided 28.10 (Emranul and Marshal): step directions are named in the PICTURE's frame (forward = top of the picture);
-  the tool supports both keyboard and hand-guided demonstrations.
-- Done 28.10 (Marshal): `02_code/record_episodes.py` with both modes (hand-guided = guide with motors off, then the robot
-  replays the tip path in 1 cm steps with key override and discard); `robot_link.py`, `test_record_episodes.py` pass on
-  the simulator. Settings in `config.RECORDING_PARAMETERS`. Nothing tested on the robot yet.
-- Done 30.10 (Emranul's session, branch `emranul/weekend-recording-plan`): the data-collection analysis
-  `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_analysis.md`: 13 collection approaches
-  criticised, 100 sources checked (80 sound, 20 with caveats; 190 more cited only as unverified), state-of-the-art table,
-  episode budget per sheet and method (recommended about 410 episodes and 30 of 36 robot hours until 20 Dec, with the
-  traced sheet lengths 24/27/55/77/57/57 cm), an extended first-robot-test checklist with pass thresholds, 14 questions
-  for the professor, and corrections to the SOTA report. Recommendations: keyboard stepping primary; guide-then-replay
-  only as a measured pilot with "Enter accepts, key overrides" instead of the 400 ms timeout; keep the seven classes and
-  add tool keys (mistake, lost) instead; train a first model after 30 to 40 episodes and start human-gated correction
-  rounds early; 30 percent offset starts and 25 percent near-end starts; real data only with bracket F.
-- Decided 31.10 (Emranul and Marshal, `06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_decisions.md`):
-  decision 1: keyboard stepping is the main method, hand-guided replay only as a measured pilot with Enter-to-confirm (kept if
-  overrides under 15 percent, discards under 20 percent, time under 1.5 x keyboard; dropped if the Ctrl-C safety test fails);
-  decision 2: the seven classes stay, tool keys `u` (mistake) and `l` (lost) are added instead. Still open: the written stepping
-  rule; how raw recordings are shared between the two laptops.
-- Done 31.10 (Emranul's session, branch `emranul/recording-tool-fixes`, simulator tests pass): the tool fixes from the
-  decisions: keys pressed during a move are thrown away; `u` flags the previous step as a mistake, `l` flags "line lost"
-  (columns is_mistake, is_lost); a replay step runs only on Enter (no 400 ms timeout); motors stay off after any
-  interruption of guiding until the person confirms the arm is released; the workspace guard checks the predicted puck
-  centre against the box and the sheet plus 2 cm; step budget per sheet (`config.step_budget_for`, meander 116); three
-  timestamps per step; camera mount, mapping version, orientation, start index, offset, lighting and laptop in
-  `episode.json` (CLI flags); session folders carry the operator's name.
-- Next: the first robot test with Marshal's checklist plus the analysis' section 6 (the 10-versus-10 pilot decides the
-  hand-guided mode); set `camera_mount` and `mapping_version` in config when bracket F is fitted; the dataset builder.
-- Decided 4.11 (Marshal; Emranul to confirm): back_left, back_right (keys z, c) and step_over_forward, step_over_back (keys r, f)
-  added, eleven classes, because pulls towards the base cannot be avoided by reorienting the sheet. Pulling works by teleoperation
-  (Marshal). Simulator tests pass; step-over untested on the robot. Next: try the step-over on the robot with no puck, then with it.
-- Proposed 4.11 (Marshal), to test: turn the forearm for a side view when pulling. The rod leans when turned (calc: 1.5, 9.5 and 14
-  degrees at 20, 25 and 28 cm with a 90 degree turn, near-vertical only at 18 to 20 cm). Emranul runs
-  `02_code/side_view_test.py` from `06_deliverables/research_notes/Recording tool/side_view_test_checklist.md`. Not yet run on the robot, and nothing is built into the recording tool.
-- Done 4.11 (Marshal): every episode.json stores stepping_rule_version, outcome and discard_reason (the tool asks after each
-  episode); camera_mount now defaults to bracket_F. Raise `stepping_rule_version` in config when the rule changes.
-- Blocked on: the camera mount (bracket F, 2 Nov) for real data; a robot session for the first test.
+- Done to 31.10: tool design (capture after the move, stale-frame guard, joints and action per frame, LeRobot-style
+  layout); actions named in the PICTURE's frame (Emranul and Marshal, 28.10); data-collection analysis and decisions
+  (`06_deliverables/research_notes/Recording tool/2026-10-30_data_collection_*.md`: about 410 episodes, offset and near-end
+  starts, tool keys `u` mistake and `l` lost); the 31.10 fixes (Enter-to-confirm replay, motors stay off until release is
+  confirmed, workspace guard, step budget, episode metadata). 4.11 (Marshal): eleven classes, outcome and discard reason.
+- Robot days 31.10 to 5.11 (Emranul at the robot, sheet 04, start x 0.1707 y 0.0374 taught 4.11): the camera went from the
+  stock wrist holder to the printed wrist brackets F and F3 (2 to 4.11), and on 4.11 evening to the BARE camera taped on the
+  forearm cover, turning with joint 4 (`claude_memory/project-forearm-camera-mount.md`, photos in
+  `06_deliverables/research_notes/Camera mount options/forearm_mount/`); mount name `forearm_cover_tape_bare_camera`.
+- New in the tool (branch `emranul/recording-tool-fixes`, simulator tests pass): forearm turns `v`/`b` (30 deg; lift 2.5 cm,
+  land 1.5 cm back; turned lean limit 28 deg, measured); picture heading from the arm model; German-keyboard keys (`y`/`c`
+  back diagonals; flick and step-over unbound); step numbers in the log and steps written at every decision; camera shift
+  check at every episode start (warns above 4 px); `hand_guided_exact` (replays every joint; `g` runs on, `h` corrects by
+  hand); gamepad mode (USB pad read through XInput; sticks move the tip up to 1 cm and turn the forearm or bend the wrist,
+  L1/R1 hand, L2/R2 height up to 8 cm; only joint limits and the table-edge box refuse a step); orientation window with a
+  map and a key list for every mode; `02_code/HOW_TO_RUN.md`, `gamepad_check.py`, `gamepad_live.py`.
+- Tested on the robot: keyboard with turns, hand_guided, hand_guided_exact with `h`, gamepad (episode 045 reached the goal
+  in 395 steps), the camera shift check. Not yet: gamepad L2/R2 and wrist bend in real use, the new orientation window,
+  step-over, Marshal's side-view checklist.
+- All episodes up to 045 are tests of the tool, not training data (Emranul, 5.11).
+- In progress (night of 5 to 6.11): red-puck tracking for the orientation window (detector, forearm camera model fitted from
+  the recorded episodes, calibration routine as a backup), an episode checker, an opinion on how the robot should start on
+  exam day (Emranul asked whether it could find the start itself; to be decided later), the checklist for the first data
+  session and a per-sheet episode plan (Emranul's request).
+- Next (6.11, Emranul): move the robot to the big table on the first floor; re-teach with `teach_positions.py` and each
+  sheet's start with `teach_sheet_start.py`; one trial episode per sheet in `hand_guided_exact`; Claude checks them; then
+  real data. Surroundings to be masked later (Emranul's plan, to be done the same way on live pictures).
+- Blocked on: nothing. Open: backup and sharing of raw data with Marshal (`03_data` is not in git); the exam start strategy.
 
 ## Model and training
 
