@@ -376,3 +376,46 @@ def picture_step_to_table(
     length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
     angle = camera_heading_rad(x, y) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(picture_angle)
     return [length * math.cos(angle), length * math.sin(angle)]
+
+
+# Synthetic camera pictures rendered with the Webots simulator (R2025a, installed on Emranul's laptop), chosen by Emranul
+# on 5.11.26 instead of pasting cut-outs of real pictures: a simulated sheet, puck, rod, magnet block and camera; later a
+# written rule chooses the key for each picture from the simulator's exact positions. Nothing here moves the robot.
+# First mount: bracket F3 on the hand (3.11 to 4.11.26), where camera, rod and block are rigid to each other and the
+# picture's top looks along the table's +x axis (checked on all steps of episode 018). The camera pose is a first estimate
+# (calc) from episode 018, step 60: the 1 cm line is about 40 pixels wide at the top of the picture and 31 at the bottom,
+# which with Niryo's lens calibration (fx 508 pixels) gives a tilt of about 15 degrees back towards the rod and a lens
+# about 13.8 cm above the paper; it is refined by comparing renders with real pictures.
+SYNTHETIC_PARAMETERS = {
+    "webots_executable": "C:/Program Files/Webots/msys64/mingw64/bin/webots.exe",
+    "project_folder": "02_code/webots_pushing",
+    "output_folder": "03_data/synthetic/webots",
+    "camera_mount": "bracket_F3",
+    # From the point on the paper under the rod's tip: ahead (+x), left (+y) and up (+z), in metres.
+    "camera_position_from_tip_m": [0.048, 0.0, 0.138],
+    "camera_tilt_back_deg": 15.0,
+    "camera_field_of_view_rad": 2 * math.atan(320 / 508),
+    "camera_width": CAMERA_PARAMETERS["width"],
+    "camera_height": CAMERA_PARAMETERS["height"],
+    # The puck is put on the paper this long, then the picture is taken (the puck must stop wobbling).
+    "settle_time_s": 0.2,
+    # Sheets are A4 pages drawn from the traced centre lines of the course photos (sheet_paths.json, about 5 percent
+    # uncertain). "page_corner_in_photo_cm" is where the page's top-left corner lies in the photo's frame, read from the
+    # sheet 04 photo (calc, about 0.5 cm uncertain).
+    "sheet_paths_file": "06_deliverables/research_notes/Camera mount options/scripts/sheet_paths.json",
+    "page_size_cm": [21.0, 29.7],
+    "page_corner_in_photo_cm": [-1.0, -3.0],
+    "texture_pixels_per_cm": 60,
+    "line_width_cm": 100 * SHEET_PARAMETERS["line_width_m"],
+    # Where a page lay on the table: its line's first traced point (the end nearest the robot) under "line_start_xy", and
+    # the page's downward direction turned by "page_yaw_rad" from the table's +x axis. Sheet 04 from 2.11 to 4.11.26: the
+    # start is the puck's start position of those episodes (rod's start pose plus the contact offset).
+    "sheet_placements": {
+        "path_04_meander": {"line_start_xy": [0.1707, 0.0374], "page_yaw_rad": 0.0}
+    },
+    # Real pictures re-created for the first side-by-side check: the rod's logged tip position, the puck touching it ahead.
+    "first_look_situations": {
+        "episode_029_step_000": {"path_id": "path_04_meander", "tip_xy": [0.15137, 0.03722]},
+        "episode_018_step_060": {"path_id": "path_04_meander", "tip_xy": [0.28692, 0.03800]}
+    }
+}

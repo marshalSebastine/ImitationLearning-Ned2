@@ -1,0 +1,2 @@
+# Webots writes each user's window layout next to the world file.
+*.wbproj

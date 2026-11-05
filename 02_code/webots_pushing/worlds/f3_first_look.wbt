@@ -1,0 +1,193 @@
+#VRML_SIM R2025a utf8
+
+WorldInfo {
+  info [
+    "Team M, Project 6: sheet, puck, rod, magnet block and the bracket F3 camera, for the first synthetic pictures."
+    "Positions, the camera pose and the sheet are set by the controller from config.SYNTHETIC_PARAMETERS."
+  ]
+  title "Bracket F3 first look"
+  basicTimeStep 4
+  coordinateSystem "ENU"
+}
+Viewpoint {
+  orientation -0.27 0.27 0.92 1.65
+  position 0.3 -0.55 0.45
+}
+Background {
+  skyColor [
+    0.8 0.8 0.8
+  ]
+  luminosity 1
+}
+DirectionalLight {
+  direction 0.3 0.15 -1
+  intensity 0.9
+  castShadows TRUE
+}
+DirectionalLight {
+  direction -0.4 -0.3 -1
+  intensity 0.45
+}
+DEF TABLE Solid {
+  translation 0.3 0 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "textures/table_wood.jpg"
+          ]
+        }
+        roughness 0.7
+        metalness 0
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [
+            -0.35 -0.35 0, 0.35 -0.35 0, 0.35 0.35 0, -0.35 0.35 0
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 0, 1 0, 1 1, 0 1
+          ]
+        }
+        coordIndex [
+          0, 1, 2, 3, -1
+        ]
+        texCoordIndex [
+          0, 1, 2, 3, -1
+        ]
+      }
+    }
+  ]
+  name "table"
+  boundingObject Pose {
+    translation 0 0 -0.01
+    children [
+      Box {
+        size 0.7 0.7 0.02
+      }
+    ]
+  }
+}
+DEF SHEET Solid {
+  translation 0.3 0 0.0002
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap DEF SHEET_TEXTURE ImageTexture {
+          url [
+            "textures/sheet_path_04_meander.png"
+          ]
+        }
+        roughness 0.95
+        metalness 0
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [
+            -0.1485 -0.105 0, 0.1485 -0.105 0, 0.1485 0.105 0, -0.1485 0.105 0
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 1, 0 0, 1 0, 1 1
+          ]
+        }
+        coordIndex [
+          0, 1, 2, 3, -1
+        ]
+        texCoordIndex [
+          0, 1, 2, 3, -1
+        ]
+      }
+    }
+  ]
+  name "sheet"
+}
+DEF PUCK Solid {
+  translation 0.2 0 0.0145
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.1 0.06
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.029
+        radius 0.012
+      }
+    }
+  ]
+  name "puck"
+  boundingObject Cylinder {
+    height 0.029
+    radius 0.012
+  }
+  physics Physics {
+    density -1
+    mass 0.009
+  }
+}
+DEF PUSHER Robot {
+  translation 0.15 0 0
+  children [
+    Pose {
+      translation 0 0 0.007
+      children [
+        Shape {
+          appearance DEF BLACK_PLASTIC PBRAppearance {
+            baseColor 0.03 0.03 0.035
+            roughness 0.45
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.004
+            radius 0.0065
+          }
+        }
+      ]
+    }
+    Pose {
+      translation 0 0 0.02
+      children [
+        Shape {
+          appearance USE BLACK_PLASTIC
+          geometry Box {
+            size 0.033 0.037 0.022
+          }
+        }
+      ]
+    }
+    Pose {
+      translation 0 0 0.101
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.55 0.53 0.5
+            roughness 0.35
+            metalness 0.5
+          }
+          geometry Cylinder {
+            height 0.14
+            radius 0.0105
+          }
+        }
+      ]
+    }
+    DEF CAMERA Camera {
+      translation 0.048 0 0.138
+      rotation 0 1 0 1.8326
+      name "camera"
+      fieldOfView 1.1244
+      width 640
+      height 480
+      antiAliasing TRUE
+    }
+  ]
+  name "pusher"
+  controller "first_look"
+  supervisor TRUE
+}
