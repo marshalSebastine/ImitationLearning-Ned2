@@ -236,6 +236,19 @@ def goal_pose() -> list:
     return rod_pose_behind(WORKSPACE_PARAMETERS["line_end_xy"])
 
 
+# Gamepad for the recording tool's gamepad mode (5.11.26, Emranul: a pad with both sticks at the bottom, PlayStation
+# style). Numbers are pygame's (SDL 2) axis and button numbers. ASSUMED for a DualShock 4 / DualSense through SDL
+# (cross 0, circle 1, square 2, triangle 3, options 6, L1 9, R1 10; left stick axes 0 and 1, right stick 2 and 3), NOT
+# YET CHECKED with the pad: run gamepad_check.py and correct them here. Stick values below "dead_zone" count as zero;
+# axes in "inverted_axes" are flipped so that up and right are positive.
+GAMEPAD_PARAMETERS = {
+    "axes": {"move_x": 0, "move_y": 1, "twist": 2, "lean": 3},
+    "inverted_axes": ["move_y", "lean"],
+    "buttons": {"stop": 0, "discard": 1, "mistake": 2, "lost": 3, "quit": 6, "hand_left": 9, "hand_right": 10},
+    "dead_zone": 0.25
+}
+
+
 # The recording tool (record_episodes.py), designed 28.10.26. Actions are 1 cm steps of the pusher's tip, named in
 # the PICTURE's frame, as Emranul and Marshal decided on 28.10.26: "forward" is towards the top of the picture,
 # "left" towards its left side. The angle is measured from "forward", counter-clockwise seen from above. Stop has no
@@ -439,6 +452,23 @@ RECORDING_PARAMETERS = {
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,
     "exact_small_motion_m": 0.003,
+    # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
+    # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:
+    #   left stick  = move the tip in any direction of the picture, "pad_step_m" times how far the stick is pushed;
+    #   right stick = left / right twists the forearm by up to "pad_twist_deg", up / down bends the wrist by up to
+    #                 "pad_lean_deg" (the rod leans; nothing else holds it upright);
+    #   L1 / R1     = turn the hand by "pad_hand_deg".
+    # The arm's other joints follow to keep the tip on its target at pushing height. Only the robot's own joint limits,
+    # the workspace and "pad_max_lean_deg" refuse a step: hand guiding with the puck went to 38.5 degrees of lean and
+    # 119 degrees of forearm twist on 4 to 5.11.26 (calc from guided_path.csv), so 45 leaves room without tipping risk
+    # being measured beyond 38.5. Each row stores the exact movement and the nearest fixed move as its label.
+    "pad_step_m": 0.01,
+    "pad_min_step_m": 0.003,
+    "pad_twist_deg": 15.0,
+    "pad_lean_deg": 5.0,
+    "pad_hand_deg": 15.0,
+    "pad_max_lean_deg": 45.0,
+    "pad_poll_s": 0.03,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
     # workspace guard refuses a step that would carry it outside the box or beyond the sheet plus "sheet_margin_m".
     "puck_centre_ahead_of_tip_m": PUCK_PARAMETERS["diameter_m"] / 2 + PUSHER_PARAMETERS["tip_diameter_m"] / 2,

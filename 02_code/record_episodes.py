@@ -59,7 +59,8 @@ ORIENTATION_WINDOW_NAME = "orientation"
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
-                "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg", "x", "y", "z", "roll", "pitch", "yaw",
+                "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
+                "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -297,7 +298,8 @@ class EpisodeRecorder:
             path_id: str = SHEET_PARAMETERS["path_id"],
             recorder_parameters: Optional[dict] = None,
             key_reader: Callable[[int], Optional[str]] = read_window_key,
-            key_drainer: Optional[Callable[[], int]] = None
+            key_drainer: Optional[Callable[[], int]] = None,
+            pad_reader: Optional[Callable[[], Dict]] = None
     ):
         """
         Prepare a recording session on an open robot link.
@@ -320,6 +322,8 @@ class EpisodeRecorder:
         key_drainer : callable, optional
             Throws away keys pressed during a move. Defaults to the window's drain when ``key_reader`` reads the
             window, and to nothing otherwise (a scripted sequence must not be eaten).
+        pad_reader : callable, optional
+            Returns the gamepad's state (GamepadReader.read) for the gamepad mode; replaced in tests by a script.
         """
 
         self.robot_link = robot_link
@@ -329,6 +333,7 @@ class EpisodeRecorder:
         if key_drainer is None:
             key_drainer = drain_window_keys if key_reader is read_window_key else (lambda: 0)
         self.key_drainer = key_drainer
+        self.pad_reader = pad_reader
 
         self.__initialize_variables()
         self.update_recorder_parameters(recorder_parameters)
@@ -468,6 +473,13 @@ class EpisodeRecorder:
                 decider = self.__exact_replay_decider
             else:
                 decider = self.__make_replay_decider(guided_path[:, [0, 1, 5]])
+        elif mode == "gamepad":
+            if self.pad_reader is None:
+                from gamepad import GamepadReader
+                self.pad_reader = GamepadReader().read
+            self.pad_wrist_offset_rad = 0.0
+            self.pad_buttons_before = set(self.pad_reader()["buttons"])
+            decider = self.__gamepad_decider
         else:
             decider = self.__keyboard_decider
 
@@ -549,6 +561,37 @@ class EpisodeRecorder:
                 # Correction by hand in the exact replay (5.11.26, Emranul): instead of fixing a drifted puck with the
                 # keys, guide again from here with the motors off; the correction is then replayed like the first path.
                 self.__reguide(episode_folder, picture_bytes, state)
+                move_return_time = time.time()
+                continue
+
+            if action == "pad":
+                # Gamepad mode (5.11.26): one step from the pad's sticks and hand buttons; see __pad_target.
+                try:
+                    joints_next, tip_next, step_xy = self.__pad_target(state, self.pad_command)
+                except Exception as error:
+                    self.__say(f"refused: {str(error).splitlines()[0]}")
+                    continue
+                if float(numpy.hypot(*step_xy)) > 1e-9 and not self.__is_step_allowed(tip_next[0], tip_next[1], step_xy[0], step_xy[1]):
+                    self.__say("refused: that step would carry the rod or the puck out of the workspace")
+                    continue
+                tip_now = [tip_next[0] - step_xy[0], tip_next[1] - step_xy[1]]
+                label, motion = self.__label_motion(state, joints_next, tip_now, tip_next)
+                motion.update({name: round(value, 3) for name, value in self.pad_command.items()})
+                times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
+                row = self.__log_step(episode_folder, len(rows), picture_bytes, state, label, source, times)
+                row.update(motion)
+                rows.append(row)
+                try:
+                    self.robot_link.move_joints(joints_next)
+                except Exception as error:
+                    self.__say(f"the robot refused that step ({str(error).splitlines()[0]})")
+                    rows.pop()
+                    (episode_folder / "frames" / f"{len(rows):03d}.jpg").unlink(missing_ok = True)
+                    self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
+                    continue
+                self.forearm_turn_deg = math.degrees(joints_next[3])
+                self.tip_xy = list(tip_next)
+                self.__track_puck(label, tip_next, step_xy[0], step_xy[1])
                 move_return_time = time.time()
                 continue
 
@@ -841,6 +884,107 @@ class EpisodeRecorder:
         self.tip_xy = [float(value) for value in magnet_tip_and_lean(list(joints))[0][:2]]
 
 
+    def __gamepad_decider(
+            self,
+            picture_bytes: bytes,
+            state: Dict,
+            step: int
+    ) -> Tuple[str, str]:
+        """
+        Wait for the gamepad: a stick out of its dead zone or a hand button gives a step ("pad", with the command in
+        ``self.pad_command``); the stop, discard and quit buttons end the episode; mistake and lost flag as the u / l
+        keys do. Buttons count when pressed, not while held. The keyboard's Esc and x still work.
+        """
+
+        self.__show_orientation(state)
+        self.__show_picture(picture_bytes, f"step {step}: left stick = move, right stick = twist / bend wrist, L1 R1 = turn hand, "
+                                           f"cross = stop, circle = discard, square = mistake, triangle = lost")
+        self.__drain_keys(step)
+        while True:
+            key = self.key_reader(int(1000 * self.recorder_parameters["pad_poll_s"]))
+            if key == "escape":
+                return "quit", "human"
+            if self.recorder_parameters["keys"].get(key) == "discard":
+                return "discard", "human"
+            pad = self.pad_reader()
+            pressed = set(pad["buttons"]) - self.pad_buttons_before
+            self.pad_buttons_before = set(pad["buttons"])
+            if "stop" in pressed:
+                return "stop", "human"
+            if "discard" in pressed:
+                return "discard", "human"
+            if "quit" in pressed:
+                return "quit", "human"
+            for flag in ("mistake", "lost"):
+                if flag in pressed:
+                    self.__handle_flag_key(flag, picture_bytes, step)
+            hand = (1.0 if "hand_left" in pressed else 0.0) - (1.0 if "hand_right" in pressed else 0.0)
+            if any(abs(pad[name]) > 0.0 for name in ("move_x", "move_y", "twist", "lean")) or hand:
+                self.pad_command = {"pad_move_x": pad["move_x"], "pad_move_y": pad["move_y"], "pad_twist": pad["twist"],
+                                    "pad_lean": pad["lean"], "pad_hand": hand}
+                return "pad", "gamepad"
+
+
+    def __pad_target(
+            self,
+            state: Dict,
+            command: Dict
+    ) -> Tuple[List[float], List[float], List[float]]:
+        """
+        The joints, the magnet tip and the tip's table step for one gamepad command.
+
+        The left stick moves the tip in the picture's frame (up = towards the picture's top), by "pad_step_m" times how
+        far it is pushed (at least "pad_min_step_m"). The right stick twists the forearm (right = like b) and adds to a
+        wrist offset (up = bend one way) kept for the episode; L1 / R1 turn the hand. The arm's first three joints are
+        solved to keep the tip on its target at pushing height with the rod leaning as little as the twist allows,
+        plus the wrist offset. Raises when no joint angles within the limits reach the target, or the rod would lean
+        more than "pad_max_lean_deg".
+        """
+
+        settings = self.recorder_parameters
+        joints_now = [float(value) for value in state["joints"]]
+        tip_now = list(self.tip_xy) if self.tip_xy is not None else (
+            list(state["pose"][:2]) if settings["is_simulated"] else [float(value) for value in magnet_tip_and_lean(joints_now)[0][:2]])
+
+        push = math.hypot(command["pad_move_x"], command["pad_move_y"])
+        step_xy = [0.0, 0.0]
+        if push > 0.0:
+            length = max(settings["pad_min_step_m"], settings["pad_step_m"] * min(1.0, push))
+            heading = picture_heading_rad(state, settings)
+            left = heading + settings["picture_left_sign"] * math.pi / 2
+            forward_part, left_part = command["pad_move_y"] / push, -command["pad_move_x"] / push
+            step_xy = [length * (forward_part * math.cos(heading) + left_part * math.cos(left)),
+                       length * (forward_part * math.sin(heading) + left_part * math.sin(left))]
+        tip_next = [tip_now[0] + step_xy[0], tip_now[1] + step_xy[1]]
+
+        twist_rad = joints_now[3] - math.radians(command["pad_twist"] * settings["pad_twist_deg"])
+        self.pad_wrist_offset_rad = getattr(self, "pad_wrist_offset_rad", 0.0) + math.radians(command["pad_lean"] * settings["pad_lean_deg"])
+        hand_rad = joints_now[5] - settings["picture_left_sign"] * math.radians(command["pad_hand"] * settings["pad_hand_deg"])
+
+        height = pushing_height(tip_next[0], tip_next[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"]
+        target = numpy.array([tip_next[0], tip_next[1], height])
+        least = solve_least_lean(target, twist_rad, wrist_range_deg = (max(-90.0, math.degrees(joints_now[4] - self.pad_wrist_offset_rad) - 10.0),
+                                                                        min(90.0, math.degrees(joints_now[4] - self.pad_wrist_offset_rad) + 10.0)))
+        if least is None:
+            least = solve_least_lean(target, twist_rad, wrist_range_deg = (-90.0, 90.0))
+        if least is None:
+            raise RuntimeError(f"no arm position reaches ({tip_next[0]:.3f}, {tip_next[1]:.3f}) with the forearm at {math.degrees(twist_rad):+.0f} degrees")
+        joints = least
+        if abs(self.pad_wrist_offset_rad) > 1e-9:
+            from side_view_test import solve_with_wrist_fixed
+            joints = solve_with_wrist_fixed(target, twist_rad, least[4] + self.pad_wrist_offset_rad, least[:3])
+            if joints is None:
+                self.pad_wrist_offset_rad -= math.radians(command["pad_lean"] * settings["pad_lean_deg"])
+                raise RuntimeError("the wrist cannot bend that far there")
+        joints = list(joints)
+        joints[5] = hand_rad
+        lean_deg = magnet_tip_and_lean(joints)[1]
+        if lean_deg > settings["pad_max_lean_deg"]:
+            self.pad_wrist_offset_rad -= math.radians(command["pad_lean"] * settings["pad_lean_deg"])
+            raise RuntimeError(f"the rod would lean {lean_deg:.0f} degrees, above the gamepad limit of {settings['pad_max_lean_deg']:.0f}")
+        return joints, tip_next, step_xy
+
+
     def __exact_replay_decider(
             self,
             picture_bytes: bytes,
@@ -885,7 +1029,9 @@ class EpisodeRecorder:
     def __label_motion(
             self,
             state: Dict,
-            joints_next: List[float]
+            joints_next: List[float],
+            tip_now_xy: Optional[List[float]] = None,
+            tip_next_xy: Optional[List[float]] = None
     ) -> Tuple[str, Dict]:
         """
         The nearest fixed move for the motion from ``state`` to ``joints_next``, and the motion itself: the magnet
@@ -894,8 +1040,8 @@ class EpisodeRecorder:
         "exact_small_motion_m" as "small_motion".
         """
 
-        tip_now = magnet_tip_and_lean(list(state["joints"]))[0][:2]
-        tip_next = magnet_tip_and_lean(list(joints_next))[0][:2]
+        tip_now = tip_now_xy if tip_now_xy is not None else magnet_tip_and_lean(list(state["joints"]))[0][:2]
+        tip_next = tip_next_xy if tip_next_xy is not None else magnet_tip_and_lean(list(joints_next))[0][:2]
         moved = numpy.array(tip_next) - numpy.array(tip_now)
         heading = picture_heading_rad(state, self.recorder_parameters)
         sign = self.recorder_parameters["picture_left_sign"]
@@ -904,7 +1050,7 @@ class EpisodeRecorder:
         forearm_change_deg = math.degrees(joints_next[3] - state["joints"][3])
         motion = {"tip_forward_m": round(forward_m, 5), "tip_left_m": round(left_m, 5), "forearm_change_deg": round(forearm_change_deg, 2)}
 
-        if abs(forearm_change_deg) >= self.recorder_parameters["exact_turn_label_deg"]:
+        if abs(forearm_change_deg) >= self.recorder_parameters["exact_turn_label_deg"] - 0.01:
             return ("turn_left" if forearm_change_deg > 0 else "turn_right"), motion
         if math.hypot(forward_m, left_m) < self.recorder_parameters["exact_small_motion_m"]:
             return "small_motion", motion
@@ -1727,8 +1873,9 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description = "Record demonstration episodes, one fresh picture and one 1 cm step at a time.")
     parser.add_argument("--operator", required = True, help = "who records, e.g. marshal or emranul")
-    parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact"], default = "keyboard",
-                        help = "hand_guided replays the guided path in 1 cm steps of the fixed moves; hand_guided_exact replays every joint")
+    parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact", "gamepad"], default = "keyboard",
+                        help = "hand_guided replays the guided path in 1 cm steps of the fixed moves; hand_guided_exact replays every joint; "
+                               "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand)")
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")

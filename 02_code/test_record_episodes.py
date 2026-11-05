@@ -232,6 +232,44 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     assert len(rows) >= 4, len(rows)
 
 
+def scripted_pad(states: List[dict]) -> Callable[[], dict]:
+    """A pad reader that hands out ``states`` in order (sticks at rest, no buttons for missing names), then rest."""
+
+    remaining = list(states)
+    rest = {"move_x": 0.0, "move_y": 0.0, "twist": 0.0, "lean": 0.0, "buttons": set()}
+    return lambda: dict(rest, **remaining.pop(0)) if remaining else dict(rest)
+
+
+def test_gamepad_episode(raw_folder: Path) -> None:
+    """
+    Left stick up pushes along the picture's top (+x at the start), right stick twists the forearm by 15 degrees per
+    full push, L1 turns the hand, square flags a mistake and cross stops; every step stores the stick values.
+    """
+
+    radial_line = [[0.156, 0.0], [0.398, 0.0]]
+    robot_link = SimulatedRobotLink({"line_xy": radial_line, "puck_xy": [0.25, 0.0]})
+    pad = scripted_pad([{}, {"move_y": 1.0}, {"move_y": 1.0}, {"move_y": 0.5, "move_x": 0.5}, {"twist": -1.0},
+                        {"buttons": {"hand_left"}}, {"buttons": set()}, {"buttons": {"mistake"}}, {"buttons": set()},
+                        {"move_y": 1.0}, {"buttons": {"stop"}}])
+    keys = ["enter"] + [None] * 40 + ["y", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.25, 0.0]},
+        key_reader = scripted_keys(keys), pad_reader = pad)
+    recorder.record_session("gamepad")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["status"] == "completed", summary
+    sources = [row["source"] for row in rows]
+    assert sources[:-1] == ["gamepad"] * (len(rows) - 1) and rows[-1]["action"] == "stop", sources
+    assert rows[0]["action"] == "forward" and rows[0]["pad_move_y"] == "1.0", rows[0]
+    positions = [(float(row["x"]), float(row["y"])) for row in rows]
+    assert math.isclose(positions[1][0] - positions[0][0], 0.01, abs_tol = 0.002), positions[:2]
+    assert rows[3]["action"] == "turn_left" and math.isclose(float(rows[4]["forearm_turn_deg"]), 15.0, abs_tol = 0.5), (rows[3]["action"], rows[4]["forearm_turn_deg"])
+    # A row holds the arm's state before its own move, so the hand turn of row 4 shows in row 5's joint 6.
+    assert float(rows[4]["pad_hand"]) == 1.0 and float(rows[5]["joint_6"]) < float(rows[4]["joint_6"]) - 0.2, (rows[4]["joint_6"], rows[5]["joint_6"])
+    assert [row["is_mistake"] for row in rows].count("1") == 1, [row["is_mistake"] for row in rows]
+
+
 def test_camera_shift_is_measured() -> None:
     """A picture moved 6 px right and 3 px down in its bottom strip is measured as such; an unmoved one as zero."""
 
@@ -445,7 +483,7 @@ if __name__ == "__main__":
     print("test_camera_shift_is_measured: passed")
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
-                 test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction):
+                 test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")
