@@ -3,7 +3,9 @@
 - [Coding style: emran-code-style skill](coding-style-emran-code-style.md) — load it for any Python for the team; structured, minimal, well-organised
 - [Step-by-step preference](feedback-step-by-step.md) — Emranul is a beginner; propose one step, explain plainly, ask before implementing
 - [No Claude in git](feedback-no-claude-in-git.md) — no Co-Authored-By lines; commits under the students' own names
-- [AI Project workspace set-up](ai-project-workspace-setup.md) — sheet 5 cm in front of the base, line pointing away; magnet block on the rod as pusher; camera on the wrist link, sees 9 cm across and 7 cm ahead, always away from the base
+- [AI Project workspace set-up](ai-project-workspace-setup.md) — sheet 5 cm in front of the base, line pointing away; magnet block on the rod as pusher; camera on the forearm cover since 4.11.26; robot moves to a big first-floor table on 6.11.26, so re-teach
+- [Forearm camera mount](project-forearm-camera-mount.md) — bare camera (no bracket) taped between the two cover screws, 4 mm below the seam, three strips; reference picture and how to put it back
 - [Test before hardware changes](feedback-test-before-hardware-changes.md) — never advise a physical change on a theory; test first, say what is known vs guessed
-- [Recording tool](project-recording-tool.md) — 28.10.26: actions in the picture frame; keyboard and hand-guided (guide, then replay) modes in one loop; picture_left_sign untested
+- [Recording tool](project-recording-tool.md) — picture-frame actions; keyboard, hand-guided, exact hand-guided (h corrects) and gamepad modes; all episodes up to 045 are tool tests; real data from 6.11.26 with exact hand guiding
+- [Never stop a running tool](feedback-never-stop-running-tool.md) — read the terminal first; stopping a tool mid-episode lost an episode
 - [Paper publication](project-paper-publication.md) — 4.11.26: Emranul's teleop-vs-hand-guiding idea plus seven more (education paper at RiE 2027 cheapest); workshop paper after the course; nothing decided

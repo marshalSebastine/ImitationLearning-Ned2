@@ -45,7 +45,9 @@ def draw_pattern(
                            f"{parameters['plate_width_z']:.0f} x {parameters['plate_height_y']:.0f} mm")
 
 
-output = pathlib.Path(__file__).resolve().parent / "ned2_camera_bracket_F_paper_test.pdf"
+import sys
+STEM = f"ned2_camera_bracket_{sys.argv[1] if len(sys.argv) > 1 else 'F'}"  # "F2" = the corrective version of 2.11.26
+output = pathlib.Path(__file__).resolve().parent / f"{STEM}_paper_test.pdf"
 page = canvas.Canvas(str(output), pagesize = A4)
 page_width, page_height = A4
 page.setFont("Helvetica-Bold", 12)
@@ -81,7 +83,11 @@ raise_mm = geometry["raise_mm"]
 lean = math.radians(geometry["plate_tilt_degrees"])
 plate_thickness = parameters["top_plate_thickness_x"]
 plate_height = parameters["plate_height_y"]
-pivot = (post_front, raise_mm - foot_half)
+# F2: the post leans forward, so its top and the plate pivot sit "shift" further forward.
+shift = geometry["post_top_shift_mm"]
+post_lean = math.radians(parameters.get("post_lean_degrees", 0.0))
+front_at_plate_bottom = post_front + (raise_mm - foot_half - parameters["open_above_y"]) * math.tan(post_lean)
+pivot = (post_front + shift, raise_mm - foot_half)
 
 
 def leaning(dx: float, dy: float) -> tuple:
@@ -91,9 +97,9 @@ def leaning(dx: float, dy: float) -> tuple:
             pivot[1] - dx * math.sin(lean) + dy * math.cos(lean))
 
 
-profile = [(0, -foot_half), (post_front, -foot_half), pivot,
+profile = [(0, -foot_half), (post_front, -foot_half), (front_at_plate_bottom, raise_mm - foot_half), pivot,
            leaning(plate_thickness, 0), leaning(plate_thickness, plate_height), leaning(0, plate_height),
-           (post_front, raise_mm + foot_half), (post_back, raise_mm + foot_half),
+           (post_front + shift, raise_mm + foot_half), (post_back + shift, raise_mm + foot_half),
            (post_back, parameters["open_above_y"]), (parameters["pocket_depth_x"], parameters["open_above_y"]),
            (parameters["pocket_depth_x"], foot_half), (0, foot_half)]
 path = page.beginPath()

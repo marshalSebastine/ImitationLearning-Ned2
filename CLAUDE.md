@@ -21,7 +21,9 @@ of `STATUS.md` (done, next, blocked on) and any memory fact that changed.
 - Settings live in `02_code/config.py` only. Nothing in `01_course` or `03_data/raw` is edited, renamed or deleted, except
   `01_course/moodle_snapshot.md` and a session's `session_notes.md`, which may be appended to.
 - Hard constraint from the course: imitation learning only; the robot's motion comes from a model trained on our own
-  demonstrations, with the end-effector camera as the only input.
+  demonstrations, with the robot's one camera as the only input. The camera may be mounted anywhere on the robot
+  (Emranul, 4.11.26; until then the files said "end-effector camera"); the placement is decided by the tape test in
+  `06_deliverables/research_notes/Camera mount options/upper_arm_tape_test_checklist.md`.
 
 ## Shared memory and two Claude accounts
 

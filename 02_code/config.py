@@ -6,11 +6,17 @@ in one place only. Later phases add the keys named in the work plan.
 """
 
 import math
+from typing import Optional
 
 ROBOT_PARAMETERS = {
     "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
     "software_version": "6.1.2-b374",
-    "arm_max_velocity_percent": 20
+    "arm_max_velocity_percent": 20,
+    # The robot's inverse-kinematics service sometimes refuses a pose it solves a moment later (3.11.26: the
+    # recording tool's start pose, refused once with error -232, solved at the next call from the same arm position).
+    # RobotLink asks this many times, with the pause between, before it gives up on a pose.
+    "inverse_kinematics_attempts": 3,
+    "inverse_kinematics_retry_pause_s": 0.3
 }
 
 # The Vision Set camera plugs into the robot's USB port and streams through the
@@ -26,6 +32,9 @@ ROBOT_PARAMETERS = {
 # from there the puck stays at the bottom of every picture over the whole line (scripted push).
 # Reference picture 03_data/raw/camera_check/view_reference_rod_camera_start_pose.jpg. Do not touch
 # the camera or its focus ring. Calibration: only the automatic one after a restart, never manual.
+# 2.11.26: camera on bracket F (lens about 12 cm above the paper at pushing height); the one planned refocus was done
+# at that distance: sharpness 416 at pushing height, 287 seven centimetres higher (focus_sweep.py). Do not touch the
+# ring again unless the mount changes its distance to the paper.
 CAMERA_PARAMETERS = {
     "source": "robot",
     "usb_index": 1,
@@ -150,6 +159,31 @@ WORKSPACE_PARAMETERS = {
 }
 
 
+# The side-view test of 4.11.26 (side_view_test.py): forearm roll (joint 4) turned so the camera looks along a pull
+# towards the base. The rod cannot be kept vertical when turned, except where the forearm is vertical; the lean is
+# calculated from the arm model (about 1.5, 9.5 and 14 degrees at 20, 25 and 28 cm with a 90 degree turn), not measured.
+SIDE_VIEW_TEST_PARAMETERS = {
+    "distances_m": [0.20, 0.25, 0.28],
+    "line_y_m": -0.02,
+    "turn_deg": 90.0,
+    "turn_increment_deg": 30.0,
+    "lift_height_m": 0.05,
+    "step_m": 0.01,
+    "pull_steps": 10,
+    "minimum_distance_m": 0.17,
+    # Lean is limited tightly with the tip down, where the rod meets the puck, and loosely with it lifted, where the
+    # same turn leans more (calc: about 17 degrees at 25 cm) but touches nothing.
+    "maximum_lean_deg": 16.0,
+    "maximum_lifted_lean_deg": 30.0,
+    "model_tolerance_mm": 3.0,
+    "velocity_percent": 20,
+    "settle_s": 0.4,
+    "fresh_picture_timeout_s": 3.0,
+    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    "output_folder": "03_data/raw/camera_check/side_view_test"
+}
+
+
 def table_height(
         x: float,
         y: float
@@ -202,6 +236,25 @@ def goal_pose() -> list:
     return rod_pose_behind(WORKSPACE_PARAMETERS["line_end_xy"])
 
 
+# Gamepad for the recording tool's gamepad mode (5.11.26, Emranul): a third-party PS4-style pad (HOME and TURBO
+# buttons) on a USB cable, which Windows and pygame see as "Xbox 360 Controller" (USB VID 045E PID 028E, 6 axes, 11
+# buttons, 1 hat); Bluetooth pairing did not work. Numbers are pygame's (SDL 2) axis and button numbers through
+# SDL's XInput driver (gamepad.py turns SDL's raw-input driver off: through it only the triggers arrived, the sticks
+# and buttons stayed at zero, seen 5.11.26). Buttons in Xbox order: A 0 = cross, B 1 = circle, X 2 = square,
+# Y 3 = triangle, LB 4 = L1, RB 5 = R1, Back 6 = SHARE, Start 7 = OPTIONS. Axes in SDL's XInput order: left stick
+# 0 and 1, L2 2, right stick 3 and 4, R2 5 (the triggers rest at -1 on 2 and 5, seen 5.11.26; which stick axis is
+# which is SDL's order, still to be confirmed with gamepad_check.py). Stick values below "dead_zone" count as zero;
+# axes in "inverted_axes" are flipped so that up and right are positive; "trigger_axes" are read as 0 (released) to
+# 1 (fully pressed). Another computer or pad may number them differently: run gamepad_check.py there first.
+GAMEPAD_PARAMETERS = {
+    "axes": {"move_x": 0, "move_y": 1, "down": 2, "twist": 3, "lean": 4, "up": 5},
+    "trigger_axes": ["down", "up"],
+    "inverted_axes": ["move_y", "lean"],
+    "buttons": {"stop": 0, "discard": 1, "mistake": 2, "lost": 3, "quit": 7, "hand_left": 4, "hand_right": 5},
+    "dead_zone": 0.25
+}
+
+
 # The recording tool (record_episodes.py), designed 28.10.26. Actions are 1 cm steps of the pusher's tip, named in
 # the PICTURE's frame, as Emranul and Marshal decided on 28.10.26: "forward" is towards the top of the picture,
 # "left" towards its left side. The angle is measured from "forward", counter-clockwise seen from above. Stop has no
@@ -226,8 +279,10 @@ RECORDING_PARAMETERS = {
     "step_m": 0.01,
     "actions": {
         "forward": 0,
-        "forward_left": 45,
-        "forward_right": -45,
+        # 45 until test 2; 60 since (Emranul, 4.11.26: sharper diagonals for the tight turns of the meander). Steeper
+        # than about 60 the block tends to slide along the puck instead of pushing it (pushing physics, not measured).
+        "forward_left": 60,
+        "forward_right": -60,
         "left": 90,
         "right": -90,
         "back": 180,
@@ -249,24 +304,112 @@ RECORDING_PARAMETERS = {
         "a": "left",
         "d": "right",
         "s": "back",
-        "z": "back_left",
+        "y": "back_left",  # y, not z: Emranul's German keyboard has y where z sits on an English one (4.11.26)
         "c": "back_right",
-        "r": "step_over_forward",
-        "f": "step_over_back",
         " ": "stop",
         "x": "discard",
         "u": "mistake",
         "l": "lost",
-        "enter": "accept"
+        "enter": "accept",
+        "n": "lean_left",
+        "m": "lean_right",
+        "v": "turn_left",
+        "b": "turn_right"
     },
+    # 4.11.26 evening (Emranul): the camera moved to the forearm cover and the forearm turn keys v / b stay bound; the
+    # picture then turns with the forearm (see "forearm_camera_turns_with_joint_4").
+    # Hand flick (4.11.26 evening, after test 1, Emranul): the hand turns fast about the rod by "flick_actions" degrees
+    # (joint 6 only, the rod stays where it is) and straight back. Bound to q / e for test 2 only; after test 2 q / e
+    # are the diagonal steps again and the flick has no key (code kept, bound again by adding keys here). Left is
+    # counter-clockwise seen from above when picture_left_sign is 1.
+    "flick_actions": {
+        "flick_left": 45,
+        "flick_right": -45
+    },
+    "flick_velocity_percent": 60,
+    # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
+    # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
+    # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
+    # keys moved from y / c to n / m and the camera turn keys from r / t to v (side view) / b (back).
+    # Hand turn about the vertical rod at the start of every episode, in degrees; positive = towards picture-left of
+    # the untouched hand. 4.11.26: Emranul tried 90 (camera beside the rod, looking along the line both ways) as the
+    # default for two episodes and reverted to 0 the same day: the camera ahead of the rod, as on 31.10 to 3.11. The
+    # side view stays available during an episode with the turn keys below.
+    "hand_turn_deg": 0,
+    # Forearm turn keys (v = turn towards +, b = towards -), Emranul's request of 4.11.26 after the hand-guided trial: the
+    # FOREARM (joint 4) turns by "turn_actions" degrees per press, between "min_turn_deg" and "max_turn_deg", so the
+    # camera swings to the side and sees the line ahead of and behind the rod. The magnet tip stays on its spot and
+    # the rod leans only as much as the arm's geometry forces, found with Marshal's solver from side_view_test.py
+    # (least lean, calc: about 1.5 degrees at 20 cm, 9.5 at 25 cm, 14 at 28 cm from the base with a 90 degree turn;
+    # refused above "max_turn_lean_deg"). The turn is done lifted by "approach_height_m" in "turn_increment_deg"
+    # steps, then the tip comes down again; while turned, every step is solved the same way. Before the first turn of
+    # an episode the arm model is checked against the robot's own kinematics ("turn_model_tolerance_mm"). The keys
+    # follow the picture: w is towards the top of the turned picture (Emranul steers from the picture). Logged as
+    # turn_left / turn_right with the forearm angle in every row. A hand turn about the vertical rod (joint 6, no
+    # lean) was tried earlier the same day and dropped: it stopped 16 degrees short on both sides (cable or motor).
+    # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
+    # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
+    "start_push_direction_deg": 0.0,
+    "turn_actions": {
+        # 45 per press until test 3; 30 since (Emranul, 4.11.26): at the far end of sheet 04 (37 to 42 cm from the base)
+        # a 90 or even 45 degree turn needs more than the 28 degree rod lean, a 30 degree turn does not (calc).
+        "turn_left": 30,
+        "turn_right": -30
+    },
+    "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
+    "max_turn_deg": 90,
+    # After a turn the tip stands at least this far back from the puck, opposite to the last push, instead of on its old
+    # spot: the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by
+    # about 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The tool keeps count of how far the block
+    # already stands back (back steps add to it, pushing steps clear it) and only moves the rest, so two turns in a row
+    # or a turn after backing off do not carry the tip far away (Emranul, 4.11.26: "landing in a far away place").
+    # 2.5 cm until test 2; 1.5 cm since (Emranul, 4.11.26: the step back was too much). The wide side overlaps the
+    # puck's place by about 12 mm after 90 degrees (calc), so 15 mm leaves about 3 mm.
+    "turn_landing_retreat_m": 0.015,
+    # When the believed puck position is further than this from the block, it is taken as lost (test 5 of 4.11.26: it
+    # drifted to 22 cm) and a turn steps back opposite to the last step instead.
+    "puck_estimate_lost_m": 0.04,
+    # Intermediate heights for the rise and the descent of a turn, one solved position each. [0.01, 0.02] until test
+    # 2; empty since (Emranul, 4.11.26: up in one move, down in one move).
+    "turn_near_paper_heights_m": [],
+    # How high the tip is lifted for a forearm turn (Emranul, 4.11.26: 5 cm, 3 cm after test 1, 2.5 cm after test 2).
+    "turn_lift_m": 0.025,
+    # Smaller steps of the lifted turn keep the lifted tip closer to its spot (was 30, from side_view_test.py).
+    "turn_increment_deg": 15.0,
+    # Camera on the forearm cover: True if the cover turns with joint 4, so the picture turns with the forearm and the
+    # keys follow it. NOT YET CHECKED on the robot (4.11.26): the first "v" press shows it; if the picture does not
+    # turn, set False.
+    "forearm_camera_turns_with_joint_4": True,
+    # MEASURED 4.11.26 by Emranul (session 2026-11-04, path_04_meander_episode_028, a measurement run with the limit
+    # raised to 30): forearm turned 90 degrees, the puck pushed 31 steps from 32 to 38.5 cm from the base while the
+    # rod's lean grew from 9.7 to 30 degrees; the puck never tipped and stayed on the block. Limit: 28, two degrees
+    # under the largest lean pushed. One run, one direction (outwards); a sideways push with the block's wide face
+    # is not measured. Marshal's side_view_test.py keeps its own, more cautious 16.
+    "max_turn_lean_deg": 28.0,
+    # Lifted, the rod touches nothing, so only the arm's reach matters; 45 leaves room for the retreat at 38 cm (34.6).
+    "max_turn_lifted_lean_deg": 45.0,
+    "turn_model_tolerance_mm": SIDE_VIEW_TEST_PARAMETERS["model_tolerance_mm"],
+    # TEST keys of 31.10.26 (Emranul and Marshal asked for them after the camera lost the line at the meander's
+    # hairpins): rod and camera lean together about the camera's forward axis by "lean_step_deg" per press, at most
+    # "max_lean_deg" either way, the rod's end staying in place. Not one of the seven classes; logged as
+    # lean_left / lean_right so their effect on the pictures and on the puck can be judged afterwards. The magnet tip
+    # (2.6 cm below the rod's end) moves about 4.5 mm sideways per 10 degrees (calc).
+    "lean_actions": {
+        "lean_left": 10,
+        "lean_right": -10
+    },
+    "max_lean_deg": 20,
     "steps_until_fresh_picture": 2,
     "fresh_picture_timeout_s": 3.0,
     # The step budget is 1.5 times the line length in centimetres, per sheet; "step_budget" is the fallback for a
     # sheet whose length is unknown. Lengths: sheet 01 measured (24 cm); 02 to 06 traced from the sheet photos on
     # 26.10.26 (06_deliverables/research_notes/Camera mount options/scripts/sheet_paths.json, calc, about 5 percent
     # uncertain; the dashed sheet 06 is taken as long as the loop it copies). Replace with the SVG arc lengths.
-    "step_budget_per_cm": 1.5,
+    "step_budget_per_cm": 2.0,  # was 1.5; the meander took 116 steps on 2.11 with its hairpins and ran out
     "step_budget": 80,
+    # 4.11.26, Emranul: the tool no longer ends an episode when the budget is reached (episode 018 was cut at 154
+    # steps on the meander); the budget is still written into episode.json so long episodes can be found afterwards.
+    "is_step_budget_enforced": False,
     "line_length_cm": {
         "path_01_straight_line": 24,
         "path_02_arc": 27,
@@ -276,21 +419,125 @@ RECORDING_PARAMETERS = {
         "path_06_alpha_loop_dashed": 57
     },
     "approach_height_m": 0.05,
-    "home_joints": [0.0, 0.5, -1.25, 0.0, 0.0, 0.0],
+    # Parking pose. Changed 2.11.26 with bracket F: at the old pose (wrist joint 5 at 0.0) the bracket stops the wrist
+    # about 2 degrees before 0, the motor pushed against that stop and raised hardware error 32 (overload) twice,
+    # 10 to 15 s after arriving. With the wrist tilted down to -0.3 rad the pose held for 60 s with zero errors and
+    # 0.1 degree of drift (hold_test.py). Rule: never command the wrist (joint 5) above about -0.05 rad with the bracket.
+    "home_joints": [0.0, 0.5, -1.25, 0.0, -0.3, 0.0],
+    # The wrist's safe range with bracket F. Measured by hand on 2.11.26 (wrist_limit_by_hand.py, motors off): the
+    # bracket's camera body meets the forearm at joint 5 = -0.035 rad (-2 degrees); with 3 degrees of margin the limit
+    # is -0.09 rad. At the pushing pose 14 cm from the base the robot needs the wrist at about 0 rad, so that pose is
+    # out of reach with this bracket. RobotLink refuses any pose whose inverse kinematics put joint 5 above this value;
+    # find_wrist_limit.py prints where the usable range begins.
+    # Bracket F3 fitted on 3.11.26: its post leans 25 degrees away from the forearm. Measured by hand the same day
+    # (Emranul, wrist_limit_by_hand.py, motors off): the bracket meets the forearm cover at joint 5 = +0.321 rad
+    # (+18.4 degrees), as the design predicted; with 3 degrees of margin the limit is +0.27 rad. The pushing poses
+    # from about 14 cm from the base are reachable again with a vertical rod (bracket F: from about 25 cm).
+    # 4.11.26 evening: the bracket left the hand (camera taped to the forearm cover), so the hand is bare and the
+    # wrist may use the robot's own range again; 1.5 rad (86 degrees) is in effect no limit for the pushing poses.
+    "wrist_pitch_max_rad": 1.5,
+    # Automatic lean (2.11.26, Emranul's test on sheet 01 with bracket F): where a vertical rod would need the wrist
+    # above the limit, RobotLink leans the rod about the sideways axis, tip ahead of the wrist, in steps of
+    # "auto_lean_step_deg" up to "auto_lean_max_deg", until the wrist is within the limit; the camera tilts with it
+    # (looks further ahead) and the magnet tip shifts about 4.5 mm per 10 degrees. Logged by the terminal line.
+    "auto_lean_step_deg": 5.0,
+    "auto_lean_max_deg": 25.0,
     "guided_path_sample_m": 0.002,
     "guided_path_poll_s": 0.05,
+    # Exact hand-guided replay (mode hand_guided_exact, Emranul 4.11.26: "move any way we like with the motors off and
+    # replicate that same movement"): a waypoint every "exact_waypoint_m" of tip travel or "exact_waypoint_joint_deg" of
+    # any joint, each visited joint by joint with a picture before it. Each step is labelled with the nearest fixed move
+    # (a turn when the forearm changes by "exact_turn_label_deg" or more, "small_motion" when the tip moves less than
+    # "exact_small_motion_m"); the exact movement is stored beside the label.
+    # Camera shift check at the start of every episode (5.11.26): the picture's bottom strip, [top, bottom, left,
+    # right] as fractions of the picture, holds the robot's hand and the block, which look the same at the same pose;
+    # a shift of more than "camera_shift_warning_px" from the reference picture means the camera has moved on its mount.
+    "camera_check_region": [0.8, 1.0, 0.25, 0.75],
+    "camera_shift_warning_px": 4.0,
+    "exact_waypoint_m": 0.01,
+    "exact_waypoint_joint_deg": 5.0,
+    "exact_turn_label_deg": 15.0,
+    "exact_small_motion_m": 0.003,
+    # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
+    # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:
+    #   left stick  = move the tip in any direction of the picture, "pad_step_m" times how far the stick is pushed;
+    #   right stick = left / right twists the forearm by up to "pad_twist_deg", up / down bends the wrist by up to
+    #                 "pad_lean_deg" (the rod leans; nothing else holds it upright);
+    #   L1 / R1     = turn the hand by "pad_hand_deg".
+    # The arm's other joints follow to keep the tip on its target at pushing height. Only the robot's own joint limits,
+    # the workspace and "pad_max_lean_deg" refuse a step: hand guiding with the puck went to 38.5 degrees of lean and
+    # 119 degrees of forearm twist on 4 to 5.11.26 (calc from guided_path.csv), so 45 leaves room without tipping risk
+    # being measured beyond 38.5. Each row stores the exact movement and the nearest fixed move as its label.
+    "pad_step_m": 0.01,
+    "pad_min_step_m": 0.003,
+    "pad_twist_deg": 15.0,
+    "pad_lean_deg": 5.0,
+    "pad_hand_deg": 15.0,
+    # 5.11.26 (Emranul: "all the freedom of hand guiding"): no lean limit of our own any more (89 = the rod may not
+    # point sideways or up), and no "puck stays on the sheet" check; only the robot's joint limits and the workspace
+    # box (the table edge) refuse a step. L2 / R2 lower / raise the tip by "pad_height_step_m" per full press, between
+    # pushing height (never lower: the tip must not press into the table) and "pad_max_height_m" above it.
+    "pad_max_lean_deg": 89.0,
+    "pad_check_puck_on_sheet": False,
+    "pad_height_step_m": 0.01,
+    "pad_max_height_m": 0.08,
+    "pad_poll_s": 0.03,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
     # workspace guard refuses a step that would carry it outside the box or beyond the sheet plus "sheet_margin_m".
     "puck_centre_ahead_of_tip_m": PUCK_PARAMETERS["diameter_m"] / 2 + PUSHER_PARAMETERS["tip_diameter_m"] / 2,
     "sheet_margin_m": 0.02,
     # Written into every episode.json. Change "camera_mount" when the bracket is fitted and "mapping_version" whenever
     # camera_heading_rad, picture_left_sign or the actions change; a training set must never mix two values of either.
-    # Bracket F is the default since 4.11.26, because real data is recorded with it; a rehearsal on the old holder passes
-    # --camera-mount stock_wrist_holder.
-    "camera_mount": "bracket_F",
-    # Raise this whenever 06_deliverables/research_notes/Recording tool/stepping_rule_v1.md changes its version.
+    # Bracket F fitted on 2.11.26 (Emranul and Marshal): the camera sits about 5 cm ahead of the rod axis and 6 cm above
+    # the wrist axis, looking nearly straight down; lens about 12 cm above the paper at pushing height; sharpness 160 to
+    # 172 at every height tried, no refocus. The picture's forward direction and left sign are re-tested in the
+    # direction test of the same day; see the mapping version below.
+    # Bracket F3 fitted on 3.11.26 (Emranul): same camera orientation on the plate as F, but the post leans 25 degrees
+    # so the lens sits about 2.5 cm further ahead of the rod and the plate is tilted 30 degrees back (F: 32). The
+    # heading formula and the left sign are expected to be unchanged (guess, not yet tested on F3): re-run the
+    # direction test (three "left" steps) before the first real episode.
+    # v3 (4.11.26): the heading is read from the tool's orientation instead of atan2(y, x), see camera_heading_rad;
+    # the turn actions were added. Episodes of v2 on sheet 04 carry step labels up to 24 degrees off the picture frame
+    # (the logged x, y of consecutive steps give the true direction; relabel before training).
+    # v4 (4.11.26, same day): the hand held turned 90 degrees (side camera); withdrawn the same day.
+    # v5 (4.11.26): hand untouched again; the actions measured from the pusher's direction; dropped the same day.
+    # v6 (4.11.26): actions in the PICTURE's frame again, read from the camera's current direction, also while the
+    # forearm is turned (v / b keys); the forearm angle is in every row.
+    # v7 (4.11.26 evening, Emranul and Marshal): the camera, in its F3 bracket, is taped with double-sided tape to
+    # the black forearm cover under the elbow, looking down the forearm towards the wrist and beyond. The picture
+    # no longer follows the hand: its top points the way the forearm points, away from the base, so the heading is
+    # the direction from the base to the rod ("camera_heading_model" forearm). NOT YET TESTED: the first episode
+    # starts with three "left" steps; the content must move RIGHT, else picture_left_sign becomes -1.
+    # v8 (4.11.26 evening, test 2): q / e were hand flicks instead of diagonal steps; forearm turns lifted 3 cm.
+    # v9 (4.11.26 evening, after test 2): q / e diagonal steps again (as v7); turns lift 2.5 cm in one move each way and
+    # land 1.5 cm back from the puck.
+    # v10 (4.11.26 evening, before test 3): q / e diagonal steps at 60 degrees instead of 45.
+    # v11 (4.11.26 evening, after test 3): forearm turns in 30 degree steps (30, 60, 90) instead of 45.
+    # v12 (4.11.26 evening, during test 4): back-left / back-right (z / c, Marshal's 135 degree steps) bound again
+    # (Emranul); every step row also stores the picture's direction on the table ("picture_heading_deg").
+    # Mount name corrected 5.11.26 (Emranul): the camera on the forearm cover is the BARE camera, no F3 bracket.
+    # Episodes up to 043 carry "forearm_cover_tape_F3_bracket"; from test 5 (episode 037) on that was already this
+    # bare-camera view (camera check), see 06_deliverables/research_notes/Camera mount options/forearm_mount/.
+    "camera_mount": "forearm_cover_tape_bare_camera",
+    "mapping_version": "picture_frame_v12_forearm_camera_back_diagonals_2026-11-04",
+    # "hand": the picture's top follows the hand's orientation (camera on the hand: stock holder, bracket F, F3);
+    # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
+    "camera_heading_model": "forearm",
+    # The direction the top of the picture points to, measured from the model's reference direction: 0 for the hand
+    # mounts (tested in the direction tests below) and, untested, 0 for the forearm camera.
+    "picture_top_offset_rad": 0.0,
+    # TESTED 31.10.26 on the robot with the stock wrist holder (Emranul, session 2026-10-31_session_01_emranul,
+    # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
+    # picture from column about 150 to about 430, i.e. the picture content moved RIGHT, so picture-left is
+    # counter-clockwise from the camera heading seen from above and this sign is 1.
+    # TESTED again for bracket F on 2.11.26 (session 2026-11-02_session_01_emranul, path_04_meander_episode_013, steps 1
+    # to 3): three left steps moved the tip by +0.9 cm in y each and the line's end in the picture from column about
+    # 300 to about 450, i.e. the content moved RIGHT: the sign stays 1 with bracket F.
+    "picture_left_sign": 1,
+    # Raise this whenever 06_deliverables/research_notes/Recording tool/stepping_rule_v1.md changes its version
+    # (Marshal, 4.11.26).
     "stepping_rule_version": "v1",
-    # Asked after each episode; Esc at either question stores "not_recorded".
+    # Asked after each episode (Marshal, 4.11.26); Esc at either question stores "not_recorded".
     "outcome_keys": {
         "y": "puck_in_goal",
         "n": "puck_not_in_goal"
@@ -302,11 +549,6 @@ RECORDING_PARAMETERS = {
         "h": "touched_by_hand",
         "m": "other"
     },
-    "mapping_version": "picture_frame_v3_step_over_2026-11-04",
-    # UNTESTED: whether "left" in the picture is counter-clockwise from the camera's heading seen from above (a
-    # camera looking straight down at the table normally shows it unmirrored). First robot test: one "left" step must
-    # move the scene to the right in the picture. If it moves left, set this to -1.
-    "picture_left_sign": 1,
     "raw_folder": "03_data/raw"
 }
 
@@ -325,29 +567,61 @@ def step_budget_for(path_id: str) -> int:
 
 
 def camera_heading_rad(
-        x: float,
-        y: float
+        pose: list,
+        model: str = RECORDING_PARAMETERS["camera_heading_model"]
 ) -> float:
     """
-    The table direction that the top of the picture points to, when the rod's end is at (x, y).
+    The table direction that the top of the picture points to, for the rod's ``pose`` = [x, y, z, roll, pitch, yaw].
 
-    With the camera in Niryo's wrist holder and the rod vertical, the picture always looks straight away from the
-    base (CAMERA_VIEW_PARAMETERS), so its top points along the line from the base through the rod. A new camera
-    mount needs this function checked again.
+    ``model`` "hand": the camera sits on the hand, so the picture's top follows the hand's orientation, not the arm's
+    direction. With the orientation the tool asks for ([roll 0, pitch 1.57, yaw 0]) the hand is held the same way
+    everywhere: joint 6 cancels joint 1, and the camera looks along the table's +x axis at every point (checked
+    4.11.26 on all 154 steps of path_04_meander_episode_018: heading 0.0 +- 0.4 degrees from the robot's own
+    orientation reading, while atan2(y, x) gave up to -24 degrees). The heading is the direction of the tool's z axis
+    in the table plane (pyniryo's roll, pitch, yaw are extrinsic rotations about x, y, z).
+
+    ``model`` "forearm": the camera sits on the forearm cover (since 4.11.26 evening) and looks down the forearm, which
+    lies in the vertical plane through the base and the rod, so the picture's top points from the base towards the
+    rod: atan2(y, x). Both plus the mount's "picture_top_offset_rad".
     """
 
-    return math.atan2(y, x)
+    if model == "forearm":
+        return math.atan2(pose[1], pose[0]) + RECORDING_PARAMETERS["picture_top_offset_rad"]
+
+    roll, pitch, yaw = pose[3:6]
+    forward_x = math.sin(pitch) * math.cos(roll) * math.cos(yaw) + math.sin(roll) * math.sin(yaw)
+    forward_y = math.sin(pitch) * math.cos(roll) * math.sin(yaw) - math.sin(roll) * math.cos(yaw)
+    return math.atan2(forward_y, forward_x) + RECORDING_PARAMETERS["picture_top_offset_rad"]
 
 
-def picture_step_to_table(
+def push_heading_rad(
+        pose: list,
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"],
+        heading_rad: Optional[float] = None
+) -> float:
+    """
+    The table direction the pusher pushes in, for the rod's ``pose``: the camera heading with the hand's current turn
+    ``hand_turn_deg`` taken off. The actions are measured from this direction (4.11.26, Emranul: with a turned camera
+    the keys were confusing in the picture frame; "forward" is the way the pusher pushes whatever the camera does).
+    The camera is fixed to the hand, so for the model this is the picture frame turned by the logged turn angle.
+    ``heading_rad`` replaces camera_heading_rad(pose) when the caller knows the picture's direction better (the
+    recording tool computes it from the joints for the camera on the forearm).
+    """
+
+    picture_heading = camera_heading_rad(pose) if heading_rad is None else heading_rad
+    return picture_heading - RECORDING_PARAMETERS["picture_left_sign"] * math.radians(hand_turn_deg)
+
+
+def action_step_to_table(
         action: str,
-        x: float,
-        y: float
+        pose: list,
+        hand_turn_deg: float = RECORDING_PARAMETERS["hand_turn_deg"],
+        heading_rad: Optional[float] = None
 ) -> list:
-    """The table displacement [dx, dy] in metres of one ``action`` (a step or a step-over) with the rod's end at (x, y)."""
+    """The table displacement [dx, dy] in metres of one ``action`` (a step or a step-over) taken with the rod at ``pose``."""
 
     is_step_over = action in RECORDING_PARAMETERS["step_over_actions"]
-    picture_angle = RECORDING_PARAMETERS["step_over_actions"][action] if is_step_over else RECORDING_PARAMETERS["actions"][action]
+    action_angle = RECORDING_PARAMETERS["step_over_actions"][action] if is_step_over else RECORDING_PARAMETERS["actions"][action]
     length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
-    angle = camera_heading_rad(x, y) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(picture_angle)
+    angle = push_heading_rad(pose, hand_turn_deg, heading_rad) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(action_angle)
     return [length * math.cos(angle), length * math.sin(angle)]

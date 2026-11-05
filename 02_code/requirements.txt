@@ -1,4 +1,6 @@
 pyniryo==1.2.5
 opencv-python
 numpy
+# Gamepad teleop (record_episodes.py --mode gamepad, gamepad_check.py); installed 5.11.26.
+pygame==2.6.1
 # pyniryo's own image decoder (uncompress_image) fails with numpy 2; the scripts decode the JPEG with cv2.imdecode instead.
