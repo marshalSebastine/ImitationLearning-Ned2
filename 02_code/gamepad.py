@@ -52,7 +52,10 @@ class GamepadReader:
         settings = self.gamepad_parameters
         values = {}
         for name, axis in settings["axes"].items():
-            value = float(self.pad.get_axis(axis)) if axis < self.pad.get_numaxes() else 0.0
+            is_trigger = name in settings.get("trigger_axes", [])
+            value = float(self.pad.get_axis(axis)) if axis < self.pad.get_numaxes() else (-1.0 if is_trigger else 0.0)
+            if is_trigger:
+                value = (value + 1.0) / 2.0
             if name in settings["inverted_axes"]:
                 value = -value
             values[name] = 0.0 if abs(value) < settings["dead_zone"] else value

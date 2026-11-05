@@ -236,15 +236,19 @@ def goal_pose() -> list:
     return rod_pose_behind(WORKSPACE_PARAMETERS["line_end_xy"])
 
 
-# Gamepad for the recording tool's gamepad mode (5.11.26, Emranul: a pad with both sticks at the bottom, PlayStation
-# style). Numbers are pygame's (SDL 2) axis and button numbers. ASSUMED for a DualShock 4 / DualSense through SDL
-# (cross 0, circle 1, square 2, triangle 3, options 6, L1 9, R1 10; left stick axes 0 and 1, right stick 2 and 3), NOT
-# YET CHECKED with the pad: run gamepad_check.py and correct them here. Stick values below "dead_zone" count as zero;
-# axes in "inverted_axes" are flipped so that up and right are positive.
+# Gamepad for the recording tool's gamepad mode (5.11.26, Emranul): a third-party PS4-style pad (HOME and TURBO
+# buttons) on a USB cable, which Windows and pygame see as "Xbox 360 Controller" (USB VID 045E PID 028E, 6 axes, 11
+# buttons, 1 hat); Bluetooth pairing did not work. Numbers are pygame's (SDL 2) axis and button numbers in Xbox order:
+# A 0 = cross, B 1 = circle, X 2 = square, Y 3 = triangle, LB 4 = L1, RB 5 = R1, Back 6 = SHARE, Start 7 = OPTIONS;
+# left stick axes 0 and 1, right stick 2 and 3 (assumed; gamepad_check.py confirms). Stick values below "dead_zone"
+# count as zero; axes in "inverted_axes" are flipped so that up and right are positive.
+# The triggers L2 and R2 are axes 4 and 5 and rest at -1 (seen 5.11.26); "trigger_axes" are read as 0 (released) to
+# 1 (fully pressed).
 GAMEPAD_PARAMETERS = {
-    "axes": {"move_x": 0, "move_y": 1, "twist": 2, "lean": 3},
+    "axes": {"move_x": 0, "move_y": 1, "twist": 2, "lean": 3, "down": 4, "up": 5},
+    "trigger_axes": ["down", "up"],
     "inverted_axes": ["move_y", "lean"],
-    "buttons": {"stop": 0, "discard": 1, "mistake": 2, "lost": 3, "quit": 6, "hand_left": 9, "hand_right": 10},
+    "buttons": {"stop": 0, "discard": 1, "mistake": 2, "lost": 3, "quit": 7, "hand_left": 4, "hand_right": 5},
     "dead_zone": 0.25
 }
 
@@ -467,7 +471,14 @@ RECORDING_PARAMETERS = {
     "pad_twist_deg": 15.0,
     "pad_lean_deg": 5.0,
     "pad_hand_deg": 15.0,
-    "pad_max_lean_deg": 45.0,
+    # 5.11.26 (Emranul: "all the freedom of hand guiding"): no lean limit of our own any more (89 = the rod may not
+    # point sideways or up), and no "puck stays on the sheet" check; only the robot's joint limits and the workspace
+    # box (the table edge) refuse a step. L2 / R2 lower / raise the tip by "pad_height_step_m" per full press, between
+    # pushing height (never lower: the tip must not press into the table) and "pad_max_height_m" above it.
+    "pad_max_lean_deg": 89.0,
+    "pad_check_puck_on_sheet": False,
+    "pad_height_step_m": 0.01,
+    "pad_max_height_m": 0.08,
     "pad_poll_s": 0.03,
     # The puck's centre sits this far beyond the rod's end along the push (puck radius plus tip radius); the
     # workspace guard refuses a step that would carry it outside the box or beyond the sheet plus "sheet_margin_m".

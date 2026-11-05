@@ -60,7 +60,8 @@ ORIENTATION_WINDOW_NAME = "orientation"
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
-                "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "x", "y", "z", "roll", "pitch", "yaw",
+                "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
+                "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
 
@@ -478,6 +479,7 @@ class EpisodeRecorder:
                 from gamepad import GamepadReader
                 self.pad_reader = GamepadReader().read
             self.pad_wrist_offset_rad = 0.0
+            self.pad_height_m = 0.0
             self.pad_buttons_before = set(self.pad_reader()["buttons"])
             decider = self.__gamepad_decider
         else:
@@ -571,12 +573,15 @@ class EpisodeRecorder:
                 except Exception as error:
                     self.__say(f"refused: {str(error).splitlines()[0]}")
                     continue
-                if float(numpy.hypot(*step_xy)) > 1e-9 and not self.__is_step_allowed(tip_next[0], tip_next[1], step_xy[0], step_xy[1]):
-                    self.__say("refused: that step would carry the rod or the puck out of the workspace")
+                is_inside = (self.__is_step_allowed(tip_next[0], tip_next[1], step_xy[0], step_xy[1]) if self.recorder_parameters["pad_check_puck_on_sheet"]
+                             else self.__is_inside_workspace(tip_next[0], tip_next[1]))
+                if float(numpy.hypot(*step_xy)) > 1e-9 and not is_inside:
+                    self.__say("refused: that step would carry the tip out of the workspace (table edge)")
                     continue
                 tip_now = [tip_next[0] - step_xy[0], tip_next[1] - step_xy[1]]
                 label, motion = self.__label_motion(state, joints_next, tip_now, tip_next)
                 motion.update({name: round(value, 3) for name, value in self.pad_command.items()})
+                motion["tip_height_above_push_m"] = round(self.pad_height_next_m, 4)
                 times = {"move_return_time": move_return_time, "capture_time": capture_time, "decision_time": decision_time}
                 row = self.__log_step(episode_folder, len(rows), picture_bytes, state, label, source, times)
                 row.update(motion)
@@ -590,6 +595,7 @@ class EpisodeRecorder:
                     self.last_picture_md5 = rows[-1]["frame_md5"] if rows else None
                     continue
                 self.forearm_turn_deg = math.degrees(joints_next[3])
+                self.pad_height_m = self.pad_height_next_m
                 self.tip_xy = list(tip_next)
                 self.__track_puck(label, tip_next, step_xy[0], step_xy[1])
                 move_return_time = time.time()
@@ -919,9 +925,10 @@ class EpisodeRecorder:
                 if flag in pressed:
                     self.__handle_flag_key(flag, picture_bytes, step)
             hand = (1.0 if "hand_left" in pressed else 0.0) - (1.0 if "hand_right" in pressed else 0.0)
-            if any(abs(pad[name]) > 0.0 for name in ("move_x", "move_y", "twist", "lean")) or hand:
+            up, down = pad.get("up", 0.0), pad.get("down", 0.0)
+            if any(abs(pad[name]) > 0.0 for name in ("move_x", "move_y", "twist", "lean")) or hand or up or down:
                 self.pad_command = {"pad_move_x": pad["move_x"], "pad_move_y": pad["move_y"], "pad_twist": pad["twist"],
-                                    "pad_lean": pad["lean"], "pad_hand": hand}
+                                    "pad_lean": pad["lean"], "pad_hand": hand, "pad_up": up, "pad_down": down}
                 return "pad", "gamepad"
 
 
@@ -961,7 +968,10 @@ class EpisodeRecorder:
         self.pad_wrist_offset_rad = getattr(self, "pad_wrist_offset_rad", 0.0) + math.radians(command["pad_lean"] * settings["pad_lean_deg"])
         hand_rad = joints_now[5] - settings["picture_left_sign"] * math.radians(command["pad_hand"] * settings["pad_hand_deg"])
 
-        height = pushing_height(tip_next[0], tip_next[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"]
+        # L2 / R2: the tip's height above pushing height, never below it (the tip must not press into the table).
+        height_change = (command.get("pad_up", 0.0) - command.get("pad_down", 0.0)) * settings["pad_height_step_m"]
+        self.pad_height_next_m = min(settings["pad_max_height_m"], max(0.0, getattr(self, "pad_height_m", 0.0) + height_change))
+        height = pushing_height(tip_next[0], tip_next[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"] + self.pad_height_next_m
         target = numpy.array([tip_next[0], tip_next[1], height])
         least = solve_least_lean(target, twist_rad, wrist_range_deg = (max(-90.0, math.degrees(joints_now[4] - self.pad_wrist_offset_rad) - 10.0),
                                                                         min(90.0, math.degrees(joints_now[4] - self.pad_wrist_offset_rad) + 10.0)))
