@@ -16,8 +16,8 @@ from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
                     start_pose, step_budget_for)
-from record_episodes import (GAMEPAD_LEGEND, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad, picture_heading_rad,
-                             status_bar_image)
+from record_episodes import (ORIENTATION_LEGENDS, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad,
+                             picture_heading_rad, status_bar_image)
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
 
@@ -307,17 +307,20 @@ def test_status_bar_wraps_long_hints() -> None:
 
 
 def test_orientation_window_lists_the_gamepad_controls(raw_folder: Path) -> None:
-    """The gamepad's orientation window adds one legend row per control under the keyboard's 440 pixel map."""
+    """
+    Every view of the orientation window draws: 480 pixels wide, one legend row of 24 pixels per key or button under
+    the map (so the gamepad's eleven rows make it the tallest), and dark text in the legend.
+    """
 
     robot_link = SimulatedRobotLink()
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = scripted_keys([]))
     state = robot_link.read_state()
-    keyboard_canvas = recorder._EpisodeRecorder__orientation_canvas(state, False)
-    gamepad_canvas = recorder._EpisodeRecorder__orientation_canvas(state, True)
-    assert keyboard_canvas.shape == (440, 440, 3), keyboard_canvas.shape
-    assert gamepad_canvas.shape == (440 + 16 + 22 * len(GAMEPAD_LEGEND), 440, 3), gamepad_canvas.shape
-    assert (gamepad_canvas[440:] < 100).any(), "the legend is empty"
+    canvases = {view: recorder._EpisodeRecorder__orientation_canvas(state, view) for view in ORIENTATION_LEGENDS}
+    assert all(canvas.shape[1] == 480 for canvas in canvases.values()), {view: canvas.shape for view, canvas in canvases.items()}
+    assert canvases["gamepad"].shape[0] - canvases["keyboard"].shape[0] == 24 * 3 + 22, (canvases["gamepad"].shape, canvases["keyboard"].shape)
+    for view, canvas in canvases.items():
+        assert (canvas[-24 * len(ORIENTATION_LEGENDS[view]):] < 100).any(), f"the {view} legend is empty"
 
 
 def test_camera_shift_is_measured() -> None:

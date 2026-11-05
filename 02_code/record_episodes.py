@@ -54,21 +54,64 @@ from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
 ORIENTATION_WINDOW_NAME = "orientation"
-# The gamepad's controls as the orientation window lists them under its map (Emranul, 5.11.26): control, what it
-# does, and the colour of its name (BGR; the four face buttons in their own colours).
-GAMEPAD_LEGEND = [
-    ("Left stick", "move the tip along the arrows", (40, 40, 40)),
-    ("Right stick < >", "turn the forearm (like v / b)", (40, 40, 40)),
-    ("Right stick up/down", "bend the wrist: the rod leans", (40, 40, 40)),
-    ("L2 / R2", "tip down / up", (40, 40, 40)),
-    ("L1 / R1", "turn the hand left / right", (40, 40, 40)),
-    ("Cross", "stop: the episode is done", (200, 120, 40)),
-    ("Circle", "discard the episode", (50, 50, 210)),
-    ("Square", "the last step was a mistake", (170, 90, 200)),
-    ("Triangle", "line lost", (60, 160, 60)),
-    ("OPTIONS", "quit: the robot goes home", (40, 40, 40)),
-    ("Keyboard", "Enter start, y / n goal, Esc end", (40, 40, 40)),
-]
+# What the orientation window lists under its map in each view (Emranul, 5.11.26: "make the orientation better for
+# my comprehension"; in hand guiding not all instruction keys could be seen): the control, what it does, and the
+# colour of the control's name (BGR; the gamepad's four face buttons in their own colours).
+LEGEND_TEXT_COLOUR = (40, 40, 40)
+ORIENTATION_LEGENDS = {
+    "keyboard": [
+        ("w q e a d s y c", "step 1 cm along the arrows", LEGEND_TEXT_COLOUR),
+        ("v / b", "turn the forearm left / right", LEGEND_TEXT_COLOUR),
+        ("n / m", "lean the rod left / right", LEGEND_TEXT_COLOUR),
+        ("Space", "stop: the episode is done", LEGEND_TEXT_COLOUR),
+        ("u", "the last step was a mistake", LEGEND_TEXT_COLOUR),
+        ("l", "line lost", LEGEND_TEXT_COLOUR),
+        ("x", "discard the episode", LEGEND_TEXT_COLOUR),
+        ("Esc", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
+    ],
+    "gamepad": [
+        ("Left stick", "move the tip along the arrows", LEGEND_TEXT_COLOUR),
+        ("Right stick < >", "turn the forearm (like v / b)", LEGEND_TEXT_COLOUR),
+        ("Right stick up/down", "bend the wrist: the rod leans", LEGEND_TEXT_COLOUR),
+        ("L2 / R2", "tip down / up", LEGEND_TEXT_COLOUR),
+        ("L1 / R1", "turn the hand left / right", LEGEND_TEXT_COLOUR),
+        ("Cross", "stop: the episode is done", (200, 120, 40)),
+        ("Circle", "discard the episode", (50, 50, 210)),
+        ("Square", "the last step was a mistake", (170, 90, 200)),
+        ("Triangle", "line lost", (60, 160, 60)),
+        ("OPTIONS", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
+        ("Keyboard", "Enter start, y / n goal, Esc end", LEGEND_TEXT_COLOUR),
+    ],
+    "replay": [
+        ("Enter", "do the step the replay proposes", LEGEND_TEXT_COLOUR),
+        ("w q e a d s y c", "do that step instead (arrows)", LEGEND_TEXT_COLOUR),
+        ("v / b", "turn the forearm instead", LEGEND_TEXT_COLOUR),
+        ("Space", "stop: the episode is done", LEGEND_TEXT_COLOUR),
+        ("u", "the last step was a mistake", LEGEND_TEXT_COLOUR),
+        ("l", "line lost", LEGEND_TEXT_COLOUR),
+        ("x", "discard the episode", LEGEND_TEXT_COLOUR),
+        ("Esc", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
+    ],
+    "exact_replay": [
+        ("Enter", "go to the next waypoint", LEGEND_TEXT_COLOUR),
+        ("g", "run through the rest by itself", LEGEND_TEXT_COLOUR),
+        ("any key", "pause that run", LEGEND_TEXT_COLOUR),
+        ("h", "correct by hand (motors off)", LEGEND_TEXT_COLOUR),
+        ("u", "the last step was a mistake", LEGEND_TEXT_COLOUR),
+        ("l", "line lost", LEGEND_TEXT_COLOUR),
+        ("x", "discard the episode", LEGEND_TEXT_COLOUR),
+        ("Esc", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
+    ],
+    "guiding": [
+        ("Motors off", "push the puck by hand along the line", LEGEND_TEXT_COLOUR),
+        ("Space", "puck at the goal: guiding done", LEGEND_TEXT_COLOUR),
+        ("x", "discard this guiding", LEGEND_TEXT_COLOUR),
+        ("Then", "let go of the arm, Enter = motors on", LEGEND_TEXT_COLOUR),
+        ("Then", "put the puck back as asked, Enter", LEGEND_TEXT_COLOUR),
+    ],
+}
+ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "HAND-GUIDED REPLAY",
+                      "exact_replay": "EXACT REPLAY", "guiding": "HAND GUIDING, MOTORS OFF"}
 # Three times per step: when the move returned, when the logged picture was read, when the action was chosen.
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
@@ -1019,7 +1062,7 @@ class EpisodeRecorder:
         keys do. Buttons count when pressed, not while held. The keyboard's Esc and x still work.
         """
 
-        self.__show_orientation(state, is_gamepad = True)
+        self.__show_orientation(state, view = "gamepad")
         self.__show_picture(picture_bytes, f"step {step}: left stick = move, right stick = twist / bend wrist, "
                                            "L1 R1 = turn hand, L2 R2 = down / up, "
                                            "cross = stop, circle = discard, square = mistake, triangle = lost")
@@ -1124,7 +1167,7 @@ class EpisodeRecorder:
 
         total = len(self.exact_waypoints)
         proposal = "waypoint" if self.exact_index < total else "stop"
-        self.__show_orientation(state)
+        self.__show_orientation(state, view = "exact_replay")
         if self.is_auto_running and proposal == "waypoint":
             self.__show_picture(picture_bytes, f"exact replay running: waypoint {self.exact_index + 1} of {total}. Any key = pause")
             if self.key_reader(1) is None:
@@ -1132,7 +1175,7 @@ class EpisodeRecorder:
             self.is_auto_running = False
             self.key_drainer()
         self.__show_picture(picture_bytes, f"exact replay: waypoint {min(self.exact_index + 1, total)} of {total}, next = {proposal}. "
-                                           f"Enter = next, g = run on, h = correct by hand, x = discard, Esc = quit")
+                                           f"Enter = next, g = run on, h = correct by hand, u = mistake, l = lost, x = discard, Esc = quit")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(0)
@@ -1435,19 +1478,20 @@ class EpisodeRecorder:
     def __show_orientation(
             self,
             state: Dict,
-            is_gamepad: bool = False
+            view: str = "keyboard",
+            tip_xy: Optional[List[float]] = None
     ) -> None:
         """
         A second window, "orientation" (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious
-        from the picture alone), drawn by __orientation_canvas. It stays on top, and the first time it opens it is
-        placed beside the picture window so that it does not hide behind it (Emranul, 5.11.26); after that it stays
-        where the person puts it.
+        from the picture alone), drawn by __orientation_canvas for ``view`` (a key of ORIENTATION_LEGENDS). It stays
+        on top, and the first time it opens it is placed beside the picture window on the same monitor so that it
+        does not hide behind it (Emranul, 5.11.26); after that it stays where the person puts it.
         """
 
         if not self.recorder_parameters["is_window_shown"]:
             return
 
-        canvas = self.__orientation_canvas(state, is_gamepad)
+        canvas = self.__orientation_canvas(state, view, tip_xy)
         cv2.imshow(ORIENTATION_WINDOW_NAME, canvas)
         if not getattr(self, "is_orientation_window_placed", False):
             self.is_orientation_window_placed = True
@@ -1476,78 +1520,132 @@ class EpisodeRecorder:
     def __orientation_canvas(
             self,
             state: Dict,
-            is_gamepad: bool = False
+            view: str = "keyboard",
+            tip_xy: Optional[List[float]] = None
     ) -> numpy.ndarray:
         """
-        The orientation window's picture: the table from above with the robot's base at the bottom, the sheet, the
-        believed puck position and the tip. In the keyboard mode an arrow for every step key shows where that key
-        moves the tip now; in the gamepad mode the arrows are the left stick's four directions, the tip's height and
-        the rod's lean are written at the top, and a legend under the map names every control (GAMEPAD_LEGEND).
+        The orientation window's picture, made to be read at a glance (Emranul, 5.11.26).
+
+        A title names the mode. The map shows the table from above, zoomed on the sheet: the paper, the robot's base
+        at the bottom, the arm as a thick line from the base to the tip, the guessed puck, the table-edge guard as a
+        dashed line, and a green frame for the picture on the table with "TOP" on its top edge (its size is rough:
+        the camera's footprint is not measured). Arrows from the tip show where each key or the left stick moves the
+        tip now (none in the exact replay and while guiding, where the hand decides). Below the map the camera's turn
+        is written in words, and the view's legend (ORIENTATION_LEGENDS) lists every key or button.
+
+        Parameters
+        ----------
+        state : dict
+            The robot's state now.
+        view : str
+            "keyboard", "gamepad", "replay", "exact_replay" or "guiding".
+        tip_xy : list of float, optional
+            The tip's position when known better than the recorder's own belief (while guiding by hand).
+
+        Returns
+        -------
+        numpy.ndarray
+            The picture, 480 pixels wide.
         """
 
-        scale = 900.0
-        legend = GAMEPAD_LEGEND if is_gamepad else []
-        width, map_height = 440, 440
-        height = map_height + (16 + 22 * len(legend) if legend else 0)
-        centre_x, bottom = width // 2, map_height - 20
+        settings = self.recorder_parameters
+        legend = ORIENTATION_LEGENDS[view]
+        is_simulated = settings["is_simulated"]
+        forearm_deg = self.forearm_turn_deg if is_simulated else math.degrees(float(state["joints"][3]))
+        # The turn is named by its key, not as left or right: a v turn swings the picture's top to the right on the
+        # table, which "left" would contradict.
+        info_lines = ["Forearm straight: the picture faces away from the robot" if abs(forearm_deg) < 1.0 else
+                      f"Forearm turned {abs(forearm_deg):.0f} deg, the {'v' if forearm_deg > 0 else 'b'} way",
+                      "Green frame = the picture on the table, TOP = its top"]
+        if view == "gamepad":
+            height_line = f"Tip lifted {100 * getattr(self, 'pad_height_m', 0.0):.1f} cm"
+            if not is_simulated:
+                height_line += f", rod leans {magnet_tip_and_lean([float(value) for value in state['joints']])[1]:.0f} deg"
+            info_lines.append(height_line)
+
+        width, header_height, map_height = 480, 34, 440
+        info_top = header_height + map_height
+        legend_top = info_top + 12 + 22 * len(info_lines)
+        canvas = numpy.full((legend_top + 14 + 24 * len(legend), width, 3), 250, dtype = numpy.uint8)
+
+        # The map: 1050 pixels per metre, the tip of the table at the top, x = 4 cm from the base's centre at the
+        # bottom edge (the base shows as a cap), centred sideways on the workspace.
+        scale, map_centre_y, map_bottom_x = 1050.0, -0.015, 0.04
+        table = numpy.full((map_height, width, 3), 214, dtype = numpy.uint8)
 
         def pixel(point_xy) -> tuple:
-            return (int(round(centre_x - point_xy[1] * scale)), int(round(bottom - point_xy[0] * scale)))
+            return (int(round(width / 2 - (point_xy[1] - map_centre_y) * scale)), int(round(map_height - (point_xy[0] - map_bottom_x) * scale)))
 
-        def put_centred(label: str, at: tuple, colour: tuple, font_scale: float, thickness: int) -> None:
+        def put_centred(image: numpy.ndarray, label: str, at: tuple, colour: tuple, font_scale: float, thickness: int) -> None:
             text_width = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)[0][0]
-            cv2.putText(canvas, label, (at[0] - text_width // 2, at[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, colour, thickness)
+            cv2.putText(image, label, (at[0] - text_width // 2, at[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, colour, thickness)
 
-        canvas = numpy.full((height, width, 3), 245, dtype = numpy.uint8)
-        cv2.circle(canvas, pixel([0.0, 0.0]), int(0.07 * scale), (200, 160, 90), -1)
-        cv2.putText(canvas, "robot base", (centre_x - 40, bottom - 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
-        corners = numpy.array([pixel(corner) for corner in WORKSPACE_PARAMETERS["sheet_corners_xy"]], dtype = numpy.int32)
-        cv2.polylines(canvas, [corners], isClosed = True, color = (150, 150, 150), thickness = 1)
+        sheet = numpy.array([pixel(corner) for corner in WORKSPACE_PARAMETERS["sheet_corners_xy"]], dtype = numpy.int32)
+        cv2.fillPoly(table, [sheet], (255, 255, 255))
+        cv2.polylines(table, [sheet], isClosed = True, color = (150, 150, 150), thickness = 1)
+        box_x, box_y = WORKSPACE_PARAMETERS["box_x"], WORKSPACE_PARAMETERS["box_y"]
+        guard = [pixel([box_x[1], box_y[1]]), pixel([box_x[1], box_y[0]]), pixel([box_x[0], box_y[0]]), pixel([box_x[0], box_y[1]])]
+        for corner_index in range(4):
+            start_pixel, end_pixel = numpy.array(guard[corner_index]), numpy.array(guard[(corner_index + 1) % 4])
+            dashes = max(1, int(numpy.linalg.norm(end_pixel - start_pixel) // 8))
+            for dash in range(0, dashes, 2):
+                cv2.line(table, tuple(int(value) for value in start_pixel + (end_pixel - start_pixel) * dash / dashes),
+                         tuple(int(value) for value in start_pixel + (end_pixel - start_pixel) * (dash + 1) / dashes), (60, 140, 230), 1)
+        cv2.putText(table, "table-edge guard", (guard[0][0] + 4, guard[0][1] + 14), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (60, 140, 230), 1)
 
-        is_tip_known = self.tip_xy is not None and (self.forearm_turn_deg or is_gamepad)
-        tip_xy = numpy.array(self.tip_xy if is_tip_known else state["pose"][:2], dtype = float)
+        if tip_xy is None:
+            is_tip_known = self.tip_xy is not None and (self.forearm_turn_deg or view == "gamepad")
+            tip_xy = self.tip_xy if is_tip_known else state["pose"][:2]
+        tip = numpy.array(tip_xy, dtype = float)[:2]
+        cv2.line(table, pixel([0.0, 0.0]), pixel(tip), (205, 185, 160), 12)
+        cv2.circle(table, pixel([0.0, 0.0]), int(0.07 * scale), (170, 130, 80), -1)
+        put_centred(table, "ROBOT BASE", (pixel([0.0, 0.0])[0], map_height - 14), (255, 255, 255), 0.5, 1)
+
+        up_xy, left_xy = picture_axes_on_table(state, settings)
+        frame_half_width_m, frame_depth_m = 0.05, 0.075
+        frame = numpy.array([pixel(tip + left_xy * frame_half_width_m), pixel(tip - left_xy * frame_half_width_m),
+                             pixel(tip - left_xy * frame_half_width_m + up_xy * frame_depth_m),
+                             pixel(tip + left_xy * frame_half_width_m + up_xy * frame_depth_m)], dtype = numpy.int32)
+        shaded = table.copy()
+        cv2.fillPoly(shaded, [frame], (190, 235, 190))
+        table = cv2.addWeighted(shaded, 0.55, table, 0.45, 0)
+        cv2.polylines(table, [frame], isClosed = True, color = (90, 170, 90), thickness = 1)
+        cv2.line(table, tuple(int(value) for value in frame[2]), tuple(int(value) for value in frame[3]), (30, 140, 30), 3)
+        put_centred(table, "TOP", pixel(tip + up_xy * (frame_depth_m + 0.012)), (30, 140, 30), 0.55, 2)
+
         puck_xy = getattr(self, "puck_xy_estimate", None)
-        if puck_xy is not None:
-            cv2.circle(canvas, pixel(puck_xy), int(PUCK_PARAMETERS["diameter_m"] / 2 * scale), (60, 60, 210), -1)
-        cv2.circle(canvas, pixel(tip_xy), 5, (40, 40, 40), -1)
+        if puck_xy is not None and view != "guiding":
+            cv2.circle(table, pixel(puck_xy), int(PUCK_PARAMETERS["diameter_m"] / 2 * scale), (60, 60, 210), -1)
+            cv2.putText(table, "puck?", (pixel(puck_xy)[0] + 14, pixel(puck_xy)[1] + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (60, 60, 210), 1)
 
-        heading_rad = picture_heading_rad(state, self.recorder_parameters)
-        if is_gamepad:
-            up_xy, left_xy = picture_axes_on_table(state, self.recorder_parameters)
-            for label, direction in (("up", up_xy), ("down", -up_xy), ("left", left_xy), ("right", -left_xy)):
-                colour = (40, 160, 40) if label == "up" else (90, 90, 90)
-                cv2.arrowedLine(canvas, pixel(tip_xy), pixel(tip_xy + 0.045 * direction), colour, 2 if label == "up" else 1, tipLength = 0.2)
-                put_centred(label, pixel(tip_xy + 0.062 * direction), colour, 0.5, 1)
-        else:
-            key_of = {action: key for key, action in self.recorder_parameters["keys"].items()}
-            for action, angle in self.recorder_parameters["actions"].items():
+        arrows = []
+        if view == "gamepad":
+            arrows = [("UP", up_xy), ("DOWN", -up_xy), ("LEFT", left_xy), ("RIGHT", -left_xy)]
+        elif view in ("keyboard", "replay"):
+            key_of = {action: key for key, action in settings["keys"].items()}
+            heading_rad = picture_heading_rad(state, settings)
+            for action, angle in settings["actions"].items():
                 if angle is None or action not in key_of:
                     continue
-                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"], heading_rad = heading_rad)
-                length = math.hypot(step_x, step_y)
-                end = [tip_xy[0] + 0.045 * step_x / length, tip_xy[1] + 0.045 * step_y / length]
-                colour = (40, 160, 40) if action == "forward" else (90, 90, 90)
-                cv2.arrowedLine(canvas, pixel(tip_xy), pixel(end), colour, 2 if action == "forward" else 1, tipLength = 0.2)
-                label_at = [tip_xy[0] + 0.055 * step_x / length, tip_xy[1] + 0.055 * step_y / length]
-                put_centred(key_of[action], pixel(label_at), colour, 0.6, 2)
+                step_x, step_y = action_step_to_table(action, state["pose"], settings["hand_turn_deg"], heading_rad = heading_rad)
+                arrows.append((key_of[action], numpy.array([step_x, step_y]) / math.hypot(step_x, step_y)))
+        for label, direction in arrows:
+            is_forward = label in ("UP", "w")
+            colour = (30, 140, 30) if is_forward else (70, 70, 70)
+            cv2.arrowedLine(table, pixel(tip), pixel(tip + 0.05 * direction), colour, 2, tipLength = 0.22)
+            put_centred(table, label, pixel(tip + (0.066 if len(label) > 1 else 0.06) * direction), colour, 0.5 if len(label) > 1 else 0.6, 2)
+        cv2.circle(table, pixel(tip), 6, (20, 20, 20), -1)
+        canvas[header_height:info_top] = table
 
-        cv2.putText(canvas, f"forearm turned {self.forearm_turn_deg:+.0f} deg", (8, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
-        cv2.putText(canvas, f"picture top points {math.degrees(heading_rad):+.0f} deg (0 = straight out)", (8, 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
-        if is_gamepad:
-            # The simulated robot has no real joint angles, so its lean would be meaningless.
-            height_text = f"tip raised {100 * getattr(self, 'pad_height_m', 0.0):.1f} cm"
-            if not self.recorder_parameters["is_simulated"]:
-                height_text += f", rod leans {magnet_tip_and_lean([float(value) for value in state['joints']])[1]:.0f} deg"
-            cv2.putText(canvas, height_text, (8, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
-
-        if legend:
-            cv2.line(canvas, (0, map_height), (width, map_height), (180, 180, 180), 1)
-            for index, (control, meaning, colour) in enumerate(legend):
-                line_y = map_height + 26 + 22 * index
-                is_face_button = colour != (40, 40, 40)
-                cv2.putText(canvas, control, (8, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, colour, 2 if is_face_button else 1)
-                cv2.putText(canvas, meaning, (170, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (20, 20, 20), 1)
+        cv2.putText(canvas, f"{ORIENTATION_TITLES[view]}: the table from above", (8, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (20, 20, 20), 2)
+        for index, line in enumerate(info_lines):
+            cv2.putText(canvas, line, (8, info_top + 24 + 22 * index), cv2.FONT_HERSHEY_SIMPLEX, 0.55 if index == 0 else 0.48,
+                        (20, 20, 20), 2 if index == 0 else 1)
+        cv2.line(canvas, (0, legend_top), (width, legend_top), (180, 180, 180), 1)
+        for index, (control, meaning, colour) in enumerate(legend):
+            line_y = legend_top + 26 + 24 * index
+            cv2.putText(canvas, control, (8, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour, 2 if colour != LEGEND_TEXT_COLOUR else 1)
+            cv2.putText(canvas, meaning, (178, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (20, 20, 20), 1)
         return canvas
 
 
@@ -1560,7 +1658,7 @@ class EpisodeRecorder:
         """The person chooses the step from the picture on screen."""
 
         turned = f" (forearm turned {self.forearm_turn_deg:+.0f})" if self.forearm_turn_deg else ""
-        self.__show_orientation(state)
+        self.__show_orientation(state, view = "keyboard")
         self.__show_picture(picture_bytes, f"step {step}{turned}: q w e / a s d / y c = steps, v b = forearm turn, Space = stop, u l x Esc")
         self.__drain_keys(step)
         while True:
@@ -1623,7 +1721,7 @@ class EpisodeRecorder:
                     position + numpy.array(action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"],
                                                                 heading_rad = picture_heading_rad(state, self.recorder_parameters))) - target))
 
-            self.__show_orientation(state)
+            self.__show_orientation(state, view = "replay")
             print(f"[step {step}] replay proposes {proposal} (guided forearm {guided_forearm_deg:+.0f} deg, now {self.forearm_turn_deg:+.0f} deg)")
             self.__show_picture(picture_bytes, f"replay step {step}: {proposal}. Enter = do it, direction key = override, u = mistake, l = lost, x = discard")
             self.__drain_keys(step)
@@ -1727,6 +1825,7 @@ class EpisodeRecorder:
                     row.update({f"joint_{index + 1}": joint for index, joint in enumerate(joints)})
                     rows.append(row)
 
+                self.__show_orientation(state, view = "guiding", tip_xy = position)
                 self.__show_picture(self.robot_link.read_picture_bytes(), f"MOTORS OFF, guiding: {len(rows)} points. Space = puck at goal, x = discard")
                 key = self.key_reader(int(self.recorder_parameters["guided_path_poll_s"] * 1000))
                 if key in (" ", "x", "escape"):
