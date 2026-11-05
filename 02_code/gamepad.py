@@ -1,10 +1,10 @@
 """
 Read a gamepad for the recording tool's gamepad mode, through pygame (SDL).
 
-The named controls (move_x, move_y, twist, lean; stop, discard, mistake, lost, hand_left, hand_right, quit) are mapped
-to the pad's axis and button numbers in config (GAMEPAD_PARAMETERS); gamepad_check.py prints the numbers of whatever
-is pressed, so the mapping can be checked for the pad in use. The pad is read even while the picture window has the
-keyboard focus.
+The named controls (move_x, move_y, twist, lean, down, up; stop, discard, mistake, lost, hand_left, hand_right,
+quit) are mapped to the pad's axis and button numbers in config (GAMEPAD_PARAMETERS); gamepad_check.py prints the
+numbers of whatever is pressed, so the mapping can be checked for the pad in use. The pad is read even while the
+picture window has the keyboard focus.
 """
 
 import os

@@ -16,7 +16,7 @@ from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
                     start_pose, step_budget_for)
-from record_episodes import EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad, picture_heading_rad
+from record_episodes import EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad, picture_heading_rad, status_bar_image
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
 
@@ -296,6 +296,15 @@ def test_gamepad_raises_and_lowers_the_tip(raw_folder: Path) -> None:
     assert [row["action"] for row in rows[5:9]] == ["right"] * 4, [row["action"] for row in rows]
 
 
+def test_status_bar_wraps_long_hints() -> None:
+    """A short status fits one 32 pixel line; the gamepad's long hint wraps onto more lines instead of being cut off."""
+
+    assert status_bar_image("sharpness 120 | step 3", 640).shape == (32, 640, 3)
+    hint = ("sharpness 120 | step 3: left stick = move, right stick = twist / bend wrist, L1 R1 = turn hand, "
+            "L2 R2 = down / up, cross = stop, circle = discard, square = mistake, triangle = lost")
+    assert status_bar_image(hint, 640).shape[0] >= 54, status_bar_image(hint, 640).shape
+
+
 def test_camera_shift_is_measured() -> None:
     """A picture moved 6 px right and 3 px down in its bottom strip is measured as such; an unmoved one as zero."""
 
@@ -507,6 +516,8 @@ if __name__ == "__main__":
     test_step_budget_per_sheet()
     test_camera_shift_is_measured()
     print("test_camera_shift_is_measured: passed")
+    test_status_bar_wraps_long_hints()
+    print("test_status_bar_wraps_long_hints: passed")
     for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode,

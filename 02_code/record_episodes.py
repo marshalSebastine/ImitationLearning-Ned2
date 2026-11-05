@@ -201,6 +201,40 @@ def show_in_window(picture: numpy.ndarray) -> None:
         pass
 
 
+def status_bar_image(
+        text: str,
+        width: int
+) -> numpy.ndarray:
+    """
+    A black bar with ``text`` in white, wrapped onto as many lines as it needs to fit ``width`` pixels, so that a
+    long hint (the gamepad's controls) is not cut off at the picture's edge (5.11.26).
+
+    Parameters
+    ----------
+    text : str
+        The status text.
+    width : int
+        The bar's width in pixels, the picture's width.
+
+    Returns
+    -------
+    numpy.ndarray
+        The bar: 32 pixels high for one line, 22 more for every further line.
+    """
+
+    lines = [""]
+    for word in text.split(" "):
+        candidate = f"{lines[-1]} {word}".strip()
+        if lines[-1] and cv2.getTextSize(candidate, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)[0][0] > width - 16:
+            lines.append(word)
+        else:
+            lines[-1] = candidate
+    status_bar = numpy.zeros((10 + 22 * len(lines), width, 3), dtype = numpy.uint8)
+    for index, line in enumerate(lines):
+        cv2.putText(status_bar, line, (8, 22 + 22 * index), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    return status_bar
+
+
 def ensure_window_is_shown() -> None:
     """Re-open the recording window with the last picture if it was closed or is no longer visible."""
 
@@ -903,8 +937,9 @@ class EpisodeRecorder:
         """
 
         self.__show_orientation(state)
-        self.__show_picture(picture_bytes, f"step {step}: left stick = move, right stick = twist / bend wrist, L1 R1 = turn hand, "
-                                           f"cross = stop, circle = discard, square = mistake, triangle = lost")
+        self.__show_picture(picture_bytes, f"step {step}: left stick = move, right stick = twist / bend wrist, "
+                                           "L1 R1 = turn hand, L2 R2 = down / up, "
+                                           "cross = stop, circle = discard, square = mistake, triangle = lost")
         self.__drain_keys(step)
         while True:
             key = self.key_reader(int(1000 * self.recorder_parameters["pad_poll_s"]))
@@ -1873,8 +1908,7 @@ class EpisodeRecorder:
             return
 
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
-        status_bar = numpy.zeros((32, picture.shape[1], 3), dtype = numpy.uint8)
-        cv2.putText(status_bar, f"sharpness {sharpness_of(picture):.0f} | {status}", (8, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        status_bar = status_bar_image(f"sharpness {sharpness_of(picture):.0f} | {status}", picture.shape[1])
         show_in_window(numpy.vstack([picture, status_bar]))
 
 
@@ -1885,7 +1919,7 @@ def main() -> None:
     parser.add_argument("--operator", required = True, help = "who records, e.g. marshal or emranul")
     parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact", "gamepad"], default = "keyboard",
                         help = "hand_guided replays the guided path in 1 cm steps of the fixed moves; hand_guided_exact replays every joint; "
-                               "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand)")
+                               "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand; L2 R2: height)")
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
