@@ -44,13 +44,36 @@ def raw_buttons(reader: GamepadReader) -> List[int]:
     return [index for index in range(reader.pad.get_numbuttons()) if reader.pad.get_button(index)]
 
 
+def wait_until_released(
+        reader: GamepadReader,
+        rest: List[float],
+        tolerance: float = 0.3
+) -> None:
+    """
+    Wait until every axis is back near its value at rest. On 5.11.26 the check took the release of the previous
+    stick for the next prompt's answer (the right stick going back to the middle was read as "R2"), because each
+    prompt measured its own rest while the person still held the previous control.
+    """
+
+    is_announced = False
+    while not all(abs(value - before) < tolerance for before, value in zip(rest, raw_axes(reader))):
+        if not is_announced:
+            print("    (waiting until every stick and trigger is let go)")
+            is_announced = True
+        time.sleep(0.05)
+
+
 def find_axis(
         reader: GamepadReader,
-        prompt: str
+        prompt: str,
+        rest: List[float]
 ) -> Tuple[int, float]:
-    """The axis that moved most from rest while the person holds the stick as asked, and its raw value."""
+    """
+    The axis that moved most from ``rest`` (every axis's value with the pad untouched) while the person holds the
+    control as asked, and its raw value; the prompt comes only once every control is back at rest.
+    """
 
-    rest = raw_axes(reader)
+    wait_until_released(reader, rest)
     print(f"  {prompt} and hold it, touch nothing else (waiting up to a minute)...")
     deadline = time.monotonic() + 60.0
     best_axis, best_value, best_change = -1, 0.0, 0.0
@@ -62,8 +85,7 @@ def find_axis(
         if best_change > 0.8:
             break
         time.sleep(0.05)
-    print(f"    -> axis {best_axis} went to {best_value:+.2f}; let go of the stick")
-    time.sleep(1.5)
+    print(f"    -> axis {best_axis} went to {best_value:+.2f}; let go")
     return best_axis, best_value
 
 
@@ -95,9 +117,12 @@ def gamepad_check() -> Dict:
     print(f"gamepad: {reader.name}, {reader.pad.get_numaxes()} axes, {reader.pad.get_numbuttons()} buttons")
     found = {"axes": {}, "inverted_axes": [], "buttons": {}}
     try:
-        print("Sticks (let each stick go back to the middle between prompts):")
+        print("Hands off the pad for two seconds: reading every axis at rest...")
+        time.sleep(2.0)
+        rest = raw_axes(reader)
+        print("Sticks and triggers (each prompt waits until everything is let go):")
         for name, prompt, wanted_sign in STICK_PROMPTS:
-            axis, value = find_axis(reader, prompt)
+            axis, value = find_axis(reader, prompt, rest)
             found["axes"][name] = axis
             if value * wanted_sign < 0:
                 found["inverted_axes"].append(name)
