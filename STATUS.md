@@ -23,7 +23,13 @@ Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view te
   `setup_claude.ps1` run, so Claude's memory and the code-style skill now live in the repo (`claude_memory/`,
   `claude_skills/`); the laptop's work from 27.10 merged into `main` by pull request 1. All sessions now follow
   `COLLABORATION.md`: branch per topic, pull request into `main`, commits under the students' names.
-- Next: read the three sessions' reports and their `STATUS.md` sections; fill in the remaining "[Emranul: fill in]"
+- Done 5.11: question 17 added to the meeting-2 list in `05_meetings/requests_to_professor.md` on Emranul's idea: may part
+  of the training data be synthetic (camera pictures drawn from one real photo per camera mount, labelled by a fixed rule,
+  used to pretrain before fine-tuning on our own demonstrations)? The Synthetic data session, started 5.11, builds a first
+  generator, a figure of synthetic and real pictures side by side for the meeting, and a test of whether a model trained
+  only on synthetic pictures agrees with our labels on the real bracket F3 pictures.
+- Next: prepare meeting 2 on 9.11 (questions 7, 10 and 13 to 17; copy them into the meeting note first); read the
+  sessions' reports and their `STATUS.md` sections; fill in the remaining "[Emranul: fill in]"
   lines of `HANDOFF_2026-10-26.md` (Emranul gives the facts; only the git-hosting line is filled); agree who does what
   (provisional table in the meeting-1 note); start the contribution log.
 - Blocked on: nothing.
@@ -130,7 +136,8 @@ Last updated: 4.11.26 by Marshal's session (eleven actions in main; side-view te
 ## Open questions for the professor (meeting 2)
 
 7 (what to hand in), 10 (offline or local policy), 13 (reversible clamp mount for recording), 14 (rod clamp, low priority),
-15 (print our own training tracks), 16 (second camera). Full wording in `05_meetings/requests_to_professor.md`.
+15 (print our own training tracks), 16 (second camera), 17 (synthetic training pictures, added 5.11). Full wording in
+`05_meetings/requests_to_professor.md`.
 
 ## Risks being watched
 
