@@ -54,6 +54,21 @@ from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 WINDOW_NAME = "record_episodes"
 ORIENTATION_WINDOW_NAME = "orientation"
+# The gamepad's controls as the orientation window lists them under its map (Emranul, 5.11.26): control, what it
+# does, and the colour of its name (BGR; the four face buttons in their own colours).
+GAMEPAD_LEGEND = [
+    ("Left stick", "move the tip along the arrows", (40, 40, 40)),
+    ("Right stick < >", "turn the forearm (like v / b)", (40, 40, 40)),
+    ("Right stick up/down", "bend the wrist: the rod leans", (40, 40, 40)),
+    ("L2 / R2", "tip down / up", (40, 40, 40)),
+    ("L1 / R1", "turn the hand left / right", (40, 40, 40)),
+    ("Cross", "stop: the episode is done", (200, 120, 40)),
+    ("Circle", "discard the episode", (50, 50, 210)),
+    ("Square", "the last step was a mistake", (170, 90, 200)),
+    ("Triangle", "line lost", (60, 160, 60)),
+    ("OPTIONS", "quit: the robot goes home", (40, 40, 40)),
+    ("Keyboard", "Enter start, y / n goal, Esc end", (40, 40, 40)),
+]
 # Three times per step: when the move returned, when the logged picture was read, when the action was chosen.
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
@@ -188,6 +203,74 @@ def picture_heading_rad(
 
 
 LAST_SHOWN = {"picture": None}
+
+
+def picture_axes_on_table(
+        state: Dict,
+        recorder_parameters: Dict
+) -> Tuple[numpy.ndarray, numpy.ndarray]:
+    """
+    The picture's up and left directions on the table: where the gamepad's left stick moves the tip when pushed up
+    or left.
+
+    Parameters
+    ----------
+    state : dict
+        The robot's state, as for picture_heading_rad.
+    recorder_parameters : dict
+        The recorder's settings ("picture_left_sign" and those of picture_heading_rad).
+
+    Returns
+    -------
+    tuple of numpy.ndarray
+        Unit vectors [x, y] in the robot's base frame: the picture's up, then its left.
+    """
+
+    heading_rad = picture_heading_rad(state, recorder_parameters)
+    left_rad = heading_rad + recorder_parameters["picture_left_sign"] * math.pi / 2
+    return numpy.array([math.cos(heading_rad), math.sin(heading_rad)]), numpy.array([math.cos(left_rad), math.sin(left_rad)])
+
+
+def monitor_work_area(
+        point_x: int,
+        point_y: int
+) -> Optional[Tuple[int, int, int, int]]:
+    """
+    The usable area of the monitor that holds a screen point (Emranul's laptop drives three monitors, some at
+    negative coordinates), so that a window can be placed on the same monitor as another.
+
+    Parameters
+    ----------
+    point_x, point_y : int
+        The point in screen pixels.
+
+    Returns
+    -------
+    tuple of int or None
+        Left, top, right and bottom of the monitor's work area (without the task bar); None off Windows.
+    """
+
+    try:
+        import ctypes
+        from ctypes import wintypes
+    except ImportError:
+        return None
+    if not hasattr(ctypes, "windll"):
+        return None
+
+    class MonitorInfo(ctypes.Structure):
+        _fields_ = [("cbSize", wintypes.DWORD), ("rcMonitor", wintypes.RECT), ("rcWork", wintypes.RECT), ("dwFlags", wintypes.DWORD)]
+
+    user32 = ctypes.windll.user32
+    user32.MonitorFromPoint.argtypes = [wintypes.POINT, wintypes.DWORD]
+    user32.MonitorFromPoint.restype = wintypes.HANDLE
+    monitor = user32.MonitorFromPoint(wintypes.POINT(int(point_x), int(point_y)), 2)  # 2: the nearest monitor
+    information = MonitorInfo()
+    information.cbSize = ctypes.sizeof(MonitorInfo)
+    if not user32.GetMonitorInfoW(monitor, ctypes.byref(information)):
+        return None
+    work = information.rcWork
+    return work.left, work.top, work.right, work.bottom
 
 
 def show_in_window(picture: numpy.ndarray) -> None:
@@ -936,7 +1019,7 @@ class EpisodeRecorder:
         keys do. Buttons count when pressed, not while held. The keyboard's Esc and x still work.
         """
 
-        self.__show_orientation(state)
+        self.__show_orientation(state, is_gamepad = True)
         self.__show_picture(picture_bytes, f"step {step}: left stick = move, right stick = twist / bend wrist, "
                                            "L1 R1 = turn hand, L2 R2 = down / up, "
                                            "cross = stop, circle = discard, square = mistake, triangle = lost")
@@ -992,11 +1075,9 @@ class EpisodeRecorder:
         step_xy = [0.0, 0.0]
         if push > 0.0:
             length = max(settings["pad_min_step_m"], settings["pad_step_m"] * min(1.0, push))
-            heading = picture_heading_rad(state, settings)
-            left = heading + settings["picture_left_sign"] * math.pi / 2
+            up_xy, left_xy = picture_axes_on_table(state, settings)
             forward_part, left_part = command["pad_move_y"] / push, -command["pad_move_x"] / push
-            step_xy = [length * (forward_part * math.cos(heading) + left_part * math.cos(left)),
-                       length * (forward_part * math.sin(heading) + left_part * math.sin(left))]
+            step_xy = [float(value) for value in length * (forward_part * up_xy + left_part * left_xy)]
         tip_next = [tip_now[0] + step_xy[0], tip_now[1] + step_xy[1]]
 
         twist_rad = joints_now[3] - math.radians(command["pad_twist"] * settings["pad_twist_deg"])
@@ -1351,22 +1432,71 @@ class EpisodeRecorder:
         return False
 
 
-    def __show_orientation(self, state: Dict) -> None:
+    def __show_orientation(
+            self,
+            state: Dict,
+            is_gamepad: bool = False
+    ) -> None:
         """
-        A second window, "orientation": the table from above with the robot's base at the bottom, the sheet, the
-        believed puck position, the tip, and an arrow for every step key showing where that key moves the tip now
-        (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious from the picture alone).
+        A second window, "orientation" (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious
+        from the picture alone), drawn by __orientation_canvas. It stays on top, and the first time it opens it is
+        placed beside the picture window so that it does not hide behind it (Emranul, 5.11.26); after that it stays
+        where the person puts it.
         """
 
         if not self.recorder_parameters["is_window_shown"]:
             return
 
+        canvas = self.__orientation_canvas(state, is_gamepad)
+        cv2.imshow(ORIENTATION_WINDOW_NAME, canvas)
+        if not getattr(self, "is_orientation_window_placed", False):
+            self.is_orientation_window_placed = True
+            try:
+                picture_x, picture_y, picture_width, picture_height = cv2.getWindowImageRect(WINDOW_NAME)
+                canvas_height, canvas_width = canvas.shape[:2]
+                window_x, window_y = picture_x + picture_width + 20, picture_y - 30
+                area = monitor_work_area(picture_x + picture_width // 2, picture_y + picture_height // 2)
+                if area is not None:
+                    left, top, right, bottom = area
+                    if window_x + canvas_width > right:
+                        window_x = picture_x - canvas_width - 20
+                    if window_x < left:
+                        window_x = right - canvas_width
+                    window_x = max(left, window_x)
+                    window_y = max(top, min(window_y, bottom - canvas_height - 40))
+                cv2.moveWindow(ORIENTATION_WINDOW_NAME, int(window_x), int(window_y))
+            except (cv2.error, OSError, ValueError):
+                pass
+        try:
+            cv2.setWindowProperty(ORIENTATION_WINDOW_NAME, cv2.WND_PROP_TOPMOST, 1)
+        except cv2.error:
+            pass
+
+
+    def __orientation_canvas(
+            self,
+            state: Dict,
+            is_gamepad: bool = False
+    ) -> numpy.ndarray:
+        """
+        The orientation window's picture: the table from above with the robot's base at the bottom, the sheet, the
+        believed puck position and the tip. In the keyboard mode an arrow for every step key shows where that key
+        moves the tip now; in the gamepad mode the arrows are the left stick's four directions, the tip's height and
+        the rod's lean are written at the top, and a legend under the map names every control (GAMEPAD_LEGEND).
+        """
+
         scale = 900.0
-        width, height = 400, 440
-        centre_x, bottom = width // 2, height - 20
+        legend = GAMEPAD_LEGEND if is_gamepad else []
+        width, map_height = 440, 440
+        height = map_height + (16 + 22 * len(legend) if legend else 0)
+        centre_x, bottom = width // 2, map_height - 20
 
         def pixel(point_xy) -> tuple:
             return (int(round(centre_x - point_xy[1] * scale)), int(round(bottom - point_xy[0] * scale)))
+
+        def put_centred(label: str, at: tuple, colour: tuple, font_scale: float, thickness: int) -> None:
+            text_width = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)[0][0]
+            cv2.putText(canvas, label, (at[0] - text_width // 2, at[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, colour, thickness)
 
         canvas = numpy.full((height, width, 3), 245, dtype = numpy.uint8)
         cv2.circle(canvas, pixel([0.0, 0.0]), int(0.07 * scale), (200, 160, 90), -1)
@@ -1374,30 +1504,51 @@ class EpisodeRecorder:
         corners = numpy.array([pixel(corner) for corner in WORKSPACE_PARAMETERS["sheet_corners_xy"]], dtype = numpy.int32)
         cv2.polylines(canvas, [corners], isClosed = True, color = (150, 150, 150), thickness = 1)
 
-        tip_xy = list(self.tip_xy) if self.forearm_turn_deg and self.tip_xy is not None else list(state["pose"][:2])
+        is_tip_known = self.tip_xy is not None and (self.forearm_turn_deg or is_gamepad)
+        tip_xy = numpy.array(self.tip_xy if is_tip_known else state["pose"][:2], dtype = float)
         puck_xy = getattr(self, "puck_xy_estimate", None)
         if puck_xy is not None:
             cv2.circle(canvas, pixel(puck_xy), int(PUCK_PARAMETERS["diameter_m"] / 2 * scale), (60, 60, 210), -1)
         cv2.circle(canvas, pixel(tip_xy), 5, (40, 40, 40), -1)
 
         heading_rad = picture_heading_rad(state, self.recorder_parameters)
-        key_of = {action: key for key, action in self.recorder_parameters["keys"].items()}
-        for action, angle in self.recorder_parameters["actions"].items():
-            if angle is None or action not in key_of:
-                continue
-            step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"], heading_rad = heading_rad)
-            length = math.hypot(step_x, step_y)
-            end = [tip_xy[0] + 0.045 * step_x / length, tip_xy[1] + 0.045 * step_y / length]
-            colour = (40, 160, 40) if action == "forward" else (90, 90, 90)
-            cv2.arrowedLine(canvas, pixel(tip_xy), pixel(end), colour, 2 if action == "forward" else 1, tipLength = 0.2)
-            label_at = [tip_xy[0] + 0.055 * step_x / length, tip_xy[1] + 0.055 * step_y / length]
-            label_pixel = pixel(label_at)
-            cv2.putText(canvas, key_of[action], (label_pixel[0] - 5, label_pixel[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, colour, 2)
+        if is_gamepad:
+            up_xy, left_xy = picture_axes_on_table(state, self.recorder_parameters)
+            for label, direction in (("up", up_xy), ("down", -up_xy), ("left", left_xy), ("right", -left_xy)):
+                colour = (40, 160, 40) if label == "up" else (90, 90, 90)
+                cv2.arrowedLine(canvas, pixel(tip_xy), pixel(tip_xy + 0.045 * direction), colour, 2 if label == "up" else 1, tipLength = 0.2)
+                put_centred(label, pixel(tip_xy + 0.062 * direction), colour, 0.5, 1)
+        else:
+            key_of = {action: key for key, action in self.recorder_parameters["keys"].items()}
+            for action, angle in self.recorder_parameters["actions"].items():
+                if angle is None or action not in key_of:
+                    continue
+                step_x, step_y = action_step_to_table(action, state["pose"], self.recorder_parameters["hand_turn_deg"], heading_rad = heading_rad)
+                length = math.hypot(step_x, step_y)
+                end = [tip_xy[0] + 0.045 * step_x / length, tip_xy[1] + 0.045 * step_y / length]
+                colour = (40, 160, 40) if action == "forward" else (90, 90, 90)
+                cv2.arrowedLine(canvas, pixel(tip_xy), pixel(end), colour, 2 if action == "forward" else 1, tipLength = 0.2)
+                label_at = [tip_xy[0] + 0.055 * step_x / length, tip_xy[1] + 0.055 * step_y / length]
+                put_centred(key_of[action], pixel(label_at), colour, 0.6, 2)
 
         cv2.putText(canvas, f"forearm turned {self.forearm_turn_deg:+.0f} deg", (8, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
         cv2.putText(canvas, f"picture top points {math.degrees(heading_rad):+.0f} deg (0 = straight out)", (8, 40),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
-        cv2.imshow(ORIENTATION_WINDOW_NAME, canvas)
+        if is_gamepad:
+            # The simulated robot has no real joint angles, so its lean would be meaningless.
+            height_text = f"tip raised {100 * getattr(self, 'pad_height_m', 0.0):.1f} cm"
+            if not self.recorder_parameters["is_simulated"]:
+                height_text += f", rod leans {magnet_tip_and_lean([float(value) for value in state['joints']])[1]:.0f} deg"
+            cv2.putText(canvas, height_text, (8, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1)
+
+        if legend:
+            cv2.line(canvas, (0, map_height), (width, map_height), (180, 180, 180), 1)
+            for index, (control, meaning, colour) in enumerate(legend):
+                line_y = map_height + 26 + 22 * index
+                is_face_button = colour != (40, 40, 40)
+                cv2.putText(canvas, control, (8, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, colour, 2 if is_face_button else 1)
+                cv2.putText(canvas, meaning, (170, line_y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (20, 20, 20), 1)
+        return canvas
 
 
     def __keyboard_decider(
