@@ -10,8 +10,8 @@ WorldInfo {
   coordinateSystem "ENU"
 }
 Viewpoint {
-  orientation -0.27 0.27 0.92 1.65
-  position 0.3 -0.55 0.45
+  orientation -0.2901 0.1323 0.9478 2.3257
+  position 0.62 -0.38 0.36
 }
 Background {
   skyColor [
@@ -72,7 +72,7 @@ DEF TABLE Solid {
   }
 }
 DEF SHEET Solid {
-  translation 0.3 0 0.0002
+  translation 0.29778 -0.01129 0.0002
   children [
     Shape {
       appearance PBRAppearance {
@@ -107,7 +107,7 @@ DEF SHEET Solid {
   name "sheet"
 }
 DEF PUCK Solid {
-  translation 0.2 0 0.0145
+  translation 0.30542 0.038 0.0145
   children [
     Shape {
       appearance PBRAppearance {
@@ -132,7 +132,7 @@ DEF PUCK Solid {
   }
 }
 DEF PUSHER Robot {
-  translation 0.15 0 0
+  translation 0.28692 0.038 0
   children [
     Pose {
       translation 0 0 0.007

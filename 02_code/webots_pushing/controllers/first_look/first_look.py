@@ -4,11 +4,13 @@ Render the first synthetic bracket F3 pictures, for a side-by-side check against
 Runs inside Webots as the supervisor of the pusher (rod, magnet block and camera). For each situation in
 ``config.SYNTHETIC_PARAMETERS["first_look_situations"]`` it lays the situation's sheet on the table, puts the pusher at
 the logged tip position with the puck touching it ahead along the table's +x axis, lets the puck settle and saves one
-picture. The camera pose and the page placement come from the same settings, so the world file holds only the scene's
-structure.
+picture. The camera pose and the page placement come from the same settings; the world file's own positions are only
+the starting view. Started by ``synthetic_pictures.run_webots_world`` it quits Webots when done; opened in the Webots
+window it keeps the last situation running, so the scene and the camera's view stay on screen.
 """
 
 import math
+import os
 import pathlib
 import sys
 
@@ -91,7 +93,7 @@ def place_pusher_and_puck(
 
 
 def main() -> None:
-    """Render and save one picture per first-look situation, then quit the simulation."""
+    """Render and save one picture per first-look situation, then quit Webots or keep the scene running."""
 
     supervisor = Supervisor()
     time_step_ms = int(supervisor.getBasicTimeStep())
@@ -112,7 +114,11 @@ def main() -> None:
         is_saved = camera.saveImage(str(picture_path), 100) == 0
         print(f"{situation_name}: {'saved' if is_saved else 'NOT saved'} {picture_path}")
 
-    supervisor.simulationQuit(0)
+    if os.environ.get(synthetic_pictures.QUIT_WHEN_DONE_VARIABLE) == "1":
+        supervisor.simulationQuit(0)
+        return
+    while supervisor.step(time_step_ms) != -1:
+        pass
 
 
 main()

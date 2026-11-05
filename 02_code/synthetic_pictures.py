@@ -6,10 +6,11 @@ own measurements: the traced centre lines of the course sheets drawn as page tex
 a wood texture for the table, and the command that runs a Webots world without its window in the way. Settings come
 from ``config.SYNTHETIC_PARAMETERS``.
 
-Write the textures, then render the first-look pictures:
+Write the textures, render the first-look pictures without a window, or open the scene in the Webots window:
 
     python 02_code/synthetic_pictures.py textures
     python 02_code/synthetic_pictures.py first_look
+    python 02_code/synthetic_pictures.py open
 """
 
 import json
@@ -25,6 +26,8 @@ import numpy
 import config
 
 REPOSITORY_FOLDER = pathlib.Path(__file__).resolve().parents[1]
+# Set by ``run_webots_world`` so the controller quits Webots after its pictures; opened in the window, the scene stays.
+QUIT_WHEN_DONE_VARIABLE = "SYNTHETIC_PICTURES_QUIT_WHEN_DONE"
 
 
 def load_traced_line(path_id: str) -> numpy.ndarray:
@@ -188,9 +191,6 @@ def run_webots_world(
     """
     Run a world of the Webots project without its window in the way, and wait until its controller quits.
 
-    Webots starts the controller with the ``python`` it finds first on the search path, so the folder of the running
-    interpreter is put in front: the controller then uses the project's own environment.
-
     Parameters
     ----------
     world_name : str
@@ -206,13 +206,52 @@ def run_webots_world(
 
     parameters = config.SYNTHETIC_PARAMETERS
     world_path = REPOSITORY_FOLDER / parameters["project_folder"] / "worlds" / f"{world_name}.wbt"
-    environment = dict(os.environ)
-    environment["PATH"] = str(pathlib.Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")
+    environment = environment_for_controllers()
+    environment[QUIT_WHEN_DONE_VARIABLE] = "1"
 
     command = [parameters["webots_executable"], "--batch", "--mode=fast", "--minimize", "--stdout", "--stderr",
                str(world_path)]
     completed = subprocess.run(command, env = environment, timeout = timeout_s)
     return completed.returncode
+
+
+def open_webots_world(world_name: str) -> None:
+    """
+    Open a world of the Webots project in the Webots window and return at once, leaving the window open.
+
+    The simulation runs in real time; the controller takes its pictures and then keeps the scene running, so the
+    camera's view stays visible in the corner of the 3D view.
+
+    Parameters
+    ----------
+    world_name : str
+        The world file's name without ``.wbt``, for example ``"f3_first_look"``.
+    """
+
+    parameters = config.SYNTHETIC_PARAMETERS
+    world_path = REPOSITORY_FOLDER / parameters["project_folder"] / "worlds" / f"{world_name}.wbt"
+    # webotsw.exe is the windowed start of Webots, without the console window that webots.exe opens.
+    window_executable = pathlib.Path(parameters["webots_executable"]).with_name("webotsw.exe")
+    subprocess.Popen([str(window_executable), str(world_path)], env = environment_for_controllers())
+
+
+def environment_for_controllers() -> dict:
+    """
+    Return the environment for a Webots run whose Python controllers use the project's own interpreter.
+
+    Webots starts a controller with the ``python`` it finds first on the search path, so the folder of the running
+    interpreter (the project's environment) is put in front.
+
+    Returns
+    -------
+    dict
+        A copy of the current environment with the search path changed.
+    """
+
+    environment = dict(os.environ)
+    environment.pop(QUIT_WHEN_DONE_VARIABLE, None)
+    environment["PATH"] = str(pathlib.Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")
+    return environment
 
 
 if __name__ == "__main__":
@@ -222,5 +261,7 @@ if __name__ == "__main__":
         write_textures()
     elif task == "first_look":
         print(f"Webots finished with code {run_webots_world('f3_first_look')}")
+    elif task == "open":
+        open_webots_world("f3_first_look")
     else:
-        print(f"Unknown task {task!r}: use 'textures' or 'first_look'.")
+        print(f"Unknown task {task!r}: use 'textures', 'first_look' or 'open'.")
