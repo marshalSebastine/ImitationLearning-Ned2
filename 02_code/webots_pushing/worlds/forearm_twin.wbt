@@ -151,6 +151,21 @@ DEF MAGNET_BLOCK Solid {
 }
 DEF CAMERA_RIG Robot {
   children [
+    Pose {
+      translation -0.02 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.1 0.12
+            roughness 0.5
+            metalness 0
+          }
+          geometry Box {
+            size 0.03 0.037 0.037
+          }
+        }
+      ]
+    }
     Camera {
       name "camera"
       fieldOfView 1.7453

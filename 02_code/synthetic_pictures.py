@@ -6,11 +6,13 @@ own measurements: the traced centre lines of the course sheets drawn as page tex
 a wood texture for the table, and the command that runs a Webots world without its window in the way. Settings come
 from ``config.SYNTHETIC_PARAMETERS``.
 
-Write the textures, render the first-look pictures without a window, or open the scene in the Webots window:
+Write the textures, render the first-look pictures without a window, open the bracket F3 scene in the Webots window,
+or open the forearm camera twin playing a recorded episode (optionally give the episode's folder):
 
     python 02_code/synthetic_pictures.py textures
     python 02_code/synthetic_pictures.py first_look
     python 02_code/synthetic_pictures.py open
+    python 02_code/synthetic_pictures.py open_twin [episode folder]
 """
 
 import csv
@@ -371,12 +373,31 @@ def distort_wide_picture(
     return cv2.remap(wide_picture, map_x, map_y, cv2.INTER_LINEAR, borderMode = cv2.BORDER_CONSTANT)
 
 
+def table_photo_for_twin() -> dict:
+    """
+    Return the twin's table photo as the job file needs it: the texture and its four corners on the table plane.
+
+    Returns
+    -------
+    dict
+        ``texture`` (path relative to the world's folder) and ``corners`` (four corners in metres, in the order the
+        world file's texture coordinates expect).
+    """
+
+    photo = config.SYNTHETIC_PARAMETERS["twin_table_photo"]
+    (x_first, x_last), (y_first, y_last) = photo["x_range_m"], photo["y_range_m"]
+    corners = [[x, y, config.table_height(x, y)] for x, y in
+               ((x_first, y_first), (x_last, y_first), (x_last, y_last), (x_first, y_last))]
+    return {"texture": photo["texture"], "corners": corners}
+
+
 def write_twin_job(
         episode_folder: pathlib.Path,
         steps: list,
         mount_name: str,
         table_photo: dict,
-        output_folder: pathlib.Path
+        output_folder: pathlib.Path,
+        hold_s: float = 1.5
 ) -> pathlib.Path:
     """
     Write the job file that the twin_replay controller renders: one picture per logged step.
@@ -393,6 +414,8 @@ def write_twin_job(
         ``texture`` (path relative to the world's folder) and ``corners`` (four table corners in metres).
     output_folder : pathlib.Path
         Where the wide twin pictures and the job file go.
+    hold_s : float, optional
+        How long each step is shown when the twin plays in the Webots window.
 
     Returns
     -------
@@ -420,8 +443,35 @@ def write_twin_job(
                          "poses": twin_poses(joints, mount, puck_xy)})
 
     job_path = output_folder / "twin_job.json"
-    job_path.write_text(json.dumps({"table_photo": table_photo, "pictures": pictures}, indent = 1))
+    job_path.write_text(json.dumps({"table_photo": table_photo, "hold_s": hold_s, "pictures": pictures}, indent = 1))
     return job_path
+
+
+def open_twin(episode_folder: pathlib.Path = None) -> None:
+    """
+    Open the forearm camera twin in the Webots window, playing a recorded episode step by step, and return at once.
+
+    Parameters
+    ----------
+    episode_folder : pathlib.Path, optional
+        The recorded episode to play; by default ``config.SYNTHETIC_PARAMETERS["twin_playback"]["episode"]`` in the
+        repository's raw recordings folder.
+    """
+
+    playback = config.SYNTHETIC_PARAMETERS["twin_playback"]
+    if episode_folder is None:
+        episode_folder = REPOSITORY_FOLDER / config.RECORDING_PARAMETERS["raw_folder"] / playback["episode"]
+    with open(episode_folder / "steps.csv", newline = "") as steps_file:
+        all_steps = [int(row["step"]) for row in csv.DictReader(steps_file)]
+
+    output_folder = REPOSITORY_FOLDER / config.SYNTHETIC_PARAMETERS["output_folder"] / "twin_playback"
+    job_path = write_twin_job(episode_folder, all_steps[::playback["step_stride"]], playback["mount"],
+                              table_photo_for_twin(), output_folder, hold_s = playback["hold_s"])
+    environment = environment_for_controllers()
+    environment[TWIN_JOB_VARIABLE] = str(job_path)
+    world_path = REPOSITORY_FOLDER / config.SYNTHETIC_PARAMETERS["project_folder"] / "worlds" / "forearm_twin.wbt"
+    window_executable = pathlib.Path(config.SYNTHETIC_PARAMETERS["webots_executable"]).with_name("webotsw.exe")
+    subprocess.Popen([str(window_executable), str(world_path)], env = environment)
 
 
 def run_twin_replay(
@@ -691,5 +741,7 @@ if __name__ == "__main__":
         print(f"Webots finished with code {run_webots_world('f3_first_look')}")
     elif task == "open":
         open_webots_world("f3_first_look")
+    elif task == "open_twin":
+        open_twin(pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else None)
     else:
-        print(f"Unknown task {task!r}: use 'textures', 'first_look' or 'open'.")
+        print(f"Unknown task {task!r}: use 'textures', 'first_look', 'open' or 'open_twin'.")

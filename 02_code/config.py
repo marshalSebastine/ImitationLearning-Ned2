@@ -436,5 +436,20 @@ SYNTHETIC_PARAMETERS = {
             "rotation_vector": [0.059233, 0.145083, 1.571387],
             "translation_m": [0.058359, -0.003742, 0.022378]
         }
+    },
+    # The twin's table: a top-down photo built from the calibrated pictures of episodes 042 and 043 (1 mm per pixel,
+    # rows along +x from the first x, columns along +y from the first y), drawn unlit so it keeps the real colours.
+    "twin_table_photo": {
+        "texture": "textures/orthophoto_forearm_camera_2026-11-05.png",
+        "x_range_m": [0.10, 0.56],
+        "y_range_m": [-0.22, 0.22]
+    },
+    # What "synthetic_pictures.py open_twin" plays in the Webots window: every "step_stride"-th step of the episode,
+    # each held "hold_s" seconds.
+    "twin_playback": {
+        "episode": "2026-11-05_session_01_emranul/path_04_meander_episode_042",
+        "mount": "tape_position_since_2026-11-04_test_5",
+        "step_stride": 10,
+        "hold_s": 1.5
     }
 }
