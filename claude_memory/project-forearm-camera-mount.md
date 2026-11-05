@@ -1,4 +1,4 @@
----
+﻿---
 name: project-forearm-camera-mount
 description: Where the bare camera is taped on the forearm cover (between the two screws, 4 mm below the seam, three tape strips) and how to put it back
 metadata:
@@ -12,8 +12,7 @@ cover screws**, held by **three strips** of clear tape. Photos and steps to put 
 plan of 4.11.26 evening; a first version of this fact said F3 and was wrong.
 
 **Why:** the camera check shows this view from test 5 (episode 037, 4.11.26) on; if the tape fails, the camera must go back
-to the same view or the data splits into two camera views. Episodes 037 to 043 carry the old mount name
-`forearm_cover_tape_F3_bracket` in episode.json; from 5.11.26 the tool writes `forearm_cover_tape_bare_camera`.
+to the same view or the data splits into two camera views. All episodes up to 043 are tool tests, not training data (Emranul, 5.11.26); real data collection starts with the mount name `forearm_cover_tape_bare_camera`.
 
 **How to apply:** after any re-taping, compare with the reference picture
 `03_data/raw/camera_check/camera_reference/forearm_cover_tape_bare_camera_x171_y37mm.jpg`; the recording tool's camera check
