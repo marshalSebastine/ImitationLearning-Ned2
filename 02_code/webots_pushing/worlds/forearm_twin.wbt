@@ -1,0 +1,166 @@
+#VRML_SIM R2025a utf8
+
+WorldInfo {
+  info [
+    "Team M, Project 6: twin of the forearm-cover camera. The table and sheet are a top-down photo built from the robot's"
+    "own calibrated pictures; the forearm, wrist, hand and magnet block follow the logged joints; the camera follows the"
+    "forearm with the fitted mount. Every pose is set by the twin_replay controller from a job file."
+  ]
+  title "Forearm camera twin"
+  basicTimeStep 8
+  coordinateSystem "ENU"
+}
+Viewpoint {
+  orientation -0.2901 0.1323 0.9478 2.3257
+  position 0.75 -0.45 0.5
+}
+Background {
+  skyColor [
+    0.7 0.7 0.7
+  ]
+  luminosity 1
+}
+DirectionalLight {
+  direction 0.2 0.3 -1
+  intensity 1.2
+}
+DirectionalLight {
+  direction -0.3 -0.2 -1
+  intensity 0.6
+}
+DEF TABLE_PHOTO Solid {
+  translation 0.33 0 0.007
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        emissiveColorMap DEF TABLE_PHOTO_TEXTURE ImageTexture {
+          url [
+            "textures/orthophoto_forearm_camera.png"
+          ]
+          filtering 4
+        }
+        emissiveIntensity 1
+        roughness 1
+        metalness 0
+      }
+      geometry DEF TABLE_PHOTO_GEOMETRY IndexedFaceSet {
+        coord DEF TABLE_PHOTO_CORNERS Coordinate {
+          point [
+            -0.23 -0.22 0, 0.23 -0.22 0, 0.23 0.22 0, -0.23 0.22 0
+          ]
+        }
+        texCoord TextureCoordinate {
+          point [
+            0 1, 0 0, 1 0, 1 1
+          ]
+        }
+        coordIndex [
+          0, 1, 2, 3, -1
+        ]
+        texCoordIndex [
+          0, 1, 2, 3, -1
+        ]
+      }
+    }
+  ]
+  name "table photo"
+}
+DEF PUCK Solid {
+  translation 0.19 0.045 0.0215
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.85 0.12 0.08
+        roughness 0.6
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.029
+        radius 0.012
+      }
+    }
+  ]
+  name "puck"
+}
+DEF FOREARM Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.12 0.42 0.9
+        roughness 0.5
+        metalness 0
+      }
+      geometry Mesh {
+        url [
+          "../../../06_deliverables/research_notes/Camera mount options/niryo_files/ned2_forearm_link.stl"
+        ]
+      }
+    }
+  ]
+  name "forearm"
+}
+DEF WRIST Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.12 0.42 0.9
+        roughness 0.5
+        metalness 0
+      }
+      geometry Mesh {
+        url [
+          "../../../06_deliverables/research_notes/Camera mount options/niryo_files/ned2_wrist_link.stl"
+        ]
+      }
+    }
+  ]
+  name "wrist"
+}
+DEF HAND Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.62 0.6 0.58
+        roughness 0.35
+        metalness 0.6
+      }
+      geometry Mesh {
+        url [
+          "../../../06_deliverables/research_notes/Camera mount options/niryo_files/ned2_hand_link.stl"
+        ]
+      }
+    }
+  ]
+  name "hand"
+}
+DEF MAGNET_BLOCK Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.03 0.03 0.035
+        roughness 0.45
+        metalness 0
+      }
+      geometry Box {
+        size 0.026 0.037 0.033
+      }
+    }
+  ]
+  name "magnet block"
+}
+DEF CAMERA_RIG Robot {
+  children [
+    Camera {
+      name "camera"
+      fieldOfView 1.7453
+      width 1024
+      height 768
+      near 0.005
+      antiAliasing TRUE
+    }
+  ]
+  name "camera rig"
+  controller "twin_replay"
+  supervisor TRUE
+}

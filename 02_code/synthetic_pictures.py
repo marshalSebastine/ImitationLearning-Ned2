@@ -13,6 +13,7 @@ Write the textures, render the first-look pictures without a window, or open the
     python 02_code/synthetic_pictures.py open
 """
 
+import csv
 import json
 import math
 import os
@@ -28,6 +29,11 @@ import config
 REPOSITORY_FOLDER = pathlib.Path(__file__).resolve().parents[1]
 # Set by ``run_webots_world`` so the controller quits Webots after its pictures; opened in the window, the scene stays.
 QUIT_WHEN_DONE_VARIABLE = "SYNTHETIC_PICTURES_QUIT_WHEN_DONE"
+# Names the job file that the twin_replay controller renders.
+TWIN_JOB_VARIABLE = "SYNTHETIC_PICTURES_TWIN_JOB"
+# The twin's Webots camera renders a wide picture without distortion (100 degrees across 1024 pixels, so it covers
+# every ray of the real 640 x 480 picture); Niryo's distortion is then applied in Python, exactly as calibrated.
+WIDE_PICTURE = {"width": 1024, "height": 768, "field_of_view_rad": math.radians(100.0)}
 # The Ned2's joints from Niryo's URDF (06_deliverables/research_notes/Camera mount options/niryo_files/
 # niryo_ned2.urdf.xacro): for each joint, its origin in the parent frame (metres), the fixed roll, pitch and yaw before
 # it turns, and whether it turns about its own z axis; the last entry is the fixed tool frame on the hand. Checked on
@@ -170,6 +176,286 @@ def project_to_picture(
     is_visible = ((depth > 0.02) & (radius_squared < lens["valid_normalised_radius"] ** 2)
                   & (pixels[:, 0] >= 0) & (pixels[:, 0] < 640) & (pixels[:, 1] >= 0) & (pixels[:, 1] < 480))
     return pixels, is_visible
+
+
+def webots_pose(transform: numpy.ndarray) -> dict:
+    """
+    Return a 4 by 4 transform as Webots' translation and axis-angle rotation fields.
+
+    Parameters
+    ----------
+    transform : numpy.ndarray
+        A pose in the robot's base frame, which is Webots' world frame in the twin.
+
+    Returns
+    -------
+    dict
+        ``translation`` (three floats) and ``rotation`` (axis x, y, z and angle).
+    """
+
+    rotation_vector = cv2.Rodrigues(transform[:3, :3])[0].ravel()
+    angle = float(numpy.linalg.norm(rotation_vector))
+    axis = rotation_vector / angle if angle > 1e-9 else numpy.array([0.0, 0.0, 1.0])
+    return {"translation": [float(value) for value in transform[:3, 3]],
+            "rotation": [float(axis[0]), float(axis[1]), float(axis[2]), angle]}
+
+
+def twin_poses(
+        joints: list,
+        mount: dict,
+        puck_xy: list = None
+) -> dict:
+    """
+    Return the Webots poses of the twin's camera, arm parts, magnet block and puck for one logged step.
+
+    Webots' camera looks along its own x axis with z up the picture and y to its left, so the OpenCV camera's axes
+    (x right, y down, z ahead) are reordered. The arm meshes are placed as Niryo's URDF places them: in each link's
+    frame turned by -90 degrees about z. The magnet block hangs below the tool point along the rod.
+
+    Parameters
+    ----------
+    joints : list of float
+        The six logged joint angles in radians.
+    mount : dict
+        The camera's ``rotation_vector`` and ``translation_m`` in the forearm frame.
+    puck_xy : list of float, optional
+        Where the puck stands on the table; ``None`` hides it far from the table.
+
+    Returns
+    -------
+    dict
+        Webots poses keyed by the nodes' DEF names in ``forearm_twin.wbt``.
+    """
+
+    frames = forward_kinematics(joints)
+    camera = forearm_camera_pose(joints, mount)
+    rig = numpy.eye(4)
+    rig[:3, :3] = numpy.column_stack([camera[:3, 2], -camera[:3, 0], -camera[:3, 1]])
+    rig[:3, 3] = camera[:3, 3]
+
+    mesh_turn = numpy.eye(4)
+    mesh_turn[:3, :3] = rotation_from_rpy(0.0, 0.0, -math.pi / 2)
+    block = frames[6].copy()
+    block[:3, 3] = frames[6][:3, 3] + 0.013 * frames[6][:3, 0]
+
+    puck = numpy.eye(4)
+    if puck_xy is None:
+        puck[:3, 3] = [2.0, 2.0, -1.0]
+    else:
+        puck[:3, 3] = [puck_xy[0], puck_xy[1],
+                       config.table_height(puck_xy[0], puck_xy[1]) + config.PUCK_PARAMETERS["height_m"] / 2]
+    return {"CAMERA_RIG": webots_pose(rig), "FOREARM": webots_pose(frames[3] @ mesh_turn),
+            "WRIST": webots_pose(frames[4] @ mesh_turn), "HAND": webots_pose(frames[5] @ mesh_turn),
+            "MAGNET_BLOCK": webots_pose(block), "PUCK": webots_pose(puck)}
+
+
+def find_puck(
+        picture: numpy.ndarray,
+        camera_in_world: numpy.ndarray,
+        lens: dict,
+        tool_xy: list,
+        largest_distance_from_tool_m: float = 0.08
+) -> list:
+    """
+    Return where the puck stands on the table, from its red colour in a real picture, or ``None`` if none is seen.
+
+    Each red blob's centre is taken as a puck's middle (half its height above the paper) and traced back through the
+    lens onto that height above the table plane; the blob that lands nearest the tool is the puck, because the
+    reddish wood of the table and the door also passes the colour test.
+
+    Parameters
+    ----------
+    picture : numpy.ndarray
+        A real picture of the forearm camera (BGR).
+    camera_in_world : numpy.ndarray
+        The camera's 4 by 4 pose for that picture, OpenCV axes.
+    lens : dict
+        The lens calibration (``fx``, ``fy``, ``cx``, ``cy``, ``k1``, ``k2``, ``k3``).
+    tool_xy : list of float
+        The tool's x and y in metres for that picture.
+    largest_distance_from_tool_m : float, optional
+        A red blob landing further from the tool is not taken for the puck.
+
+    Returns
+    -------
+    list of float or None
+        The puck centre's x and y in metres.
+    """
+
+    hsv = cv2.cvtColor(picture, cv2.COLOR_BGR2HSV)
+    hue, saturation, value = cv2.split(hsv)
+    red = (((hue < 10) | (hue > 170)) & (saturation > 110) & (value > 50)).astype(numpy.uint8)
+    count, _, statistics, centroids = cv2.connectedComponentsWithStats(red)
+
+    camera_matrix = numpy.array([[lens["fx"], 0.0, lens["cx"]], [0.0, lens["fy"], lens["cy"]], [0.0, 0.0, 1.0]])
+    distortion = numpy.array([lens["k1"], lens["k2"], 0.0, 0.0, lens["k3"]])
+    origin = camera_in_world[:3, 3]
+    plane = config.WORKSPACE_PARAMETERS["table_plane"]
+    middle_height = plane["c"] + config.PUCK_PARAMETERS["height_m"] / 2
+    best_point, best_distance = None, largest_distance_from_tool_m
+    for blob in range(1, count):
+        if not 300 <= statistics[blob, cv2.CC_STAT_AREA] <= 12_000:
+            continue
+        ray = cv2.undistortPoints(centroids[blob].reshape(1, 1, 2), camera_matrix, distortion).ravel()
+        direction = camera_in_world[:3, :3] @ numpy.array([ray[0], ray[1], 1.0])
+        distance = ((middle_height + plane["a"] * origin[0] + plane["b"] * origin[1] - origin[2])
+                    / (direction[2] - plane["a"] * direction[0] - plane["b"] * direction[1]))
+        point = origin + distance * direction
+        distance_from_tool = math.hypot(point[0] - tool_xy[0], point[1] - tool_xy[1])
+        if distance > 0 and distance_from_tool < best_distance:
+            best_point, best_distance = [float(point[0]), float(point[1])], distance_from_tool
+    return best_point
+
+
+def match_colours(
+        picture: numpy.ndarray,
+        reference: numpy.ndarray
+) -> numpy.ndarray:
+    """
+    Give ``picture`` the colour mean and spread of ``reference`` in Lab colour space (Reinhard's colour transfer).
+
+    Used to show a twin picture with the real camera's automatic white balance and exposure of the same moment.
+
+    Parameters
+    ----------
+    picture, reference : numpy.ndarray
+        BGR pictures.
+
+    Returns
+    -------
+    numpy.ndarray
+        ``picture`` with the colour statistics of ``reference``.
+    """
+
+    picture_lab = cv2.cvtColor(picture, cv2.COLOR_BGR2LAB).astype(numpy.float32)
+    reference_lab = cv2.cvtColor(reference, cv2.COLOR_BGR2LAB).astype(numpy.float32)
+    picture_mean, picture_spread = picture_lab.mean(axis = (0, 1)), picture_lab.std(axis = (0, 1)) + 1e-3
+    reference_mean, reference_spread = reference_lab.mean(axis = (0, 1)), reference_lab.std(axis = (0, 1))
+    matched = (picture_lab - picture_mean) / picture_spread * reference_spread + reference_mean
+    return cv2.cvtColor(numpy.clip(matched, 0, 255).astype(numpy.uint8), cv2.COLOR_LAB2BGR)
+
+# Reference
+# Source: Reinhard, Ashikhmin, Gooch and Shirley - Color transfer between images (mean and standard deviation per
+#         channel in a decorrelated colour space), IEEE Computer Graphics and Applications 21(5), 2001.
+# Link: https://doi.org/10.1109/38.946629
+
+
+def distort_wide_picture(
+        wide_picture: numpy.ndarray,
+        lens: dict
+) -> numpy.ndarray:
+    """
+    Turn the twin's wide undistorted picture into a 640 x 480 picture with the real lens' distortion.
+
+    Parameters
+    ----------
+    wide_picture : numpy.ndarray
+        The Webots camera's picture of ``WIDE_PICTURE`` size, without distortion.
+    lens : dict
+        The lens calibration (``fx``, ``fy``, ``cx``, ``cy``, ``k1``, ``k2``, ``k3``).
+
+    Returns
+    -------
+    numpy.ndarray
+        The picture the real camera would take, 640 by 480 pixels.
+    """
+
+    camera_matrix = numpy.array([[lens["fx"], 0.0, lens["cx"]], [0.0, lens["fy"], lens["cy"]], [0.0, 0.0, 1.0]])
+    distortion = numpy.array([lens["k1"], lens["k2"], 0.0, 0.0, lens["k3"]])
+    rows, columns = numpy.mgrid[0:480, 0:640]
+    pixels = numpy.column_stack([columns.ravel(), rows.ravel()]).astype(numpy.float64)
+    rays = cv2.undistortPoints(pixels.reshape(-1, 1, 2), camera_matrix, distortion).reshape(-1, 2)
+    wide_focal_px = (WIDE_PICTURE["width"] / 2) / math.tan(WIDE_PICTURE["field_of_view_rad"] / 2)
+    map_x = (WIDE_PICTURE["width"] / 2 + wide_focal_px * rays[:, 0]).astype(numpy.float32).reshape(480, 640)
+    map_y = (WIDE_PICTURE["height"] / 2 + wide_focal_px * rays[:, 1]).astype(numpy.float32).reshape(480, 640)
+    return cv2.remap(wide_picture, map_x, map_y, cv2.INTER_LINEAR, borderMode = cv2.BORDER_CONSTANT)
+
+
+def write_twin_job(
+        episode_folder: pathlib.Path,
+        steps: list,
+        mount_name: str,
+        table_photo: dict,
+        output_folder: pathlib.Path
+) -> pathlib.Path:
+    """
+    Write the job file that the twin_replay controller renders: one picture per logged step.
+
+    Parameters
+    ----------
+    episode_folder : pathlib.Path
+        A recorded episode (its ``steps.csv`` and frames are read, never changed).
+    steps : list of int
+        The step numbers to re-create.
+    mount_name : str
+        Key of ``config.SYNTHETIC_PARAMETERS["forearm_camera_mounts"]`` for the tape position of that episode.
+    table_photo : dict
+        ``texture`` (path relative to the world's folder) and ``corners`` (four table corners in metres).
+    output_folder : pathlib.Path
+        Where the wide twin pictures and the job file go.
+
+    Returns
+    -------
+    pathlib.Path
+        The job file.
+    """
+
+    parameters = config.SYNTHETIC_PARAMETERS
+    mount = parameters["forearm_camera_mounts"][mount_name]
+    lens = parameters["forearm_camera_lens"]
+    output_folder.mkdir(parents = True, exist_ok = True)
+    with open(episode_folder / "steps.csv", newline = "") as steps_file:
+        rows = {int(row["step"]): row for row in csv.DictReader(steps_file)}
+
+    pictures = []
+    for step in steps:
+        row = rows[step]
+        joints = [float(row[f"joint_{index}"]) for index in range(1, 7)]
+        real_picture = cv2.imread(str(episode_folder / row["frame"]))
+        tool_xy = forward_kinematics(joints)[6][:2, 3]
+        puck_xy = find_puck(real_picture, forearm_camera_pose(joints, mount), lens, tool_xy)
+        name = f"{episode_folder.name}_step_{step:03d}"
+        pictures.append({"name": name, "real_picture": str(episode_folder / row["frame"]),
+                         "wide_picture": str(output_folder / f"{name}_wide.png"),
+                         "poses": twin_poses(joints, mount, puck_xy)})
+
+    job_path = output_folder / "twin_job.json"
+    job_path.write_text(json.dumps({"table_photo": table_photo, "pictures": pictures}, indent = 1))
+    return job_path
+
+
+def run_twin_replay(
+        job_path: pathlib.Path,
+        timeout_s: float = 600.0
+) -> list:
+    """
+    Render a twin job in Webots without its window in the way, then add the lens' distortion to every picture.
+
+    Parameters
+    ----------
+    job_path : pathlib.Path
+        A job file from ``write_twin_job``.
+    timeout_s : float, optional
+        How long to wait for Webots.
+
+    Returns
+    -------
+    list of tuple
+        For every picture: the real picture and the twin picture (both BGR, 640 by 480) and the picture's name.
+    """
+
+    os.environ[TWIN_JOB_VARIABLE] = str(job_path)
+    run_webots_world("forearm_twin", timeout_s = timeout_s)
+    lens = config.SYNTHETIC_PARAMETERS["forearm_camera_lens"]
+    results = []
+    for picture in json.loads(job_path.read_text())["pictures"]:
+        wide = cv2.imread(picture["wide_picture"])
+        if wide is None:
+            continue
+        twin_picture = distort_wide_picture(wide, lens)
+        cv2.imwrite(picture["wide_picture"].replace("_wide.png", "_twin.png"), twin_picture)
+        results.append((cv2.imread(picture["real_picture"]), twin_picture, picture["name"]))
+    return results
 
 
 def load_traced_line(path_id: str) -> numpy.ndarray:

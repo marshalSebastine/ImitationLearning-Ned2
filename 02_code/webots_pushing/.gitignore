@@ -1,2 +1,4 @@
 # Webots writes each user's window layout next to the world file.
 *.wbproj
+# Top-down table photos are built from the raw recordings, which never go into git either.
+worlds/textures/orthophoto_*
