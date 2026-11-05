@@ -84,18 +84,20 @@ def solve_with_wrist_fixed(
 
 def solve_least_lean(
         target_tip: numpy.ndarray,
-        turn_rad: float
+        turn_rad: float,
+        wrist_range_deg: tuple = (-60.0, 60.0)
 ) -> Optional[List[float]]:
     """
     The joints that put the magnet tip on ``target_tip`` with joint 4 at ``turn_rad`` and the rod leaning least.
 
-    Joint 5 is searched in 1 degree steps and then 0.1 degree steps around the best one; joint 6 only spins the rod
-    about its own axis, so it stays at zero. None when no joint angles within the limits reach the target.
+    Joint 5 is searched within ``wrist_range_deg`` in 1 degree steps and then 0.1 degree steps around the best one
+    (the recording tool narrows the range to the bracket's wrist limit); joint 6 only spins the rod about its own
+    axis, so it stays at zero. None when no joint angles within the limits reach the target.
     """
 
     best_lean, best_joints = math.inf, None
     start = [math.atan2(target_tip[1], target_tip[0]), -0.8, -0.6]
-    for wrist_candidates in (numpy.arange(-60.0, 60.5, 1.0), None):
+    for wrist_candidates in (numpy.arange(wrist_range_deg[0], wrist_range_deg[1] + 0.5, 1.0), None):
         if wrist_candidates is None:
             if best_joints is None:
                 return None
