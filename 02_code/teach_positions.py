@@ -72,7 +72,8 @@ def teach_positions(parameters: dict = None) -> Dict[str, Dict[str, List[float]]
     positions = {}
     folder = settings["result_folder"]
     folder.mkdir(parents = True, exist_ok = True)
-    day = time.strftime("%Y-%m-%d")
+    # Date and time, so a second teach on the same day (a sheet's start, a re-teach) never overwrites the first.
+    day = time.strftime("%Y-%m-%d_%H%M%S")
 
     robot = NiryoRobot(settings["ip_address"])
     try:

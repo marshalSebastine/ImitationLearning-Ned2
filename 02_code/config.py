@@ -197,6 +197,14 @@ RECORDING_PAGE_PARAMETERS = {
     # The page asks for its status every second; git takes up to 11 s per call on the lab laptop (6.11.26), so the code
     # version is read at most once in this many seconds.
     "code_state_cache_s": 60,
+    # Teaching a start point from the page (teach_sheet_start.py, 6.11.26): the page's "Enter" button answers its prompts.
+    "teach_script": "teach_sheet_start.py",
+    # Sharpness warning on the page (Emranul, 6.11.26): a popup when the median sharpness (variance of the Laplacian) of
+    # the running episode's last "sharpness_rows" pictures, or of its camera check picture before the first step, is
+    # under "sharpness_warning_below". Measured: 4 to 5.11.26 episode medians 133 to 178; 6.11.26 with a hazy lens 37;
+    # after cleaning the lens 184 (episode 003). 100 lies between (a choice, not a measured limit).
+    "sharpness_warning_below": 100.0,
+    "sharpness_rows": 5,
     "operators": ["emranul", "marshal"],
     "modes": {
         "gamepad": "Gamepad",

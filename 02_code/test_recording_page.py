@@ -335,6 +335,52 @@ def test_other_websites_cannot_start_the_robot() -> None:
             time.sleep(0.05)
 
 
+def test_teach_start_is_answered_from_the_page() -> None:
+    """The page's Enter button answers the teach prompts, and the printed point is offered for Start x and Start y."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        runner = ToolRunner(Path(folder) / "logs", Path(folder))
+        fake_teach = ("input('motors off? '); input('touch the point, Enter '); input('motors on? '); "
+                      "print('Start the recording tool with:  --start-x 0.3421 --start-y -0.0163')")
+        runner.start("Teach start", [sys.executable, "-u", "-c", fake_teach], is_answered_from_page = True)
+        for _ in range(3):
+            runner.press_enter()
+        runner.process.wait(timeout = 10)
+        taught = runner.taught_start()
+        assert taught is not None and taught["x"] == "0.3421" and taught["y"] == "-0.0163", taught
+
+        runner.start("Check robot", [sys.executable, "-c", "pass"])
+        try:
+            runner.press_enter()
+        except FormError:
+            pass
+        else:
+            raise AssertionError("pressed Enter in a tool that does not read it")
+        runner.process.wait(timeout = 10)
+
+
+def test_blurred_pictures_raise_a_warning() -> None:
+    """A median sharpness under the limit in the last pictures gives a warning; sharp pictures give none."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
+        runner = ToolRunner(data_folder / "logs", data_folder)
+        limit = RECORDING_PAGE_PARAMETERS["sharpness_warning_below"]
+        for index, sharpness in ((1, limit / 3), (2, limit * 2)):
+            episode_folder = raw_folder / f"2026-11-06_session_01_emranul/path_01_straight_line_episode_00{index}"
+            rows = "\n".join(f"{step},{sharpness}" for step in range(8))
+            writer = (f"import pathlib; folder = pathlib.Path({str(episode_folder)!r}); folder.mkdir(parents = True); "
+                      f"(folder / 'steps_in_progress.csv').write_text('step,sharpness\\n' + {rows!r})")
+            runner.start_recording("Recording", [sys.executable, "-c", writer], "path_01_straight_line", False)
+            runner.process.wait(timeout = 10)
+            warning = runner.sharpness_warning()
+            if index == 1:
+                assert warning is not None and warning["episode"] == episode_folder.name and warning["sharpness"] == round(limit / 3), warning
+            else:
+                assert warning is None, warning
+
+
 if __name__ == "__main__":
     test_command_carries_the_form()
     test_notes_and_flags()
@@ -349,5 +395,7 @@ if __name__ == "__main__":
     test_episode_is_scored_before_the_next_start()
     test_bad_trial_and_discarded_episodes_stay_undone()
     test_trial_is_found_with_the_tool_tests()
+    test_teach_start_is_answered_from_the_page()
+    test_blurred_pictures_raise_a_warning()
     test_other_websites_cannot_start_the_robot()
     print("all tests passed")

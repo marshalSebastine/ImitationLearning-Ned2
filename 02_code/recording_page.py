@@ -14,6 +14,7 @@ Keep this program running during a session: the page's status and log come from 
 """
 
 import argparse
+import csv
 import datetime
 import getpass
 import json
@@ -31,6 +32,9 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse
 
+import cv2
+import numpy
+
 from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 
 
@@ -41,6 +45,7 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
+TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)")
 SETUP_PICTURE_PATH_PATTERN = re.compile(r"/setup-picture/[0-9]{2}-[0-9]{2}[.]png")
 SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
@@ -323,6 +328,7 @@ class ToolRunner:
         self.log_folder = log_folder or PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["log_folder"]
         self.data_folder = data_folder
         self.recording = None
+        self.last_recording = None
         self.episode_to_score = None
         self.robot_check = None
         self.robot_check_seen = None
@@ -341,7 +347,8 @@ class ToolRunner:
     def start(
             self,
             title: str,
-            command: List[str]
+            command: List[str],
+            is_answered_from_page: bool = False
     ) -> None:
         """
         Start ``command``; refused while another tool from this page runs, because only one program may use the robot.
@@ -367,8 +374,67 @@ class ToolRunner:
         with open(self.log_path, "w", encoding = "utf-8") as log_file:
             log_file.write(f"{self.command_text}\n\n")
             log_file.flush()
-            self.process = subprocess.Popen(command, cwd = CODE_FOLDER, stdin = subprocess.DEVNULL, stdout = log_file,
+            self.process = subprocess.Popen(command, cwd = CODE_FOLDER, stdin = subprocess.PIPE if is_answered_from_page else subprocess.DEVNULL,
+                                            stdout = log_file,
                                             stderr = subprocess.STDOUT, env = self.__tool_environment(), **isolation)
+
+
+    def press_enter(self) -> None:
+        """Answer the running tool's prompt with Enter (only a tool started with ``is_answered_from_page``)."""
+
+        if not self.is_running() or self.process.stdin is None:
+            raise FormError("Nothing is waiting for Enter.")
+        self.process.stdin.write(b"\n")
+        self.process.stdin.flush()
+
+
+    def taught_start(self) -> Optional[Dict]:
+        """The point printed by the latest finished "Teach start", for the page to fill in Start x and Start y."""
+
+        if self.title != "Teach start" or self.is_running() or self.log_path is None or not self.log_path.exists():
+            return None
+        match = TAUGHT_START_IN_LOG_PATTERN.search(self.log_path.read_text(encoding = "utf-8", errors = "replace"))
+        if not match:
+            return None
+        return {"x": match.group(1), "y": match.group(2), "taught_at": self.started_at.strftime("%H:%M:%S")}
+
+
+    def sharpness_warning(self) -> Optional[Dict]:
+        """
+        A warning when the running (or just finished) episode's pictures are blurred: the median sharpness of its last
+        "sharpness_rows" pictures, or of its camera check picture before the first step, under "sharpness_warning_below".
+        """
+
+        recording = self.recording or self.last_recording
+        if recording is None:
+            return None
+        folders = [folder for folder in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*")
+                   if folder.is_dir() and folder.stat().st_ctime >= recording["started"]]
+        if not folders:
+            return None
+        folder = max(folders, key = lambda path: path.stat().st_ctime)
+        values = []
+        for file_name in ("steps_in_progress.csv", "steps.csv"):
+            path = folder / file_name
+            if path.exists():
+                try:
+                    with open(path, encoding = "utf-8", newline = "") as file:
+                        values = [float(row["sharpness"]) for row in csv.DictReader(file) if row.get("sharpness")]
+                except (OSError, ValueError, KeyError):
+                    values = []
+                break
+        values = values[-RECORDING_PAGE_PARAMETERS["sharpness_rows"]:]
+        source = f"the last {len(values)} pictures"
+        if not values and (folder / "camera_check.jpg").exists():
+            values = [picture_sharpness(folder / "camera_check.jpg")]
+            source = "the camera check picture"
+        if not values or values[0] is None:
+            return None
+        median = float(numpy.median(values))
+        if median >= RECORDING_PAGE_PARAMETERS["sharpness_warning_below"]:
+            return None
+        return {"episode": folder.name, "sharpness": round(median), "limit": RECORDING_PAGE_PARAMETERS["sharpness_warning_below"],
+                "source": source}
 
 
     def start_recording(
@@ -382,6 +448,7 @@ class ToolRunner:
         """Start a recording and remember what to look for, so its episode can be scored when the tool ends."""
 
         self.start(title, command)
+        self.last_recording = None
         self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated, is_trial),
                           "started": self.started_at.timestamp()}
 
@@ -428,6 +495,7 @@ class ToolRunner:
         if self.recording is None or self.is_running():
             return
         recording, self.recording = self.recording, None
+        self.last_recording = recording
         summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
                      if path.stat().st_mtime >= recording["started"]]
         if not summaries:
@@ -511,6 +579,13 @@ class ToolRunner:
 
 
 
+def picture_sharpness(path: Path) -> Optional[float]:
+    """Variance of the Laplacian of a saved picture, the number record_episodes.py logs; None when it cannot be read."""
+
+    picture = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+    return None if picture is None else float(cv2.Laplacian(picture, cv2.CV_64F).var())
+
+
 def run_git(*arguments: str) -> str:
 
     try:
@@ -581,7 +656,8 @@ class PageRequestHandler(BaseHTTPRequestHandler):
             else:
                 self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that plan number."})
         elif path == "/status":
-            self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
+            self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes(),
+                                             "taught_start": self.runner.taught_start(), "sharpness_warning": self.runner.sharpness_warning()})
         else:
             self.__send_json(HTTPStatus.NOT_FOUND, {"error": "Not found."})
 
@@ -607,6 +683,11 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 self.runner.save_review(form)
             elif path == "/check-robot":
                 self.runner.start("Check robot", [sys.executable, "-u", str(CODE_FOLDER / "check_hardware.py")])
+            elif path == "/teach-start":
+                self.runner.start("Teach start", [sys.executable, "-u", str(CODE_FOLDER / RECORDING_PAGE_PARAMETERS["teach_script"])],
+                                  is_answered_from_page = True)
+            elif path == "/press-enter":
+                self.runner.press_enter()
             elif path == "/check-episodes":
                 self.runner.start("Check episodes", [sys.executable, "-u", str(CODE_FOLDER / "check_episodes.py")])
             else:
