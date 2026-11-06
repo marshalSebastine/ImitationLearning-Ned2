@@ -194,6 +194,9 @@ RECORDING_PAGE_PARAMETERS = {
     "port": 8765,
     "log_folder": "03_data/recording_page_logs",
     "log_lines_shown": 200,
+    # The page asks for its status every second; git takes up to 11 s per call on the lab laptop (6.11.26), so the code
+    # version is read at most once in this many seconds.
+    "code_state_cache_s": 60,
     "operators": ["emranul", "marshal"],
     "modes": {
         "gamepad": "Gamepad",

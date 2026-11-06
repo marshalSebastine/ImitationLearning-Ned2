@@ -23,6 +23,7 @@ import shlex
 import socketserver
 import subprocess
 import sys
+import time
 import webbrowser
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -468,12 +469,21 @@ def run_git(*arguments: str) -> str:
     return result.stdout.strip() if result.returncode == 0 else ""
 
 
-def code_state() -> Dict:
-    """The code version every episode will record, and whether it has uncommitted changes."""
+CODE_STATE_CACHE = {"read_at": None, "state": None}
 
+
+def code_state() -> Dict:
+    """The code version every episode will record, and whether it has uncommitted changes (read again after a while)."""
+
+    now = time.monotonic()
+    read_at = CODE_STATE_CACHE["read_at"]
+    if read_at is not None and now - read_at < RECORDING_PAGE_PARAMETERS["code_state_cache_s"]:
+        return CODE_STATE_CACHE["state"]
     changed_files = run_git("status", "--porcelain", "--", "02_code")
-    return {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
-            "has_uncommitted_code": bool(changed_files)}
+    state = {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
+             "has_uncommitted_code": bool(changed_files)}
+    CODE_STATE_CACHE.update({"read_at": now, "state": state})
+    return state
 
 
 def latest_session_notes(line_count: int = 12) -> Dict:
