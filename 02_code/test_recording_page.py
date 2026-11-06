@@ -223,7 +223,7 @@ def test_episode_is_scored_before_the_next_start() -> None:
 
 
 def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
-    """Score 1, a trial and a discard leave their plan numbers open; a discard asks for no score, as it already gave a reason."""
+    """Score 1 counts as done (6.11.26); a trial and a discard leave their plan numbers open; a discard asks for no score."""
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
@@ -234,12 +234,12 @@ def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_001")
         runner.status()
         runner.save_review({"episode": "path_01_straight_line_episode_001", "score": "1", "issues": ["off_line"]})
-        assert done_plan_numbers(raw_folder) == []
+        assert done_plan_numbers(raw_folder) == ["01-01"]
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_002", plan_note = "plan 01-02, end A, STD, START MARK, trial")
         runner.status()
         runner.save_review({"episode": "path_01_straight_line_episode_002", "score": "3"})
-        assert done_plan_numbers(raw_folder) == []
+        assert done_plan_numbers(raw_folder) == ["01-01"]
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_003", status = "discarded")
         assert runner.status()["episode_to_score"] is None

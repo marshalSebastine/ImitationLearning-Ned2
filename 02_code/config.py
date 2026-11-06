@@ -235,6 +235,9 @@ RECORDING_PAGE_PARAMETERS = {
         "2": "Usable: small flaws, but the model may learn from it",
         "1": "Bad: leave out of training and record it again"
     },
+    # The lowest score that counts a plan episode as done. 1 since 6.11.26 evening (Emranul): every finished episode is
+    # training data, score 1 included, so a score of 1 is not recorded again.
+    "done_minimum_score": 1,
     "score_issues": {
         "not_steady": "Not smooth or steady",
         "lost_contact": "Block lost contact with the puck",

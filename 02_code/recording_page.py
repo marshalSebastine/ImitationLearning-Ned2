@@ -208,16 +208,16 @@ def read_json(path: Path) -> Optional[Dict]:
 
 def done_plan_numbers(raw_folder: Path) -> List[str]:
     """
-    The plan numbers already recorded well: a finished real episode, not a trial, scored 2 or 3.
+    The plan numbers already recorded: a finished real episode, not a trial, scored at least "done_minimum_score".
 
-    A discarded or badly scored episode stays undone, so the page offers its plan number again.
+    A discarded episode (or one scored lower) stays undone, so the page offers its plan number again.
     """
 
     done = set()
     for review_path in raw_folder.glob("*_session_*/*_episode_*/review.json"):
         review = read_json(review_path)
         summary = read_json(review_path.parent / "episode.json")
-        if not review or not summary or review.get("score", 0) < 2 or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+        if not review or not summary or review.get("score", 0) < RECORDING_PAGE_PARAMETERS["done_minimum_score"] or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
             continue
         note = str(summary.get("sheet_orientation", ""))
         match = PLAN_IN_NOTE_PATTERN.search(note)
