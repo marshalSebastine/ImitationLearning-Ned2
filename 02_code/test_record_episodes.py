@@ -16,7 +16,7 @@ from typing import Callable, List, Optional
 
 from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_table, camera_heading_rad, pushing_height,
                     start_pose, step_budget_for)
-from record_episodes import (ORIENTATION_LEGENDS, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad,
+from record_episodes import (lean_and_hand_labels, ORIENTATION_LEGENDS, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad,
                              picture_heading_rad, status_bar_image)
 from robot_link import SimulatedRobotLink, simulated_hand_path
 
@@ -546,7 +546,23 @@ def test_folder_names_carry_the_plan_number(raw_folder: Path) -> None:
                      "path_01_straight_line_episode_006_plan_01-02_try_1", "path_01_straight_line_episode_007"], names
 
 
+def test_lean_and_hand_labels() -> None:
+    """A hand turn of 10 degrees is hand_plus; tilting the wrist leans the rod; a step without either is "none" twice."""
+
+    joints = [0.0, -0.5, -0.9, 0.0, -0.17, 0.0]
+    heading = 0.0
+    still = lean_and_hand_labels(joints, joints, heading)
+    assert still["lean_label"] == "none" and still["hand_label"] == "none" and still["hand_change_deg"] == 0.0, still
+    turned = lean_and_hand_labels(joints, joints[:5] + [math.radians(10.0)], heading)
+    assert turned["hand_label"] == "hand_plus" and math.isclose(turned["hand_change_deg"], 10.0, abs_tol = 0.01), turned
+    tilted = lean_and_hand_labels(joints, joints[:4] + [joints[4] + math.radians(10.0), 0.0], heading)
+    assert tilted["lean_label"] in ("lean_forward", "lean_back") and math.isclose(abs(tilted["lean_change_deg"]), 10.0, abs_tol = 0.5), tilted
+    assert tilted["hand_label"] == "none", tilted
+
+
 if __name__ == "__main__":
+    test_lean_and_hand_labels()
+    print("test_lean_and_hand_labels: passed")
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     test_camera_shift_is_measured()

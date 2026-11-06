@@ -632,6 +632,12 @@ RECORDING_PARAMETERS = {
     "exact_waypoint_m": 0.01,
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,
+    # Two labels beside the move name (Emranul and Marshal, 6.11.26): the rod's lean towards the picture's top or
+    # bottom (episode 01-10: leaned so the black box on the hand no longer hid the puck) and the hand's turn about the
+    # rod (joint 6; pushing with the block's corner at hairpins). A change of at least this many degrees in one step is
+    # labelled; smaller changes are "none". Chosen, not measured: above the 1 to 2 degree jitter of hand guiding.
+    "lean_label_deg": 3.0,
+    "hand_label_deg": 3.0,
     "exact_small_motion_m": 0.003,
     # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
     # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:

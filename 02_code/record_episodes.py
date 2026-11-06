@@ -119,9 +119,58 @@ ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "H
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
+                "lean_change_deg", "lean_label", "hand_change_deg", "hand_label",
                 "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
                 "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
+
+
+def rod_lean_forward_deg(
+        joints: List[float],
+        heading_rad: float
+) -> float:
+    """
+    The rod's lean towards the picture's top, in degrees from straight down: positive when the tip (lower end) is
+    further towards the picture's top than the rod's upper end, negative towards the picture's bottom.
+    """
+
+    rod_direction = numpy.array(ned2_fk.fk(list(joints))["joint_6"][1])[:, 2]
+    forward = numpy.array([math.cos(heading_rad), math.sin(heading_rad)])
+    return math.degrees(math.atan2(float(rod_direction[:2] @ forward), -float(rod_direction[2])))
+
+
+def lean_and_hand_labels(
+        joints_now: List[float],
+        joints_next: List[float],
+        heading_rad: float,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> Dict:
+    """
+    The two labels beside the move name for the step from ``joints_now`` to ``joints_next`` (6.11.26).
+
+    Parameters
+    ----------
+    joints_now, joints_next : list of float
+        The six joints before and after the step, in radians.
+    heading_rad : float
+        Where the picture's top points on the table at ``joints_now`` (picture_heading_rad).
+    parameters : dict, optional
+        Supplies "lean_label_deg" and "hand_label_deg".
+
+    Returns
+    -------
+    dict
+        "lean_change_deg" (positive: the tip leans further towards the picture's top), "lean_label" ("lean_forward",
+        "lean_back" or "none"), "hand_change_deg" (joint 6, positive as the joint counts) and "hand_label"
+        ("hand_plus", "hand_minus" or "none"; the joint's sign, not yet checked against the picture's left and right).
+    """
+
+    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - rod_lean_forward_deg(joints_now, heading_rad)
+    hand_change = math.degrees(joints_next[5] - joints_now[5])
+    lean_label = "none" if abs(lean_change) < parameters["lean_label_deg"] else ("lean_forward" if lean_change > 0 else "lean_back")
+    hand_label = "none" if abs(hand_change) < parameters["hand_label_deg"] else ("hand_plus" if hand_change > 0 else "hand_minus")
+    return {"lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
+            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label}
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -1232,6 +1281,7 @@ class EpisodeRecorder:
         left_m = float(moved @ numpy.array([math.cos(heading + sign * math.pi / 2), math.sin(heading + sign * math.pi / 2)]))
         forearm_change_deg = math.degrees(joints_next[3] - state["joints"][3])
         motion = {"tip_forward_m": round(forward_m, 5), "tip_left_m": round(left_m, 5), "forearm_change_deg": round(forearm_change_deg, 2)}
+        motion.update(lean_and_hand_labels(list(state["joints"]), list(joints_next), heading, self.recorder_parameters))
 
         if abs(forearm_change_deg) >= self.recorder_parameters["exact_turn_label_deg"] - 0.01:
             return ("turn_left" if forearm_change_deg > 0 else "turn_right"), motion
