@@ -18,10 +18,13 @@ opens its windows as usual. "Check robot" and "Check the newest session" run `ch
 - All keys still go to the tool's picture window, Enter included. After Start the windows may be behind the browser.
 - The page has no stop button, on purpose: use Esc at the "Put the puck at the start" prompt, OPTIONS on the gamepad, or the
   robot's Stop button.
-- The plan number fills itself in: the next one in the episode plan not yet done on that sheet, with its kind of start and end.
-  You can type another. A discarded episode, a score of 1 and a trial leave the number open, so it comes up again.
+- Choose a sheet and an episode from the list: the "Set up this episode" box then shows the end, kind of start, offset, angle, start
+  index and start position, the plan's setup steps, and the note that will be saved. It warns if you change the end or kind of start
+  away from the plan. The list starts on the next episode not yet done, in the plan's order: Round 1 (the first 12 of sheets 01, 02
+  and 04), then the rest. A discarded episode, a score of 1 and a trial leave the episode open, so it comes up again. Choose "None"
+  for a trial or practice.
 - Filled in for you, and you can still change it: operator and mode (your last choice; on a first visit the operator comes from
-  the computer's user name), sheet (it moves on when a sheet's plan is done), kind of start and end (from the plan), the taught start
+  the computer's user name), sheet and episode (as above), kind of start and end (from the plan), the taught start
   for that kind of start, and today's light note (not yesterday's, as the light may differ).
 - Safety boxes: "Check robot" ticks the calibration box when the robot says it is calibrated, and that lasts 60 minutes. The Stop
   button box must be ticked for every episode. The other two stay ticked until the sheet changes or the page is reloaded.

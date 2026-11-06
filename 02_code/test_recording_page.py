@@ -134,6 +134,15 @@ def test_plan_matches_the_episode_plan_file() -> None:
     assert entry("path_05_alpha_loop", "05-26") == ("X2", "B") and entry("path_06_alpha_loop_dashed", "06-21") == ("TL15", "A")
 
 
+def test_every_episode_has_its_setup_steps() -> None:
+
+    settings = RECORDING_PAGE_PARAMETERS
+    assert set(settings["start_setups"]) == set(settings["start_codes"]), "a kind of start has no setup steps"
+    assert set(settings["sheet_setups"]) == set(settings["sheets"]) == set(settings["episode_plan"]), "a sheet has no setup steps"
+    assert (recording_page.PROJECT_FOLDER / settings["sheet_placement_figure"]).exists()
+    assert set(settings["first_round"]["sheets"]) <= set(settings["sheets"])
+
+
 def test_review_form() -> None:
 
     assert read_review_form({"score": "3"}) == {"score": 3, "issues": [], "note": ""}
@@ -311,6 +320,7 @@ if __name__ == "__main__":
     test_form_text_stays_one_argument()
     test_only_one_tool_at_a_time()
     test_plan_matches_the_episode_plan_file()
+    test_every_episode_has_its_setup_steps()
     test_review_form()
     test_operator_is_guessed_from_the_user_name()
     test_robot_check_result_is_read_from_its_output()

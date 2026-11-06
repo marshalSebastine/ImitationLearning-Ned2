@@ -242,6 +242,42 @@ RECORDING_PAGE_PARAMETERS = {
         "start": "Hand in the first picture, or puck not placed well",
         "other": "Something else (say what in the note)"
     },
+    # What each kind of start and each sheet asks for, from the episode plan; shown as "Set up this episode".
+    "start_setups": {
+        "STD": "Start cap on the START MARK, the line's first centimetres pointing straight away from the robot. Puck centred on the start cap.",
+        "OL1": "As STD, but the puck 1 cm LEFT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OR1": "As STD, but the puck 1 cm RIGHT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OL1.5": "As STD, but the puck 1.5 cm LEFT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OR1.5": "As STD, but the puck 1.5 cm RIGHT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "TL10": "The sheet turned 10 degrees LEFT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TR10": "The sheet turned 10 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TL15": "The sheet turned 15 degrees LEFT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TR15": "The sheet turned 15 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "NE": "The puck on the line 4 to 8 cm before the end cap. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "MID": "A start before a hard spot: 3 cm before the sharp turn (sheet 03) or at the middle hairpin (sheet 04). Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "X1": "5 cm before the crossing, first pass. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "X2": "5 cm before the crossing, second pass. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched."
+    },
+    "sheet_setups": {
+        "path_01_straight_line": "No sheet marks a start: either end may be A. For end B, turn the sheet round so the other cap is on the mark.",
+        "path_02_arc": "From end A the arc bends to the robot's left; from end B it bends to the right. Both are needed.",
+        "path_03_two_curve": "End B is tight for reach (calc: 0.2 cm to spare). Use it only if its trial reached the goal without strain.",
+        "path_04_meander": "Keep the rod upright; let it lean only where the arm cannot reach otherwise, at the far end of this sheet.",
+        "path_05_alpha_loop": "Start from the lower end (B) only: from the other end the paper would lie under the robot's base. At the crossing, go straight across, never round the corner.",
+        "path_06_alpha_loop_dashed": "Start from end A only: the end halfway up the sheet, about 4 cm from its right edge in the course photo. Keep the dashes' direction across the gaps, and go straight across the crossing."
+    },
+    "demonstration_rules": [
+        "Push smoothly at a steady, unhurried speed. Block behind the puck and touching it; puck's centre on the line.",
+        "Keep the rod upright; let it lean only where the arm cannot reach otherwise.",
+        "Turn the forearm only when the line ahead would leave the picture, and turn it back on straight stretches.",
+        "At a crossing, go straight across. On the dashed sheet, keep the direction across the gaps.",
+        "Finish with the puck's centre on the end cap, within about 1 cm, then stop.",
+        "Anything else that slips more than about 1 cm off the line: discard (x) and do it again.",
+        "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
+    ],
+    "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # Round 1 of the plan: enough for the first model. The page offers these before anything else.
+    "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
     # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
     "episode_plan": {
         "path_01_straight_line": [
@@ -277,13 +313,13 @@ RECORDING_PAGE_PARAMETERS = {
         ],
         "path_05_alpha_loop": [
             (1, 6, "STD", "B", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "B", ""),
-            (11, 13, "X1", "B", "5 cm before the crossing, first pass."), (14, 19, "STD", "B", ""),
+            (11, 13, "X1", "B", ""), (14, 19, "STD", "B", ""),
             (20, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1"], "B", ""),
-            (25, 27, "X2", "B", "5 cm before the crossing, second pass."), (28, 30, "NE", "B", "")
+            (25, 27, "X2", "B", ""), (28, 30, "NE", "B", "")
         ],
         "path_06_alpha_loop_dashed": [
             (1, 6, "STD", "A", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "A", "For OL1, the puck beside the first dash."),
-            (11, 13, "X1", "A", "5 cm before the crossing."), (14, 18, "STD", "A", ""),
+            (11, 13, "X1", "A", ""), (14, 18, "STD", "A", ""),
             (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 25, "NE", "A", "")
         ]
     },

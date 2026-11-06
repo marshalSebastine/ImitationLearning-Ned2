@@ -492,9 +492,13 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "sheets": RECORDING_PAGE_PARAMETERS["sheets"], "line_ends": RECORDING_PAGE_PARAMETERS["line_ends"],
                 "start_codes": RECORDING_PAGE_PARAMETERS["start_codes"], "safety_checks": RECORDING_PAGE_PARAMETERS["safety_checks"],
                 "score_levels": RECORDING_PAGE_PARAMETERS["score_levels"], "score_issues": RECORDING_PAGE_PARAMETERS["score_issues"],
+                "start_setups": RECORDING_PAGE_PARAMETERS["start_setups"], "sheet_setups": RECORDING_PAGE_PARAMETERS["sheet_setups"],
+                "demonstration_rules": RECORDING_PAGE_PARAMETERS["demonstration_rules"], "first_round": RECORDING_PAGE_PARAMETERS["first_round"],
                 "episode_plan": expand_episode_plan(), "camera_mount": RECORDING_PARAMETERS["camera_mount"],
                 "default_operator": default_operator(), "safety_check_calibration": RECORDING_PAGE_PARAMETERS["safety_check_calibration"],
                 "safety_checks_every_start": RECORDING_PAGE_PARAMETERS["safety_checks_every_start"]})
+        elif path == "/sheet-placements.png":
+            self.__send(HTTPStatus.OK, (PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["sheet_placement_figure"]).read_bytes(), "image/png")
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
         else:
