@@ -65,10 +65,10 @@ def test_notes_and_flags() -> None:
                                                  is_trial = True, is_new_session = True))
     assert option_value(command, "--orientation") == "plan 02-07, end A, NE, taught start, new lamp, trial", command
     assert option_value(command, "--start-x") == "0.31" and option_value(command, "--start-index") == "1"
-    assert "--new-session" in command
+    assert "--new-session" in command and "--trial" in command
 
     practice = build_recording_command(good_form(is_simulated = True, plan_number = "", lighting = "", safety_checks = []))
-    assert "--simulated" in practice
+    assert "--simulated" in practice and "--trial" not in practice
 
 
 def test_refusals() -> None:
@@ -243,6 +243,22 @@ def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
         assert runner.status()["episode_to_score"] is None
 
 
+def test_trial_is_found_with_the_tool_tests() -> None:
+    """A trial is saved in the tool-test folder, not the main data, and is still offered for a score."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        episode_folder = data_folder / RECORDING_PARAMETERS["tool_test_folder"] / "2026-11-06_session_01_emranul/path_01_straight_line_episode_001"
+        runner = ToolRunner(data_folder / "logs", data_folder)
+
+        runner.start_recording("Recording", [sys.executable, "-c", fake_tool_writing(episode_folder)], "path_01_straight_line", False,
+                               is_trial = True)
+        runner.process.wait(timeout = 10)
+        time.sleep(0.01)
+        waiting = runner.status()["episode_to_score"]
+        assert waiting is not None and waiting["episode"] == episode_folder.name, waiting
+
+
 def test_operator_is_guessed_from_the_user_name() -> None:
 
     original = recording_page.getpass.getuser
@@ -326,5 +342,6 @@ if __name__ == "__main__":
     test_robot_check_result_is_read_from_its_output()
     test_episode_is_scored_before_the_next_start()
     test_bad_trial_and_discarded_episodes_stay_undone()
+    test_trial_is_found_with_the_tool_tests()
     test_other_websites_cannot_start_the_robot()
     print("all tests passed")

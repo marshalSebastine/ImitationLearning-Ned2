@@ -157,6 +157,8 @@ def build_recording_command(
         command.append("--new-session")
     if is_simulated:
         command.append("--simulated")
+    elif is_trial:
+        command.append("--trial")
     return command
 
 
@@ -328,12 +330,14 @@ class ToolRunner:
             title: str,
             command: List[str],
             path_id: str,
-            is_simulated: bool
+            is_simulated: bool,
+            is_trial: bool = False
     ) -> None:
         """Start a recording and remember what to look for, so its episode can be scored when the tool ends."""
 
         self.start(title, command)
-        self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated), "started": self.started_at.timestamp()}
+        self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated, is_trial),
+                          "started": self.started_at.timestamp()}
 
 
     def __read_robot_check(self, log_text: str) -> None:
@@ -358,10 +362,18 @@ class ToolRunner:
         return {"is_calibrated": self.robot_check["is_calibrated"], "checked_at": self.robot_check["checked_at"].strftime("%H:%M")}
 
 
-    def __raw_folder(self, is_simulated: bool) -> Path:
+    def __raw_folder(
+            self,
+            is_simulated: bool,
+            is_trial: bool
+    ) -> Path:
+        """Where the tool saves: practice runs in the simulated folder, trials with the tool tests, the rest as main data."""
 
-        folder = RECORDING_PAGE_PARAMETERS["simulated_raw_folder"] if is_simulated else RECORDING_PARAMETERS["raw_folder"]
-        return self.data_folder / folder
+        if is_simulated:
+            return self.data_folder / RECORDING_PAGE_PARAMETERS["simulated_raw_folder"]
+        if is_trial:
+            return self.data_folder / RECORDING_PARAMETERS["tool_test_folder"]
+        return self.data_folder / RECORDING_PARAMETERS["raw_folder"]
 
 
     def __look_for_finished_episode(self) -> None:
@@ -520,7 +532,8 @@ class PageRequestHandler(BaseHTTPRequestHandler):
             if path == "/start":
                 command = build_recording_command(form)
                 title = "Practice recording" if form.get("is_simulated") is True else "Recording"
-                self.runner.start_recording(title, command, form["path_id"], form.get("is_simulated") is True)
+                self.runner.start_recording(title, command, form["path_id"], form.get("is_simulated") is True,
+                                            form.get("is_trial") is True)
             elif path == "/review":
                 self.runner.save_review(form)
             elif path == "/check-robot":

@@ -2372,6 +2372,8 @@ def main() -> None:
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
     parser.add_argument("--new-session", action = "store_true", help = "open a new session folder even if one exists today")
     parser.add_argument("--simulated", action = "store_true", help = "use the simulated robot instead of the real one")
+    parser.add_argument("--trial", action = "store_true",
+                        help = "a trial, not training data: saved in the tool-test folder (config tool_test_folder), not the main data")
     parser.add_argument("--single-episode", action = "store_true", help = "end the session after one episode, so each episode can carry its own plan number")
     parser.add_argument("--camera-mount", default = RECORDING_PARAMETERS["camera_mount"],
                         help = "which mount the camera is on, e.g. stock_wrist_holder or bracket_F; never mix two in one training set")
@@ -2405,6 +2407,8 @@ def main() -> None:
         robot_link = SimulatedRobotLink({"move_seconds": 0.5, "hand_path_xy": simulated_hand_path()})
         recorder_parameters["raw_folder"] = "03_data/raw_simulated"
     else:
+        if arguments.trial:
+            recorder_parameters["raw_folder"] = RECORDING_PARAMETERS["tool_test_folder"]
         from robot_link import RobotLink
         robot_link = RobotLink(ROBOT_PARAMETERS["ip_address"])
 
