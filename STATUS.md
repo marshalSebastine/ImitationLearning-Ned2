@@ -98,8 +98,7 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   ink begins, so keep teaching there. Exact-replay data (rod leaning 16 to 22 degrees, unlabelled forearm twists, 13 to
   41 % of rows under 3 mm) do not fit the planned 1 cm class model.
 - Done 6.11: first-floor table taught (config), tool tests 046 to 048 on sheet 04 (047 and 048 have no ending).
-- Done 6.11 (Marshal): `02_code/recording_page.py`, a local form that starts the recording tool with the right options, fills each plan number and asks for a score of 1 to 3 after each episode (`review.json`; `02_code/HOW_TO_RUN.md`).
-  Tested with the simulated robot on Marshal's Mac only; not yet on the real robot or on Windows.
+- Done 6.11 (Marshal; extended by Claude for Emranul the same evening): `02_code/recording_page.py`, the form that runs each episode, now used on Windows with the real robot: set-up picture per plan number, teach-start button, blur popup, folder names `..._episode_NNN_plan_NN-NN_try_N_score_NN`, lean and hand labels beside the move name. Sheet 01: 01-01 to 01-10 recorded (6.11); lens cleaned (sharpness 37 -> 184).
 - Decided 6.11 (reported by Marshal): record with both the gamepad and hand guiding, not the keyboard.
 - Decided 6.11 (Emranul, after Marshal's tests on sheet 04): hand guiding uses `hand_guided_exact`; every row keeps the
   move name, the exact step, the pose and the joints; train first on the move names, exact numbers later.
