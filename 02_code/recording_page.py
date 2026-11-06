@@ -14,6 +14,7 @@ Keep this program running during a session: the page's status and log come from 
 """
 
 import argparse
+import csv
 import datetime
 import getpass
 import json
@@ -23,12 +24,16 @@ import shlex
 import socketserver
 import subprocess
 import sys
+import time
 import webbrowser
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse
+
+import cv2
+import numpy
 
 from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 
@@ -40,6 +45,9 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
+TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)")
+SETUP_PICTURE_PATH_PATTERN = re.compile(r"/setup-picture/[0-9]{2}-[0-9]{2}[.]png")
+SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
 
 class FormError(ValueError):
@@ -153,10 +161,14 @@ def build_recording_command(
                "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(start["offset_deg"])]
     if position:
         command += ["--start-x", str(position[0]), "--start-y", str(position[1])]
+    if plan_number and not is_trial:
+        command += ["--plan-number", plan_number]
     if form.get("is_new_session") is True:
         command.append("--new-session")
     if is_simulated:
         command.append("--simulated")
+    elif is_trial:
+        command.append("--trial")
     return command
 
 
@@ -203,22 +215,63 @@ def read_json(path: Path) -> Optional[Dict]:
 
 def done_plan_numbers(raw_folder: Path) -> List[str]:
     """
-    The plan numbers already recorded well: a finished real episode, not a trial, scored 2 or 3.
+    The plan numbers already recorded: a finished real episode, not a trial, scored at least "done_minimum_score".
 
-    A discarded or badly scored episode stays undone, so the page offers its plan number again.
+    A discarded episode (or one scored lower) stays undone, so the page offers its plan number again.
     """
 
     done = set()
     for review_path in raw_folder.glob("*_session_*/*_episode_*/review.json"):
         review = read_json(review_path)
         summary = read_json(review_path.parent / "episode.json")
-        if not review or not summary or review.get("score", 0) < 2 or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+        if not review or not summary or review.get("score", 0) < RECORDING_PAGE_PARAMETERS["done_minimum_score"] or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
             continue
         note = str(summary.get("sheet_orientation", ""))
         match = PLAN_IN_NOTE_PATTERN.search(note)
         if match and not note.endswith("trial"):
             done.add(match.group(1))
     return sorted(done)
+
+
+def add_score_to_name(
+        episode_folder: Path,
+        score: int
+) -> Path:
+    """
+    Add the score to an episode folder's name (Emranul, 6.11.26): _score_01 to _score_03, or _score_00 for a run that
+    failed (discarded, quit or broken off). The "episode" field in episode.json and review.json follows the new name.
+
+    Parameters
+    ----------
+    episode_folder : Path
+        The episode's folder, named by record_episodes.py.
+    score : int
+        The score given on the page, or 0 for a failed run.
+
+    Returns
+    -------
+    Path
+        The renamed folder, or the old one when Windows refuses (a window has the folder open); the session notes say so.
+    """
+
+    if SCORE_IN_NAME_PATTERN.search(episode_folder.name):
+        return episode_folder
+    new_folder = episode_folder.with_name(f"{episode_folder.name}_score_{score:02d}")
+    notes_path = episode_folder.parent / "session_notes.md"
+    try:
+        episode_folder.rename(new_folder)
+    except OSError as error:
+        with open(notes_path, "a", encoding = "utf-8") as notes_file:
+            notes_file.write(f"- {episode_folder.name}: not renamed to {new_folder.name} ({error.__class__.__name__}: the folder was open)" + "\n")
+        return episode_folder
+    for file_name in ("episode.json", "review.json"):
+        path = new_folder / file_name
+        if path.exists():
+            text = path.read_text(encoding = "utf-8")
+            path.write_text(text.replace(f'"{episode_folder.name}"', f'"{new_folder.name}"'), encoding = "utf-8")
+    with open(notes_path, "a", encoding = "utf-8") as notes_file:
+        notes_file.write(f"- {episode_folder.name} renamed to {new_folder.name}" + "\n")
+    return new_folder
 
 
 def read_review_form(
@@ -275,6 +328,7 @@ class ToolRunner:
         self.log_folder = log_folder or PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["log_folder"]
         self.data_folder = data_folder
         self.recording = None
+        self.last_recording = None
         self.episode_to_score = None
         self.robot_check = None
         self.robot_check_seen = None
@@ -293,7 +347,8 @@ class ToolRunner:
     def start(
             self,
             title: str,
-            command: List[str]
+            command: List[str],
+            is_answered_from_page: bool = False
     ) -> None:
         """
         Start ``command``; refused while another tool from this page runs, because only one program may use the robot.
@@ -319,8 +374,67 @@ class ToolRunner:
         with open(self.log_path, "w", encoding = "utf-8") as log_file:
             log_file.write(f"{self.command_text}\n\n")
             log_file.flush()
-            self.process = subprocess.Popen(command, cwd = CODE_FOLDER, stdin = subprocess.DEVNULL, stdout = log_file,
+            self.process = subprocess.Popen(command, cwd = CODE_FOLDER, stdin = subprocess.PIPE if is_answered_from_page else subprocess.DEVNULL,
+                                            stdout = log_file,
                                             stderr = subprocess.STDOUT, env = self.__tool_environment(), **isolation)
+
+
+    def press_enter(self) -> None:
+        """Answer the running tool's prompt with Enter (only a tool started with ``is_answered_from_page``)."""
+
+        if not self.is_running() or self.process.stdin is None:
+            raise FormError("Nothing is waiting for Enter.")
+        self.process.stdin.write(b"\n")
+        self.process.stdin.flush()
+
+
+    def taught_start(self) -> Optional[Dict]:
+        """The point printed by the latest finished "Teach start", for the page to fill in Start x and Start y."""
+
+        if self.title != "Teach start" or self.is_running() or self.log_path is None or not self.log_path.exists():
+            return None
+        match = TAUGHT_START_IN_LOG_PATTERN.search(self.log_path.read_text(encoding = "utf-8", errors = "replace"))
+        if not match:
+            return None
+        return {"x": match.group(1), "y": match.group(2), "taught_at": self.started_at.strftime("%H:%M:%S")}
+
+
+    def sharpness_warning(self) -> Optional[Dict]:
+        """
+        A warning when the running (or just finished) episode's pictures are blurred: the median sharpness of its last
+        "sharpness_rows" pictures, or of its camera check picture before the first step, under "sharpness_warning_below".
+        """
+
+        recording = self.recording or self.last_recording
+        if recording is None:
+            return None
+        folders = [folder for folder in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*")
+                   if folder.is_dir() and folder.stat().st_ctime >= recording["started"]]
+        if not folders:
+            return None
+        folder = max(folders, key = lambda path: path.stat().st_ctime)
+        values = []
+        for file_name in ("steps_in_progress.csv", "steps.csv"):
+            path = folder / file_name
+            if path.exists():
+                try:
+                    with open(path, encoding = "utf-8", newline = "") as file:
+                        values = [float(row["sharpness"]) for row in csv.DictReader(file) if row.get("sharpness")]
+                except (OSError, ValueError, KeyError):
+                    values = []
+                break
+        values = values[-RECORDING_PAGE_PARAMETERS["sharpness_rows"]:]
+        source = f"the last {len(values)} pictures"
+        if not values and (folder / "camera_check.jpg").exists():
+            values = [picture_sharpness(folder / "camera_check.jpg")]
+            source = "the camera check picture"
+        if not values or values[0] is None:
+            return None
+        median = float(numpy.median(values))
+        if median >= RECORDING_PAGE_PARAMETERS["sharpness_warning_below"]:
+            return None
+        return {"episode": folder.name, "sharpness": round(median), "limit": RECORDING_PAGE_PARAMETERS["sharpness_warning_below"],
+                "source": source}
 
 
     def start_recording(
@@ -328,12 +442,15 @@ class ToolRunner:
             title: str,
             command: List[str],
             path_id: str,
-            is_simulated: bool
+            is_simulated: bool,
+            is_trial: bool = False
     ) -> None:
         """Start a recording and remember what to look for, so its episode can be scored when the tool ends."""
 
         self.start(title, command)
-        self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated), "started": self.started_at.timestamp()}
+        self.last_recording = None
+        self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated, is_trial),
+                          "started": self.started_at.timestamp()}
 
 
     def __read_robot_check(self, log_text: str) -> None:
@@ -358,10 +475,18 @@ class ToolRunner:
         return {"is_calibrated": self.robot_check["is_calibrated"], "checked_at": self.robot_check["checked_at"].strftime("%H:%M")}
 
 
-    def __raw_folder(self, is_simulated: bool) -> Path:
+    def __raw_folder(
+            self,
+            is_simulated: bool,
+            is_trial: bool
+    ) -> Path:
+        """Where the tool saves: practice runs in the simulated folder, trials with the tool tests, the rest as main data."""
 
-        folder = RECORDING_PAGE_PARAMETERS["simulated_raw_folder"] if is_simulated else RECORDING_PARAMETERS["raw_folder"]
-        return self.data_folder / folder
+        if is_simulated:
+            return self.data_folder / RECORDING_PAGE_PARAMETERS["simulated_raw_folder"]
+        if is_trial:
+            return self.data_folder / RECORDING_PARAMETERS["tool_test_folder"]
+        return self.data_folder / RECORDING_PARAMETERS["raw_folder"]
 
 
     def __look_for_finished_episode(self) -> None:
@@ -370,13 +495,21 @@ class ToolRunner:
         if self.recording is None or self.is_running():
             return
         recording, self.recording = self.recording, None
+        self.last_recording = recording
         summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
                      if path.stat().st_mtime >= recording["started"]]
         if not summaries:
+            # A run broken off before its end (a crash, a closed window) leaves a folder without episode.json: a failed run.
+            broken = [folder for folder in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*")
+                      if folder.is_dir() and folder.stat().st_ctime >= recording["started"] and not (folder / "episode.json").exists()]
+            for folder in broken:
+                add_score_to_name(folder, 0)
             return
         summary_path = max(summaries, key = lambda path: path.stat().st_mtime)
         summary = read_json(summary_path)
-        if summary and summary.get("status") in EPISODE_STATUSES_TO_SCORE:
+        if not summary or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+            add_score_to_name(summary_path.parent, 0)
+        else:
             self.episode_to_score = {
                 "folder": summary_path.parent, "episode": summary_path.parent.name, "session": summary_path.parent.parent.name,
                 "operator": summary.get("operator"), "mode": summary.get("mode"), "status": summary.get("status"),
@@ -411,6 +544,7 @@ class ToolRunner:
         details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
         with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
             notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
+        add_score_to_name(episode["folder"], int(review["score"]))
         self.episode_to_score = None
 
 
@@ -445,6 +579,13 @@ class ToolRunner:
 
 
 
+def picture_sharpness(path: Path) -> Optional[float]:
+    """Variance of the Laplacian of a saved picture, the number record_episodes.py logs; None when it cannot be read."""
+
+    picture = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+    return None if picture is None else float(cv2.Laplacian(picture, cv2.CV_64F).var())
+
+
 def run_git(*arguments: str) -> str:
 
     try:
@@ -454,12 +595,21 @@ def run_git(*arguments: str) -> str:
     return result.stdout.strip() if result.returncode == 0 else ""
 
 
-def code_state() -> Dict:
-    """The code version every episode will record, and whether it has uncommitted changes."""
+CODE_STATE_CACHE = {"read_at": None, "state": None}
 
+
+def code_state() -> Dict:
+    """The code version every episode will record, and whether it has uncommitted changes (read again after a while)."""
+
+    now = time.monotonic()
+    read_at = CODE_STATE_CACHE["read_at"]
+    if read_at is not None and now - read_at < RECORDING_PAGE_PARAMETERS["code_state_cache_s"]:
+        return CODE_STATE_CACHE["state"]
     changed_files = run_git("status", "--porcelain", "--", "02_code")
-    return {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
-            "has_uncommitted_code": bool(changed_files)}
+    state = {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
+             "has_uncommitted_code": bool(changed_files)}
+    CODE_STATE_CACHE.update({"read_at": now, "state": state})
+    return state
 
 
 def latest_session_notes(line_count: int = 12) -> Dict:
@@ -499,8 +649,15 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "safety_checks_every_start": RECORDING_PAGE_PARAMETERS["safety_checks_every_start"]})
         elif path == "/sheet-placements.png":
             self.__send(HTTPStatus.OK, (PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["sheet_placement_figure"]).read_bytes(), "image/png")
+        elif SETUP_PICTURE_PATH_PATTERN.fullmatch(path):
+            picture = PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["setup_picture_folder"] / f"plan_{path.split('/')[-1]}"
+            if picture.is_file():
+                self.__send(HTTPStatus.OK, picture.read_bytes(), "image/png")
+            else:
+                self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that plan number."})
         elif path == "/status":
-            self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
+            self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes(),
+                                             "taught_start": self.runner.taught_start(), "sharpness_warning": self.runner.sharpness_warning()})
         else:
             self.__send_json(HTTPStatus.NOT_FOUND, {"error": "Not found."})
 
@@ -520,11 +677,17 @@ class PageRequestHandler(BaseHTTPRequestHandler):
             if path == "/start":
                 command = build_recording_command(form)
                 title = "Practice recording" if form.get("is_simulated") is True else "Recording"
-                self.runner.start_recording(title, command, form["path_id"], form.get("is_simulated") is True)
+                self.runner.start_recording(title, command, form["path_id"], form.get("is_simulated") is True,
+                                            form.get("is_trial") is True)
             elif path == "/review":
                 self.runner.save_review(form)
             elif path == "/check-robot":
                 self.runner.start("Check robot", [sys.executable, "-u", str(CODE_FOLDER / "check_hardware.py")])
+            elif path == "/teach-start":
+                self.runner.start("Teach start", [sys.executable, "-u", str(CODE_FOLDER / RECORDING_PAGE_PARAMETERS["teach_script"])],
+                                  is_answered_from_page = True)
+            elif path == "/press-enter":
+                self.runner.press_enter()
             elif path == "/check-episodes":
                 self.runner.start("Check episodes", [sys.executable, "-u", str(CODE_FOLDER / "check_episodes.py")])
             else:

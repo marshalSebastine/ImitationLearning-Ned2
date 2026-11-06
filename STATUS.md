@@ -90,21 +90,21 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   fitted without the robot to episodes 037 to 045, map error about 2 mm median, 5 mm at the 90th percentile;
   `puck_tracking.py`; display only), and `check_episodes.py` checks recorded episodes. Settings in `config.py`, tests in
   `test_puck_tracking.py`, evidence in `06_deliverables/research_notes/Recording tool/2026-11-06_forearm_camera_calibration/`.
-  An independent review (four reviewers, each finding re-checked) found only low-severity issues; the confirmed ones were
-  fixed and tested on 6.11 morning (map texts, the tool's puck guess shown where turns use it, a guard so a map fault
-  never stops an episode, checker wording, skipped tests counted, a new `test_forearm_camera_model.py`).
+  An independent review found only low-severity issues; the confirmed ones were fixed and tested on 6.11 morning.
 - Written 6.11 for Emranul (same folder, `2026-11-06_*.md`): exam-start opinion (one taped start mark, a taught start as
   fallback; six questions for meeting 2, still to be copied into `05_meetings/requests_to_professor.md`), first-data-day
   checklist, a 200-episode plan per sheet (20, 35, 45, 45, 30, 25; offset, near-end and crossing starts).
 - Found 6.11: the start pose leaves no gap between block and puck (1.85 cm); it worked because the start was taught where the
   ink begins, so keep teaching there. Exact-replay data (rod leaning 16 to 22 degrees, unlabelled forearm twists, 13 to
   41 % of rows under 3 mm) do not fit the planned 1 cm class model.
-- Next (6.11, Emranul): move to the first-floor table, re-teach (Claude updates config), camera check, one trial per sheet.
-- Done 6.11 (Marshal): `02_code/recording_page.py`, a local form that starts the recording tool with the right options, fills each plan number and asks for a score of 1 to 3 after each episode (`review.json`; `02_code/HOW_TO_RUN.md`).
-  Tested with the simulated robot on Marshal's Mac only; not yet on the real robot or on Windows.
+- Done 6.11: first-floor table taught (config), tool tests 046 to 048 on sheet 04 (047 and 048 have no ending).
+- Done 6.11 (Marshal; extended by Claude for Emranul the same evening): `02_code/recording_page.py`, the form that runs each episode, now used on Windows with the real robot: set-up picture per plan number, teach-start button, blur popup, folder names `..._episode_NNN_plan_NN-NN_try_N_score_NN`, lean and hand labels beside the move name. Sheet 01: 01-01 to 01-10 recorded (6.11); lens cleaned (sharpness 37 -> 184).
 - Decided 6.11 (reported by Marshal): record with both the gamepad and hand guiding, not the keyboard.
-- Blocked on: Emranul and Marshal choosing the hand-guided mode (`hand_guided` or `hand_guided_exact`), one model output for both methods, and which gamepad controls are used (the `action`
-  column is only the nearest fixed move); asking the professor on 9.11 whether a gamepad is allowed (exam start opinion, question 6).
+- Decided 6.11 (Emranul, after Marshal's tests on sheet 04): hand guiding uses `hand_guided_exact`; every row keeps the
+  move name, the exact step, the pose and the joints; train first on the move names, exact numbers later.
+- Main data from 6.11 in `03_data/raw/main_data/` (from 001 per sheet); the sessions directly in `03_data/raw` are tool tests.
+- Blocked on: one model output for both methods, and which gamepad controls are used (the `action` column is only the
+  nearest fixed move); asking the professor on 9.11 whether a gamepad is allowed (exam start opinion, question 6).
   Open: raw-data backup and sharing (`03_data` is not in git).
 
 ## Model and training

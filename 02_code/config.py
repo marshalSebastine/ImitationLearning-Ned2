@@ -135,20 +135,22 @@ SHEET_PARAMETERS = {
     "step_budget": 36
 }
 
-# Taught by touching six points with the rod's tip on 25.10.26 (teach_positions.py; raw readings in
-# 03_data/raw/workspace/2026-10-25_positions.json). The line runs straight away from the robot, from
-# 0.156 m to 0.398 m in front of the base, because the wrist camera looks straight ahead, away from the
-# base, and sees only what lies beyond the rod. The four corner touches give the table plane (tilt 0.6 degrees);
-# the pushing height is that plane plus the clearance in PUCK_PARAMETERS. The box's far edge is
-# capped at the table's edge rather than the sheet plus margin.
+# Taught on the first-floor table on 6.11.26 by touching six points with the magnet tip (teach_positions.py; raw
+# readings in 03_data/raw/workspace/2026-11-06_positions.json). The values are the magnet tip, recomputed from the logged
+# joints with the arm model (the rod leaned up to 44 degrees at the far corners, which puts the reported rod end up to
+# 2 cm beside the touched spot). The line end touch landed on the paper's far edge (line_end picture), about 2.5 cm past
+# the ink, so the line end is the start plus sheet 01's measured 24.3 cm of ink along the touched direction. Table plane
+# fitted to all six touches: tilt 0.95 degrees, every touch within 1.8 mm of it. The values of 25.10.26 (old desk):
+# start [0.156, -0.024], end [0.398, -0.018], corners [[0.142, 0.070], [0.144, -0.111], [0.422, -0.110],
+# [0.417, 0.080]], plane a 0.0090, b -0.0055, c 0.0047.
 WORKSPACE_PARAMETERS = {
-    "line_start_xy": [0.156, -0.024],
-    "line_end_xy": [0.398, -0.018],
-    "push_direction_xy": [1.0, 0.025],
-    "sheet_corners_xy": [[0.142, 0.070], [0.144, -0.111], [0.422, -0.110], [0.417, 0.080]],
-    "box_x": [0.092, 0.450],
-    "box_y": [-0.161, 0.130],
-    "table_plane": {"a": 0.0090, "b": -0.0055, "c": 0.0047},
+    "line_start_xy": [0.159, -0.015],
+    "line_end_xy": [0.402, -0.017],
+    "push_direction_xy": [1.000, -0.009],
+    "sheet_corners_xy": [[0.151, 0.074], [0.150, -0.107], [0.442, -0.132], [0.445, 0.080]],
+    "box_x": [0.100, 0.450],
+    "box_y": [-0.182, 0.130],
+    "table_plane": {"a": 0.0158, "b": 0.0048, "c": 0.0056},
     "tool_pitch_rad": 1.57,
     "setup_by_tape_measure": {
         "gap_base_front_to_paper_near_edge_cm": 5,
@@ -192,6 +194,17 @@ RECORDING_PAGE_PARAMETERS = {
     "port": 8765,
     "log_folder": "03_data/recording_page_logs",
     "log_lines_shown": 200,
+    # The page asks for its status every second; git takes up to 11 s per call on the lab laptop (6.11.26), so the code
+    # version is read at most once in this many seconds.
+    "code_state_cache_s": 60,
+    # Teaching a start point from the page (teach_sheet_start.py, 6.11.26): the page's "Enter" button answers its prompts.
+    "teach_script": "teach_sheet_start.py",
+    # Sharpness warning on the page (Emranul, 6.11.26): a popup when the median sharpness (variance of the Laplacian) of
+    # the running episode's last "sharpness_rows" pictures, or of its camera check picture before the first step, is
+    # under "sharpness_warning_below". Measured: 4 to 5.11.26 episode medians 133 to 178; 6.11.26 with a hazy lens 37;
+    # after cleaning the lens 184 (episode 003). 100 lies between (a choice, not a measured limit).
+    "sharpness_warning_below": 100.0,
+    "sharpness_rows": 5,
     "operators": ["emranul", "marshal"],
     "modes": {
         "gamepad": "Gamepad",
@@ -230,6 +243,9 @@ RECORDING_PAGE_PARAMETERS = {
         "2": "Usable: small flaws, but the model may learn from it",
         "1": "Bad: leave out of training and record it again"
     },
+    # The lowest score that counts a plan episode as done. 1 since 6.11.26 evening (Emranul): every finished episode is
+    # training data, score 1 included, so a score of 1 is not recorded again.
+    "done_minimum_score": 1,
     "score_issues": {
         "not_steady": "Not smooth or steady",
         "lost_contact": "Block lost contact with the puck",
@@ -276,6 +292,8 @@ RECORDING_PAGE_PARAMETERS = {
         "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
     ],
     "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # One set-up picture per plan number, plan_<NN-NN>.png (setup_visuals.py, 6.11.26), shown in "Set up this episode".
+    "setup_picture_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
     # Round 1 of the plan: enough for the first model. The page offers these before anything else.
     "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
     # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
@@ -614,6 +632,12 @@ RECORDING_PARAMETERS = {
     "exact_waypoint_m": 0.01,
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,
+    # Two labels beside the move name (Emranul and Marshal, 6.11.26): the rod's lean towards the picture's top or
+    # bottom (episode 01-10: leaned so the black box on the hand no longer hid the puck) and the hand's turn about the
+    # rod (joint 6; pushing with the block's corner at hairpins). A change of at least this many degrees in one step is
+    # labelled; smaller changes are "none". Chosen, not measured: above the 1 to 2 degree jitter of hand guiding.
+    "lean_label_deg": 3.0,
+    "hand_label_deg": 3.0,
     "exact_small_motion_m": 0.003,
     # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
     # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:
@@ -710,7 +734,10 @@ RECORDING_PARAMETERS = {
         "h": "touched_by_hand",
         "m": "other"
     },
-    "raw_folder": "03_data/raw"
+    # The main data, recorded from 6.11.26 on (Emranul): episode numbers start again at 001 per sheet, apart from the
+    # tool tests up to episode 048, which stay in "tool_test_folder" and are never training data.
+    "raw_folder": "03_data/raw/main_data",
+    "tool_test_folder": "03_data/raw"
 }
 
 
@@ -1138,4 +1165,37 @@ CHECK_PARAMETERS = {
     "detector_parameters": {},
     # Decode the pictures (puck and camera-shift checks); md5 sums are always checked.
     "is_picture_check_on": True
+}
+
+
+# Set-up pictures, one per plan number (setup_visuals.py, 6.11.26, Emranul's request): a top view in robot coordinates of
+# where the sheet lies, where the start mark and start cap are and where the puck goes. Read-only beside the recording
+# page. The lines come from the photo-traced sheets (2026-11-06_sheet_measurements.json, about 0.3 cm; the long-edge
+# position of sheets 04 and 05 is uncertain by 0.7 and 0.3 cm); end A is the traced line's "first" end, end B its "last"
+# (as in figures/2026-11-06_sheets.png). The start mark is WORKSPACE_PARAMETERS["line_start_xy"]: the taught point is
+# where the ink begins, and the line's first centimetres point along the push direction. NE, MID and X positions are not
+# taught yet: they are drawn from the plan's words ("near_end_cm" when the plan names no distance; the sharp turn and
+# the hairpin as curvature peaks of the traced line; the crossing as the traced line's self-crossing), so they are a
+# guide, not where the robot will go. The base square and the reach ring are as in the Rule A figure (calc, not measured).
+SETUP_VISUALS_PARAMETERS = {
+    "sheet_measurements": "06_deliverables/research_notes/Recording tool/2026-11-06_sheet_measurements.json",
+    "output_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
+    "end_keys": {"A": "first", "B": "last"},
+    "paper_size_cm": [21.0, 29.7],
+    "near_end_cm": 6.0,
+    "crossing_lead_cm": 5.0,
+    "sharp_turn_lead_cm": 3.0,
+    # Which curvature peak is the plan's hard spot, counted from the start end: sheet 03's sharp turn is its tightest
+    # bend, sheet 04's "middle hairpin" the middle one of its hairpins (tightest bends, at least this far apart).
+    "mid_spots": {"path_03_two_curve": "tightest", "path_04_meander": "middle_hairpin"},
+    "hairpin_count": 3,
+    "hairpin_separation_cm": 6.0,
+    "curvature_smoothing_cm": 1.0,
+    "base_half_width_cm": 9.4,
+    "reach_cm": [13.0, 44.0],
+    "puck_diameter_cm": PUCK_PARAMETERS["diameter_m"] * 100,
+    "view_x_cm": [-12.0, 50.0],
+    "view_y_cm": [-26.0, 30.0],
+    "figure_size_inches": [6.4, 6.0],
+    "dots_per_inch": 110
 }

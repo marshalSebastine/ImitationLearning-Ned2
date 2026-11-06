@@ -1,6 +1,6 @@
 ---
 name: project-recording-tool
-description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, its state on 5.11.26 (four modes, all episodes so far tool tests), and 6.11.26 (puck tracking, episode checker, start-gap finding, the open choice of recording mode)"
+description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, its state on 5.11.26 (four modes, all episodes so far tool tests), and 6.11.26 (puck tracking, episode checker, start-gap finding, the recording mode chosen)"
 metadata:
   type: project
   modified: 2026-11-06T09:30:00.000Z
@@ -62,3 +62,19 @@ classes and record with `hand_guided` (1 cm replay), keyboard or gamepad (Claude
 morning) found only low-severity issues, all confirmed ones fixed: the map now shows the tool's believed puck position
 (hollow "puck?", which keyboard v/b turns land from) beside the seen puck when they differ by over 1.5 cm, a fault in
 drawing the map never stops an episode, and the tests report skipped picture checks instead of passing them.
+DECIDED 6.11.26 by Emranul (at the first-floor table, to be confirmed with Marshal): record with `hand_guided` (1 cm
+replay) and train first on the move names (11 classes); every row also keeps the six joints, the pose and the exact
+step, so a model on the exact numbers can be tried later from the same data if the class model fails.
+`hand_guided_exact` is kept as an idea for the future (free leans and twists, e.g. if the tight loops of sheets 5 and
+6 need them). New table taught 6.11 (config commit 036eee8): start x 0.1593, y -0.0152.
+CHANGED later on 6.11.26 by Emranul, after Marshal's tests on sheet 04 (episodes 046 gamepad, 047 hand_guided,
+048 hand_guided_exact): the main data is recorded with `hand_guided_exact` (every joint replayed, waypoints every 1 cm
+or 5 deg, free leans and twists). Every row still keeps the move name (action, 11 classes), the exact step
+(tip_forward_m, tip_left_m, forearm_change_deg), the pose and the six joints, so the plan stays: train on the move
+names first, the exact numbers if that fails. Marshal is building a form to fill in each episode's notes first.
+MAIN DATA FOLDER (6.11.26, Emranul): the main data goes to 03_data/raw/main_data/ (config raw_folder), numbered
+from 001 per sheet; everything directly in 03_data/raw (episodes up to 048) is tool tests, never training data
+(config tool_test_folder). Today's camera reference x159_y-15mm was copied into main_data/camera_check/camera_reference.
+TRAINING DATA (6.11.26, Emranul): every finished episode goes into training, score 1 included (scores 1, 2 and 3); the score is kept as a column so bad ones can be weighed or left out later. Discarded and unfinished episodes stay out.
+FOLDER NAMES (6.11.26 evening, Emranul): episode folders are <sheet>_episode_NNN_plan_<NN-NN>_try_<n> (tool --plan-number, passed by the page; trials keep the plain name). The first four main-data folders (001-004 of sheet 01) were renamed to this rule at Emranul's request, the one exception to "raw is never renamed"; the "episode" field in their episode.json and review.json was updated and session_notes.md lists the renames. A score of 1 now counts a plan episode as done.
+LEAN AND HAND LABELS (6.11.26 evening, Emranul and Marshal): steps.csv has lean_change_deg/lean_label (lean_forward, none, lean_back: rod tilt towards the picture top, arm model) and hand_change_deg/hand_label (hand_plus, none, hand_minus: joint 6, sign not yet checked against the picture) beside the move name, labelled at 3 deg (config lean_label_deg, hand_label_deg). Separate labels, not new move classes. The 12 main-data episodes of sheet 01 were given the columns afterwards (original kept as steps_before_lean_hand_labels.csv). After 20 finished episodes Claude reviews all pictures and joints for further labels (Marshal asked).

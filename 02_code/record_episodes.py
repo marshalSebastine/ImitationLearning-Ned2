@@ -119,9 +119,58 @@ ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "H
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
+                "lean_change_deg", "lean_label", "hand_change_deg", "hand_label",
                 "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
                 "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
+
+
+def rod_lean_forward_deg(
+        joints: List[float],
+        heading_rad: float
+) -> float:
+    """
+    The rod's lean towards the picture's top, in degrees from straight down: positive when the tip (lower end) is
+    further towards the picture's top than the rod's upper end, negative towards the picture's bottom.
+    """
+
+    rod_direction = numpy.array(ned2_fk.fk(list(joints))["joint_6"][1])[:, 2]
+    forward = numpy.array([math.cos(heading_rad), math.sin(heading_rad)])
+    return math.degrees(math.atan2(float(rod_direction[:2] @ forward), -float(rod_direction[2])))
+
+
+def lean_and_hand_labels(
+        joints_now: List[float],
+        joints_next: List[float],
+        heading_rad: float,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> Dict:
+    """
+    The two labels beside the move name for the step from ``joints_now`` to ``joints_next`` (6.11.26).
+
+    Parameters
+    ----------
+    joints_now, joints_next : list of float
+        The six joints before and after the step, in radians.
+    heading_rad : float
+        Where the picture's top points on the table at ``joints_now`` (picture_heading_rad).
+    parameters : dict, optional
+        Supplies "lean_label_deg" and "hand_label_deg".
+
+    Returns
+    -------
+    dict
+        "lean_change_deg" (positive: the tip leans further towards the picture's top), "lean_label" ("lean_forward",
+        "lean_back" or "none"), "hand_change_deg" (joint 6, positive as the joint counts) and "hand_label"
+        ("hand_plus", "hand_minus" or "none"; the joint's sign, not yet checked against the picture's left and right).
+    """
+
+    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - rod_lean_forward_deg(joints_now, heading_rad)
+    hand_change = math.degrees(joints_next[5] - joints_now[5])
+    lean_label = "none" if abs(lean_change) < parameters["lean_label_deg"] else ("lean_forward" if lean_change > 0 else "lean_back")
+    hand_label = "none" if abs(hand_change) < parameters["hand_label_deg"] else ("hand_plus" if hand_change > 0 else "hand_minus")
+    return {"lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
+            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label}
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -515,6 +564,7 @@ class EpisodeRecorder:
             "start_index": 0,
             "deliberate_offset": {"lateral_cm": 0.0, "angle_deg": 0.0},
             "lighting_note": "",
+            "plan_number": "",
             "laptop": platform.node()
         })
         self.last_picture_md5 = None
@@ -591,6 +641,7 @@ class EpisodeRecorder:
             "mapping_version": self.recorder_parameters["mapping_version"],
             "stepping_rule_version": self.recorder_parameters["stepping_rule_version"],
             "sheet_orientation": self.recorder_parameters["sheet_orientation"],
+            "plan_number": self.recorder_parameters["plan_number"] or None,
             "start_index": self.recorder_parameters["start_index"],
             "deliberate_offset": self.recorder_parameters["deliberate_offset"],
             "lighting_note": self.recorder_parameters["lighting_note"],
@@ -1230,6 +1281,7 @@ class EpisodeRecorder:
         left_m = float(moved @ numpy.array([math.cos(heading + sign * math.pi / 2), math.sin(heading + sign * math.pi / 2)]))
         forearm_change_deg = math.degrees(joints_next[3] - state["joints"][3])
         motion = {"tip_forward_m": round(forward_m, 5), "tip_left_m": round(left_m, 5), "forearm_change_deg": round(forearm_change_deg, 2)}
+        motion.update(lean_and_hand_labels(list(state["joints"]), list(joints_next), heading, self.recorder_parameters))
 
         if abs(forearm_change_deg) >= self.recorder_parameters["exact_turn_label_deg"] - 0.01:
             return ("turn_left" if forearm_change_deg > 0 else "turn_right"), motion
@@ -2297,12 +2349,34 @@ class EpisodeRecorder:
 
 
     def __next_episode_folder(self) -> Path:
-        """Episode numbers count up per path_id across every session on this laptop (README rule 4)."""
+        """
+        Episode numbers count up per path_id across every session on this laptop (README rule 4). With a plan number
+        the name also says which plan episode this is and the how-many-th try of it (Emranul, 6.11.26), for example
+        path_01_straight_line_episode_004_plan_01-01_try_2.
+        """
 
         raw_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"]
-        numbers = [int(match.group(1)) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
-                   if (match := re.fullmatch(rf"{re.escape(self.path_id)}_episode_(\d+)", folder.name))]
-        return self.session_folder / f"{self.path_id}_episode_{max(numbers, default = 0) + 1:03d}"
+        name_pattern = rf"{re.escape(self.path_id)}_episode_(\d+)(?:_plan_(\d\d-\d\d)_try_\d+)?(?:_score_\d\d)?"
+        folders = [(folder, match) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
+                   if (match := re.fullmatch(name_pattern, folder.name))]
+        name = f"{self.path_id}_episode_{max((int(match.group(1)) for _, match in folders), default = 0) + 1:03d}"
+        plan_number = self.recorder_parameters["plan_number"]
+        if plan_number:
+            # Folders named before 6.11.26 evening carry the plan number only in their note ("plan 01-01, end A, ...").
+            tries = sum(match.group(2) == plan_number or (match.group(2) is None and self.__note_of(folder).startswith(f"plan {plan_number},"))
+                        for folder, match in folders)
+            name += f"_plan_{plan_number}_try_{tries + 1}"
+        return self.session_folder / name
+
+
+    @staticmethod
+    def __note_of(episode_folder: Path) -> str:
+        """The sheet note written into an episode's episode.json, or "" when there is none."""
+
+        try:
+            return json.loads((episode_folder / "episode.json").read_text(encoding = "utf-8")).get("sheet_orientation") or ""
+        except (OSError, ValueError):
+            return ""
 
 
     def __append_session_notes(self, text: str) -> None:
@@ -2372,10 +2446,13 @@ def main() -> None:
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
     parser.add_argument("--new-session", action = "store_true", help = "open a new session folder even if one exists today")
     parser.add_argument("--simulated", action = "store_true", help = "use the simulated robot instead of the real one")
+    parser.add_argument("--trial", action = "store_true",
+                        help = "a trial, not training data: saved in the tool-test folder (config tool_test_folder), not the main data")
     parser.add_argument("--single-episode", action = "store_true", help = "end the session after one episode, so each episode can carry its own plan number")
     parser.add_argument("--camera-mount", default = RECORDING_PARAMETERS["camera_mount"],
                         help = "which mount the camera is on, e.g. stock_wrist_holder or bracket_F; never mix two in one training set")
     parser.add_argument("--orientation", default = "", help = "how the sheet lies, e.g. 'line end away from base' or 'rotated 60 deg'")
+    parser.add_argument("--plan-number", default = "", help = "the episode plan's number, e.g. 01-07; it goes into the folder name with the try")
     parser.add_argument("--start-index", type = int, default = 0, help = "which marked start point along the line, 0 = the line start")
     parser.add_argument("--offset-cm", type = float, default = 0.0, help = "deliberate sideways offset of the puck from the line, in cm")
     parser.add_argument("--offset-deg", type = float, default = 0.0, help = "deliberate angle of the rod off the line's tangent, in degrees")
@@ -2390,6 +2467,7 @@ def main() -> None:
         "is_single_episode": arguments.single_episode,
         "camera_mount": arguments.camera_mount,
         "sheet_orientation": arguments.orientation,
+        "plan_number": arguments.plan_number,
         "start_index": arguments.start_index,
         "deliberate_offset": {"lateral_cm": arguments.offset_cm, "angle_deg": arguments.offset_deg},
         "lighting_note": arguments.lighting,
@@ -2405,6 +2483,8 @@ def main() -> None:
         robot_link = SimulatedRobotLink({"move_seconds": 0.5, "hand_path_xy": simulated_hand_path()})
         recorder_parameters["raw_folder"] = "03_data/raw_simulated"
     else:
+        if arguments.trial:
+            recorder_parameters["raw_folder"] = RECORDING_PARAMETERS["tool_test_folder"]
         from robot_link import RobotLink
         robot_link = RobotLink(ROBOT_PARAMETERS["ip_address"])
 

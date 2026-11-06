@@ -14,7 +14,7 @@ import threading
 import time
 from pathlib import Path
 
-from config import RECORDING_PAGE_PARAMETERS
+from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 import recording_page
 from recording_page import (FormError, ToolRunner, build_recording_command, default_operator, done_plan_numbers, expand_episode_plan,
                             make_server, read_review_form)
@@ -56,6 +56,7 @@ def test_command_carries_the_form() -> None:
     assert option_value(command, "--orientation") == "plan 02-07, end A, OL1, START MARK", command
     assert option_value(command, "--offset-cm") == "1.0" and option_value(command, "--start-index") == "0"
     assert "--start-x" not in command and "--simulated" not in command and "--new-session" not in command
+    assert option_value(command, "--plan-number") == "02-07", command
     assert "--single-episode" in command
 
 
@@ -65,10 +66,11 @@ def test_notes_and_flags() -> None:
                                                  is_trial = True, is_new_session = True))
     assert option_value(command, "--orientation") == "plan 02-07, end A, NE, taught start, new lamp, trial", command
     assert option_value(command, "--start-x") == "0.31" and option_value(command, "--start-index") == "1"
-    assert "--new-session" in command
+    assert "--new-session" in command and "--trial" in command
+    assert "--plan-number" not in command, "a trial keeps the plain folder name"
 
     practice = build_recording_command(good_form(is_simulated = True, plan_number = "", lighting = "", safety_checks = []))
-    assert "--simulated" in practice
+    assert "--simulated" in practice and "--trial" not in practice
 
 
 def test_refusals() -> None:
@@ -178,11 +180,11 @@ def record_with_fake_tool(runner: ToolRunner, episode_folder: Path, **episode) -
 
 
 def test_episode_is_scored_before_the_next_start() -> None:
-    """A finished episode blocks the next Start until scored; the score is a new file, and episode.json stays as it was."""
+    """A finished episode blocks the next Start until scored; the score is a new file, the folder name gains the score."""
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
-        raw_folder = data_folder / "03_data/raw"
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
         episode_folder = raw_folder / "2026-11-06_session_01_emranul/path_01_straight_line_episode_001"
         runner = ToolRunner(data_folder / "logs", data_folder)
 
@@ -209,7 +211,10 @@ def test_episode_is_scored_before_the_next_start() -> None:
         assert not (episode_folder / "review.json").exists()
 
         runner.save_review({"episode": episode_folder.name, "score": "2", "issues": ["off_line"], "note": "drifted near the end"})
+        assert not episode_folder.exists()
+        episode_folder = episode_folder.with_name("path_01_straight_line_episode_001_score_02")
         review = json.loads((episode_folder / "review.json").read_text(encoding = "utf-8"))
+        assert review["episode"] == episode_folder.name, review
         assert review["score"] == 2 and review["issues"] == ["off_line"] and review["note"] == "drifted near the end", review
         assert review["reviewer"] == "emranul" and (episode_folder / "episode.json").read_bytes() == original
         notes = (episode_folder.parent / "session_notes.md").read_text(encoding = "utf-8")
@@ -221,26 +226,43 @@ def test_episode_is_scored_before_the_next_start() -> None:
 
 
 def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
-    """Score 1, a trial and a discard leave their plan numbers open; a discard asks for no score, as it already gave a reason."""
+    """Score 1 counts as done (6.11.26); a trial and a discard leave their plan numbers open; a discard asks for no score."""
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
-        raw_folder = data_folder / "03_data/raw"
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
         session = raw_folder / "2026-11-06_session_01_emranul"
         runner = ToolRunner(data_folder / "logs", data_folder)
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_001")
         runner.status()
         runner.save_review({"episode": "path_01_straight_line_episode_001", "score": "1", "issues": ["off_line"]})
-        assert done_plan_numbers(raw_folder) == []
+        assert done_plan_numbers(raw_folder) == ["01-01"]
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_002", plan_note = "plan 01-02, end A, STD, START MARK, trial")
         runner.status()
         runner.save_review({"episode": "path_01_straight_line_episode_002", "score": "3"})
-        assert done_plan_numbers(raw_folder) == []
+        assert done_plan_numbers(raw_folder) == ["01-01"]
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_003", status = "discarded")
         assert runner.status()["episode_to_score"] is None
+        assert (session / "path_01_straight_line_episode_003_score_00").is_dir(), "a failed run is named score 00"
+
+
+def test_trial_is_found_with_the_tool_tests() -> None:
+    """A trial is saved in the tool-test folder, not the main data, and is still offered for a score."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        episode_folder = data_folder / RECORDING_PARAMETERS["tool_test_folder"] / "2026-11-06_session_01_emranul/path_01_straight_line_episode_001"
+        runner = ToolRunner(data_folder / "logs", data_folder)
+
+        runner.start_recording("Recording", [sys.executable, "-c", fake_tool_writing(episode_folder)], "path_01_straight_line", False,
+                               is_trial = True)
+        runner.process.wait(timeout = 10)
+        time.sleep(0.01)
+        waiting = runner.status()["episode_to_score"]
+        assert waiting is not None and waiting["episode"] == episode_folder.name, waiting
 
 
 def test_operator_is_guessed_from_the_user_name() -> None:
@@ -313,6 +335,52 @@ def test_other_websites_cannot_start_the_robot() -> None:
             time.sleep(0.05)
 
 
+def test_teach_start_is_answered_from_the_page() -> None:
+    """The page's Enter button answers the teach prompts, and the printed point is offered for Start x and Start y."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        runner = ToolRunner(Path(folder) / "logs", Path(folder))
+        fake_teach = ("input('motors off? '); input('touch the point, Enter '); input('motors on? '); "
+                      "print('Start the recording tool with:  --start-x 0.3421 --start-y -0.0163')")
+        runner.start("Teach start", [sys.executable, "-u", "-c", fake_teach], is_answered_from_page = True)
+        for _ in range(3):
+            runner.press_enter()
+        runner.process.wait(timeout = 10)
+        taught = runner.taught_start()
+        assert taught is not None and taught["x"] == "0.3421" and taught["y"] == "-0.0163", taught
+
+        runner.start("Check robot", [sys.executable, "-c", "pass"])
+        try:
+            runner.press_enter()
+        except FormError:
+            pass
+        else:
+            raise AssertionError("pressed Enter in a tool that does not read it")
+        runner.process.wait(timeout = 10)
+
+
+def test_blurred_pictures_raise_a_warning() -> None:
+    """A median sharpness under the limit in the last pictures gives a warning; sharp pictures give none."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
+        runner = ToolRunner(data_folder / "logs", data_folder)
+        limit = RECORDING_PAGE_PARAMETERS["sharpness_warning_below"]
+        for index, sharpness in ((1, limit / 3), (2, limit * 2)):
+            episode_folder = raw_folder / f"2026-11-06_session_01_emranul/path_01_straight_line_episode_00{index}"
+            rows = "\n".join(f"{step},{sharpness}" for step in range(8))
+            writer = (f"import pathlib; folder = pathlib.Path({str(episode_folder)!r}); folder.mkdir(parents = True); "
+                      f"(folder / 'steps_in_progress.csv').write_text('step,sharpness\\n' + {rows!r})")
+            runner.start_recording("Recording", [sys.executable, "-c", writer], "path_01_straight_line", False)
+            runner.process.wait(timeout = 10)
+            warning = runner.sharpness_warning()
+            if index == 1:
+                assert warning is not None and warning["episode"] == episode_folder.name and warning["sharpness"] == round(limit / 3), warning
+            else:
+                assert warning is None, warning
+
+
 if __name__ == "__main__":
     test_command_carries_the_form()
     test_notes_and_flags()
@@ -326,5 +394,8 @@ if __name__ == "__main__":
     test_robot_check_result_is_read_from_its_output()
     test_episode_is_scored_before_the_next_start()
     test_bad_trial_and_discarded_episodes_stay_undone()
+    test_trial_is_found_with_the_tool_tests()
+    test_teach_start_is_answered_from_the_page()
+    test_blurred_pictures_raise_a_warning()
     test_other_websites_cannot_start_the_robot()
     print("all tests passed")

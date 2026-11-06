@@ -27,7 +27,7 @@ from record_episodes import ORIENTATION_LEGENDS, EpisodeRecorder, picture_axes_o
 from robot_link import SimulatedRobotLink
 from side_view_test import magnet_tip_and_lean
 
-RAW_FOLDER = Path(__file__).resolve().parent.parent / RECORDING_PARAMETERS["raw_folder"]
+RAW_FOLDER = Path(__file__).resolve().parent.parent / RECORDING_PARAMETERS["tool_test_folder"]
 
 # The arm at the start pose of sheet 04 (episode 037, row 0 of steps.csv): the rod 1.85 cm behind x 0.1707, y 0.0374.
 START_JOINTS = [0.24126, -0.73527, -1.01429, 0.00163, 0.17632, 0.23786]

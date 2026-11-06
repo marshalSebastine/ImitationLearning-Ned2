@@ -21,8 +21,10 @@ opens its windows as usual. "Check robot" and "Check the newest session" run `ch
 - Choose a sheet and an episode from the list: the "Set up this episode" box then shows the end, kind of start, offset, angle, start
   index and start position, the plan's setup steps, and the note that will be saved. It warns if you change the end or kind of start
   away from the plan. The list starts on the next episode not yet done, in the plan's order: Round 1 (the first 12 of sheets 01, 02
-  and 04), then the rest. A discarded episode, a score of 1 and a trial leave the episode open, so it comes up again. Choose "None"
+  and 04), then the rest. A discarded episode and a trial leave the episode open (a score of 1 counts as done since 6.11.26), so it comes up again. Choose "None"
   for a trial or practice.
+- A ticked "Trial" is saved with the tool tests in `03_data/raw` (tool `--trial`), so the main data in
+  `03_data/raw/main_data` holds only plan episodes; practice runs go to `03_data/raw_simulated`.
 - Filled in for you, and you can still change it: operator and mode (your last choice; on a first visit the operator comes from
   the computer's user name), sheet and episode (as above), kind of start and end (from the plan), the taught start
   for that kind of start, and today's light note (not yesterday's, as the light may differ).

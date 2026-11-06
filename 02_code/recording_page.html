@@ -113,9 +113,22 @@
       </section>
       <section>
         <h2 id="setup-title">Set up this episode</h2>
+        <a id="setup-picture-link" target="_blank" rel="noopener" hidden><img id="setup-picture" alt="Set-up picture of this plan episode" style="width:100%;max-width:640px;display:block;margin:6px 0"></a>
         <div class="warning" id="setup-warning"></div>
         <dl class="facts" id="setup-config"></dl>
         <ul class="steps" id="setup-steps"></ul>
+        <div id="teach-box" hidden style="margin-top:10px">
+          <strong>This start needs a taught point.</strong>
+          <ol class="steps">
+            <li>Hold the arm at the elbow, then press "Teach start point".</li>
+            <li>Press "Enter" each time the messages on the right ask for it: motors off, rod tip on the line at the start point (rod upright), Enter, then motors back on.</li>
+            <li>Start x and Start y fill in by themselves when it ends.</li>
+          </ol>
+          <div class="row">
+            <button type="button" id="teach-start">Teach start point (the motors go off)</button>
+            <button type="button" id="press-enter" disabled>Enter</button>
+          </div>
+        </div>
         <div class="hint" style="margin-top:8px"><a href="/sheet-placements.png" target="_blank" rel="noopener">How to lay each sheet on the start mark</a></div>
       </section>
       <section id="safety-section">
@@ -174,6 +187,8 @@ let options = null;
 let donePlanNumbers = [];
 let shownReview = null;
 let shownRobotCheck = null;
+let appliedTaughtStart = null;
+let shownSharpnessWarning = null;
 
 function fillSelect(select, entries) {
   select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -262,6 +277,12 @@ function showSetup(entry, start, code) {
   const noteParts = [...(planNumber ? [`plan ${planNumber}`] : []), `end ${lineEnd}`, code, hasStart ? "taught start" : "START MARK",
                      ...(element("extra_note").value.trim() ? [element("extra_note").value.trim()] : []), ...(isTrial ? ["trial"] : [])];
   element("setup-title").textContent = planNumber ? `Set up episode ${planNumber}` : "Set up this trial or practice";
+  const pictureLink = element("setup-picture-link");
+  pictureLink.hidden = !planNumber;
+  if (planNumber && pictureLink.getAttribute("href") !== `/setup-picture/${planNumber}.png`) {
+    pictureLink.href = `/setup-picture/${planNumber}.png`;
+    element("setup-picture").src = `/setup-picture/${planNumber}.png`;
+  }
   const config = [["Sheet", sheet.label], ["Start end", `End ${lineEnd}`], ["Kind of start", code], ["Puck offset", `${start.offset_cm} cm`],
                   ["Sheet angle", `${start.offset_deg} degrees`], ["Start index", start.start_index],
                   ["Start position", hasStart ? `Taught: ${element("start_x").value.trim()}, ${element("start_y").value.trim()}` : start.needs_taught_start ? "Needs teaching" : "From config.py"],
@@ -285,6 +306,7 @@ function showSetup(entry, start, code) {
   const warnings = [...(differences.length ? [`The plan says ${differences.join(" and ")} for this episode.`] : []),
                     ...(donePlanNumbers.includes(planNumber) ? ["This episode is already done, so this would be an extra."] : []),
                     ...(start.needs_taught_start && !hasStart ? ["This start needs its taught Start x and Start y."] : [])];
+  element("teach-box").hidden = !start.needs_taught_start;
   const warning = element("setup-warning");
   warning.textContent = warnings.join(" ");
   warning.classList.toggle("shown", warnings.length > 0);
@@ -336,7 +358,7 @@ async function post(path, body) {
 }
 
 function setBusy(isRunning) {
-  ["start", "check-robot", "check-episodes"].forEach(id => { element(id).disabled = isRunning; });
+  ["start", "check-robot", "check-episodes", "teach-start"].forEach(id => { element(id).disabled = isRunning; });
 }
 
 function applyRobotCheck(check) {
@@ -380,6 +402,24 @@ function showReview(episode) {
   element("review").scrollIntoView({block: "nearest"});
 }
 
+function applyTaughtStart(taught) {
+  if (!taught || taught.taught_at === appliedTaughtStart) return;
+  appliedTaughtStart = taught.taught_at;
+  element("start_x").value = taught.x;
+  element("start_y").value = taught.y;
+  writeStorage(taughtStartKey(), JSON.stringify([taught.x, taught.y]));
+  updateHints();
+  showMessage(`Start point taught: x ${taught.x}, y ${taught.y}. Filled in for this kind of start.`);
+}
+
+function showSharpnessWarning(warning) {
+  const key = warning ? `${warning.episode}:${warning.source}` : null;
+  if (!warning || key === shownSharpnessWarning) return;
+  shownSharpnessWarning = key;
+  window.alert(`Camera pictures look blurred in ${warning.episode}: sharpness ${warning.sharpness} in ${warning.source} (warning under ${warning.limit}).\n\n` +
+               "Check the lens for dirt or fog and the light. Do not turn the focus ring. Discard (x) if the pictures stay blurred.");
+}
+
 function stayAtEndOfLog(pre, text) {
   if (pre.textContent === text) return;
   const wasAtEnd = pre.scrollHeight - pre.scrollTop - pre.clientHeight < 30;
@@ -419,6 +459,9 @@ async function refreshStatus() {
     statusLine.className = "status";
   }
   setBusy(status.is_running);
+  element("press-enter").disabled = !(status.is_running && status.title === "Teach start");
+  applyTaughtStart(status.taught_start);
+  showSharpnessWarning(status.sharpness_warning);
   showReview(status.episode_to_score);
   applyRobotCheck(status.robot_check);
   if (JSON.stringify(status.done_plan_numbers) !== JSON.stringify(donePlanNumbers)) {
@@ -501,6 +544,8 @@ async function initialise() {
   element("is_trial").addEventListener("change", updateHints);
   element("is_simulated").addEventListener("change", updateHints);
   element("check-robot").addEventListener("click", () => post("/check-robot"));
+  element("teach-start").addEventListener("click", () => post("/teach-start"));
+  element("press-enter").addEventListener("click", () => post("/press-enter"));
   element("check-episodes").addEventListener("click", () => post("/check-episodes"));
   element("form").addEventListener("submit", async event => {
     event.preventDefault();
