@@ -184,6 +184,159 @@ SIDE_VIEW_TEST_PARAMETERS = {
 }
 
 
+# The local recording page (recording_page.py, 6.11.26): a form that starts record_episodes.py with the right options.
+# The start codes and sheet notes come from 06_deliverables/research_notes/Recording tool/2026-11-06_episode_plan_per_sheet.md;
+# a start that "needs_taught_start" has no default position, so its --start-x and --start-y must be filled in.
+RECORDING_PAGE_PARAMETERS = {
+    "host": "127.0.0.1",
+    "port": 8765,
+    "log_folder": "03_data/recording_page_logs",
+    "log_lines_shown": 200,
+    "operators": ["emranul", "marshal"],
+    "modes": {
+        "gamepad": "Gamepad",
+        "hand_guided": "Hand guided, replay in 1 cm steps",
+        "hand_guided_exact": "Hand guided, replay of every joint"
+    },
+    "sheets": {
+        "path_01_straight_line": {"number": "01", "label": "01 straight line", "plan": "20 episodes, either end"},
+        "path_02_arc": {"number": "02", "label": "02 arc", "plan": "35 episodes, both ends"},
+        "path_03_two_curve": {"number": "03", "label": "03 two curves", "plan": "45 episodes, end A first, end B if it reaches"},
+        "path_04_meander": {"number": "04", "label": "04 meander", "plan": "45 episodes, end A, end B if it reaches"},
+        "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, the lower end (B) only"},
+        "path_06_alpha_loop_dashed": {"number": "06", "label": "06 dashed loop", "plan": "25 episodes, the dashed tail (A) only"}
+    },
+    "line_ends": ["A", "B"],
+    "start_codes": {
+        "STD": {"label": "STD: on the start mark", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OL1": {"label": "OL1: puck 1 cm left", "offset_cm": 1.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OR1": {"label": "OR1: puck 1 cm right", "offset_cm": -1.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OL1.5": {"label": "OL1.5: puck 1.5 cm left", "offset_cm": 1.5, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OR1.5": {"label": "OR1.5: puck 1.5 cm right", "offset_cm": -1.5, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "TL10": {"label": "TL10: sheet turned 10 degrees left", "offset_cm": 0.0, "offset_deg": 10.0, "start_index": 0, "needs_taught_start": False},
+        "TR10": {"label": "TR10: sheet turned 10 degrees right", "offset_cm": 0.0, "offset_deg": -10.0, "start_index": 0, "needs_taught_start": False},
+        "TL15": {"label": "TL15: sheet turned 15 degrees left", "offset_cm": 0.0, "offset_deg": 15.0, "start_index": 0, "needs_taught_start": False},
+        "TR15": {"label": "TR15: sheet turned 15 degrees right", "offset_cm": 0.0, "offset_deg": -15.0, "start_index": 0, "needs_taught_start": False},
+        "NE": {"label": "NE: 4 to 8 cm before the end", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 1, "needs_taught_start": True},
+        "MID": {"label": "MID: before a hard spot", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
+        "X1": {"label": "X: before the crossing, first pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
+        "X2": {"label": "X: before the crossing, second pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 3, "needs_taught_start": True}
+    },
+    "simulated_raw_folder": "03_data/raw_simulated",
+    # The score given after each episode (6.11.26, Marshal), so that bad episodes can be left out later. The issues are the
+    # rules of "How to demonstrate" in the episode plan.
+    "score_levels": {
+        "3": "Good: a clean example of how to demonstrate",
+        "2": "Usable: small flaws, but the model may learn from it",
+        "1": "Bad: leave out of training and record it again"
+    },
+    "score_issues": {
+        "not_steady": "Not smooth or steady",
+        "lost_contact": "Block lost contact with the puck",
+        "off_line": "Puck's centre left the line",
+        "rod_lean": "Rod leaned where it did not need to",
+        "forearm_turn": "Forearm turned without need, or not turned back",
+        "crossing": "Crossing or dashed gap not taken straight",
+        "offset_recovery": "Offset start not back on the line within 5 to 10 cm",
+        "finish": "Did not finish within about 1 cm of the end cap",
+        "start": "Hand in the first picture, or puck not placed well",
+        "other": "Something else (say what in the note)"
+    },
+    # What each kind of start and each sheet asks for, from the episode plan; shown as "Set up this episode".
+    "start_setups": {
+        "STD": "Start cap on the START MARK, the line's first centimetres pointing straight away from the robot. Puck centred on the start cap.",
+        "OL1": "As STD, but the puck 1 cm LEFT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OR1": "As STD, but the puck 1 cm RIGHT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OL1.5": "As STD, but the puck 1.5 cm LEFT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "OR1.5": "As STD, but the puck 1.5 cm RIGHT of the start cap, seen from behind the robot. Bring it back onto the line in the first 5 to 10 cm.",
+        "TL10": "The sheet turned 10 degrees LEFT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TR10": "The sheet turned 10 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TL15": "The sheet turned 15 degrees LEFT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "TR15": "The sheet turned 15 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "NE": "The puck on the line 4 to 8 cm before the end cap. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "MID": "A start before a hard spot: 3 cm before the sharp turn (sheet 03) or at the middle hairpin (sheet 04). Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "X1": "5 cm before the crossing, first pass. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
+        "X2": "5 cm before the crossing, second pass. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched."
+    },
+    "sheet_setups": {
+        "path_01_straight_line": "No sheet marks a start: either end may be A. For end B, turn the sheet round so the other cap is on the mark.",
+        "path_02_arc": "From end A the arc bends to the robot's left; from end B it bends to the right. Both are needed.",
+        "path_03_two_curve": "End B is tight for reach (calc: 0.2 cm to spare). Use it only if its trial reached the goal without strain.",
+        "path_04_meander": "Keep the rod upright; let it lean only where the arm cannot reach otherwise, at the far end of this sheet.",
+        "path_05_alpha_loop": "Start from the lower end (B) only: from the other end the paper would lie under the robot's base. At the crossing, go straight across, never round the corner.",
+        "path_06_alpha_loop_dashed": "Start from end A only: the end halfway up the sheet, about 4 cm from its right edge in the course photo. Keep the dashes' direction across the gaps, and go straight across the crossing."
+    },
+    "demonstration_rules": [
+        "Push smoothly at a steady, unhurried speed. Block behind the puck and touching it; puck's centre on the line.",
+        "Keep the rod upright; let it lean only where the arm cannot reach otherwise.",
+        "Turn the forearm only when the line ahead would leave the picture, and turn it back on straight stretches.",
+        "At a crossing, go straight across. On the dashed sheet, keep the direction across the gaps.",
+        "Finish with the puck's centre on the end cap, within about 1 cm, then stop.",
+        "Anything else that slips more than about 1 cm off the line: discard (x) and do it again.",
+        "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
+    ],
+    "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # Round 1 of the plan: enough for the first model. The page offers these before anything else.
+    "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
+    # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
+    "episode_plan": {
+        "path_01_straight_line": [
+            (1, 4, "STD", "A", ""), (5, 8, ["OL1", "OR1", "TL15", "TR15"], "A", ""),
+            (9, 12, "NE", "A", "Puck 6 cm before the end cap."),
+            (13, 16, "STD", "B", "The other end as the start: sheet turned round, the other cap on the mark."),
+            (17, 18, ["OL1.5", "OR1.5"], "A", ""), (19, 20, "NE", "A", "Puck 4 cm before the end cap.")
+        ],
+        "path_02_arc": [
+            (1, 3, "STD", "A", ""), (4, 6, "STD", "B", ""), (7, 8, ["OL1", "TR10"], "A", ""), (9, 10, ["OR1", "TL10"], "B", ""),
+            (11, 12, "NE", "A", ""), (13, 15, "STD", "A", ""), (16, 18, "STD", "B", ""),
+            (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 24, ["OL1.5", "OR1.5", "TR15"], "B", ""),
+            (25, 28, "NE", "B", ""), (29, 30, "STD", "A", ""), (31, 32, "STD", "B", ""),
+            (33, 35, "NE", "A", "Puck 4 cm before the end cap.")
+        ],
+        "path_03_two_curve": [
+            (1, 5, "STD", "A", ""), (6, 9, ["OL1", "OR1", "TL10", "TR10"], "A", ""), (10, 12, "NE", "A", ""),
+            (13, 17, "STD", "B", "Only if end B's trial reached the goal without strain; otherwise use end A."),
+            (18, 21, ["OL1", "OR1", "TL10", "TR10"], "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (22, 24, "NE", "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (25, 27, "STD", "A", ""), (28, 30, "STD", "B", ""),
+            (31, 33, ["OL1.5", "OR1.5", "TL15"], "A", ""), (34, 36, ["OL1.5", "OR1.5", "TR15"], "B", ""),
+            (37, 41, "MID", "A", "3 cm before the sharp turn, from the end you use most."),
+            (42, 43, "NE", "A", ""), (44, 45, "NE", "B", "")
+        ],
+        "path_04_meander": [
+            (1, 5, "STD", "A", ""), (6, 9, ["OL1", "OR1", "TL10", "TR10"], "A", ""), (10, 12, "NE", "A", ""), (13, 18, "STD", "A", ""),
+            (19, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1", "OR1"], "A", ""),
+            (25, 29, "MID", "A", "At the middle hairpin."),
+            (30, 34, "STD", "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (35, 38, ["OL1", "OR1", "TL10", "TR10"], "B", "End B, or end A if its trial did not reach the goal."),
+            (39, 42, "NE", "A", "4 to 6 cm before the end cap."), (43, 45, "NE", "B", "")
+        ],
+        "path_05_alpha_loop": [
+            (1, 6, "STD", "B", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "B", ""),
+            (11, 13, "X1", "B", ""), (14, 19, "STD", "B", ""),
+            (20, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1"], "B", ""),
+            (25, 27, "X2", "B", ""), (28, 30, "NE", "B", "")
+        ],
+        "path_06_alpha_loop_dashed": [
+            (1, 6, "STD", "A", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "A", "For OL1, the puck beside the first dash."),
+            (11, 13, "X1", "A", ""), (14, 18, "STD", "A", ""),
+            (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 25, "NE", "A", "")
+        ]
+    },
+    "safety_checks": [
+        "NiryoStudio and every camera viewer are closed",
+        "The Stop button is in reach and the table is clear around the robot",
+        "\"Check robot\" says Calibration needed: False",
+        "This table's positions are taught (config.py), and the sheet is taped down"
+    ],
+    # Which safety checks the page handles itself: the calibration box follows the result of "Check robot" for this many
+    # minutes; the boxes in "safety_checks_every_start" must be ticked again for every episode, the others until the sheet changes.
+    "safety_check_calibration": 2,
+    "robot_check_valid_minutes": 60,
+    "safety_checks_every_start": [1]
+}
+
+
 def table_height(
         x: float,
         y: float

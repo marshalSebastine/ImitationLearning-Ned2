@@ -558,7 +558,7 @@ class EpisodeRecorder:
 
                 summary = self.__record_episode(mode)
                 summaries.append(summary)
-                if summary["status"] == "quit":
+                if summary["status"] == "quit" or self.recorder_parameters.get("is_single_episode"):
                     break
         finally:
             # Nothing may move while a person holds a torque-free arm: if the motors are off (an exception during
@@ -2372,6 +2372,7 @@ def main() -> None:
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
     parser.add_argument("--new-session", action = "store_true", help = "open a new session folder even if one exists today")
     parser.add_argument("--simulated", action = "store_true", help = "use the simulated robot instead of the real one")
+    parser.add_argument("--single-episode", action = "store_true", help = "end the session after one episode, so each episode can carry its own plan number")
     parser.add_argument("--camera-mount", default = RECORDING_PARAMETERS["camera_mount"],
                         help = "which mount the camera is on, e.g. stock_wrist_holder or bracket_F; never mix two in one training set")
     parser.add_argument("--orientation", default = "", help = "how the sheet lies, e.g. 'line end away from base' or 'rotated 60 deg'")
@@ -2386,6 +2387,7 @@ def main() -> None:
     recorder_parameters = {
         "is_new_session": arguments.new_session,
         "is_simulated": arguments.simulated,
+        "is_single_episode": arguments.single_episode,
         "camera_mount": arguments.camera_mount,
         "sheet_orientation": arguments.orientation,
         "start_index": arguments.start_index,

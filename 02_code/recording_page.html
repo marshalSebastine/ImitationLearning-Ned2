@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start Recording</title>
+<style>
+  :root {
+    --page: #f6f5f1; --panel: #ffffff; --ink: #1f2421; --muted: #5d655f; --line: #d9dad3;
+    --accent: #1f6f5c; --accent-ink: #ffffff; --warn-bg: #fdf1dc; --warn-ink: #7a4b00;
+    --bad-bg: #fbe6e3; --bad-ink: #9b2c1f; --run-bg: #dff1ea; --run-ink: #14584a; --log-bg: #1d211f; --log-ink: #dfe5e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #161917; --panel: #1f2421; --ink: #e8ebe8; --muted: #a2aaa4; --line: #363d38;
+      --accent: #4eb79d; --accent-ink: #0d1a16; --warn-bg: #3b2d12; --warn-ink: #f3cf8c;
+      --bad-bg: #43201b; --bad-ink: #f4b3a9; --run-bg: #173a31; --run-ink: #a9e5d3; --log-bg: #101311; --log-ink: #dfe5e0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 20px; margin-bottom: 18px; }
+  h1 { margin: 0; font-size: 22px; font-weight: 650; }
+  h2 { margin: 0 0 12px; font-size: 15px; font-weight: 650; }
+  .code-line { color: var(--muted); font-size: 13px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 16px; align-items: start; }
+  @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 480px) { .fields { grid-template-columns: minmax(0, 1fr); } }
+  .wide { grid-column: 1 / -1; }
+  label.field { display: block; font-size: 13px; font-weight: 600; }
+  label.field input, label.field select { display: block; width: 100%; margin-top: 4px; padding: 8px; font: inherit; font-weight: 400; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 6px; }
+  input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hint { margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 400; }
+  .check { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; }
+  .check input { margin: 3px 0 0; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
+  button { font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.primary { width: 100%; padding: 12px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-size: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .message { display: none; margin: 12px 0 0; padding: 10px 12px; border-radius: 6px; background: var(--bad-bg); color: var(--bad-ink); }
+  .message.shown { display: block; }
+  .status { padding: 10px 12px; border-radius: 6px; font-weight: 600; background: var(--page); }
+  .status.running { background: var(--run-bg); color: var(--run-ink); }
+  .status.failed { background: var(--bad-bg); color: var(--bad-ink); }
+  .warning { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 6px; background: var(--warn-bg); color: var(--warn-ink); }
+  .warning.shown { display: block; }
+  pre { margin: 10px 0 0; padding: 12px; max-height: 340px; overflow: auto; border-radius: 6px; background: var(--log-bg); color: var(--log-ink); font: 12px/1.5 ui-monospace, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .preview { margin-top: 8px; padding: 10px; border-radius: 6px; background: var(--page); font: 12px/1.5 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+  ul.steps { margin: 0; padding-left: 18px; }
+  ul.steps li { margin-bottom: 4px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px 16px; margin: 0 0 14px; }
+  .facts div { min-width: 0; }
+  .facts div:last-child { grid-column: 1 / -1; }
+  .facts dt { color: var(--muted); font-size: 12px; }
+  .facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+  .score { display: flex; gap: 10px; align-items: flex-start; padding: 12px; margin-bottom: 8px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+  .score:has(input:checked) { border-color: var(--accent); background: var(--run-bg); color: var(--run-ink); }
+  .score input { margin: 3px 0 0; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
+  .score strong { font-size: 18px; line-height: 1.1; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Start Recording</h1>
+    <div class="code-line" id="code-line">Reading the code version…</div>
+  </header>
+  <div class="layout">
+    <div>
+    <form id="review" novalidate hidden>
+      <section>
+        <h2 id="review-title">How did this episode go?</h2>
+        <dl class="facts" id="review-facts"></dl>
+        <div id="review-scores" role="radiogroup" aria-label="Score"></div>
+      </section>
+      <section>
+        <h2>What went wrong?</h2>
+        <div class="hint" style="margin-bottom:6px">From "How to demonstrate" in the episode plan. Needed for a score of 1 or 2.</div>
+        <div id="review-issues"></div>
+        <label class="field" style="margin-top:10px">Note<input name="note" id="review-note" autocomplete="off"></label>
+      </section>
+      <button type="submit" class="primary">Save score</button>
+      <div class="message" id="review-message" role="alert"></div>
+    </form>
+    <form id="form" novalidate>
+      <section>
+        <h2>Episode</h2>
+        <div class="fields">
+          <label class="field">Operator<select name="operator" id="operator"></select></label>
+          <label class="field">Mode<select name="mode" id="mode"></select></label>
+          <label class="field wide">Sheet<select name="path_id" id="path_id"></select>
+            <div class="hint" id="sheet-plan"></div></label>
+          <label class="field wide">Episode in the plan<select name="plan_number" id="plan_number"></select>
+            <div class="hint">Chosen for you: the next one not yet done. Everything below follows from it.</div></label>
+          <label class="field">Start end of the line<select name="line_end" id="line_end"></select></label>
+          <label class="field">Kind of start<select name="start_code" id="start_code"></select></label>
+          <label class="field">Start x (m)<input name="start_x" id="start_x" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
+          <label class="field">Start y (m)<input name="start_y" id="start_y" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
+          <div class="hint wide" id="start-hint"></div>
+          <label class="field wide">Light in the room<input name="lighting" id="lighting" placeholder="ceiling lamps on, blinds closed" autocomplete="off"></label>
+          <label class="field wide">Extra note (optional)<input name="extra_note" id="extra_note" autocomplete="off"></label>
+        </div>
+        <div style="margin-top:10px">
+          <label class="check"><input type="checkbox" id="is_trial"><span>Trial: not training data</span></label>
+          <label class="check"><input type="checkbox" id="is_new_session"><span>Start a new session folder</span></label>
+          <label class="check"><input type="checkbox" id="is_simulated"><span>Practice with the simulated robot (the real robot does not move)</span></label>
+        </div>
+        <div class="hint">Camera mount for these episodes: <strong id="camera-mount"></strong> (from config.py)</div>
+      </section>
+      <section>
+        <h2 id="setup-title">Set up this episode</h2>
+        <div class="warning" id="setup-warning"></div>
+        <dl class="facts" id="setup-config"></dl>
+        <ul class="steps" id="setup-steps"></ul>
+        <div class="hint" style="margin-top:8px"><a href="/sheet-placements.png" target="_blank" rel="noopener">How to lay each sheet on the start mark</a></div>
+      </section>
+      <section id="safety-section">
+        <h2>Before the robot moves</h2>
+        <div id="safety-checks"></div>
+        <div class="row" style="margin-top:8px">
+          <button type="button" id="check-robot">Check robot (nothing moves)</button>
+        </div>
+        <div class="hint" id="robot-check-result"></div>
+        <div class="hint">The calibration box follows "Check robot". The Stop button box is asked again for every episode; the others stay ticked until the sheet changes.</div>
+      </section>
+      <button type="submit" class="primary" id="start">Start</button>
+      <div class="message" id="message" role="alert"></div>
+    </form>
+    </div>
+    <div>
+      <section>
+        <h2>Now</h2>
+        <div class="status" id="status" role="status" aria-live="polite">Nothing is running.</div>
+        <div class="warning" id="warning"></div>
+        <pre id="log" aria-label="Output of the tool">The tool's messages appear here.</pre>
+        <div class="row" style="margin-top:10px">
+          <button type="button" id="check-episodes">Check the newest session</button>
+        </div>
+      </section>
+      <section>
+        <h2>After Start</h2>
+        <ul class="steps">
+          <li>The robot goes to its parking pose, and the picture and orientation windows open. They may open behind this page.</li>
+          <li>Put the puck in place, keep hands out of the picture, click the <strong>picture window</strong>, press <strong>Enter</strong>: the robot comes down to the start.</li>
+          <li>All keys go to the picture window, not this page.</li>
+          <li>Each Start records one episode, then the robot parks and this page asks for its score.</li>
+        </ul>
+        <h2 style="margin-top:14px">While demonstrating</h2>
+        <ul class="steps" id="demonstration-rules"></ul>
+        <h2 style="margin-top:14px">To stop</h2>
+        <ul class="steps">
+          <li><strong>Danger:</strong> the robot's Stop button.</li>
+          <li><strong>End a session:</strong> Esc at the "Put the puck at the start" prompt. With the gamepad, OPTIONS quits.</li>
+          <li>This page has no stop button, so a running episode cannot be lost from here.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Latest session<span id="session-name" class="code-line"></span></h2>
+        <pre id="notes" style="max-height:220px">No recordings yet.</pre>
+      </section>
+    </div>
+  </div>
+</main>
+<script>
+"use strict";
+const STORED_FIELDS = ["operator", "mode", "path_id"];
+const TODAY = new Date().toISOString().slice(0, 10);
+const element = id => document.getElementById(id);
+let options = null;
+let donePlanNumbers = [];
+let shownReview = null;
+let shownRobotCheck = null;
+
+function fillSelect(select, entries) {
+  select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
+}
+
+function readStorage(key) {
+  try { return window.localStorage.getItem(key); } catch (error) { return null; }
+}
+
+function writeStorage(key, value) {
+  try { window.localStorage.setItem(key, value); } catch (error) { /* the page works without remembering */ }
+}
+
+function taughtStartKey() {
+  // The note is part of the key: "6 cm before the end" and "4 cm before the end" are different taught points.
+  const entry = planForSheet()[element("plan_number").value.trim()];
+  return `start:${element("path_id").value}:${element("line_end").value}:${element("start_code").value}:${entry ? entry.note : ""}`;
+}
+
+function restoreTaughtStart() {
+  const stored = JSON.parse(readStorage(taughtStartKey()) || "[]");
+  element("start_x").value = stored[0] || "";
+  element("start_y").value = stored[1] || "";
+}
+
+function planForSheet() {
+  return options.episode_plan[element("path_id").value];
+}
+
+function nextOpenNumber(path_id, lastNumber) {
+  return Object.keys(options.episode_plan[path_id]).find((number, index) =>
+    !donePlanNumbers.includes(number) && (lastNumber === undefined || index < lastNumber));
+}
+
+function fillEpisodeList() {
+  const select = element("plan_number");
+  const chosen = select.value;
+  const entries = Object.entries(planForSheet()).map(([number, entry]) => {
+    const isDone = donePlanNumbers.includes(number);
+    return [number, `${number}: ${entry.start_code}, end ${entry.line_end}${isDone ? " (done)" : ""}`];
+  });
+  fillSelect(select, [["", "None: a trial or practice"], ...entries]);
+  select.value = chosen;
+  if (select.selectedIndex === -1) select.value = "";
+}
+
+function clearSafetyChecks(keepCalibration) {
+  document.querySelectorAll("[data-safety]").forEach(box => {
+    const isCalibration = Number(box.dataset.safety) === options.safety_check_calibration;
+    if (!(keepCalibration && isCalibration)) box.checked = false;
+  });
+}
+
+function suggestNextPlanNumber(isSheetChosenByHand) {
+  // The plan's order: Round 1 on its sheets first, then what is left of this sheet, then the next sheet with episodes left.
+  const before = element("path_id").value;
+  if (!isSheetChosenByHand) {
+    const round = options.first_round;
+    const isOpenInRound = path_id => nextOpenNumber(path_id, round.episodes_per_sheet);
+    const roundSheet = isOpenInRound(before) && round.sheets.includes(before) ? before : round.sheets.find(isOpenInRound);
+    const anySheet = Object.keys(options.episode_plan).find(path_id => nextOpenNumber(path_id));
+    element("path_id").value = roundSheet || (nextOpenNumber(before) ? before : anySheet || before);
+  }
+  if (element("path_id").value !== before) clearSafetyChecks(true);
+  fillEpisodeList();
+  element("plan_number").value = nextOpenNumber(element("path_id").value) || "";
+  applyPlanEntry();
+}
+
+function applyPlanEntry() {
+  const entry = planForSheet()[element("plan_number").value];
+  if (entry) {
+    element("start_code").value = entry.start_code;
+    element("line_end").value = entry.line_end;
+  }
+  restoreTaughtStart();
+  updateHints();
+}
+
+function showSetup(entry, start, code) {
+  const sheet = options.sheets[element("path_id").value];
+  const lineEnd = element("line_end").value;
+  const hasStart = element("start_x").value.trim() && element("start_y").value.trim();
+  const planNumber = element("plan_number").value;
+  const isTrial = element("is_trial").checked;
+  const noteParts = [...(planNumber ? [`plan ${planNumber}`] : []), `end ${lineEnd}`, code, hasStart ? "taught start" : "START MARK",
+                     ...(element("extra_note").value.trim() ? [element("extra_note").value.trim()] : []), ...(isTrial ? ["trial"] : [])];
+  element("setup-title").textContent = planNumber ? `Set up episode ${planNumber}` : "Set up this trial or practice";
+  const config = [["Sheet", sheet.label], ["Start end", `End ${lineEnd}`], ["Kind of start", code], ["Puck offset", `${start.offset_cm} cm`],
+                  ["Sheet angle", `${start.offset_deg} degrees`], ["Start index", start.start_index],
+                  ["Start position", hasStart ? `Taught: ${element("start_x").value.trim()}, ${element("start_y").value.trim()}` : start.needs_taught_start ? "Needs teaching" : "From config.py"],
+                  ["Saved with the episode", noteParts.join(", ")]];
+  element("setup-config").replaceChildren(...config.map(([name, value]) => {
+    const row = document.createElement("div");
+    const term = document.createElement("dt");
+    term.textContent = name;
+    const detail = document.createElement("dd");
+    detail.textContent = value;
+    row.append(term, detail);
+    return row;
+  }));
+  const steps = [options.start_setups[code], ...(entry && entry.note ? [entry.note] : []), options.sheet_setups[element("path_id").value]];
+  element("setup-steps").replaceChildren(...steps.map(text => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    return item;
+  }));
+  const differences = entry ? [...(entry.line_end !== lineEnd ? [`end ${entry.line_end}`] : []), ...(entry.start_code !== code ? [entry.start_code] : [])] : [];
+  const warnings = [...(differences.length ? [`The plan says ${differences.join(" and ")} for this episode.`] : []),
+                    ...(donePlanNumbers.includes(planNumber) ? ["This episode is already done, so this would be an extra."] : []),
+                    ...(start.needs_taught_start && !hasStart ? ["This start needs its taught Start x and Start y."] : [])];
+  const warning = element("setup-warning");
+  warning.textContent = warnings.join(" ");
+  warning.classList.toggle("shown", warnings.length > 0);
+}
+
+function updateHints() {
+  const sheet = options.sheets[element("path_id").value];
+  const start = options.start_codes[element("start_code").value];
+  const plan = planForSheet();
+  const numbers = Object.keys(plan);
+  const doneCount = numbers.filter(number => donePlanNumbers.includes(number)).length;
+  const entry = plan[element("plan_number").value];
+  element("sheet-plan").textContent = `Plan: ${sheet.plan}. Done: ${doneCount} of ${numbers.length}.`;
+  showSetup(entry, start, element("start_code").value);
+  element("start-hint").textContent = start.needs_taught_start
+    ? "This start needs its taught position. Run teach_sheet_start.py once per sheet layout and enter the two numbers; this browser remembers them."
+    : "Leave empty to use the start taught in config.py. Fill in only if this sheet's start was taught separately.";
+  const isSimulated = element("is_simulated").checked;
+  element("safety-section").style.display = isSimulated ? "none" : "";
+  element("start").textContent = isSimulated ? "Start practice" : "Start: the robot will move";
+}
+
+function readForm() {
+  const form = Object.fromEntries(new FormData(element("form")).entries());
+  form.is_trial = element("is_trial").checked;
+  form.is_new_session = element("is_new_session").checked;
+  form.is_simulated = element("is_simulated").checked;
+  form.safety_checks = [...document.querySelectorAll("[data-safety]")].filter(box => box.checked).map(box => Number(box.dataset.safety));
+  return form;
+}
+
+function showMessage(text) {
+  element("message").textContent = text || "";
+  element("message").classList.toggle("shown", Boolean(text));
+}
+
+async function post(path, body) {
+  showMessage("");
+  try {
+    const response = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body || {})});
+    const reply = await response.json();
+    if (!response.ok) { showMessage(reply.error); return false; }
+    await refreshStatus();
+    return true;
+  } catch (error) {
+    showMessage("The page's program is not answering. Is recording_page.py still running?");
+    return false;
+  }
+}
+
+function setBusy(isRunning) {
+  ["start", "check-robot", "check-episodes"].forEach(id => { element(id).disabled = isRunning; });
+}
+
+function applyRobotCheck(check) {
+  const key = check ? `${check.checked_at}:${check.is_calibrated}` : null;
+  if (key === shownRobotCheck) return;
+  shownRobotCheck = key;
+  const box = document.querySelector(`[data-safety="${options.safety_check_calibration}"]`);
+  box.checked = Boolean(check && check.is_calibrated);
+  const result = element("robot-check-result");
+  result.textContent = !check ? "" : check.is_calibrated === true ? `Calibrated, checked at ${check.checked_at}. Ticked for you.`
+    : check.is_calibrated === false ? `Calibration needed, checked at ${check.checked_at}. Use the automatic calibration only, then check again.`
+    : "Check robot could not read the calibration. Read the messages on the right.";
+}
+
+function showReview(episode) {
+  const isSame = shownReview === (episode && episode.episode);
+  element("review").hidden = !episode;
+  element("form").hidden = Boolean(episode);
+  if (!episode || isSame) { shownReview = episode ? episode.episode : null; return; }
+  shownReview = episode.episode;
+  element("review").reset();
+  element("review-message").classList.remove("shown");
+  // A puck that missed the goal is a known fact: fill it in, and the person can still change it.
+  if (episode.outcome === "puck_not_in_goal") {
+    element("review").querySelector('input[name=score][value="1"]').checked = true;
+    document.querySelector("[data-issue=finish]").checked = true;
+  }
+  element("review-title").textContent = `How did ${episode.episode} go?`;
+  const outcomes = {puck_in_goal: "Yes", puck_not_in_goal: "No", not_recorded: "Not answered"};
+  const facts = [["Puck in the goal", outcomes[episode.outcome] || episode.status], ["Steps", episode.steps], ["Marked mistakes", episode.mistake_steps],
+                 ["Marked lost", episode.lost_steps], ["Operator", episode.operator], ["Mode", episode.mode], ["Notes", episode.note]];
+  element("review-facts").replaceChildren(...facts.map(([name, value]) => {
+    const row = document.createElement("div");
+    const term = document.createElement("dt");
+    term.textContent = name;
+    const detail = document.createElement("dd");
+    detail.textContent = value === null || value === undefined ? "-" : value;
+    row.append(term, detail);
+    return row;
+  }));
+  element("review").scrollIntoView({block: "nearest"});
+}
+
+function stayAtEndOfLog(pre, text) {
+  if (pre.textContent === text) return;
+  const wasAtEnd = pre.scrollHeight - pre.scrollTop - pre.clientHeight < 30;
+  pre.textContent = text;
+  if (wasAtEnd) pre.scrollTop = pre.scrollHeight;
+}
+
+function explainEnd(status) {
+  if (status.exit_code === 0) return `${status.title} finished.`;
+  return `${status.title} ended with an error (code ${status.exit_code}). Read the messages below.`;
+}
+
+async function refreshStatus() {
+  let status;
+  try {
+    status = await (await fetch("/status")).json();
+  } catch (error) {
+    element("status").textContent = "The page's program is not answering. Is recording_page.py still running?";
+    element("status").className = "status failed";
+    return;
+  }
+  const code = status.code;
+  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : "Code version unknown";
+  const warning = element("warning");
+  warning.textContent = code.has_uncommitted_code ? "02_code has uncommitted changes, so episodes would not match their recorded code version. Commit before real data." : "";
+  warning.classList.toggle("shown", code.has_uncommitted_code);
+
+  const statusLine = element("status");
+  if (status.is_running) {
+    statusLine.textContent = `${status.title} is running, since ${status.started_at}. Use its own windows.`;
+    statusLine.className = "status running";
+  } else if (status.title) {
+    statusLine.textContent = explainEnd(status);
+    statusLine.className = status.exit_code === 0 ? "status" : "status failed";
+  } else {
+    statusLine.textContent = "Nothing is running.";
+    statusLine.className = "status";
+  }
+  setBusy(status.is_running);
+  showReview(status.episode_to_score);
+  applyRobotCheck(status.robot_check);
+  if (JSON.stringify(status.done_plan_numbers) !== JSON.stringify(donePlanNumbers)) {
+    donePlanNumbers = status.done_plan_numbers;
+    fillEpisodeList();
+    updateHints();
+  }
+  stayAtEndOfLog(element("log"), status.log || "The tool's messages appear here.");
+  element("session-name").textContent = status.notes.session ? `: ${status.notes.session}` : "";
+  stayAtEndOfLog(element("notes"), status.notes.lines || "No recordings yet.");
+}
+
+async function initialise() {
+  options = await (await fetch("/options")).json();
+  fillSelect(element("operator"), options.operators.map(name => [name, name[0].toUpperCase() + name.slice(1)]));
+  fillSelect(element("mode"), Object.entries(options.modes));
+  fillSelect(element("path_id"), Object.entries(options.sheets).map(([id, sheet]) => [id, sheet.label]));
+  fillSelect(element("line_end"), options.line_ends.map(end => [end, `End ${end}`]));
+  fillSelect(element("start_code"), Object.entries(options.start_codes).map(([code, start]) => [code, start.label]));
+  element("camera-mount").textContent = options.camera_mount;
+  element("review-scores").replaceChildren(...Object.keys(options.score_levels).sort().reverse().map(score => {
+    const label = document.createElement("label");
+    label.className = "score";
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "score";
+    radio.value = score;
+    const number = document.createElement("strong");
+    number.textContent = score;
+    const text = document.createElement("span");
+    text.textContent = options.score_levels[score];
+    label.append(radio, number, text);
+    return label;
+  }));
+  element("review-issues").replaceChildren(...Object.entries(options.score_issues).map(([code, text]) => {
+    const label = document.createElement("label");
+    label.className = "check";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.dataset.issue = code;
+    const span = document.createElement("span");
+    span.textContent = text;
+    label.append(box, span);
+    return label;
+  }));
+  element("safety-checks").replaceChildren(...options.safety_checks.map((text, index) => {
+    const label = document.createElement("label");
+    label.className = "check";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.dataset.safety = index;
+    const span = document.createElement("span");
+    span.textContent = text;
+    label.append(box, span);
+    return label;
+  }));
+  element("operator").value = options.default_operator;
+  STORED_FIELDS.forEach(name => {
+    const stored = readStorage(`field:${name}`);
+    if (stored !== null) element(name).value = stored;
+    if (element(name).selectedIndex === -1) element(name).selectedIndex = 0;
+  });
+  // The light can change from day to day, so only today's note comes back.
+  if (readStorage("lighting-date") === TODAY) element("lighting").value = readStorage("lighting") || "";
+  element("demonstration-rules").replaceChildren(...options.demonstration_rules.map(text => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    return item;
+  }));
+  const firstStatus = await (await fetch("/status")).json();
+  donePlanNumbers = firstStatus.done_plan_numbers;
+  suggestNextPlanNumber(false);
+  element("path_id").addEventListener("change", () => { clearSafetyChecks(true); suggestNextPlanNumber(true); });
+  element("plan_number").addEventListener("change", applyPlanEntry);
+  ["start_code", "line_end"].forEach(id => element(id).addEventListener("change", () => {
+    restoreTaughtStart();
+    updateHints();
+  }));
+  ["start_x", "start_y", "extra_note"].forEach(id => element(id).addEventListener("input", updateHints));
+  element("is_trial").addEventListener("change", updateHints);
+  element("is_simulated").addEventListener("change", updateHints);
+  element("check-robot").addEventListener("click", () => post("/check-robot"));
+  element("check-episodes").addEventListener("click", () => post("/check-episodes"));
+  element("form").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = readForm();
+    const isStarted = await post("/start", form);
+    if (!isStarted) return;
+    STORED_FIELDS.forEach(name => writeStorage(`field:${name}`, element(name).value));
+    writeStorage("lighting", element("lighting").value);
+    writeStorage("lighting-date", TODAY);
+    if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y]));
+    options.safety_checks_every_start.forEach(index => { document.querySelector(`[data-safety="${index}"]`).checked = false; });
+  });
+  element("review").addEventListener("submit", async event => {
+    event.preventDefault();
+    const chosen = element("review").querySelector("input[name=score]:checked");
+    const body = {episode: shownReview, score: chosen ? chosen.value : null, note: element("review-note").value,
+                  issues: [...document.querySelectorAll("[data-issue]")].filter(box => box.checked).map(box => box.dataset.issue)};
+    const response = await fetch("/review", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const reply = await response.json();
+    const message = element("review-message");
+    message.textContent = response.ok ? "" : reply.error;
+    message.classList.toggle("shown", !response.ok);
+    if (!response.ok) return;
+    await refreshStatus();
+    suggestNextPlanNumber(false);
+  });
+  await refreshStatus();
+  window.setInterval(refreshStatus, 1000);
+}
+
+initialise().catch(() => showMessage("The page could not load its options. Is recording_page.py still running?"));
+</script>
+</body>
+</html>
