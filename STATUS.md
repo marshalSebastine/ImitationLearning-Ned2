@@ -100,8 +100,8 @@ Last updated: 6.11.26 by Emranul's Recording and data session (puck tracking, ep
   ink begins, so keep teaching there. Exact-replay data (rod leaning 16 to 22 degrees, unlabelled forearm twists, 13 to
   41 % of rows under 3 mm) do not fit the planned 1 cm class model.
 - Next (6.11, Emranul): move to the first-floor table, re-teach (Claude updates config), camera check, one trial per sheet.
-- Decided 6.11 (Emranul, Marshal to confirm): record with `hand_guided` (1 cm replay), train first on the move names;
-  joints and exact steps are kept for a later exact-number model; `hand_guided_exact` stays a future idea.
+- Decided 6.11 (Emranul, after Marshal's tests on sheet 04): record the main data with `hand_guided_exact`; every row
+  keeps the move name, the exact step, the pose and the joints; train first on the move names, exact numbers later.
   Open: raw-data backup and sharing (`03_data` is not in git).
 
 ## Model and training

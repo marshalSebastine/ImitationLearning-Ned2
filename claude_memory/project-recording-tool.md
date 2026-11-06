@@ -63,3 +63,8 @@ replay) and train first on the move names (11 classes); every row also keeps the
 step, so a model on the exact numbers can be tried later from the same data if the class model fails.
 `hand_guided_exact` is kept as an idea for the future (free leans and twists, e.g. if the tight loops of sheets 5 and
 6 need them). New table taught 6.11 (config commit 036eee8): start x 0.1593, y -0.0152.
+CHANGED later on 6.11.26 by Emranul, after Marshal's tests on sheet 04 (episodes 046 gamepad, 047 hand_guided,
+048 hand_guided_exact): the main data is recorded with `hand_guided_exact` (every joint replayed, waypoints every 1 cm
+or 5 deg, free leans and twists). Every row still keeps the move name (action, 11 classes), the exact step
+(tip_forward_m, tip_left_m, forearm_change_deg), the pose and the six joints, so the plan stays: train on the move
+names first, the exact numbers if that fails. Marshal is building a form to fill in each episode's notes first.
