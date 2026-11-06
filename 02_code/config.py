@@ -1150,3 +1150,36 @@ CHECK_PARAMETERS = {
     # Decode the pictures (puck and camera-shift checks); md5 sums are always checked.
     "is_picture_check_on": True
 }
+
+
+# Set-up pictures, one per plan number (setup_visuals.py, 6.11.26, Emranul's request): a top view in robot coordinates of
+# where the sheet lies, where the start mark and start cap are and where the puck goes. Read-only beside the recording
+# page. The lines come from the photo-traced sheets (2026-11-06_sheet_measurements.json, about 0.3 cm; the long-edge
+# position of sheets 04 and 05 is uncertain by 0.7 and 0.3 cm); end A is the traced line's "first" end, end B its "last"
+# (as in figures/2026-11-06_sheets.png). The start mark is WORKSPACE_PARAMETERS["line_start_xy"]: the taught point is
+# where the ink begins, and the line's first centimetres point along the push direction. NE, MID and X positions are not
+# taught yet: they are drawn from the plan's words ("near_end_cm" when the plan names no distance; the sharp turn and
+# the hairpin as curvature peaks of the traced line; the crossing as the traced line's self-crossing), so they are a
+# guide, not where the robot will go. The base square and the reach ring are as in the Rule A figure (calc, not measured).
+SETUP_VISUALS_PARAMETERS = {
+    "sheet_measurements": "06_deliverables/research_notes/Recording tool/2026-11-06_sheet_measurements.json",
+    "output_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
+    "end_keys": {"A": "first", "B": "last"},
+    "paper_size_cm": [21.0, 29.7],
+    "near_end_cm": 6.0,
+    "crossing_lead_cm": 5.0,
+    "sharp_turn_lead_cm": 3.0,
+    # Which curvature peak is the plan's hard spot, counted from the start end: sheet 03's sharp turn is its tightest
+    # bend, sheet 04's "middle hairpin" the middle one of its hairpins (tightest bends, at least this far apart).
+    "mid_spots": {"path_03_two_curve": "tightest", "path_04_meander": "middle_hairpin"},
+    "hairpin_count": 3,
+    "hairpin_separation_cm": 6.0,
+    "curvature_smoothing_cm": 1.0,
+    "base_half_width_cm": 9.4,
+    "reach_cm": [13.0, 44.0],
+    "puck_diameter_cm": PUCK_PARAMETERS["diameter_m"] * 100,
+    "view_x_cm": [-12.0, 50.0],
+    "view_y_cm": [-26.0, 30.0],
+    "figure_size_inches": [6.4, 6.0],
+    "dots_per_inch": 110
+}
