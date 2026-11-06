@@ -1,9 +1,9 @@
 ---
 name: project-recording-tool
-description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, and its state on 5.11.26 (keyboard, hand-guided, exact hand-guided, gamepad; forearm turns; what is robot-tested; all episodes so far are tool tests)"
+description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, its state on 5.11.26 (four modes, all episodes so far tool tests), and 6.11.26 (puck tracking, episode checker, start-gap finding, the open choice of recording mode)"
 metadata:
   type: project
-  modified: 2026-11-05T23:30:00.000Z
+  modified: 2026-11-06T09:30:00.000Z
 ---
 
 On 28.10.26 Emranul and Marshal decided (Marshal reported it): step directions are named in the **picture's frame** (forward = top of the picture, left = picture's left), not the robot base's; and the recording tool must support **both keyboard and hand-guided** demonstrations. Marshal builds the tool (`02_code/record_episodes.py`, branch `marshal/recording-tool`).
@@ -40,3 +40,21 @@ the Li, Cui and Sadigh mixture gain is about 5 percent, not 20; HG-DAgger's beha
 **Tool state 31.10.26 (Emranul's session, branch `emranul/recording-tool-fixes`):** the fixes from the decisions are in `record_episodes.py` and `config.py` and pass the simulator tests: key drain after each picture, `u` and `l` flags, Enter-to-confirm replay, motors stay off until the person confirms release, puck-centre workspace guard, per-sheet step budget (`step_budget_for`), three timestamps per step, episode metadata (`camera_mount`, `mapping_version`, orientation, start index, offset, lighting, laptop), operator in the session folder name. Still untested on the robot. When bracket F is fitted, change `RECORDING_PARAMETERS["camera_mount"]` and `mapping_version` and re-check `camera_heading_rad`.
 
 **Tool state 5.11.26 (Emranul's session, branch `emranul/recording-tool-fixes`; Emranul tested at the robot 31.10 to 5.11 on sheet 04):** the camera is now on the forearm cover ([[project-forearm-camera-mount]]), so the picture turns with joint 4 and its heading comes from the arm model. Modes: `keyboard` (q w e a d s y c steps; `y`/`c` replace `z` for Emranul's German keyboard; `v`/`b` turn the forearm 30 degrees with a 2.5 cm lift and a 1.5 cm landing retreat; `n`/`m` lean; flick and step-over keys unbound at Emranul's request), `hand_guided` (1 cm replay that copies forearm turns), `hand_guided_exact` (replays every joint, waypoints every 1 cm or 5 degrees, `g` runs on, `h` corrects by hand; Emranul's wish: "give us all the freedom ... in motor off version and replicate that same movement"), and `gamepad` (USB pad read through XInput; full freedom on Emranul's request: only joint limits and the table-edge box refuse a step; L2/R2 height). Also: camera shift check at every episode start, steps written at every decision (a crash lost episode 041's labels), an orientation window with a key list per mode, `02_code/HOW_TO_RUN.md` so Emranul can start every tool without asking. Robot-tested: keyboard with turns, both hand-guided modes, `h`, gamepad (episode 045 reached the goal). Not robot-tested: gamepad height and wrist bend in use, the redrawn orientation window, step-over. ALL episodes up to 045 are tool tests, not training data (Emranul, 5.11.26). Plan (Emranul, 5.11.26): real data collection starts 6.11 with `hand_guided_exact`, on a big table on the first floor, one trial episode per sheet first, surroundings masked later. Open (Emranul's question, 5.11.26): should the exam start be a fixed start pose or should the robot find the start itself? Emranul expects 4 to 5 sheets at the exam; the professor allowed us to choose start and orientation (26.10.26).
+
+**6.11.26 (night, Emranul's Recording and data session, branch `emranul/recording-tool-fixes`):** on Emranul's request
+the orientation window tracks the red puck: `puck_detector.py`, `forearm_camera_model.py` (camera fitted without the robot
+to episodes 037 to 045, map error about 2 mm median) and `puck_tracking.py`; display only, nothing the robot does depends
+on it. The fitted camera confirms `picture_left_sign` 1 and the forearm heading model within 1 degree (no longer
+untested). `check_episodes.py` checks recorded episodes (read-only). Written for Emranul: the exam-start opinion (one taped
+start mark, taught start as fallback, six questions for meeting 2), the first-data-day checklist and a 200-episode plan
+per sheet, in `06_deliverables/research_notes/Recording tool/2026-11-06_*`. Found: (1) the start pose puts the block
+exactly touching a puck that stands on the taught point (`puck_centre_ahead_of_tip_m` 1.85 cm, block 13 mm deep); it
+worked on 4 to 5.11 only because the start was taught where the ink begins, 7 mm short of the round end's centre, so keep
+teaching there and centre the puck on the round end. (2) The exact replay's data do not match the planned 1 cm class
+model: the rod leans 16 to 22 degrees (median), the forearm twists a little at almost every step without a turn label,
+and 13 to 41 percent of the rows move under 3 mm. OPEN, for Emranul and Marshal before mass collection: keep the 1 cm
+classes and record with `hand_guided` (1 cm replay), keyboard or gamepad (Claude's lean, and the 31.10 decision), or keep
+`hand_guided_exact` and change the model to predict the motion itself. An independent review of that night's code (6.11
+morning) found only low-severity issues, all confirmed ones fixed: the map now shows the tool's believed puck position
+(hollow "puck?", which keyboard v/b turns land from) beside the seen puck when they differ by over 1.5 cm, a fault in
+drawing the map never stops an episode, and the tests report skipped picture checks instead of passing them.

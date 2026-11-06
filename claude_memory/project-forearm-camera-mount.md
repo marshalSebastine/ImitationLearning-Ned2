@@ -18,3 +18,8 @@ to the same view or the data splits into two camera views. All episodes up to 04
 `03_data/raw/camera_check/camera_reference/forearm_cover_tape_bare_camera_x171_y37mm.jpg`; the recording tool's camera check
 at every episode start must show under 4 px, otherwise give the mount a new `camera_mount` name in config. Related:
 [[project-recording-tool]], [[ai-project-workspace-setup]].
+
+**Fitted 6.11.26:** `config.FOREARM_CAMERA_PARAMETERS` holds this camera's place and lens, fitted from the recordings of
+4 and 5.11 (58 mm from the forearm's axis, focal length 502 px). It is valid only for this taping: if the camera is
+re-taped to a different view, record under a new mount name; the tool then draws no puck on the map until the camera is
+fitted again (`06_deliverables/research_notes/Recording tool/2026-11-06_forearm_camera_calibration/README.md`).

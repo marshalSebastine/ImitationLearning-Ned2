@@ -1,0 +1,48 @@
+{
+ "kept_detector_opencv_threads_1": {
+  "pictures": 1697,
+  "repeats_per_picture": 5,
+  "mean_ms": 1.585,
+  "median_ms": 1.479,
+  "percentile_95_ms": 2.636,
+  "percentile_99_ms": 3.213,
+  "max_of_medians_ms": 4.276,
+  "max_of_fastest_ms": 4.194,
+  "pictures_over_5_ms_by_median": 0
+ },
+ "detect_puck_function_opencv_threads_1": {
+  "pictures": 1697,
+  "repeats_per_picture": 5,
+  "mean_ms": 1.594,
+  "median_ms": 1.465,
+  "percentile_95_ms": 2.662,
+  "percentile_99_ms": 3.52,
+  "max_of_medians_ms": 4.748,
+  "max_of_fastest_ms": 4.024,
+  "pictures_over_5_ms_by_median": 0
+ },
+ "kept_detector_opencv_threads_12": {
+  "pictures": 1697,
+  "repeats_per_picture": 5,
+  "mean_ms": 2.061,
+  "median_ms": 1.964,
+  "percentile_95_ms": 3.174,
+  "percentile_99_ms": 3.897,
+  "max_of_medians_ms": 4.99,
+  "max_of_fastest_ms": 4.844,
+  "pictures_over_5_ms_by_median": 0
+ },
+ "detect_puck_function_opencv_threads_12": {
+  "pictures": 1697,
+  "repeats_per_picture": 5,
+  "mean_ms": 2.195,
+  "median_ms": 2.064,
+  "percentile_95_ms": 3.413,
+  "percentile_99_ms": 3.972,
+  "max_of_medians_ms": 4.829,
+  "max_of_fastest_ms": 4.271,
+  "pictures_over_5_ms_by_median": 0
+ },
+ "opencv_version": "5.0.0",
+ "numpy_version": "2.4.6"
+}
