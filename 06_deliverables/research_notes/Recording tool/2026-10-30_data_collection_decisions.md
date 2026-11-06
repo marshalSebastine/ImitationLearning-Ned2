@@ -49,6 +49,18 @@ The analysis was prepared by Emranul's Claude session; the decisions are the stu
   team has pulled the puck by teleoperation, so pulling works physically; whether a model can learn it is untested. Rare classes: they
   need dedicated short episodes and extra weight in training.
 
+## Change of 6 November 2026 to decision 1 (reported by Marshal)
+
+- Demonstrations are recorded with both the gamepad and hand guiding, not the keyboard (Marshal, 6.11: "we have decided to use both
+  gamepad and handguided episodes"; this replaces the same day's "always gamepad" and the keyboard choice of decision 1).
+- Still open: which hand-guided mode, `hand_guided` (robot replays in 1 cm steps) or `hand_guided_exact` (robot copies every joint), and
+  whether the pilot's limits above still decide if hand guiding stays.
+- Still open, and it must be settled before mass recording: one model output that fits both methods. The `action` column in gamepad rows is only the
+  nearest fixed move (or `turn_left`, `turn_right`, `small_motion`). It holds neither the step length nor any wrist bend, hand turn or
+  height change, so a model trained on it alone would not repeat what the operator did. The rows do store the exact motion
+  (`tip_forward_m`, `tip_left_m`, `forearm_change_deg`, all joints, the stick values).
+- Still open: whether the professor counts a gamepad as "pushing the puck ourselves" (question 6 in `2026-11-06_exam_start_opinion.md`; also question 11 of the analysis, section 7).
+
 ## Open for the professor (meeting 2, 9 November)
 
 Whether a confirmed replay and human-gated correction rounds count as "pushing the puck ourselves"; printed training sheets; a visible
