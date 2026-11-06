@@ -23,3 +23,5 @@ at every episode start must show under 4 px, otherwise give the mount a new `cam
 4 and 5.11 (58 mm from the forearm's axis, focal length 502 px). It is valid only for this taping: if the camera is
 re-taped to a different view, record under a new mount name; the tool then draws no puck on the map until the camera is
 fitted again (`06_deliverables/research_notes/Recording tool/2026-11-06_forearm_camera_calibration/README.md`).
+
+6.11.26 (Emranul): pictures at the first-floor table were hazy (median sharpness 37 vs 133-178 on 5.11). focus_sweep on a text page: 180/177/180/134 at tip 0/2/4/7 cm, so focus fine; Emranul cleaned the lens, then 263/253/271/219. Focus ring not touched. Main data starts after the cleaning.
