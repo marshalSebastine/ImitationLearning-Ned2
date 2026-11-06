@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 6.11.26 by Emranul's Recording and data session (puck tracking, episode checker, data-day plan, review fixes).
+Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open).
 
 ## Dates that cannot move
 
@@ -102,8 +102,9 @@ Last updated: 6.11.26 by Emranul's Recording and data session (puck tracking, ep
 - Next (6.11, Emranul): move to the first-floor table, re-teach (Claude updates config), camera check, one trial per sheet.
 - Done 6.11 (Marshal): `02_code/recording_page.py`, a local form that starts the recording tool with the right options, fills each plan number and asks for a score of 1 to 3 after each episode (`review.json`; `02_code/HOW_TO_RUN.md`).
   Tested with the simulated robot on Marshal's Mac only; not yet on the real robot or on Windows.
-- Blocked on: Emranul and Marshal choosing the recording mode before mass collection: 1 cm classes with `hand_guided`,
-  keyboard or gamepad (Claude's lean, as decided 31.10), or `hand_guided_exact` with a model that predicts the motion.
+- Decided 6.11 (reported by Marshal): record with both the gamepad and hand guiding, not the keyboard.
+- Blocked on: Emranul and Marshal choosing the hand-guided mode (`hand_guided` or `hand_guided_exact`), one model output for both methods, and which gamepad controls are used (the `action`
+  column is only the nearest fixed move); asking the professor on 9.11 whether a gamepad is allowed (exam start opinion, question 6).
   Open: raw-data backup and sharing (`03_data` is not in git).
 
 ## Model and training
