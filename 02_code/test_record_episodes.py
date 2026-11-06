@@ -553,6 +553,9 @@ def test_lean_and_hand_labels() -> None:
     heading = 0.0
     still = lean_and_hand_labels(joints, joints, heading)
     assert still["lean_label"] == "none" and still["hand_label"] == "none" and still["hand_change_deg"] == 0.0, still
+    assert still["forearm_label"] == "none" and isinstance(still["rod_lean_deg"], float), still
+    twisted = lean_and_hand_labels(joints, joints[:3] + [math.radians(5.0)] + joints[4:], heading)
+    assert twisted["forearm_label"] == "turn_left", twisted
     turned = lean_and_hand_labels(joints, joints[:5] + [math.radians(10.0)], heading)
     assert turned["hand_label"] == "hand_plus" and math.isclose(turned["hand_change_deg"], 10.0, abs_tol = 0.01), turned
     tilted = lean_and_hand_labels(joints, joints[:4] + [joints[4] + math.radians(10.0), 0.0], heading)

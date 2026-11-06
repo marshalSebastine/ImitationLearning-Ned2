@@ -119,7 +119,7 @@ ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "H
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
-                "lean_change_deg", "lean_label", "hand_change_deg", "hand_label",
+                "rod_lean_deg", "lean_change_deg", "lean_label", "hand_change_deg", "hand_label", "forearm_label",
                 "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
                 "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
@@ -160,17 +160,22 @@ def lean_and_hand_labels(
     Returns
     -------
     dict
-        "lean_change_deg" (positive: the tip leans further towards the picture's top), "lean_label" ("lean_forward",
-        "lean_back" or "none"), "hand_change_deg" (joint 6, positive as the joint counts) and "hand_label"
-        ("hand_plus", "hand_minus" or "none"; the joint's sign, not yet checked against the picture's left and right).
+        "rod_lean_deg" (the rod's lean towards the picture's top at ``joints_now``), "lean_change_deg" (positive: the
+        tip leans further towards the picture's top), "lean_label" ("lean_forward", "lean_back" or "none"),
+        "hand_change_deg" (joint 6, positive as the joint counts), "hand_label" ("hand_plus", "hand_minus" or "none";
+        the joint's sign, not yet checked against the picture's left and right) and "forearm_label" ("turn_left",
+        "turn_right" or "none", with the sign of the "turn_left" move).
     """
 
-    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - rod_lean_forward_deg(joints_now, heading_rad)
+    lean_now = rod_lean_forward_deg(joints_now, heading_rad)
+    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - lean_now
     hand_change = math.degrees(joints_next[5] - joints_now[5])
+    forearm_change = math.degrees(joints_next[3] - joints_now[3])
     lean_label = "none" if abs(lean_change) < parameters["lean_label_deg"] else ("lean_forward" if lean_change > 0 else "lean_back")
     hand_label = "none" if abs(hand_change) < parameters["hand_label_deg"] else ("hand_plus" if hand_change > 0 else "hand_minus")
-    return {"lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
-            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label}
+    forearm_label = "none" if abs(forearm_change) < parameters["forearm_label_deg"] else ("turn_left" if forearm_change > 0 else "turn_right")
+    return {"rod_lean_deg": round(lean_now, 2), "lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
+            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label, "forearm_label": forearm_label}
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
