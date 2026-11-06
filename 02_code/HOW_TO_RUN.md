@@ -7,6 +7,37 @@ work from any folder, in PowerShell and in Git Bash.
 
 Before a robot tool: only one program may talk to the robot at a time. Close any other tool first (Ctrl-C in its tab).
 
+## The recording page (easiest way to record, since 6.11.26)
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/recording_page.py
+
+It opens a form in the browser (http://127.0.0.1:8765, reachable only from this computer). Fill in the episode, tick the
+safety checks, press Start. It starts `record_episodes.py` with the right options, and the tool then moves the robot and
+opens its windows as usual. "Check robot" and "Check the newest session" run `check_hardware.py` and `check_episodes.py`.
+
+- All keys still go to the tool's picture window, Enter included. After Start the windows may be behind the browser.
+- The page has no stop button, on purpose: use Esc at the "Put the puck at the start" prompt, OPTIONS on the gamepad, or the
+  robot's Stop button.
+- Choose a sheet and an episode from the list: the "Set up this episode" box then shows the end, kind of start, offset, angle, start
+  index and start position, the plan's setup steps, and the note that will be saved. It warns if you change the end or kind of start
+  away from the plan. The list starts on the next episode not yet done, in the plan's order: Round 1 (the first 12 of sheets 01, 02
+  and 04), then the rest. A discarded episode, a score of 1 and a trial leave the episode open, so it comes up again. Choose "None"
+  for a trial or practice.
+- Filled in for you, and you can still change it: operator and mode (your last choice; on a first visit the operator comes from
+  the computer's user name), sheet and episode (as above), kind of start and end (from the plan), the taught start
+  for that kind of start, and today's light note (not yesterday's, as the light may differ).
+- Safety boxes: "Check robot" ticks the calibration box when the robot says it is calibrated, and that lasts 60 minutes. The Stop
+  button box must be ticked for every episode. The other two stay ticked until the sheet changes or the page is reloaded.
+- A puck that missed the goal fills in score 1 and "Did not finish"; change them if that is wrong. Other scores stay yours to give.
+- Each Start records one episode, so each carries its own plan number; then the robot parks. For a finished episode the page asks
+  for a score before the next Start: 3 good, 2 usable, 1 bad, with what went wrong. It goes into a new `review.json` in the
+  episode's folder and a line in `session_notes.md`. Check it before saving: a saved score cannot be changed from the page.
+  A discarded episode asks for no score, because the picture window already asked why.
+- Keep the page's program running during a session, for its status and log. If it is closed, a running tool goes on, but start
+  nothing else until that tool has finished: the restarted page does not know about it.
+- It offers the gamepad and the two hand-guided modes, not the keyboard. The camera check of the first data day and other
+  special runs still use the command lines below. Each run's messages are saved in `03_data/recording_page_logs/`.
+
 ## Record on track 4 (sheet `path_04_meander`)
 
 Gamepad:
@@ -61,6 +92,7 @@ Tests of the tool without the robot (run them after every change to the code or 
     D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_record_episodes.py
     D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_puck_tracking.py
     D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_forearm_camera_model.py
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_recording_page.py
 
 `test_puck_tracking.py` also reads recorded episodes from `03_data/raw`; on a laptop without them those tests say SKIPPED
 and the last line counts them.

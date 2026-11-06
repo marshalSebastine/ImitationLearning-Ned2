@@ -63,10 +63,11 @@ AI_Project/
 ├── 03_data/             large files, never in version control
 │   ├── raw/             <yyyy-mm-dd>_session_NN/: session_notes.md plus one <path_id>_episode_NNN/ per episode, written by
 │   │                    record_episodes.py: frames/NNN.jpg (the robot's JPEGs, unchanged), steps.csv, episode.json,
-│   │                    guided_path.csv (hand-guided only)
+│   │                    guided_path.csv (hand-guided only), review.json (the score from recording_page.py)
 │   │                    main_data/: the main data from 6.11.26 on (episodes from 001 per sheet); the session folders
 │   │                    directly in raw/ are tool tests (up to episode 048), never training data
 │   ├── raw_simulated/   the same layout from record_episodes.py --simulated; practice only, never training data
+│   ├── recording_page_logs/  messages of each tool started from recording_page.py
 │   │   ├── camera_check/   pictures, videos and notes from the set-up days (never renamed, even the WhatsApp video)
 │   │   ├── robot_survey/   survey_robot.py results (JSON)
 │   │   └── workspace/      taught positions, test pictures, push_straight/ runs, camera_tests/
