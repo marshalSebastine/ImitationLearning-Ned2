@@ -1,6 +1,6 @@
 ---
 name: project-recording-tool
-description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, its state on 5.11.26 (four modes, all episodes so far tool tests), and 6.11.26 (puck tracking, episode checker, start-gap finding, the open choice of recording mode)"
+description: "Recording tool: decisions of 28.10.26 (picture-frame actions), the 30.10.26 analysis, its state on 5.11.26 (four modes, all episodes so far tool tests), and 6.11.26 (puck tracking, episode checker, start-gap finding, the recording mode chosen)"
 metadata:
   type: project
   modified: 2026-11-06T09:30:00.000Z
@@ -58,3 +58,8 @@ classes and record with `hand_guided` (1 cm replay), keyboard or gamepad (Claude
 morning) found only low-severity issues, all confirmed ones fixed: the map now shows the tool's believed puck position
 (hollow "puck?", which keyboard v/b turns land from) beside the seen puck when they differ by over 1.5 cm, a fault in
 drawing the map never stops an episode, and the tests report skipped picture checks instead of passing them.
+DECIDED 6.11.26 by Emranul (at the first-floor table, to be confirmed with Marshal): record with `hand_guided` (1 cm
+replay) and train first on the move names (11 classes); every row also keeps the six joints, the pose and the exact
+step, so a model on the exact numbers can be tried later from the same data if the class model fails.
+`hand_guided_exact` is kept as an idea for the future (free leans and twists, e.g. if the tight loops of sheets 5 and
+6 need them). New table taught 6.11 (config commit 036eee8): start x 0.1593, y -0.0152.
