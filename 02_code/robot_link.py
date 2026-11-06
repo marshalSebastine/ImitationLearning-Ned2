@@ -16,8 +16,8 @@ import cv2
 import numpy
 from pyniryo import JointsPosition, NiryoRobot, PoseObject
 
-from config import (CAMERA_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, ROBOT_PARAMETERS, WORKSPACE_PARAMETERS,
-                    camera_heading_rad, pushing_height, start_pose)
+from config import (CAMERA_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS,
+                    WORKSPACE_PARAMETERS, camera_heading_rad, pushing_height, start_pose)
 
 
 class RobotLink:
@@ -39,7 +39,37 @@ class RobotLink:
         """
 
         self.robot = NiryoRobot(ip_address)
+        # Seen on 2.11.26: with "calibration needed" the robot acknowledges every move and performs none, so a whole
+        # test ran with the arm standing still. Refuse to start rather than record nothing.
+        if self.robot.need_calibration():
+            self.robot.close_connection()
+            raise RuntimeError("the robot needs its automatic calibration first (run calibrate_robot.py); "
+                               "until then it accepts moves without performing them")
+        self.velocity_percent = velocity_percent
         self.robot.set_arm_max_velocity(velocity_percent)
+
+
+    def turn_hand_and_back(
+            self,
+            joint_6_change_rad: float,
+            velocity_percent: int
+    ) -> None:
+        """
+        Turn the hand about the rod (joint 6 only) by ``joint_6_change_rad`` at ``velocity_percent`` and straight back,
+        then restore the usual speed cap. The rod's end does not move. Refuses a turn beyond joint 6's limit.
+        """
+
+        joints = [float(value) for value in self.robot.get_joints()]
+        turned = list(joints)
+        turned[5] += joint_6_change_rad
+        if abs(turned[5]) > math.radians(144.0):
+            raise RuntimeError(f"the hand would turn to {math.degrees(turned[5]):.0f} degrees, beyond joint 6's limit")
+        self.robot.set_arm_max_velocity(velocity_percent)
+        try:
+            self.robot.move(JointsPosition(*turned))
+            self.robot.move(JointsPosition(*joints))
+        finally:
+            self.robot.set_arm_max_velocity(self.velocity_percent)
 
 
     def move_to(
@@ -47,9 +77,78 @@ class RobotLink:
             pose: List[float],
             is_linear: bool = True
     ) -> None:
-        """Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished."""
+        """
+        Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished.
 
+        Refuses the pose when the robot's own inverse kinematics put the wrist (joint 5) above
+        ``RECORDING_PARAMETERS["wrist_pitch_max_rad"]``: with bracket F the camera body then presses on the forearm
+        and the wrist motor trips (2.11.26, three times).
+        """
+
+        limit = RECORDING_PARAMETERS["wrist_pitch_max_rad"]
+        joints = self.solve_joints(pose)
+        if joints[4] > limit:
+            pose = self.__leaned_within_limit(pose, joints[4], limit)
         self.robot.move(PoseObject(*pose), linear = is_linear)
+
+
+    def solve_joints(self, pose: List[float]) -> List[float]:
+        """
+        The joint angles the robot's own inverse kinematics find for ``pose``.
+
+        The service sometimes refuses a pose it solves a moment later (3.11.26), so it is asked up to
+        ``ROBOT_PARAMETERS["inverse_kinematics_attempts"]`` times; the last refusal is raised.
+        """
+
+        attempts = ROBOT_PARAMETERS["inverse_kinematics_attempts"]
+        for attempt in range(1, attempts + 1):
+            try:
+                return [float(value) for value in self.robot.inverse_kinematics(PoseObject(*pose))]
+            except Exception as error:
+                if attempt == attempts:
+                    raise
+                print(f"inverse kinematics refused the pose (attempt {attempt} of {attempts}); asking again")
+                time.sleep(ROBOT_PARAMETERS["inverse_kinematics_retry_pause_s"])
+
+
+    def __leaned_within_limit(
+            self,
+            pose: List[float],
+            wrist_rad: float,
+            limit: float
+    ) -> List[float]:
+        """
+        Lean the rod about the sideways axis, tip ahead of the wrist, until the wrist stays within ``limit``.
+
+        Tries both lean directions in steps of ``auto_lean_step_deg`` up to ``auto_lean_max_deg`` and keeps the first
+        orientation whose inverse kinematics put the wrist within the limit; raises when none does.
+        """
+
+        from record_episodes import rotation_from_roll_pitch_yaw, roll_pitch_yaw_from_rotation, rotation_about_axis
+
+        # The lean that relaxes the wrist lies in the arm's own plane (tip away from the base), whatever way the camera
+        # looks, so the axis is perpendicular to the direction from the base to the rod, not to the camera heading.
+        radial = math.atan2(pose[1], pose[0])
+        sideways_axis = numpy.array([-math.sin(radial), math.cos(radial), 0.0])
+        current = rotation_from_roll_pitch_yaw(*pose[3:])
+        step = RECORDING_PARAMETERS["auto_lean_step_deg"]
+        lean = step
+        while lean <= RECORDING_PARAMETERS["auto_lean_max_deg"] + 1e-6:
+            for sign in (1.0, -1.0):
+                leaned = rotation_about_axis(sideways_axis, math.radians(sign * lean)) @ current
+                candidate = list(pose[:3]) + list(roll_pitch_yaw_from_rotation(leaned))
+                try:
+                    joints = self.robot.inverse_kinematics(PoseObject(*candidate))
+                except Exception:
+                    continue
+                if joints[4] <= limit:
+                    print(f"wrist would be at {wrist_rad:+.2f} rad (limit {limit}); leaning the rod {lean:.0f} degrees "
+                          f"so the bracket stays clear of the forearm (wrist now {joints[4]:+.2f} rad)")
+                    return candidate
+            lean += step
+
+        raise RuntimeError(f"pose refused: the wrist would be at {wrist_rad:+.3f} rad, above the bracket's safe limit of "
+                           f"{limit} rad, and no lean up to {RECORDING_PARAMETERS['auto_lean_max_deg']} degrees brings it within")
 
 
     def move_home(self, home_joints: List[float]) -> None:
@@ -154,6 +253,11 @@ class SimulatedRobotLink:
                 self.__push_puck(end - start)
 
         self.pose = list(pose)
+        # A Cartesian move leaves the forearm untwisted and the hand in its usual orientation (joint 6 equal to joint
+        # 1); move_joints sets the exact angles afterwards. Enough for the picture direction of a forearm camera.
+        self.joints[0] = math.atan2(pose[1], pose[0])
+        self.joints[3] = 0.0
+        self.joints[5] = self.joints[0]
         time.sleep(self.simulation_parameters["move_seconds"])
 
 
@@ -162,12 +266,50 @@ class SimulatedRobotLink:
         self.pose[2] = start_pose()[2] + 0.10
 
 
+    def turn_hand_and_back(
+            self,
+            joint_6_change_rad: float,
+            velocity_percent: int
+    ) -> None:
+        """The simulated hand turns and comes back; the rod's end stays put (the simulated puck is not flicked)."""
+
+        self.hand_flicks = getattr(self, "hand_flicks", 0) + 1
+
+
+    def move_joints(self, joints: List[float]) -> None:
+        """Move to ``joints``: the rod's end goes where the arm model (ned2_fk) puts it, pushing the puck on the way."""
+
+        from side_view_test import ned2_fk
+
+        position, (roll, pitch, yaw) = ned2_fk.tool_pose(list(joints))
+        self.move_to([position[0], position[1], position[2], roll, pitch, yaw], is_linear = False)
+        self.joints = [float(value) for value in joints]
+
+
+    def predicted_position(self, joints: List[float]) -> List[float]:
+        """The arm model's own answer, so the model check always passes in simulation."""
+
+        from side_view_test import ned2_fk
+
+        return [float(value) for value in ned2_fk.fk(list(joints))["tool"][0]]
+
+
     def read_state(self) -> Dict[str, List[float]]:
 
         hand_path = self.simulation_parameters["hand_path_xy"]
         if self.is_free_motion and self.hand_path_index < len(hand_path):
             motion = numpy.array(hand_path[self.hand_path_index]) - numpy.array(self.pose[:2])
             self.pose[:2] = list(hand_path[self.hand_path_index])
+            forearm_path = self.simulation_parameters.get("hand_path_forearm_rad")
+            if forearm_path:
+                self.joints[3] = float(forearm_path[self.hand_path_index])
+            joints_path = self.simulation_parameters.get("hand_path_joints")
+            if joints_path:
+                # Full joint angles for the hand's path (exact-replay tests): the pose follows from the arm model.
+                from side_view_test import ned2_fk
+                self.joints = [float(value) for value in joints_path[self.hand_path_index]]
+                position, orientation = ned2_fk.tool_pose(self.joints)
+                self.pose = [float(position[0]), float(position[1]), float(position[2])] + [float(value) for value in orientation]
             self.hand_path_index += 1
             self.__push_puck(motion)
 
@@ -230,7 +372,7 @@ class SimulatedRobotLink:
 
         width, height = CAMERA_PARAMETERS["width"], CAMERA_PARAMETERS["height"]
         pixels_per_m = self.simulation_parameters["pixels_per_m"]
-        heading = camera_heading_rad(self.pose[0], self.pose[1])
+        heading = camera_heading_rad(self.pose)
         forward = numpy.array([math.cos(heading), math.sin(heading)])
         left = numpy.array([-math.sin(heading), math.cos(heading)])
         bottom_centre = numpy.array(self.pose[:2]) + forward * self.simulation_parameters["picture_bottom_ahead_of_rod_m"]
