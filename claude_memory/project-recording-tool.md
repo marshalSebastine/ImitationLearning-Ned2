@@ -75,3 +75,4 @@ names first, the exact numbers if that fails. Marshal is building a form to fill
 MAIN DATA FOLDER (6.11.26, Emranul): the main data goes to 03_data/raw/main_data/ (config raw_folder), numbered
 from 001 per sheet; everything directly in 03_data/raw (episodes up to 048) is tool tests, never training data
 (config tool_test_folder). Today's camera reference x159_y-15mm was copied into main_data/camera_check/camera_reference.
+TRAINING DATA (6.11.26, Emranul): every finished episode goes into training, score 1 included (scores 1, 2 and 3); the score is kept as a column so bad ones can be weighed or left out later. Discarded and unfinished episodes stay out.
