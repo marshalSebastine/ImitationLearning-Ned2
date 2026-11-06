@@ -184,6 +184,53 @@ SIDE_VIEW_TEST_PARAMETERS = {
 }
 
 
+# The local recording page (recording_page.py, 6.11.26): a form that starts record_episodes.py with the right options.
+# The start codes and sheet notes come from 06_deliverables/research_notes/Recording tool/2026-11-06_episode_plan_per_sheet.md;
+# a start that "needs_taught_start" has no default position, so its --start-x and --start-y must be filled in.
+RECORDING_PAGE_PARAMETERS = {
+    "host": "127.0.0.1",
+    "port": 8765,
+    "log_folder": "03_data/recording_page_logs",
+    "log_lines_shown": 200,
+    "operators": ["emranul", "marshal"],
+    "modes": {
+        "gamepad": "Gamepad",
+        "hand_guided": "Hand guided, replay in 1 cm steps",
+        "hand_guided_exact": "Hand guided, replay of every joint"
+    },
+    "sheets": {
+        "path_01_straight_line": {"number": "01", "label": "01 straight line", "plan": "20 episodes, either end"},
+        "path_02_arc": {"number": "02", "label": "02 arc", "plan": "35 episodes, both ends"},
+        "path_03_two_curve": {"number": "03", "label": "03 two curves", "plan": "45 episodes, end A first, end B if it reaches"},
+        "path_04_meander": {"number": "04", "label": "04 meander", "plan": "45 episodes, end A, end B if it reaches"},
+        "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, the lower end (B) only"},
+        "path_06_alpha_loop_dashed": {"number": "06", "label": "06 dashed loop", "plan": "25 episodes, the dashed tail (A) only"}
+    },
+    "line_ends": ["A", "B"],
+    "start_codes": {
+        "STD": {"label": "STD: on the start mark", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OL1": {"label": "OL1: puck 1 cm left", "offset_cm": 1.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OR1": {"label": "OR1: puck 1 cm right", "offset_cm": -1.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OL1.5": {"label": "OL1.5: puck 1.5 cm left", "offset_cm": 1.5, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "OR1.5": {"label": "OR1.5: puck 1.5 cm right", "offset_cm": -1.5, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False},
+        "TL10": {"label": "TL10: sheet turned 10 degrees left", "offset_cm": 0.0, "offset_deg": 10.0, "start_index": 0, "needs_taught_start": False},
+        "TR10": {"label": "TR10: sheet turned 10 degrees right", "offset_cm": 0.0, "offset_deg": -10.0, "start_index": 0, "needs_taught_start": False},
+        "TL15": {"label": "TL15: sheet turned 15 degrees left", "offset_cm": 0.0, "offset_deg": 15.0, "start_index": 0, "needs_taught_start": False},
+        "TR15": {"label": "TR15: sheet turned 15 degrees right", "offset_cm": 0.0, "offset_deg": -15.0, "start_index": 0, "needs_taught_start": False},
+        "NE": {"label": "NE: 4 to 8 cm before the end", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 1, "needs_taught_start": True},
+        "MID": {"label": "MID: before a hard spot", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
+        "X1": {"label": "X: before the crossing, first pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
+        "X2": {"label": "X: before the crossing, second pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 3, "needs_taught_start": True}
+    },
+    "safety_checks": [
+        "NiryoStudio and every camera viewer are closed",
+        "The Stop button is in reach and the table is clear around the robot",
+        "\"Check robot\" says Calibration needed: False",
+        "This table's positions are taught (config.py), and the sheet is taped down"
+    ]
+}
+
+
 def table_height(
         x: float,
         y: float

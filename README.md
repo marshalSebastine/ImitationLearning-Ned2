@@ -65,6 +65,7 @@ AI_Project/
 │   │                    record_episodes.py: frames/NNN.jpg (the robot's JPEGs, unchanged), steps.csv, episode.json,
 │   │                    guided_path.csv (hand-guided only)
 │   ├── raw_simulated/   the same layout from record_episodes.py --simulated; practice only, never training data
+│   ├── recording_page_logs/  messages of each tool started from recording_page.py
 │   │   ├── camera_check/   pictures, videos and notes from the set-up days (never renamed, even the WhatsApp video)
 │   │   ├── robot_survey/   survey_robot.py results (JSON)
 │   │   └── workspace/      taught positions, test pictures, push_straight/ runs, camera_tests/

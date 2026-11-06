@@ -100,6 +100,8 @@ Last updated: 6.11.26 by Emranul's Recording and data session (puck tracking, ep
   ink begins, so keep teaching there. Exact-replay data (rod leaning 16 to 22 degrees, unlabelled forearm twists, 13 to
   41 % of rows under 3 mm) do not fit the planned 1 cm class model.
 - Next (6.11, Emranul): move to the first-floor table, re-teach (Claude updates config), camera check, one trial per sheet.
+- Done 6.11 (Marshal): `02_code/recording_page.py`, a local form that starts the recording tool with the right options (`02_code/HOW_TO_RUN.md`).
+  Tested with the simulated robot on Marshal's Mac only; not yet on the real robot or on Windows.
 - Blocked on: Emranul and Marshal choosing the recording mode before mass collection: 1 cm classes with `hand_guided`,
   keyboard or gamepad (Claude's lean, as decided 31.10), or `hand_guided_exact` with a model that predicts the motion.
   Open: raw-data backup and sharing (`03_data` is not in git).

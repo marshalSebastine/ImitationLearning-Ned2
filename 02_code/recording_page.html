@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start Recording</title>
+<style>
+  :root {
+    --page: #f6f5f1; --panel: #ffffff; --ink: #1f2421; --muted: #5d655f; --line: #d9dad3;
+    --accent: #1f6f5c; --accent-ink: #ffffff; --warn-bg: #fdf1dc; --warn-ink: #7a4b00;
+    --bad-bg: #fbe6e3; --bad-ink: #9b2c1f; --run-bg: #dff1ea; --run-ink: #14584a; --log-bg: #1d211f; --log-ink: #dfe5e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #161917; --panel: #1f2421; --ink: #e8ebe8; --muted: #a2aaa4; --line: #363d38;
+      --accent: #4eb79d; --accent-ink: #0d1a16; --warn-bg: #3b2d12; --warn-ink: #f3cf8c;
+      --bad-bg: #43201b; --bad-ink: #f4b3a9; --run-bg: #173a31; --run-ink: #a9e5d3; --log-bg: #101311; --log-ink: #dfe5e0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 20px; margin-bottom: 18px; }
+  h1 { margin: 0; font-size: 22px; font-weight: 650; }
+  h2 { margin: 0 0 12px; font-size: 15px; font-weight: 650; }
+  .code-line { color: var(--muted); font-size: 13px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 16px; align-items: start; }
+  @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 480px) { .fields { grid-template-columns: minmax(0, 1fr); } }
+  .wide { grid-column: 1 / -1; }
+  label.field { display: block; font-size: 13px; font-weight: 600; }
+  label.field input, label.field select { display: block; width: 100%; margin-top: 4px; padding: 8px; font: inherit; font-weight: 400; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 6px; }
+  input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hint { margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 400; }
+  .check { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; }
+  .check input { margin: 3px 0 0; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
+  button { font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.primary { width: 100%; padding: 12px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-size: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .message { display: none; margin: 12px 0 0; padding: 10px 12px; border-radius: 6px; background: var(--bad-bg); color: var(--bad-ink); }
+  .message.shown { display: block; }
+  .status { padding: 10px 12px; border-radius: 6px; font-weight: 600; background: var(--page); }
+  .status.running { background: var(--run-bg); color: var(--run-ink); }
+  .status.failed { background: var(--bad-bg); color: var(--bad-ink); }
+  .warning { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 6px; background: var(--warn-bg); color: var(--warn-ink); }
+  .warning.shown { display: block; }
+  pre { margin: 10px 0 0; padding: 12px; max-height: 340px; overflow: auto; border-radius: 6px; background: var(--log-bg); color: var(--log-ink); font: 12px/1.5 ui-monospace, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .preview { margin-top: 8px; padding: 10px; border-radius: 6px; background: var(--page); font: 12px/1.5 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+  ul.steps { margin: 0; padding-left: 18px; }
+  ul.steps li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Start Recording</h1>
+    <div class="code-line" id="code-line">Reading the code version…</div>
+  </header>
+  <div class="layout">
+    <form id="form" novalidate>
+      <section>
+        <h2>Episode</h2>
+        <div class="fields">
+          <label class="field">Operator<select name="operator" id="operator"></select></label>
+          <label class="field">Mode<select name="mode" id="mode"></select></label>
+          <label class="field wide">Sheet<select name="path_id" id="path_id"></select>
+            <div class="hint" id="sheet-plan"></div></label>
+          <label class="field">Start end of the line<select name="line_end" id="line_end"></select></label>
+          <label class="field">Plan number<input name="plan_number" id="plan_number" placeholder="02-07" autocomplete="off">
+            <div class="hint">Sheet, then its number in the episode plan.</div></label>
+          <label class="field wide">Kind of start<select name="start_code" id="start_code"></select></label>
+          <label class="field">Start x (m)<input name="start_x" id="start_x" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
+          <label class="field">Start y (m)<input name="start_y" id="start_y" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
+          <div class="hint wide" id="start-hint"></div>
+          <label class="field wide">Light in the room<input name="lighting" id="lighting" placeholder="ceiling lamps on, blinds closed" autocomplete="off"></label>
+          <label class="field wide">Extra note (optional)<input name="extra_note" id="extra_note" autocomplete="off"></label>
+        </div>
+        <div style="margin-top:10px">
+          <label class="check"><input type="checkbox" id="is_trial"><span>Trial: not training data</span></label>
+          <label class="check"><input type="checkbox" id="is_new_session"><span>Start a new session folder</span></label>
+          <label class="check"><input type="checkbox" id="is_simulated"><span>Practice with the simulated robot (the real robot does not move)</span></label>
+        </div>
+        <div class="hint">Camera mount for these episodes: <strong id="camera-mount"></strong> (from config.py)</div>
+      </section>
+      <section id="safety-section">
+        <h2>Before the robot moves</h2>
+        <div id="safety-checks"></div>
+        <div class="row" style="margin-top:8px">
+          <button type="button" id="check-robot">Check robot (nothing moves)</button>
+        </div>
+      </section>
+      <button type="submit" class="primary" id="start">Start</button>
+      <div class="message" id="message" role="alert"></div>
+    </form>
+    <div>
+      <section>
+        <h2>Now</h2>
+        <div class="status" id="status" role="status" aria-live="polite">Nothing is running.</div>
+        <div class="warning" id="warning"></div>
+        <pre id="log" aria-label="Output of the tool">The tool's messages appear here.</pre>
+        <div class="row" style="margin-top:10px">
+          <button type="button" id="check-episodes">Check the newest session</button>
+        </div>
+      </section>
+      <section>
+        <h2>After Start</h2>
+        <ul class="steps">
+          <li>The robot goes to its parking pose, and the picture and orientation windows open. They may open behind this page.</li>
+          <li>Put the puck in place, keep hands out of the picture, click the <strong>picture window</strong>, press <strong>Enter</strong>: the robot comes down to the start.</li>
+          <li>All keys go to the picture window, not this page.</li>
+        </ul>
+        <h2 style="margin-top:14px">To stop</h2>
+        <ul class="steps">
+          <li><strong>Danger:</strong> the robot's Stop button.</li>
+          <li><strong>End a session:</strong> Esc at the "Put the puck at the start" prompt. With the gamepad, OPTIONS quits.</li>
+          <li>This page has no stop button, so a running episode cannot be lost from here.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Latest session<span id="session-name" class="code-line"></span></h2>
+        <pre id="notes" style="max-height:220px">No recordings yet.</pre>
+      </section>
+    </div>
+  </div>
+</main>
+<script>
+"use strict";
+const STORED_FIELDS = ["operator", "mode", "path_id", "line_end", "start_code", "lighting"];
+const element = id => document.getElementById(id);
+let options = null;
+
+function fillSelect(select, entries) {
+  select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
+}
+
+function readStorage(key) {
+  try { return window.localStorage.getItem(key); } catch (error) { return null; }
+}
+
+function writeStorage(key, value) {
+  try { window.localStorage.setItem(key, value); } catch (error) { /* the page works without remembering */ }
+}
+
+function taughtStartKey() {
+  return `start:${element("path_id").value}:${element("line_end").value}:${element("start_code").value}`;
+}
+
+function restoreTaughtStart() {
+  const stored = JSON.parse(readStorage(taughtStartKey()) || "[]");
+  element("start_x").value = stored[0] || "";
+  element("start_y").value = stored[1] || "";
+}
+
+function updateHints() {
+  const sheet = options.sheets[element("path_id").value];
+  const start = options.start_codes[element("start_code").value];
+  element("sheet-plan").textContent = `Plan: ${sheet.plan}`;
+  element("start-hint").textContent = start.needs_taught_start
+    ? "This start needs its taught position. Run teach_sheet_start.py once per sheet layout and enter the two numbers; this browser remembers them."
+    : "Leave empty to use the start taught in config.py. Fill in only if this sheet's start was taught separately.";
+  const prefix = `${sheet.number}-`;
+  const planNumber = element("plan_number");
+  if (!planNumber.value || /^\d{2}-$/.test(planNumber.value)) planNumber.value = prefix;
+  const isSimulated = element("is_simulated").checked;
+  element("safety-section").style.display = isSimulated ? "none" : "";
+  element("start").textContent = isSimulated ? "Start practice" : "Start: the robot will move";
+}
+
+function readForm() {
+  const form = Object.fromEntries(new FormData(element("form")).entries());
+  const planNumber = form.plan_number.trim();
+  form.plan_number = /^\d{2}-$/.test(planNumber) ? "" : planNumber;
+  form.is_trial = element("is_trial").checked;
+  form.is_new_session = element("is_new_session").checked;
+  form.is_simulated = element("is_simulated").checked;
+  form.safety_checks = [...document.querySelectorAll("[data-safety]")].filter(box => box.checked).map(box => Number(box.dataset.safety));
+  return form;
+}
+
+function showMessage(text) {
+  element("message").textContent = text || "";
+  element("message").classList.toggle("shown", Boolean(text));
+}
+
+async function post(path, body) {
+  showMessage("");
+  try {
+    const response = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body || {})});
+    const reply = await response.json();
+    if (!response.ok) { showMessage(reply.error); return false; }
+    await refreshStatus();
+    return true;
+  } catch (error) {
+    showMessage("The page's program is not answering. Is recording_page.py still running?");
+    return false;
+  }
+}
+
+function setBusy(isRunning) {
+  ["start", "check-robot", "check-episodes"].forEach(id => { element(id).disabled = isRunning; });
+}
+
+function stayAtEndOfLog(pre, text) {
+  if (pre.textContent === text) return;
+  const wasAtEnd = pre.scrollHeight - pre.scrollTop - pre.clientHeight < 30;
+  pre.textContent = text;
+  if (wasAtEnd) pre.scrollTop = pre.scrollHeight;
+}
+
+function explainEnd(status) {
+  if (status.exit_code === 0) return `${status.title} finished.`;
+  return `${status.title} ended with an error (code ${status.exit_code}). Read the messages below.`;
+}
+
+async function refreshStatus() {
+  let status;
+  try {
+    status = await (await fetch("/status")).json();
+  } catch (error) {
+    element("status").textContent = "The page's program is not answering. Is recording_page.py still running?";
+    element("status").className = "status failed";
+    return;
+  }
+  const code = status.code;
+  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : "Code version unknown";
+  const warning = element("warning");
+  warning.textContent = code.has_uncommitted_code ? "02_code has uncommitted changes, so episodes would not match their recorded code version. Commit before real data." : "";
+  warning.classList.toggle("shown", code.has_uncommitted_code);
+
+  const statusLine = element("status");
+  if (status.is_running) {
+    statusLine.textContent = `${status.title} is running, since ${status.started_at}. Use its own windows.`;
+    statusLine.className = "status running";
+  } else if (status.title) {
+    statusLine.textContent = explainEnd(status);
+    statusLine.className = status.exit_code === 0 ? "status" : "status failed";
+  } else {
+    statusLine.textContent = "Nothing is running.";
+    statusLine.className = "status";
+  }
+  setBusy(status.is_running);
+  stayAtEndOfLog(element("log"), status.log || "The tool's messages appear here.");
+  element("session-name").textContent = status.notes.session ? `: ${status.notes.session}` : "";
+  stayAtEndOfLog(element("notes"), status.notes.lines || "No recordings yet.");
+}
+
+async function initialise() {
+  options = await (await fetch("/options")).json();
+  fillSelect(element("operator"), options.operators.map(name => [name, name[0].toUpperCase() + name.slice(1)]));
+  fillSelect(element("mode"), Object.entries(options.modes));
+  fillSelect(element("path_id"), Object.entries(options.sheets).map(([id, sheet]) => [id, sheet.label]));
+  fillSelect(element("line_end"), options.line_ends.map(end => [end, `End ${end}`]));
+  fillSelect(element("start_code"), Object.entries(options.start_codes).map(([code, start]) => [code, start.label]));
+  element("camera-mount").textContent = options.camera_mount;
+  element("safety-checks").replaceChildren(...options.safety_checks.map((text, index) => {
+    const label = document.createElement("label");
+    label.className = "check";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.dataset.safety = index;
+    const span = document.createElement("span");
+    span.textContent = text;
+    label.append(box, span);
+    return label;
+  }));
+  STORED_FIELDS.forEach(name => {
+    const stored = readStorage(`field:${name}`);
+    if (stored !== null) element(name).value = stored;
+    if (element(name).selectedIndex === -1) element(name).selectedIndex = 0;
+  });
+  restoreTaughtStart();
+  updateHints();
+  ["path_id", "start_code", "line_end"].forEach(id => element(id).addEventListener("change", () => {
+    if (id === "path_id") element("plan_number").value = "";
+    restoreTaughtStart();
+    updateHints();
+  }));
+  element("is_simulated").addEventListener("change", updateHints);
+  element("check-robot").addEventListener("click", () => post("/check-robot"));
+  element("check-episodes").addEventListener("click", () => post("/check-episodes"));
+  element("form").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = readForm();
+    const isStarted = await post("/start", form);
+    if (!isStarted) return;
+    STORED_FIELDS.forEach(name => writeStorage(`field:${name}`, element(name).value));
+    if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y]));
+    document.querySelectorAll("[data-safety]").forEach(box => { box.checked = false; });
+    element("plan_number").value = "";
+    updateHints();
+  });
+  await refreshStatus();
+  window.setInterval(refreshStatus, 1000);
+}
+
+initialise().catch(() => showMessage("The page could not load its options. Is recording_page.py still running?"));
+</script>
+</body>
+</html>
