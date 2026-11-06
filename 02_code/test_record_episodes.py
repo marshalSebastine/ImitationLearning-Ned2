@@ -529,6 +529,23 @@ def test_step_budget_per_sheet() -> None:
     assert step_budget_for("path_99_unknown") == RECORDING_PARAMETERS["step_budget"]
 
 
+def test_folder_names_carry_the_plan_number(raw_folder: Path) -> None:
+    """With a plan number the folder says the plan episode and the try; an older folder of that plan counts as a try."""
+
+    older = raw_folder / "2026-11-06_session_01_test" / "path_01_straight_line_episode_003"
+    older.mkdir(parents = True)
+    (older / "episode.json").write_text(json.dumps({"sheet_orientation": "plan 01-01, end A, STD, START MARK"}), encoding = "utf-8")
+    names = []
+    for plan_number in ("01-01", "01-01", "01-02", ""):
+        recorder = EpisodeRecorder(SimulatedRobotLink({}), operator = "test", path_id = "path_01_straight_line", recorder_parameters = {
+            "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "plan_number": plan_number},
+            key_reader = scripted_keys(["enter", "escape"]))
+        recorder.record_session("keyboard")
+        names.append(max((folder for folder in raw_folder.glob("*_session_*/*_episode_*")), key = lambda folder: folder.stat().st_ctime).name)
+    assert names == ["path_01_straight_line_episode_004_plan_01-01_try_2", "path_01_straight_line_episode_005_plan_01-01_try_3",
+                     "path_01_straight_line_episode_006_plan_01-02_try_1", "path_01_straight_line_episode_007"], names
+
+
 if __name__ == "__main__":
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
@@ -540,7 +557,7 @@ if __name__ == "__main__":
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode,
                  test_gamepad_raises_and_lowers_the_tip,
-                 test_orientation_window_lists_the_gamepad_controls):
+                 test_orientation_window_lists_the_gamepad_controls, test_folder_names_carry_the_plan_number):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

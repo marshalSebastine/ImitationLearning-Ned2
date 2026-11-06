@@ -56,6 +56,7 @@ def test_command_carries_the_form() -> None:
     assert option_value(command, "--orientation") == "plan 02-07, end A, OL1, START MARK", command
     assert option_value(command, "--offset-cm") == "1.0" and option_value(command, "--start-index") == "0"
     assert "--start-x" not in command and "--simulated" not in command and "--new-session" not in command
+    assert option_value(command, "--plan-number") == "02-07", command
     assert "--single-episode" in command
 
 
@@ -66,6 +67,7 @@ def test_notes_and_flags() -> None:
     assert option_value(command, "--orientation") == "plan 02-07, end A, NE, taught start, new lamp, trial", command
     assert option_value(command, "--start-x") == "0.31" and option_value(command, "--start-index") == "1"
     assert "--new-session" in command and "--trial" in command
+    assert "--plan-number" not in command, "a trial keeps the plain folder name"
 
     practice = build_recording_command(good_form(is_simulated = True, plan_number = "", lighting = "", safety_checks = []))
     assert "--simulated" in practice and "--trial" not in practice

@@ -515,6 +515,7 @@ class EpisodeRecorder:
             "start_index": 0,
             "deliberate_offset": {"lateral_cm": 0.0, "angle_deg": 0.0},
             "lighting_note": "",
+            "plan_number": "",
             "laptop": platform.node()
         })
         self.last_picture_md5 = None
@@ -591,6 +592,7 @@ class EpisodeRecorder:
             "mapping_version": self.recorder_parameters["mapping_version"],
             "stepping_rule_version": self.recorder_parameters["stepping_rule_version"],
             "sheet_orientation": self.recorder_parameters["sheet_orientation"],
+            "plan_number": self.recorder_parameters["plan_number"] or None,
             "start_index": self.recorder_parameters["start_index"],
             "deliberate_offset": self.recorder_parameters["deliberate_offset"],
             "lighting_note": self.recorder_parameters["lighting_note"],
@@ -2297,12 +2299,34 @@ class EpisodeRecorder:
 
 
     def __next_episode_folder(self) -> Path:
-        """Episode numbers count up per path_id across every session on this laptop (README rule 4)."""
+        """
+        Episode numbers count up per path_id across every session on this laptop (README rule 4). With a plan number
+        the name also says which plan episode this is and the how-many-th try of it (Emranul, 6.11.26), for example
+        path_01_straight_line_episode_004_plan_01-01_try_2.
+        """
 
         raw_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"]
-        numbers = [int(match.group(1)) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
-                   if (match := re.fullmatch(rf"{re.escape(self.path_id)}_episode_(\d+)", folder.name))]
-        return self.session_folder / f"{self.path_id}_episode_{max(numbers, default = 0) + 1:03d}"
+        name_pattern = rf"{re.escape(self.path_id)}_episode_(\d+)(?:_plan_(\d\d-\d\d)_try_\d+)?"
+        folders = [(folder, match) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
+                   if (match := re.fullmatch(name_pattern, folder.name))]
+        name = f"{self.path_id}_episode_{max((int(match.group(1)) for _, match in folders), default = 0) + 1:03d}"
+        plan_number = self.recorder_parameters["plan_number"]
+        if plan_number:
+            # Folders named before 6.11.26 evening carry the plan number only in their note ("plan 01-01, end A, ...").
+            tries = sum(match.group(2) == plan_number or (match.group(2) is None and self.__note_of(folder).startswith(f"plan {plan_number},"))
+                        for folder, match in folders)
+            name += f"_plan_{plan_number}_try_{tries + 1}"
+        return self.session_folder / name
+
+
+    @staticmethod
+    def __note_of(episode_folder: Path) -> str:
+        """The sheet note written into an episode's episode.json, or "" when there is none."""
+
+        try:
+            return json.loads((episode_folder / "episode.json").read_text(encoding = "utf-8")).get("sheet_orientation") or ""
+        except (OSError, ValueError):
+            return ""
 
 
     def __append_session_notes(self, text: str) -> None:
@@ -2378,6 +2402,7 @@ def main() -> None:
     parser.add_argument("--camera-mount", default = RECORDING_PARAMETERS["camera_mount"],
                         help = "which mount the camera is on, e.g. stock_wrist_holder or bracket_F; never mix two in one training set")
     parser.add_argument("--orientation", default = "", help = "how the sheet lies, e.g. 'line end away from base' or 'rotated 60 deg'")
+    parser.add_argument("--plan-number", default = "", help = "the episode plan's number, e.g. 01-07; it goes into the folder name with the try")
     parser.add_argument("--start-index", type = int, default = 0, help = "which marked start point along the line, 0 = the line start")
     parser.add_argument("--offset-cm", type = float, default = 0.0, help = "deliberate sideways offset of the puck from the line, in cm")
     parser.add_argument("--offset-deg", type = float, default = 0.0, help = "deliberate angle of the rod off the line's tangent, in degrees")
@@ -2392,6 +2417,7 @@ def main() -> None:
         "is_single_episode": arguments.single_episode,
         "camera_mount": arguments.camera_mount,
         "sheet_orientation": arguments.orientation,
+        "plan_number": arguments.plan_number,
         "start_index": arguments.start_index,
         "deliberate_offset": {"lateral_cm": arguments.offset_cm, "angle_deg": arguments.offset_deg},
         "lighting_note": arguments.lighting,

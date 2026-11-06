@@ -153,6 +153,8 @@ def build_recording_command(
                "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(start["offset_deg"])]
     if position:
         command += ["--start-x", str(position[0]), "--start-y", str(position[1])]
+    if plan_number and not is_trial:
+        command += ["--plan-number", plan_number]
     if form.get("is_new_session") is True:
         command.append("--new-session")
     if is_simulated:
