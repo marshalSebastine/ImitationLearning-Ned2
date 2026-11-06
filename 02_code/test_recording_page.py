@@ -14,7 +14,7 @@ import threading
 import time
 from pathlib import Path
 
-from config import RECORDING_PAGE_PARAMETERS
+from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 import recording_page
 from recording_page import (FormError, ToolRunner, build_recording_command, default_operator, done_plan_numbers, expand_episode_plan,
                             make_server, read_review_form)
@@ -182,7 +182,7 @@ def test_episode_is_scored_before_the_next_start() -> None:
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
-        raw_folder = data_folder / "03_data/raw"
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
         episode_folder = raw_folder / "2026-11-06_session_01_emranul/path_01_straight_line_episode_001"
         runner = ToolRunner(data_folder / "logs", data_folder)
 
@@ -225,7 +225,7 @@ def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
-        raw_folder = data_folder / "03_data/raw"
+        raw_folder = data_folder / RECORDING_PARAMETERS["raw_folder"]
         session = raw_folder / "2026-11-06_session_01_emranul"
         runner = ToolRunner(data_folder / "logs", data_folder)
 
