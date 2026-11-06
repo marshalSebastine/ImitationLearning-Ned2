@@ -292,7 +292,12 @@ RECORDING_PAGE_PARAMETERS = {
         "The Stop button is in reach and the table is clear around the robot",
         "\"Check robot\" says Calibration needed: False",
         "This table's positions are taught (config.py), and the sheet is taped down"
-    ]
+    ],
+    # Which safety checks the page handles itself: the calibration box follows the result of "Check robot" for this many
+    # minutes; the boxes in "safety_checks_every_start" must be ticked again for every episode, the others until the sheet changes.
+    "safety_check_calibration": 2,
+    "robot_check_valid_minutes": 60,
+    "safety_checks_every_start": [1]
 }
 
 

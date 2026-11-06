@@ -15,6 +15,7 @@ Keep this program running during a session: the page's status and log come from 
 
 import argparse
 import datetime
+import getpass
 import json
 import os
 import re
@@ -36,6 +37,7 @@ CODE_FOLDER = Path(__file__).resolve().parent
 PROJECT_FOLDER = CODE_FOLDER.parent
 PLAN_NUMBER_PATTERN = re.compile(r"^\d{2}-\d{1,3}$")
 PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
+CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
 
@@ -180,6 +182,16 @@ def expand_episode_plan(page_parameters: Dict = RECORDING_PAGE_PARAMETERS) -> Di
     return plan
 
 
+def default_operator(page_parameters: Dict = RECORDING_PAGE_PARAMETERS) -> str:
+    """The operator named in this computer's user name, for a first visit; otherwise the first one listed."""
+
+    try:
+        user_name = getpass.getuser().lower()
+    except (OSError, KeyError):
+        user_name = ""
+    return next((name for name in page_parameters["operators"] if name[:5] in user_name), page_parameters["operators"][0])
+
+
 def read_json(path: Path) -> Optional[Dict]:
     """The JSON file at ``path``, None when it is missing or unreadable."""
 
@@ -264,6 +276,8 @@ class ToolRunner:
         self.data_folder = data_folder
         self.recording = None
         self.episode_to_score = None
+        self.robot_check = None
+        self.robot_check_seen = None
         self.process = None
         self.log_path = None
         self.title = None
@@ -296,7 +310,7 @@ class ToolRunner:
 
         self.log_folder.mkdir(parents = True, exist_ok = True)
         self.started_at = datetime.datetime.now()
-        self.log_path = self.log_folder / f"{self.started_at:%Y-%m-%d_%H%M%S}_{re.sub(r'[^a-z0-9]+', '_', title.lower())}.log"
+        self.log_path = self.log_folder / f"{self.started_at:%Y-%m-%d_%H%M%S_%f}_{re.sub(r'[^a-z0-9]+', '_', title.lower())}.log"
         self.title = title
         self.command_text = shlex.join(command)
 
@@ -320,6 +334,28 @@ class ToolRunner:
 
         self.start(title, command)
         self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated), "started": self.started_at.timestamp()}
+
+
+    def __read_robot_check(self, log_text: str) -> None:
+        """Remember what the latest finished "Check robot" said about the calibration."""
+
+        if self.title != "Check robot" or self.process is None or self.is_running() or self.robot_check_seen is self.process:
+            return
+        self.robot_check_seen = self.process
+        match = CALIBRATION_IN_LOG_PATTERN.search(log_text)
+        self.robot_check = {"is_calibrated": match.group(1) == "False" if match else None,
+                            "checked_at": datetime.datetime.now()}
+
+
+    def __robot_check_status(self) -> Optional[Dict]:
+        """The latest robot check while it is still valid, in a form the page can read."""
+
+        if self.robot_check is None:
+            return None
+        age = datetime.datetime.now() - self.robot_check["checked_at"]
+        if age.total_seconds() > 60 * RECORDING_PAGE_PARAMETERS["robot_check_valid_minutes"]:
+            return None
+        return {"is_calibrated": self.robot_check["is_calibrated"], "checked_at": self.robot_check["checked_at"].strftime("%H:%M")}
 
 
     def __raw_folder(self, is_simulated: bool) -> Path:
@@ -392,6 +428,7 @@ class ToolRunner:
         if self.log_path and self.log_path.exists():
             with open(self.log_path, encoding = "utf-8", errors = "replace") as log_file:
                 log_text = "".join(log_file.readlines()[-log_lines:])
+        self.__read_robot_check(log_text)
         return {
             "is_running": self.is_running(),
             "title": self.title,
@@ -402,7 +439,8 @@ class ToolRunner:
             "log": log_text,
             "episode_to_score": ({name: value for name, value in self.episode_to_score.items() if name != "folder"}
                                  if self.episode_to_score else None),
-            "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"])
+            "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"]),
+            "robot_check": self.__robot_check_status()
         }
 
 
@@ -454,7 +492,9 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "sheets": RECORDING_PAGE_PARAMETERS["sheets"], "line_ends": RECORDING_PAGE_PARAMETERS["line_ends"],
                 "start_codes": RECORDING_PAGE_PARAMETERS["start_codes"], "safety_checks": RECORDING_PAGE_PARAMETERS["safety_checks"],
                 "score_levels": RECORDING_PAGE_PARAMETERS["score_levels"], "score_issues": RECORDING_PAGE_PARAMETERS["score_issues"],
-                "episode_plan": expand_episode_plan(), "camera_mount": RECORDING_PARAMETERS["camera_mount"]})
+                "episode_plan": expand_episode_plan(), "camera_mount": RECORDING_PARAMETERS["camera_mount"],
+                "default_operator": default_operator(), "safety_check_calibration": RECORDING_PAGE_PARAMETERS["safety_check_calibration"],
+                "safety_checks_every_start": RECORDING_PAGE_PARAMETERS["safety_checks_every_start"]})
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
         else:

@@ -20,6 +20,12 @@ opens its windows as usual. "Check robot" and "Check the newest session" run `ch
   robot's Stop button.
 - The plan number fills itself in: the next one in the episode plan not yet done on that sheet, with its kind of start and end.
   You can type another. A discarded episode, a score of 1 and a trial leave the number open, so it comes up again.
+- Filled in for you, and you can still change it: operator and mode (your last choice; on a first visit the operator comes from
+  the computer's user name), sheet (it moves on when a sheet's plan is done), kind of start and end (from the plan), the taught start
+  for that kind of start, and today's light note (not yesterday's, as the light may differ).
+- Safety boxes: "Check robot" ticks the calibration box when the robot says it is calibrated, and that lasts 60 minutes. The Stop
+  button box must be ticked for every episode. The other two stay ticked until the sheet changes or the page is reloaded.
+- A puck that missed the goal fills in score 1 and "Did not finish"; change them if that is wrong. Other scores stay yours to give.
 - Each Start records one episode, so each carries its own plan number; then the robot parks. For a finished episode the page asks
   for a score before the next Start: 3 good, 2 usable, 1 bad, with what went wrong. It goes into a new `review.json` in the
   episode's folder and a line in `session_notes.md`. Check it before saving: a saved score cannot be changed from the page.

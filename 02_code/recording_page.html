@@ -118,6 +118,8 @@
         <div class="row" style="margin-top:8px">
           <button type="button" id="check-robot">Check robot (nothing moves)</button>
         </div>
+        <div class="hint" id="robot-check-result"></div>
+        <div class="hint">The calibration box follows "Check robot". The Stop button box is asked again for every episode; the others stay ticked until the sheet changes.</div>
       </section>
       <button type="submit" class="primary" id="start">Start</button>
       <div class="message" id="message" role="alert"></div>
@@ -157,11 +159,13 @@
 </main>
 <script>
 "use strict";
-const STORED_FIELDS = ["operator", "mode", "path_id", "line_end", "start_code", "lighting"];
+const STORED_FIELDS = ["operator", "mode", "path_id"];
+const TODAY = new Date().toISOString().slice(0, 10);
 const element = id => document.getElementById(id);
 let options = null;
 let donePlanNumbers = [];
 let shownReview = null;
+let shownRobotCheck = null;
 
 function fillSelect(select, entries) {
   select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -176,7 +180,9 @@ function writeStorage(key, value) {
 }
 
 function taughtStartKey() {
-  return `start:${element("path_id").value}:${element("line_end").value}:${element("start_code").value}`;
+  // The note is part of the key: "6 cm before the end" and "4 cm before the end" are different taught points.
+  const entry = planForSheet()[element("plan_number").value.trim()];
+  return `start:${element("path_id").value}:${element("line_end").value}:${element("start_code").value}:${entry ? entry.note : ""}`;
 }
 
 function restoreTaughtStart() {
@@ -189,10 +195,26 @@ function planForSheet() {
   return options.episode_plan[element("path_id").value];
 }
 
+function nextOpenNumber(path_id) {
+  return Object.keys(options.episode_plan[path_id]).find(number => !donePlanNumbers.includes(number));
+}
+
+function clearSafetyChecks(keepCalibration) {
+  document.querySelectorAll("[data-safety]").forEach(box => {
+    const isCalibration = Number(box.dataset.safety) === options.safety_check_calibration;
+    if (!(keepCalibration && isCalibration)) box.checked = false;
+  });
+}
+
 function suggestNextPlanNumber() {
-  const plan = planForSheet();
-  const next = Object.keys(plan).find(number => !donePlanNumbers.includes(number));
-  element("plan_number").value = next || "";
+  // A finished sheet moves on to the next sheet in the plan with episodes left.
+  const before = element("path_id").value;
+  if (!nextOpenNumber(before)) {
+    const open = Object.keys(options.episode_plan).find(path_id => nextOpenNumber(path_id));
+    if (open) element("path_id").value = open;
+  }
+  if (element("path_id").value !== before) clearSafetyChecks(true);
+  element("plan_number").value = nextOpenNumber(element("path_id").value) || "";
   applyPlanEntry();
 }
 
@@ -260,6 +282,18 @@ function setBusy(isRunning) {
   ["start", "check-robot", "check-episodes"].forEach(id => { element(id).disabled = isRunning; });
 }
 
+function applyRobotCheck(check) {
+  const key = check ? `${check.checked_at}:${check.is_calibrated}` : null;
+  if (key === shownRobotCheck) return;
+  shownRobotCheck = key;
+  const box = document.querySelector(`[data-safety="${options.safety_check_calibration}"]`);
+  box.checked = Boolean(check && check.is_calibrated);
+  const result = element("robot-check-result");
+  result.textContent = !check ? "" : check.is_calibrated === true ? `Calibrated, checked at ${check.checked_at}. Ticked for you.`
+    : check.is_calibrated === false ? `Calibration needed, checked at ${check.checked_at}. Use the automatic calibration only, then check again.`
+    : "Check robot could not read the calibration. Read the messages on the right.";
+}
+
 function showReview(episode) {
   const isSame = shownReview === (episode && episode.episode);
   element("review").hidden = !episode;
@@ -268,6 +302,11 @@ function showReview(episode) {
   shownReview = episode.episode;
   element("review").reset();
   element("review-message").classList.remove("shown");
+  // A puck that missed the goal is a known fact: fill it in, and the person can still change it.
+  if (episode.outcome === "puck_not_in_goal") {
+    element("review").querySelector('input[name=score][value="1"]').checked = true;
+    document.querySelector("[data-issue=finish]").checked = true;
+  }
   element("review-title").textContent = `How did ${episode.episode} go?`;
   const outcomes = {puck_in_goal: "Yes", puck_not_in_goal: "No", not_recorded: "Not answered"};
   const facts = [["Puck in the goal", outcomes[episode.outcome] || episode.status], ["Steps", episode.steps], ["Marked mistakes", episode.mistake_steps],
@@ -324,6 +363,7 @@ async function refreshStatus() {
   }
   setBusy(status.is_running);
   showReview(status.episode_to_score);
+  applyRobotCheck(status.robot_check);
   if (JSON.stringify(status.done_plan_numbers) !== JSON.stringify(donePlanNumbers)) {
     donePlanNumbers = status.done_plan_numbers;
     updateHints();
@@ -377,15 +417,18 @@ async function initialise() {
     label.append(box, span);
     return label;
   }));
+  element("operator").value = options.default_operator;
   STORED_FIELDS.forEach(name => {
     const stored = readStorage(`field:${name}`);
     if (stored !== null) element(name).value = stored;
     if (element(name).selectedIndex === -1) element(name).selectedIndex = 0;
   });
+  // The light can change from day to day, so only today's note comes back.
+  if (readStorage("lighting-date") === TODAY) element("lighting").value = readStorage("lighting") || "";
   const firstStatus = await (await fetch("/status")).json();
   donePlanNumbers = firstStatus.done_plan_numbers;
   suggestNextPlanNumber();
-  element("path_id").addEventListener("change", suggestNextPlanNumber);
+  element("path_id").addEventListener("change", () => { clearSafetyChecks(true); suggestNextPlanNumber(); });
   element("plan_number").addEventListener("input", applyPlanEntry);
   ["start_code", "line_end"].forEach(id => element(id).addEventListener("change", () => {
     restoreTaughtStart();
@@ -400,8 +443,10 @@ async function initialise() {
     const isStarted = await post("/start", form);
     if (!isStarted) return;
     STORED_FIELDS.forEach(name => writeStorage(`field:${name}`, element(name).value));
+    writeStorage("lighting", element("lighting").value);
+    writeStorage("lighting-date", TODAY);
     if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y]));
-    document.querySelectorAll("[data-safety]").forEach(box => { box.checked = false; });
+    options.safety_checks_every_start.forEach(index => { document.querySelector(`[data-safety="${index}"]`).checked = false; });
   });
   element("review").addEventListener("submit", async event => {
     event.preventDefault();

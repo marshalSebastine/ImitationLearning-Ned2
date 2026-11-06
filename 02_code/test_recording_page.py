@@ -5,6 +5,7 @@ Run from 02_code:
     python test_recording_page.py
 """
 
+import datetime
 import http.client
 import json
 import sys
@@ -14,8 +15,9 @@ import time
 from pathlib import Path
 
 from config import RECORDING_PAGE_PARAMETERS
-from recording_page import (FormError, ToolRunner, build_recording_command, done_plan_numbers, expand_episode_plan, make_server,
-                            read_review_form)
+import recording_page
+from recording_page import (FormError, ToolRunner, build_recording_command, default_operator, done_plan_numbers, expand_episode_plan,
+                            make_server, read_review_form)
 
 
 TEST_PORT = 8766
@@ -232,6 +234,36 @@ def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
         assert runner.status()["episode_to_score"] is None
 
 
+def test_operator_is_guessed_from_the_user_name() -> None:
+
+    original = recording_page.getpass.getuser
+    try:
+        for user_name, expected in (("marshalsebastine", "marshal"), ("Emranul Hoque", "emranul"), ("emran", "emranul"), ("guest", "emranul")):
+            recording_page.getpass.getuser = lambda name = user_name: name
+            assert default_operator() == expected, (user_name, expected)
+    finally:
+        recording_page.getpass.getuser = original
+
+
+def test_robot_check_result_is_read_from_its_output() -> None:
+    """Calibrated or not comes from the check's own words; a check that says neither ticks nothing."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        runner = ToolRunner(Path(folder))
+        assert runner.status()["robot_check"] is None
+        for printed, expected in (("Calibration needed: False", True), ("Calibration needed: True", False), ("could not connect", None)):
+            runner.start("Check robot", [sys.executable, "-c", f"print({printed!r})"])
+            runner.process.wait(timeout = 10)
+            assert runner.status()["robot_check"]["is_calibrated"] is expected, printed
+
+        runner.start("Other tool", [sys.executable, "-c", "print('Calibration needed: False')"])
+        runner.process.wait(timeout = 10)
+        assert runner.status()["robot_check"]["is_calibrated"] is None, "another tool's output counted as the robot check"
+
+        runner.robot_check["checked_at"] -= datetime.timedelta(minutes = RECORDING_PAGE_PARAMETERS["robot_check_valid_minutes"] + 1)
+        assert runner.status()["robot_check"] is None, "an old check still counted"
+
+
 def request(
         method: str,
         path: str,
@@ -280,6 +312,8 @@ if __name__ == "__main__":
     test_only_one_tool_at_a_time()
     test_plan_matches_the_episode_plan_file()
     test_review_form()
+    test_operator_is_guessed_from_the_user_name()
+    test_robot_check_result_is_read_from_its_output()
     test_episode_is_scored_before_the_next_start()
     test_bad_trial_and_discarded_episodes_stay_undone()
     test_other_websites_cannot_start_the_robot()
