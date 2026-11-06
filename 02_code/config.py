@@ -284,6 +284,8 @@ RECORDING_PAGE_PARAMETERS = {
         "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
     ],
     "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # One set-up picture per plan number, plan_<NN-NN>.png (setup_visuals.py, 6.11.26), shown in "Set up this episode".
+    "setup_picture_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
     # Round 1 of the plan: enough for the first model. The page offers these before anything else.
     "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
     # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).

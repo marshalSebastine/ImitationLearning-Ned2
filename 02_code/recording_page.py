@@ -41,6 +41,7 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
+SETUP_PICTURE_PATH_PATTERN = re.compile(r"/setup-picture/[0-9]{2}-[0-9]{2}[.]png")
 SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
 
@@ -573,6 +574,12 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "safety_checks_every_start": RECORDING_PAGE_PARAMETERS["safety_checks_every_start"]})
         elif path == "/sheet-placements.png":
             self.__send(HTTPStatus.OK, (PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["sheet_placement_figure"]).read_bytes(), "image/png")
+        elif SETUP_PICTURE_PATH_PATTERN.fullmatch(path):
+            picture = PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["setup_picture_folder"] / f"plan_{path.split('/')[-1]}"
+            if picture.is_file():
+                self.__send(HTTPStatus.OK, picture.read_bytes(), "image/png")
+            else:
+                self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that plan number."})
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
         else:
