@@ -135,20 +135,22 @@ SHEET_PARAMETERS = {
     "step_budget": 36
 }
 
-# Taught by touching six points with the rod's tip on 25.10.26 (teach_positions.py; raw readings in
-# 03_data/raw/workspace/2026-10-25_positions.json). The line runs straight away from the robot, from
-# 0.156 m to 0.398 m in front of the base, because the wrist camera looks straight ahead, away from the
-# base, and sees only what lies beyond the rod. The four corner touches give the table plane (tilt 0.6 degrees);
-# the pushing height is that plane plus the clearance in PUCK_PARAMETERS. The box's far edge is
-# capped at the table's edge rather than the sheet plus margin.
+# Taught on the first-floor table on 6.11.26 by touching six points with the magnet tip (teach_positions.py; raw
+# readings in 03_data/raw/workspace/2026-11-06_positions.json). The values are the magnet tip, recomputed from the logged
+# joints with the arm model (the rod leaned up to 44 degrees at the far corners, which puts the reported rod end up to
+# 2 cm beside the touched spot). The line end touch landed on the paper's far edge (line_end picture), about 2.5 cm past
+# the ink, so the line end is the start plus sheet 01's measured 24.3 cm of ink along the touched direction. Table plane
+# fitted to all six touches: tilt 0.95 degrees, every touch within 1.8 mm of it. The values of 25.10.26 (old desk):
+# start [0.156, -0.024], end [0.398, -0.018], corners [[0.142, 0.070], [0.144, -0.111], [0.422, -0.110],
+# [0.417, 0.080]], plane a 0.0090, b -0.0055, c 0.0047.
 WORKSPACE_PARAMETERS = {
-    "line_start_xy": [0.156, -0.024],
-    "line_end_xy": [0.398, -0.018],
-    "push_direction_xy": [1.0, 0.025],
-    "sheet_corners_xy": [[0.142, 0.070], [0.144, -0.111], [0.422, -0.110], [0.417, 0.080]],
-    "box_x": [0.092, 0.450],
-    "box_y": [-0.161, 0.130],
-    "table_plane": {"a": 0.0090, "b": -0.0055, "c": 0.0047},
+    "line_start_xy": [0.159, -0.015],
+    "line_end_xy": [0.402, -0.017],
+    "push_direction_xy": [1.000, -0.009],
+    "sheet_corners_xy": [[0.151, 0.074], [0.150, -0.107], [0.442, -0.132], [0.445, 0.080]],
+    "box_x": [0.100, 0.450],
+    "box_y": [-0.182, 0.130],
+    "table_plane": {"a": 0.0158, "b": 0.0048, "c": 0.0056},
     "tool_pitch_rad": 1.57,
     "setup_by_tape_measure": {
         "gap_base_front_to_paper_near_edge_cm": 5,
