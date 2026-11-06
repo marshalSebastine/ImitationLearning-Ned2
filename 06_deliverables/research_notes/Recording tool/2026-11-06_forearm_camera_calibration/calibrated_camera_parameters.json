@@ -1,0 +1,389 @@
+{
+ "FOREARM_CAMERA_PARAMETERS": {
+  "parent_frame": "joint_4",
+  "rotation_vector_in_forearm_rad": [
+   0.056883,
+   0.105629,
+   1.578688
+  ],
+  "translation_in_forearm_m": [
+   0.057967,
+   0.002716,
+   0.018138
+  ],
+  "focal_length_px": 501.968951,
+  "principal_point_px": [
+   333.786188,
+   246.388646
+  ],
+  "radial_distortion_k1": -0.019613,
+  "image_size_px": [
+   640,
+   480
+  ],
+  "version": "fit_recordings_037_045_2026-11-06"
+ },
+ "PUCK_MAPPING_PARAMETERS": {
+  "puck_point_height_above_table_m": 0.0145,
+  "note": "Map the detector's centre (puck_detector.py centre_u, centre_v) with pixel_to_table at the table's height (config.table_height) plus this height. It is the puck's axis at mid-height: the centre of the visible red silhouette of an upright cylinder (calc). The recordings cannot pin it down (cost flat from 0 to 20 mm); an error of 7 mm here moves the puck by up to about 2 to 4 mm on the table in the views of the recordings (calc)."
+ },
+ "readable": {
+  "distance_from_forearm_axis_mm": 58.031,
+  "position_along_forearm_mm": 18.138,
+  "angle_round_forearm_deg": 2.683,
+  "optical_axis_in_forearm": [
+   0.103,
+   0.031,
+   0.994
+  ],
+  "optical_axis_from_forearm_axis_deg": 6.181,
+  "picture_up_in_forearm": [
+   0.995,
+   0.008,
+   -0.103
+  ],
+  "picture_roll_from_forearm_x_deg": 0.457,
+  "horizontal_field_of_view_deg": 65.346,
+  "vertical_field_of_view_deg": 51.208,
+  "largest_valid_radius_px": 1379.613
+ },
+ "how_obtained": [
+  "Fitted on 6.11.26 to the recorded episodes 037 to 045 (2026-11-04 and 2026-11-05 sessions, sheet 04, bare camera taped on the forearm cover), without the robot. Code: calibrate_from_recordings.py in this folder.",
+  "Evidence: (1) the white sheet's straight outer edges, found in 1603 of 1692 pictures (sub-pixel, colour based: sheet_edges.py), each episode's sheet a rectangle of unknown pose and all of one unknown size; (2) the red puck in 85 runs of pictures in which the robot cannot have moved it (static_runs.py); every picture's joints from steps.csv (episode 041: rebuilt from guided_path.csv).",
+  "Model: ned2_fk joint_4 frame (turns with joint 4), pinhole with one radial term (forearm_camera_model.py); all ten quantities free; robust least squares (scipy, soft L1); the table plane from config (taught 25.10.26 on the old desk).",
+  "Judged on held-out pictures (20 percent, in blocks of ten) and by checks the fit never saw: see calibration_results.json."
+ ],
+ "valid_while": [
+  "the camera stays where it was taped on 4.11.26 evening (camera check under about 4 px; the episodes used were within 5 px)",
+  "the focus ring is not touched",
+  "the robot's automatic calibration holds (joint zeros)",
+  "heights come from a table plane taught on the table in use: the table plane in config is the old desk's; on the first-floor table teach it again before trusting heights (an error of 5 mm in the table moves the puck by 1 to 3 mm)"
+ ],
+ "uncertainty": {
+  "leave_one_episode_out": {
+   "camera_tilt_deg": {
+    "jackknife_standard_error": 0.2783,
+    "minimum": -0.2049,
+    "maximum": 0.1795,
+    "largest_change_from_all_data": 0.2049
+   },
+   "camera_pan_deg": {
+    "jackknife_standard_error": 0.2579,
+    "minimum": -0.1128,
+    "maximum": 0.1657,
+    "largest_change_from_all_data": 0.1657
+   },
+   "camera_roll_deg": {
+    "jackknife_standard_error": 0.083,
+    "minimum": -0.0522,
+    "maximum": 0.0372,
+    "largest_change_from_all_data": 0.0522
+   },
+   "camera_rotation_largest_change_deg": 0.2445,
+   "translation_x_m": {
+    "jackknife_standard_error": 0.0027,
+    "minimum": 0.0557,
+    "maximum": 0.0592,
+    "largest_change_from_all_data": 0.0022
+   },
+   "translation_y_m": {
+    "jackknife_standard_error": 0.0015,
+    "minimum": 0.002,
+    "maximum": 0.0038,
+    "largest_change_from_all_data": 0.0011
+   },
+   "translation_z_m": {
+    "jackknife_standard_error": 0.0026,
+    "minimum": 0.0164,
+    "maximum": 0.0197,
+    "largest_change_from_all_data": 0.0017
+   },
+   "focal_length_px": {
+    "jackknife_standard_error": 5.4719,
+    "minimum": 498.2433,
+    "maximum": 505.5324,
+    "largest_change_from_all_data": 3.7257
+   },
+   "principal_point_u_px": {
+    "jackknife_standard_error": 4.4109,
+    "minimum": 331.7665,
+    "maximum": 336.0052,
+    "largest_change_from_all_data": 2.219
+   },
+   "principal_point_v_px": {
+    "jackknife_standard_error": 4.3858,
+    "minimum": 243.7576,
+    "maximum": 249.449,
+    "largest_change_from_all_data": 3.0603
+   },
+   "radial_distortion_k1": {
+    "jackknife_standard_error": 0.0065,
+    "minimum": -0.0237,
+    "maximum": -0.0168,
+    "largest_change_from_all_data": 0.004
+   },
+   "sheet_length_m": {
+    "jackknife_standard_error": 0.0004,
+    "minimum": 0.2938,
+    "maximum": 0.2943,
+    "largest_change_from_all_data": 0.0003
+   },
+   "sheet_width_m": {
+    "jackknife_standard_error": 0.0005,
+    "minimum": 0.2072,
+    "maximum": 0.208,
+    "largest_change_from_all_data": 0.0005
+   },
+   "distance_from_forearm_axis_mm": {
+    "jackknife_standard_error": 2.7613,
+    "minimum": 55.8121,
+    "maximum": 59.336,
+    "largest_change_from_all_data": 2.2187
+   },
+   "position_along_forearm_mm": {
+    "jackknife_standard_error": 2.58,
+    "minimum": 16.3878,
+    "maximum": 19.6732,
+    "largest_change_from_all_data": 1.7498
+   },
+   "optical_axis_from_forearm_axis_deg": {
+    "jackknife_standard_error": 0.3077,
+    "minimum": 5.9786,
+    "maximum": 6.401,
+    "largest_change_from_all_data": 0.22
+   },
+   "picture_roll_from_forearm_x_deg": {
+    "jackknife_standard_error": 0.085,
+    "minimum": 0.4038,
+    "maximum": 0.496,
+    "largest_change_from_all_data": 0.0534
+   },
+   "horizontal_field_of_view_deg": {
+    "jackknife_standard_error": 0.6667,
+    "minimum": 64.9475,
+    "maximum": 65.8221,
+    "largest_change_from_all_data": 0.4762
+   },
+   "puck_on_table": {
+    "pictures": 457,
+    "jackknife_standard_error_mm_median": 0.8523,
+    "jackknife_standard_error_mm_p95": 0.9886,
+    "largest_refit_change_mm_median": 0.654,
+    "largest_refit_change_mm_p95": 0.7271
+   }
+  },
+  "per_picture_pose_scatter_px": {
+   "count": 1050,
+   "median": 5.72,
+   "p90": 11.38,
+   "p95": 13.52,
+   "maximum": 21.14
+  },
+  "note": "The jackknife over the eight episodes is the realistic spread of the parameters; the formal standard deviations (calibration_results.json) are several times smaller because every picture carries its own pose error of a few pixels that is shared by all its edge pixels."
+ },
+ "checks": {
+  "held_out_edges_mm": {
+   "count": 32558,
+   "median": 2.03,
+   "p90": 5.13,
+   "p95": 6.41,
+   "maximum": 17.68
+  },
+  "held_out_edges_px": {
+   "count": 32558,
+   "median": 3.93,
+   "p90": 9.67,
+   "p95": 12.39,
+   "maximum": 29.57
+  },
+  "held_out_still_puck_px": {
+   "count": 39,
+   "median": 4.21,
+   "p90": 11.17,
+   "p95": 11.6,
+   "maximum": 16.06
+  },
+  "held_out_still_puck_table_wander_mm": {
+   "count": 39,
+   "median": 1.88,
+   "p90": 4.9,
+   "p95": 4.94,
+   "maximum": 6.96
+  },
+  "sheet_size_mm": [
+   293.9886,
+   207.4729
+  ],
+  "a4_size_mm": [
+   297,
+   210
+  ],
+  "push_distance_tip_to_puck_mm": {
+   "count": 323,
+   "median": 30.68,
+   "p90": 38.41,
+   "p95": 41.01,
+   "maximum": 55.15
+  },
+  "start_check": {
+   "037/000 puck": {
+    "kind": "puck",
+    "pixel": [
+     322.36,
+     337.15
+    ],
+    "mapped_xy_m": [
+     0.1743,
+     0.0385
+    ],
+    "offset_from_taught_start_m": [
+     0.0036,
+     0.0011
+    ],
+    "distance_from_tip_m": 0.0224,
+    "tip_xy_m": [
+     0.1519,
+     0.0373
+    ],
+    "from_near_edge_m": 0.0248,
+    "from_left_edge_m": 0.0483
+   },
+   "042/000 puck": {
+    "kind": "puck",
+    "pixel": [
+     327.392,
+     306.992
+    ],
+    "mapped_xy_m": [
+     0.187,
+     0.0394
+    ],
+    "offset_from_taught_start_m": [
+     0.0163,
+     0.002
+    ],
+    "distance_from_tip_m": 0.0352,
+    "tip_xy_m": [
+     0.1519,
+     0.0373
+    ],
+    "from_near_edge_m": 0.0257,
+    "from_left_edge_m": 0.0511
+   },
+   "043/000 puck": {
+    "kind": "puck",
+    "pixel": [
+     321.248,
+     304.306
+    ],
+    "mapped_xy_m": [
+     0.1876,
+     0.0421
+    ],
+    "offset_from_taught_start_m": [
+     0.0169,
+     0.0047
+    ],
+    "distance_from_tip_m": 0.0367,
+    "tip_xy_m": [
+     0.1512,
+     0.0372
+    ],
+    "from_near_edge_m": 0.0264,
+    "from_left_edge_m": 0.0475
+   },
+   "039/000 cap": {
+    "kind": "line start cap (no puck)",
+    "pixel": [
+     322.6,
+     334.6
+    ],
+    "mapped_xy_m": [
+     0.1718,
+     0.0376
+    ],
+    "offset_from_taught_start_m": [
+     0.0011,
+     0.0002
+    ],
+    "distance_from_tip_m": 0.02,
+    "from_near_edge_m": 0.022,
+    "from_left_edge_m": 0.047
+   },
+   "044/000 cap": {
+    "kind": "line start cap (no puck)",
+    "pixel": [
+     316.8,
+     306.6
+    ],
+    "mapped_xy_m": [
+     0.1834,
+     0.043
+    ],
+    "offset_from_taught_start_m": [
+     0.0127,
+     0.0056
+    ],
+    "distance_from_tip_m": 0.032,
+    "from_near_edge_m": 0.0202,
+    "from_left_edge_m": 0.0468
+   },
+   "045/000 cap": {
+    "kind": "line start cap (no puck)",
+    "pixel": [
+     317.2,
+     306.4
+    ],
+    "mapped_xy_m": [
+     0.1835,
+     0.0429
+    ],
+    "offset_from_taught_start_m": [
+     0.0128,
+     0.0055
+    ],
+    "distance_from_tip_m": 0.0322,
+    "from_near_edge_m": 0.0216,
+    "from_left_edge_m": 0.0467
+   }
+  }
+ },
+ "initial_guess_for_comparison": {
+  "rotation_vector_in_forearm_rad": [
+   0.0,
+   0.0,
+   1.5708
+  ],
+  "translation_in_forearm_m": [
+   0.065,
+   0.0,
+   0.015
+  ],
+  "focal_length_px": 496.0,
+  "principal_point_px": [
+   332.821,
+   242.984
+  ],
+  "radial_distortion_k1": -0.2726,
+  "readable": {
+   "distance_from_forearm_axis_mm": 65.0,
+   "position_along_forearm_mm": 15.0,
+   "angle_round_forearm_deg": 0.0,
+   "optical_axis_in_forearm": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "optical_axis_from_forearm_axis_deg": 0.0,
+   "picture_up_in_forearm": [
+    1.0,
+    -0.0,
+    -0.0
+   ],
+   "picture_roll_from_forearm_x_deg": -0.0,
+   "horizontal_field_of_view_deg": 75.1433,
+   "vertical_field_of_view_deg": 55.088,
+   "largest_valid_radius_px": 365.6511
+  }
+ }
+}

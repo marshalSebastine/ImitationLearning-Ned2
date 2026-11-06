@@ -49,6 +49,7 @@ import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
                     action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+from puck_tracking import PuckTracker
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
@@ -523,12 +524,19 @@ class EpisodeRecorder:
         self.is_arm_model_checked = False
         self.is_lost_pending = False
         self.current_rows = []
+        self.puck_tracker = PuckTracker()
+        self.puck_sighting = None
+        self.is_tracking_error_reported = False
+        self.is_tracking_failing = False
+        self.camera_shift_px = 0.0
 
 
     def update_recorder_parameters(self, recorder_parameters: Optional[dict]):
 
         if recorder_parameters:
             self.recorder_parameters.update(recorder_parameters)
+        # The puck is placed on the table only with a camera calibrated for the mount in use.
+        self.puck_tracker.update_tracking_parameters({"camera_mount": self.recorder_parameters["camera_mount"]})
 
 
     def record_session(self, mode: str) -> List[Dict]:
@@ -701,6 +709,7 @@ class EpisodeRecorder:
         # every step that reaches it (see __track_puck). Since 4.11.26 after test 3; a running count of how far the
         # block stood back drifted to 10 cm when sideways and back steps were taken in a turned picture.
         self.puck_xy_estimate = numpy.array(self.recorder_parameters["start_point_xy"], dtype = float)
+        self.puck_sighting = None
         push = math.radians(self.recorder_parameters["start_push_direction_deg"])
         self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
         move_return_time = time.time()
@@ -713,6 +722,7 @@ class EpisodeRecorder:
             picture_bytes = self.__fresh_picture()
             capture_time = time.time()
             state = self.robot_link.read_state()
+            self.puck_sighting = self.__see_puck(picture_bytes, state)
             action, source = decider(picture_bytes, state, len(rows))
             decision_time = time.time()
 
@@ -974,12 +984,14 @@ class EpisodeRecorder:
             reference_folder.mkdir(parents = True, exist_ok = True)
             reference_path.write_bytes(picture_bytes)
             summary["camera_shift_px"] = 0.0
+            self.camera_shift_px = 0.0
             self.__say(f"camera check: no reference for this mount and start yet; this picture is the reference now ({reference_path.name})")
             return True
 
         shift_x, shift_y = camera_shift_px(reference_path.read_bytes(), picture_bytes, self.recorder_parameters["camera_check_region"])
         shift = math.hypot(shift_x, shift_y)
         summary["camera_shift_px"] = round(shift, 2)
+        self.camera_shift_px = shift
         summary["camera_reference"] = reference_path.name
         limit = self.recorder_parameters["camera_shift_warning_px"]
         self.__say(f"camera check: the hand at the bottom of the picture is {shift:.1f} px from the reference "
@@ -1475,6 +1487,62 @@ class EpisodeRecorder:
         return False
 
 
+    def __see_puck(
+            self,
+            picture_bytes: bytes,
+            state: Dict
+    ) -> Optional[Dict]:
+        """
+        The red puck as the camera sees it now (puck_tracking.see_puck), remembered with the hash of the picture it
+        belongs to, so that the picture window marks it on that picture only. For display only (Emranul, 5.11.26):
+        nothing the robot does depends on it. On the simulated robot, whose joint angles are only approximate, the
+        table position is left out; its cartoon puck, about three times the real puck's size in the picture, is not
+        found by the detector anyway.
+        """
+
+        if not self.recorder_parameters["is_window_shown"]:
+            return None
+        try:
+            picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
+            sighting = self.puck_tracker.see_puck(picture, [float(value) for value in state["joints"]])
+        except Exception as error:
+            # The tracker only draws; a fault in it must never stop an episode, least of all with the motors off.
+            self.__report_tracking_error(error)
+            self.is_tracking_failing = True
+            return None
+        self.is_tracking_failing = False
+        if sighting is None:
+            return None
+        sighting = dict(sighting, picture_hash = hash(picture_bytes))
+        if self.recorder_parameters["is_simulated"]:
+            sighting["table_xy"] = None
+        return sighting
+
+
+    def __picture_outline(self, state: Dict) -> Optional[numpy.ndarray]:
+        """
+        The picture's outline on the table from the calibrated camera (puck_tracking), or None when the camera is not
+        calibrated for the mount in use, the robot is simulated (its joint angles are only approximate) or the tracker
+        fails (display only, like the puck).
+        """
+
+        if self.recorder_parameters["is_simulated"]:
+            return None
+        try:
+            return self.puck_tracker.picture_outline_on_table([float(value) for value in state["joints"]])
+        except Exception as error:
+            self.__report_tracking_error(error)
+            return None
+
+
+    def __report_tracking_error(self, error: Exception):
+        """Say once per session that the puck tracking failed; the recording goes on without it."""
+
+        if not self.is_tracking_error_reported:
+            print(f"puck tracking failed ({type(error).__name__}: {error}); recording goes on without it")
+            self.is_tracking_error_reported = True
+
+
     def __show_orientation(
             self,
             state: Dict,
@@ -1491,7 +1559,13 @@ class EpisodeRecorder:
         if not self.recorder_parameters["is_window_shown"]:
             return
 
-        canvas = self.__orientation_canvas(state, view, tip_xy)
+        try:
+            canvas = self.__orientation_canvas(state, view, tip_xy)
+        except Exception as error:
+            # Drawing the tracked puck and the picture's outline is display only, like the tracking itself (review of
+            # 6.11.26: this code ran unguarded at every step): after a fault the map is drawn again without them.
+            self.__report_tracking_error(error)
+            canvas = self.__orientation_canvas(state, view, tip_xy, is_tracking_drawn = False)
         cv2.imshow(ORIENTATION_WINDOW_NAME, canvas)
         if not getattr(self, "is_orientation_window_placed", False):
             self.is_orientation_window_placed = True
@@ -1521,17 +1595,25 @@ class EpisodeRecorder:
             self,
             state: Dict,
             view: str = "keyboard",
-            tip_xy: Optional[List[float]] = None
+            tip_xy: Optional[List[float]] = None,
+            is_tracking_drawn: bool = True
     ) -> numpy.ndarray:
         """
         The orientation window's picture, made to be read at a glance (Emranul, 5.11.26).
 
         A title names the mode. The map shows the table from above, zoomed on the sheet: the paper, the robot's base
-        at the bottom, the arm as a thick line from the base to the tip, the guessed puck, the table-edge guard as a
-        dashed line, and a green frame for the picture on the table with "TOP" on its top edge (its size is rough:
-        the camera's footprint is not measured). Arrows from the tip show where each key or the left stick moves the
-        tip now (none in the exact replay and while guiding, where the hand decides). Below the map the camera's turn
-        is written in words, and the view's legend (ORIENTATION_LEGENDS) lists every key or button.
+        at the bottom, the arm as a thick line from the base to the tip, the puck, the table-edge guard as a dashed
+        line, and in green the part of the table the picture shows, with "TOP" at its top edge. With the camera
+        calibrated for the mount in use (puck_tracking, since 6.11.26) the green area is the picture's real outline
+        and the puck is drawn solid where the camera sees it (paler when only a sliver shows, whose place is rough);
+        otherwise the green frame has a rough size. The tool's own belief of where the puck is (puck_xy_estimate),
+        drawn hollow as "puck?", is shown where it is used: in the keyboard and 1 cm replay views, where a forearm
+        turn lands back from it, whenever the camera cannot place the puck and also beside the seen puck once the two
+        lie further apart than "puck_guess_shown_beyond_m"; in the gamepad view only when the camera cannot place the
+        puck; never in the exact replay (which does not move it) or while guiding. Arrows from the tip show where each
+        key or the left stick moves the tip now (none in the exact replay and while guiding, where the hand decides).
+        Below the map the camera's turn and what the map shows of the puck are written in words, and the view's
+        legend (ORIENTATION_LEGENDS) lists every key or button.
 
         Parameters
         ----------
@@ -1541,6 +1623,8 @@ class EpisodeRecorder:
             "keyboard", "gamepad", "replay", "exact_replay" or "guiding".
         tip_xy : list of float, optional
             The tip's position when known better than the recorder's own belief (while guiding by hand).
+        is_tracking_drawn : bool
+            False to leave out the tracked puck and the calibrated outline (after drawing them failed).
 
         Returns
         -------
@@ -1552,11 +1636,55 @@ class EpisodeRecorder:
         legend = ORIENTATION_LEGENDS[view]
         is_simulated = settings["is_simulated"]
         forearm_deg = self.forearm_turn_deg if is_simulated else math.degrees(float(state["joints"][3]))
+        outline = self.__picture_outline(state) if is_tracking_drawn else None
+        sighting = getattr(self, "puck_sighting", None) if is_tracking_drawn else None
+        seen_xy = sighting.get("table_xy") if sighting is not None else None
+
+        # The tool's belief of where the puck is, where it is used (see the docstring; review of 6.11.26: the seen puck
+        # had hidden the belief that forearm turns still land from).
+        guess_xy = getattr(self, "puck_xy_estimate", None)
+        guess_gap_m = None
+        if guess_xy is not None and seen_xy is not None:
+            guess_gap_m = float(numpy.linalg.norm(numpy.asarray(guess_xy, dtype = float) - numpy.asarray(seen_xy, dtype = float)))
+        if guess_xy is None or view in ("exact_replay", "guiding"):
+            is_guess_drawn = False
+        elif seen_xy is None:
+            is_guess_drawn = True
+        else:
+            is_guess_drawn = view in ("keyboard", "replay") and guess_gap_m > settings["puck_guess_shown_beyond_m"]
+
+        # What the map shows of the puck, from what actually happened (review of 6.11.26: the line had given wrong
+        # reasons in several cases). The detector misses a puck held in a hand, hence "not found", not "not there".
+        # After the camera check found the camera moved (and the person chose to record anyway) the calibrated map is
+        # only rough: about 2 mm off at 4 px for a small creep, a centimetre or more for a re-taped camera (review of
+        # 6.11.26; the fit holds while the check stays under "camera_shift_warning_px").
+        is_camera_moved = outline is not None and getattr(self, "camera_shift_px", 0.0) > settings["camera_shift_warning_px"]
+        is_rough = seen_xy is not None and bool(sighting.get("is_position_rough"))
+        if seen_xy is not None and is_guess_drawn:
+            puck_text = f"{'partly hidden' if is_rough else 'seen'} (solid); v/b turns land by the hollow guess, {100 * guess_gap_m:.1f} cm off"
+        elif seen_xy is not None and is_camera_moved:
+            puck_text = f"{'partly hidden' if is_rough else 'seen'}, drawn roughly (the camera moved)"
+        elif seen_xy is not None:
+            puck_text = "partly hidden, drawn roughly where it is" if is_rough else "seen, drawn where it really is"
+        elif sighting is not None:
+            puck_text = "seen, not placed (simulated arm)" if is_simulated else "seen, not placed (camera not calibrated)"
+        elif not is_tracking_drawn or getattr(self, "is_tracking_failing", False):
+            puck_text = "tracking failed (see the terminal)"
+        elif is_simulated:
+            puck_text = "not tracked on the simulated robot"
+        else:
+            puck_text = "not found in the picture"
+        if is_guess_drawn and seen_xy is None:
+            puck_text += "; hollow = the tool's guess"
+
         # The turn is named by its key, not as left or right: a v turn swings the picture's top to the right on the
         # table, which "left" would contradict.
         info_lines = ["Forearm straight: the picture faces away from the robot" if abs(forearm_deg) < 1.0 else
                       f"Forearm turned {abs(forearm_deg):.0f} deg, the {'v' if forearm_deg > 0 else 'b'} way",
-                      "Green frame = the picture on the table, TOP = its top"]
+                      ("Green = what the picture shows on the table, TOP = its top" if not is_camera_moved else
+                       f"Green = the picture on the table, TOP = its top; rough: camera moved {self.camera_shift_px:.0f} px")
+                      if outline is not None else "Green frame = the picture on the table (rough size), TOP = its top",
+                      f"Puck: {puck_text}"]
         if view == "gamepad":
             height_line = f"Tip lifted {100 * getattr(self, 'pad_height_m', 0.0):.1f} cm"
             if not is_simulated:
@@ -1580,6 +1708,39 @@ class EpisodeRecorder:
             text_width = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)[0][0]
             cv2.putText(image, label, (at[0] - text_width // 2, at[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, colour, thickness)
 
+        def pulled_onto_map(at: tuple, start: tuple, margin_px: int = 16) -> tuple:
+            # A point beyond the map is pulled back along the line from ``start`` until it lies on the map, so a picture
+            # whose top looks far across the table still shows which way its top is.
+            start_point, end_point = numpy.array(start, dtype = float), numpy.array(at, dtype = float)
+            low, high = numpy.array([margin_px, margin_px], dtype = float), numpy.array([width - margin_px, map_height - margin_px], dtype = float)
+            fraction = 1.0
+            for axis in range(2):
+                change = end_point[axis] - start_point[axis]
+                if change > 0 and end_point[axis] > high[axis]:
+                    fraction = min(fraction, (high[axis] - start_point[axis]) / change)
+                elif change < 0 and end_point[axis] < low[axis]:
+                    fraction = min(fraction, (low[axis] - start_point[axis]) / change)
+            return tuple(int(round(value)) for value in start_point + max(fraction, 0.0) * (end_point - start_point))
+
+        def middle_on_map(points: numpy.ndarray, minimum_length_px: float = 40.0) -> Optional[numpy.ndarray]:
+            # The middle, by length, of the part of the line through ``points`` that lies on the map; None when less
+            # than ``minimum_length_px`` of it does (a sliver in a corner of the map would carry the label there).
+            pieces = []
+            for start_point, end_point in zip(points[:-1], points[1:]):
+                is_on_map, clipped_start, clipped_end = cv2.clipLine((0, 0, width, map_height), tuple(int(value) for value in start_point),
+                                                                     tuple(int(value) for value in end_point))
+                if is_on_map:
+                    pieces.append((numpy.array(clipped_start, dtype = float), numpy.array(clipped_end, dtype = float)))
+            lengths = [float(numpy.linalg.norm(end_point - start_point)) for start_point, end_point in pieces]
+            if sum(lengths) < minimum_length_px:
+                return None
+            remaining = sum(lengths) / 2.0
+            for (start_point, end_point), length in zip(pieces, lengths):
+                if remaining <= length:
+                    return start_point + (end_point - start_point) * (remaining / length)
+                remaining -= length
+            return pieces[-1][1]
+
         sheet = numpy.array([pixel(corner) for corner in WORKSPACE_PARAMETERS["sheet_corners_xy"]], dtype = numpy.int32)
         cv2.fillPoly(table, [sheet], (255, 255, 255))
         cv2.polylines(table, [sheet], isClosed = True, color = (150, 150, 150), thickness = 1)
@@ -1602,21 +1763,49 @@ class EpisodeRecorder:
         put_centred(table, "ROBOT BASE", (pixel([0.0, 0.0])[0], map_height - 14), (255, 255, 255), 0.5, 1)
 
         up_xy, left_xy = picture_axes_on_table(state, settings)
-        frame_half_width_m, frame_depth_m = 0.05, 0.075
-        frame = numpy.array([pixel(tip + left_xy * frame_half_width_m), pixel(tip - left_xy * frame_half_width_m),
-                             pixel(tip - left_xy * frame_half_width_m + up_xy * frame_depth_m),
-                             pixel(tip + left_xy * frame_half_width_m + up_xy * frame_depth_m)], dtype = numpy.int32)
+        if outline is not None:
+            # The calibrated camera's outline, walked clockwise from the picture's top-left corner: its first
+            # points_per_edge + 1 points run along the picture's top edge to the top-right corner.
+            outline_xy = numpy.asarray(outline, dtype = float)
+            points_per_edge = max(1, len(outline_xy) // 4)
+        else:
+            frame_half_width_m, frame_depth_m = 0.05, 0.075
+            outline_xy = numpy.array([tip + left_xy * frame_half_width_m + up_xy * frame_depth_m, tip - left_xy * frame_half_width_m + up_xy * frame_depth_m,
+                                      tip - left_xy * frame_half_width_m, tip + left_xy * frame_half_width_m])
+            points_per_edge = 1
+        frame = numpy.clip(numpy.array([pixel(corner) for corner in outline_xy]), -10000, 10000).astype(numpy.int32)
         shaded = table.copy()
         cv2.fillPoly(shaded, [frame], (190, 235, 190))
         table = cv2.addWeighted(shaded, 0.55, table, 0.45, 0)
         cv2.polylines(table, [frame], isClosed = True, color = (90, 170, 90), thickness = 1)
-        cv2.line(table, tuple(int(value) for value in frame[2]), tuple(int(value) for value in frame[3]), (30, 140, 30), 3)
-        put_centred(table, "TOP", pixel(tip + up_xy * (frame_depth_m + 0.012)), (30, 140, 30), 0.55, 2)
+        top_edge = frame[:points_per_edge + 1]
+        cv2.polylines(table, [top_edge], isClosed = False, color = (30, 140, 30), thickness = 3)
+        # "TOP" just beyond the middle of the part of the top edge that lies on the map (review of 6.11.26: with the
+        # forearm turned, the whole edge's middle can lie far off the map); when no part of it does, the label is
+        # pulled back along the line from the tip, so it still shows which way the top is.
+        top_middle = middle_on_map(top_edge)
+        if top_middle is not None:
+            # Far enough out along the picture's up that the label's box clears the line whichever way up points.
+            up_on_map = numpy.array(pixel(tip + up_xy * 0.01), dtype = float) - numpy.array(pixel(tip), dtype = float)
+            up_on_map /= max(float(numpy.linalg.norm(up_on_map)), 1e-9)
+            label_width, label_height = cv2.getTextSize("TOP", cv2.FONT_HERSHEY_SIMPLEX, 0.55, 2)[0]
+            clearance_px = 6 + label_width / 2 * abs(up_on_map[0]) + label_height / 2 * abs(up_on_map[1])
+            top_label_at = pulled_onto_map(tuple(top_middle + clearance_px * up_on_map), tuple(top_middle))
+        else:
+            top_label_at = pulled_onto_map(pixel((outline_xy[0] + outline_xy[points_per_edge]) / 2 + up_xy * 0.012), pixel(tip))
+        put_centred(table, "TOP", top_label_at, (30, 140, 30), 0.55, 2)
 
-        puck_xy = getattr(self, "puck_xy_estimate", None)
-        if puck_xy is not None and view != "guiding":
-            cv2.circle(table, pixel(puck_xy), int(PUCK_PARAMETERS["diameter_m"] / 2 * scale), (60, 60, 210), -1)
-            cv2.putText(table, "puck?", (pixel(puck_xy)[0] + 14, pixel(puck_xy)[1] + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (60, 60, 210), 1)
+        puck_radius_px = int(PUCK_PARAMETERS["diameter_m"] / 2 * scale)
+        if is_guess_drawn:
+            # The tool's own guess from the steps taken: drawn hollow, because it drifts.
+            cv2.circle(table, pixel(guess_xy), puck_radius_px, (60, 60, 210), 2)
+            cv2.putText(table, "puck?", (pixel(guess_xy)[0] + 14, pixel(guess_xy)[1] + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (60, 60, 210), 1)
+        if seen_xy is not None:
+            # Paler when only a sliver shows and no circle fitted its outline: its place is rough.
+            fill_colour = (130, 130, 235) if sighting.get("is_position_rough") else (40, 40, 225)
+            cv2.circle(table, pixel(seen_xy), puck_radius_px, fill_colour, -1)
+            cv2.circle(table, pixel(seen_xy), puck_radius_px, (20, 20, 120), 1)
+            cv2.putText(table, "puck", (pixel(seen_xy)[0] + 15, pixel(seen_xy)[1] + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (20, 20, 160), 1)
 
         arrows = []
         if view == "gamepad":
@@ -1825,8 +2014,10 @@ class EpisodeRecorder:
                     row.update({f"joint_{index + 1}": joint for index, joint in enumerate(joints)})
                     rows.append(row)
 
+                picture_bytes = self.robot_link.read_picture_bytes()
+                self.puck_sighting = self.__see_puck(picture_bytes, state)
                 self.__show_orientation(state, view = "guiding", tip_xy = position)
-                self.__show_picture(self.robot_link.read_picture_bytes(), f"MOTORS OFF, guiding: {len(rows)} points. Space = puck at goal, x = discard")
+                self.__show_picture(picture_bytes, f"MOTORS OFF, guiding: {len(rows)} points. Space = puck at goal, x = discard")
                 key = self.key_reader(int(self.recorder_parameters["guided_path_poll_s"] * 1000))
                 if key in (" ", "x", "escape"):
                     is_discarded = key != " "
@@ -2159,7 +2350,13 @@ class EpisodeRecorder:
 
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         status_bar = status_bar_image(f"sharpness {sharpness_of(picture):.0f} | {status}", picture.shape[1])
-        show_in_window(numpy.vstack([picture, status_bar]))
+        sighting = getattr(self, "puck_sighting", None)
+        shown = picture.copy()
+        if sighting is not None and sighting["picture_hash"] == hash(picture_bytes):
+            # The puck the tracker sees, marked on the shown copy only: the saved frame stays as the camera took it.
+            centre = tuple(int(round(value)) for value in sighting["pixel"])
+            cv2.circle(shown, centre, int(round(sighting["radius_px"])) + 5, (0, 230, 255), 1)
+        show_in_window(numpy.vstack([shown, status_bar]))
 
 
 

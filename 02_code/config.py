@@ -369,6 +369,10 @@ RECORDING_PARAMETERS = {
     # When the believed puck position is further than this from the block, it is taken as lost (test 5 of 4.11.26: it
     # drifted to 22 cm) and a turn steps back opposite to the last step instead.
     "puck_estimate_lost_m": 0.04,
+    # The orientation map draws that believed position (the hollow "puck?") beside the puck the camera sees once the two
+    # are further apart than this, in the views where a forearm turn lands back from it (keyboard and the 1 cm replay),
+    # so the operator sees where a turn would land from (review of 6.11.26: the seen puck had hidden it).
+    "puck_guess_shown_beyond_m": 0.015,
     # Intermediate heights for the rise and the descent of a turn, one solved position each. [0.01, 0.02] until test
     # 2; empty since (Emranul, 4.11.26: up in one move, down in one move).
     "turn_near_paper_heights_m": [],
@@ -524,7 +528,8 @@ RECORDING_PARAMETERS = {
     # "forearm": it follows the arm's direction from the base (camera on the forearm cover, since 4.11.26 evening).
     "camera_heading_model": "forearm",
     # The direction the top of the picture points to, measured from the model's reference direction: 0 for the hand
-    # mounts (tested in the direction tests below) and, untested, 0 for the forearm camera.
+    # mounts (tested in the direction tests below) and 0 for the forearm camera (checked 6.11.26 against the camera
+    # fitted to the recordings, FOREARM_CAMERA_PARAMETERS: the picture's up within 0.5 degrees).
     "picture_top_offset_rad": 0.0,
     # TESTED 31.10.26 on the robot with the stock wrist holder (Emranul, session 2026-10-31_session_01_emranul,
     # episode 001, steps 2 to 4): three "left" steps moved the tip from y = -0.028 m to +0.001 m and the line in the
@@ -533,6 +538,9 @@ RECORDING_PARAMETERS = {
     # TESTED again for bracket F on 2.11.26 (session 2026-11-02_session_01_emranul, path_04_meander_episode_013, steps 1
     # to 3): three left steps moved the tip by +0.9 cm in y each and the line's end in the picture from column about
     # 300 to about 450, i.e. the content moved RIGHT: the sign stays 1 with bracket F.
+    # CHECKED 6.11.26 for the forearm camera against the camera fitted to the recordings (FOREARM_CAMERA_PARAMETERS;
+    # test_puck_tracking.test_tool_directions_match_the_fitted_camera): a table point moved "left" moves left in the
+    # picture, within 1 degree, with the forearm straight and turned up to 57 degrees either way. The sign stays 1.
     "picture_left_sign": 1,
     # Raise this whenever 06_deliverables/research_notes/Recording tool/stepping_rule_v1.md changes its version
     # (Marshal, 4.11.26).
@@ -625,3 +633,356 @@ def action_step_to_table(
     length = RECORDING_PARAMETERS["step_over_m"] if is_step_over else RECORDING_PARAMETERS["step_m"]
     angle = push_heading_rad(pose, hand_turn_deg, heading_rad) + RECORDING_PARAMETERS["picture_left_sign"] * math.radians(action_angle)
     return [length * math.cos(angle), length * math.sin(angle)]
+
+
+# The forearm camera (the bare camera taped on the forearm cover since 4.11.26 evening), fitted on 6.11.26 without the
+# robot to the recorded episodes 037 to 045 (sheet 04 on the old desk): the white sheet's straight edges in 1603
+# pictures and the puck in 85 runs of pictures in which the robot cannot have moved it, each picture with its logged
+# joints. Evidence and scripts: 06_deliverables/research_notes/Recording tool/2026-11-06_forearm_camera_calibration/.
+# The camera is fixed in the arm model's "joint_4" frame (it turns with joint 4; joints 5 and 6 do not move it): 58 mm
+# from the forearm's axis and 18 mm along it from the joint-4 origin, looking 6.2 degrees off the axis; focal length 502
+# px (Niryo's file: 508), field of view 65 x 51 degrees, almost no lens distortion. Checked on pictures the fit never
+# saw: the sheet's edges land within 2.0 mm (median) and 5.1 mm (90th percentile) on the table, a puck that does not
+# move wanders 1.9 mm (median) on the map, and the end of the line in episode 039's first picture maps 1.1 mm from the
+# start taught on 31.10. Each picture's view also scatters by about 6 px (about 2 mm on the table), which no calibration
+# removes. Valid while the camera stays as taped (camera check under about 4 px), the focus ring is untouched and the
+# robot's automatic calibration holds; table heights come from WORKSPACE_PARAMETERS["table_plane"], so teach it again on
+# a new table first. The values before the fit (Niryo's lens, the camera's place guessed from photos) were 1 to 2 cm off
+# on the table.
+FOREARM_CAMERA_PARAMETERS = {
+    "parent_frame": "joint_4",
+    # axis-angle vector; the columns of its matrix are the camera's x (picture right), y (picture down) and z (viewing
+    # direction) axes in the forearm frame
+    "rotation_vector_in_forearm_rad": [0.056883, 0.105629, 1.578688],
+    "translation_in_forearm_m": [0.057967, 0.002716, 0.018138],
+    "focal_length_px": 501.968951,
+    "principal_point_px": [333.786188, 246.388646],
+    # one radial term: (x, y) distorted = (x, y) (1 + k1 r^2) in normalised coordinates
+    "radial_distortion_k1": -0.019613,
+    "image_size_px": [640, 480],
+    # the mount these values belong to (RECORDING_PARAMETERS["camera_mount"]); with any other mount the recording tool
+    # draws no table positions from the picture
+    "camera_mount": "forearm_cover_tape_bare_camera",
+    "version": "fit_recordings_037_045_2026-11-06"
+}
+
+# How the picture's outline on a table plane is traced (forearm_camera_model.picture_footprint_on_plane): points along
+# each picture edge, the start corner included and the end corner left out (1 gives the four corners), and the range at
+# which rays that miss the plane, or meet it further away, are cut off (the top of the picture can look above the
+# horizon).
+FOOTPRINT_SETTINGS = {
+    # points along each picture edge, the start corner included and the end corner left out (1 gives the four corners)
+    "points_per_edge": 12,
+    # rays that miss the plane in front of the camera, or meet it further away than this, are cut off at this range
+    "maximum_range_m": 1.0
+}
+
+# Settings for refitting the forearm camera (forearm_camera_model.fit_camera_parameters).
+CAMERA_FIT_SETTINGS = {
+    # names from FIT_PARAMETER_NAMES that keep their initial value
+    "fixed_parameters": [],
+    # "huber" or "cauchy" (robust), "soft_l1", or "linear" (plain least squares)
+    "loss": "huber",
+    # the expected pixel noise; every pixel residual is divided by it, so the costs are in units of this noise
+    "pixel_sigma_px": 2.0,
+    # residuals beyond this many sigmas count less (Huber: linearly, Cauchy: logarithmically)
+    "loss_threshold_sigma": 2.0,
+    # optional soft pulls towards the initial values, name -> sigma in the parameter's unit (rotations: towards 0)
+    "prior_sigmas": {},
+    # "auto" (scipy if installed), "scipy" or "numpy"
+    "solver": "auto",
+    "maximum_iterations": 200,
+    # central-difference steps for the Jacobian
+    "finite_difference_steps": {
+        "camera_tilt_correction_rad": 1e-6,
+        "camera_pan_correction_rad": 1e-6,
+        "camera_roll_correction_rad": 1e-6,
+        "translation_x_m": 1e-6,
+        "translation_y_m": 1e-6,
+        "translation_z_m": 1e-6,
+        "focal_length_px": 1e-3,
+        "principal_point_u_px": 1e-3,
+        "principal_point_v_px": 1e-3,
+        "radial_distortion_k1": 1e-6,
+        "group_xy_m": 1e-6
+    },
+    # observations further than this many sigmas from the fitted model are listed as outliers
+    "outlier_threshold_sigma": 3.0,
+    # correlations above this size are listed in the conditioning report
+    "strong_correlation": 0.9,
+    # the pixel residual given to a point behind the camera or outside the lens model's field
+    "invalid_projection_residual_px": 1000.0
+}
+
+# The red-puck detector (puck_detector.py), tuned on 6.11.26 on the 1692 pictures of episodes 037 to 045 (old desk, this
+# room's lamps, sheet 04): the puck is found in 1390 of the 1391 pictures that show more than a sliver of it, with no
+# false detection in a checked sample of 175 pictures nor in episode 039 (run without the puck, with a red mouse and
+# red cables in view); 1.6 ms per picture. It misses slivers beside the block and pucks held in a hand, and it needs
+# some white paper in view. Signed hue is OpenCV's hue minus 180 from 90 up, red at 0; saturation and value run from
+# 0 to 255. Check it again on the first pictures of a new table or room.
+PUCK_DETECTOR_PARAMETERS = {
+    # candidates are searched on the picture scaled by this factor; lengths and areas below
+    # are in full-size pixels and are scaled internally
+    "analysis_scale": 0.5,
+    # seed colour: signed hue window, minimum saturation and value (OpenCV scale, 0 to 255)
+    "seed_hue_range": [-25, 2],
+    "seed_saturation_minimum": 95,
+    "seed_value_minimum": 45,
+    # grow colour: the looser window a blob may extend into from its seeds
+    "grow_hue_range": [-35, 7],
+    "grow_saturation_minimum": 65,
+    "grow_value_minimum": 35,
+    # blue cast of the picture, blue over red on the paper (the brightest pixels with little colour,
+    # sampled on a sparse grid): from the first value of the range on, the windows reach further
+    # towards violet, by up to the given number of hue steps at the second value (4.11.26 evening:
+    # cast about 1.25, the shaded puck at signed hue -55 to -45)
+    "paper_sample_step_px": 8,
+    "paper_brightest_share": 0.15,
+    "paper_saturation_maximum": 115,
+    "paper_value_minimum": 120,
+    "paper_share_minimum": 0.02,
+    "violet_extension_cast_range": [1.08, 1.18],
+    "seed_violet_extension_maximum": 31,
+    "grow_violet_extension_maximum": 25,
+    # the cast also pales the puck in full light (median saturation 81 to 85 in episode 037), so the
+    # saturation limits drop by up to these amounts at the full cast
+    "seed_saturation_cast_reduction": 15,
+    "grow_saturation_cast_reduction": 10,
+    "pale_cast_reduction": 13,
+    # morphology on the grow mask (kernel sizes at the analysis scale): an opening removes specks
+    # and thin lines (cabinet edges, cables), a closing fills small notches such as a glint
+    "opening_kernel_px": 3,
+    "closing_kernel_px": 3,
+    # colour tests: area limits, and the least seed share and median saturation; a blob whose median
+    # hue lies beyond the base grow window (violet: the shaded puck in a blue-cast picture) must not be
+    # as dark as the shadows and gaps that turn violet there (shaded puck: median value 61 and up,
+    # dark gaps between cabinets: 50 to 52)
+    "minimum_area_px": 120,
+    "maximum_area_px": 9_000,
+    "minimum_seed_fraction": 0.05,
+    "minimum_median_saturation": 85,
+    "violet_minimum_median_value": 56,
+    # shape: area (with hidden pixels counted) over convex hull area, long over short axis of the
+    # fitted ellipse (a half disc gives 1.9), area (with hidden pixels counted) over bounding box area,
+    # for a whole puck and for one partly hidden by the hand or cut by the picture's edge (looser,
+    # because the block's screw heads and the brackets' edges notch the visible part, and shaded
+    # stretches of the hand are not always recognised as occluders, so their hidden pixels are not
+    # counted)
+    "minimum_completed_solidity": 0.80,
+    "minimum_completed_solidity_partial": 0.65,
+    "maximum_axis_ratio": 2.4,
+    "maximum_axis_ratio_partial": 3.0,
+    "minimum_completed_extent": 0.45,
+    "minimum_completed_extent_partial": 0.30,
+    # the hand that hides part of the puck (block and brackets) is at the bottom of the picture: a blob
+    # reaching down to this row may be partly hidden even where the block's colour is not recognised
+    # (slate blue in a blue-cast picture, like shaded paper), and a partly hidden puck that does not
+    # touch the picture's edge must reach down to it (measured: row 441 and lower in episodes 037 to 045)
+    "hand_region_top_v": 340,
+    # occluders: the black block (dark) and the blue brackets of the hand. The brackets' saturation
+    # was measured at about 100 to 180 in a neutral picture and 200 to 250 in a blue-cast one, where
+    # the shaded paper reaches about 140, so above the hand region the saturation floor follows the
+    # cast like the hue windows (first value for a neutral picture, second for the full cast); inside
+    # the hand region it stays at the first value
+    "occluder_value_maximum": 60,
+    "occluder_blue_hue_range": [95, 130],
+    "occluder_blue_saturation_range": [100, 170],
+    "occluder_blue_value_minimum": 50,
+    "occluded_below_fraction_minimum": 0.35,
+    "occluded_light_above_fraction_minimum": 0.20,
+    "adjacent_occluder_fraction_minimum": 0.10,
+    # surroundings: a ring this wide around the blob is sorted into light background (paper),
+    # occluder and wood (or skin)
+    "context_ring_px": 8,
+    "light_value_minimum": 100,
+    "light_saturation_maximum": 150,
+    "wood_hue_range": [6, 30],
+    "wood_saturation_minimum": 50,
+    "wood_value_minimum": 60,
+    "maximum_wood_fraction": 0.50,
+    # a blob with less light background around it than this (a puck deep in the arm's shadow) is kept
+    # only when it lies within the given distance of the usual position and is at least the given
+    # share of the expected size (by its area, or by its enclosing circle when beside an occluder)
+    "minimum_light_fraction": 0.08,
+    "dark_surroundings_maximum_distance_px": 160.0,
+    "dark_surroundings_minimum_size_ratio": 0.70,
+    # size: apparent radius of a whole puck (measured 20 to 40 px, median 31 px, in 1312 confident
+    # detections of episodes 037 to 045) and the accepted ratio to it; a partly hidden puck is
+    # sized by the smallest circle that holds its visible part
+    "expected_radius_px": 31.0,
+    "size_ratio_range": [0.55, 1.6],
+    # centre of a partly hidden puck: a circle fitted at full size to the outline points that touch
+    # neither an occluder nor the picture's edge, refitted on its inliers to shed edges against
+    # shadow or the hand's metal; its centre replaces the visible blob's centre when it fits well
+    "circle_margin_px": 40,
+    "circle_minimum_free_points": 30,
+    "circle_inlier_px": 2.0,
+    "circle_inlier_fraction_of_radius": 0.05,
+    "circle_refit_rounds": 3,
+    "circle_minimum_inlier_share": 0.5,
+    "circle_minimum_arc_deg": 100.0,
+    "circle_radius_range_px": [18.0, 48.0],
+    "circle_maximum_residual_fraction": 0.06,
+    "circle_minimum_inside_fraction": 0.90,
+    # where the puck usually sits (in front of the block: median 333, 363 in 1312 confident
+    # detections) and how quickly the prior fades
+    "expected_centre_uv": [325.0, 360.0],
+    "expected_centre_sigma_px": 200.0,
+    # score weights; the score of the chosen blob is returned as its confidence
+    "score_weights": {
+        "colour": 0.30,
+        "shape": 0.20,
+        "surroundings": 0.20,
+        "size": 0.15,
+        "position": 0.15
+    },
+    "picture_edge_score_factor": 0.85,
+    "partial_score_factor": 0.90,
+    # how the partial scores are formed: full colour marks from this seed share and from this saturation above the pale
+    # limit, full shape marks up to this axis ratio (a puck seen from the side), and an occluder in the ring around the
+    # blob counts this much towards its surroundings (light background counts fully)
+    "full_colour_seed_fraction": 0.6,
+    "full_colour_saturation_span": 70.0,
+    "full_shape_axis_ratio": 1.4,
+    "occluder_surroundings_weight": 0.5,
+    # an outline point within this kernel of an occluder (at full size) is not used for the circle fit, a blob pixel
+    # up to this far beyond the fitted radius still counts as inside the circle, and blobs above this multiple of
+    # "maximum_area_px" are dropped before they are measured
+    "touch_kernel_px": 5,
+    "circle_inside_tolerance_px": 3.0,
+    "candidate_area_limit_factor": 2.0,
+    "minimum_score": 0.50,
+    # full-size measurement of the chosen blob: margin around its box, kernels at full size, and how
+    # many rows below the blob's lowest point are searched for anything dark or blue (is_bottom_clear)
+    "refine_margin_px": 12,
+    "refine_opening_kernel_px": 3,
+    "refine_closing_kernel_px": 5,
+    "bottom_occluder_search_px": 4
+}
+
+# The puck and the picture's outline on the recording tool's orientation map (puck_tracking.py). Display only: nothing
+# the robot does depends on them (Emranul, 5.11.26).
+PUCK_TRACKING_PARAMETERS = {
+    # the detector's centre is the middle of the puck's visible silhouette (its top face and near side), about half-way
+    # up the 2.9 cm puck (calc); the fit could not pin it down, and 5 mm here moves the puck about 1 mm on the map
+    "puck_point_height_above_table_m": 0.0145,
+    # sightings with a lower detector score (0 to 1; measured 0.55 to 0.97, median 0.88) are not shown
+    "minimum_confidence": 0.5,
+    # the table's height under a pixel is not known before the pixel is placed: the ray is followed to the table this
+    # many times (at least once), each time at the table's height where the previous pass landed (the plane tilts by
+    # about 1 mm in 10 cm)
+    "height_passes": 2,
+    # the outline drawn on the map: points along each picture edge (1 = the four corners; more would show the lens's
+    # slight bending, too small to see on the map), with rays beyond this range cut off (the map shows about 42 cm)
+    "outline_points_per_edge": 1,
+    "outline_maximum_range_m": 0.6,
+    # the camera mount in use; the recording tool passes its own --camera-mount
+    "camera_mount": RECORDING_PARAMETERS["camera_mount"]
+}
+
+
+# The episode checker (check_episodes.py, 6.11.26): every threshold, with the reason for its value. Pass overrides as a
+# dictionary (or a JSON file with --settings); they are merged over these defaults (dictionaries key by key). Where the
+# recording tool already has the number, it is read from RECORDING_PARAMETERS so the two cannot drift apart.
+CHECK_PARAMETERS = {
+    # Where the sessions are, from the project folder; the default session is the newest folder named
+    # <yyyy-mm-dd>_session_NN_<operator>.
+    "raw_folder": RECORDING_PARAMETERS["raw_folder"],
+    # Rows and pictures. The tool writes exactly one picture per logged step, as the robot sent it, and takes the
+    # picture back when a step is refused; so any missing, extra or repeated picture (same md5: the camera sent
+    # nothing new between two steps) is a fault. Allowed counts, per episode.
+    "missing_frames_allowed": 0,
+    "extra_frames_allowed": 0,
+    "duplicate_frames_allowed": 0,
+    "picture_size": [640, 480],
+    # The camera on its mount: the recording tool's own limit, measured on the same bottom strip of the picture (the
+    # robot's hand and the block, which look the same at the start pose).
+    "camera_shift_warning_px": RECORDING_PARAMETERS["camera_shift_warning_px"],
+    "camera_check_region": RECORDING_PARAMETERS["camera_check_region"],
+    # The camera mount and picture mapping that training uses now; a training set must never mix two of either
+    # (config.py). Episodes with another value get a warning.
+    "current_camera_mount": RECORDING_PARAMETERS["camera_mount"],
+    "current_mapping_version": RECORDING_PARAMETERS["mapping_version"],
+    # Mount names written wrongly at recording time and corrected afterwards: episodes 037 to 043 of sheet 04 say
+    # "F3 bracket" but show the bare camera (session notes of 5.11.26, 21:03, and the comment in config.py).
+    "camera_mount_corrections": [
+        {"path_id": "path_04_meander", "first_episode": 37, "last_episode": 43,
+         "written": "forearm_cover_tape_F3_bracket", "actual": "forearm_cover_tape_bare_camera"}
+    ],
+    # The start. Row 0 is logged at the start pose; the robot lands within about 0.5 mm of a commanded pose (survey of
+    # 24.10.26), and the hand-guided modes come down onto the start again after guiding. More than this between row
+    # 0's reported rod end and episode.json's start_pose means the episode did not begin where it says.
+    "start_offset_warning_mm": 5.0,
+    # Rod lean (calc, arm model). A note above the keyboard tool's limit: the largest lean pushed with the puck in a
+    # measurement run was 30 degrees (4.11.26, episode 028), and the tool refuses turned keyboard steps above 28
+    # (max_turn_lean_deg). A warning above the largest lean ever reached with the puck, 38.5 degrees in hand guiding
+    # on 4 to 5.11.26 (calc from guided_path.csv, config.py): beyond it tipping is untested and the view is new.
+    "lean_note_deg": RECORDING_PARAMETERS["max_turn_lean_deg"],
+    "lean_warning_deg": 38.5,
+    # Table steps of the magnet tip between two pictures (calc). A 1 cm step, a turn's landing (at most 1.5 cm back)
+    # and a gamepad step stay well under this; a longer jump means the arm went somewhere else between two pictures.
+    # A step-over (4.2 cm) is allowed its own length plus "step_over_jump_allowance_mm".
+    "step_jump_warning_mm": 30.0,
+    "step_over_jump_allowance_mm": 10.0,
+    # Labels against the measured tip motion in the picture's frame (heading at the row's picture). Below
+    # "small_motion_m" a motion is small_motion (the tool's own rule); "small_motion_tolerance_m" either side of that
+    # boundary is not counted against a label. A moving label agrees when it is the class nearest the measured
+    # direction, or within "label_boundary_tolerance_deg" of being it. A turn label agrees when joint 4 turned at
+    # least "turn_minimum_deg" the labelled way (turn_left = joint 4 grows).
+    "small_motion_m": RECORDING_PARAMETERS["exact_small_motion_m"],
+    "small_motion_tolerance_m": 0.001,
+    "label_boundary_tolerance_deg": 5.0,
+    "turn_minimum_deg": 5.0,
+    # Above this share of disagreeing labels the episode is flagged; single disagreements are listed as a note.
+    "label_disagreement_warning_fraction": 0.05,
+    # More small_motion rows than this share gets a note: small_motion is not one of the moving classes, and training
+    # has to decide what to do with them.
+    "small_motion_note_fraction": 0.10,
+    # The arm model against the robot's reported rod end, row by row (both read in the same state). They agree to
+    # about 0.02 mm in most rows; a row far apart suggests that joints and pose were read at different moments (a
+    # guess: the arm may not have settled). Noted above this distance when more than the given share of rows is.
+    "model_mismatch_mm": 2.0,
+    "model_mismatch_note_fraction": 0.10,
+    # Replay fidelity of the hand-guided modes: distance from each replayed magnet tip (calc) to the path the hand
+    # drew (guided_path.csv, or the correction path after an "h"). The exact replay visits the guided joints, so it
+    # should sit on the path within about a millimetre; the 1 cm replay is snapped back onto the path at every step,
+    # so a few millimetres. The end: the last logged tip against the path's last point; the puck's goal tolerance is
+    # 12 mm (PUCK_PARAMETERS), and the last row of a quit or discarded episode is logged one step before its end.
+    "replay_median_warning_mm": 3.0,
+    "replay_max_warning_mm": 10.0,
+    "replay_end_warning_mm": 15.0,
+    # A correction path belongs to a replay segment when its first point lies this close to the segment's first tip.
+    "correction_match_mm": 10.0,
+    # Timing. The tool waits for two new pictures after each move before it takes one. In every episode of 4 and
+    # 5.11.26 that wait was 0.04 to 0.08 s at the least and about 0.12 s in the median (so the camera sends new
+    # pictures faster than the 9 per second measured on 24.10.26); a wait under "picture_wait_note_s" is unusual
+    # and noted (it does not prove a picture taken during the move). Pauses longer than "long_pause_s" between two
+    # pictures are noted too (nothing wrong by themselves).
+    "picture_wait_note_s": 0.04,
+    "long_pause_s": 60.0,
+    # Sharpness (variance of the Laplacian, logged per row; it depends on the scene as much as on focus). The forearm
+    # camera's pictures of 4 to 5.11.26 lie at 49 to 290 (medians 133 to 178), the out-of-focus bracket pictures of
+    # 4.11.26 afternoon at 9 to 31: under "sharpness_warning_below" a picture is out of focus. A picture under
+    # "sharpness_drop_fraction" of the median of its neighbours ("sharpness_neighbours_each_side" before it and as many
+    # after it; the scene changes little from one step to the next) is probably blurred by motion: noted.
+    "sharpness_warning_below": 40.0,
+    "sharpness_drop_fraction": 0.5,
+    "sharpness_neighbours_each_side": 3,
+    # The red puck in the pictures, found by puck_detector.py (PUCK_DETECTOR_PARAMETERS). At the start it must sit right
+    # in front of the block, its centre inside this region ([top, bottom, left, right] as fractions of the picture; the
+    # first pictures of episodes 037, 042 and 043 put it at u 321 to 327 and v 304 to 337 of 640 x 480).
+    "puck_start_region": [0.5, 0.85, 0.35, 0.65],
+    # In the last picture of an episode whose outcome is puck_in_goal, a sighting counts only from this detector score
+    # (0 to 1) up: the far background can hold red things (episode 035's last picture: a red object beside a pen cup
+    # scored 0.50), while the real puck at the goal scored 0.90 in episode 045. A weaker sighting gives the "look at
+    # it" warning, which costs one look.
+    "puck_last_picture_minimum_confidence": 0.6,
+    # Below this share of pictures with the puck seen, a note: the camera lost the puck often (or the detector missed
+    # it).
+    "puck_seen_note_fraction": 0.5,
+    # Overrides for the checker's puck detector (PUCK_DETECTOR_PARAMETERS), for example from --settings after the
+    # detector was checked again in a new room; empty = the detector as in config.
+    "detector_parameters": {},
+    # Decode the pictures (puck and camera-shift checks); md5 sums are always checked.
+    "is_picture_check_on": True
+}
