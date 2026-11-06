@@ -632,6 +632,13 @@ RECORDING_PARAMETERS = {
     "exact_waypoint_m": 0.01,
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,
+    # A lift in joint space, for when the straight 5 cm lift is refused (6.11.26: refused with error -3 after every hand
+    # correction of sheet 01, so the arm went to the parking pose and back). Calculated with the arm model at the three
+    # correction poses of 6.11.26: these changes raise the magnet tip 38 mm and move it at most 2 mm sideways.
+    "joint_lift_change_rad": {"joint_2": 0.12, "joint_3": -0.05},
+    # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
+    # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
+    "puck_back_good_px": 5,
     # Two labels beside the move name (Emranul and Marshal, 6.11.26): the rod's lean towards the picture's top or
     # bottom (episode 01-10: leaned so the black box on the hand no longer hid the puck) and the hand's turn about the
     # rod (joint 6; pushing with the block's corner at hairpins). A change of at least this many degrees in one step is

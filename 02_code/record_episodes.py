@@ -49,6 +49,7 @@ import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
                     action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+from puck_detector import detect_puck
 from puck_tracking import PuckTracker
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
@@ -1086,17 +1087,53 @@ class EpisodeRecorder:
         self.tip_xy = None
         self.__lift()
         if new_path is not None:
-            self.__show_picture(picture_bytes, f"REFERENCE: put the puck back where it is in this picture, then Enter")
-            self.__say("put the puck back where it was when h was pressed (the window shows that picture), then Enter")
+            # 6.11.26 (Marshal): the arm first goes back to where the correction began, with the puck off the sheet;
+            # the camera then sees from the same place as the reference picture, so a circle can show the puck's spot.
+            self.__show_message("Take the puck OFF the sheet (away from the block), then Enter: the arm goes back to where the correction began")
             self.__wait_for(["enter"])
         self.__return_to_joints_from_above(start_joints)
         if new_path is None:
             self.__say(f"correction {number} discarded; the replay goes on where it was")
             return
+        self.__guide_puck_back(picture_bytes)
         self.exact_waypoints = self.__exact_waypoints(new_path)
         self.exact_index = 0
         self.is_auto_running = False
         self.__say(f"correction {number}: {len(self.exact_waypoints)} waypoints from {len(new_path)} guided points; Enter or g replays it")
+
+
+    def __guide_puck_back(self, reference_bytes: bytes) -> None:
+        """
+        Show the live picture with a circle where the puck was in the reference picture, until Enter. The arm stands
+        where the reference was taken, so the circle is in the right place; the found puck is marked too, with its
+        distance from the circle. Without a puck in the reference, the reference picture is shown instead.
+        """
+
+        reference = cv2.imdecode(numpy.frombuffer(reference_bytes, numpy.uint8), cv2.IMREAD_COLOR)
+        target = detect_puck(reference)
+        if target is None:
+            self.__show_picture(reference_bytes, "REFERENCE: put the puck back where it is in this picture, then Enter")
+            self.__say("no puck found in the reference picture: put it back as the window shows, then Enter")
+            self.__wait_for(["enter"])
+            return
+        centre = (int(round(target["centre_u"])), int(round(target["centre_v"])))
+        radius = int(round(target["equivalent_radius_px"]))
+        self.__say("put the puck into the green circle in the live picture, then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = picture.copy()
+            cv2.circle(shown, centre, radius + 3, (0, 220, 0), 2)
+            seen = detect_puck(picture)
+            if seen is None:
+                text = "put the puck into the GREEN circle (no puck seen yet), then Enter"
+            else:
+                distance = math.hypot(seen["centre_u"] - centre[0], seen["centre_v"] - centre[1])
+                cv2.drawMarker(shown, (int(round(seen["centre_u"])), int(round(seen["centre_v"]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
+                text = f"puck {distance:.0f} px from the GREEN circle's centre{' (good)' if distance <= self.recorder_parameters['puck_back_good_px'] else ''}, then Enter"
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return
 
 
     def __return_to_joints_from_above(self, joints: List[float]) -> None:
@@ -1112,7 +1149,12 @@ class EpisodeRecorder:
         try:
             self.robot_link.move_to(lifted, is_linear = False)
         except Exception as error:
-            self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
+            # Above the target in joint space instead, so the last move is a short one straight down onto the puck's place.
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(joints)))
+                self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); came above it with joints 2 and 3 instead")
+            except Exception:
+                self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
         self.robot_link.move_joints(list(joints))
         self.forearm_turn_deg = math.degrees(joints[3])
         self.tip_xy = [float(value) for value in magnet_tip_and_lean(list(joints))[0][:2]]
@@ -2277,15 +2319,33 @@ class EpisodeRecorder:
                 self.robot_link.move_home(self.recorder_parameters["home_joints"])
                 return
 
-        pose = list(self.robot_link.read_state()["pose"])
+        state = self.robot_link.read_state()
+        pose = list(state["pose"])
         pose[2] += self.recorder_parameters["approach_height_m"]
         try:
             self.robot_link.move_to(pose)
         except Exception as error:
+            # 6.11.26: refused after every hand correction (the arm leans where the hand left it); lifting in joint
+            # space first saves the trip to the parking pose and back.
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])))
+                print(f"straight lift refused ({str(error).splitlines()[0]}); lifted with joints 2 and 3 instead")
+                return
+            except Exception:
+                pass
             # 3.11.26: after a refused start the arm was still at the parking pose, 5 cm above which is out of reach;
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
             self.robot_link.move_home(self.recorder_parameters["home_joints"])
+
+
+    def __joints_lifted(self, joints: List[float]) -> List[float]:
+        """``joints`` with joints 2 and 3 changed so the tip rises about 4 cm nearly straight up ("joint_lift_change_rad")."""
+
+        lifted = [float(value) for value in joints]
+        for name, change in self.recorder_parameters["joint_lift_change_rad"].items():
+            lifted[int(name.split("_")[1]) - 1] += change
+        return lifted
 
 
     @staticmethod

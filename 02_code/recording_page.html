@@ -283,8 +283,12 @@ function showSetup(entry, start, code) {
     pictureLink.href = `/setup-picture/${planNumber}.png`;
     element("setup-picture").src = `/setup-picture/${planNumber}.png`;
   }
-  const config = [["Sheet", sheet.label], ["Start end", `End ${lineEnd}`], ["Kind of start", code], ["Puck offset", `${start.offset_cm} cm`],
-                  ["Sheet angle", `${start.offset_deg} degrees`], ["Start index", start.start_index],
+  // In words, as the set-up pictures say it: positive = LEFT seen from behind the robot (config.py start_codes).
+  const side = (value, unit) => value === 0 ? "none" : `${Math.abs(value)} ${unit} ${value > 0 ? "LEFT" : "RIGHT"}`;
+  const config = [["Sheet", sheet.label], ["Start end", `End ${lineEnd}`], ["Kind of start", code],
+                  ["Puck offset", side(start.offset_cm, "cm") + (start.offset_cm ? " of the start cap" : "")],
+                  ["Sheet angle", side(start.offset_deg, "degrees") + (start.offset_deg ? ", turned about the start cap" : "")],
+                  ["Start index", start.start_index],
                   ["Start position", hasStart ? `Taught: ${element("start_x").value.trim()}, ${element("start_y").value.trim()}` : start.needs_taught_start ? "Needs teaching" : "From config.py"],
                   ["Saved with the episode", noteParts.join(", ")]];
   element("setup-config").replaceChildren(...config.map(([name, value]) => {
