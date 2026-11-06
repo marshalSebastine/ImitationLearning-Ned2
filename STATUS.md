@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 to 5.11, forearm camera, gamepad and exact hand-guided modes); the Paper publication section was added on 4.11.26 by Emranul's paper-publication session.
+Last updated: 6.11.26 by the orchestrator session (all work merged into `main`; synthetic-data idea cancelled).
 
 ## Dates that cannot move
 
@@ -23,15 +23,14 @@ Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 
   `setup_claude.ps1` run, so Claude's memory and the code-style skill now live in the repo (`claude_memory/`,
   `claude_skills/`); the laptop's work from 27.10 merged into `main` by pull request 1. All sessions now follow
   `COLLABORATION.md`: branch per topic, pull request into `main`, commits under the students' names.
-- Done 5.11: question 17 added to the meeting-2 list in `05_meetings/requests_to_professor.md` on Emranul's idea: may part
-  of the training data be synthetic (camera pictures drawn from one real photo per camera mount, labelled by a fixed rule,
-  used to pretrain before fine-tuning on our own demonstrations)? The Synthetic data session, started 5.11, builds a first
-  generator, a figure of synthetic and real pictures side by side for the meeting, and a test of whether a model trained
-  only on synthetic pictures agrees with our labels on the real bracket F3 pictures.
-- Next: prepare meeting 2 on 9.11 (questions 7, 10 and 13 to 17; copy them into the meeting note first); read the
-  sessions' reports and their `STATUS.md` sections; fill in the remaining "[Emranul: fill in]"
-  lines of `HANDOFF_2026-10-26.md` (Emranul gives the facts; only the git-hosting line is filled); agree who does what
-  (provisional table in the meeting-1 note); start the contribution log.
+- Done 5.11: question 17 (may part of the training data be synthetic?) added to the meeting-2 list and withdrawn the same
+  day, when Emranul cancelled the synthetic-data idea (see Model and training).
+- Done 6.11, on Emranul's request: every session's work written down, pushed and merged into `main` by pull requests:
+  recording tool and camera work 31.10 to 5.11 (11), paper publication assessment (12), this update. Unmerged on purpose:
+  `emranul/synthetic-pictures`. Not yet committed: the recording session's unfinished puck-tracking change.
+- Next: prepare meeting 2 on 9.11: questions 7, 10, 13, 14 and 15 (check whether 13 and 14 still matter now that the camera
+  is taped to the forearm cover; copy them into the meeting note first); fill in the remaining "[Emranul: fill in]"
+  lines of `HANDOFF_2026-10-26.md`; agree who does what (meeting-1 note); start the contribution log.
 - Blocked on: nothing.
 
 ## Robot and hardware (camera mount, measurements, robot tests)
@@ -113,6 +112,8 @@ Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 
   CNN, random-crop augmentation, trained on the laptop; ACT only as an optional comparison on a GPU.
 - Next: ask the professor to activate GPU-pool SSH for both accounts and test the login (pattern in
   `01_course/moodle_snapshot.md`, VPN needed); write the dataset builder and the training script once the first 20 episodes exist.
+- Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
+  merged; findings in `claude_memory/project-synthetic-pictures.md`. GPU pool: VPN not connected on 3.11, GPUs still unknown.
 - Blocked on: data.
 
 ## Evaluation and write-up
@@ -137,8 +138,8 @@ Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 
 ## Open questions for the professor (meeting 2)
 
 7 (what to hand in), 10 (offline or local policy), 13 (reversible clamp mount for recording), 14 (rod clamp, low priority),
-15 (print our own training tracks), 16 (second camera), 17 (synthetic training pictures, added 5.11). Full wording in
-`05_meetings/requests_to_professor.md`.
+15 (print our own training tracks). 16 answered in effect on 4.11 (the camera may go anywhere on the robot, still one
+camera); 17 (synthetic training pictures) withdrawn on 5.11. Full wording in `05_meetings/requests_to_professor.md`.
 
 ## Risks being watched
 
