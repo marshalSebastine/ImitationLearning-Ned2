@@ -18,6 +18,12 @@ opens its windows as usual. "Check robot" and "Check the newest session" run `ch
 - All keys still go to the tool's picture window, Enter included. After Start the windows may be behind the browser.
 - The page has no stop button, on purpose: use Esc at the "Put the puck at the start" prompt, OPTIONS on the gamepad, or the
   robot's Stop button.
+- The plan number fills itself in: the next one in the episode plan not yet done on that sheet, with its kind of start and end.
+  You can type another. A discarded episode, a score of 1 and a trial leave the number open, so it comes up again.
+- Each Start records one episode, so each carries its own plan number; then the robot parks. For a finished episode the page asks
+  for a score before the next Start: 3 good, 2 usable, 1 bad, with what went wrong. It goes into a new `review.json` in the
+  episode's folder and a line in `session_notes.md`. Check it before saving: a saved score cannot be changed from the page.
+  A discarded episode asks for no score, because the picture window already asked why.
 - Keep the page's program running during a session, for its status and log. If it is closed, a running tool goes on, but start
   nothing else until that tool has finished: the restarted page does not know about it.
 - It offers the gamepad and the two hand-guided modes, not the keyboard. The camera check of the first data day and other

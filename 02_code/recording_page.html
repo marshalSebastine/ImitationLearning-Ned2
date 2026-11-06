@@ -51,6 +51,16 @@
   .preview { margin-top: 8px; padding: 10px; border-radius: 6px; background: var(--page); font: 12px/1.5 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
   ul.steps { margin: 0; padding-left: 18px; }
   ul.steps li { margin-bottom: 4px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px 16px; margin: 0 0 14px; }
+  .facts div { min-width: 0; }
+  .facts div:last-child { grid-column: 1 / -1; }
+  .facts dt { color: var(--muted); font-size: 12px; }
+  .facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+  .score { display: flex; gap: 10px; align-items: flex-start; padding: 12px; margin-bottom: 8px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+  .score:has(input:checked) { border-color: var(--accent); background: var(--run-bg); color: var(--run-ink); }
+  .score input { margin: 3px 0 0; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
+  .score strong { font-size: 18px; line-height: 1.1; }
+  .plan-entry { margin-top: 4px; padding: 8px 10px; border-radius: 6px; background: var(--page); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -60,6 +70,22 @@
     <div class="code-line" id="code-line">Reading the code version…</div>
   </header>
   <div class="layout">
+    <div>
+    <form id="review" novalidate hidden>
+      <section>
+        <h2 id="review-title">How did this episode go?</h2>
+        <dl class="facts" id="review-facts"></dl>
+        <div id="review-scores" role="radiogroup" aria-label="Score"></div>
+      </section>
+      <section>
+        <h2>What went wrong?</h2>
+        <div class="hint" style="margin-bottom:6px">From "How to demonstrate" in the episode plan. Needed for a score of 1 or 2.</div>
+        <div id="review-issues"></div>
+        <label class="field" style="margin-top:10px">Note<input name="note" id="review-note" autocomplete="off"></label>
+      </section>
+      <button type="submit" class="primary">Save score</button>
+      <div class="message" id="review-message" role="alert"></div>
+    </form>
     <form id="form" novalidate>
       <section>
         <h2>Episode</h2>
@@ -70,7 +96,8 @@
             <div class="hint" id="sheet-plan"></div></label>
           <label class="field">Start end of the line<select name="line_end" id="line_end"></select></label>
           <label class="field">Plan number<input name="plan_number" id="plan_number" placeholder="02-07" autocomplete="off">
-            <div class="hint">Sheet, then its number in the episode plan.</div></label>
+            <div class="hint">Filled in from the plan: the next one not yet done.</div></label>
+          <div class="plan-entry wide" id="plan-entry"></div>
           <label class="field wide">Kind of start<select name="start_code" id="start_code"></select></label>
           <label class="field">Start x (m)<input name="start_x" id="start_x" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
           <label class="field">Start y (m)<input name="start_y" id="start_y" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
@@ -95,6 +122,7 @@
       <button type="submit" class="primary" id="start">Start</button>
       <div class="message" id="message" role="alert"></div>
     </form>
+    </div>
     <div>
       <section>
         <h2>Now</h2>
@@ -111,6 +139,7 @@
           <li>The robot goes to its parking pose, and the picture and orientation windows open. They may open behind this page.</li>
           <li>Put the puck in place, keep hands out of the picture, click the <strong>picture window</strong>, press <strong>Enter</strong>: the robot comes down to the start.</li>
           <li>All keys go to the picture window, not this page.</li>
+          <li>Each Start records one episode, then the robot parks and this page asks for its score.</li>
         </ul>
         <h2 style="margin-top:14px">To stop</h2>
         <ul class="steps">
@@ -131,6 +160,8 @@
 const STORED_FIELDS = ["operator", "mode", "path_id", "line_end", "start_code", "lighting"];
 const element = id => document.getElementById(id);
 let options = null;
+let donePlanNumbers = [];
+let shownReview = null;
 
 function fillSelect(select, entries) {
   select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -154,16 +185,43 @@ function restoreTaughtStart() {
   element("start_y").value = stored[1] || "";
 }
 
+function planForSheet() {
+  return options.episode_plan[element("path_id").value];
+}
+
+function suggestNextPlanNumber() {
+  const plan = planForSheet();
+  const next = Object.keys(plan).find(number => !donePlanNumbers.includes(number));
+  element("plan_number").value = next || "";
+  applyPlanEntry();
+}
+
+function applyPlanEntry() {
+  const entry = planForSheet()[element("plan_number").value.trim()];
+  if (entry) {
+    element("start_code").value = entry.start_code;
+    element("line_end").value = entry.line_end;
+    restoreTaughtStart();
+  }
+  updateHints();
+}
+
 function updateHints() {
   const sheet = options.sheets[element("path_id").value];
   const start = options.start_codes[element("start_code").value];
-  element("sheet-plan").textContent = `Plan: ${sheet.plan}`;
+  const plan = planForSheet();
+  const numbers = Object.keys(plan);
+  const doneCount = numbers.filter(number => donePlanNumbers.includes(number)).length;
+  const planNumber = element("plan_number").value.trim();
+  const entry = plan[planNumber];
+  element("sheet-plan").textContent = `Plan: ${sheet.plan}. Done: ${doneCount} of ${numbers.length}.`;
+  const isDone = donePlanNumbers.includes(planNumber);
+  element("plan-entry").textContent = entry
+    ? `Plan ${planNumber}: ${options.start_codes[entry.start_code].label}, end ${entry.line_end}.${entry.note ? " " + entry.note : ""}${isDone ? " Already done, so this would be an extra." : ""}`
+    : (doneCount === numbers.length ? "Every episode in this sheet's plan is done." : "This number is not in this sheet's plan.");
   element("start-hint").textContent = start.needs_taught_start
     ? "This start needs its taught position. Run teach_sheet_start.py once per sheet layout and enter the two numbers; this browser remembers them."
     : "Leave empty to use the start taught in config.py. Fill in only if this sheet's start was taught separately.";
-  const prefix = `${sheet.number}-`;
-  const planNumber = element("plan_number");
-  if (!planNumber.value || /^\d{2}-$/.test(planNumber.value)) planNumber.value = prefix;
   const isSimulated = element("is_simulated").checked;
   element("safety-section").style.display = isSimulated ? "none" : "";
   element("start").textContent = isSimulated ? "Start practice" : "Start: the robot will move";
@@ -171,8 +229,7 @@ function updateHints() {
 
 function readForm() {
   const form = Object.fromEntries(new FormData(element("form")).entries());
-  const planNumber = form.plan_number.trim();
-  form.plan_number = /^\d{2}-$/.test(planNumber) ? "" : planNumber;
+  form.plan_number = form.plan_number.trim();
   form.is_trial = element("is_trial").checked;
   form.is_new_session = element("is_new_session").checked;
   form.is_simulated = element("is_simulated").checked;
@@ -201,6 +258,30 @@ async function post(path, body) {
 
 function setBusy(isRunning) {
   ["start", "check-robot", "check-episodes"].forEach(id => { element(id).disabled = isRunning; });
+}
+
+function showReview(episode) {
+  const isSame = shownReview === (episode && episode.episode);
+  element("review").hidden = !episode;
+  element("form").hidden = Boolean(episode);
+  if (!episode || isSame) { shownReview = episode ? episode.episode : null; return; }
+  shownReview = episode.episode;
+  element("review").reset();
+  element("review-message").classList.remove("shown");
+  element("review-title").textContent = `How did ${episode.episode} go?`;
+  const outcomes = {puck_in_goal: "Yes", puck_not_in_goal: "No", not_recorded: "Not answered"};
+  const facts = [["Puck in the goal", outcomes[episode.outcome] || episode.status], ["Steps", episode.steps], ["Marked mistakes", episode.mistake_steps],
+                 ["Marked lost", episode.lost_steps], ["Operator", episode.operator], ["Mode", episode.mode], ["Notes", episode.note]];
+  element("review-facts").replaceChildren(...facts.map(([name, value]) => {
+    const row = document.createElement("div");
+    const term = document.createElement("dt");
+    term.textContent = name;
+    const detail = document.createElement("dd");
+    detail.textContent = value === null || value === undefined ? "-" : value;
+    row.append(term, detail);
+    return row;
+  }));
+  element("review").scrollIntoView({block: "nearest"});
 }
 
 function stayAtEndOfLog(pre, text) {
@@ -242,6 +323,11 @@ async function refreshStatus() {
     statusLine.className = "status";
   }
   setBusy(status.is_running);
+  showReview(status.episode_to_score);
+  if (JSON.stringify(status.done_plan_numbers) !== JSON.stringify(donePlanNumbers)) {
+    donePlanNumbers = status.done_plan_numbers;
+    updateHints();
+  }
   stayAtEndOfLog(element("log"), status.log || "The tool's messages appear here.");
   element("session-name").textContent = status.notes.session ? `: ${status.notes.session}` : "";
   stayAtEndOfLog(element("notes"), status.notes.lines || "No recordings yet.");
@@ -255,6 +341,31 @@ async function initialise() {
   fillSelect(element("line_end"), options.line_ends.map(end => [end, `End ${end}`]));
   fillSelect(element("start_code"), Object.entries(options.start_codes).map(([code, start]) => [code, start.label]));
   element("camera-mount").textContent = options.camera_mount;
+  element("review-scores").replaceChildren(...Object.keys(options.score_levels).sort().reverse().map(score => {
+    const label = document.createElement("label");
+    label.className = "score";
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "score";
+    radio.value = score;
+    const number = document.createElement("strong");
+    number.textContent = score;
+    const text = document.createElement("span");
+    text.textContent = options.score_levels[score];
+    label.append(radio, number, text);
+    return label;
+  }));
+  element("review-issues").replaceChildren(...Object.entries(options.score_issues).map(([code, text]) => {
+    const label = document.createElement("label");
+    label.className = "check";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.dataset.issue = code;
+    const span = document.createElement("span");
+    span.textContent = text;
+    label.append(box, span);
+    return label;
+  }));
   element("safety-checks").replaceChildren(...options.safety_checks.map((text, index) => {
     const label = document.createElement("label");
     label.className = "check";
@@ -271,10 +382,12 @@ async function initialise() {
     if (stored !== null) element(name).value = stored;
     if (element(name).selectedIndex === -1) element(name).selectedIndex = 0;
   });
-  restoreTaughtStart();
-  updateHints();
-  ["path_id", "start_code", "line_end"].forEach(id => element(id).addEventListener("change", () => {
-    if (id === "path_id") element("plan_number").value = "";
+  const firstStatus = await (await fetch("/status")).json();
+  donePlanNumbers = firstStatus.done_plan_numbers;
+  suggestNextPlanNumber();
+  element("path_id").addEventListener("change", suggestNextPlanNumber);
+  element("plan_number").addEventListener("input", applyPlanEntry);
+  ["start_code", "line_end"].forEach(id => element(id).addEventListener("change", () => {
     restoreTaughtStart();
     updateHints();
   }));
@@ -289,8 +402,20 @@ async function initialise() {
     STORED_FIELDS.forEach(name => writeStorage(`field:${name}`, element(name).value));
     if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y]));
     document.querySelectorAll("[data-safety]").forEach(box => { box.checked = false; });
-    element("plan_number").value = "";
-    updateHints();
+  });
+  element("review").addEventListener("submit", async event => {
+    event.preventDefault();
+    const chosen = element("review").querySelector("input[name=score]:checked");
+    const body = {episode: shownReview, score: chosen ? chosen.value : null, note: element("review-note").value,
+                  issues: [...document.querySelectorAll("[data-issue]")].filter(box => box.checked).map(box => box.dataset.issue)};
+    const response = await fetch("/review", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const reply = await response.json();
+    const message = element("review-message");
+    message.textContent = response.ok ? "" : reply.error;
+    message.classList.toggle("shown", !response.ok);
+    if (!response.ok) return;
+    await refreshStatus();
+    suggestNextPlanNumber();
   });
   await refreshStatus();
   window.setInterval(refreshStatus, 1000);

@@ -14,7 +14,8 @@ import time
 from pathlib import Path
 
 from config import RECORDING_PAGE_PARAMETERS
-from recording_page import FormError, ToolRunner, build_recording_command, make_server
+from recording_page import (FormError, ToolRunner, build_recording_command, done_plan_numbers, expand_episode_plan, make_server,
+                            read_review_form)
 
 
 TEST_PORT = 8766
@@ -53,6 +54,7 @@ def test_command_carries_the_form() -> None:
     assert option_value(command, "--orientation") == "plan 02-07, end A, OL1, START MARK", command
     assert option_value(command, "--offset-cm") == "1.0" and option_value(command, "--start-index") == "0"
     assert "--start-x" not in command and "--simulated" not in command and "--new-session" not in command
+    assert "--single-episode" in command
 
 
 def test_notes_and_flags() -> None:
@@ -108,6 +110,128 @@ def test_only_one_tool_at_a_time() -> None:
         runner.process.wait(timeout = 10)
 
 
+def test_plan_matches_the_episode_plan_file() -> None:
+    """Counts per sheet, and some entries read off 2026-11-06_episode_plan_per_sheet.md, with every code known to the form."""
+
+    plan = expand_episode_plan()
+    counts = {path_id: len(entries) for path_id, entries in plan.items()}
+    assert counts == {"path_01_straight_line": 20, "path_02_arc": 35, "path_03_two_curve": 45, "path_04_meander": 45,
+                      "path_05_alpha_loop": 30, "path_06_alpha_loop_dashed": 25}, counts
+    assert sum(counts.values()) == 200
+    for entries in plan.values():
+        for entry in entries.values():
+            assert entry["start_code"] in RECORDING_PAGE_PARAMETERS["start_codes"] and entry["line_end"] in RECORDING_PAGE_PARAMETERS["line_ends"], entry
+
+    def entry(path_id: str, number: str) -> tuple:
+        return plan[path_id][number]["start_code"], plan[path_id][number]["line_end"]
+
+    assert entry("path_01_straight_line", "01-07") == ("TL15", "A") and entry("path_01_straight_line", "01-14") == ("STD", "B")
+    assert entry("path_02_arc", "02-08") == ("TR10", "A") and entry("path_02_arc", "02-10") == ("TL10", "B")
+    assert entry("path_02_arc", "02-24") == ("TR15", "B") and entry("path_02_arc", "02-31") == ("STD", "B")
+    assert entry("path_03_two_curve", "03-36") == ("TR15", "B") and entry("path_04_meander", "04-24") == ("OR1", "A")
+    assert entry("path_05_alpha_loop", "05-26") == ("X2", "B") and entry("path_06_alpha_loop_dashed", "06-21") == ("TL15", "A")
+
+
+def test_review_form() -> None:
+
+    assert read_review_form({"score": "3"}) == {"score": 3, "issues": [], "note": ""}
+    assert read_review_form({"score": "1", "issues": ["off_line"]})["score"] == 1
+    for form, text in (({}, "Choose a score"), ({"score": "4"}, "Choose a score"), ({"score": "2"}, "at least one"),
+                       ({"score": "2", "issues": ["nonsense"]}, "unknown issue"), ({"score": "1", "issues": ["other"]}, "needs a note")):
+        try:
+            read_review_form(form)
+        except FormError as error:
+            assert text in str(error), (text, str(error))
+        else:
+            raise AssertionError(f"accepted: {form}")
+
+
+def fake_tool_writing(folder: Path, status: str = "completed", plan_note: str = "plan 01-01, end A, STD, START MARK") -> str:
+    """A pretend recording tool: it writes one episode and ends, as record_episodes.py --single-episode does."""
+
+    return f"""
+import json, pathlib
+folder = pathlib.Path({str(folder)!r})
+folder.mkdir(parents = True, exist_ok = True)
+(folder.parent / "session_notes.md").write_text("start\\n", encoding = "utf-8")
+(folder / "episode.json").write_text(json.dumps({{"status": {status!r}, "operator": "emranul", "mode": "gamepad", "outcome": "puck_in_goal",
+    "steps": 30, "mistake_steps": 0, "lost_steps": 0, "sheet_orientation": {plan_note!r}}}), encoding = "utf-8")
+"""
+
+
+def record_with_fake_tool(runner: ToolRunner, episode_folder: Path, **episode) -> None:
+
+    runner.start_recording("Recording", [sys.executable, "-c", fake_tool_writing(episode_folder, **episode)], "path_01_straight_line", False)
+    runner.process.wait(timeout = 10)
+    time.sleep(0.01)
+
+
+def test_episode_is_scored_before_the_next_start() -> None:
+    """A finished episode blocks the next Start until scored; the score is a new file, and episode.json stays as it was."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        raw_folder = data_folder / "03_data/raw"
+        episode_folder = raw_folder / "2026-11-06_session_01_emranul/path_01_straight_line_episode_001"
+        runner = ToolRunner(data_folder / "logs", data_folder)
+
+        record_with_fake_tool(runner, episode_folder)
+        waiting = runner.status()["episode_to_score"]
+        assert waiting["episode"] == episode_folder.name and waiting["outcome"] == "puck_in_goal" and "folder" not in waiting, waiting
+        assert done_plan_numbers(raw_folder) == []
+        original = (episode_folder / "episode.json").read_bytes()
+
+        try:
+            runner.start("Second tool", [sys.executable, "-c", "pass"])
+        except FormError as error:
+            assert "Score" in str(error), error
+        else:
+            raise AssertionError("started the next tool before the score")
+
+        for wrong_form in ({"episode": "other", "score": "3"}, {"episode": episode_folder.name, "score": "2"}):
+            try:
+                runner.save_review(wrong_form)
+            except FormError:
+                pass
+            else:
+                raise AssertionError(f"accepted: {wrong_form}")
+        assert not (episode_folder / "review.json").exists()
+
+        runner.save_review({"episode": episode_folder.name, "score": "2", "issues": ["off_line"], "note": "drifted near the end"})
+        review = json.loads((episode_folder / "review.json").read_text(encoding = "utf-8"))
+        assert review["score"] == 2 and review["issues"] == ["off_line"] and review["note"] == "drifted near the end", review
+        assert review["reviewer"] == "emranul" and (episode_folder / "episode.json").read_bytes() == original
+        notes = (episode_folder.parent / "session_notes.md").read_text(encoding = "utf-8")
+        assert "start" in notes and "score 2 (off_line, drifted near the end)" in notes, notes
+        assert runner.status()["episode_to_score"] is None and done_plan_numbers(raw_folder) == ["01-01"]
+
+        runner.start("Next tool", [sys.executable, "-c", "pass"])
+        runner.process.wait(timeout = 10)
+
+
+def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
+    """Score 1, a trial and a discard leave their plan numbers open; a discard asks for no score, as it already gave a reason."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        data_folder = Path(folder)
+        raw_folder = data_folder / "03_data/raw"
+        session = raw_folder / "2026-11-06_session_01_emranul"
+        runner = ToolRunner(data_folder / "logs", data_folder)
+
+        record_with_fake_tool(runner, session / "path_01_straight_line_episode_001")
+        runner.status()
+        runner.save_review({"episode": "path_01_straight_line_episode_001", "score": "1", "issues": ["off_line"]})
+        assert done_plan_numbers(raw_folder) == []
+
+        record_with_fake_tool(runner, session / "path_01_straight_line_episode_002", plan_note = "plan 01-02, end A, STD, START MARK, trial")
+        runner.status()
+        runner.save_review({"episode": "path_01_straight_line_episode_002", "score": "3"})
+        assert done_plan_numbers(raw_folder) == []
+
+        record_with_fake_tool(runner, session / "path_01_straight_line_episode_003", status = "discarded")
+        assert runner.status()["episode_to_score"] is None
+
+
 def request(
         method: str,
         path: str,
@@ -154,5 +278,9 @@ if __name__ == "__main__":
     test_refusals()
     test_form_text_stays_one_argument()
     test_only_one_tool_at_a_time()
+    test_plan_matches_the_episode_plan_file()
+    test_review_form()
+    test_episode_is_scored_before_the_next_start()
+    test_bad_trial_and_discarded_episodes_stay_undone()
     test_other_websites_cannot_start_the_robot()
     print("all tests passed")

@@ -5,6 +5,9 @@ The page only builds the command line and starts record_episodes.py, which then 
 orientation windows as it always does. It has no stop button on purpose: a running tool is stopped from its own windows or
 with the robot's Stop button, so an episode is never killed by accident. Only one tool can be started at a time.
 
+The page records one episode per Start, so that each carries its own plan number, and asks for a score after it. The score
+goes into a new file, review.json, beside the episode's files; nothing the tool wrote is changed.
+
 Run it from anywhere, then use the page it opens (http://127.0.0.1:8765):
     python recording_page.py
 Keep this program running during a session: the page's status and log come from it.
@@ -32,7 +35,9 @@ from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 CODE_FOLDER = Path(__file__).resolve().parent
 PROJECT_FOLDER = CODE_FOLDER.parent
 PLAN_NUMBER_PATTERN = re.compile(r"^\d{2}-\d{1,3}$")
+PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 LONGEST_NOTE = 200
+EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
 
 
 class FormError(ValueError):
@@ -139,7 +144,7 @@ def build_recording_command(
     note_parts += [extra_note] if extra_note else []
     note_parts += ["trial"] if is_trial else []
 
-    command = [sys.executable, "-u", str(CODE_FOLDER / "record_episodes.py"),
+    command = [sys.executable, "-u", str(CODE_FOLDER / "record_episodes.py"), "--single-episode",
                "--operator", operator, "--mode", mode, "--path-id", path_id,
                "--orientation", ", ".join(note_parts), "--lighting", lighting,
                "--start-index", str(start["start_index"]),
@@ -154,9 +159,96 @@ def build_recording_command(
 
 
 
+def expand_episode_plan(page_parameters: Dict = RECORDING_PAGE_PARAMETERS) -> Dict:
+    """
+    The episode plan as one entry per episode.
+
+    Returns
+    -------
+    dict
+        For each sheet, plan number ("02-07") -> {"start_code", "line_end", "note"}.
+    """
+
+    plan = {}
+    for path_id, blocks in page_parameters["episode_plan"].items():
+        sheet_number = page_parameters["sheets"][path_id]["number"]
+        plan[path_id] = {}
+        for first, last, codes, line_end, note in blocks:
+            for number in range(first, last + 1):
+                code = codes if isinstance(codes, str) else codes[number - first]
+                plan[path_id][f"{sheet_number}-{number:02d}"] = {"start_code": code, "line_end": line_end, "note": note}
+    return plan
+
+
+def read_json(path: Path) -> Optional[Dict]:
+    """The JSON file at ``path``, None when it is missing or unreadable."""
+
+    try:
+        return json.loads(path.read_text(encoding = "utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def done_plan_numbers(raw_folder: Path) -> List[str]:
+    """
+    The plan numbers already recorded well: a finished real episode, not a trial, scored 2 or 3.
+
+    A discarded or badly scored episode stays undone, so the page offers its plan number again.
+    """
+
+    done = set()
+    for review_path in raw_folder.glob("*_session_*/*_episode_*/review.json"):
+        review = read_json(review_path)
+        summary = read_json(review_path.parent / "episode.json")
+        if not review or not summary or review.get("score", 0) < 2 or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+            continue
+        note = str(summary.get("sheet_orientation", ""))
+        match = PLAN_IN_NOTE_PATTERN.search(note)
+        if match and not note.endswith("trial"):
+            done.add(match.group(1))
+    return sorted(done)
+
+
+def read_review_form(
+        form: Dict,
+        page_parameters: Dict = RECORDING_PAGE_PARAMETERS
+) -> Dict:
+    """
+    Check a score form.
+
+    Returns
+    -------
+    dict
+        {"score": 1 to 3, "issues": [...], "note": str}.
+
+    Raises
+    ------
+    FormError
+        When no score is chosen, an issue is unknown, or a score below 3 does not say what went wrong.
+    """
+
+    score = str(form.get("score"))
+    if score not in page_parameters["score_levels"]:
+        raise FormError("Choose a score from 1 to 3.")
+    issues = form.get("issues") or []
+    if not isinstance(issues, list) or any(issue not in page_parameters["score_issues"] for issue in issues):
+        raise FormError("The page sent an unknown issue. Reload it and try again.")
+    note = clean_note(form, "note", "Note")
+    if score != "3" and not issues and not note:
+        raise FormError("A score of 1 or 2 needs at least one tick or a note, so we can see later what went wrong.")
+    if "other" in issues and not note:
+        raise FormError('"Something else" needs a note saying what.')
+    return {"score": int(score), "issues": issues, "note": note}
+
+
+
 class ToolRunner:
 
-    def __init__(self, log_folder: Optional[Path] = None):
+    def __init__(
+            self,
+            log_folder: Optional[Path] = None,
+            data_folder: Path = PROJECT_FOLDER
+    ):
         """
         Start one tool at a time and keep its output in a log file.
 
@@ -164,9 +256,14 @@ class ToolRunner:
         ----------
         log_folder : Path, optional
             Where the logs go, by default "log_folder" in RECORDING_PAGE_PARAMETERS.
+        data_folder : Path, optional
+            The folder that holds 03_data; replaced in tests.
         """
 
         self.log_folder = log_folder or PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["log_folder"]
+        self.data_folder = data_folder
+        self.recording = None
+        self.episode_to_score = None
         self.process = None
         self.log_path = None
         self.title = None
@@ -193,6 +290,9 @@ class ToolRunner:
 
         if self.is_running():
             raise FormError(f"{self.title} is still running. Finish it from its own window first.")
+        self.__look_for_finished_episode()
+        if self.episode_to_score:
+            raise FormError(f"Score {self.episode_to_score['episode']} first.")
 
         self.log_folder.mkdir(parents = True, exist_ok = True)
         self.started_at = datetime.datetime.now()
@@ -209,6 +309,75 @@ class ToolRunner:
                                             stderr = subprocess.STDOUT, env = self.__tool_environment(), **isolation)
 
 
+    def start_recording(
+            self,
+            title: str,
+            command: List[str],
+            path_id: str,
+            is_simulated: bool
+    ) -> None:
+        """Start a recording and remember what to look for, so its episode can be scored when the tool ends."""
+
+        self.start(title, command)
+        self.recording = {"path_id": path_id, "raw_folder": self.__raw_folder(is_simulated), "started": self.started_at.timestamp()}
+
+
+    def __raw_folder(self, is_simulated: bool) -> Path:
+
+        folder = RECORDING_PAGE_PARAMETERS["simulated_raw_folder"] if is_simulated else RECORDING_PARAMETERS["raw_folder"]
+        return self.data_folder / folder
+
+
+    def __look_for_finished_episode(self) -> None:
+        """When a recording has ended, find its episode; only a finished one is scored (a discard already says why)."""
+
+        if self.recording is None or self.is_running():
+            return
+        recording, self.recording = self.recording, None
+        summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
+                     if path.stat().st_mtime >= recording["started"]]
+        if not summaries:
+            return
+        summary_path = max(summaries, key = lambda path: path.stat().st_mtime)
+        summary = read_json(summary_path)
+        if summary and summary.get("status") in EPISODE_STATUSES_TO_SCORE:
+            self.episode_to_score = {
+                "folder": summary_path.parent, "episode": summary_path.parent.name, "session": summary_path.parent.parent.name,
+                "operator": summary.get("operator"), "mode": summary.get("mode"), "status": summary.get("status"),
+                "outcome": summary.get("outcome"), "steps": summary.get("steps"), "mistake_steps": summary.get("mistake_steps"),
+                "lost_steps": summary.get("lost_steps"), "note": summary.get("sheet_orientation"), "is_simulated": summary.get("is_simulated")}
+
+
+    def save_review(self, form: Dict) -> None:
+        """
+        Write the score into a new review.json beside the episode, and a line into the session notes.
+
+        Raises
+        ------
+        FormError
+            When there is nothing to score, the form names another episode, or the form cannot be used.
+        """
+
+        episode = self.episode_to_score
+        if episode is None:
+            raise FormError("There is no episode waiting for a score.")
+        if form.get("episode") != episode["episode"]:
+            raise FormError("That form is for another episode. Reload the page.")
+        review = read_review_form(form)
+        review.update({"episode": episode["episode"], "session": episode["session"], "reviewer": episode["operator"],
+                       "reviewed_at": datetime.datetime.now().isoformat(timespec = "seconds")})
+        try:
+            with open(episode["folder"] / "review.json", "x", encoding = "utf-8") as review_file:
+                json.dump(review, review_file, indent = 2)
+        except FileExistsError as error:
+            raise FormError(f"{episode['episode']} already has a score.") from error
+
+        details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
+        with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
+            notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
+        self.episode_to_score = None
+
+
     @staticmethod
     def __tool_environment() -> Dict:
 
@@ -216,8 +385,9 @@ class ToolRunner:
 
 
     def status(self, log_lines: int = RECORDING_PAGE_PARAMETERS["log_lines_shown"]) -> Dict:
-        """What the page shows: whether a tool runs, how it ended, and the end of its log."""
+        """What the page shows: whether a tool runs, how it ended, the end of its log, and any episode to score."""
 
+        self.__look_for_finished_episode()
         log_text = ""
         if self.log_path and self.log_path.exists():
             with open(self.log_path, encoding = "utf-8", errors = "replace") as log_file:
@@ -229,7 +399,10 @@ class ToolRunner:
             "exit_code": None if self.process is None else self.process.poll(),
             "started_at": self.started_at.strftime("%H:%M:%S") if self.started_at else None,
             "log_path": str(self.log_path) if self.log_path else None,
-            "log": log_text
+            "log": log_text,
+            "episode_to_score": ({name: value for name, value in self.episode_to_score.items() if name != "folder"}
+                                 if self.episode_to_score else None),
+            "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"])
         }
 
 
@@ -280,7 +453,8 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "operators": RECORDING_PAGE_PARAMETERS["operators"], "modes": RECORDING_PAGE_PARAMETERS["modes"],
                 "sheets": RECORDING_PAGE_PARAMETERS["sheets"], "line_ends": RECORDING_PAGE_PARAMETERS["line_ends"],
                 "start_codes": RECORDING_PAGE_PARAMETERS["start_codes"], "safety_checks": RECORDING_PAGE_PARAMETERS["safety_checks"],
-                "camera_mount": RECORDING_PARAMETERS["camera_mount"]})
+                "score_levels": RECORDING_PAGE_PARAMETERS["score_levels"], "score_issues": RECORDING_PAGE_PARAMETERS["score_issues"],
+                "episode_plan": expand_episode_plan(), "camera_mount": RECORDING_PARAMETERS["camera_mount"]})
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes()})
         else:
@@ -302,7 +476,9 @@ class PageRequestHandler(BaseHTTPRequestHandler):
             if path == "/start":
                 command = build_recording_command(form)
                 title = "Practice recording" if form.get("is_simulated") is True else "Recording"
-                self.runner.start(title, command)
+                self.runner.start_recording(title, command, form["path_id"], form.get("is_simulated") is True)
+            elif path == "/review":
+                self.runner.save_review(form)
             elif path == "/check-robot":
                 self.runner.start("Check robot", [sys.executable, "-u", str(CODE_FOLDER / "check_hardware.py")])
             elif path == "/check-episodes":

@@ -222,6 +222,71 @@ RECORDING_PAGE_PARAMETERS = {
         "X1": {"label": "X: before the crossing, first pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
         "X2": {"label": "X: before the crossing, second pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 3, "needs_taught_start": True}
     },
+    "simulated_raw_folder": "03_data/raw_simulated",
+    # The score given after each episode (6.11.26, Marshal), so that bad episodes can be left out later. The issues are the
+    # rules of "How to demonstrate" in the episode plan.
+    "score_levels": {
+        "3": "Good: a clean example of how to demonstrate",
+        "2": "Usable: small flaws, but the model may learn from it",
+        "1": "Bad: leave out of training and record it again"
+    },
+    "score_issues": {
+        "not_steady": "Not smooth or steady",
+        "lost_contact": "Block lost contact with the puck",
+        "off_line": "Puck's centre left the line",
+        "rod_lean": "Rod leaned where it did not need to",
+        "forearm_turn": "Forearm turned without need, or not turned back",
+        "crossing": "Crossing or dashed gap not taken straight",
+        "offset_recovery": "Offset start not back on the line within 5 to 10 cm",
+        "finish": "Did not finish within about 1 cm of the end cap",
+        "start": "Hand in the first picture, or puck not placed well",
+        "other": "Something else (say what in the note)"
+    },
+    # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
+    "episode_plan": {
+        "path_01_straight_line": [
+            (1, 4, "STD", "A", ""), (5, 8, ["OL1", "OR1", "TL15", "TR15"], "A", ""),
+            (9, 12, "NE", "A", "Puck 6 cm before the end cap."),
+            (13, 16, "STD", "B", "The other end as the start: sheet turned round, the other cap on the mark."),
+            (17, 18, ["OL1.5", "OR1.5"], "A", ""), (19, 20, "NE", "A", "Puck 4 cm before the end cap.")
+        ],
+        "path_02_arc": [
+            (1, 3, "STD", "A", ""), (4, 6, "STD", "B", ""), (7, 8, ["OL1", "TR10"], "A", ""), (9, 10, ["OR1", "TL10"], "B", ""),
+            (11, 12, "NE", "A", ""), (13, 15, "STD", "A", ""), (16, 18, "STD", "B", ""),
+            (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 24, ["OL1.5", "OR1.5", "TR15"], "B", ""),
+            (25, 28, "NE", "B", ""), (29, 30, "STD", "A", ""), (31, 32, "STD", "B", ""),
+            (33, 35, "NE", "A", "Puck 4 cm before the end cap.")
+        ],
+        "path_03_two_curve": [
+            (1, 5, "STD", "A", ""), (6, 9, ["OL1", "OR1", "TL10", "TR10"], "A", ""), (10, 12, "NE", "A", ""),
+            (13, 17, "STD", "B", "Only if end B's trial reached the goal without strain; otherwise use end A."),
+            (18, 21, ["OL1", "OR1", "TL10", "TR10"], "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (22, 24, "NE", "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (25, 27, "STD", "A", ""), (28, 30, "STD", "B", ""),
+            (31, 33, ["OL1.5", "OR1.5", "TL15"], "A", ""), (34, 36, ["OL1.5", "OR1.5", "TR15"], "B", ""),
+            (37, 41, "MID", "A", "3 cm before the sharp turn, from the end you use most."),
+            (42, 43, "NE", "A", ""), (44, 45, "NE", "B", "")
+        ],
+        "path_04_meander": [
+            (1, 5, "STD", "A", ""), (6, 9, ["OL1", "OR1", "TL10", "TR10"], "A", ""), (10, 12, "NE", "A", ""), (13, 18, "STD", "A", ""),
+            (19, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1", "OR1"], "A", ""),
+            (25, 29, "MID", "A", "At the middle hairpin."),
+            (30, 34, "STD", "B", "Only if end B's trial reached the goal; otherwise use end A."),
+            (35, 38, ["OL1", "OR1", "TL10", "TR10"], "B", "End B, or end A if its trial did not reach the goal."),
+            (39, 42, "NE", "A", "4 to 6 cm before the end cap."), (43, 45, "NE", "B", "")
+        ],
+        "path_05_alpha_loop": [
+            (1, 6, "STD", "B", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "B", ""),
+            (11, 13, "X1", "B", "5 cm before the crossing, first pass."), (14, 19, "STD", "B", ""),
+            (20, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1"], "B", ""),
+            (25, 27, "X2", "B", "5 cm before the crossing, second pass."), (28, 30, "NE", "B", "")
+        ],
+        "path_06_alpha_loop_dashed": [
+            (1, 6, "STD", "A", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "A", "For OL1, the puck beside the first dash."),
+            (11, 13, "X1", "A", "5 cm before the crossing."), (14, 18, "STD", "A", ""),
+            (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 25, "NE", "A", "")
+        ]
+    },
     "safety_checks": [
         "NiryoStudio and every camera viewer are closed",
         "The Stop button is in reach and the table is clear around the robot",
