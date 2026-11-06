@@ -68,3 +68,6 @@ CHANGED later on 6.11.26 by Emranul, after Marshal's tests on sheet 04 (episodes
 or 5 deg, free leans and twists). Every row still keeps the move name (action, 11 classes), the exact step
 (tip_forward_m, tip_left_m, forearm_change_deg), the pose and the six joints, so the plan stays: train on the move
 names first, the exact numbers if that fails. Marshal is building a form to fill in each episode's notes first.
+MAIN DATA FOLDER (6.11.26, Emranul): the main data goes to 03_data/raw/main_data/ (config raw_folder), numbered
+from 001 per sheet; everything directly in 03_data/raw (episodes up to 048) is tool tests, never training data
+(config tool_test_folder). Today's camera reference x159_y-15mm was copied into main_data/camera_check/camera_reference.

@@ -559,7 +559,10 @@ RECORDING_PARAMETERS = {
         "h": "touched_by_hand",
         "m": "other"
     },
-    "raw_folder": "03_data/raw"
+    # The main data, recorded from 6.11.26 on (Emranul): episode numbers start again at 001 per sheet, apart from the
+    # tool tests up to episode 048, which stay in "tool_test_folder" and are never training data.
+    "raw_folder": "03_data/raw/main_data",
+    "tool_test_folder": "03_data/raw"
 }
 
 

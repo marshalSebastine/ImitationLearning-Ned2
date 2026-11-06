@@ -102,6 +102,7 @@ Last updated: 6.11.26 by Emranul's Recording and data session (puck tracking, ep
 - Next (6.11, Emranul): move to the first-floor table, re-teach (Claude updates config), camera check, one trial per sheet.
 - Decided 6.11 (Emranul, after Marshal's tests on sheet 04): record the main data with `hand_guided_exact`; every row
   keeps the move name, the exact step, the pose and the joints; train first on the move names, exact numbers later.
+- Main data from 6.11 in `03_data/raw/main_data/` (from 001 per sheet); the sessions directly in `03_data/raw` are tool tests.
   Open: raw-data backup and sharing (`03_data` is not in git).
 
 ## Model and training
