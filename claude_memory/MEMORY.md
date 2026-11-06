@@ -8,3 +8,4 @@
 - [Test before hardware changes](feedback-test-before-hardware-changes.md) — never advise a physical change on a theory; test first, say what is known vs guessed
 - [Recording tool](project-recording-tool.md) — picture-frame actions; keyboard, hand-guided, exact hand-guided (h corrects) and gamepad modes; all episodes up to 045 are tool tests; real data from 6.11.26 with exact hand guiding
 - [Never stop a running tool](feedback-never-stop-running-tool.md) — read the terminal first; stopping a tool mid-episode lost an episode
+- [Paper publication](project-paper-publication.md) — 4.11.26: Emranul's teleop-vs-hand-guiding idea plus seven more (education paper at RiE 2027 cheapest); workshop paper after the course; nothing decided

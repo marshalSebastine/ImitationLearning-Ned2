@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 to 5.11, forearm camera, gamepad and exact hand-guided modes).
+Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 to 5.11, forearm camera, gamepad and exact hand-guided modes); the Paper publication section was added on 4.11.26 by Emranul's paper-publication session.
 
 ## Dates that cannot move
 
@@ -115,6 +115,18 @@ Last updated: 5.11.26 by Emranul's Recording and data session (robot days 31.10 
   intervals, per-path-type reporting; the documentation rule is question 7 for meeting 2 (7 pages per the course catalogue).
 - Next: nothing until a trained model exists; keep the contribution log and the figures folder current.
 - Blocked on: a model.
+
+## Paper publication (side topic, asked for by Emranul on 3.11.26)
+
+- Done 4.11.26 (Emranul's paper-publication session, branch `claude/paper-publication-81bd4c`): assessment in
+  `06_deliverables/research_notes/Paper publication/2026-11-04_publication_assessment.md`. Verdict (a recommendation, not
+  yet decided): plan the paper for after the course; best candidate is a 4-page workshop paper (ICRA 2027 or RSS 2027
+  workshop, deadlines likely March to June 2027) comparing keyboard stepping with hand-guided replay for the one-picture
+  classifier (Emranul's own idea), occlusion and step-over as a section. Seven more ideas added on Emranul's request;
+  the cheapest is an education paper on the course project for Robotics in Education 2027 (Prague, deadline ~late Jan).
+- Next: no extra robot work before 10 Jan; pre-register the keyboard-against-replay comparison and the final evaluation,
+  keep every number, take figure photos; ask Prof. Nierhoff section 4's eleven questions; go or no-go in late January.
+- Blocked on: Prof. Nierhoff's view (co-authorship, publishing data and code).
 
 ## Open questions for the professor (meeting 2)
 
