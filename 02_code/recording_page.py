@@ -41,6 +41,7 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
+SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
 
 class FormError(ValueError):
@@ -226,6 +227,47 @@ def done_plan_numbers(raw_folder: Path) -> List[str]:
     return sorted(done)
 
 
+def add_score_to_name(
+        episode_folder: Path,
+        score: int
+) -> Path:
+    """
+    Add the score to an episode folder's name (Emranul, 6.11.26): _score_01 to _score_03, or _score_00 for a run that
+    failed (discarded, quit or broken off). The "episode" field in episode.json and review.json follows the new name.
+
+    Parameters
+    ----------
+    episode_folder : Path
+        The episode's folder, named by record_episodes.py.
+    score : int
+        The score given on the page, or 0 for a failed run.
+
+    Returns
+    -------
+    Path
+        The renamed folder, or the old one when Windows refuses (a window has the folder open); the session notes say so.
+    """
+
+    if SCORE_IN_NAME_PATTERN.search(episode_folder.name):
+        return episode_folder
+    new_folder = episode_folder.with_name(f"{episode_folder.name}_score_{score:02d}")
+    notes_path = episode_folder.parent / "session_notes.md"
+    try:
+        episode_folder.rename(new_folder)
+    except OSError as error:
+        with open(notes_path, "a", encoding = "utf-8") as notes_file:
+            notes_file.write(f"- {episode_folder.name}: not renamed to {new_folder.name} ({error.__class__.__name__}: the folder was open)" + "\n")
+        return episode_folder
+    for file_name in ("episode.json", "review.json"):
+        path = new_folder / file_name
+        if path.exists():
+            text = path.read_text(encoding = "utf-8")
+            path.write_text(text.replace(f'"{episode_folder.name}"', f'"{new_folder.name}"'), encoding = "utf-8")
+    with open(notes_path, "a", encoding = "utf-8") as notes_file:
+        notes_file.write(f"- {episode_folder.name} renamed to {new_folder.name}" + "\n")
+    return new_folder
+
+
 def read_review_form(
         form: Dict,
         page_parameters: Dict = RECORDING_PAGE_PARAMETERS
@@ -388,10 +430,17 @@ class ToolRunner:
         summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
                      if path.stat().st_mtime >= recording["started"]]
         if not summaries:
+            # A run broken off before its end (a crash, a closed window) leaves a folder without episode.json: a failed run.
+            broken = [folder for folder in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*")
+                      if folder.is_dir() and folder.stat().st_ctime >= recording["started"] and not (folder / "episode.json").exists()]
+            for folder in broken:
+                add_score_to_name(folder, 0)
             return
         summary_path = max(summaries, key = lambda path: path.stat().st_mtime)
         summary = read_json(summary_path)
-        if summary and summary.get("status") in EPISODE_STATUSES_TO_SCORE:
+        if not summary or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+            add_score_to_name(summary_path.parent, 0)
+        else:
             self.episode_to_score = {
                 "folder": summary_path.parent, "episode": summary_path.parent.name, "session": summary_path.parent.parent.name,
                 "operator": summary.get("operator"), "mode": summary.get("mode"), "status": summary.get("status"),
@@ -426,6 +475,7 @@ class ToolRunner:
         details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
         with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
             notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
+        add_score_to_name(episode["folder"], int(review["score"]))
         self.episode_to_score = None
 
 

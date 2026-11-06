@@ -2306,7 +2306,7 @@ class EpisodeRecorder:
         """
 
         raw_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"]
-        name_pattern = rf"{re.escape(self.path_id)}_episode_(\d+)(?:_plan_(\d\d-\d\d)_try_\d+)?"
+        name_pattern = rf"{re.escape(self.path_id)}_episode_(\d+)(?:_plan_(\d\d-\d\d)_try_\d+)?(?:_score_\d\d)?"
         folders = [(folder, match) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
                    if (match := re.fullmatch(name_pattern, folder.name))]
         name = f"{self.path_id}_episode_{max((int(match.group(1)) for _, match in folders), default = 0) + 1:03d}"

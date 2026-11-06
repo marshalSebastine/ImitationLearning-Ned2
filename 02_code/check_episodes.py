@@ -60,7 +60,7 @@ except Exception as import_error:
     camera_shift_px, forearm_camera_heading_rad = None, None
     RECORDING_TOOL_IMPORT_PROBLEM = repr(import_error)
 
-EPISODE_NAME = re.compile(r"(.+)_episode_(\d+)(?:_plan_\d\d-\d\d_try_\d+)?")
+EPISODE_NAME = re.compile(r"(.+)_episode_(\d+)(?:_plan_\d\d-\d\d_try_\d+)?(?:_score_\d\d)?")
 SESSION_NAME = re.compile(r"(\d{4}-\d{2}-\d{2})_session_(\d+)_(.+)")
 POSE_COLUMNS = ["x", "y", "z", "roll", "pitch", "yaw"]
 HAND_GUIDED_MODES = ("hand_guided", "hand_guided_exact")

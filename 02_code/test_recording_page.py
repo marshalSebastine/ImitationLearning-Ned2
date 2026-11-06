@@ -180,7 +180,7 @@ def record_with_fake_tool(runner: ToolRunner, episode_folder: Path, **episode) -
 
 
 def test_episode_is_scored_before_the_next_start() -> None:
-    """A finished episode blocks the next Start until scored; the score is a new file, and episode.json stays as it was."""
+    """A finished episode blocks the next Start until scored; the score is a new file, the folder name gains the score."""
 
     with tempfile.TemporaryDirectory() as folder:
         data_folder = Path(folder)
@@ -211,7 +211,10 @@ def test_episode_is_scored_before_the_next_start() -> None:
         assert not (episode_folder / "review.json").exists()
 
         runner.save_review({"episode": episode_folder.name, "score": "2", "issues": ["off_line"], "note": "drifted near the end"})
+        assert not episode_folder.exists()
+        episode_folder = episode_folder.with_name("path_01_straight_line_episode_001_score_02")
         review = json.loads((episode_folder / "review.json").read_text(encoding = "utf-8"))
+        assert review["episode"] == episode_folder.name, review
         assert review["score"] == 2 and review["issues"] == ["off_line"] and review["note"] == "drifted near the end", review
         assert review["reviewer"] == "emranul" and (episode_folder / "episode.json").read_bytes() == original
         notes = (episode_folder.parent / "session_notes.md").read_text(encoding = "utf-8")
@@ -243,6 +246,7 @@ def test_bad_trial_and_discarded_episodes_stay_undone() -> None:
 
         record_with_fake_tool(runner, session / "path_01_straight_line_episode_003", status = "discarded")
         assert runner.status()["episode_to_score"] is None
+        assert (session / "path_01_straight_line_episode_003_score_00").is_dir(), "a failed run is named score 00"
 
 
 def test_trial_is_found_with_the_tool_tests() -> None:
