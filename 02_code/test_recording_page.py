@@ -191,6 +191,13 @@ def test_episode_is_scored_before_the_next_start() -> None:
         record_with_fake_tool(runner, episode_folder)
         waiting = runner.status()["episode_to_score"]
         assert waiting["episode"] == episode_folder.name and waiting["outcome"] == "puck_in_goal" and "folder" not in waiting, waiting
+        # The picture check runs in the background while the episode is scored (Emranul, 7.11.26).
+        for _ in range(100):
+            check = runner.status()["picture_check"]
+            if check and check["is_done"]:
+                break
+            time.sleep(0.1)
+        assert check["episode"] == episode_folder.name and check["flagged_count"] == 0 and (episode_folder / "picture_check.json").exists(), check
         assert done_plan_numbers(raw_folder) == []
         original = (episode_folder / "episode.json").read_bytes()
 

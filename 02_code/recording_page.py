@@ -24,6 +24,7 @@ import shlex
 import socketserver
 import subprocess
 import sys
+import threading
 import time
 import webbrowser
 from http import HTTPStatus
@@ -35,6 +36,7 @@ from urllib.parse import urlparse
 import cv2
 import numpy
 
+from check_pictures import check_episode_pictures
 from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 
 
@@ -330,6 +332,8 @@ class ToolRunner:
         self.recording = None
         self.last_recording = None
         self.episode_to_score = None
+        self.picture_check = None
+        self.picture_check_thread = None
         self.robot_check = None
         self.robot_check_seen = None
         self.process = None
@@ -515,6 +519,36 @@ class ToolRunner:
                 "operator": summary.get("operator"), "mode": summary.get("mode"), "status": summary.get("status"),
                 "outcome": summary.get("outcome"), "steps": summary.get("steps"), "mistake_steps": summary.get("mistake_steps"),
                 "lost_steps": summary.get("lost_steps"), "note": summary.get("sheet_orientation"), "is_simulated": summary.get("is_simulated")}
+            self.__start_picture_check(summary_path.parent)
+
+
+    def __start_picture_check(self, episode_folder: Path) -> None:
+        """
+        Check the episode's pictures (check_pictures.py) in the background while it is scored (Emranul, 7.11.26); the
+        page polls the result. Checking 50 pictures takes a few seconds, too long for one status request.
+        """
+
+        self.picture_check = {"episode": episode_folder.name, "is_done": False}
+
+        def run_check() -> None:
+            try:
+                result = check_episode_pictures(episode_folder)
+                self.picture_check = {**result, "is_done": True}
+            except Exception as error:
+                # The check only advises; a fault in it must never stop scoring.
+                self.picture_check = {"episode": episode_folder.name, "is_done": True, "error": str(error).splitlines()[0]}
+
+        self.picture_check_thread = threading.Thread(target = run_check, daemon = True)
+        self.picture_check_thread.start()
+
+
+    def picture_check_sheet(self) -> Optional[Path]:
+        """The flagged pictures of the episode being scored (picture_check.jpg), or None."""
+
+        if not self.episode_to_score:
+            return None
+        sheet = self.episode_to_score["folder"] / "picture_check.jpg"
+        return sheet if sheet.is_file() else None
 
 
     def save_review(self, form: Dict) -> None:
@@ -544,6 +578,9 @@ class ToolRunner:
         details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
         with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
             notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
+        # The picture check writes into the folder; renaming it while a file is open there fails on Windows.
+        if self.picture_check_thread is not None:
+            self.picture_check_thread.join(timeout = RECORDING_PAGE_PARAMETERS["picture_check_wait_s"])
         add_score_to_name(episode["folder"], int(review["score"]))
         self.episode_to_score = None
 
@@ -574,6 +611,8 @@ class ToolRunner:
             "episode_to_score": ({name: value for name, value in self.episode_to_score.items() if name != "folder"}
                                  if self.episode_to_score else None),
             "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"]),
+            "picture_check": (self.picture_check if self.episode_to_score and self.picture_check
+                              and self.picture_check["episode"] == self.episode_to_score["episode"] else None),
             "robot_check": self.__robot_check_status()
         }
 
@@ -655,6 +694,12 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 self.__send(HTTPStatus.OK, picture.read_bytes(), "image/png")
             else:
                 self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that plan number."})
+        elif path == "/picture-check.jpg":
+            sheet = self.runner.picture_check_sheet()
+            if sheet:
+                self.__send(HTTPStatus.OK, sheet.read_bytes(), "image/jpeg")
+            else:
+                self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No flagged pictures."})
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes(),
                                              "taught_start": self.runner.taught_start(), "sharpness_warning": self.runner.sharpness_warning()})

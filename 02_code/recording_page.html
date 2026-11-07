@@ -75,6 +75,9 @@
       <section>
         <h2 id="review-title">How did this episode go?</h2>
         <dl class="facts" id="review-facts"></dl>
+        <div class="hint" id="picture-check-line" style="margin-bottom:6px"></div>
+        <ul id="picture-check-list" style="margin:0 0 8px;padding-left:18px"></ul>
+        <a id="picture-check-link" target="_blank" rel="noopener" hidden><img id="picture-check-image" alt="Flagged pictures of this episode" style="width:100%;max-width:640px;display:block;margin:6px 0 12px"></a>
         <div id="review-scores" role="radiogroup" aria-label="Score"></div>
       </section>
       <section>
@@ -189,6 +192,7 @@ let shownReview = null;
 let shownRobotCheck = null;
 let appliedTaughtStart = null;
 let shownSharpnessWarning = null;
+let shownPictureCheck = null;
 
 function fillSelect(select, entries) {
   select.replaceChildren(...entries.map(([value, label]) => new Option(label, value)));
@@ -424,6 +428,35 @@ function showSharpnessWarning(warning) {
                "Check the lens for dirt or fog and the light. Do not turn the focus ring. Discard (x) if the pictures stay blurred.");
 }
 
+// Picture check after each episode (check_pictures.py, Emranul 7.11.26): a popup once per episode, and the flagged
+// pictures under the episode's facts while it is scored.
+function showPictureCheck(check) {
+  const line = element("picture-check-line");
+  const list = element("picture-check-list");
+  const link = element("picture-check-link");
+  if (!check) { line.textContent = ""; list.replaceChildren(); link.hidden = true; return; }
+  if (!check.is_done) { line.textContent = "Checking the pictures…"; return; }
+  if (check.error) { line.textContent = `Picture check failed: ${check.error}`; return; }
+  line.textContent = `Picture check: ${check.flagged_count} of ${check.total} pictures flagged` +
+                     (check.flagged_count ? ". Look at them below; a flag means look, not wrong." : ".");
+  list.replaceChildren(...check.flagged.map(entry => {
+    const item = document.createElement("li");
+    item.textContent = `${entry.frame}: ${entry.reasons.join("; ")}`;
+    return item;
+  }));
+  const key = `${check.episode}:${check.flagged_count}`;
+  if (key === shownPictureCheck) return;
+  shownPictureCheck = key;
+  link.hidden = !check.flagged_count;
+  if (check.flagged_count) {
+    link.href = element("picture-check-image").src = `/picture-check.jpg?episode=${encodeURIComponent(check.episode)}`;
+    const listed = check.flagged.slice(0, 8).map(entry => `${entry.frame}: ${entry.reasons[0]}`).join("\n");
+    window.alert(`Picture check: ${check.flagged_count} of ${check.total} pictures flagged in ${check.episode}.\n\n${listed}` +
+                 (check.flagged_count > 8 ? `\n… and ${check.flagged_count - 8} more` : "") +
+                 "\n\nThe flagged pictures are shown under the score. Hands, a laptop or people in view: clear the table, and write it in the note.");
+  }
+}
+
 function stayAtEndOfLog(pre, text) {
   if (pre.textContent === text) return;
   const wasAtEnd = pre.scrollHeight - pre.scrollTop - pre.clientHeight < 30;
@@ -467,6 +500,7 @@ async function refreshStatus() {
   applyTaughtStart(status.taught_start);
   showSharpnessWarning(status.sharpness_warning);
   showReview(status.episode_to_score);
+  showPictureCheck(status.picture_check);
   applyRobotCheck(status.robot_check);
   if (JSON.stringify(status.done_plan_numbers) !== JSON.stringify(donePlanNumbers)) {
     donePlanNumbers = status.done_plan_numbers;

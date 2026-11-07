@@ -189,6 +189,33 @@ SIDE_VIEW_TEST_PARAMETERS = {
 # The local recording page (recording_page.py, 6.11.26): a form that starts record_episodes.py with the right options.
 # The start codes and sheet notes come from 06_deliverables/research_notes/Recording tool/2026-11-06_episode_plan_per_sheet.md;
 # a start that "needs_taught_start" has no default position, so its --start-x and --start-y must be filled in.
+# Picture check after each episode (check_pictures.py; Emranul, 7.11.26): pictures that may not belong in the training
+# data are flagged on the page while the episode is scored. Values from sheet 01 of 6.11.26 (736 pictures).
+PICTURE_CHECK_PARAMETERS = {
+    # Per picture, lower than the page's warning (a median of 5 under 100): sharp pictures showing mostly white paper
+    # measured 55 to 95 on 6.11.26; the hazy lens of 6.11.26 gave 37 (chosen limit just above).
+    "blurred_below": 40.0,
+    # Dark: HSV value under this; the black box, the camera housing and the blue arm sit in "robot_area_px" (left, top,
+    # right, bottom), where the camera on the forearm always sees them. The laptop and a person at the edge measured
+    # 1,800 to 60,000 px; small dark bits of clean table under 1,200 px (chosen limit between).
+    "dark_value_below": 70,
+    "robot_area_px": [200, 270, 600, 480],
+    "dark_patch_above_px": 1500,
+    # With the forearm turned further than this, the robot's own blue base comes into the picture's side (episode 008,
+    # turns of 73 to 105 degrees): the dark check is skipped there.
+    "dark_check_turn_most_deg": 45.0,
+    # Change between neighbouring pictures, mean grey difference at this size: a step of sheet 01 changed it by a median
+    # 4 to 9; a hand taken out after the first picture by 12 to 54. Flagged above this many times the episode's median,
+    # and above "change_minimum" (chosen).
+    "change_picture_size": [80, 60],
+    "change_ratio": 3.0,
+    "change_minimum": 10.0,
+    # picture_check.jpg: the flagged pictures side by side.
+    "sheet_tile_size": [320, 240],
+    "sheet_columns": 4,
+    "sheet_tiles_most": 24,
+}
+
 RECORDING_PAGE_PARAMETERS = {
     "host": "127.0.0.1",
     "port": 8765,
@@ -205,6 +232,8 @@ RECORDING_PAGE_PARAMETERS = {
     # after cleaning the lens 184 (episode 003). 100 lies between (a choice, not a measured limit).
     "sharpness_warning_below": 100.0,
     "sharpness_rows": 5,
+    # Saving a score waits at most this long for the picture check (check_pictures.py) to finish writing into the folder.
+    "picture_check_wait_s": 60,
     "operators": ["emranul", "marshal"],
     "modes": {
         "gamepad": "Gamepad",
