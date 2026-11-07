@@ -48,7 +48,8 @@ import cv2
 import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
-                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for, table_height)
+from forearm_camera_model import project_points
 from puck_detector import detect_puck
 from puck_tracking import PuckTracker
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
@@ -228,6 +229,50 @@ def red_region_mask(
     low = cv2.inRange(hsv, (0, saturation, value), (low_hue, 255, 255))
     high = cv2.inRange(hsv, (high_hue, saturation, value), (180, 255, 255))
     return cv2.bitwise_or(low, high)
+
+
+def puck_shape_in_picture(
+        table_xy: List[float],
+        joints: List[float],
+        camera_parameters: Dict,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> Optional[Dict]:
+    """
+    Where a puck standing at ``table_xy`` appears in the picture taken at ``joints``: its two rims projected with the
+    forearm camera model (7.11.26).
+
+    Parameters
+    ----------
+    table_xy : list of float
+        The puck's centre on the table, in metres in the robot's base frame.
+    joints : list of float
+        The six joint angles in radians when the picture is taken.
+    camera_parameters : dict
+        The fitted camera, as ``PuckTracker.camera_parameters``.
+    parameters : dict, optional
+        "puck_back_outline_points": points per rim.
+
+    Returns
+    -------
+    dict or None
+        "outline" (the whole puck's silhouette, the hull of both rims) and "footprint" (the bottom rim, where it
+        touches the paper), int32 pixel polygons of shape (N, 1, 2); None when part of the puck falls behind the
+        camera or outside the lens model.
+    """
+
+    angles = numpy.linspace(0.0, 2.0 * math.pi, int(parameters["puck_back_outline_points"]), endpoint = False)
+    radius = PUCK_PARAMETERS["diameter_m"] / 2
+    bottom = table_height(table_xy[0], table_xy[1])
+    rims = []
+    for height in (bottom, bottom + PUCK_PARAMETERS["height_m"]):
+        rims.append(numpy.column_stack([table_xy[0] + radius * numpy.cos(angles), table_xy[1] + radius * numpy.sin(angles),
+                                        numpy.full(angles.shape, height)]))
+    pixels = project_points(numpy.vstack(rims), joints, camera_parameters)
+    if numpy.isnan(pixels).any():
+        return None
+    pixels = numpy.round(pixels).astype(numpy.int32)
+    return {"outline": cv2.convexHull(pixels.reshape(-1, 1, 2)),
+            "footprint": pixels[:len(angles)].reshape(-1, 1, 2)}
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -1183,18 +1228,42 @@ class EpisodeRecorder:
             return
         centre = (int(round(target["pixel"][0])), int(round(target["pixel"][1])))
         radius = int(round(target["radius_px"]))
-        self.__say("put the puck into the green circle in the live picture (the zoom is in the corner), then Enter")
+        # 7.11.26 (Emranul): the puck's real shape from the camera model where the camera places it, with the share of
+        # it the live puck fills; the circle only when the camera cannot place the puck.
+        shape = None
+        if target.get("table_xy") is not None:
+            shape = puck_shape_in_picture(target["table_xy"], joints, self.puck_tracker.camera_parameters, self.recorder_parameters)
+        if shape is not None:
+            shape_mask = numpy.zeros(reference.shape[:2], numpy.uint8)
+            cv2.fillPoly(shape_mask, [shape["outline"]], 255)
+            reference_red = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(reference, self.recorder_parameters), shape_mask))
+            reference_red = max(float(reference_red), 1.0)
+        self.__say("put the puck into the green shape in the live picture (the zoom is in the corner), then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
             shown = picture.copy()
-            cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
-            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
             seen = self.__sight_puck(picture, joints)
+            if shape is None:
+                cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
+            else:
+                cv2.polylines(shown, [shape["outline"]], True, (0, 220, 0), 2)
+                cv2.polylines(shown, [shape["footprint"]], True, (0, 220, 0), 1)
+                if seen is not None and seen.get("table_xy") is not None:
+                    seen_shape = puck_shape_in_picture(seen["table_xy"], joints, self.puck_tracker.camera_parameters, self.recorder_parameters)
+                    if seen_shape is not None:
+                        cv2.polylines(shown, [seen_shape["outline"]], True, (0, 230, 255), 1)
+            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
             if seen is None:
-                text = "put the puck into the GREEN circle (no puck seen yet), then Enter"
+                text = "put the puck into the GREEN shape (no puck seen yet), then Enter"
             else:
                 cv2.drawMarker(shown, (int(round(seen["pixel"][0])), int(round(seen["pixel"][1]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
-                text = self.__puck_gap_text(target, seen) + ", then Enter"
+                text = self.__puck_gap_text(target, seen)
+                if shape is not None:
+                    # As a share of how much red the puck showed in this shape in the reference picture.
+                    fill = min(numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), shape_mask)) / reference_red, 1.0)
+                    is_filled = fill >= self.recorder_parameters["puck_back_good_fill"]
+                    text += f"; fills {100 * fill:.0f}% of the GREEN shape{' (good)' if is_filled else ''}"
+                text += ", then Enter"
             shown = self.__with_zoom(shown, centre)
             if self.recorder_parameters["is_window_shown"]:
                 show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))

@@ -696,6 +696,12 @@ RECORDING_PARAMETERS = {
     "puck_back_good_mm": 2.5,
     "puck_back_zoom_half_px": 50,
     "puck_back_zoom_scale": 2,
+    # 7.11.26 (Emranul): with the camera model, the puck's real shape where it stood (a cylinder 2.4 cm wide, 2.9 cm
+    # tall, projected into the picture) instead of a circle; drawn from this many points per rim. The shaded side is
+    # not red enough to count, so the puck fills 47 to 80% of its own shape (8 recorded pictures, 6 to 7.11.26): the
+    # live fill is said as a share of the reference picture's fill, "good" from this share up (chosen).
+    "puck_back_outline_points": 48,
+    "puck_back_good_fill": 0.9,
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least

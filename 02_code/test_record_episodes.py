@@ -587,9 +587,30 @@ def test_lean_and_hand_labels() -> None:
     assert tilted["hand_label"] == "none", tilted
 
 
+def test_puck_shape_sits_where_the_camera_places_the_puck() -> None:
+    """The projected puck surrounds the pixel the puck was placed from, and stands taller than wide from the side."""
+
+    import cv2
+    from forearm_camera_model import merged_camera_parameters, project_points
+    from config import table_height
+    from record_episodes import puck_shape_in_picture
+
+    camera_parameters = merged_camera_parameters()
+    # Joints of a recorded sheet-02 step with the forearm turned (episode 006, 7.11.26).
+    joints = [0.15, -1.022, -0.102, -0.594, 0.074, -0.107]
+    table_xy = [0.24, 0.0]
+    shape = puck_shape_in_picture(table_xy, joints, camera_parameters)
+    assert shape is not None
+    centre = project_points(numpy.array([table_xy[0], table_xy[1], table_height(*table_xy) + 0.0145]), joints, camera_parameters)[0]
+    assert cv2.pointPolygonTest(shape["outline"], (float(centre[0]), float(centre[1])), False) > 0
+    assert cv2.contourArea(shape["outline"]) > cv2.contourArea(shape["footprint"])
+
+
 if __name__ == "__main__":
     test_lean_and_hand_labels()
     print("test_lean_and_hand_labels: passed")
+    test_puck_shape_sits_where_the_camera_places_the_puck()
+    print("test_puck_shape_sits_where_the_camera_places_the_puck: passed")
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     test_camera_shift_is_measured()
