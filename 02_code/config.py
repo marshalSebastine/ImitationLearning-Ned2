@@ -650,6 +650,10 @@ RECORDING_PARAMETERS = {
     "lean_label_deg": 1.0,
     "hand_label_deg": 3.0,
     "forearm_label_deg": 3.0,
+    # 7.11.26 (Emranul): a label beside the move name saying the puck is at the goal, so the model learns when to stop
+    # from more than the one stop picture per episode. The goal is where the magnet tip stood at the stop step; a step
+    # is "at goal" when its tip is within this distance of it (chosen: about the last two pushes of 1 cm).
+    "at_goal_within_cm": 2.0,
     "exact_small_motion_m": 0.003,
     # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
     # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:

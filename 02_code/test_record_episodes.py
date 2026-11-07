@@ -197,6 +197,7 @@ def test_exact_replay(raw_folder: Path) -> None:
     guided_joints = [float(last_guided[f"joint_{index}"]) for index in range(1, 7)]
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
+    assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:

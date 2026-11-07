@@ -121,7 +121,7 @@ STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decisi
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
                 "rod_lean_deg", "lean_change_deg", "lean_label", "hand_change_deg", "hand_label", "forearm_label",
-                "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
+                "goal_distance_cm", "is_at_goal", "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
                 "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
@@ -177,6 +177,40 @@ def lean_and_hand_labels(
     forearm_label = "none" if abs(forearm_change) < parameters["forearm_label_deg"] else ("turn_left" if forearm_change > 0 else "turn_right")
     return {"rod_lean_deg": round(lean_now, 2), "lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
             "hand_change_deg": round(hand_change, 2), "hand_label": hand_label, "forearm_label": forearm_label}
+
+
+def goal_labels(
+        rows: List[Dict],
+        parameters: Dict = RECORDING_PARAMETERS
+) -> None:
+    """
+    Fill "goal_distance_cm" and "is_at_goal" in the step rows of one episode (7.11.26).
+
+    The goal is the magnet tip's place at the episode's last stop step (the arm model on that row's joints); each row's
+    distance is the straight line from its own tip to there. Without a stop step the episode never reached a goal,
+    so both columns stay empty.
+
+    Parameters
+    ----------
+    rows : list of dict
+        The episode's step rows with "action" and "joint_1" to "joint_6"; changed in place.
+    parameters : dict, optional
+        Supplies "at_goal_within_cm".
+    """
+
+    def tip_of(row: Dict) -> numpy.ndarray:
+        return magnet_tip_and_lean([float(row[f"joint_{number}"]) for number in range(1, 7)])[0][:2]
+
+    stops = [row for row in rows if row["action"] == "stop"]
+    if not stops:
+        for row in rows:
+            row["goal_distance_cm"], row["is_at_goal"] = "", ""
+        return
+    goal = tip_of(stops[-1])
+    for row in rows:
+        distance_cm = 100 * float(numpy.linalg.norm(tip_of(row) - goal))
+        row["goal_distance_cm"] = round(distance_cm, 2)
+        row["is_at_goal"] = int(distance_cm <= parameters["at_goal_within_cm"])
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -2243,6 +2277,7 @@ class EpisodeRecorder:
     ) -> Dict:
         """Write steps.csv and episode.json and a line in the session notes."""
 
+        goal_labels(rows, self.recorder_parameters)
         self.__write_steps(episode_folder, rows, "steps.csv")
         (episode_folder / "steps_in_progress.csv").unlink(missing_ok = True)
 
