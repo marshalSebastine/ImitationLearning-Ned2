@@ -213,6 +213,23 @@ def goal_labels(
         row["is_at_goal"] = int(distance_cm <= parameters["at_goal_within_cm"])
 
 
+def red_region_mask(
+        picture: numpy.ndarray,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> numpy.ndarray:
+    """
+    The red pixels of a picture (0 or 255), for a puck the detector cannot find because it is partly hidden (7.11.26:
+    after a correction on sheet 02 the puck stood half under the gripper's side and no ring appeared).
+    """
+
+    hsv = cv2.cvtColor(picture, cv2.COLOR_BGR2HSV)
+    saturation, value = parameters["puck_red_min_saturation"], parameters["puck_red_min_value"]
+    low_hue, high_hue = parameters["puck_red_hue_edges"]
+    low = cv2.inRange(hsv, (0, saturation, value), (low_hue, 255, 255))
+    high = cv2.inRange(hsv, (high_hue, saturation, value), (180, 255, 255))
+    return cv2.bitwise_or(low, high)
+
+
 def read_window_key(wait_ms: int) -> Optional[str]:
     """
     Read one key from the recording window.
@@ -1146,9 +1163,7 @@ class EpisodeRecorder:
         reference = cv2.imdecode(numpy.frombuffer(reference_bytes, numpy.uint8), cv2.IMREAD_COLOR)
         target = detect_puck(reference)
         if target is None:
-            self.__show_picture(reference_bytes, "REFERENCE: put the puck back where it is in this picture, then Enter")
-            self.__say("no puck found in the reference picture: put it back as the window shows, then Enter")
-            self.__wait_for(["enter"])
+            self.__guide_puck_back_by_outline(reference, reference_bytes)
             return
         centre = (int(round(target["centre_u"])), int(round(target["centre_v"])))
         radius = int(round(target["equivalent_radius_px"]))
@@ -1164,6 +1179,41 @@ class EpisodeRecorder:
                 distance = math.hypot(seen["centre_u"] - centre[0], seen["centre_v"] - centre[1])
                 cv2.drawMarker(shown, (int(round(seen["centre_u"])), int(round(seen["centre_v"]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
                 text = f"puck {distance:.0f} px from the GREEN circle's centre{' (good)' if distance <= self.recorder_parameters['puck_back_good_px'] else ''}, then Enter"
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return
+
+
+    def __guide_puck_back_by_outline(
+            self,
+            reference: numpy.ndarray,
+            reference_bytes: bytes
+    ) -> None:
+        """
+        For a puck the detector does not find in the reference (partly hidden): draw the outline of the red part that
+        was visible on the live picture, with how much of it the puck now covers, until Enter. Without any red in
+        the reference, the reference picture is shown instead.
+        """
+
+        target_mask = red_region_mask(reference, self.recorder_parameters)
+        count, labels, statistics, _ = cv2.connectedComponentsWithStats(target_mask)
+        if count < 2 or statistics[1:, cv2.CC_STAT_AREA].max() < self.recorder_parameters["puck_red_min_area_px"]:
+            self.__show_picture(reference_bytes, "REFERENCE: put the puck back where it is in this picture, then Enter")
+            self.__say("no puck found in the reference picture: put it back as the window shows, then Enter")
+            self.__wait_for(["enter"])
+            return
+        target_mask = numpy.where(labels == 1 + int(numpy.argmax(statistics[1:, cv2.CC_STAT_AREA])), 255, 0).astype(numpy.uint8)
+        contours, _ = cv2.findContours(target_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        target_area = float(numpy.count_nonzero(target_mask))
+        self.__say("the puck was partly hidden: put it so it fills the GREEN outline in the live picture, then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = picture.copy()
+            cv2.drawContours(shown, contours, -1, (0, 220, 0), 2)
+            covered = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), target_mask)) / target_area
+            is_good = covered >= self.recorder_parameters["puck_back_good_cover"]
+            text = f"puck covers {100 * covered:.0f}% of the GREEN outline{' (good)' if is_good else ''}, then Enter"
             if self.recorder_parameters["is_window_shown"]:
                 show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
             if self.key_reader(100) == "enter":

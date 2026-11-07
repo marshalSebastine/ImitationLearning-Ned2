@@ -147,6 +147,11 @@ def build_recording_command(
     extra_note = clean_note(form, "extra_note", "Extra note")
 
     start = page_parameters["start_codes"][start_code]
+    offset_deg = start["offset_deg"]
+    if start.get("lay_out"):
+        # Imported here: setup_visuals imports this module for the episode plan.
+        from setup_visuals import square_turn_deg
+        offset_deg = square_turn_deg(path_id, line_end, start["lay_out"])
     position = read_start_position(form)
     if start["needs_taught_start"] and position is None:
         raise FormError(f"{start_code} needs its taught Start x and Start y (teach_sheet_start.py).")
@@ -160,7 +165,7 @@ def build_recording_command(
                "--operator", operator, "--mode", mode, "--path-id", path_id,
                "--orientation", ", ".join(note_parts), "--lighting", lighting,
                "--start-index", str(start["start_index"]),
-               "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(start["offset_deg"])]
+               "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(offset_deg)]
     if position:
         command += ["--start-x", str(position[0]), "--start-y", str(position[1])]
     if plan_number and not is_trial:

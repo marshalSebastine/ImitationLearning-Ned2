@@ -119,9 +119,10 @@ def test_plan_matches_the_episode_plan_file() -> None:
 
     plan = expand_episode_plan()
     counts = {path_id: len(entries) for path_id, entries in plan.items()}
-    assert counts == {"path_01_straight_line": 20, "path_02_arc": 35, "path_03_two_curve": 45, "path_04_meander": 45,
+    assert counts == {"path_01_straight_line": 20, "path_02_arc": 45, "path_03_two_curve": 45, "path_04_meander": 45,
                       "path_05_alpha_loop": 30, "path_06_alpha_loop_dashed": 25}, counts
-    assert sum(counts.values()) == 200
+    # 210 since 7.11.26: sheet 02 gained 10 landscape episodes (square sheets as at the exam).
+    assert sum(counts.values()) == 210
     for entries in plan.values():
         for entry in entries.values():
             assert entry["start_code"] in RECORDING_PAGE_PARAMETERS["start_codes"] and entry["line_end"] in RECORDING_PAGE_PARAMETERS["line_ends"], entry
