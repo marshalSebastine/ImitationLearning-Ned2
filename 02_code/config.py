@@ -682,6 +682,12 @@ RECORDING_PARAMETERS = {
     # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
     # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
     "puck_back_good_px": 5,
+    # 7.11.26 (Marshal): the gap in mm on the table (forearm camera model) when the camera places the puck; "good"
+    # within this many mm (chosen: a quarter of the 1 cm step). An enlarged view of the circle's surroundings,
+    # this many pixels each way, this many times bigger, sits in the picture's top corner.
+    "puck_back_good_mm": 2.5,
+    "puck_back_zoom_half_px": 50,
+    "puck_back_zoom_scale": 2,
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least

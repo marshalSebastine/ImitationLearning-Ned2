@@ -1168,28 +1168,104 @@ class EpisodeRecorder:
         """
 
         reference = cv2.imdecode(numpy.frombuffer(reference_bytes, numpy.uint8), cv2.IMREAD_COLOR)
-        target = detect_puck(reference)
+        joints = [float(value) for value in self.robot_link.read_state()["joints"]]
+        # 7.11.26 (Marshal): more precise with the forearm turned far, where pixels stand for more or less table: the
+        # tracker fits a circle to a partly hidden puck too, and gives the table position, so the gap is said in mm.
+        target = self.__sight_puck(reference, joints)
         if target is None:
             self.__guide_puck_back_by_outline(reference, reference_bytes)
             return
-        centre = (int(round(target["centre_u"])), int(round(target["centre_v"])))
-        radius = int(round(target["equivalent_radius_px"]))
-        self.__say("put the puck into the green circle in the live picture, then Enter")
+        centre = (int(round(target["pixel"][0])), int(round(target["pixel"][1])))
+        radius = int(round(target["radius_px"]))
+        self.__say("put the puck into the green circle in the live picture (the zoom is in the corner), then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
             shown = picture.copy()
-            cv2.circle(shown, centre, radius + 3, (0, 220, 0), 2)
-            seen = detect_puck(picture)
+            cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
+            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
+            seen = self.__sight_puck(picture, joints)
             if seen is None:
                 text = "put the puck into the GREEN circle (no puck seen yet), then Enter"
             else:
-                distance = math.hypot(seen["centre_u"] - centre[0], seen["centre_v"] - centre[1])
-                cv2.drawMarker(shown, (int(round(seen["centre_u"])), int(round(seen["centre_v"]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
-                text = f"puck {distance:.0f} px from the GREEN circle's centre{' (good)' if distance <= self.recorder_parameters['puck_back_good_px'] else ''}, then Enter"
+                cv2.drawMarker(shown, (int(round(seen["pixel"][0])), int(round(seen["pixel"][1]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
+                text = self.__puck_gap_text(target, seen) + ", then Enter"
+            shown = self.__with_zoom(shown, centre)
             if self.recorder_parameters["is_window_shown"]:
                 show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
             if self.key_reader(100) == "enter":
                 return
+
+
+    def __sight_puck(
+            self,
+            picture: numpy.ndarray,
+            joints: List[float]
+    ) -> Optional[Dict]:
+        """The puck in ``picture`` as the tracker sees it ("pixel", "radius_px", "table_xy"), else the detector's view."""
+
+        try:
+            sighting = self.puck_tracker.see_puck(picture, joints)
+        except Exception:
+            # The tracker only advises; on a fault the plain detector still gives the pixel.
+            sighting = None
+        if sighting is not None:
+            return sighting
+        detection = detect_puck(picture)
+        if detection is None:
+            return None
+        return {"pixel": [detection["centre_u"], detection["centre_v"]], "radius_px": detection["equivalent_radius_px"], "table_xy": None}
+
+
+    def __puck_gap_text(
+            self,
+            target: Dict,
+            seen: Dict
+    ) -> str:
+        """
+        How far and which way the puck must still go: in mm on the table, as seen from behind the robot (away from or
+        towards the robot, left or right), when the camera places both; otherwise in pixels.
+        """
+
+        if target.get("table_xy") is None or seen.get("table_xy") is None:
+            distance = math.hypot(seen["pixel"][0] - target["pixel"][0], seen["pixel"][1] - target["pixel"][1])
+            is_good = distance <= self.recorder_parameters["puck_back_good_px"]
+            return f"puck {distance:.0f} px from the GREEN circle's centre{' (good)' if is_good else ''}"
+        gap = 1000 * (numpy.array(target["table_xy"], dtype = float) - numpy.array(seen["table_xy"], dtype = float))
+        # Away from the robot = along the line from the base through the puck; left = a quarter turn from that.
+        away = numpy.array(target["table_xy"], dtype = float)
+        away = away / max(float(numpy.linalg.norm(away)), 1e-9)
+        left = numpy.array([-away[1], away[0]])
+        away_mm, left_mm = float(gap @ away), float(gap @ left)
+        distance_mm = math.hypot(away_mm, left_mm)
+        if distance_mm <= self.recorder_parameters["puck_back_good_mm"]:
+            return f"puck {distance_mm:.0f} mm from its place (good)"
+        parts = []
+        if abs(away_mm) >= 1:
+            parts.append(f"{abs(away_mm):.0f} mm {'AWAY FROM' if away_mm > 0 else 'TOWARDS'} the robot")
+        if abs(left_mm) >= 1:
+            parts.append(f"{abs(left_mm):.0f} mm {'LEFT' if left_mm > 0 else 'RIGHT'}")
+        return f"move the puck {' and '.join(parts)} (seen from behind the robot)"
+
+
+    def __with_zoom(
+            self,
+            shown: numpy.ndarray,
+            centre: tuple
+    ) -> numpy.ndarray:
+        """``shown`` with an enlarged view around ``centre`` in the top corner away from it."""
+
+        half = self.recorder_parameters["puck_back_zoom_half_px"]
+        scale = self.recorder_parameters["puck_back_zoom_scale"]
+        height, width = shown.shape[:2]
+        left = min(max(centre[0] - half, 0), width - 2 * half)
+        top = min(max(centre[1] - half, 0), height - 2 * half)
+        zoom = cv2.resize(shown[top:top + 2 * half, left:left + 2 * half], (2 * half * scale, 2 * half * scale), interpolation = cv2.INTER_LINEAR)
+        size = zoom.shape[0]
+        corner_x = 0 if centre[0] > width / 2 else width - size
+        result = shown.copy()
+        result[0:size, corner_x:corner_x + size] = zoom
+        cv2.rectangle(result, (corner_x, 0), (corner_x + size - 1, size - 1), (255, 255, 255), 2)
+        return result
 
 
     def __guide_puck_back_by_outline(
