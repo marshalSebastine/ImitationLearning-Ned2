@@ -703,6 +703,8 @@ class EpisodeRecorder:
             "deliberate_offset": self.recorder_parameters["deliberate_offset"],
             "lighting_note": self.recorder_parameters["lighting_note"],
             "start_pose": self.__start_pose(),
+            "start_push_direction_deg": self.recorder_parameters["start_push_direction_deg"],
+            "start_turn_deg": self.recorder_parameters["start_turn_deg"],
             "step_m": self.recorder_parameters["step_m"],
             "step_budget": self.recorder_parameters["step_budget"],
             "max_turn_lean_deg": self.recorder_parameters["max_turn_lean_deg"],
@@ -825,6 +827,10 @@ class EpisodeRecorder:
         # block stood back drifted to 10 cm when sideways and back steps were taken in a turned picture.
         self.puck_xy_estimate = numpy.array(self.recorder_parameters["start_point_xy"], dtype = float)
         self.puck_sighting = None
+        if self.recorder_parameters["start_turn_deg"]:
+            # A taught start with the forearm turned (7.11.26): the arm stands there turned, see __lower_to_start.
+            self.forearm_turn_deg = self.recorder_parameters["start_turn_deg"]
+            self.tip_xy = self.__start_tip_xy()
         push = math.radians(self.recorder_parameters["start_push_direction_deg"])
         self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
         move_return_time = time.time()
@@ -2454,6 +2460,15 @@ class EpisodeRecorder:
         return [x, y, pushing_height(x, y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
 
 
+    def __start_tip_xy(self) -> List[float]:
+        """The magnet tip's start point: behind the puck, opposite to the first push ("start_push_direction_deg")."""
+
+        puck_x, puck_y = self.recorder_parameters["start_point_xy"]
+        push = math.radians(self.recorder_parameters["start_push_direction_deg"])
+        offset = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
+        return [puck_x - offset * math.cos(push), puck_y - offset * math.sin(push)]
+
+
     def __lower_to_start(self) -> None:
         """
         Come down onto the start pose from above, so the pusher does not sweep across the sheet.
@@ -2462,6 +2477,14 @@ class EpisodeRecorder:
         seen on 31.10.26 at x = 0.12 m); the joint-wise descent is then used, a slight arc over 5 cm before any contact.
         """
 
+        turn_deg = self.recorder_parameters["start_turn_deg"]
+        if turn_deg:
+            # A taught start with the forearm turned (7.11.26, Marshal): the same joint solver as the forearm turns,
+            # above the start first, then straight down onto it.
+            tip_xy = self.__start_tip_xy()
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False))
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0))
+            return
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
@@ -2677,6 +2700,8 @@ def main() -> None:
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
+    parser.add_argument("--start-push-deg", type = float, help = "the first push's table direction in degrees from +x (taught; default config)")
+    parser.add_argument("--start-turn-deg", type = float, default = 0.0, help = "the forearm's turn (joint 4) at the start in degrees (taught)")
     parser.add_argument("--new-session", action = "store_true", help = "open a new session folder even if one exists today")
     parser.add_argument("--simulated", action = "store_true", help = "use the simulated robot instead of the real one")
     parser.add_argument("--trial", action = "store_true",
@@ -2710,6 +2735,9 @@ def main() -> None:
         print(f"MEASUREMENT RUN: turned steps allowed up to a {arguments.max_turn_lean_deg} degree lean (config: {RECORDING_PARAMETERS['max_turn_lean_deg']})")
     if arguments.start_x is not None and arguments.start_y is not None:
         recorder_parameters["start_point_xy"] = [arguments.start_x, arguments.start_y]
+    if arguments.start_push_deg is not None:
+        recorder_parameters["start_push_direction_deg"] = arguments.start_push_deg
+    recorder_parameters["start_turn_deg"] = arguments.start_turn_deg
 
     if arguments.simulated:
         from robot_link import SimulatedRobotLink, simulated_hand_path

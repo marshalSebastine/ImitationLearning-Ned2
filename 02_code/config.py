@@ -564,6 +564,9 @@ RECORDING_PARAMETERS = {
     # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
+    # The forearm's turn (joint 4) at the start in degrees, 0 = straight; taught with teach_sheet_start.py since
+    # 7.11.26 (Marshal), so that the camera sees the puck at starts on a bend.
+    "start_turn_deg": 0.0,
     "turn_actions": {
         # 45 per press until test 3; 30 since (Emranul, 4.11.26): at the far end of sheet 04 (37 to 42 cm from the base)
         # a 90 or even 45 degree turn needs more than the 28 degree rod lean, a 30 degree turn does not (calc).

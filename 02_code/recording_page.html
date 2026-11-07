@@ -103,6 +103,8 @@
           <label class="field">Kind of start<select name="start_code" id="start_code"></select></label>
           <label class="field">Start x (m)<input name="start_x" id="start_x" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
           <label class="field">Start y (m)<input name="start_y" id="start_y" inputmode="decimal" placeholder="from config" autocomplete="off"></label>
+          <label class="field">Start push (deg)<input name="start_push_deg" id="start_push_deg" inputmode="decimal" placeholder="from teach" autocomplete="off"></label>
+          <label class="field">Start forearm turn (deg)<input name="start_turn_deg" id="start_turn_deg" inputmode="decimal" placeholder="from teach" autocomplete="off"></label>
           <div class="hint wide" id="start-hint"></div>
           <label class="field wide">Light in the room<input name="lighting" id="lighting" placeholder="ceiling lamps on, blinds closed" autocomplete="off"></label>
           <label class="field wide">Extra note (optional)<input name="extra_note" id="extra_note" autocomplete="off"></label>
@@ -216,6 +218,8 @@ function restoreTaughtStart() {
   const stored = JSON.parse(readStorage(taughtStartKey()) || "[]");
   element("start_x").value = stored[0] || "";
   element("start_y").value = stored[1] || "";
+  element("start_push_deg").value = stored[2] || "";
+  element("start_turn_deg").value = stored[3] || "";
 }
 
 function planForSheet() {
@@ -419,9 +423,11 @@ function applyTaughtStart(taught) {
   appliedTaughtStart = taught.taught_at;
   element("start_x").value = taught.x;
   element("start_y").value = taught.y;
-  writeStorage(taughtStartKey(), JSON.stringify([taught.x, taught.y]));
+  element("start_push_deg").value = taught.push_deg;
+  element("start_turn_deg").value = taught.turn_deg;
+  writeStorage(taughtStartKey(), JSON.stringify([taught.x, taught.y, taught.push_deg, taught.turn_deg]));
   updateHints();
-  showMessage(`Start point taught: x ${taught.x}, y ${taught.y}. Filled in for this kind of start.`);
+  showMessage(`Start point taught: x ${taught.x}, y ${taught.y}` + (taught.turn_deg ? `, push ${taught.push_deg} deg, forearm turn ${taught.turn_deg} deg` : "") + ". Filled in for this kind of start.");
 }
 
 function showSharpnessWarning(warning) {
@@ -600,7 +606,7 @@ async function initialise() {
     STORED_FIELDS.forEach(name => writeStorage(`field:${name}`, element(name).value));
     writeStorage("lighting", element("lighting").value);
     writeStorage("lighting-date", TODAY);
-    if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y]));
+    if (form.start_x && form.start_y) writeStorage(taughtStartKey(), JSON.stringify([form.start_x, form.start_y, form.start_push_deg || "", form.start_turn_deg || ""]));
     options.safety_checks_every_start.forEach(index => { document.querySelector(`[data-safety="${index}"]`).checked = false; });
   });
   element("review").addEventListener("submit", async event => {

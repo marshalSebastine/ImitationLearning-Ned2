@@ -47,7 +47,7 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
-TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)")
+TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)(?: --start-push-deg (-?[0-9.]+) --start-turn-deg (-?[0-9.]+))?")
 SETUP_PICTURE_PATH_PATTERN = re.compile(r"/setup-picture/[0-9]{2}-[0-9]{2}[.]png")
 SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
@@ -88,6 +88,23 @@ def read_start_position(form: Dict) -> Optional[List[float]]:
     if not (0.05 <= position[0] <= 0.60 and -0.40 <= position[1] <= 0.40):
         raise FormError("Start x and Start y look wrong: they are metres from the robot's base, for example 0.1707 and 0.0374.")
     return position
+
+
+def read_start_angles(form: Dict) -> Optional[List[float]]:
+    """The taught start's push direction and forearm turn in degrees (7.11.26), None when both boxes are empty."""
+
+    texts = [str(form.get(name) or "").strip() for name in ("start_push_deg", "start_turn_deg")]
+    if not any(texts):
+        return None
+    if not all(texts):
+        raise FormError("Fill in both start angles, or neither (they come from Teach start).")
+    try:
+        angles = [float(text) for text in texts]
+    except ValueError as error:
+        raise FormError("The start angles must be numbers in degrees, for example -35.2.") from error
+    if not (-180.0 <= angles[0] <= 180.0 and -170.0 <= angles[1] <= 170.0):
+        raise FormError("The start angles look wrong: push direction -180 to 180 degrees, forearm turn -170 to 170.")
+    return angles
 
 
 def build_recording_command(
@@ -168,6 +185,9 @@ def build_recording_command(
                "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(offset_deg)]
     if position:
         command += ["--start-x", str(position[0]), "--start-y", str(position[1])]
+        angles = read_start_angles(form)
+        if angles:
+            command += ["--start-push-deg", str(angles[0]), "--start-turn-deg", str(angles[1])]
     if plan_number and not is_trial:
         command += ["--plan-number", plan_number]
     if form.get("is_new_session") is True:
@@ -405,7 +425,8 @@ class ToolRunner:
         match = TAUGHT_START_IN_LOG_PATTERN.search(self.log_path.read_text(encoding = "utf-8", errors = "replace"))
         if not match:
             return None
-        return {"x": match.group(1), "y": match.group(2), "taught_at": self.started_at.strftime("%H:%M:%S")}
+        return {"x": match.group(1), "y": match.group(2), "push_deg": match.group(3) or "", "turn_deg": match.group(4) or "",
+                "taught_at": self.started_at.strftime("%H:%M:%S")}
 
 
     def sharpness_warning(self) -> Optional[Dict]:

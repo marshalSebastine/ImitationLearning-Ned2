@@ -60,6 +60,18 @@ def test_command_carries_the_form() -> None:
     assert "--single-episode" in command
 
 
+def test_taught_start_angles_reach_the_tool() -> None:
+    """The taught push direction and forearm turn (7.11.26) go to the tool with the taught point; one alone is refused."""
+
+    command = build_recording_command(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05",
+                                                start_push_deg = "-35.5", start_turn_deg = "40.2"))
+    assert option_value(command, "--start-push-deg") == "-35.5" and option_value(command, "--start-turn-deg") == "40.2", command
+    assert "--start-turn-deg" not in build_recording_command(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05"))
+    assert_refused(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05", start_turn_deg = "40"), "both start angles")
+    match = recording_page.TAUGHT_START_IN_LOG_PATTERN.search("with:  --start-x 0.2500 --start-y -0.0500 --start-push-deg -35.5 --start-turn-deg 40.2")
+    assert match.groups() == ("0.2500", "-0.0500", "-35.5", "40.2"), match.groups()
+
+
 def test_notes_and_flags() -> None:
 
     command = build_recording_command(good_form(start_code = "NE", start_x = "0.31", start_y = "0.02", extra_note = "new lamp",
@@ -392,6 +404,7 @@ def test_blurred_pictures_raise_a_warning() -> None:
 if __name__ == "__main__":
     test_command_carries_the_form()
     test_notes_and_flags()
+    test_taught_start_angles_reach_the_tool()
     test_refusals()
     test_form_text_stays_one_argument()
     test_only_one_tool_at_a_time()
