@@ -189,6 +189,33 @@ SIDE_VIEW_TEST_PARAMETERS = {
 # The local recording page (recording_page.py, 6.11.26): a form that starts record_episodes.py with the right options.
 # The start codes and sheet notes come from 06_deliverables/research_notes/Recording tool/2026-11-06_episode_plan_per_sheet.md;
 # a start that "needs_taught_start" has no default position, so its --start-x and --start-y must be filled in.
+# Picture check after each episode (check_pictures.py; Emranul, 7.11.26): pictures that may not belong in the training
+# data are flagged on the page while the episode is scored. Values from sheet 01 of 6.11.26 (736 pictures).
+PICTURE_CHECK_PARAMETERS = {
+    # Per picture, as the page's warning: sharp pictures showing mostly white paper measured 55 to 95 on 6.11.26 and
+    # 40 to 60 in the dim room of 7.11.26 (lights off on purpose); the hazy lens of 6.11.26 gave 37 (chosen 30).
+    "blurred_below": 30.0,
+    # Dark: HSV value under this; the black box, the camera housing and the blue arm sit in "robot_area_px" (left, top,
+    # right, bottom), where the camera on the forearm always sees them. The laptop and a person at the edge measured
+    # 1,800 to 60,000 px; small dark bits of clean table under 1,200 px (chosen limit between).
+    "dark_value_below": 70,
+    "robot_area_px": [200, 270, 600, 480],
+    "dark_patch_above_px": 1500,
+    # With the forearm turned further than this, the robot's own blue base comes into the picture's side (episode 008,
+    # turns of 73 to 105 degrees): the dark check is skipped there.
+    "dark_check_turn_most_deg": 45.0,
+    # Change between neighbouring pictures, mean grey difference at this size: a step of sheet 01 changed it by a median
+    # 4 to 9; a hand taken out after the first picture by 12 to 54. Flagged above this many times the episode's median,
+    # and above "change_minimum" (chosen).
+    "change_picture_size": [80, 60],
+    "change_ratio": 3.0,
+    "change_minimum": 10.0,
+    # picture_check.jpg: the flagged pictures side by side.
+    "sheet_tile_size": [320, 240],
+    "sheet_columns": 4,
+    "sheet_tiles_most": 24,
+}
+
 RECORDING_PAGE_PARAMETERS = {
     "host": "127.0.0.1",
     "port": 8765,
@@ -203,8 +230,13 @@ RECORDING_PAGE_PARAMETERS = {
     # the running episode's last "sharpness_rows" pictures, or of its camera check picture before the first step, is
     # under "sharpness_warning_below". Measured: 4 to 5.11.26 episode medians 133 to 178; 6.11.26 with a hazy lens 37;
     # after cleaning the lens 184 (episode 003). 100 lies between (a choice, not a measured limit).
-    "sharpness_warning_below": 100.0,
+    # 7.11.26 (Emranul): lowered from 100 to 30 for recording in a dim room on purpose (lights off, cloudy: sharp
+    # pictures measured 40 to 60, checked by eye); a dirty lens in bright light gave 37, so a smeared picture is still
+    # caught by the picture check only when it falls under 30.
+    "sharpness_warning_below": 30.0,
     "sharpness_rows": 5,
+    # Saving a score waits at most this long for the picture check (check_pictures.py) to finish writing into the folder.
+    "picture_check_wait_s": 60,
     "operators": ["emranul", "marshal"],
     "modes": {
         "gamepad": "Gamepad",
@@ -213,7 +245,7 @@ RECORDING_PAGE_PARAMETERS = {
     },
     "sheets": {
         "path_01_straight_line": {"number": "01", "label": "01 straight line", "plan": "20 episodes, either end"},
-        "path_02_arc": {"number": "02", "label": "02 arc", "plan": "35 episodes, both ends"},
+        "path_02_arc": {"number": "02", "label": "02 arc", "plan": "45 episodes, both ends, 16 with the sheet square"},
         "path_03_two_curve": {"number": "03", "label": "03 two curves", "plan": "45 episodes, end A first, end B if it reaches"},
         "path_04_meander": {"number": "04", "label": "04 meander", "plan": "45 episodes, end A, end B if it reaches"},
         "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, the lower end (B) only"},
@@ -230,6 +262,13 @@ RECORDING_PAGE_PARAMETERS = {
         "TR10": {"label": "TR10: sheet turned 10 degrees right", "offset_cm": 0.0, "offset_deg": -10.0, "start_index": 0, "needs_taught_start": False},
         "TL15": {"label": "TL15: sheet turned 15 degrees left", "offset_cm": 0.0, "offset_deg": 15.0, "start_index": 0, "needs_taught_start": False},
         "TR15": {"label": "TR15: sheet turned 15 degrees right", "offset_cm": 0.0, "offset_deg": -15.0, "start_index": 0, "needs_taught_start": False},
+        # 7.11.26 (Emranul and Marshal): at the exam the sheet lies square to the robot, portrait or landscape, for a
+        # tidy look; a line that starts at an angle (the arc) then meets the first push at that angle. The turn from
+        # the STD lay-out is worked out per sheet and end (setup_visuals.square_turn_deg), so "offset_deg" stays 0 here.
+        "SQP": {"label": "SQP: sheet square to the robot, portrait", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False,
+                "lay_out": "portrait"},
+        "SQL": {"label": "SQL: sheet square to the robot, landscape", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 0, "needs_taught_start": False,
+                "lay_out": "landscape"},
         "NE": {"label": "NE: 4 to 8 cm before the end", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 1, "needs_taught_start": True},
         "MID": {"label": "MID: before a hard spot", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
         "X1": {"label": "X: before the crossing, first pass", "offset_cm": 0.0, "offset_deg": 0.0, "start_index": 2, "needs_taught_start": True},
@@ -269,6 +308,8 @@ RECORDING_PAGE_PARAMETERS = {
         "TR10": "The sheet turned 10 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
         "TL15": "The sheet turned 15 degrees LEFT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
         "TR15": "The sheet turned 15 degrees RIGHT about the start cap; the cap stays on the mark, so the first push meets the line at an angle.",
+        "SQP": "Start cap on the START MARK, the sheet upright (PORTRAIT) with its edges square to the robot, as drawn; the first push meets the line at its own angle. Puck centred on the start cap.",
+        "SQL": "Start cap on the START MARK, the sheet sideways (LANDSCAPE) with its edges square to the robot, as drawn; the first push meets the line at its own angle. Puck centred on the start cap.",
         "NE": "The puck on the line 4 to 8 cm before the end cap. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
         "MID": "A start before a hard spot: 3 cm before the sharp turn (sheet 03) or at the middle hairpin (sheet 04). Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
         "X1": "5 cm before the crossing, first pass. Teach the point once per sheet layout with teach_sheet_start.py, then place the puck's centre half a centimetre further from the robot than the point you touched.",
@@ -306,10 +347,12 @@ RECORDING_PAGE_PARAMETERS = {
         ],
         "path_02_arc": [
             (1, 3, "STD", "A", ""), (4, 6, "STD", "B", ""), (7, 8, ["OL1", "TR10"], "A", ""), (9, 10, ["OR1", "TL10"], "B", ""),
-            (11, 12, "NE", "A", ""), (13, 15, "STD", "A", ""), (16, 18, "STD", "B", ""),
+            # 7.11.26 (Emranul and Marshal): square sheets as at the exam, 6 portrait (13 to 18, not yet recorded, were
+            # STD) and 10 landscape (36 to 45, new); numbers already recorded keep their meaning.
+            (11, 12, "NE", "A", ""), (13, 15, "SQP", "A", ""), (16, 18, "SQP", "B", ""),
             (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 24, ["OL1.5", "OR1.5", "TR15"], "B", ""),
             (25, 28, "NE", "B", ""), (29, 30, "STD", "A", ""), (31, 32, "STD", "B", ""),
-            (33, 35, "NE", "A", "Puck 4 cm before the end cap.")
+            (33, 35, "NE", "A", "Puck 4 cm before the end cap."), (36, 40, "SQL", "A", ""), (41, 45, "SQL", "B", "")
         ],
         "path_03_two_curve": [
             (1, 5, "STD", "A", ""), (6, 9, ["OL1", "OR1", "TL10", "TR10"], "A", ""), (10, 12, "NE", "A", ""),
@@ -521,6 +564,9 @@ RECORDING_PARAMETERS = {
     # The table direction of the first push at the start point, in degrees from +x: the rod starts behind the puck
     # on the opposite side. 0 for sheets laid with the start end nearest the robot and the line running away.
     "start_push_direction_deg": 0.0,
+    # The forearm's turn (joint 4) at the start in degrees, 0 = straight; taught with teach_sheet_start.py since
+    # 7.11.26 (Marshal), so that the camera sees the puck at starts on a bend.
+    "start_turn_deg": 0.0,
     "turn_actions": {
         # 45 per press until test 3; 30 since (Emranul, 4.11.26): at the far end of sheet 04 (37 to 42 cm from the base)
         # a 90 or even 45 degree turn needs more than the 28 degree rod lean, a 30 degree turn does not (calc).
@@ -632,12 +678,43 @@ RECORDING_PARAMETERS = {
     "exact_waypoint_m": 0.01,
     "exact_waypoint_joint_deg": 5.0,
     "exact_turn_label_deg": 15.0,
+    # A lift in joint space, for when the straight 5 cm lift is refused (6.11.26: refused with error -3 after every hand
+    # correction of sheet 01, so the arm went to the parking pose and back). Calculated with the arm model at the three
+    # correction poses of 6.11.26: these changes raise the magnet tip 38 mm and move it at most 2 mm sideways.
+    "joint_lift_change_rad": {"joint_2": 0.12, "joint_3": -0.05},
+    # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
+    # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
+    "puck_back_good_px": 5,
+    # 7.11.26 (Marshal): the gap in mm on the table (forearm camera model) when the camera places the puck; "good"
+    # within this many mm (chosen: a quarter of the 1 cm step). An enlarged view of the circle's surroundings,
+    # this many pixels each way, this many times bigger, sits in the picture's top corner.
+    "puck_back_good_mm": 2.5,
+    "puck_back_zoom_half_px": 50,
+    "puck_back_zoom_scale": 2,
+    # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
+    # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
+    # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least
+    # "puck_red_min_area_px" red pixels count as the puck; "good" when the puck covers this share of the outline.
+    "puck_red_hue_edges": [10, 165],
+    "puck_red_min_saturation": 90,
+    "puck_red_min_value": 50,
+    "puck_red_min_area_px": 150,
+    "puck_back_good_cover": 0.9,
     # Two labels beside the move name (Emranul and Marshal, 6.11.26): the rod's lean towards the picture's top or
     # bottom (episode 01-10: leaned so the black box on the hand no longer hid the puck) and the hand's turn about the
     # rod (joint 6; pushing with the block's corner at hairpins). A change of at least this many degrees in one step is
-    # labelled; smaller changes are "none". Chosen, not measured: above the 1 to 2 degree jitter of hand guiding.
-    "lean_label_deg": 3.0,
+    # labelled; smaller changes are "none". The review of 20 episodes (6.11.26 evening) found the lean growing by a
+    # median 1.6 degrees per step to 40 to 50 degrees, so 3 degrees labelled only 24 of 671 steps: the lean threshold
+    # is 1 degree since, and every row also carries the rod's lean itself (rod_lean_deg). The forearm's turns grew by
+    # under 12 degrees per step, below "exact_turn_label_deg", so no step was a turn: forearm_label marks a forearm
+    # change of at least "forearm_label_deg" beside the move name.
+    "lean_label_deg": 1.0,
     "hand_label_deg": 3.0,
+    "forearm_label_deg": 3.0,
+    # 7.11.26 (Emranul): a label beside the move name saying the puck is at the goal, so the model learns when to stop
+    # from more than the one stop picture per episode. The goal is where the magnet tip stood at the stop step; a step
+    # is "at goal" when its tip is within this distance of it (chosen: about the last two pushes of 1 cm).
+    "at_goal_within_cm": 2.0,
     "exact_small_motion_m": 0.003,
     # Gamepad mode (5.11.26, Emranul: the keyboard teleop kept hitting limits that hand guiding does not have). One step
     # per decision, read from the pad when a stick leaves its dead zone or a hand button is pressed:

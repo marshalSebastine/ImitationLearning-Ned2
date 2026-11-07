@@ -45,6 +45,9 @@ class RobotLink:
             self.robot.close_connection()
             raise RuntimeError("the robot needs its automatic calibration first (run calibrate_robot.py); "
                                "until then it accepts moves without performing them")
+        # 7.11.26: a refused move left the collision flag set after the tool had stopped, and the next run was refused
+        # at its first move. Clearing it at connection lets a new run start; it moves nothing.
+        self.robot.clear_collision_detected()
         self.velocity_percent = velocity_percent
         self.robot.set_arm_max_velocity(velocity_percent)
 
@@ -66,8 +69,8 @@ class RobotLink:
             raise RuntimeError(f"the hand would turn to {math.degrees(turned[5]):.0f} degrees, beyond joint 6's limit")
         self.robot.set_arm_max_velocity(velocity_percent)
         try:
-            self.robot.move(JointsPosition(*turned))
-            self.robot.move(JointsPosition(*joints))
+            self.__move(JointsPosition(*turned))
+            self.__move(JointsPosition(*joints))
         finally:
             self.robot.set_arm_max_velocity(self.velocity_percent)
 
@@ -89,7 +92,7 @@ class RobotLink:
         joints = self.solve_joints(pose)
         if joints[4] > limit:
             pose = self.__leaned_within_limit(pose, joints[4], limit)
-        self.robot.move(PoseObject(*pose), linear = is_linear)
+        self.__move(PoseObject(*pose), linear = is_linear)
 
 
     def solve_joints(self, pose: List[float]) -> List[float]:
@@ -151,16 +154,39 @@ class RobotLink:
                            f"{limit} rad, and no lean up to {RECORDING_PARAMETERS['auto_lean_max_deg']} degrees brings it within")
 
 
+    def __move(
+            self,
+            target,
+            **move_options
+    ) -> None:
+        """
+        One move of the robot; when it is refused, the collision flag is cleared before the refusal is passed on.
+
+        7.11.26: after a hand correction the straight lift was refused with error -3 ("collision or a motor not able to
+        follow"); the robot then refused every further move until clear_collision_detected() was called, so the joint
+        lift and the move to the parking pose failed too, and the tool stopped with the arm low over the sheet.
+        """
+
+        try:
+            self.robot.move(target, **move_options)
+        except Exception:
+            try:
+                self.robot.clear_collision_detected()
+            except Exception:
+                pass
+            raise
+
+
     def move_home(self, home_joints: List[float]) -> None:
         """Move to the joint angles ``home_joints``."""
 
-        self.robot.move(JointsPosition(*home_joints))
+        self.__move(JointsPosition(*home_joints))
 
 
     def move_joints(self, joints: List[float]) -> None:
         """Move to the joint angles ``joints``; returns when the move is finished."""
 
-        self.robot.move(JointsPosition(*joints))
+        self.__move(JointsPosition(*joints))
 
 
     def predicted_position(self, joints: List[float]) -> List[float]:

@@ -60,6 +60,18 @@ def test_command_carries_the_form() -> None:
     assert "--single-episode" in command
 
 
+def test_taught_start_angles_reach_the_tool() -> None:
+    """The taught push direction and forearm turn (7.11.26) go to the tool with the taught point; one alone is refused."""
+
+    command = build_recording_command(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05",
+                                                start_push_deg = "-35.5", start_turn_deg = "40.2"))
+    assert option_value(command, "--start-push-deg") == "-35.5" and option_value(command, "--start-turn-deg") == "40.2", command
+    assert "--start-turn-deg" not in build_recording_command(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05"))
+    assert_refused(good_form(start_code = "NE", start_x = "0.25", start_y = "-0.05", start_turn_deg = "40"), "both start angles")
+    match = recording_page.TAUGHT_START_IN_LOG_PATTERN.search("with:  --start-x 0.2500 --start-y -0.0500 --start-push-deg -35.5 --start-turn-deg 40.2")
+    assert match.groups() == ("0.2500", "-0.0500", "-35.5", "40.2"), match.groups()
+
+
 def test_notes_and_flags() -> None:
 
     command = build_recording_command(good_form(start_code = "NE", start_x = "0.31", start_y = "0.02", extra_note = "new lamp",
@@ -119,9 +131,10 @@ def test_plan_matches_the_episode_plan_file() -> None:
 
     plan = expand_episode_plan()
     counts = {path_id: len(entries) for path_id, entries in plan.items()}
-    assert counts == {"path_01_straight_line": 20, "path_02_arc": 35, "path_03_two_curve": 45, "path_04_meander": 45,
+    assert counts == {"path_01_straight_line": 20, "path_02_arc": 45, "path_03_two_curve": 45, "path_04_meander": 45,
                       "path_05_alpha_loop": 30, "path_06_alpha_loop_dashed": 25}, counts
-    assert sum(counts.values()) == 200
+    # 210 since 7.11.26: sheet 02 gained 10 landscape episodes (square sheets as at the exam).
+    assert sum(counts.values()) == 210
     for entries in plan.values():
         for entry in entries.values():
             assert entry["start_code"] in RECORDING_PAGE_PARAMETERS["start_codes"] and entry["line_end"] in RECORDING_PAGE_PARAMETERS["line_ends"], entry
@@ -191,6 +204,13 @@ def test_episode_is_scored_before_the_next_start() -> None:
         record_with_fake_tool(runner, episode_folder)
         waiting = runner.status()["episode_to_score"]
         assert waiting["episode"] == episode_folder.name and waiting["outcome"] == "puck_in_goal" and "folder" not in waiting, waiting
+        # The picture check runs in the background while the episode is scored (Emranul, 7.11.26).
+        for _ in range(100):
+            check = runner.status()["picture_check"]
+            if check and check["is_done"]:
+                break
+            time.sleep(0.1)
+        assert check["episode"] == episode_folder.name and check["flagged_count"] == 0 and (episode_folder / "picture_check.json").exists(), check
         assert done_plan_numbers(raw_folder) == []
         original = (episode_folder / "episode.json").read_bytes()
 
@@ -384,6 +404,7 @@ def test_blurred_pictures_raise_a_warning() -> None:
 if __name__ == "__main__":
     test_command_carries_the_form()
     test_notes_and_flags()
+    test_taught_start_angles_reach_the_tool()
     test_refusals()
     test_form_text_stays_one_argument()
     test_only_one_tool_at_a_time()

@@ -179,7 +179,7 @@ def test_exact_replay(raw_folder: Path) -> None:
         joints_path.append(joints)
     hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(36)]
     robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
-    keys = ["enter", "enter"] + [None] * 40 + [" ", "enter", "enter", "g"] + [None] * 30 + ["enter", "y", "escape"]
+    keys = ["enter", "enter"] + [None] * 40 + [" ", "enter", "enter", "enter", "g"] + [None] * 30 + ["enter", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
         key_reader = scripted_keys(keys))
@@ -197,6 +197,7 @@ def test_exact_replay(raw_folder: Path) -> None:
     guided_joints = [float(last_guided[f"joint_{index}"]) for index in range(1, 7)]
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
+    assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
@@ -218,7 +219,7 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(20)]
     robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
     guiding = ["enter"] + [None] * 24 + [" ", "enter"]
-    keys = (["enter"] + guiding + ["enter", "enter", "enter", "h"] + guiding + ["enter", "g"] + [None] * 20
+    keys = (["enter"] + guiding + ["enter", "enter", "enter", "enter", "h"] + guiding + ["enter", "enter", "g"] + [None] * 20
             + ["enter", "y", "escape"])
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
@@ -359,6 +360,29 @@ def test_turn_hint(raw_folder: Path) -> None:
     assert back_left[0] < 0 and back_left[1] > 0, back_left
     assert back_right[0] < 0 and back_right[1] < 0, back_right
     assert math.isclose(math.hypot(*back_left), 0.01) and math.isclose(math.hypot(*back_right), 0.01)
+
+
+def test_taught_start_turns_the_forearm(raw_folder: Path) -> None:
+    """
+    A taught start with the forearm turned 30 degrees and the first push at 30 degrees (7.11.26): the arm stands at the
+    start with joint 4 at 30 degrees, behind the puck in the push direction, and the episode stores both angles.
+    """
+
+    start_xy = [0.26, 0.04]
+    robot_link = SimulatedRobotLink({"puck_xy": start_xy})
+    keys = ["enter", " ", "y", "escape"]
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_xy,
+        "start_push_direction_deg": 30.0, "start_turn_deg": 30.0}, key_reader = scripted_keys(keys))
+    recorder.record_session("keyboard")
+
+    episode_folder, summary, rows = read_episode(raw_folder)
+    assert summary["start_turn_deg"] == 30.0 and summary["start_push_direction_deg"] == 30.0, summary
+    assert math.isclose(math.degrees(float(rows[0]["joint_4"])), 30.0, abs_tol = 0.5), rows[0]["joint_4"]
+    from side_view_test import magnet_tip_and_lean
+    tip = magnet_tip_and_lean([float(rows[0][f"joint_{number}"]) for number in range(1, 7)])[0][:2]
+    behind = numpy.array(start_xy) - RECORDING_PARAMETERS["puck_centre_ahead_of_tip_m"] * numpy.array([math.cos(math.radians(30.0)), math.sin(math.radians(30.0))])
+    assert numpy.linalg.norm(tip - behind) < 0.002, (tip, behind)
 
 
 def test_keyboard_episode(raw_folder: Path) -> None:
@@ -553,6 +577,9 @@ def test_lean_and_hand_labels() -> None:
     heading = 0.0
     still = lean_and_hand_labels(joints, joints, heading)
     assert still["lean_label"] == "none" and still["hand_label"] == "none" and still["hand_change_deg"] == 0.0, still
+    assert still["forearm_label"] == "none" and isinstance(still["rod_lean_deg"], float), still
+    twisted = lean_and_hand_labels(joints, joints[:3] + [math.radians(5.0)] + joints[4:], heading)
+    assert twisted["forearm_label"] == "turn_left", twisted
     turned = lean_and_hand_labels(joints, joints[:5] + [math.radians(10.0)], heading)
     assert turned["hand_label"] == "hand_plus" and math.isclose(turned["hand_change_deg"], 10.0, abs_tol = 0.01), turned
     tilted = lean_and_hand_labels(joints, joints[:4] + [joints[4] + math.radians(10.0), 0.0], heading)
@@ -569,7 +596,7 @@ if __name__ == "__main__":
     print("test_camera_shift_is_measured: passed")
     test_status_bar_wraps_long_hints()
     print("test_status_bar_wraps_long_hints: passed")
-    for test in (test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
+    for test in (test_taught_start_turns_the_forearm, test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode,
                  test_gamepad_raises_and_lowers_the_tip,

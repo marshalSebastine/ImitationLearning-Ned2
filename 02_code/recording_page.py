@@ -24,6 +24,7 @@ import shlex
 import socketserver
 import subprocess
 import sys
+import threading
 import time
 import webbrowser
 from http import HTTPStatus
@@ -35,6 +36,7 @@ from urllib.parse import urlparse
 import cv2
 import numpy
 
+from check_pictures import check_episode_pictures
 from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
 
 
@@ -45,7 +47,7 @@ PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
 LONGEST_NOTE = 200
 EPISODE_STATUSES_TO_SCORE = ("completed", "step_budget_reached")
-TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)")
+TAUGHT_START_IN_LOG_PATTERN = re.compile(r"--start-x (-?[0-9.]+) --start-y (-?[0-9.]+)(?: --start-push-deg (-?[0-9.]+) --start-turn-deg (-?[0-9.]+))?")
 SETUP_PICTURE_PATH_PATTERN = re.compile(r"/setup-picture/[0-9]{2}-[0-9]{2}[.]png")
 SCORE_IN_NAME_PATTERN = re.compile(r"_score_\d\d$")
 
@@ -86,6 +88,23 @@ def read_start_position(form: Dict) -> Optional[List[float]]:
     if not (0.05 <= position[0] <= 0.60 and -0.40 <= position[1] <= 0.40):
         raise FormError("Start x and Start y look wrong: they are metres from the robot's base, for example 0.1707 and 0.0374.")
     return position
+
+
+def read_start_angles(form: Dict) -> Optional[List[float]]:
+    """The taught start's push direction and forearm turn in degrees (7.11.26), None when both boxes are empty."""
+
+    texts = [str(form.get(name) or "").strip() for name in ("start_push_deg", "start_turn_deg")]
+    if not any(texts):
+        return None
+    if not all(texts):
+        raise FormError("Fill in both start angles, or neither (they come from Teach start).")
+    try:
+        angles = [float(text) for text in texts]
+    except ValueError as error:
+        raise FormError("The start angles must be numbers in degrees, for example -35.2.") from error
+    if not (-180.0 <= angles[0] <= 180.0 and -170.0 <= angles[1] <= 170.0):
+        raise FormError("The start angles look wrong: push direction -180 to 180 degrees, forearm turn -170 to 170.")
+    return angles
 
 
 def build_recording_command(
@@ -145,6 +164,11 @@ def build_recording_command(
     extra_note = clean_note(form, "extra_note", "Extra note")
 
     start = page_parameters["start_codes"][start_code]
+    offset_deg = start["offset_deg"]
+    if start.get("lay_out"):
+        # Imported here: setup_visuals imports this module for the episode plan.
+        from setup_visuals import square_turn_deg
+        offset_deg = square_turn_deg(path_id, line_end, start["lay_out"])
     position = read_start_position(form)
     if start["needs_taught_start"] and position is None:
         raise FormError(f"{start_code} needs its taught Start x and Start y (teach_sheet_start.py).")
@@ -158,9 +182,12 @@ def build_recording_command(
                "--operator", operator, "--mode", mode, "--path-id", path_id,
                "--orientation", ", ".join(note_parts), "--lighting", lighting,
                "--start-index", str(start["start_index"]),
-               "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(start["offset_deg"])]
+               "--offset-cm", str(start["offset_cm"]), "--offset-deg", str(offset_deg)]
     if position:
         command += ["--start-x", str(position[0]), "--start-y", str(position[1])]
+        angles = read_start_angles(form)
+        if angles:
+            command += ["--start-push-deg", str(angles[0]), "--start-turn-deg", str(angles[1])]
     if plan_number and not is_trial:
         command += ["--plan-number", plan_number]
     if form.get("is_new_session") is True:
@@ -330,6 +357,8 @@ class ToolRunner:
         self.recording = None
         self.last_recording = None
         self.episode_to_score = None
+        self.picture_check = None
+        self.picture_check_thread = None
         self.robot_check = None
         self.robot_check_seen = None
         self.process = None
@@ -396,7 +425,8 @@ class ToolRunner:
         match = TAUGHT_START_IN_LOG_PATTERN.search(self.log_path.read_text(encoding = "utf-8", errors = "replace"))
         if not match:
             return None
-        return {"x": match.group(1), "y": match.group(2), "taught_at": self.started_at.strftime("%H:%M:%S")}
+        return {"x": match.group(1), "y": match.group(2), "push_deg": match.group(3) or "", "turn_deg": match.group(4) or "",
+                "taught_at": self.started_at.strftime("%H:%M:%S")}
 
 
     def sharpness_warning(self) -> Optional[Dict]:
@@ -515,6 +545,36 @@ class ToolRunner:
                 "operator": summary.get("operator"), "mode": summary.get("mode"), "status": summary.get("status"),
                 "outcome": summary.get("outcome"), "steps": summary.get("steps"), "mistake_steps": summary.get("mistake_steps"),
                 "lost_steps": summary.get("lost_steps"), "note": summary.get("sheet_orientation"), "is_simulated": summary.get("is_simulated")}
+            self.__start_picture_check(summary_path.parent)
+
+
+    def __start_picture_check(self, episode_folder: Path) -> None:
+        """
+        Check the episode's pictures (check_pictures.py) in the background while it is scored (Emranul, 7.11.26); the
+        page polls the result. Checking 50 pictures takes a few seconds, too long for one status request.
+        """
+
+        self.picture_check = {"episode": episode_folder.name, "is_done": False}
+
+        def run_check() -> None:
+            try:
+                result = check_episode_pictures(episode_folder)
+                self.picture_check = {**result, "is_done": True}
+            except Exception as error:
+                # The check only advises; a fault in it must never stop scoring.
+                self.picture_check = {"episode": episode_folder.name, "is_done": True, "error": str(error).splitlines()[0]}
+
+        self.picture_check_thread = threading.Thread(target = run_check, daemon = True)
+        self.picture_check_thread.start()
+
+
+    def picture_check_sheet(self) -> Optional[Path]:
+        """The flagged pictures of the episode being scored (picture_check.jpg), or None."""
+
+        if not self.episode_to_score:
+            return None
+        sheet = self.episode_to_score["folder"] / "picture_check.jpg"
+        return sheet if sheet.is_file() else None
 
 
     def save_review(self, form: Dict) -> None:
@@ -544,6 +604,9 @@ class ToolRunner:
         details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
         with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
             notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
+        # The picture check writes into the folder; renaming it while a file is open there fails on Windows.
+        if self.picture_check_thread is not None:
+            self.picture_check_thread.join(timeout = RECORDING_PAGE_PARAMETERS["picture_check_wait_s"])
         add_score_to_name(episode["folder"], int(review["score"]))
         self.episode_to_score = None
 
@@ -574,6 +637,8 @@ class ToolRunner:
             "episode_to_score": ({name: value for name, value in self.episode_to_score.items() if name != "folder"}
                                  if self.episode_to_score else None),
             "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"]),
+            "picture_check": (self.picture_check if self.episode_to_score and self.picture_check
+                              and self.picture_check["episode"] == self.episode_to_score["episode"] else None),
             "robot_check": self.__robot_check_status()
         }
 
@@ -655,6 +720,12 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 self.__send(HTTPStatus.OK, picture.read_bytes(), "image/png")
             else:
                 self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that plan number."})
+        elif path == "/picture-check.jpg":
+            sheet = self.runner.picture_check_sheet()
+            if sheet:
+                self.__send(HTTPStatus.OK, sheet.read_bytes(), "image/jpeg")
+            else:
+                self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No flagged pictures."})
         elif path == "/status":
             self.__send_json(HTTPStatus.OK, {**self.runner.status(), "code": code_state(), "notes": latest_session_notes(),
                                              "taught_start": self.runner.taught_start(), "sharpness_warning": self.runner.sharpness_warning()})

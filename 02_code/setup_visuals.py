@@ -33,6 +33,7 @@ PROJECT_FOLDER = CODE_FOLDER.parent
 DISTANCE_IN_NOTE_PATTERN = re.compile(r"(\d+(?:\.\d+)?)(?: to (\d+(?:\.\d+)?))? cm before the end cap")
 RESAMPLE_STEP_CM = 0.1
 TURN_CODES = ("TL10", "TR10", "TL15", "TR15")
+SQUARE_CODES = ("SQP", "SQL")
 TAUGHT_CODES = ("NE", "MID", "X1", "X2")
 
 
@@ -180,6 +181,37 @@ def near_end_distance_cm(
 
 
 
+def square_turn_rad(
+        turn_to_push_rad: float,
+        lay_out: str
+) -> float:
+    """
+    The smallest extra turn that makes the sheet's edges square to the robot after ``turn_to_push_rad``: "portrait"
+    puts the long edges along the push direction, "landscape" across it.
+    """
+
+    # The paper's long edges run along its own y axis; turned by an angle, they point that angle plus 90 degrees.
+    wanted = math.pi / 2 if lay_out == "portrait" else 0.0
+    extra = (wanted - turn_to_push_rad) % math.pi
+    return extra - math.pi if extra > math.pi / 2 else extra
+
+
+def square_turn_deg(
+        path_id: str,
+        line_end: str,
+        lay_out: str,
+        parameters: Dict = SETUP_VISUALS_PARAMETERS
+) -> float:
+    """The extra turn in degrees (positive to the LEFT) from the STD lay-out to the square one, for one sheet and end."""
+
+    settings = dict(SETUP_VISUALS_PARAMETERS)
+    settings.update(parameters)
+    sheet = load_sheet_lines(settings)[RECORDING_PAGE_PARAMETERS["sheets"][path_id]["number"]]
+    end = sheet["ends"][settings["end_keys"][line_end]]
+    push_angle = math.atan2(WORKSPACE_PARAMETERS["push_direction_xy"][1], WORKSPACE_PARAMETERS["push_direction_xy"][0])
+    return round(math.degrees(square_turn_rad(push_angle - math.radians(end["direction_into_line_deg"]), lay_out)), 1)
+
+
 def compute_setup(
         path_id: str,
         plan_number: str,
@@ -238,8 +270,11 @@ def compute_setup(
     start_cap = place(numpy.array(end["cap_centre_xy_cm"]))
     end_cap = place(numpy.array(other_end["cap_centre_xy_cm"]))
 
-    # A turned start: the sheet turned about the start cap, which stays where it was.
+    # A turned start: the sheet turned about the start cap, which stays where it was; a square start turns it until
+    # its edges are square to the robot.
     offset_deg = start["offset_deg"]
+    if start.get("lay_out"):
+        offset_deg = round(math.degrees(square_turn_rad(turn_to_push, start["lay_out"])), 1)
     turned_paper = rotate(standard_paper, math.radians(offset_deg), start_cap)
     placed_line = rotate(placed_line, math.radians(offset_deg), start_cap)
     end_cap = rotate(end_cap, math.radians(offset_deg), start_cap)
@@ -320,6 +355,9 @@ def short_instruction(setup: Dict) -> str:
     if code in TURN_CODES:
         side = "LEFT" if setup["offset_deg"] > 0 else "RIGHT"
         return f"Sheet turned {abs(setup['offset_deg']):g} deg {side} about the start cap; puck on the cap"
+    if code in SQUARE_CODES:
+        lay_out = RECORDING_PAGE_PARAMETERS["start_codes"][code]["lay_out"].upper()
+        return f"Sheet square to the robot, {lay_out}; puck centred on the start cap"
     if code in TAUGHT_CODES:
         return f"Puck {setup['spot']} (from the plan, not taught)"
     side = "LEFT" if setup["offset_cm"] > 0 else "RIGHT"
@@ -341,6 +379,10 @@ def caption_for(setup: Dict) -> str:
     elif code in TURN_CODES:
         side = "LEFT" if setup["offset_deg"] > 0 else "RIGHT"
         what = f"Then turn the sheet {abs(setup['offset_deg']):g} degrees {side} about the start cap (cap stays on the mark). Puck on the start cap."
+    elif code in SQUARE_CODES:
+        lay_out = RECORDING_PAGE_PARAMETERS["start_codes"][code]["lay_out"].upper()
+        what = (f"Then turn the sheet about the start cap until it lies {lay_out} with its edges square to the robot, as drawn "
+                f"(cap stays on the mark). Puck centred on the start cap.")
     else:
         what = (f"Puck on the line {setup['spot']}, about {setup['puck_arc_cm']:.0f} cm along the line from the start (drawn from the plan, "
                 f"not taught yet): touch the cross with the magnet tip, puck centre 0.5 cm further out.")

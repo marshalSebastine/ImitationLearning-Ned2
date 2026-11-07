@@ -49,6 +49,7 @@ import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
                     action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+from puck_detector import detect_puck
 from puck_tracking import PuckTracker
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
@@ -119,8 +120,8 @@ ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "H
 STEP_COLUMNS = ["step", "unix_time", "move_return_time", "capture_time", "decision_time", "frame", "frame_md5", "sharpness",
                 "action", "source", "is_mistake", "is_lost", "forearm_turn_deg", "picture_heading_deg",
                 "waypoint", "tip_forward_m", "tip_left_m", "forearm_change_deg",
-                "lean_change_deg", "lean_label", "hand_change_deg", "hand_label",
-                "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
+                "rod_lean_deg", "lean_change_deg", "lean_label", "hand_change_deg", "hand_label", "forearm_label",
+                "goal_distance_cm", "is_at_goal", "pad_move_x", "pad_move_y", "pad_twist", "pad_lean", "pad_hand", "pad_up", "pad_down", "tip_height_above_push_m",
                 "x", "y", "z", "roll", "pitch", "yaw",
                 "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"]
 
@@ -160,17 +161,73 @@ def lean_and_hand_labels(
     Returns
     -------
     dict
-        "lean_change_deg" (positive: the tip leans further towards the picture's top), "lean_label" ("lean_forward",
-        "lean_back" or "none"), "hand_change_deg" (joint 6, positive as the joint counts) and "hand_label"
-        ("hand_plus", "hand_minus" or "none"; the joint's sign, not yet checked against the picture's left and right).
+        "rod_lean_deg" (the rod's lean towards the picture's top at ``joints_now``), "lean_change_deg" (positive: the
+        tip leans further towards the picture's top), "lean_label" ("lean_forward", "lean_back" or "none"),
+        "hand_change_deg" (joint 6, positive as the joint counts), "hand_label" ("hand_plus", "hand_minus" or "none";
+        the joint's sign, not yet checked against the picture's left and right) and "forearm_label" ("turn_left",
+        "turn_right" or "none", with the sign of the "turn_left" move).
     """
 
-    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - rod_lean_forward_deg(joints_now, heading_rad)
+    lean_now = rod_lean_forward_deg(joints_now, heading_rad)
+    lean_change = rod_lean_forward_deg(joints_next, heading_rad) - lean_now
     hand_change = math.degrees(joints_next[5] - joints_now[5])
+    forearm_change = math.degrees(joints_next[3] - joints_now[3])
     lean_label = "none" if abs(lean_change) < parameters["lean_label_deg"] else ("lean_forward" if lean_change > 0 else "lean_back")
     hand_label = "none" if abs(hand_change) < parameters["hand_label_deg"] else ("hand_plus" if hand_change > 0 else "hand_minus")
-    return {"lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
-            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label}
+    forearm_label = "none" if abs(forearm_change) < parameters["forearm_label_deg"] else ("turn_left" if forearm_change > 0 else "turn_right")
+    return {"rod_lean_deg": round(lean_now, 2), "lean_change_deg": round(lean_change, 2), "lean_label": lean_label,
+            "hand_change_deg": round(hand_change, 2), "hand_label": hand_label, "forearm_label": forearm_label}
+
+
+def goal_labels(
+        rows: List[Dict],
+        parameters: Dict = RECORDING_PARAMETERS
+) -> None:
+    """
+    Fill "goal_distance_cm" and "is_at_goal" in the step rows of one episode (7.11.26).
+
+    The goal is the magnet tip's place at the episode's last stop step (the arm model on that row's joints); each row's
+    distance is the straight line from its own tip to there. Without a stop step the episode never reached a goal,
+    so both columns stay empty.
+
+    Parameters
+    ----------
+    rows : list of dict
+        The episode's step rows with "action" and "joint_1" to "joint_6"; changed in place.
+    parameters : dict, optional
+        Supplies "at_goal_within_cm".
+    """
+
+    def tip_of(row: Dict) -> numpy.ndarray:
+        return magnet_tip_and_lean([float(row[f"joint_{number}"]) for number in range(1, 7)])[0][:2]
+
+    stops = [row for row in rows if row["action"] == "stop"]
+    if not stops:
+        for row in rows:
+            row["goal_distance_cm"], row["is_at_goal"] = "", ""
+        return
+    goal = tip_of(stops[-1])
+    for row in rows:
+        distance_cm = 100 * float(numpy.linalg.norm(tip_of(row) - goal))
+        row["goal_distance_cm"] = round(distance_cm, 2)
+        row["is_at_goal"] = int(distance_cm <= parameters["at_goal_within_cm"])
+
+
+def red_region_mask(
+        picture: numpy.ndarray,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> numpy.ndarray:
+    """
+    The red pixels of a picture (0 or 255), for a puck the detector cannot find because it is partly hidden (7.11.26:
+    after a correction on sheet 02 the puck stood half under the gripper's side and no ring appeared).
+    """
+
+    hsv = cv2.cvtColor(picture, cv2.COLOR_BGR2HSV)
+    saturation, value = parameters["puck_red_min_saturation"], parameters["puck_red_min_value"]
+    low_hue, high_hue = parameters["puck_red_hue_edges"]
+    low = cv2.inRange(hsv, (0, saturation, value), (low_hue, 255, 255))
+    high = cv2.inRange(hsv, (high_hue, saturation, value), (180, 255, 255))
+    return cv2.bitwise_or(low, high)
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -646,6 +703,8 @@ class EpisodeRecorder:
             "deliberate_offset": self.recorder_parameters["deliberate_offset"],
             "lighting_note": self.recorder_parameters["lighting_note"],
             "start_pose": self.__start_pose(),
+            "start_push_direction_deg": self.recorder_parameters["start_push_direction_deg"],
+            "start_turn_deg": self.recorder_parameters["start_turn_deg"],
             "step_m": self.recorder_parameters["step_m"],
             "step_budget": self.recorder_parameters["step_budget"],
             "max_turn_lean_deg": self.recorder_parameters["max_turn_lean_deg"],
@@ -673,6 +732,10 @@ class EpisodeRecorder:
             return self.__finish_episode(episode_folder, summary, [])
 
         if mode in ("hand_guided", "hand_guided_exact"):
+            # 7.11.26 (Marshal): the puck as it lies at the start, before guiding, so the replay's start can show a ring
+            # where it has to go back to (the same help as after a hand correction).
+            start_reference_bytes = self.robot_link.read_picture_bytes()
+            (episode_folder / "start_reference.jpg").write_bytes(start_reference_bytes)
             guided_path = self.__record_guided_path(episode_folder)
             if guided_path is None:
                 summary["status"] = "discarded_while_guiding"
@@ -680,10 +743,13 @@ class EpisodeRecorder:
                 self.__ask_how_episode_ended(summary)
                 return self.__finish_episode(episode_folder, summary, [])
             self.__lift()
-            self.__show_message("Motors on. Put the puck back at the start of the line, then press Enter.")
+            # The arm goes back to the start first, with the puck off the sheet, so it cannot land on a misplaced puck;
+            # the live picture then shows the ring where the puck lay before guiding.
+            self.__show_message("Motors on. Take the puck OFF the sheet (away from the block), then Enter: the arm goes back to the start")
             self.__wait_for(["enter"])
-            self.__simulate_puck_reset()
             self.__lower_to_start()
+            self.__simulate_puck_reset()
+            self.__guide_puck_back(start_reference_bytes)
             if mode == "hand_guided_exact":
                 self.exact_waypoints = self.__exact_waypoints(guided_path)
                 self.exact_index = 0
@@ -761,6 +827,10 @@ class EpisodeRecorder:
         # block stood back drifted to 10 cm when sideways and back steps were taken in a turned picture.
         self.puck_xy_estimate = numpy.array(self.recorder_parameters["start_point_xy"], dtype = float)
         self.puck_sighting = None
+        if self.recorder_parameters["start_turn_deg"]:
+            # A taught start with the forearm turned (7.11.26): the arm stands there turned, see __lower_to_start.
+            self.forearm_turn_deg = self.recorder_parameters["start_turn_deg"]
+            self.tip_xy = self.__start_tip_xy()
         push = math.radians(self.recorder_parameters["start_push_direction_deg"])
         self.last_step_direction = numpy.array([math.cos(push), math.sin(push)])
         move_return_time = time.time()
@@ -1081,17 +1151,162 @@ class EpisodeRecorder:
         self.tip_xy = None
         self.__lift()
         if new_path is not None:
-            self.__show_picture(picture_bytes, f"REFERENCE: put the puck back where it is in this picture, then Enter")
-            self.__say("put the puck back where it was when h was pressed (the window shows that picture), then Enter")
+            # 6.11.26 (Marshal): the arm first goes back to where the correction began, with the puck off the sheet;
+            # the camera then sees from the same place as the reference picture, so a circle can show the puck's spot.
+            self.__show_message("Take the puck OFF the sheet (away from the block), then Enter: the arm goes back to where the correction began")
             self.__wait_for(["enter"])
         self.__return_to_joints_from_above(start_joints)
         if new_path is None:
             self.__say(f"correction {number} discarded; the replay goes on where it was")
             return
+        self.__guide_puck_back(picture_bytes)
         self.exact_waypoints = self.__exact_waypoints(new_path)
         self.exact_index = 0
         self.is_auto_running = False
         self.__say(f"correction {number}: {len(self.exact_waypoints)} waypoints from {len(new_path)} guided points; Enter or g replays it")
+
+
+    def __guide_puck_back(self, reference_bytes: bytes) -> None:
+        """
+        Show the live picture with a circle where the puck was in the reference picture, until Enter. The arm stands
+        where the reference was taken, so the circle is in the right place; the found puck is marked too, with its
+        distance from the circle. Without a puck in the reference, the reference picture is shown instead.
+        """
+
+        reference = cv2.imdecode(numpy.frombuffer(reference_bytes, numpy.uint8), cv2.IMREAD_COLOR)
+        joints = [float(value) for value in self.robot_link.read_state()["joints"]]
+        # 7.11.26 (Marshal): more precise with the forearm turned far, where pixels stand for more or less table: the
+        # tracker fits a circle to a partly hidden puck too, and gives the table position, so the gap is said in mm.
+        target = self.__sight_puck(reference, joints)
+        if target is None:
+            self.__guide_puck_back_by_outline(reference, reference_bytes)
+            return
+        centre = (int(round(target["pixel"][0])), int(round(target["pixel"][1])))
+        radius = int(round(target["radius_px"]))
+        self.__say("put the puck into the green circle in the live picture (the zoom is in the corner), then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = picture.copy()
+            cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
+            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
+            seen = self.__sight_puck(picture, joints)
+            if seen is None:
+                text = "put the puck into the GREEN circle (no puck seen yet), then Enter"
+            else:
+                cv2.drawMarker(shown, (int(round(seen["pixel"][0])), int(round(seen["pixel"][1]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
+                text = self.__puck_gap_text(target, seen) + ", then Enter"
+            shown = self.__with_zoom(shown, centre)
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return
+
+
+    def __sight_puck(
+            self,
+            picture: numpy.ndarray,
+            joints: List[float]
+    ) -> Optional[Dict]:
+        """The puck in ``picture`` as the tracker sees it ("pixel", "radius_px", "table_xy"), else the detector's view."""
+
+        try:
+            sighting = self.puck_tracker.see_puck(picture, joints)
+        except Exception:
+            # The tracker only advises; on a fault the plain detector still gives the pixel.
+            sighting = None
+        if sighting is not None:
+            return sighting
+        detection = detect_puck(picture)
+        if detection is None:
+            return None
+        return {"pixel": [detection["centre_u"], detection["centre_v"]], "radius_px": detection["equivalent_radius_px"], "table_xy": None}
+
+
+    def __puck_gap_text(
+            self,
+            target: Dict,
+            seen: Dict
+    ) -> str:
+        """
+        How far and which way the puck must still go: in mm on the table, as seen from behind the robot (away from or
+        towards the robot, left or right), when the camera places both; otherwise in pixels.
+        """
+
+        if target.get("table_xy") is None or seen.get("table_xy") is None:
+            distance = math.hypot(seen["pixel"][0] - target["pixel"][0], seen["pixel"][1] - target["pixel"][1])
+            is_good = distance <= self.recorder_parameters["puck_back_good_px"]
+            return f"puck {distance:.0f} px from the GREEN circle's centre{' (good)' if is_good else ''}"
+        gap = 1000 * (numpy.array(target["table_xy"], dtype = float) - numpy.array(seen["table_xy"], dtype = float))
+        # Away from the robot = along the line from the base through the puck; left = a quarter turn from that.
+        away = numpy.array(target["table_xy"], dtype = float)
+        away = away / max(float(numpy.linalg.norm(away)), 1e-9)
+        left = numpy.array([-away[1], away[0]])
+        away_mm, left_mm = float(gap @ away), float(gap @ left)
+        distance_mm = math.hypot(away_mm, left_mm)
+        if distance_mm <= self.recorder_parameters["puck_back_good_mm"]:
+            return f"puck {distance_mm:.0f} mm from its place (good)"
+        parts = []
+        if abs(away_mm) >= 1:
+            parts.append(f"{abs(away_mm):.0f} mm {'AWAY FROM' if away_mm > 0 else 'TOWARDS'} the robot")
+        if abs(left_mm) >= 1:
+            parts.append(f"{abs(left_mm):.0f} mm {'LEFT' if left_mm > 0 else 'RIGHT'}")
+        return f"move the puck {' and '.join(parts)} (seen from behind the robot)"
+
+
+    def __with_zoom(
+            self,
+            shown: numpy.ndarray,
+            centre: tuple
+    ) -> numpy.ndarray:
+        """``shown`` with an enlarged view around ``centre`` in the top corner away from it."""
+
+        half = self.recorder_parameters["puck_back_zoom_half_px"]
+        scale = self.recorder_parameters["puck_back_zoom_scale"]
+        height, width = shown.shape[:2]
+        left = min(max(centre[0] - half, 0), width - 2 * half)
+        top = min(max(centre[1] - half, 0), height - 2 * half)
+        zoom = cv2.resize(shown[top:top + 2 * half, left:left + 2 * half], (2 * half * scale, 2 * half * scale), interpolation = cv2.INTER_LINEAR)
+        size = zoom.shape[0]
+        corner_x = 0 if centre[0] > width / 2 else width - size
+        result = shown.copy()
+        result[0:size, corner_x:corner_x + size] = zoom
+        cv2.rectangle(result, (corner_x, 0), (corner_x + size - 1, size - 1), (255, 255, 255), 2)
+        return result
+
+
+    def __guide_puck_back_by_outline(
+            self,
+            reference: numpy.ndarray,
+            reference_bytes: bytes
+    ) -> None:
+        """
+        For a puck the detector does not find in the reference (partly hidden): draw the outline of the red part that
+        was visible on the live picture, with how much of it the puck now covers, until Enter. Without any red in
+        the reference, the reference picture is shown instead.
+        """
+
+        target_mask = red_region_mask(reference, self.recorder_parameters)
+        count, labels, statistics, _ = cv2.connectedComponentsWithStats(target_mask)
+        if count < 2 or statistics[1:, cv2.CC_STAT_AREA].max() < self.recorder_parameters["puck_red_min_area_px"]:
+            self.__show_picture(reference_bytes, "REFERENCE: put the puck back where it is in this picture, then Enter")
+            self.__say("no puck found in the reference picture: put it back as the window shows, then Enter")
+            self.__wait_for(["enter"])
+            return
+        target_mask = numpy.where(labels == 1 + int(numpy.argmax(statistics[1:, cv2.CC_STAT_AREA])), 255, 0).astype(numpy.uint8)
+        contours, _ = cv2.findContours(target_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        target_area = float(numpy.count_nonzero(target_mask))
+        self.__say("the puck was partly hidden: put it so it fills the GREEN outline in the live picture, then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = picture.copy()
+            cv2.drawContours(shown, contours, -1, (0, 220, 0), 2)
+            covered = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), target_mask)) / target_area
+            is_good = covered >= self.recorder_parameters["puck_back_good_cover"]
+            text = f"puck covers {100 * covered:.0f}% of the GREEN outline{' (good)' if is_good else ''}, then Enter"
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return
 
 
     def __return_to_joints_from_above(self, joints: List[float]) -> None:
@@ -1107,7 +1322,12 @@ class EpisodeRecorder:
         try:
             self.robot_link.move_to(lifted, is_linear = False)
         except Exception as error:
-            self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
+            # Above the target in joint space instead, so the last move is a short one straight down onto the puck's place.
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(joints)))
+                self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); came above it with joints 2 and 3 instead")
+            except Exception:
+                self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
         self.robot_link.move_joints(list(joints))
         self.forearm_turn_deg = math.degrees(joints[3])
         self.tip_xy = [float(value) for value in magnet_tip_and_lean(list(joints))[0][:2]]
@@ -2196,6 +2416,7 @@ class EpisodeRecorder:
     ) -> Dict:
         """Write steps.csv and episode.json and a line in the session notes."""
 
+        goal_labels(rows, self.recorder_parameters)
         self.__write_steps(episode_folder, rows, "steps.csv")
         (episode_folder / "steps_in_progress.csv").unlink(missing_ok = True)
 
@@ -2239,6 +2460,15 @@ class EpisodeRecorder:
         return [x, y, pushing_height(x, y)] + self.__turned_orientation(self.recorder_parameters["hand_turn_deg"])
 
 
+    def __start_tip_xy(self) -> List[float]:
+        """The magnet tip's start point: behind the puck, opposite to the first push ("start_push_direction_deg")."""
+
+        puck_x, puck_y = self.recorder_parameters["start_point_xy"]
+        push = math.radians(self.recorder_parameters["start_push_direction_deg"])
+        offset = self.recorder_parameters["puck_centre_ahead_of_tip_m"]
+        return [puck_x - offset * math.cos(push), puck_y - offset * math.sin(push)]
+
+
     def __lower_to_start(self) -> None:
         """
         Come down onto the start pose from above, so the pusher does not sweep across the sheet.
@@ -2247,6 +2477,14 @@ class EpisodeRecorder:
         seen on 31.10.26 at x = 0.12 m); the joint-wise descent is then used, a slight arc over 5 cm before any contact.
         """
 
+        turn_deg = self.recorder_parameters["start_turn_deg"]
+        if turn_deg:
+            # A taught start with the forearm turned (7.11.26, Marshal): the same joint solver as the forearm turns,
+            # above the start first, then straight down onto it.
+            tip_xy = self.__start_tip_xy()
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False))
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0))
+            return
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
@@ -2272,15 +2510,33 @@ class EpisodeRecorder:
                 self.robot_link.move_home(self.recorder_parameters["home_joints"])
                 return
 
-        pose = list(self.robot_link.read_state()["pose"])
+        state = self.robot_link.read_state()
+        pose = list(state["pose"])
         pose[2] += self.recorder_parameters["approach_height_m"]
         try:
             self.robot_link.move_to(pose)
         except Exception as error:
+            # 6.11.26: refused after every hand correction (the arm leans where the hand left it); lifting in joint
+            # space first saves the trip to the parking pose and back.
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])))
+                print(f"straight lift refused ({str(error).splitlines()[0]}); lifted with joints 2 and 3 instead")
+                return
+            except Exception:
+                pass
             # 3.11.26: after a refused start the arm was still at the parking pose, 5 cm above which is out of reach;
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
             self.robot_link.move_home(self.recorder_parameters["home_joints"])
+
+
+    def __joints_lifted(self, joints: List[float]) -> List[float]:
+        """``joints`` with joints 2 and 3 changed so the tip rises about 4 cm nearly straight up ("joint_lift_change_rad")."""
+
+        lifted = [float(value) for value in joints]
+        for name, change in self.recorder_parameters["joint_lift_change_rad"].items():
+            lifted[int(name.split("_")[1]) - 1] += change
+        return lifted
 
 
     @staticmethod
@@ -2444,6 +2700,8 @@ def main() -> None:
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
+    parser.add_argument("--start-push-deg", type = float, help = "the first push's table direction in degrees from +x (taught; default config)")
+    parser.add_argument("--start-turn-deg", type = float, default = 0.0, help = "the forearm's turn (joint 4) at the start in degrees (taught)")
     parser.add_argument("--new-session", action = "store_true", help = "open a new session folder even if one exists today")
     parser.add_argument("--simulated", action = "store_true", help = "use the simulated robot instead of the real one")
     parser.add_argument("--trial", action = "store_true",
@@ -2477,6 +2735,9 @@ def main() -> None:
         print(f"MEASUREMENT RUN: turned steps allowed up to a {arguments.max_turn_lean_deg} degree lean (config: {RECORDING_PARAMETERS['max_turn_lean_deg']})")
     if arguments.start_x is not None and arguments.start_y is not None:
         recorder_parameters["start_point_xy"] = [arguments.start_x, arguments.start_y]
+    if arguments.start_push_deg is not None:
+        recorder_parameters["start_push_direction_deg"] = arguments.start_push_deg
+    recorder_parameters["start_turn_deg"] = arguments.start_turn_deg
 
     if arguments.simulated:
         from robot_link import SimulatedRobotLink, simulated_hand_path
