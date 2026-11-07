@@ -285,7 +285,9 @@ RECORDING_PAGE_PARAMETERS = {
     "score_levels": {
         "3": "Good: a clean example of how to demonstrate",
         "2": "Usable: small flaws, but the model may learn from it",
-        "1": "Bad: leave out of training and record it again"
+        # 8.11.26 (Emranul): score 1 stays in the training data too (see "done_minimum_score"); the score only lets
+        # the worst episodes be left out later if the model shows they hurt.
+        "1": "Poor: big flaws, kept for training for now"
     },
     # The lowest score that counts a plan episode as done. 1 since 6.11.26 evening (Emranul): every finished episode is
     # training data, score 1 included, so a score of 1 is not recorded again.
