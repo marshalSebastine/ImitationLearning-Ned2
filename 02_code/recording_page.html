@@ -437,8 +437,9 @@ function showPictureCheck(check) {
   if (!check) { line.textContent = ""; list.replaceChildren(); link.hidden = true; return; }
   if (!check.is_done) { line.textContent = "Checking the pictures…"; return; }
   if (check.error) { line.textContent = `Picture check failed: ${check.error}`; return; }
-  line.textContent = `Picture check: ${check.flagged_count} of ${check.total} pictures flagged` +
-                     (check.flagged_count ? ". Look at them below; a flag means look, not wrong." : ".");
+  line.textContent = check.flagged_count
+    ? `Picture check: ${check.flagged_count} of ${check.total} pictures flagged. Look at them below; a flag means look, not wrong.`
+    : `Picture check: all ${check.total} pictures OK, nothing flagged.`;
   list.replaceChildren(...check.flagged.map(entry => {
     const item = document.createElement("li");
     item.textContent = `${entry.frame}: ${entry.reasons.join("; ")}`;
@@ -454,6 +455,8 @@ function showPictureCheck(check) {
     window.alert(`Picture check: ${check.flagged_count} of ${check.total} pictures flagged in ${check.episode}.\n\n${listed}` +
                  (check.flagged_count > 8 ? `\n… and ${check.flagged_count - 8} more` : "") +
                  "\n\nThe flagged pictures are shown under the score. Hands, a laptop or people in view: clear the table, and write it in the note.");
+  } else {
+    window.alert(`Picture check: all ${check.total} pictures of ${check.episode} OK, nothing flagged.`);
   }
 }
 
