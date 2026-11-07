@@ -355,6 +355,28 @@ def test_other_websites_cannot_start_the_robot() -> None:
             time.sleep(0.05)
 
 
+def test_sharing_on_the_network_is_off_by_default() -> None:
+    """Off: this computer only. On: also this laptop's network address, and still no other host's name."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        assert RECORDING_PAGE_PARAMETERS["is_shared_on_network"] is False
+        server = make_server(port = TEST_PORT, runner = ToolRunner(Path(folder)))
+        try:
+            assert server.server_address[0] == "127.0.0.1"
+            assert server.RequestHandlerClass.allowed_hosts == (f"127.0.0.1:{TEST_PORT}", f"localhost:{TEST_PORT}")
+        finally:
+            server.server_close()
+        server = make_server(port = TEST_PORT, runner = ToolRunner(Path(folder)), is_shared_on_network = True)
+        try:
+            allowed_hosts = server.RequestHandlerClass.allowed_hosts
+            assert server.server_address[0] == "0.0.0.0"
+            assert all(f"{address}:{TEST_PORT}" in allowed_hosts for address in recording_page.network_addresses())
+            assert "example.com" not in " ".join(allowed_hosts)
+        finally:
+            server.server_close()
+            time.sleep(0.05)
+
+
 def test_teach_start_is_answered_from_the_page() -> None:
     """The page's Enter button answers the teach prompts, and the printed point is offered for Start x and Start y."""
 
@@ -419,4 +441,5 @@ if __name__ == "__main__":
     test_teach_start_is_answered_from_the_page()
     test_blurred_pictures_raise_a_warning()
     test_other_websites_cannot_start_the_robot()
+    test_sharing_on_the_network_is_off_by_default()
     print("all tests passed")

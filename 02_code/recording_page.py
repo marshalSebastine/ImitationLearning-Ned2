@@ -21,6 +21,7 @@ import json
 import os
 import re
 import shlex
+import socket
 import socketserver
 import subprocess
 import sys
@@ -824,17 +825,41 @@ class LocalPageServer(ThreadingHTTPServer):
 
 
 
+def network_addresses() -> List[str]:
+    """This computer's addresses on its networks (IPv4), by which a second laptop can reach the page."""
+
+    addresses = set()
+    try:
+        # The address the computer would send from; connecting a UDP socket sends nothing.
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+            probe.connect(("192.0.2.1", 9))
+            addresses.add(probe.getsockname()[0])
+    except OSError:
+        pass
+    try:
+        addresses.update(info[4][0] for info in socket.getaddrinfo(socket.gethostname(), None, socket.AF_INET))
+    except OSError:
+        pass
+    return sorted(address for address in addresses if not address.startswith("127."))
+
+
 def make_server(
         port: int = RECORDING_PAGE_PARAMETERS["port"],
-        runner: Optional[ToolRunner] = None
+        runner: Optional[ToolRunner] = None,
+        is_shared_on_network: bool = RECORDING_PAGE_PARAMETERS["is_shared_on_network"]
 ) -> LocalPageServer:
-    """The page's server, reachable only from this computer."""
+    """The page's server, reachable from this computer, and from the network when ``is_shared_on_network``."""
 
     host = RECORDING_PAGE_PARAMETERS["host"]
+    allowed_hosts = [f"{host}:{port}", f"localhost:{port}"]
+    bound_host = host
+    if is_shared_on_network:
+        bound_host = "0.0.0.0"
+        allowed_hosts += [f"{address}:{port}" for address in network_addresses()]
     handler = type("BoundPageRequestHandler", (PageRequestHandler,), {
         "runner": runner or ToolRunner(),
-        "allowed_hosts": (f"{host}:{port}", f"localhost:{port}")})
-    return LocalPageServer((host, port), handler)
+        "allowed_hosts": tuple(allowed_hosts)})
+    return LocalPageServer((bound_host, port), handler)
 
 
 def main() -> None:
@@ -846,6 +871,11 @@ def main() -> None:
     server = make_server()
     address = f"http://{RECORDING_PAGE_PARAMETERS['host']}:{RECORDING_PAGE_PARAMETERS['port']}"
     print(f"Recording page: {address}\nKeep this program running. Ctrl-C closes the page; a running recording goes on.")
+    if RECORDING_PAGE_PARAMETERS["is_shared_on_network"]:
+        port = RECORDING_PAGE_PARAMETERS["port"]
+        links = ", ".join(f"http://{address}:{port}" for address in network_addresses()) or "(no network found)"
+        print(f"Shared on the network: the other laptop opens {links}\n"
+              "Anyone on this network can start the robot: only on the team's own hotspot. One person drives at a time.")
     if not arguments.no_browser:
         webbrowser.open(address)
     try:

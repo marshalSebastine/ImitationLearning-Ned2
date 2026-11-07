@@ -219,6 +219,11 @@ PICTURE_CHECK_PARAMETERS = {
 RECORDING_PAGE_PARAMETERS = {
     "host": "127.0.0.1",
     "port": 8765,
+    # 7.11.26 (Emranul): True lets a second laptop on the same network (Marshal's) open the page at
+    # http://<this laptop's address>:8765; the address is printed at the start. Anyone on that network can then start
+    # the robot, so only on a hotspot the team controls, never on open university Wi-Fi. Windows asks once to let the
+    # port through its firewall (allow for private networks only). False = this computer only.
+    "is_shared_on_network": False,
     "log_folder": "03_data/recording_page_logs",
     "log_lines_shown": 200,
     # The page asks for its status every second; git takes up to 11 s per call on the lab laptop (6.11.26), so the code
