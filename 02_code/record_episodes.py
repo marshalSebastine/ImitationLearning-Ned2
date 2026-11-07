@@ -730,6 +730,10 @@ class EpisodeRecorder:
             return self.__finish_episode(episode_folder, summary, [])
 
         if mode in ("hand_guided", "hand_guided_exact"):
+            # 7.11.26 (Marshal): the puck as it lies at the start, before guiding, so the replay's start can show a ring
+            # where it has to go back to (the same help as after a hand correction).
+            start_reference_bytes = self.robot_link.read_picture_bytes()
+            (episode_folder / "start_reference.jpg").write_bytes(start_reference_bytes)
             guided_path = self.__record_guided_path(episode_folder)
             if guided_path is None:
                 summary["status"] = "discarded_while_guiding"
@@ -737,10 +741,13 @@ class EpisodeRecorder:
                 self.__ask_how_episode_ended(summary)
                 return self.__finish_episode(episode_folder, summary, [])
             self.__lift()
-            self.__show_message("Motors on. Put the puck back at the start of the line, then press Enter.")
+            # The arm goes back to the start first, with the puck off the sheet, so it cannot land on a misplaced puck;
+            # the live picture then shows the ring where the puck lay before guiding.
+            self.__show_message("Motors on. Take the puck OFF the sheet (away from the block), then Enter: the arm goes back to the start")
             self.__wait_for(["enter"])
-            self.__simulate_puck_reset()
             self.__lower_to_start()
+            self.__simulate_puck_reset()
+            self.__guide_puck_back(start_reference_bytes)
             if mode == "hand_guided_exact":
                 self.exact_waypoints = self.__exact_waypoints(guided_path)
                 self.exact_index = 0

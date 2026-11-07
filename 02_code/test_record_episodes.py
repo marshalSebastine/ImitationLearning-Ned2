@@ -179,7 +179,7 @@ def test_exact_replay(raw_folder: Path) -> None:
         joints_path.append(joints)
     hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(36)]
     robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
-    keys = ["enter", "enter"] + [None] * 40 + [" ", "enter", "enter", "g"] + [None] * 30 + ["enter", "y", "escape"]
+    keys = ["enter", "enter"] + [None] * 40 + [" ", "enter", "enter", "enter", "g"] + [None] * 30 + ["enter", "y", "escape"]
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
         key_reader = scripted_keys(keys))
@@ -219,7 +219,7 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     hand_path = [[0.20 + 0.002 * index, 0.0] for index in range(20)]
     robot_link = SimulatedRobotLink({"hand_path_xy": hand_path, "hand_path_joints": joints_path, "puck_xy": [0.2185, 0.0]})
     guiding = ["enter"] + [None] * 24 + [" ", "enter"]
-    keys = (["enter"] + guiding + ["enter", "enter", "enter", "h"] + guiding + ["enter", "enter", "g"] + [None] * 20
+    keys = (["enter"] + guiding + ["enter", "enter", "enter", "enter", "h"] + guiding + ["enter", "enter", "g"] + [None] * 20
             + ["enter", "y", "escape"])
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": [0.2185, 0.0]},
