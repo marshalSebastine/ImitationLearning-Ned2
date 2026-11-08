@@ -1041,6 +1041,11 @@ PUCK_DETECTOR_PARAMETERS = {
     "minimum_seed_fraction": 0.05,
     "minimum_median_saturation": 85,
     "violet_minimum_median_value": 56,
+    # 8.11.26 (Emranul: puck references often not found): under the ceiling lights the puck in the hand's shadow has a
+    # median value of only 43 to 51, as dark as the block and the gaps, but its median signed hue is -39 to -50 while
+    # theirs is -53 to -60 (correction pictures of 8.11); a dark violet blob with its median hue at or above this
+    # is not rejected for its darkness
+    "dark_violet_puck_hue_minimum": -51,
     # shape: area (with hidden pixels counted) over convex hull area, long over short axis of the
     # fitted ellipse (a half disc gives 1.9), area (with hidden pixels counted) over bounding box area,
     # for a whole puck and for one partly hidden by the hand or cut by the picture's edge (looser,

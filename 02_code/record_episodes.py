@@ -1236,8 +1236,11 @@ class EpisodeRecorder:
         if shape is not None:
             shape_mask = numpy.zeros(reference.shape[:2], numpy.uint8)
             cv2.fillPoly(shape_mask, [shape["outline"]], 255)
-            reference_red = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(reference, self.recorder_parameters), shape_mask))
-            reference_red = max(float(reference_red), 1.0)
+            reference_red = float(numpy.count_nonzero(cv2.bitwise_and(red_region_mask(reference, self.recorder_parameters), shape_mask)))
+            # 8.11.26: a puck in the hand's shadow is too dark and violet for the red mask, so the reference shows no
+            # red in its shape; any live red then read as "100% (good)". Without enough red, no share is shown.
+            if reference_red < self.recorder_parameters["puck_red_min_area_px"]:
+                reference_red = None
         self.__say("put the puck into the green shape in the live picture (the zoom is in the corner), then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
@@ -1258,7 +1261,7 @@ class EpisodeRecorder:
             else:
                 cv2.drawMarker(shown, (int(round(seen["pixel"][0])), int(round(seen["pixel"][1]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
                 text = self.__puck_gap_text(target, seen)
-                if shape is not None:
+                if shape is not None and reference_red is not None:
                     # As a share of how much red the puck showed in this shape in the reference picture.
                     fill = min(numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), shape_mask)) / reference_red, 1.0)
                     is_filled = fill >= self.recorder_parameters["puck_back_good_fill"]
