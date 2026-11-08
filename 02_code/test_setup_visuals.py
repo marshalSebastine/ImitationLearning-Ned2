@@ -36,7 +36,7 @@ def test_every_plan_number_has_a_picture_and_a_card() -> None:
     planned = [number for entries in plan.values() for number in entries]
     drawn = [setup["plan_number"] for setup in all_setups()]
     assert drawn == planned, "the drawn plan numbers differ from the plan table"
-    assert len(planned) == 200, len(planned)
+    assert len(planned) == 210, len(planned)  # 20 + 45 + 45 + 45 + 30 + 25
     page = (folder / "index.html").read_text(encoding = "utf-8")
     for number in planned:
         assert (folder / f"plan_{number}.png").is_file(), f"no picture for {number}"
