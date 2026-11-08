@@ -6,6 +6,7 @@ in one place only. Later phases add the keys named in the work plan.
 """
 
 import math
+from pathlib import Path
 from typing import Optional
 
 ROBOT_PARAMETERS = {
@@ -1275,4 +1276,27 @@ SETUP_VISUALS_PARAMETERS = {
     "view_y_cm": [-26.0, 30.0],
     "figure_size_inches": [6.4, 6.0],
     "dots_per_inch": 110
+}
+
+# Offline check of 8.11.26 (Emranul's question): can Claude, looking at one forearm-camera picture, name the next
+# action the way Emranul and Marshal do? claude_operator_study.py picks a fixed test set, hides its labels in
+# "answer_key_path" until Claude has predicted, then scores. Read-only on the data. A picture is a "bend" when the
+# tip's direction over the "bend_window_steps" steps before and after it changes by more than "bend_threshold_deg";
+# "near goal" is within "near_goal_cm" of the stop point. "Close" means a moving action within "close_angle_deg".
+CLAUDE_OPERATOR_STUDY_PARAMETERS = {
+    # Read-only; a worktree passes the main checkout's folder on the command line instead.
+    "data_folder": Path(__file__).resolve().parent.parent / "03_data" / "raw" / "main_data",
+    "episode_pattern": r"(path_0[123])_.*_score_0[23]$",
+    "minimum_frames": 20,
+    "episodes_per_sheet": 6,
+    "positions_per_episode": [0.0, 0.35, 0.65],
+    "near_goal_cm": 3.0,
+    "bend_window_steps": 3,
+    "bend_threshold_deg": 15.0,
+    "series_length": 3,
+    "series_every_nth": 3,
+    "close_angle_deg": 60,
+    "seed": 8_11_26,
+    "study_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Claude operator study",
+    "answer_key_path": Path(__file__).resolve().parent.parent / "03_data" / "claude_operator_study_answer_key.csv"
 }
