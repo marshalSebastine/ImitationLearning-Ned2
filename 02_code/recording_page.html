@@ -251,14 +251,15 @@ function clearSafetyChecks(keepCalibration) {
 }
 
 function suggestNextPlanNumber(isSheetChosenByHand) {
-  // The plan's order: Round 1 on its sheets first, then what is left of this sheet, then the next sheet with episodes left.
+  // The sheet on the table stays while it has episodes left (Emranul, 7.11.26: it jumped to sheet 04 once sheet 02's
+  // Round 1 episodes were done); then Round 1 on its sheets, then the next sheet with episodes left.
   const before = element("path_id").value;
-  if (!isSheetChosenByHand) {
+  if (!isSheetChosenByHand && !nextOpenNumber(before)) {
     const round = options.first_round;
     const isOpenInRound = path_id => nextOpenNumber(path_id, round.episodes_per_sheet);
-    const roundSheet = isOpenInRound(before) && round.sheets.includes(before) ? before : round.sheets.find(isOpenInRound);
+    const roundSheet = round.sheets.find(isOpenInRound);
     const anySheet = Object.keys(options.episode_plan).find(path_id => nextOpenNumber(path_id));
-    element("path_id").value = roundSheet || (nextOpenNumber(before) ? before : anySheet || before);
+    element("path_id").value = roundSheet || anySheet || before;
   }
   if (element("path_id").value !== before) clearSafetyChecks(true);
   fillEpisodeList();

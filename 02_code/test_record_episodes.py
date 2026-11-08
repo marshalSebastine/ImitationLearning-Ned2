@@ -198,6 +198,8 @@ def test_exact_replay(raw_folder: Path) -> None:
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
     assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
+    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not.
+    assert 2 <= robot_link.fast_moves < len(rows), robot_link.fast_moves
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
@@ -587,9 +589,30 @@ def test_lean_and_hand_labels() -> None:
     assert tilted["hand_label"] == "none", tilted
 
 
+def test_puck_shape_sits_where_the_camera_places_the_puck() -> None:
+    """The projected puck surrounds the pixel the puck was placed from, and stands taller than wide from the side."""
+
+    import cv2
+    from forearm_camera_model import merged_camera_parameters, project_points
+    from config import table_height
+    from record_episodes import puck_shape_in_picture
+
+    camera_parameters = merged_camera_parameters()
+    # Joints of a recorded sheet-02 step with the forearm turned (episode 006, 7.11.26).
+    joints = [0.15, -1.022, -0.102, -0.594, 0.074, -0.107]
+    table_xy = [0.24, 0.0]
+    shape = puck_shape_in_picture(table_xy, joints, camera_parameters)
+    assert shape is not None
+    centre = project_points(numpy.array([table_xy[0], table_xy[1], table_height(*table_xy) + 0.0145]), joints, camera_parameters)[0]
+    assert cv2.pointPolygonTest(shape["outline"], (float(centre[0]), float(centre[1])), False) > 0
+    assert cv2.contourArea(shape["outline"]) > cv2.contourArea(shape["footprint"])
+
+
 if __name__ == "__main__":
     test_lean_and_hand_labels()
     print("test_lean_and_hand_labels: passed")
+    test_puck_shape_sits_where_the_camera_places_the_puck()
+    print("test_puck_shape_sits_where_the_camera_places_the_puck: passed")
     test_picture_steps_point_the_right_way()
     test_step_budget_per_sheet()
     test_camera_shift_is_measured()

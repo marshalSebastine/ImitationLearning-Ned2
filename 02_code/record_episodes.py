@@ -48,7 +48,8 @@ import cv2
 import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
-                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for)
+                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for, table_height)
+from forearm_camera_model import project_points
 from puck_detector import detect_puck
 from puck_tracking import PuckTracker
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
@@ -228,6 +229,50 @@ def red_region_mask(
     low = cv2.inRange(hsv, (0, saturation, value), (low_hue, 255, 255))
     high = cv2.inRange(hsv, (high_hue, saturation, value), (180, 255, 255))
     return cv2.bitwise_or(low, high)
+
+
+def puck_shape_in_picture(
+        table_xy: List[float],
+        joints: List[float],
+        camera_parameters: Dict,
+        parameters: Dict = RECORDING_PARAMETERS
+) -> Optional[Dict]:
+    """
+    Where a puck standing at ``table_xy`` appears in the picture taken at ``joints``: its two rims projected with the
+    forearm camera model (7.11.26).
+
+    Parameters
+    ----------
+    table_xy : list of float
+        The puck's centre on the table, in metres in the robot's base frame.
+    joints : list of float
+        The six joint angles in radians when the picture is taken.
+    camera_parameters : dict
+        The fitted camera, as ``PuckTracker.camera_parameters``.
+    parameters : dict, optional
+        "puck_back_outline_points": points per rim.
+
+    Returns
+    -------
+    dict or None
+        "outline" (the whole puck's silhouette, the hull of both rims) and "footprint" (the bottom rim, where it
+        touches the paper), int32 pixel polygons of shape (N, 1, 2); None when part of the puck falls behind the
+        camera or outside the lens model.
+    """
+
+    angles = numpy.linspace(0.0, 2.0 * math.pi, int(parameters["puck_back_outline_points"]), endpoint = False)
+    radius = PUCK_PARAMETERS["diameter_m"] / 2
+    bottom = table_height(table_xy[0], table_xy[1])
+    rims = []
+    for height in (bottom, bottom + PUCK_PARAMETERS["height_m"]):
+        rims.append(numpy.column_stack([table_xy[0] + radius * numpy.cos(angles), table_xy[1] + radius * numpy.sin(angles),
+                                        numpy.full(angles.shape, height)]))
+    pixels = project_points(numpy.vstack(rims), joints, camera_parameters)
+    if numpy.isnan(pixels).any():
+        return None
+    pixels = numpy.round(pixels).astype(numpy.int32)
+    return {"outline": cv2.convexHull(pixels.reshape(-1, 1, 2)),
+            "footprint": pixels[:len(angles)].reshape(-1, 1, 2)}
 
 
 def read_window_key(wait_ms: int) -> Optional[str]:
@@ -656,7 +701,7 @@ class EpisodeRecorder:
         self.__append_session_notes(f"\n## {time.strftime('%H:%M')}: {self.operator}, {mode}, {self.path_id}"
                                     f"{', simulated robot' if self.recorder_parameters['is_simulated'] else ''}\n\n")
         try:
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
             while True:
                 self.__show_message(f"Put the puck at the start of the line. Enter = next {mode} episode, Esc = finish.")
                 if self.__wait_for(["enter", "escape"]) == "escape":
@@ -672,7 +717,7 @@ class EpisodeRecorder:
             # guiding, Ctrl-C included), they stay off until the person confirms that the arm is released.
             if self.is_free_motion:
                 self.__release_arm_then_motors_on()
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
             self.robot_link.close()
             if self.recorder_parameters["is_window_shown"]:
                 cv2.destroyAllWindows()
@@ -1183,18 +1228,42 @@ class EpisodeRecorder:
             return
         centre = (int(round(target["pixel"][0])), int(round(target["pixel"][1])))
         radius = int(round(target["radius_px"]))
-        self.__say("put the puck into the green circle in the live picture (the zoom is in the corner), then Enter")
+        # 7.11.26 (Emranul): the puck's real shape from the camera model where the camera places it, with the share of
+        # it the live puck fills; the circle only when the camera cannot place the puck.
+        shape = None
+        if target.get("table_xy") is not None:
+            shape = puck_shape_in_picture(target["table_xy"], joints, self.puck_tracker.camera_parameters, self.recorder_parameters)
+        if shape is not None:
+            shape_mask = numpy.zeros(reference.shape[:2], numpy.uint8)
+            cv2.fillPoly(shape_mask, [shape["outline"]], 255)
+            reference_red = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(reference, self.recorder_parameters), shape_mask))
+            reference_red = max(float(reference_red), 1.0)
+        self.__say("put the puck into the green shape in the live picture (the zoom is in the corner), then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
             shown = picture.copy()
-            cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
-            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
             seen = self.__sight_puck(picture, joints)
+            if shape is None:
+                cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
+            else:
+                cv2.polylines(shown, [shape["outline"]], True, (0, 220, 0), 2)
+                cv2.polylines(shown, [shape["footprint"]], True, (0, 220, 0), 1)
+                if seen is not None and seen.get("table_xy") is not None:
+                    seen_shape = puck_shape_in_picture(seen["table_xy"], joints, self.puck_tracker.camera_parameters, self.recorder_parameters)
+                    if seen_shape is not None:
+                        cv2.polylines(shown, [seen_shape["outline"]], True, (0, 230, 255), 1)
+            cv2.drawMarker(shown, centre, (0, 220, 0), cv2.MARKER_CROSS, 10, 1)
             if seen is None:
-                text = "put the puck into the GREEN circle (no puck seen yet), then Enter"
+                text = "put the puck into the GREEN shape (no puck seen yet), then Enter"
             else:
                 cv2.drawMarker(shown, (int(round(seen["pixel"][0])), int(round(seen["pixel"][1]))), (0, 230, 255), cv2.MARKER_CROSS, 16, 2)
-                text = self.__puck_gap_text(target, seen) + ", then Enter"
+                text = self.__puck_gap_text(target, seen)
+                if shape is not None:
+                    # As a share of how much red the puck showed in this shape in the reference picture.
+                    fill = min(numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), shape_mask)) / reference_red, 1.0)
+                    is_filled = fill >= self.recorder_parameters["puck_back_good_fill"]
+                    text += f"; fills {100 * fill:.0f}% of the GREEN shape{' (good)' if is_filled else ''}"
+                text += ", then Enter"
             shown = self.__with_zoom(shown, centre)
             if self.recorder_parameters["is_window_shown"]:
                 show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
@@ -1320,11 +1389,11 @@ class EpisodeRecorder:
         position, orientation = arm_model.tool_pose(list(joints))
         lifted = [float(position[0]), float(position[1]), float(position[2]) + self.recorder_parameters["approach_height_m"]] + [float(value) for value in orientation]
         try:
-            self.robot_link.move_to(lifted, is_linear = False)
+            self.robot_link.move_to(lifted, is_linear = False, velocity_percent = self.__travel_velocity())
         except Exception as error:
             # Above the target in joint space instead, so the last move is a short one straight down onto the puck's place.
             try:
-                self.robot_link.move_joints(self.__joints_lifted(list(joints)))
+                self.robot_link.move_joints(self.__joints_lifted(list(joints)), velocity_percent = self.__travel_velocity())
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); came above it with joints 2 and 3 instead")
             except Exception:
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
@@ -1702,9 +1771,12 @@ class EpisodeRecorder:
 
         The lean limit does not apply here: lifted, the rod touches nothing, and on 4.11.26 the limit refused the
         retreat at 38 cm (lifted lean 34.6 degrees) and the arm went to the parking pose from low down instead.
+
+        8.11.26 (Emranul): lifted by "approach_height_m" (5 cm) instead of the steps' 2.5 cm, where the block's tip
+        cleared the 2.9 cm puck by about 1 mm; once up, the turns back and the travel after them run at the travel speed.
         """
 
-        lift = self.recorder_parameters["turn_lift_m"]
+        lift = self.recorder_parameters["approach_height_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
         turn_deg = self.forearm_turn_deg
         stops = [(turn_deg, height) for height in sorted(self.recorder_parameters["turn_near_paper_heights_m"]) if height < lift] + [(turn_deg, lift)]
@@ -1717,8 +1789,8 @@ class EpisodeRecorder:
             joints = self.__turned_joints(self.tip_xy, turn_deg, height, is_lean_limited = False, near_wrist_rad = near_wrist_rad)
             plan.append(joints)
             near_wrist_rad = joints[4]
-        for joints in plan:
-            self.robot_link.move_joints(joints)
+        for index, joints in enumerate(plan):
+            self.robot_link.move_joints(joints, velocity_percent = self.__travel_velocity() if index > 0 else None)
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
 
@@ -2482,13 +2554,14 @@ class EpisodeRecorder:
             # A taught start with the forearm turned (7.11.26, Marshal): the same joint solver as the forearm turns,
             # above the start first, then straight down onto it.
             tip_xy = self.__start_tip_xy()
-            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False))
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False),
+                                        velocity_percent = self.__travel_velocity())
             self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0))
             return
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
-        self.robot_link.move_to(above, is_linear = False)
+        self.robot_link.move_to(above, is_linear = False, velocity_percent = self.__travel_velocity())
         try:
             self.robot_link.move_to(start)
         except Exception as error:
@@ -2507,7 +2580,7 @@ class EpisodeRecorder:
                 print(f"turning the forearm back failed ({str(error).splitlines()[0]}); going to the parking pose instead")
                 self.forearm_turn_deg = 0.0
                 self.tip_xy = None
-                self.robot_link.move_home(self.recorder_parameters["home_joints"])
+                self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
                 return
 
         state = self.robot_link.read_state()
@@ -2527,7 +2600,23 @@ class EpisodeRecorder:
             # 3.11.26: after a refused start the arm was still at the parking pose, 5 cm above which is out of reach;
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
+
+
+    def __travel_velocity(self) -> Optional[int]:
+        """
+        The faster speed cap for a move that pushes nothing (8.11.26, Emranul), when the rod's end starts at least
+        "travel_minimum_height_m" above the sheet; None (the usual speed) when it starts lower, near the puck.
+        """
+
+        try:
+            pose = self.robot_link.read_state()["pose"]
+        except Exception:
+            return None
+        height = float(pose[2]) - pushing_height(float(pose[0]), float(pose[1]))
+        if height < self.recorder_parameters["travel_minimum_height_m"]:
+            return None
+        return self.recorder_parameters["travel_velocity_percent"]
 
 
     def __joints_lifted(self, joints: List[float]) -> List[float]:

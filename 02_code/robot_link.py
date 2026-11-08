@@ -78,10 +78,12 @@ class RobotLink:
     def move_to(
             self,
             pose: List[float],
-            is_linear: bool = True
+            is_linear: bool = True,
+            velocity_percent: Optional[int] = None
     ) -> None:
         """
-        Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished.
+        Move the rod's end to ``pose`` = [x, y, z, roll, pitch, yaw]; returns when the move is finished. A
+        ``velocity_percent`` applies to this move only.
 
         Refuses the pose when the robot's own inverse kinematics put the wrist (joint 5) above
         ``RECORDING_PARAMETERS["wrist_pitch_max_rad"]``: with bracket F the camera body then presses on the forearm
@@ -92,7 +94,7 @@ class RobotLink:
         joints = self.solve_joints(pose)
         if joints[4] > limit:
             pose = self.__leaned_within_limit(pose, joints[4], limit)
-        self.__move(PoseObject(*pose), linear = is_linear)
+        self.__move(PoseObject(*pose), velocity_percent, linear = is_linear)
 
 
     def solve_joints(self, pose: List[float]) -> List[float]:
@@ -157,16 +159,21 @@ class RobotLink:
     def __move(
             self,
             target,
+            velocity_percent: Optional[int] = None,
             **move_options
     ) -> None:
         """
         One move of the robot; when it is refused, the collision flag is cleared before the refusal is passed on.
+        With ``velocity_percent`` the move runs at that speed cap and the usual one is restored afterwards (8.11.26,
+        Emranul: faster travel where nothing is pushed).
 
         7.11.26: after a hand correction the straight lift was refused with error -3 ("collision or a motor not able to
         follow"); the robot then refused every further move until clear_collision_detected() was called, so the joint
         lift and the move to the parking pose failed too, and the tool stopped with the arm low over the sheet.
         """
 
+        if velocity_percent is not None:
+            self.robot.set_arm_max_velocity(velocity_percent)
         try:
             self.robot.move(target, **move_options)
         except Exception:
@@ -175,18 +182,29 @@ class RobotLink:
             except Exception:
                 pass
             raise
+        finally:
+            if velocity_percent is not None:
+                self.robot.set_arm_max_velocity(self.velocity_percent)
 
 
-    def move_home(self, home_joints: List[float]) -> None:
-        """Move to the joint angles ``home_joints``."""
+    def move_home(
+            self,
+            home_joints: List[float],
+            velocity_percent: Optional[int] = None
+    ) -> None:
+        """Move to the joint angles ``home_joints``, at ``velocity_percent`` when given."""
 
-        self.__move(JointsPosition(*home_joints))
+        self.__move(JointsPosition(*home_joints), velocity_percent)
 
 
-    def move_joints(self, joints: List[float]) -> None:
-        """Move to the joint angles ``joints``; returns when the move is finished."""
+    def move_joints(
+            self,
+            joints: List[float],
+            velocity_percent: Optional[int] = None
+    ) -> None:
+        """Move to the joint angles ``joints``, at ``velocity_percent`` when given; returns when the move is finished."""
 
-        self.__move(JointsPosition(*joints))
+        self.__move(JointsPosition(*joints), velocity_percent)
 
 
     def predicted_position(self, joints: List[float]) -> List[float]:
@@ -264,9 +282,11 @@ class SimulatedRobotLink:
     def move_to(
             self,
             pose: List[float],
-            is_linear: bool = True
+            is_linear: bool = True,
+            velocity_percent: Optional[int] = None
     ) -> None:
 
+        self.fast_moves = getattr(self, "fast_moves", 0) + (velocity_percent is not None)
         start = numpy.array(self.pose[:2])
         end = numpy.array(pose[:2])
         is_low = pose[2] < pushing_height(pose[0], pose[1]) + 0.01
@@ -287,8 +307,13 @@ class SimulatedRobotLink:
         time.sleep(self.simulation_parameters["move_seconds"])
 
 
-    def move_home(self, home_joints: List[float]) -> None:
+    def move_home(
+            self,
+            home_joints: List[float],
+            velocity_percent: Optional[int] = None
+    ) -> None:
 
+        self.fast_moves = getattr(self, "fast_moves", 0) + (velocity_percent is not None)
         self.pose[2] = start_pose()[2] + 0.10
 
 
@@ -302,13 +327,17 @@ class SimulatedRobotLink:
         self.hand_flicks = getattr(self, "hand_flicks", 0) + 1
 
 
-    def move_joints(self, joints: List[float]) -> None:
+    def move_joints(
+            self,
+            joints: List[float],
+            velocity_percent: Optional[int] = None
+    ) -> None:
         """Move to ``joints``: the rod's end goes where the arm model (ned2_fk) puts it, pushing the puck on the way."""
 
         from side_view_test import ned2_fk
 
         position, (roll, pitch, yaw) = ned2_fk.tool_pose(list(joints))
-        self.move_to([position[0], position[1], position[2], roll, pitch, yaw], is_linear = False)
+        self.move_to([position[0], position[1], position[2], roll, pitch, yaw], is_linear = False, velocity_percent = velocity_percent)
         self.joints = [float(value) for value in joints]
 
 

@@ -219,6 +219,11 @@ PICTURE_CHECK_PARAMETERS = {
 RECORDING_PAGE_PARAMETERS = {
     "host": "127.0.0.1",
     "port": 8765,
+    # 7.11.26 (Emranul): True lets a second laptop on the same network (Marshal's) open the page at
+    # http://<this laptop's address>:8765; the address is printed at the start. Anyone on that network can then start
+    # the robot, so only on a hotspot the team controls, never on open university Wi-Fi. Windows asks once to let the
+    # port through its firewall (allow for private networks only). False = this computer only.
+    "is_shared_on_network": False,
     "log_folder": "03_data/recording_page_logs",
     "log_lines_shown": 200,
     # The page asks for its status every second; git takes up to 11 s per call on the lab laptop (6.11.26), so the code
@@ -280,7 +285,9 @@ RECORDING_PAGE_PARAMETERS = {
     "score_levels": {
         "3": "Good: a clean example of how to demonstrate",
         "2": "Usable: small flaws, but the model may learn from it",
-        "1": "Bad: leave out of training and record it again"
+        # 8.11.26 (Emranul): score 1 stays in the training data too (see "done_minimum_score"); the score only lets
+        # the worst episodes be left out later if the model shows they hurt.
+        "1": "Poor: big flaws, kept for training for now"
     },
     # The lowest score that counts a plan episode as done. 1 since 6.11.26 evening (Emranul): every finished episode is
     # training data, score 1 included, so a score of 1 is not recorded again.
@@ -541,6 +548,15 @@ RECORDING_PARAMETERS = {
         "flick_right": -45
     },
     "flick_velocity_percent": 60,
+    # 8.11.26 (Emranul): moves that push nothing run at this speed cap instead of the usual 20 %: to and from the
+    # parking pose, and to the place above a start (5 cm up, clear of the 2.9 cm puck). Every move at or near the
+    # puck (the steps, the last move down, the lift off it, stepping over it) keeps the usual speed. 35 is a choice,
+    # not yet tried on the robot. Only when the rod's end starts at least "travel_minimum_height_m" above the sheet,
+    # so a move that begins low over the puck (after a refused lift, or a crash) keeps the usual speed.
+    # 8.11.26: raised from 35 to 70, then to 90 by Emranul (the taped camera may shift under quick starts and stops:
+    # compare a start picture with an earlier one after the first episodes).
+    "travel_velocity_percent": 90,
+    "travel_minimum_height_m": 0.04,
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
@@ -691,6 +707,12 @@ RECORDING_PARAMETERS = {
     "puck_back_good_mm": 2.5,
     "puck_back_zoom_half_px": 50,
     "puck_back_zoom_scale": 2,
+    # 7.11.26 (Emranul): with the camera model, the puck's real shape where it stood (a cylinder 2.4 cm wide, 2.9 cm
+    # tall, projected into the picture) instead of a circle; drawn from this many points per rim. The shaded side is
+    # not red enough to count, so the puck fills 47 to 80% of its own shape (8 recorded pictures, 6 to 7.11.26): the
+    # live fill is said as a share of the reference picture's fill, "good" from this share up (chosen).
+    "puck_back_outline_points": 48,
+    "puck_back_good_fill": 0.9,
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least
