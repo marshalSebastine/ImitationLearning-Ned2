@@ -254,7 +254,7 @@ RECORDING_PAGE_PARAMETERS = {
         "path_02_arc": {"number": "02", "label": "02 arc", "plan": "45 episodes, both ends, 16 with the sheet square"},
         "path_03_two_curve": {"number": "03", "label": "03 two curves", "plan": "45 episodes, end A first, end B if it reaches"},
         "path_04_meander": {"number": "04", "label": "04 meander", "plan": "45 episodes, end A, end B if it reaches"},
-        "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, the lower end (B) only"},
+        "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, end B, 9 from end A (14 to 19, 28 to 30)"},
         "path_06_alpha_loop_dashed": {"number": "06", "label": "06 dashed loop", "plan": "25 episodes, the dashed tail (A) only"}
     },
     "line_ends": ["A", "B"],
@@ -328,7 +328,7 @@ RECORDING_PAGE_PARAMETERS = {
         "path_02_arc": "From end A the arc bends to the robot's left; from end B it bends to the right. Both are needed.",
         "path_03_two_curve": "End B is tight for reach (calc: 0.2 cm to spare). Use it only if its trial reached the goal without strain.",
         "path_04_meander": "Keep the rod upright; let it lean only where the arm cannot reach otherwise, at the far end of this sheet.",
-        "path_05_alpha_loop": "Start from the lower end (B) only: from the other end the paper would lie under the robot's base. At the crossing, go straight across, never round the corner.",
+        "path_05_alpha_loop": "Mostly from the lower end (B); episodes 14 to 19 and 28 to 30 from end A (Emranul, 8.11.26), with the loop far from the robot. At the crossing, go straight across, never round the corner.",
         "path_06_alpha_loop_dashed": "Start from end A only: the end halfway up the sheet, about 4 cm from its right edge in the course photo. Keep the dashes' direction across the gaps, and go straight across the crossing."
     },
     "demonstration_rules": [
@@ -382,9 +382,11 @@ RECORDING_PAGE_PARAMETERS = {
         ],
         "path_05_alpha_loop": [
             (1, 6, "STD", "B", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "B", ""),
-            (11, 13, "X1", "B", ""), (14, 19, "STD", "B", ""),
+            # 8.11.26 (Emranul, after episode 07): 14 to 19 and 28 to 30 from end A instead of B, so the model also sees
+            # the loop far from the robot (robustness). Untested there: the flip at the loop's bottom is about 40 cm out.
+            (11, 13, "X1", "B", ""), (14, 19, "STD", "A", "End A: the loop lies far from the robot. Check the first trial's rod lean at the flip."),
             (20, 24, ["OL1.5", "OR1.5", "TL15", "TR15", "OL1"], "B", ""),
-            (25, 27, "X2", "B", ""), (28, 30, "NE", "B", "")
+            (25, 27, "X2", "B", ""), (28, 30, "NE", "A", "End A: near end B, at the loop's far side.")
         ],
         "path_06_alpha_loop_dashed": [
             (1, 6, "STD", "A", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "A", "For OL1, the puck beside the first dash."),
@@ -714,6 +716,12 @@ RECORDING_PARAMETERS = {
     # live fill is said as a share of the reference picture's fill, "good" from this share up (chosen).
     "puck_back_outline_points": 48,
     "puck_back_good_fill": 0.9,
+    # 8.11.26 (Emranul: putting the puck back got less accurate): the green shape comes from the camera model and sits a
+    # little small and low on a puck beside the block, so on sheet 04 the puck went back 8 to 21 mm off in 9 of 52
+    # corrections (2 mm typical on 7.11). The arm stands where the reference was taken (within 0.4 degrees, all 52), so
+    # the reference picture is laid over the live one at this share: the old puck shows as a faint ghost in its true
+    # size and place, and the live puck is moved until the two merge (chosen; 0 turns it off).
+    "puck_back_ghost_share": 0.35,
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least

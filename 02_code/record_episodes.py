@@ -1244,8 +1244,8 @@ class EpisodeRecorder:
         self.__say("put the puck into the green shape in the live picture (the zoom is in the corner), then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
-            shown = picture.copy()
             seen = self.__sight_puck(picture, joints)
+            shown = self.__with_reference_ghost(picture, reference)
             if shape is None:
                 cv2.circle(shown, centre, radius + 2, (0, 220, 0), 2)
             else:
@@ -1325,6 +1325,22 @@ class EpisodeRecorder:
         return f"move the puck {' and '.join(parts)} (seen from behind the robot)"
 
 
+    def __with_reference_ghost(
+            self,
+            picture: numpy.ndarray,
+            reference: numpy.ndarray
+    ) -> numpy.ndarray:
+        """
+        ``picture`` with ``reference`` laid over it at "puck_back_ghost_share": taken from the same arm position, the
+        two agree everywhere but where the puck differs, so the reference puck shows as a ghost to match.
+        """
+
+        share = self.recorder_parameters["puck_back_ghost_share"]
+        if share <= 0 or picture.shape != reference.shape:
+            return picture.copy()
+        return cv2.addWeighted(picture, 1.0 - share, reference, share, 0.0)
+
+
     def __with_zoom(
             self,
             shown: numpy.ndarray,
@@ -1370,7 +1386,7 @@ class EpisodeRecorder:
         self.__say("the puck was partly hidden: put it so it fills the GREEN outline in the live picture, then Enter")
         while True:
             picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
-            shown = picture.copy()
+            shown = self.__with_reference_ghost(picture, reference)
             cv2.drawContours(shown, contours, -1, (0, 220, 0), 2)
             covered = numpy.count_nonzero(cv2.bitwise_and(red_region_mask(picture, self.recorder_parameters), target_mask)) / target_area
             is_good = covered >= self.recorder_parameters["puck_back_good_cover"]
@@ -2506,7 +2522,8 @@ class EpisodeRecorder:
         (episode_folder / "episode.json").write_text(json.dumps(summary, indent = 2), encoding = "utf-8")
 
         overrides = f", {human_steps} overridden by hand" if summary["mode"] == "hand_guided" else ""
-        ending = summary["outcome"] or summary["discard_reason"]
+        # 8.11.26: an episode that never started (start unreachable, camera moved) has neither; it crashed here.
+        ending = summary.get("outcome") or summary.get("discard_reason")
         ending = f", {ending}" if ending else ""
         self.__append_session_notes(f"- {episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps{overrides}\n")
         print(f"{episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps")
