@@ -553,7 +553,9 @@ RECORDING_PARAMETERS = {
     # puck (the steps, the last move down, the lift off it, stepping over it) keeps the usual speed. 35 is a choice,
     # not yet tried on the robot. Only when the rod's end starts at least "travel_minimum_height_m" above the sheet,
     # so a move that begins low over the puck (after a refused lift, or a crash) keeps the usual speed.
-    "travel_velocity_percent": 35,
+    # 8.11.26: raised from 35 to 70 by Emranul (the taped camera may shift under quick starts and stops: compare a
+    # start picture with an earlier one after the first episodes).
+    "travel_velocity_percent": 70,
     "travel_minimum_height_m": 0.04,
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
