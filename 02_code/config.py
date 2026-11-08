@@ -713,6 +713,12 @@ RECORDING_PARAMETERS = {
     # live fill is said as a share of the reference picture's fill, "good" from this share up (chosen).
     "puck_back_outline_points": 48,
     "puck_back_good_fill": 0.9,
+    # 8.11.26 (Emranul: putting the puck back got less accurate): the green shape comes from the camera model and sits a
+    # little small and low on a puck beside the block, so on sheet 04 the puck went back 8 to 21 mm off in 9 of 52
+    # corrections (2 mm typical on 7.11). The arm stands where the reference was taken (within 0.4 degrees, all 52), so
+    # the reference picture is laid over the live one at this share: the old puck shows as a faint ghost in its true
+    # size and place, and the live puck is moved until the two merge (chosen; 0 turns it off).
+    "puck_back_ghost_share": 0.35,
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least
