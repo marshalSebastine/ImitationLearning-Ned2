@@ -255,7 +255,7 @@ RECORDING_PAGE_PARAMETERS = {
         "path_03_two_curve": {"number": "03", "label": "03 two curves", "plan": "45 episodes, end A first, end B if it reaches"},
         "path_04_meander": {"number": "04", "label": "04 meander", "plan": "45 episodes, end A, end B if it reaches"},
         "path_05_alpha_loop": {"number": "05", "label": "05 loop with a crossing", "plan": "30 episodes, end B, 9 from end A (14 to 19, 28 to 30)"},
-        "path_06_alpha_loop_dashed": {"number": "06", "label": "06 dashed loop", "plan": "25 episodes, the dashed tail (A) only"}
+        "path_06_alpha_loop_dashed": {"number": "06", "label": "06 dashed loop", "plan": "25 episodes, end A, 10 from end B (14 to 21, 24 to 25)"}
     },
     "line_ends": ["A", "B"],
     "start_codes": {
@@ -329,7 +329,7 @@ RECORDING_PAGE_PARAMETERS = {
         "path_03_two_curve": "End B is tight for reach (calc: 0.2 cm to spare). Use it only if its trial reached the goal without strain.",
         "path_04_meander": "Keep the rod upright; let it lean only where the arm cannot reach otherwise, at the far end of this sheet.",
         "path_05_alpha_loop": "Mostly from the lower end (B); episodes 14 to 19 and 28 to 30 from end A (Emranul, 8.11.26), with the loop far from the robot. At the crossing, go straight across, never round the corner.",
-        "path_06_alpha_loop_dashed": "Start from end A only: the end halfway up the sheet, about 4 cm from its right edge in the course photo. Keep the dashes' direction across the gaps, and go straight across the crossing."
+        "path_06_alpha_loop_dashed": "Mostly from end A, the dashed tail halfway up the sheet, about 4 cm from its right edge in the course photo; episodes 14 to 21 and 24 to 25 from end B (Emranul, 9.11.26). Keep the dashes' direction across the gaps, and go straight across the crossing."
     },
     "demonstration_rules": [
         "Push smoothly at a steady, unhurried speed. Block behind the puck and touching it; puck's centre on the line.",
@@ -390,8 +390,10 @@ RECORDING_PAGE_PARAMETERS = {
         ],
         "path_06_alpha_loop_dashed": [
             (1, 6, "STD", "A", ""), (7, 10, ["OL1", "OR1", "TL10", "TR10"], "A", "For OL1, the puck beside the first dash."),
-            (11, 13, "X1", "A", ""), (14, 18, "STD", "A", ""),
-            (19, 21, ["OL1.5", "OR1.5", "TL15"], "A", ""), (22, 25, "NE", "A", "")
+            # 9.11.26 (Emranul, before episode 02): 14 to 21 and 24 to 25 from end B instead of A, so the model also
+            # sees the loop from the other side (variety). Untested there: from end B the paper may reach the base.
+            (11, 13, "X1", "A", ""), (14, 18, "STD", "B", "End B: the other end of the line. Check the paper clears the base."),
+            (19, 21, ["OL1.5", "OR1.5", "TL15"], "B", ""), (22, 23, "NE", "A", ""), (24, 25, "NE", "B", "End B: near end A.")
         ]
     },
     "safety_checks": [
