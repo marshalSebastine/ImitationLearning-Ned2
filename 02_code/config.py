@@ -548,6 +548,13 @@ RECORDING_PARAMETERS = {
         "flick_right": -45
     },
     "flick_velocity_percent": 60,
+    # 8.11.26 (Emranul): moves that push nothing run at this speed cap instead of the usual 20 %: to and from the
+    # parking pose, and to the place above a start (5 cm up, clear of the 2.9 cm puck). Every move at or near the
+    # puck (the steps, the last move down, the lift off it, stepping over it) keeps the usual speed. 35 is a choice,
+    # not yet tried on the robot. Only when the rod's end starts at least "travel_minimum_height_m" above the sheet,
+    # so a move that begins low over the puck (after a refused lift, or a crash) keeps the usual speed.
+    "travel_velocity_percent": 35,
+    "travel_minimum_height_m": 0.04,
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test

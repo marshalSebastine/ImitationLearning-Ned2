@@ -198,6 +198,8 @@ def test_exact_replay(raw_folder: Path) -> None:
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
     assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
+    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not.
+    assert 2 <= robot_link.fast_moves < len(rows), robot_link.fast_moves
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:

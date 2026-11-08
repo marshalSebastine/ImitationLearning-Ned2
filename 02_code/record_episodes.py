@@ -701,7 +701,7 @@ class EpisodeRecorder:
         self.__append_session_notes(f"\n## {time.strftime('%H:%M')}: {self.operator}, {mode}, {self.path_id}"
                                     f"{', simulated robot' if self.recorder_parameters['is_simulated'] else ''}\n\n")
         try:
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
             while True:
                 self.__show_message(f"Put the puck at the start of the line. Enter = next {mode} episode, Esc = finish.")
                 if self.__wait_for(["enter", "escape"]) == "escape":
@@ -717,7 +717,7 @@ class EpisodeRecorder:
             # guiding, Ctrl-C included), they stay off until the person confirms that the arm is released.
             if self.is_free_motion:
                 self.__release_arm_then_motors_on()
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
             self.robot_link.close()
             if self.recorder_parameters["is_window_shown"]:
                 cv2.destroyAllWindows()
@@ -1389,11 +1389,11 @@ class EpisodeRecorder:
         position, orientation = arm_model.tool_pose(list(joints))
         lifted = [float(position[0]), float(position[1]), float(position[2]) + self.recorder_parameters["approach_height_m"]] + [float(value) for value in orientation]
         try:
-            self.robot_link.move_to(lifted, is_linear = False)
+            self.robot_link.move_to(lifted, is_linear = False, velocity_percent = self.__travel_velocity())
         except Exception as error:
             # Above the target in joint space instead, so the last move is a short one straight down onto the puck's place.
             try:
-                self.robot_link.move_joints(self.__joints_lifted(list(joints)))
+                self.robot_link.move_joints(self.__joints_lifted(list(joints)), velocity_percent = self.__travel_velocity())
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); came above it with joints 2 and 3 instead")
             except Exception:
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
@@ -2551,13 +2551,14 @@ class EpisodeRecorder:
             # A taught start with the forearm turned (7.11.26, Marshal): the same joint solver as the forearm turns,
             # above the start first, then straight down onto it.
             tip_xy = self.__start_tip_xy()
-            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False))
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False),
+                                        velocity_percent = self.__travel_velocity())
             self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0))
             return
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
-        self.robot_link.move_to(above, is_linear = False)
+        self.robot_link.move_to(above, is_linear = False, velocity_percent = self.__travel_velocity())
         try:
             self.robot_link.move_to(start)
         except Exception as error:
@@ -2576,7 +2577,7 @@ class EpisodeRecorder:
                 print(f"turning the forearm back failed ({str(error).splitlines()[0]}); going to the parking pose instead")
                 self.forearm_turn_deg = 0.0
                 self.tip_xy = None
-                self.robot_link.move_home(self.recorder_parameters["home_joints"])
+                self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
                 return
 
         state = self.robot_link.read_state()
@@ -2596,7 +2597,23 @@ class EpisodeRecorder:
             # 3.11.26: after a refused start the arm was still at the parking pose, 5 cm above which is out of reach;
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
-            self.robot_link.move_home(self.recorder_parameters["home_joints"])
+            self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
+
+
+    def __travel_velocity(self) -> Optional[int]:
+        """
+        The faster speed cap for a move that pushes nothing (8.11.26, Emranul), when the rod's end starts at least
+        "travel_minimum_height_m" above the sheet; None (the usual speed) when it starts lower, near the puck.
+        """
+
+        try:
+            pose = self.robot_link.read_state()["pose"]
+        except Exception:
+            return None
+        height = float(pose[2]) - pushing_height(float(pose[0]), float(pose[1]))
+        if height < self.recorder_parameters["travel_minimum_height_m"]:
+            return None
+        return self.recorder_parameters["travel_velocity_percent"]
 
 
     def __joints_lifted(self, joints: List[float]) -> List[float]:
