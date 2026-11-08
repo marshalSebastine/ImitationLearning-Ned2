@@ -482,8 +482,11 @@ class PuckDetector:
             "pale_cast_reduction"]
         if candidate["median_saturation"] < pale_limit:
             return "pale"
+        # 8.11.26: under the ceiling lights the puck in the hand's shadow is as dark as the block and the gaps, but
+        # stays nearer red in hue than they do, so a dark violet blob that near red is kept
         if (candidate["median_signed_hue"] < parameters["grow_hue_range"][0]
-                and candidate["median_value"] < parameters["violet_minimum_median_value"]):
+                and candidate["median_value"] < parameters["violet_minimum_median_value"]
+                and candidate["median_signed_hue"] < parameters["dark_violet_puck_hue_minimum"]):
             return "dark_violet"
         if candidate["wood_fraction"] > parameters["maximum_wood_fraction"]:
             return "wood_around"
