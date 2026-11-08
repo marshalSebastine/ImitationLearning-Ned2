@@ -2522,7 +2522,8 @@ class EpisodeRecorder:
         (episode_folder / "episode.json").write_text(json.dumps(summary, indent = 2), encoding = "utf-8")
 
         overrides = f", {human_steps} overridden by hand" if summary["mode"] == "hand_guided" else ""
-        ending = summary["outcome"] or summary["discard_reason"]
+        # 8.11.26: an episode that never started (start unreachable, camera moved) has neither; it crashed here.
+        ending = summary.get("outcome") or summary.get("discard_reason")
         ending = f", {ending}" if ending else ""
         self.__append_session_notes(f"- {episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps{overrides}\n")
         print(f"{episode_folder.name}: {summary['status']}{ending}, {len(rows)} steps")
