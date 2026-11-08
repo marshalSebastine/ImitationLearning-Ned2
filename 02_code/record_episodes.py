@@ -1771,9 +1771,12 @@ class EpisodeRecorder:
 
         The lean limit does not apply here: lifted, the rod touches nothing, and on 4.11.26 the limit refused the
         retreat at 38 cm (lifted lean 34.6 degrees) and the arm went to the parking pose from low down instead.
+
+        8.11.26 (Emranul): lifted by "approach_height_m" (5 cm) instead of the steps' 2.5 cm, where the block's tip
+        cleared the 2.9 cm puck by about 1 mm; once up, the turns back and the travel after them run at the travel speed.
         """
 
-        lift = self.recorder_parameters["turn_lift_m"]
+        lift = self.recorder_parameters["approach_height_m"]
         increment = self.recorder_parameters["turn_increment_deg"]
         turn_deg = self.forearm_turn_deg
         stops = [(turn_deg, height) for height in sorted(self.recorder_parameters["turn_near_paper_heights_m"]) if height < lift] + [(turn_deg, lift)]
@@ -1786,8 +1789,8 @@ class EpisodeRecorder:
             joints = self.__turned_joints(self.tip_xy, turn_deg, height, is_lean_limited = False, near_wrist_rad = near_wrist_rad)
             plan.append(joints)
             near_wrist_rad = joints[4]
-        for joints in plan:
-            self.robot_link.move_joints(joints)
+        for index, joints in enumerate(plan):
+            self.robot_link.move_joints(joints, velocity_percent = self.__travel_velocity() if index > 0 else None)
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
 
