@@ -1,0 +1,20 @@
+smoke_classes 66.8 s {"class_accuracy_mean": 0.4233, "within_45_deg_mean": 0.579, "expected_class_accuracy_mean": 0.4099, "expected_within_45_deg_mean": 0.6071, "episodes_stopped_right_mean": 0.2175, "episodes_stopped_early_mean": 0.1423, "episodes_never_stopped_mean": 0.5718, "twist_sign_accuracy_mean": 0.4162}
+  folds: ['without_path_01', 'without_path_02', 'without_path_03', 'without_path_04', 'without_path_05', 'without_path_06'] test rows: [658, 2714, 4059, 6348, 2669, 1982]
+smoke_exact_at_goal 60.7 s {"class_accuracy_mean": 0.3982, "within_45_deg_mean": 0.5788, "episodes_stopped_right_mean": 0.1222, "episodes_stopped_early_mean": 0.6158, "episodes_never_stopped_mean": 0.1306, "twist_sign_accuracy_mean": 0.7085, "lean_sign_accuracy_mean": 0.8083}
+  folds: ['without_path_01', 'without_path_02', 'without_path_03', 'without_path_04', 'without_path_05', 'without_path_06'] test rows: [658, 2714, 4059, 6348, 2669, 1982]
+smoke_mixed 45.7 s {"class_accuracy_mean": 0.4772, "within_45_deg_mean": 0.6627, "expected_class_accuracy_mean": 0.4683, "expected_within_45_deg_mean": 0.7029, "vector_class_accuracy_mean": 0.4593, "vector_within_45_deg_mean": 0.683, "episodes_stopped_right_mean": 0.4895, "episodes_stopped_early_mean": 0.0867, "episodes_never_stopped_mean": 0.3714, "twist_sign_accuracy_mean": 0.8417, "lean_sign_accuracy_mean": 0.8591}
+  folds: ['episodes_fold_0', 'episodes_fold_1', 'episodes_fold_2', 'episodes_fold_3', 'episodes_fold_4'] test rows: [3369, 3976, 3068, 4023, 3994]
+Traceback (most recent call last):
+  File "C:\Users\e7dc\AppData\Local\Temp\claude\D--AI-Project\997601d4-4a2e-4eb2-91d1-890ff53278fd\scratchpad\smoke_probes.py", line 22, in <module>
+    result = run_variant(variant, frames_cache, features_cache)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AI_Project/.claude/worktrees/training-analysis/02_code\training_probes.py", line 548, in run_variant
+    measures = fold_measures(predictions, frames, test_rows, arrays, is_moving)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AI_Project/.claude/worktrees/training-analysis/02_code\training_probes.py", line 436, in fold_measures
+    measures.update(chunk_metrics(arrays["chunk"][rows], predictions["chunk_cm"]))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AI_Project/.claude/worktrees/training-analysis/02_code\training_metrics.py", line 268, in chunk_metrics
+    distances = numpy.linalg.norm(numpy.asarray(true_chunk_cm) - numpy.asarray(predicted_chunk_cm), axis = 2)
+                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ValueError: operands could not be broadcast together with shapes (658,10) (658,5,2) 

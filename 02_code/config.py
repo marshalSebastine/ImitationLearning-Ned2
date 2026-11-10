@@ -1337,3 +1337,485 @@ CLAUDE_OPERATOR_STUDY_PARAMETERS = {
     "study_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Claude operator study",
     "answer_key_path": Path(__file__).resolve().parent.parent / "03_data" / "claude_operator_study_answer_key.csv"
 }
+
+
+# ------------------------------------------------------------------------------------------------------------------
+# Model and training (9.11.26, Model and training session).
+
+def main_checkout_folder() -> Path:
+    """
+    Return the project folder that holds ``03_data``: this checkout, or the main checkout for a git worktree.
+
+    ``03_data`` is never in git, so a git worktree of the project (for example one under ``.claude/worktrees``) has no
+    data of its own. Its ``.git`` file names the worktree's folder inside the main checkout's ``.git`` folder, whose
+    parent is the main checkout.
+
+    Returns
+    -------
+    pathlib.Path
+        The folder that contains ``03_data``, or this checkout when no other one can be found.
+    """
+
+    project_folder = Path(__file__).resolve().parent.parent
+    if (project_folder / "03_data").exists():
+        return project_folder
+    git_file = project_folder / ".git"
+    if git_file.is_file():
+        git_line = git_file.read_text(encoding = "utf-8").strip()
+        if git_line.startswith("gitdir:"):
+            worktree_git_folder = Path(git_line.split(":", 1)[1].strip())
+            return worktree_git_folder.parent.parent.parent
+    return project_folder
+
+
+# The training data index: training_dataset.py reads the main data without changing it and writes one row per picture,
+# one row per episode, a small grey copy of every picture and the resized picture caches into "processed_folder".
+# Kept: the scores in "kept_scores" (Emranul, 6.11.26: every finished episode trains, score 1 included; score 0 is left
+# out). Episodes without a score yet (3 on 9.11.26) are indexed but marked; "is_unscored_kept" decides whether the
+# training uses them. Lighting notes were typed by hand (seven spellings by 9.11.26); a note naming the ceiling lights
+# counts as ceiling even when it also names daylight (one note says it was wrongly marked as natural light). The red and
+# dark measurements reuse the recording tool's own colour limits, so the numbers mean the same in both places.
+TRAINING_DATA_PARAMETERS = {
+    "raw_folder": main_checkout_folder() / "03_data" / "raw" / "main_data",
+    "processed_folder": main_checkout_folder() / "03_data" / "processed" / "v01_training_index",
+    "kept_scores": [1, 2, 3],
+    "is_unscored_kept": False,
+    "lighting_keywords": {"ceiling": ["ceiling", "cieling", "lamp"], "natural": ["natural", "cloudy", "daylight", "sun"]},
+    "thumbnail_size": [32, 24],
+    "image_caches": {"square_224": [224, 224], "wide_160": [160, 120]},
+    "red_hue_edges": RECORDING_PARAMETERS["puck_red_hue_edges"],
+    "red_minimum_saturation": RECORDING_PARAMETERS["puck_red_min_saturation"],
+    "red_minimum_value": RECORDING_PARAMETERS["puck_red_min_value"],
+    "dark_value_below": PICTURE_CHECK_PARAMETERS["dark_value_below"],
+    "robot_area_px": PICTURE_CHECK_PARAMETERS["robot_area_px"],
+    "worker_count": 6
+}
+
+# Frozen picture features (training_features.py): pretrained backbones from the timm library, used without changing
+# their weights, so that small heads can be compared in seconds (training_probes.py). "is_fixed_input" marks a vision
+# transformer whose input size is fixed by its position table. The untrained ResNet-18 is a control: it shows how much
+# a head learns from features that know nothing about pictures.
+TRAINING_FEATURE_PARAMETERS = {
+    "backbones": {
+        "resnet18_imagenet": {"timm_name": "resnet18.tv_in1k", "is_pretrained": True},
+        "resnet18_random": {"timm_name": "resnet18", "is_pretrained": False},
+        "efficientnet_b0_imagenet": {"timm_name": "efficientnet_b0.ra_in1k", "is_pretrained": True},
+        "mobilenetv3_large_imagenet": {"timm_name": "mobilenetv3_large_100.ra_in1k", "is_pretrained": True},
+        "dinov2_small": {"timm_name": "vit_small_patch14_dinov2.lvd142m", "is_pretrained": True,
+                         "creation_arguments": {"img_size": 224}, "is_fixed_input": True},
+        "clip_vit_b32": {"timm_name": "vit_base_patch32_clip_224.openai", "is_pretrained": True, "is_fixed_input": True}
+    },
+    "picture_cache": "square_224",
+    "grid_cells": 4,
+    "batch_size": 64,
+    "extraction_threads": 4,
+    "speed_threads": 4,
+    "speed_input_sizes": {"square_224": [224, 224], "wide_160": [160, 120]},
+    "speed_repeats": 20,
+    "seed": 9_11_26,
+    "is_overwritten": False
+}
+
+# Training targets and validation (training_targets.py). Rows used: the scores in "kept_scores", without the rows the
+# operators marked as a mistake; flagged pictures stay in unless "is_flagged_dropped". The plan's start end replaces
+# episode.json's where they disagree (19 re-planned episodes of sheets 05 and 06, checked on the tip's path, 9.11.26);
+# with "is_audit_cleaning" the audit's table of corrected ends is used instead (it also fixes 11 episodes of sheet 02).
+# A tip move under 3 mm (small_motion, mostly a forearm twist) becomes the next real move ("next_move"), is dropped
+# ("drop") or is its own class ("own_class"). A forearm change of "twist_threshold_deg" or more counts as a twist.
+TRAINING_TARGET_PARAMETERS = {
+    "kept_scores": [1, 2, 3],
+    "is_unscored_kept": False,
+    "is_mistake_dropped": True,
+    "is_flagged_dropped": False,
+    "corrected_start_end": "plan",
+    "small_motion_rule": "next_move",
+    "twist_threshold_deg": 2.0,
+    "chunk_steps": 5,
+    "episode_fold_count": 5,
+    "inner_validation_share": 0.15,
+    "seed": 9_11_26
+}
+
+# Offline measures (training_metrics.py), the same for every model. A stop counts as right within "right_stop_cm" of
+# where the demonstration stopped and as too early more than "early_stop_cm" before it (the is_at_goal label uses 2 cm).
+TRAINING_METRIC_PARAMETERS = {
+    "angle_thresholds_deg": [30, 45, 60],
+    "stop_threshold": 0.5,
+    "right_stop_cm": 2.0,
+    "early_stop_cm": 3.0,
+    "twist_threshold_deg": 2.0
+}
+
+# Quick comparisons on frozen features (training_probes.py). A head with one hidden layer of "hidden_size" (0: linear)
+# is trained on standardised features with AdamW and early stopping on whole episodes held back from the training
+# sheets; "class_weight_power" 0.5 weighs each class by the square root of its rarity. Each experiment answers one
+# question; a variant lists only what differs from these defaults and from the experiment's "shared" settings.
+TRAINING_PROBE_PARAMETERS = {
+    "backbone": "resnet18_imagenet",
+    "feature_kind": "grid",
+    "design": "classes",
+    "split": "sheets",
+    "history_lags": [],
+    "is_difference_history": False,
+    "hidden_size": 256,
+    "dropout": 0.2,
+    "learning_rate": 1e-3,
+    "weight_decay": 1e-2,
+    "batch_size": 256,
+    "max_epochs": 40,
+    "patience": 5,
+    "label_smoothing": 0.0,
+    "class_weight_power": 0.5,
+    "score_weights": {1: 1.0, 2: 1.0, 3: 1.0},
+    "twist_loss_weight": 0.5,
+    "angle_scale_deg": 5.0,
+    "huber_delta": 1.0,
+    "stop_positive_weight": 10.0,
+    "seed": 9_11_26,
+    "threads": 4,
+    "output_folder": Path(__file__).resolve().parent.parent / "04_runs" / "2026-11-09_frozen_feature_probes"
+}
+
+PROBE_BACKBONES = ["resnet18_imagenet", "resnet18_random", "efficientnet_b0_imagenet", "mobilenetv3_large_imagenet",
+                   "dinov2_small", "clip_vit_b32"]
+
+TRAINING_PROBE_EXPERIMENTS = {
+    "backbones": {
+        "question": "Which frozen backbone, with a summary or a 4 x 4 grid of features, transfers best to a held-out sheet?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [{"name": f"{backbone}_{kind}", "backbone": backbone, "feature_kind": kind}
+                     for backbone in PROBE_BACKBONES for kind in ["global", "grid"]]
+    },
+    "designs": {
+        "question": "What should the model predict: move classes, the exact step, both, or a chunk of several steps?",
+        "shared": {"split": "sheets"},
+        "variants": [
+            {"name": "classes_small_motion_dropped", "design": "classes", "small_motion_rule": "drop"},
+            {"name": "classes_small_motion_next_move", "design": "classes", "small_motion_rule": "next_move"},
+            {"name": "classes_small_motion_own_class", "design": "classes", "small_motion_rule": "own_class"},
+            {"name": "exact_step", "design": "exact"},
+            {"name": "mixed_classes_and_exact", "design": "mixed", "small_motion_rule": "next_move"},
+            {"name": "chunk_of_5_steps", "design": "chunk", "chunk_steps": 5}
+        ]
+    },
+    "splits": {
+        "question": "How much worse is a held-out sheet than held-out episodes of known sheets (the generalisation gap)?",
+        "shared": {},
+        "variants": [
+            {"name": "classes_held_out_episodes", "design": "classes", "split": "episodes"},
+            {"name": "exact_held_out_episodes", "design": "exact", "split": "episodes"},
+            {"name": "classes_held_out_sheets", "design": "classes", "split": "sheets"},
+            {"name": "exact_held_out_sheets", "design": "exact", "split": "sheets"}
+        ]
+    },
+    "history": {
+        "question": "Does a short history of earlier pictures help a one-picture model?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "one_picture", "history_lags": []},
+            {"name": "plus_previous_picture", "history_lags": [1]},
+            {"name": "plus_change_since_previous", "history_lags": [1], "is_difference_history": True},
+            {"name": "plus_pictures_2_and_4_back", "history_lags": [2, 4]}
+        ]
+    },
+    "scores": {
+        "question": "Should score-1 and score-2 episodes train, be weighted down, or be left out?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "scores_1_2_3", "kept_scores": [1, 2, 3]},
+            {"name": "scores_2_3", "kept_scores": [2, 3]},
+            {"name": "score_3_only", "kept_scores": [3]},
+            {"name": "scores_weighted", "kept_scores": [1, 2, 3], "score_weights": {1: 0.4, 2: 0.7, 3: 1.0}}
+        ]
+    },
+    "balance": {
+        "question": "How strongly should rare classes be weighted, and does label smoothing help?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "no_class_weights", "class_weight_power": 0.0},
+            {"name": "square_root_weights", "class_weight_power": 0.5},
+            {"name": "full_inverse_weights", "class_weight_power": 1.0},
+            {"name": "square_root_weights_label_smoothing", "class_weight_power": 0.5, "label_smoothing": 0.1}
+        ]
+    },
+    "head_size": {
+        "question": "Is a linear head enough on frozen features, or does a hidden layer help?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "linear", "hidden_size": 0},
+            {"name": "hidden_256", "hidden_size": 256},
+            {"name": "hidden_1024", "hidden_size": 1024, "dropout": 0.3}
+        ]
+    },
+    "cleaning": {
+        "question": "Do flagged pictures and the rows marked as mistakes hurt?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "mistakes_dropped_flags_kept", "is_mistake_dropped": True, "is_flagged_dropped": False},
+            {"name": "mistakes_and_flags_dropped", "is_mistake_dropped": True, "is_flagged_dropped": True},
+            {"name": "nothing_dropped", "is_mistake_dropped": False, "is_flagged_dropped": False}
+        ]
+    }
+}
+
+# End-to-end training (train_policy.py). Defaults for every named run in TRAINING_RUNS; a run lists only what differs.
+# Pictures come from the 160 x 120 cache (the camera's 4:3 shape kept). A pretrained backbone learns at
+# "backbone_learning_rate_factor" times the head's rate, so its ImageNet knowledge is changed gently. "pooling" grid
+# keeps a 3 x 4 grid of cells, so the head knows where the line runs relative to the puck. Augmentation strengths:
+# brightness, contrast and saturation as plus or minus shares, gamma as plus or minus its natural logarithm, blur
+# sigma in pixels, noise as a share of full scale, shift in pixels (the taped camera crept up to about 8 px between
+# episodes at 640 px, about 2 px at 160 px), and the share of mirrored pictures (0: off).
+TRAINING_RUN_PARAMETERS = {
+    "backbone": "resnet18.tv_in1k",
+    "is_pretrained": True,
+    "small_cnn_channels": [32, 64, 96, 128, 192],
+    "pooling": "grid",
+    "pooling_grid": [3, 4],
+    "hidden_size": 256,
+    "dropout": 0.2,
+    "design": "classes",
+    "split": "sheets",
+    "picture_cache": "wide_160",
+    "picture_size": [160, 120],
+    "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]},
+    "augmentation": {"brightness": 0.35, "contrast": 0.3, "saturation": 0.25, "gamma_log": 0.25, "blur_probability": 0.3,
+                     "blur_sigma_most": 1.5, "noise_most": 0.03, "shift_px": 3, "mirror_probability": 0.0},
+    "learning_rate": 1e-3,
+    "backbone_learning_rate_factor": 0.3,
+    "weight_decay": 0.05,
+    "batch_size": 64,
+    "epochs": 12,
+    "warm_up_epochs": 1,
+    "patience": 4,
+    "evaluation_batch_size": 256,
+    "class_weight_power": 0.5,
+    "score_weights": {1: 1.0, 2: 1.0, 3: 1.0},
+    "label_smoothing": 0.0,
+    "twist_loss_weight": 0.5,
+    "angle_scale_deg": 5.0,
+    "huber_delta": 1.0,
+    "stop_positive_weight": 10.0,
+    "seed": 9_11_26,
+    "threads": 6,
+    "date": None,
+    "output_root": Path(__file__).resolve().parent.parent / "04_runs"
+}
+
+NO_AUGMENTATION = {"brightness": 0.0, "contrast": 0.0, "saturation": 0.0, "gamma_log": 0.0, "blur_probability": 0.0,
+                   "blur_sigma_most": 1.5, "noise_most": 0.0, "shift_px": 0, "mirror_probability": 0.0}
+
+TRAINING_RUNS = {
+    "small_cnn_scratch_classes": {"backbone": "small_cnn", "is_pretrained": False, "learning_rate": 2e-3, "epochs": 25, "patience": 6},
+    "resnet18_finetune_classes": {},
+    "resnet18_finetune_exact": {"design": "exact"},
+    "resnet18_finetune_mixed": {"design": "mixed"},
+    "resnet18_finetune_mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)},
+    "resnet18_finetune_no_augmentation": {"augmentation": NO_AUGMENTATION},
+    "mobilenetv3_finetune_classes": {"backbone": "mobilenetv3_large_100.ra_in1k"},
+    "efficientnet_b0_finetune_classes": {"backbone": "efficientnet_b0.ra_in1k"}
+}
+
+# 9.11.26: two more settings for the probes and the end-to-end runs. "is_stop_separate" gives a class model its own stop
+# output instead of a stop class; "stop_target" trains a stop output on the episode's stop picture only ("stop_row")
+# or on every picture within "at_goal_within_cm" of the goal ("at_goal", more examples, may stop a little early).
+# The lean and hand changes are scored like the twist, from these thresholds.
+TRAINING_PROBE_PARAMETERS.update({"is_stop_separate": False, "stop_target": "stop_row", "is_prediction_saved": False})
+TRAINING_RUN_PARAMETERS.update({"is_stop_separate": False, "stop_target": "stop_row"})
+TRAINING_METRIC_PARAMETERS.update({"lean_threshold_deg": 1.0, "hand_threshold_deg": 3.0})
+TRAINING_PROBE_EXPERIMENTS["stop"] = {
+    "question": "How should the model decide to stop: as one more class, or with its own output trained on the stop picture or on every picture near the goal?",
+    "shared": {"split": "sheets"},
+    "variants": [
+        {"name": "classes_stop_as_class", "design": "classes"},
+        {"name": "classes_stop_head_on_stop_picture", "design": "classes", "is_stop_separate": True, "stop_target": "stop_row"},
+        {"name": "classes_stop_head_on_near_goal", "design": "classes", "is_stop_separate": True, "stop_target": "at_goal"},
+        {"name": "exact_stop_head_on_stop_picture", "design": "exact", "stop_target": "stop_row"},
+        {"name": "exact_stop_head_on_near_goal", "design": "exact", "stop_target": "at_goal"}
+    ]
+}
+
+# One comparison table of every model (compare_runs.py): the measures shown, with their headings; sorted best first by
+# the share of moving pictures whose predicted direction is within 45 degrees of the demonstrated one.
+TRAINING_COMPARISON_PARAMETERS = {
+    "runs_folder": Path(__file__).resolve().parent.parent / "04_runs",
+    "columns": [
+        ("within_45_deg_mean", "within 45 deg"),
+        ("within_45_deg_minimum", "within 45 deg, worst fold"),
+        ("within_30_deg_mean", "within 30 deg"),
+        ("angle_error_median_deg_mean", "median angle error"),
+        ("class_balanced_accuracy_mean", "balanced class accuracy"),
+        ("episodes_stopped_right_mean", "stopped right"),
+        ("episodes_stopped_early_mean", "stopped early"),
+        ("episodes_never_stopped_mean", "never stopped"),
+        ("twist_sign_accuracy_mean", "twist sign"),
+        ("lean_sign_accuracy_mean", "lean sign"),
+        ("milliseconds_per_picture", "ms per picture")
+    ],
+    "sort_by": "within 45 deg"
+}
+
+# 9.11.26: how the held-out-sheet result grows with more data, to decide whether more episodes or more different
+# tracks are worth recording ("train_episode_share" of each training sheet's episodes; "train_sheet_count" of the five
+# training sheets, chosen at random per fold). Each variant is repeated with three seeds, because one draw of sheets
+# can be lucky.
+TRAINING_PROBE_PARAMETERS.update({"train_episode_share": 1.0, "train_sheet_count": None})
+TRAINING_PROBE_EXPERIMENTS["data_amount"] = {
+    "question": "Does the held-out-sheet result still grow with more episodes per sheet, or with more different sheets?",
+    "shared": {"design": "classes", "split": "sheets"},
+    "variants": ([{"name": f"episode_share_{share}_seed_{seed}", "train_episode_share": share, "seed": seed}
+                  for share in [0.25, 0.5, 1.0] for seed in [1, 2, 3]]
+                 + [{"name": f"sheet_count_{count}_seed_{seed}", "train_sheet_count": count, "seed": seed}
+                    for count in [1, 2, 3, 4] for seed in [1, 2, 3]])
+}
+
+# 9.11.26: the head standardises its own input from this many evenly spread training rows (enough for a stable mean and
+# spread, and it keeps the features in half precision in memory).
+TRAINING_PROBE_PARAMETERS.update({"standardisation_rows": 4000})
+
+# 9.11.26: one end-to-end epoch over all 15,000 training pictures takes about 7 minutes on the laptop's processor
+# (measured with other jobs running). Neighbouring pictures are about 1 cm apart and look alike, so each epoch uses a
+# random "train_share_per_epoch" of them; 0.5 halves the time per epoch.
+TRAINING_RUN_PARAMETERS.update({"train_share_per_epoch": 1.0})
+TRAINING_RUNS["small_cnn_scratch_classes"].update({"train_share_per_epoch": 0.5, "epochs": 16, "patience": 5})
+for run_name in ("resnet18_finetune_classes", "resnet18_finetune_exact", "resnet18_finetune_mixed", "resnet18_finetune_mirror",
+                 "resnet18_finetune_no_augmentation", "mobilenetv3_finetune_classes", "efficientnet_b0_finetune_classes"):
+    TRAINING_RUNS[run_name].update({"train_share_per_epoch": 0.5, "epochs": 8, "patience": 3})
+
+# 9.11.26: the path direction, a less noisy target than one hand-guided step (the steps wobble by about 21 degrees
+# from one to the next): from the tip now to where it is "path_steps" steps later, scored where that is at least
+# "path_minimum_cm" long. The probes save their predictions (npz files under 04_runs, kept out of git) for error
+# analysis per sheet and situation.
+TRAINING_METRIC_PARAMETERS.update({"path_steps": 3, "path_minimum_cm": 1.5})
+TRAINING_PROBE_PARAMETERS.update({"is_prediction_saved": True})
+TRAINING_COMPARISON_PARAMETERS["columns"][3:3] = [("path_within_45_deg_mean", "path within 45 deg"),
+                                                  ("path_within_45_deg_minimum", "path within 45 deg, worst fold"),
+                                                  ("path_angle_error_median_deg_mean", "path median angle error")]
+
+# 9.11.26: "input_channels" "rgb" feeds the colour picture; "line_and_puck" feeds three maps instead (how much darker than
+# the picture's median a pixel is, how red it is, and the grey picture less its median), so light and table texture
+# matter less (train_policy.line_and_puck_maps). Tested with the small network from scratch.
+TRAINING_RUN_PARAMETERS.update({"input_channels": "rgb"})
+TRAINING_RUNS["small_cnn_line_and_puck_classes"] = dict(TRAINING_RUNS["small_cnn_scratch_classes"], input_channels = "line_and_puck")
+TRAINING_RUNS["resnet18_finetune_chunk"] = {"design": "chunk", "train_share_per_epoch": 0.5, "epochs": 8, "patience": 3}
+
+# 9.11.26: rows where the robot stood still (tip moved under "static_move_m", forearm under "static_turn_deg", not the
+# stop row: the first row of every episode and the first row after a hand correction, about 430) show nearly the same
+# picture as the next row, which carries the real move. "is_static_dropped" leaves them out; tested in "cleaning".
+TRAINING_TARGET_PARAMETERS.update({"is_static_dropped": False, "static_move_m": 0.001, "static_turn_deg": 1.0})
+TRAINING_PROBE_EXPERIMENTS["cleaning"]["variants"].append(
+    {"name": "mistakes_and_static_rows_dropped", "is_mistake_dropped": True, "is_static_dropped": True})
+
+# 9.11.26, from the picture audit: the taped camera moved once by about 14 px right and 5 px down at 640 px (about 4 px
+# at 160 px), so the shift is 4 px; sharpness hardly varies (at most about 0.5 px of blur at full size), so blur is
+# rare and light; a per-channel gain of plus or minus "channel_gain" imitates the bluish daylight cast.
+for augmentation in [TRAINING_RUN_PARAMETERS["augmentation"], NO_AUGMENTATION] + [run["augmentation"] for run in TRAINING_RUNS.values() if "augmentation" in run]:
+    augmentation.setdefault("channel_gain", 0.0)
+TRAINING_RUN_PARAMETERS["augmentation"].update({"shift_px": 4, "blur_probability": 0.15, "blur_sigma_most": 0.8, "channel_gain": 0.08})
+TRAINING_RUNS["resnet18_finetune_mirror"]["augmentation"] = dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)
+
+# Where a model goes wrong (training_error_analysis.py). "start" is the first "start_rows" rows; "near_goal" within
+# "near_goal_cm" of where the demonstration stopped; a "bend" turns the tip's direction by more than
+# "bend_threshold_deg" over "bend_window_steps" steps before and after; the forearm is "turned" from
+# "forearm_turned_deg" and "far_turned" from "forearm_far_turned_deg". The taped camera moved once (picture audit,
+# 9.11.26): view A before "camera_moved_from", view B from "camera_settled_at", "settling" between.
+TRAINING_ERROR_ANALYSIS_PARAMETERS = {
+    "start_rows": 3,
+    "near_goal_cm": 3.0,
+    "bend_window_steps": 3,
+    "bend_threshold_deg": 15.0,
+    "forearm_turned_deg": 30.0,
+    "forearm_far_turned_deg": 75.0,
+    "camera_moved_from": "2026-11-08T17:59:00",
+    "camera_settled_at": "2026-11-08T21:00:00"
+}
+
+# 9.11.26: the error analysis also scores the predicted direction averaged over the last 1, 2, 3 or 5 pictures.
+TRAINING_ERROR_ANALYSIS_PARAMETERS.update({"smoothing_windows": [1, 2, 3, 5]})
+
+# 9.11.26: the stop threshold is also tuned per fold on the held-back validation episodes (never on the test sheet), from
+# these candidates, for one picture and for two pictures in a row; the result is scored as "tuned_" and "tuned_two_".
+TRAINING_METRIC_PARAMETERS.update({"stop_threshold_candidates": [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]})
+TRAINING_COMPARISON_PARAMETERS["columns"][-1:-1] = [("tuned_two_episodes_stopped_right_mean", "stopped right, tuned, 2 in a row"),
+                                                    ("tuned_two_episodes_stopped_early_mean", "stopped early, tuned, 2 in a row")]
+
+# 9.11.26: how much the held-out-sheet result moves between seeds alone, so that a difference between two variants
+# can be judged against it (the same variant three times with different seeds).
+TRAINING_PROBE_EXPERIMENTS["seeds"] = {
+    "question": "How much does the result change between random seeds alone?",
+    "shared": {"split": "sheets"},
+    "variants": ([{"name": f"classes_seed_{seed}", "design": "classes", "seed": seed} for seed in [11, 12, 13]]
+                 + [{"name": f"exact_seed_{seed}", "design": "exact", "seed": seed} for seed in [11, 12, 13]])
+}
+
+# 9.11.26: the runs of this comparison keep the analysis date in their folder name, so that folds trained after
+# midnight land in the same folder as the others (04_runs/2026-11-09_<run>/).
+TRAINING_RUN_PARAMETERS.update({"date": "2026-11-09"})
+
+# 9.11.26: the end-to-end runs were trained on three held-out sheets (the two curves and both loops), so the comparison
+# also shows every model's means over exactly these folds.
+TRAINING_COMPARISON_PARAMETERS.update({"matched_folds": ["without_path_03", "without_path_05", "without_path_06"]})
+
+# 9.11.26: a third way to learn the stop. "stop_target" "goal_distance" trains the stop output to predict the tip's
+# distance to where the demonstration stopped (capped at "goal_distance_cap_cm"), from every picture; the robot stops
+# when the predicted distance is small for two pictures in a row (the threshold tuned on validation episodes).
+TRAINING_PROBE_PARAMETERS.update({"goal_distance_cap_cm": 10.0})
+TRAINING_RUN_PARAMETERS.update({"goal_distance_cap_cm": 10.0})
+TRAINING_PROBE_EXPERIMENTS["stop_distance"] = {
+    "question": "Does a stop output that predicts the distance to the goal from every picture stop more reliably?",
+    "shared": {"split": "sheets"},
+    "variants": [
+        {"name": "classes_stop_head_on_goal_distance", "design": "classes", "is_stop_separate": True, "stop_target": "goal_distance"},
+        {"name": "exact_stop_on_goal_distance", "design": "exact", "stop_target": "goal_distance"}
+    ]
+}
+TRAINING_RUNS["resnet18_finetune_exact_distance_stop"] = {"design": "exact", "stop_target": "goal_distance",
+                                                          "train_share_per_epoch": 0.5, "epochs": 8, "patience": 3}
+
+# 9.11.26: the cleaning the data audit recommends (06_deliverables/research_notes/Model and training/evidence/, section 11
+# of audit_synthesis.md), applied when "is_audit_cleaning" is on: scores of unscored folders from review.json (2
+# episodes, score 2); start ends from the audit's table of corrected ends (30 episodes changed: 19 on sheets 05 and 06,
+# 11 on sheet 02); 469 rows dropped (row 0 of every episode and the first row after every hand correction, both null
+# moves at waypoint 0; one more sudden-change picture; the half run 05-16; rows 169 to 175 of 04-01 try 6, where the
+# puck was pulled back by pressing its top); 50 rows relabelled as stop (their joints differ from the next row, the
+# stop row, by under 0.2 degrees, so the picture is the stop picture); the 25 steps over 2 cm and the few twists over
+# 15 degrees left by recording stalls clipped.
+TRAINING_TARGET_PARAMETERS.update({
+    "is_audit_cleaning": False,
+    "audit_cleaning": {
+        "corrected_ends_path": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "evidence" / "corrected_ends.csv",
+        "static_joint_limit_deg": 0.2,
+        "dropped_episode_patterns": ["_plan_05-16_"],
+        "dropped_row_ranges": [("_plan_04-01_try_6", 169, 175)],
+        "step_clip_m": 0.02,
+        "twist_clip_deg": 15.0
+    }
+})
+# The camera period from the audit: the camera view moved during the break on 8.11.26 between 18:07 and 19:33; from
+# 04-30 (19:33) on, 71 episodes are in the later view.
+TRAINING_ERROR_ANALYSIS_PARAMETERS.update({"camera_moved_from": "2026-11-08T18:07:00", "camera_settled_at": "2026-11-08T19:33:00"})
+
+# 9.11.26: the final candidate from the comparison: the exact step (tip forward and left, forearm twist, lean, hand)
+# with its own stop output trained on the stop pictures (259 after the audit's relabelling), the audit's cleaning, a
+# fixed 8 epochs on half the pictures each, and the LAST weights kept (no choice by validation loss, which predicts
+# robot success poorly); scored on all six held-out sheets.
+TRAINING_RUN_PARAMETERS.update({"is_last_checkpoint_kept": False})
+TRAINING_RUNS["resnet18_final_candidate"] = {"design": "exact", "stop_target": "stop_row", "is_audit_cleaning": True,
+                                             "train_share_per_epoch": 0.5, "epochs": 8, "patience": 99,
+                                             "is_last_checkpoint_kept": True}
+
+# 9.11.26, from the design review: the backup set-up named by two of the three judges (the 8 move names with square-root
+# class weights, whose probability-weighted mean direction is executed, together with the exact step, whose twist is
+# executed, and its own stop output), on the final candidate's recipe; and a second seed of the final candidate, to
+# measure how much end-to-end results move between seeds alone.
+TRAINING_RUNS["resnet18_backup_names_plus_exact"] = {"design": "mixed", "is_stop_separate": True, "stop_target": "stop_row",
+                                                     "is_audit_cleaning": True, "class_weight_power": 0.5,
+                                                     "train_share_per_epoch": 0.5, "epochs": 8, "patience": 99,
+                                                     "is_last_checkpoint_kept": True}
+TRAINING_RUNS["resnet18_final_candidate_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = 10_11_26)
+
+# 10.11.26 (after the design review): every run is also scored with the stop rule the judges chose for all models, a
+# fixed threshold of 0.5 on two pictures in a row ("fixed_two_"); compare_runs.py rescores older runs from their saved
+# predictions.
+TRAINING_COMPARISON_PARAMETERS["columns"][-1:-1] = [("fixed_two_episodes_stopped_right_mean", "stopped right, fixed 0.5, 2 in a row"),
+                                                    ("fixed_two_episodes_stopped_early_mean", "stopped early, fixed 0.5, 2 in a row"),
+                                                    ("fixed_two_episodes_never_stopped_mean", "never stopped, fixed 0.5, 2 in a row")]

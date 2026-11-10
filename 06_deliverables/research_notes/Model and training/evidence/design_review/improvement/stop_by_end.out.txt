@@ -1,0 +1,50 @@
+﻿=== end_to_end_exact ===
+path_03 finishing at end A (line end 3.6 cm from the paper edge): 20 episodes; fixed 0.5 {'right': 14, 'never': 4, 'early': 2}; tuned two in a row {'right': 16, 'early': 2, 'never': 2}
+path_03 finishing at end B (line end 2.5 cm from the paper edge): 25 episodes; fixed 0.5 {'right': 17, 'early': 5, 'near miss': 2, 'never': 1}; tuned two in a row {'right': 18, 'early': 6, 'near miss': 1}
+path_05 finishing at end A (line end 5.9 cm from the paper edge): 21 episodes; fixed 0.5 {'early': 12, 'right': 6, 'never': 3}; tuned two in a row {'early': 14, 'right': 5, 'never': 2}
+path_05 finishing at end B (line end 6.0 cm from the paper edge): 9 episodes; fixed 0.5 {'early': 5, 'never': 4}; tuned two in a row {'early': 5, 'never': 4}
+path_06 finishing at end A (line end 4.4 cm from the paper edge): 10 episodes; fixed 0.5 {'never': 10}; tuned two in a row {'never': 10}
+path_06 finishing at end B (line end 8.0 cm from the paper edge): 15 episodes; fixed 0.5 {'never': 9, 'right': 5, 'early': 1}; tuned two in a row {'right': 8, 'early': 6, 'never': 1}
+                    edge  episodes  never_fixed  right_fixed  never_tuned  right_tuned
+sheet   finish_end                                                                    
+path_03 A            3.6        20        0.200        0.700        0.100        0.800
+        B            2.5        25        0.040        0.680        0.000        0.720
+path_05 A            5.9        21        0.143        0.286        0.095        0.238
+        B            6.0         9        0.444        0.000        0.444        0.000
+path_06 A            4.4        10        1.000        0.000        1.000        0.000
+        B            8.0        15        0.600        0.333        0.067        0.533
+Spearman rank correlation with the edge distance (groups): {'never_fixed': 0.543, 'right_fixed': -0.493, 'never_tuned': 0.143, 'right_tuned': -0.493}
+line end 5 cm or more from the edge: 45 episodes; fixed never 0.356, right 0.244; tuned two never 0.156, right 0.289
+line end under 5 cm from the edge: 55 episodes; fixed never 0.273, right 0.564; tuned two never 0.218, right 0.618
+
+=== probe_exact_step ===
+path_01 finishing at end A (line end 3.7 cm from the paper edge): 4 episodes; fixed 0.5 {'right': 2, 'never': 2}; tuned two in a row {'right': 2, 'never': 2}
+path_01 finishing at end B (line end 3.0 cm from the paper edge): 15 episodes; fixed 0.5 {'right': 7, 'never': 6, 'early': 2}; tuned two in a row {'early': 6, 'right': 6, 'never': 3}
+path_02 finishing at end A (line end 6.2 cm from the paper edge): 32 episodes; fixed 0.5 {'early': 12, 'right': 9, 'never': 7, 'near miss': 4}; tuned two in a row {'early': 18, 'right': 7, 'never': 4, 'near miss': 3}
+path_02 finishing at end B (line end 6.4 cm from the paper edge): 12 episodes; fixed 0.5 {'never': 11, 'right': 1}; tuned two in a row {'never': 8, 'early': 2, 'right': 2}
+path_03 finishing at end A (line end 3.6 cm from the paper edge): 20 episodes; fixed 0.5 {'never': 11, 'right': 8, 'early': 1}; tuned two in a row {'never': 11, 'right': 7, 'early': 2}
+path_03 finishing at end B (line end 2.5 cm from the paper edge): 25 episodes; fixed 0.5 {'never': 13, 'right': 6, 'early': 4, 'near miss': 2}; tuned two in a row {'never': 11, 'right': 9, 'early': 3, 'near miss': 2}
+path_04 finishing at end A (line end 2.4 cm from the paper edge): 12 episodes; fixed 0.5 {'early': 9, 'right': 3}; tuned two in a row {'early': 9, 'right': 2, 'near miss': 1}
+path_04 finishing at end B (line end 2.8 cm from the paper edge): 33 episodes; fixed 0.5 {'early': 15, 'right': 11, 'near miss': 4, 'never': 3}; tuned two in a row {'early': 22, 'near miss': 8, 'right': 2, 'never': 1}
+path_05 finishing at end A (line end 5.9 cm from the paper edge): 21 episodes; fixed 0.5 {'never': 15, 'right': 3, 'early': 3}; tuned two in a row {'never': 9, 'early': 8, 'right': 4}
+path_05 finishing at end B (line end 6.0 cm from the paper edge): 9 episodes; fixed 0.5 {'never': 5, 'early': 4}; tuned two in a row {'early': 5, 'never': 4}
+path_06 finishing at end A (line end 4.4 cm from the paper edge): 10 episodes; fixed 0.5 {'never': 9, 'early': 1}; tuned two in a row {'never': 8, 'near miss': 1, 'early': 1}
+path_06 finishing at end B (line end 8.0 cm from the paper edge): 15 episodes; fixed 0.5 {'right': 8, 'early': 4, 'never': 3}; tuned two in a row {'early': 11, 'right': 3, 'near miss': 1}
+                    edge  episodes  never_fixed  right_fixed  never_tuned  right_tuned
+sheet   finish_end                                                                    
+path_01 A            3.7         4        0.500        0.500        0.500        0.500
+        B            3.0        15        0.400        0.467        0.200        0.400
+path_02 A            6.2        32        0.219        0.281        0.125        0.219
+        B            6.4        12        0.917        0.083        0.667        0.167
+path_03 A            3.6        20        0.550        0.400        0.550        0.350
+        B            2.5        25        0.520        0.240        0.440        0.360
+path_04 A            2.4        12        0.000        0.250        0.000        0.167
+        B            2.8        33        0.091        0.333        0.030        0.061
+path_05 A            5.9        21        0.714        0.143        0.429        0.190
+        B            6.0         9        0.556        0.000        0.444        0.000
+path_06 A            4.4        10        0.900        0.000        0.800        0.000
+        B            8.0        15        0.200        0.533        0.000        0.200
+Spearman rank correlation with the edge distance (groups): {'never_fixed': 0.392, 'right_fixed': -0.091, 'never_tuned': 0.172, 'right_tuned': -0.189}
+line end 5 cm or more from the edge: 89 episodes; fixed never 0.461, right 0.236; tuned two never 0.281, right 0.180
+line end under 5 cm from the edge: 119 episodes; fixed never 0.370, right 0.311; tuned two never 0.303, right 0.235
+

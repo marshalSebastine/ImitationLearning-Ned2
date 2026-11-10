@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open).
+Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), and 9.11.26 by the Model and training session (its section only).
 
 ## Dates that cannot move
 
@@ -109,13 +109,31 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
 
 ## Model and training
 
-- Done: method chosen (SOTA report section 1): single-picture classifier over 1 cm steps plus stop, ResNet-18 or a 5-layer
-  CNN, random-crop augmentation, trained on the laptop; ACT only as an optional comparison on a GPU.
-- Next: ask the professor to activate GPU-pool SSH for both accounts and test the login (pattern in
-  `01_course/moodle_snapshot.md`, VPN needed); write the dataset builder and the training script once the first 20 episodes exist.
+- Done 9.11.26 (Model and training session, for Emranul; branch `emranul/training-analysis`): the training analysis and
+  a set-up that compares models on equal terms. Report with a plain summary at the top:
+  `06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`. One table of all main-data
+  pictures (`02_code/training_dataset.py`: 211 episodes, 18,522 pictures) and a data audit whose every finding was
+  re-checked twice (`evidence/audit_synthesis.md`: drop 469 null rows, relabel 50 as stop, 30 start ends corrected, keep
+  score 1); the literature behind each choice checked against its sources (397 claims); 13 frozen-feature experiments and
+  end-to-end training runs, all scored by holding out one whole sheet at a time.
+- Found (to be confirmed by Emranul and Marshal): first set-up `TRAINING_RUNS["resnet18_final_candidate"]`, an ImageNet
+  ResNet-18 fine-tuned on one 160 x 120 picture, predicting the exact step and the forearm twist plus its own stop output,
+  with the audit's cleaning, 8 epochs and the last weights. On held-out sheets 63 to 78 percent of its steps point within
+  45 degrees of the demonstration (always forward: 40 to 75); stop at a fixed 0.5 on two pictures in a row: 102 right,
+  25 early, 69 never of 209 episodes, the weakest part. Backup: the same with the move names added (six-fold run still
+  running). The robot must carry it out with fixed 1 cm steps, the twist clamped and wrist and hand held (a fixed-wrist
+  solve); the tool's keyboard and gamepad paths would show the model views it never saw.
+- Installed 9.11 into `.venv`: torch 2.15 (processor build), torchvision, timm, pandas, scikit-learn
+  (`02_code/requirements_training.txt`); Marshal needs the same on his Mac.
+- Still running on Emranul's laptop in the night of 9 to 10.11: the backup and a second seed on all six sheets, plus the
+  mirroring, chunk and no-augmentation runs; their results land in `04_runs` and the report gets an update.
+- Next: the recording tool's model mode (a decider with the fixed-wrist executor, clamps, the step budget and its own
+  folder; code and simulator tests first); the professor's answers to the report's questions; then a first closed-loop
+  check on sheet 01, only after the team decides and with a checklist.
+- Blocked on: the professor (joints in the controller, correction rounds, printing our own tracks). GPU pool still
+  unknown (VPN not connected on 3.11).
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
-  merged; findings in `claude_memory/project-synthetic-pictures.md`. GPU pool: VPN not connected on 3.11, GPUs still unknown.
-- Blocked on: data.
+  merged; findings in `claude_memory/project-synthetic-pictures.md`.
 
 ## Evaluation and write-up
 

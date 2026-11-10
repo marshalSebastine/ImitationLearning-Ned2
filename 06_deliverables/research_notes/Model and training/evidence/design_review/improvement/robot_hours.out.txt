@@ -1,0 +1,34 @@
+﻿=== one model run (trial), minutes, per sheet (step factor 1.0 to 1.5, no sitting overhead) ===
+sheet 01: 2.5 to 2.8
+sheet 02: 3.2 to 3.9
+sheet 03: 4.1 to 5.1
+sheet 04: 5.3 to 7.1
+sheet 05: 4.0 to 5.1
+sheet 06: 3.6 to 4.4
+one trial on each of the six sheets: 22.7 to 28.4 min
+5 trials per sheet: 1.9 to 3.3 h (high end with the sitting overhead)
+10 trials per sheet: 3.8 to 6.7 h (high end with the sitting overhead)
+10 sealed new tracks x 2 trials: 1.3 to 2.2 h
+10 sealed new tracks x 3 trials: 1.9 to 3.3 h
+
+=== correction round (one take-over per failed run, the person finishes the track) ===
+per episode: 4.4 to 7.5 min (base success 0.3)
+5 episodes: 0.4 to 0.6 h; about 4 corrections and 162 correction rows if failures come at mid-track (1 percent of the 18053 rows)
+30 episodes: 2.2 to 3.8 h; about 21 corrections and 974 correction rows if failures come at mid-track (5 percent of the 18053 rows)
+50 episodes: 3.7 to 6.3 h; about 35 corrections and 1624 correction rows if failures come at mid-track (9 percent of the 18053 rows)
+100 episodes: 7.3 to 12.5 h; about 70 corrections and 3248 correction rows if failures come at mid-track (18 percent of the 18053 rows)
+
+=== demonstrations (measured whole-sitting rates: last sitting to all sittings) ===
+100 more on the six sheets: 9.4 to 13.6 h
+210 more on the six sheets (doubling): 19.7 to 28.5 h
+4 new tracks x 20 episodes (80): 9.5 to 12.8 h
+6 new tracks x 20 episodes (120): 14.3 to 19.3 h
+8 new tracks x 20 episodes (160): 19.0 to 25.7 h
+near-end starts for the stop: 25 per hour at the median cycle
+
+=== expected offline gain, frozen-probe fit (extrapolated beyond 5 training sheets: a guess) ===
+100 more episodes on the six sheets: pictures x1.48, sheets x1.00; within 45 +1.0 points, stopped right +4.9 points
+210 more episodes on the six sheets: pictures x2.00, sheets x1.00; within 45 +1.7 points, stopped right +8.7 points
+4 new tracks x 20 episodes: pictures x1.38, sheets x1.67; within 45 +2.6 points, stopped right +6.5 points
+6 new tracks x 20 episodes: pictures x1.57, sheets x2.00; within 45 +3.6 points, stopped right +8.9 points
+8 new tracks x 20 episodes: pictures x1.77, sheets x2.33; within 45 +4.5 points, stopped right +11.1 points

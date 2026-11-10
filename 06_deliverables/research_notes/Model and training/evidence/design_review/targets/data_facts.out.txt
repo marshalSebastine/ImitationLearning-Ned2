@@ -1,0 +1,64 @@
+raw rows 18522, episodes 210
+cleaned rows before score and mistake rules 18053; after: 18032 in 209 episodes; stop rows 259 (relabelled 50)
+--- labels after cleaning
+action
+forward          6449
+forward_left     2367
+forward_right    2142
+small_motion     1765
+left             1573
+right            1570
+back_right        788
+back_left         562
+back              544
+stop              259
+turn_left           9
+turn_right          4
+small_motion rows 1765: |twist| >= 3 deg 1687, >= 1 deg 1700, both tip < 1 mm and |twist| < 1 deg 8; twist median |deg| 5.98; turns 13, their |twist| [15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0, 15.0]
+non-stop rows 17773; |twist| >= 2 deg 11741 (0.661); >= 3 deg 0.578
+hand |change| >= 3 deg: 26 rows; lean |change| >= 1 deg: 7355 rows
+|joint 4| < 5 deg in 0.082 of cleaned pictures, < 15 deg in 0.201
+per sheet: twist-in-place rows (small_motion) share of rows, and |twist| >= 2 deg share of non-stop rows
+  path_01: rows 644, small_motion 0.070, twist >= 2 0.382
+  path_02: rows 2670, small_motion 0.070, twist >= 2 0.457
+  path_03: rows 3955, small_motion 0.110, twist >= 2 0.675
+  path_04: rows 6227, small_motion 0.145, twist >= 2 0.735
+  path_05: rows 2600, small_motion 0.038, twist >= 2 0.669
+  path_06: rows 1936, small_motion 0.049, twist >= 2 0.751
+--- step time against the tip move and the twist (raw rows; next row is the next waypoint of the same episode)
+plain steps 17653; median move 1.039 s; median row to row 1.226 s; median overhead (row to row minus move) 0.175 s
+tip move bins with |twist| < 1 deg: count, median move s, median row-to-row s, median s per cm (row to row / tip cm)
+   3 to  7 mm:    48, move 1.106, row-to-row 1.273, per cm 2.266
+   7 to  9 mm:    35, move 1.183, row-to-row 1.349, per cm 1.614
+   9 to 11 mm:  1280, move 0.761, row-to-row 0.950, per cm 0.904
+  11 to 13 mm:  1865, move 0.793, row-to-row 0.969, per cm 0.817
+  13 to 16 mm:   790, move 0.818, row-to-row 1.008, per cm 0.726
+  16 to 20 mm:   100, move 0.952, row-to-row 1.152, per cm 0.670
+  20 to 80 mm:     9, move 1.121, row-to-row 1.322, per cm 0.647
+twist in place (tip < 3 mm): |twist| bins: count, median move s, median row-to-row s
+   1 to  3 deg:     9, move 1.170, row-to-row 1.345
+   3 to  5 deg:    94, move 0.824, row-to-row 1.003
+   5 to  7 deg:  1084, move 0.921, row-to-row 1.115
+   7 to 10 deg:   429, move 1.260, row-to-row 1.440
+  10 to 16 deg:    74, move 1.435, row-to-row 1.618
+tip 9 to 12 mm by |twist| bin: count, median row-to-row s
+   0 to  1 deg:  2397, row-to-row 0.954
+   1 to  3 deg:  1712, row-to-row 0.966
+   3 to  5 deg:  1123, row-to-row 1.186
+   5 to  8 deg:  1146, row-to-row 1.345
+   8 to 16 deg:   359, row-to-row 1.514
+--- time spent in twist-in-place steps (cleaned rows, small_motion, using seconds_to_next_row capped at 5 s)
+  path_01: twist-in-place share of step time 0.085; per episode median 0.0 rows
+  path_02: twist-in-place share of step time 0.084; per episode median 2.0 rows
+  path_03: twist-in-place share of step time 0.112; per episode median 10.0 rows
+  path_04: twist-in-place share of step time 0.150; per episode median 21.0 rows
+  path_05: twist-in-place share of step time 0.046; per episode median 3.0 rows
+  path_06: twist-in-place share of step time 0.055; per episode median 4.0 rows
+  all: 0.105
+--- near the stop (cleaned rows)
+episodes 209; stop rows per episode {1: 159, 2: 50}
+rows within 2 cm of the goal before the first stop row: median 2.0, 0 in 0 episodes; consecutive at the end: median 2.0, 0 in 0, 1 in 51, >= 2 in 158
+goal distance of the row before the first stop row: median 0.65 cm, p90 1.13, over 2 cm in 0 episodes
+last move before the stop: median 6.48 mm, p90 11.31
+non-stop rows within 2 cm of the goal: 523 of 18032; stop rows 259
+non-stop rows within 3 cm: 997

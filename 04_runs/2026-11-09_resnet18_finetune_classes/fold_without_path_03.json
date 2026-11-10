@@ -1,0 +1,100 @@
+{
+ "measures": {
+  "test_rows": 4059,
+  "test_episodes": 45,
+  "direction_rows": 3458,
+  "angle_error_median_deg": 27.89,
+  "angle_error_mean_deg": 42.37,
+  "class_accuracy": 0.4558,
+  "class_balanced_accuracy": 0.347,
+  "within_30_deg": 0.5223,
+  "within_45_deg": 0.6634,
+  "within_60_deg": 0.7501,
+  "path_direction_rows": 3186,
+  "path_angle_error_median_deg": 25.48,
+  "path_angle_error_mean_deg": 36.92,
+  "path_class_accuracy": 0.494,
+  "path_class_balanced_accuracy": 0.4176,
+  "path_within_30_deg": 0.5625,
+  "path_within_45_deg": 0.7037,
+  "path_within_60_deg": 0.7982,
+  "expected_direction_rows": 3458,
+  "expected_angle_error_median_deg": 26.76,
+  "expected_angle_error_mean_deg": 39.6,
+  "expected_class_accuracy": 0.4398,
+  "expected_class_balanced_accuracy": 0.3285,
+  "expected_within_30_deg": 0.5364,
+  "expected_within_45_deg": 0.6868,
+  "expected_within_60_deg": 0.7762,
+  "path_expected_direction_rows": 3186,
+  "path_expected_angle_error_median_deg": 22.34,
+  "path_expected_angle_error_mean_deg": 32.67,
+  "path_expected_class_accuracy": 0.4871,
+  "path_expected_class_balanced_accuracy": 0.4065,
+  "path_expected_within_30_deg": 0.6124,
+  "path_expected_within_45_deg": 0.7511,
+  "path_expected_within_60_deg": 0.8446,
+  "stop_precision": 0.375,
+  "stop_recall": 0.3333,
+  "stop_average_precision": 0.3532,
+  "episodes_stopped_right": 0.2889,
+  "episodes_stopped_early": 0.1111,
+  "episodes_never_stopped": 0.5778,
+  "twist_rows": 2630,
+  "twist_sign_accuracy": 0.7034,
+  "twist_error_mean_deg": 3.041,
+  "fold": "without_path_03",
+  "epochs_run": 8,
+  "minutes": 20.4
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 2.3464,
+   "validation_loss": 1.9822,
+   "seconds": 155.4
+  },
+  {
+   "epoch": 2,
+   "train_loss": 2.0412,
+   "validation_loss": 1.9182,
+   "seconds": 148.8
+  },
+  {
+   "epoch": 3,
+   "train_loss": 1.8357,
+   "validation_loss": 1.8382,
+   "seconds": 144.7
+  },
+  {
+   "epoch": 4,
+   "train_loss": 1.7378,
+   "validation_loss": 1.7042,
+   "seconds": 137.9
+  },
+  {
+   "epoch": 5,
+   "train_loss": 1.6155,
+   "validation_loss": 1.6668,
+   "seconds": 134.1
+  },
+  {
+   "epoch": 6,
+   "train_loss": 1.5035,
+   "validation_loss": 1.6383,
+   "seconds": 131.5
+  },
+  {
+   "epoch": 7,
+   "train_loss": 1.4264,
+   "validation_loss": 1.6316,
+   "seconds": 163.3
+  },
+  {
+   "epoch": 8,
+   "train_loss": 1.362,
+   "validation_loss": 1.6429,
+   "seconds": 184.7
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+final_01 done
+final_02 done
+exact_03 done
+exact_05 done
+exact_06 done
+resnet18_finetune_classes_03 done
+resnet18_finetune_classes_05 done
+resnet18_finetune_classes_06 done
+small_cnn_scratch_classes_03 done
+small_cnn_scratch_classes_05 done
+small_cnn_scratch_classes_06 done
+small_cnn_line_and_puck_classes_03 done
+small_cnn_line_and_puck_classes_05 done
+small_cnn_line_and_puck_classes_06 done
+written C:\Users\e7dc\AppData\Local\Temp\claude\D--AI-Project\997601d4-4a2e-4eb2-91d1-890ff53278fd\scratchpad\design\models\critic_exam_risk\stop_and_error_runs.out.json
+exit 0

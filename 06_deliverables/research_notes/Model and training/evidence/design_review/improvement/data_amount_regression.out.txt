@@ -1,0 +1,61 @@
+﻿rows per sheet (target rules of the probes): {'path_01': 658, 'path_02': 2714, 'path_03': 4059, 'path_04': 6348, 'path_05': 2669, 'path_06': 1982}
+episodes per sheet: {'path_01': 19, 'path_02': 44, 'path_03': 45, 'path_04': 45, 'path_05': 30, 'path_06': 25}
+
+=== sheets kept per sheet-count run (fold: seed -> sheets) ===
+--- 1 sheet(s)
+  out 01: seed 1: 06 (1685 pictures, 0.648); seed 2: 04 (5396 pictures, 0.613); seed 3: 06 (1685 pictures, 0.501)
+  out 02: seed 1: 04 (5396 pictures, 0.350); seed 2: 06 (1685 pictures, 0.487); seed 3: 04 (5396 pictures, 0.375)
+  out 03: seed 1: 06 (1685 pictures, 0.452); seed 2: 04 (5396 pictures, 0.541); seed 3: 06 (1685 pictures, 0.464)
+  out 04: seed 1: 03 (3450 pictures, 0.486); seed 2: 06 (1685 pictures, 0.442); seed 3: 03 (3450 pictures, 0.475)
+  out 05: seed 1: 06 (1685 pictures, 0.528); seed 2: 03 (3450 pictures, 0.383); seed 3: 03 (3450 pictures, 0.416)
+  out 06: seed 1: 03 (3450 pictures, 0.360); seed 2: 03 (3450 pictures, 0.336); seed 3: 04 (5396 pictures, 0.355)
+--- 2 sheet(s)
+  out 01: seed 1: 02+06 (3992 pictures, 0.631); seed 2: 04+06 (7080 pictures, 0.666); seed 3: 04+06 (7080 pictures, 0.692)
+  out 02: seed 1: 04+06 (7080 pictures, 0.407); seed 2: 04+06 (7080 pictures, 0.474); seed 3: 04+06 (7080 pictures, 0.431)
+  out 03: seed 1: 04+06 (7080 pictures, 0.554); seed 2: 04+06 (7080 pictures, 0.538); seed 3: 05+06 (3953 pictures, 0.507)
+  out 04: seed 1: 03+06 (5135 pictures, 0.545); seed 2: 05+06 (3953 pictures, 0.493); seed 3: 03+06 (5135 pictures, 0.483)
+  out 05: seed 1: 04+06 (7080 pictures, 0.521); seed 2: 03+06 (5135 pictures, 0.500); seed 3: 01+03 (4009 pictures, 0.479)
+  out 06: seed 1: 03+05 (5719 pictures, 0.479); seed 2: 01+03 (4009 pictures, 0.383); seed 3: 01+04 (5955 pictures, 0.352)
+--- 3 sheet(s)
+  out 01: seed 1: 02+03+06 (7442 pictures, 0.712); seed 2: 04+05+06 (9349 pictures, 0.740); seed 3: 03+04+06 (10531 pictures, 0.721)
+  out 02: seed 1: 04+05+06 (9349 pictures, 0.469); seed 2: 03+04+06 (10531 pictures, 0.432); seed 3: 01+04+06 (7640 pictures, 0.455)
+  out 03: seed 1: 02+04+06 (9387 pictures, 0.505); seed 2: 01+04+06 (7640 pictures, 0.538); seed 3: 02+05+06 (6260 pictures, 0.526)
+  out 04: seed 1: 01+03+06 (5694 pictures, 0.501); seed 2: 02+05+06 (6260 pictures, 0.476); seed 3: 01+03+06 (5694 pictures, 0.515)
+  out 05: seed 1: 02+04+06 (9387 pictures, 0.549); seed 2: 01+03+06 (5694 pictures, 0.461); seed 3: 01+03+06 (5694 pictures, 0.439)
+  out 06: seed 1: 01+03+05 (6278 pictures, 0.463); seed 2: 01+03+05 (6278 pictures, 0.436); seed 3: 01+02+04 (8262 pictures, 0.430)
+--- 4 sheet(s)
+  out 01: seed 1: 02+03+04+06 (12838 pictures, 0.747); seed 2: 02+04+05+06 (11656 pictures, 0.729); seed 3: 03+04+05+06 (12799 pictures, 0.745)
+  out 02: seed 1: 01+04+05+06 (9908 pictures, 0.419); seed 2: 03+04+05+06 (12799 pictures, 0.432); seed 3: 01+03+04+06 (11090 pictures, 0.460)
+  out 03: seed 1: 02+04+05+06 (11656 pictures, 0.553); seed 2: 01+02+04+06 (9947 pictures, 0.535); seed 3: 02+04+05+06 (11656 pictures, 0.560)
+  out 04: seed 1: 01+02+03+06 (8001 pictures, 0.543); seed 2: 02+03+05+06 (9710 pictures, 0.552); seed 3: 01+03+05+06 (7963 pictures, 0.530)
+  out 05: seed 1: 02+03+04+06 (12838 pictures, 0.554); seed 2: 01+03+04+06 (11090 pictures, 0.554); seed 3: 01+02+03+06 (8001 pictures, 0.525)
+  out 06: seed 1: 01+03+04+05 (11674 pictures, 0.378); seed 2: 01+02+03+05 (8585 pictures, 0.393); seed 3: 01+02+03+04 (11712 pictures, 0.363)
+
+=== mean training pictures and fold-mean within_45 per setting ===
+episode_share_0.25: pictures 3264, episodes 36.8, within_45 0.5143
+episode_share_0.5: pictures 6527, episodes 73.7, within_45 0.5456
+episode_share_1.0: pictures 13055, episodes 147.3, within_45 0.5551
+sheet_count_1: pictures 3304, episodes 31.6, within_45 0.4562
+sheet_count_2: pictures 5758, episodes 57.4, within_45 0.5075
+sheet_count_3: pictures 7632, episodes 85.0, within_45 0.5204
+sheet_count_4: pictures 10774, episodes 119.0, within_45 0.5319
+
+within_45_deg ~ log2(pictures) + log2(sheets) + fold: per doubling of pictures +0.0170 (95 % bootstrap +0.0079 to +0.0267); per doubling of sheets +0.0251 (+0.0164 to +0.0336); residual sd 0.0335, n 126
+within_45_deg ~ log2(episodes) + log2(sheets) + fold: per doubling of episodes +0.0173 (95 % bootstrap +0.0086 to +0.0258); per doubling of sheets +0.0238 (+0.0149 to +0.0324); residual sd 0.0338, n 126
+
+path_within_45_deg ~ log2(pictures) + log2(sheets) + fold: per doubling of pictures +0.0182 (95 % bootstrap +0.0060 to +0.0307); per doubling of sheets +0.0335 (+0.0216 to +0.0446); residual sd 0.0451, n 126
+path_within_45_deg ~ log2(episodes) + log2(sheets) + fold: per doubling of episodes +0.0183 (95 % bootstrap +0.0067 to +0.0300); per doubling of sheets +0.0322 (+0.0198 to +0.0446); residual sd 0.0454, n 126
+
+tuned_two_episodes_stopped_right ~ log2(pictures) + log2(sheets) + fold: per doubling of pictures +0.0865 (95 % bootstrap +0.0574 to +0.1169); per doubling of sheets +0.0327 (+0.0024 to +0.0620); residual sd 0.1241, n 126
+tuned_two_episodes_stopped_right ~ log2(episodes) + log2(sheets) + fold: per doubling of episodes +0.0831 (95 % bootstrap +0.0525 to +0.1149); per doubling of sheets +0.0286 (-0.0028 to +0.0608); residual sd 0.1273, n 126
+
+episodes_stopped_right ~ log2(pictures) + log2(sheets) + fold: per doubling of pictures +0.0785 (95 % bootstrap +0.0515 to +0.1067); per doubling of sheets +0.0171 (-0.0133 to +0.0483); residual sd 0.1146, n 126
+episodes_stopped_right ~ log2(episodes) + log2(sheets) + fold: per doubling of episodes +0.0752 (95 % bootstrap +0.0458 to +0.1059); per doubling of sheets +0.0135 (-0.0197 to +0.0449); residual sd 0.1175, n 126
+
+=== per held-out sheet: mean residual of within_45 (fit on pictures) when each other sheet was kept ===
+out 01: 02: in +0.001 (n 4) vs out -0.010 (n 8); 03: in +0.017 (n 4) vs out -0.018 (n 8); 04: in +0.006 (n 8) vs out -0.032 (n 4); 05: in +0.021 (n 3) vs out -0.016 (n 9); 06: in -0.004 (n 11) vs out -0.039 (n 1)
+out 02: 01: in -0.018 (n 3) vs out -0.001 (n 9); 03: in -0.026 (n 3) vs out +0.002 (n 9); 04: in -0.016 (n 11) vs out +0.114 (n 1); 05: in -0.026 (n 3) vs out +0.001 (n 9); 06: in +0.001 (n 10) vs out -0.039 (n 2)
+out 03: 01: in -0.006 (n 2) vs out +0.009 (n 10); 02: in -0.010 (n 5) vs out +0.017 (n 7); 04: in +0.009 (n 8) vs out +0.001 (n 4); 05: in +0.001 (n 4) vs out +0.009 (n 8); 06: in +0.002 (n 11) vs out +0.055 (n 1)
+out 04: 01: in -0.001 (n 4) vs out +0.006 (n 8); 02: in -0.005 (n 3) vs out +0.007 (n 9); 03: in +0.010 (n 9) vs out -0.013 (n 3); 05: in -0.006 (n 4) vs out +0.009 (n 8); 06: in +0.001 (n 10) vs out +0.019 (n 2)
+out 05: 01: in -0.020 (n 5) vs out +0.008 (n 7); 02: in +0.015 (n 3) vs out -0.010 (n 9); 03: in -0.021 (n 9) vs out +0.047 (n 3); 04: in +0.022 (n 4) vs out -0.017 (n 8); 06: in +0.008 (n 9) vs out -0.039 (n 3)
+out 06: 01: in -0.012 (n 8) vs out +0.018 (n 4); 02: in -0.028 (n 3) vs out +0.007 (n 9); 03: in +0.001 (n 9) vs out -0.010 (n 3); 04: in -0.031 (n 5) vs out +0.019 (n 7); 05: in +0.018 (n 5) vs out -0.015 (n 7)

@@ -1,0 +1,212 @@
+episode_id,plan,sheet,start_kind,start_end_in_index,plan_end_in_index,plan_end_by_folder_plan,frames,corrected_end,reason,start_end_wrong,plan_end_wrong
+2026-11-06_session_01_emranul/path_01_straight_line_episode_003_plan_01-01_try_3,01-01,path_01,STD,A,,A,29,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1,01-02,path_01,STD,A,,A,56,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_005_plan_01-03_try_1,01-03,path_01,STD,A,A,A,45,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,01-04,path_01,STD,A,A,A,27,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_007_plan_01-05_try_1,01-05,path_01,OL1,A,A,A,48,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_008_plan_01-06_try_1,01-06,path_01,OR1,A,A,A,52,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1,01-07,path_01,TL15,A,A,A,42,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,01-08,path_01,TR15,A,A,A,27,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_011_plan_01-09_try_1,01-09,path_01,NE,A,A,A,12,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_012_plan_01-10_try_1,01-10,path_01,NE,A,A,A,22,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_013_plan_01-11_try_1,01-11,path_01,NE,A,A,A,27,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_014_plan_01-12_try_1,01-12,path_01,NE,A,A,A,23,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,01-13,path_01,STD,B,B,B,43,B,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_016_plan_01-14_try_1,01-14,path_01,STD,B,B,B,0,,"no pictures (discarded, camera moved)",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_017_plan_01-14_try_2,01-14,path_01,STD,B,B,B,32,B,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_018_plan_01-15_try_1,01-15,path_01,STD,B,B,B,32,B,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_019_plan_01-16_try_1,01-16,path_01,STD,B,B,B,31,B,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_020_plan_01-17_try_1,01-17,path_01,OL1.5,A,A,A,53,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_021_plan_01-18_try_1,01-18,path_01,OR1.5,A,A,A,44,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_022_plan_01-19_try_1,01-19,path_01,NE,A,A,A,13,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_01_straight_line_episode_023_plan_01-20_try_1,01-20,path_01,NE,A,A,A,13,A,"straight line: both ends look alike, plan's end kept",False,False
+2026-11-06_session_01_emranul/path_02_arc_episode_001_plan_02-01_try_1,02-01,path_02,STD,A,A,A,65,B,fit 5.51 vs 0.78 cm and order 0.284 vs 0.975 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_005_plan_02-02_try_3,02-02,path_02,STD,A,A,A,95,A,"fit 3.23 vs 2.60 cm favours B but order 0.96 vs 0.45 favours A; path ends at y = +21.6 cm and bulges 23.2 cm to the left, as every left-bending A episode",False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_006_plan_02-03_try_1,02-03,path_02,STD,A,A,A,91,A,fit 3.62 vs 7.75 cm and order 0.982 vs 0.29 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_007_plan_02-04_try_1,02-04,path_02,STD,B,B,B,66,B,fit 4.84 vs 2.43 cm and order 0.474 vs 0.993 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_008_plan_02-05_try_1,02-05,path_02,STD,B,B,B,71,B,fit 5.51 vs 2.13 cm and order 0.356 vs 0.978 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_012_plan_02-06_try_4,02-06,path_02,STD,B,B,B,72,B,fit 2.25 vs 1.08 cm and order 0.778 vs 0.971 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_013_plan_02-07_try_1,02-07,path_02,OL1,A,A,A,93,B,fit 4.45 vs 1.68 cm and order 0.527 vs 0.973 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_014_plan_02-08_try_1,02-08,path_02,TR10,A,A,A,75,B,fit 7.13 vs 0.91 cm and order 0.272 vs 0.975 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_015_plan_02-09_try_1,02-09,path_02,OR1,B,B,B,102,B,fit 2.91 vs 1.18 cm and order 0.734 vs 0.964 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_016_plan_02-10_try_1,02-10,path_02,TL10,B,B,B,62,B,fit 3.32 vs 0.81 cm and order 0.516 vs 0.988 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_019_plan_02-11_try_3,02-11,path_02,NE,A,A,A,13,B,fit 2.76 vs 0.34 cm and order -0.934 vs 0.993 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_020_plan_02-12_try_1,02-12,path_02,NE,A,A,A,14,B,fit 2.04 vs 0.35 cm and order -0.971 vs 0.999 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_021_plan_02-13_try_1,02-13,path_02,SQP,A,A,A,65,B,fit 2.35 vs 0.67 cm and order 0.868 vs 0.986 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_022_plan_02-14_try_1,02-14,path_02,SQP,A,A,A,82,B,fit 2.17 vs 0.88 cm and order 0.613 vs 0.978 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_024_plan_02-15_try_2,02-15,path_02,SQP,A,A,A,67,B,fit 2.76 vs 0.96 cm and order 0.586 vs 0.967 (A vs B) agree,True,True
+2026-11-07_session_01_emranul/path_02_arc_episode_025_plan_02-16_try_1,02-16,path_02,SQP,B,B,B,76,B,fit 3.07 vs 0.86 cm and order 0.592 vs 0.963 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_026_plan_02-17_try_1,02-17,path_02,SQP,B,B,B,95,B,fit 2.12 vs 1.8 cm and order 0.935 vs 0.943 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_027_plan_02-18_try_1,02-18,path_02,SQP,B,B,B,66,B,fit 2.49 vs 0.79 cm and order 0.751 vs 0.985 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_028_plan_02-19_try_1,02-19,path_02,OL1.5,A,A,A,61,A,fit 0.52 vs 3.29 cm and order 0.987 vs 0.596 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2,02-20,path_02,OR1.5,A,A,A,71,A,fit 1.17 vs 2.33 cm and order 0.944 vs 0.884 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_031_plan_02-21_try_1,02-21,path_02,TL15,A,A,A,64,A,fit 0.7 vs 3.95 cm and order 0.984 vs 0.662 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_032_plan_02-22_try_1,02-22,path_02,OL1.5,B,B,B,89,B,fit 3.19 vs 1.25 cm and order 0.416 vs 0.91 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1,02-23,path_02,OR1.5,B,B,B,66,B,fit 1.84 vs 1.06 cm and order 0.75 vs 0.946 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_034_plan_02-24_try_1,02-24,path_02,TR15,B,B,B,58,B,fit 4.97 vs 0.74 cm and order 0.162 vs 0.986 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_035_plan_02-25_try_1,02-25,path_02,NE,B,B,B,31,B,fit 7.51 vs 0.74 cm and order -0.803 vs 0.882 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_036_plan_02-26_try_1,02-26,path_02,NE,B,B,B,13,B,fit 5.92 vs 0.35 cm and order -0.999 vs 0.999 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_037_plan_02-27_try_1,02-27,path_02,NE,B,B,B,29,B,fit 8.65 vs 0.67 cm and order -0.826 vs 0.945 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_038_plan_02-28_try_1,02-28,path_02,NE,B,B,B,14,B,fit 6.16 vs 0.4 cm and order -0.99 vs 0.986 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1,02-29,path_02,STD,A,A,A,53,A,fit 0.51 vs 3.42 cm and order 0.989 vs 0.63 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_040_plan_02-30_try_1,02-30,path_02,STD,A,A,A,61,A,fit 0.79 vs 4.85 cm and order 0.995 vs 0.466 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,02-31,path_02,STD,B,B,B,70,B,fit 5.61 vs 1.02 cm and order 0.211 vs 0.969 (A vs B) agree,False,False
+2026-11-07_session_01_emranul/path_02_arc_episode_042_plan_02-32_try_2,02-32,path_02,STD,B,B,B,83,B,fit 6.22 vs 1.29 cm and order 0.157 vs 0.991 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_043_plan_02-33_try_1,02-33,path_02,NE,A,A,A,11,B,fit 5.36 vs 0.54 cm and order -0.229 vs 0.998 (A vs B) agree,True,True
+2026-11-07_session_01_marshal/path_02_arc_episode_044_plan_02-34_try_1,02-34,path_02,NE,A,A,A,19,B,fit 9.66 vs 0.94 cm and order -0.986 vs 0.969 (A vs B) agree,True,True
+2026-11-07_session_01_marshal/path_02_arc_episode_045_plan_02-35_try_1,02-35,path_02,NE,A,A,A,39,B,fit 6.5 vs 1.41 cm and order -0.667 vs 0.835 (A vs B) agree,True,True
+2026-11-07_session_01_marshal/path_02_arc_episode_046_plan_02-36_try_1,02-36,path_02,SQL,A,A,A,77,A,fit 0.77 vs 9.88 cm and order 0.906 vs -0.007 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_047_plan_02-37_try_1,02-37,path_02,SQL,A,A,A,46,A,fit 0.35 vs 2.46 cm and order 0.998 vs 0.657 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_048_plan_02-38_try_1,02-38,path_02,SQL,A,A,A,66,A,fit 0.73 vs 3.23 cm and order 0.982 vs 0.598 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_049_plan_02-39_try_1,02-39,path_02,SQL,A,A,A,53,A,fit 0.67 vs 3.96 cm and order 0.996 vs 0.696 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_050_plan_02-40_try_1,02-40,path_02,SQL,A,A,A,77,A,fit 1.0 vs 3.71 cm and order 0.981 vs 0.61 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_051_plan_02-41_try_1,02-41,path_02,SQL,B,B,B,59,B,fit 5.09 vs 0.57 cm and order 0.561 vs 0.974 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_052_plan_02-42_try_1,02-42,path_02,SQL,B,B,B,72,B,fit 5.05 vs 0.73 cm and order 0.498 vs 0.987 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_053_plan_02-43_try_1,02-43,path_02,SQL,B,B,B,104,B,fit 4.51 vs 1.47 cm and order 0.182 vs 0.986 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_054_plan_02-44_try_1,02-44,path_02,SQL,B,B,B,62,B,fit 6.68 vs 0.68 cm and order 0.396 vs 0.981 (A vs B) agree,False,False
+2026-11-07_session_01_marshal/path_02_arc_episode_055_plan_02-45_try_1,02-45,path_02,SQL,B,B,B,57,B,fit 5.54 vs 0.55 cm and order 0.435 vs 0.975 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_004_plan_03-04_try_1,03-04,path_03,STD,A,A,A,125,A,fit 0.89 vs 1.36 cm and order 0.99 vs 0.539 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_005_plan_03-05_try_1,03-05,path_03,STD,A,A,A,109,A,fit 0.67 vs 1.44 cm and order 0.818 vs 0.575 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_006_plan_03-06_try_1,03-06,path_03,OL1,A,A,A,128,A,fit 1.24 vs 1.62 cm and order 0.968 vs 0.676 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_007_plan_03-07_try_1,03-07,path_03,OR1,A,A,A,140,A,fit 0.83 vs 1.6 cm and order 0.819 vs 0.605 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_008_plan_03-08_try_1,03-08,path_03,TL10,A,A,A,142,A,fit 0.83 vs 1.56 cm and order 0.891 vs 0.349 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_009_plan_03-09_try_1,03-09,path_03,TR10,A,A,A,141,A,fit 0.96 vs 2.15 cm and order 0.778 vs 0.531 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_010_plan_03-10_try_1,03-10,path_03,NE,A,A,A,12,A,fit 0.1 vs 0.37 cm and order 0.993 vs 0.928 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_011_plan_03-11_try_1,03-11,path_03,NE,A,A,A,13,A,fit 0.08 vs 0.39 cm and order 0.999 vs 0.889 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_012_plan_03-12_try_1,03-12,path_03,NE,A,A,A,17,A,fit 0.18 vs 0.39 cm and order 0.994 vs 0.89 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_013_plan_03-13_try_1,03-13,path_03,STD,B,B,B,106,B,fit 2.13 vs 1.2 cm and order 0.28 vs 0.714 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_014_plan_03-14_try_1,03-14,path_03,STD,B,B,B,140,B,fit 1.6 vs 1.04 cm and order 0.402 vs 0.588 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_015_plan_03-15_try_1,03-15,path_03,STD,B,B,B,131,B,fit 1.47 vs 1.09 cm and order 0.301 vs 0.596 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_016_plan_03-16_try_1,03-16,path_03,STD,B,B,B,121,B,fit 1.97 vs 1.17 cm and order 0.207 vs 0.658 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_017_plan_03-17_try_1,03-17,path_03,STD,B,B,B,115,B,fit 1.32 vs 1.01 cm and order 0.298 vs 0.698 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_018_plan_03-18_try_1,03-18,path_03,OL1,B,B,B,119,B,fit 1.93 vs 1.19 cm and order 0.561 vs 0.705 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_019_plan_03-19_try_1,03-19,path_03,OR1,B,B,B,133,B,fit 2.02 vs 1.39 cm and order 0.419 vs 0.706 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_020_plan_03-20_try_1,03-20,path_03,TL10,B,B,B,92,B,fit 1.54 vs 1.16 cm and order 0.256 vs 0.759 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_021_plan_03-21_try_1,03-21,path_03,TR10,B,B,B,131,B,fit 1.67 vs 1.52 cm and order 0.333 vs 0.729 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_022_plan_03-22_try_1,03-22,path_03,NE,B,B,B,26,B,fit 1.85 vs 0.43 cm and order -0.894 vs 1.0 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_023_plan_03-23_try_1,03-23,path_03,NE,B,B,B,27,B,fit 1.89 vs 0.47 cm and order 0.141 vs 0.999 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_024_plan_03-24_try_1,03-24,path_03,NE,B,B,B,26,B,fit 1.95 vs 0.51 cm and order -0.856 vs 1.0 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_026_plan_03-25_try_2,03-25,path_03,STD,A,A,A,106,A,fit 1.04 vs 1.52 cm and order 0.992 vs 0.555 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_027_plan_03-26_try_1,03-26,path_03,STD,A,A,A,97,A,fit 0.81 vs 1.71 cm and order 0.849 vs 0.586 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_028_plan_03-28_try_1,03-28,path_03,STD,B,B,B,124,B,fit 1.82 vs 1.11 cm and order 0.098 vs 0.827 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_029_plan_03-29_try_1,03-29,path_03,STD,B,B,B,91,B,order tie 0.53 vs 0.50; fit 1.01 vs 1.47 cm and winding +244 deg (model from B +251) favour B,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_030_plan_03-27_try_1,03-27,path_03,STD,A,A,A,102,A,fit 0.89 vs 1.87 cm and order 0.957 vs 0.575 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1,03-30,path_03,STD,B,B,B,121,B,fit 1.75 vs 1.09 cm and order 0.209 vs 0.733 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_032_plan_03-31_try_1,03-31,path_03,OL1.5,A,A,A,119,A,fit 1.12 vs 1.55 cm and order 0.983 vs 0.686 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_033_plan_03-32_try_1,03-32,path_03,OR1.5,A,A,A,127,A,fit 1.35 vs 2.1 cm and order 0.93 vs 0.593 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1,03-33,path_03,TL15,A,A,A,96,A,fit 0.81 vs 2.08 cm and order 0.968 vs 0.689 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_035_plan_03-34_try_1,03-34,path_03,OL1.5,B,B,B,123,B,fit 1.9 vs 1.27 cm and order 0.445 vs 0.689 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_036_plan_03-35_try_1,03-35,path_03,OR1.5,B,B,B,100,B,fit 1.64 vs 1.32 cm and order 0.629 vs 0.989 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_037_plan_03-36_try_1,03-36,path_03,TR15,B,B,B,89,B,fit 1.56 vs 0.83 cm and order 0.459 vs 0.667 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_038_plan_03-37_try_1,03-37,path_03,MID,A,A,A,74,A,fit 0.81 vs 1.1 cm and order 0.545 vs -0.188 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_039_plan_03-38_try_1,03-38,path_03,MID,A,A,A,77,A,fit 0.79 vs 1.2 cm and order 0.965 vs -0.175 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_040_plan_03-39_try_1,03-39,path_03,MID,A,A,A,64,A,fit 0.59 vs 1.22 cm and order 0.999 vs -0.37 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_041_plan_03-40_try_1,03-40,path_03,MID,A,A,A,70,A,fit 0.86 vs 1.38 cm and order 0.057 vs -0.45 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_042_plan_03-41_try_1,03-41,path_03,MID,A,A,A,57,A,fit 0.7 vs 0.86 cm and order 0.998 vs -0.484 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_043_plan_03-42_try_1,03-42,path_03,NE,A,A,A,12,A,fit 0.13 vs 0.34 cm and order 0.893 vs 0.76 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_044_plan_03-43_try_1,03-43,path_03,NE,A,A,A,11,A,fit 0.11 vs 0.3 cm and order 0.998 vs 0.907 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_046_plan_03-44_try_2,03-44,path_03,NE,B,B,B,34,B,fit 0.61 vs 0.59 cm and order -0.936 vs -0.32 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_03_two_curve_episode_047_plan_03-45_try_1,03-45,path_03,NE,B,B,B,34,B,fit 0.34 vs 0.26 cm and order -0.941 vs 0.791 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_008_plan_04-01_try_6,04-01,path_04,STD,A,A,A,196,A,order 0.83 vs 0.44 favours A; fit differs by only 0.08 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_009_plan_04-02_try_2,04-02,path_04,STD,A,A,A,205,A,order 0.86 vs 0.51 favours A; fit differs by only 0.01 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_011_plan_04-04_try_1,04-04,path_04,STD,A,A,A,208,A,order 0.87 vs 0.53 favours A; fit tie,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_012_plan_04-05_try_1,04-05,path_04,STD,A,A,A,192,A,fit 0.92 vs 1.15 cm and order 0.909 vs 0.312 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_013_plan_04-06_try_1,04-06,path_04,OL1,A,A,A,206,A,order 0.88 vs 0.55 favours A; fit differs by only 0.05 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_014_plan_04-07_try_1,04-07,path_04,OR1,A,A,A,179,A,fit 1.17 vs 1.22 cm and order 0.888 vs 0.635 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_015_plan_04-08_try_1,04-08,path_04,TL10,A,A,A,169,A,fit 0.95 vs 1.15 cm and order 0.825 vs 0.466 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_016_plan_04-09_try_1,04-09,path_04,TR10,A,A,A,170,A,fit 0.98 vs 1.23 cm and order 0.711 vs 0.46 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_017_plan_04-10_try_1,04-10,path_04,NE,A,A,A,24,A,fit 0.42 vs 0.63 cm and order 1.0 vs -0.914 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_018_plan_04-11_try_1,04-11,path_04,NE,A,A,A,21,A,fit 0.38 vs 0.61 cm and order 0.999 vs -0.857 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_019_plan_04-12_try_1,04-12,path_04,NE,A,A,A,24,A,fit 0.62 vs 0.65 cm and order 0.917 vs -0.832 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_020_plan_04-13_try_1,04-13,path_04,STD,A,A,A,154,A,fit 0.77 vs 1.1 cm and order 0.837 vs 0.617 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_021_plan_04-14_try_1,04-14,path_04,STD,A,A,A,138,A,fit 0.89 vs 1.16 cm and order 0.836 vs 0.499 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_022_plan_04-15_try_1,04-15,path_04,STD,A,A,A,199,A,fit 0.91 vs 1.32 cm and order 0.731 vs 0.518 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_023_plan_04-16_try_1,04-16,path_04,STD,A,A,A,172,A,fit 0.86 vs 1.05 cm and order 0.859 vs 0.511 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_024_plan_04-17_try_1,04-17,path_04,STD,A,A,A,162,A,fit 0.86 vs 1.11 cm and order 0.763 vs 0.388 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_025_plan_04-18_try_1,04-18,path_04,STD,A,A,A,167,A,fit 0.88 vs 1.06 cm and order 0.794 vs 0.471 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_026_plan_04-19_try_1,04-19,path_04,OL1.5,A,A,A,175,A,fit 0.97 vs 1.2 cm and order 0.933 vs 0.527 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_027_plan_04-20_try_1,04-20,path_04,OR1.5,A,A,A,224,A,fit 0.93 vs 1.23 cm and order 0.778 vs 0.48 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_028_plan_04-21_try_1,04-21,path_04,TL15,A,A,A,183,A,fit 0.82 vs 1.2 cm and order 0.879 vs 0.564 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_029_plan_04-22_try_1,04-22,path_04,TR15,A,A,A,175,A,fit 0.88 vs 1.23 cm and order 0.766 vs 0.564 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_030_plan_04-23_try_1,04-23,path_04,OL1,A,A,A,178,A,fit 1.02 vs 1.3 cm and order 0.87 vs 0.642 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_031_plan_04-24_try_1,04-24,path_04,OR1,A,A,A,184,A,fit 1.11 vs 1.16 cm and order 0.869 vs 0.595 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_032_plan_04-25_try_1,04-25,path_04,MID,A,A,A,130,A,fit 1.06 vs 1.68 cm and order 0.465 vs 0.364 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_033_plan_04-26_try_1,04-26,path_04,MID,A,A,A,137,A,fit 1.09 vs 1.14 cm and order 0.457 vs 0.132 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_034_plan_04-27_try_1,04-27,path_04,MID,A,A,A,130,A,fit 0.69 vs 1.32 cm and order 0.625 vs 0.106 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_036_plan_04-28_try_2,04-28,path_04,MID,A,A,A,119,A,fit 0.98 vs 1.22 cm and order 0.715 vs -0.045 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_037_plan_04-29_try_1,04-29,path_04,MID,A,A,A,166,A,fit 1.03 vs 1.3 cm and order 0.671 vs -0.081 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_038_plan_04-30_try_1,04-30,path_04,STD,B,B,B,222,B,fit 1.28 vs 0.93 cm and order 0.478 vs 0.926 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,04-31,path_04,STD,B,B,B,155,B,fit 1.35 vs 1.02 cm and order 0.476 vs 0.828 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_040_plan_04-32_try_1,04-32,path_04,STD,B,B,B,189,B,fit 1.56 vs 1.17 cm and order 0.319 vs 0.835 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_041_plan_04-33_try_1,04-33,path_04,STD,B,B,B,154,B,fit 1.25 vs 0.96 cm and order 0.41 vs 0.926 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_042_plan_04-34_try_1,04-34,path_04,STD,B,B,B,168,B,fit 1.42 vs 1.0 cm and order 0.409 vs 0.912 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_043_plan_04-35_try_1,04-35,path_04,OL1,B,B,B,194,B,fit 1.5 vs 1.05 cm and order 0.427 vs 0.912 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_044_plan_04-36_try_1,04-36,path_04,OR1,B,B,B,157,B,fit 1.62 vs 0.96 cm and order 0.477 vs 0.972 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_045_plan_04-37_try_1,04-37,path_04,TL10,B,B,B,179,B,fit 1.25 vs 0.86 cm and order 0.51 vs 0.908 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,04-38,path_04,TR10,B,B,B,226,B,fit 1.18 vs 1.1 cm and order 0.585 vs 0.873 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_052_plan_04-39_try_6,04-39,path_04,NE,A,A,A,28,A,order 1.00 vs -0.94 favours A; fit tie 0.62 vs 0.62 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_053_plan_04-40_try_1,04-40,path_04,NE,A,A,A,29,A,fit 0.48 vs 0.52 cm and order 0.998 vs -0.882 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_054_plan_04-41_try_1,04-41,path_04,NE,A,A,A,23,A,order 0.74 vs -0.88 favours A; fit 0.51 vs 0.28 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_055_plan_04-42_try_1,04-42,path_04,NE,A,A,A,23,A,order 0.98 vs -0.94 favours A; fit 0.43 vs 0.34 cm,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_056_plan_04-43_try_1,04-43,path_04,NE,B,B,B,12,B,fit 0.49 vs 0.15 cm and order 0.954 vs 0.996 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_057_plan_04-44_try_1,04-44,path_04,NE,B,B,B,11,B,fit 0.42 vs 0.17 cm and order 0.961 vs 0.998 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_04_meander_episode_058_plan_04-45_try_1,04-45,path_04,NE,B,B,B,11,B,fit 0.22 vs 0.16 cm and order 0.911 vs 0.995 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3,05-01,path_05,STD,B,B,B,99,B,fit 1.36 vs 1.31 cm and order 0.42 vs 0.517 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_005_plan_05-02_try_2,05-02,path_05,STD,B,B,B,124,B,order 0.57 vs 0.19 favours B; loop drawn counter-clockwise (s07_sheet05.png) like the other B episodes,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1,05-03,path_05,STD,B,B,B,110,B,fit 1.42 vs 0.78 cm and order 0.297 vs 0.541 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,05-04,path_05,STD,B,B,B,103,B,fit 1.24 vs 0.76 cm and order 0.311 vs 0.696 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_008_plan_05-05_try_1,05-05,path_05,STD,B,B,B,104,B,fit 1.47 vs 0.82 cm and order 0.18 vs 0.504 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_009_plan_05-06_try_1,05-06,path_05,STD,B,B,B,114,B,fit 1.75 vs 0.94 cm and order 0.425 vs 0.481 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1,05-07,path_05,OL1,B,B,B,156,B,fit 2.06 vs 1.23 cm and order 0.233 vs 0.814 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_011_plan_05-08_try_1,05-08,path_05,OR1,B,B,B,100,B,fit 1.41 vs 0.98 cm and order 0.645 vs 0.861 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_013_plan_05-09_try_2,05-09,path_05,TL10,B,B,B,123,B,fit 1.39 vs 1.36 cm and order 0.298 vs 0.683 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1,05-10,path_05,TR10,B,B,B,109,B,fit 1.48 vs 1.2 cm and order 0.383 vs 0.563 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_015_plan_05-11_try_1,05-11,path_05,X1,B,B,B,94,B,order tie 0.26 vs 0.26; fit 1.03 vs 1.62 cm favours B,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_017_plan_05-12_try_2,05-12,path_05,X1,B,B,B,105,B,order 0.33 vs 0.23 favours B; fit differs by only 0.05 cm,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_018_plan_05-13_try_1,05-13,path_05,X1,B,B,B,92,B,fit 1.14 vs 0.95 cm and order 0.311 vs 0.608 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_019_plan_05-14_try_1,05-14,path_05,STD,B,A,A,111,A,fit 0.93 vs 1.46 cm and winding -434 deg (model from A -444) favour A; loop drawn clockwise (s07_sheet05.png); first picture viewed: same lay-out as 05-15 to 05-19,True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,05-15,path_05,STD,B,A,A,124,A,fit 1.25 vs 2.26 cm and order 0.677 vs 0.396 (A vs B) agree,True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_021_plan_05-16_try_1,05-16,path_05,STD,B,A,A,13,A,"13 rows, 9 cm: the path cannot tell; first picture viewed: the same diamond lay-out and left-curving line as 05-14",True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_022_plan_05-17_try_1,05-17,path_05,STD,B,A,A,100,A,fit 1.05 vs 1.79 cm and order 0.916 vs 0.601 (A vs B) agree,True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1,05-18,path_05,STD,B,A,A,99,A,fit 0.91 vs 2.02 cm and order 0.829 vs 0.554 (A vs B) agree,True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_024_plan_05-19_try_1,05-19,path_05,STD,B,A,A,119,A,fit 1.02 vs 1.63 cm and order 0.696 vs 0.381 (A vs B) agree,True,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_025_plan_05-20_try_1,05-20,path_05,OL1.5,B,B,B,122,B,fit 1.51 vs 0.95 cm and order 0.367 vs 0.395 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1,05-21,path_05,OR1.5,B,B,B,113,B,order 0.86 vs 0.49 favours B; fit differs by only 0.15 cm,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_027_plan_05-22_try_1,05-22,path_05,TL15,B,B,B,120,B,fit 1.22 vs 1.11 cm and order 0.274 vs 0.626 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_028_plan_05-23_try_1,05-23,path_05,TR15,B,B,B,87,B,fit 1.12 vs 0.9 cm and order 0.489 vs 0.856 (A vs B) agree,False,False
+2026-11-08_session_01_emranul/path_05_alpha_loop_episode_029_plan_05-24_try_1,05-24,path_05,OL1,B,B,B,117,B,fit 1.47 vs 1.33 cm and order 0.49 vs 0.531 (A vs B) agree,False,False
+2026-11-08_session_01_marshal/path_03_two_curve_episode_001_plan_03-01_try_1,03-01,path_03,STD,A,A,A,108,A,fit 0.76 vs 1.79 cm and order 0.992 vs 0.718 (A vs B) agree,False,False
+2026-11-08_session_01_marshal/path_03_two_curve_episode_002_plan_03-02_try_1,03-02,path_03,STD,A,A,A,130,A,fit 1.09 vs 1.93 cm and order 0.93 vs 0.631 (A vs B) agree,False,False
+2026-11-08_session_01_marshal/path_03_two_curve_episode_003_plan_03-03_try_1,03-03,path_03,STD,A,A,A,112,A,fit 0.82 vs 1.18 cm and order 0.904 vs 0.44 (A vs B) agree,False,False
+2026-11-08_session_01_marshal/path_04_meander_episode_010_plan_04-03_try_1,04-03,path_04,STD,A,A,A,182,A,fit 1.13 vs 1.42 cm and order 0.798 vs 0.403 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_030_plan_05-25_try_1,05-25,path_05,X2,B,B,B,17,B,fit 0.82 vs 0.23 cm and order -0.634 vs 0.999 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_031_plan_05-26_try_1,05-26,path_05,X2,B,B,B,18,B,fit 0.77 vs 0.24 cm and order -0.539 vs 0.956 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_032_plan_05-27_try_1,05-27,path_05,X2,B,B,B,27,B,fit 1.23 vs 0.38 cm and order 0.52 vs 0.938 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_033_plan_05-28_try_1,05-28,path_05,NE,B,A,A,18,A,fit 0.17 vs 0.56 cm and order 0.927 vs -0.158 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_034_plan_05-29_try_1,05-29,path_05,NE,B,A,A,16,A,fit 0.21 vs 0.43 cm and order 0.999 vs -0.999 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_05_alpha_loop_episode_035_plan_05-30_try_1,05-30,path_05,NE,B,A,A,18,A,fit 0.28 vs 0.57 cm and order 0.966 vs -0.993 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_001_plan_06-01_try_1,06-01,path_06,STD,A,A,A,105,A,fit 0.88 vs 1.18 cm and order 0.661 vs -0.232 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,06-02,path_06,STD,A,A,A,129,A,fit 1.02 vs 1.09 cm and order 0.652 vs -0.167 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_003_plan_06-03_try_1,06-03,path_06,STD,A,A,A,80,A,fit 0.97 vs 1.22 cm and order 0.97 vs -0.097 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_004_plan_06-04_try_1,06-04,path_06,STD,A,A,A,110,A,fit 0.87 vs 1.06 cm and order 0.6 vs -0.122 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_005_plan_06-05_try_1,06-05,path_06,STD,A,A,A,105,A,fit 0.68 vs 1.29 cm and order 0.577 vs -0.293 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_006_plan_06-06_try_1,06-06,path_06,STD,A,A,A,83,A,fit 0.85 vs 0.95 cm and order 0.764 vs -0.113 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_007_plan_06-07_try_1,06-07,path_06,OL1,A,A,A,105,A,order 0.91 vs 0.11 favours A; fit tie 1.13 vs 1.11 cm,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_008_plan_06-08_try_1,06-08,path_06,OR1,A,A,A,101,A,fit 1.15 vs 1.36 cm and order 0.833 vs 0.199 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_009_plan_06-09_try_1,06-09,path_06,TL10,A,A,A,82,A,fit 0.85 vs 1.31 cm and order 0.676 vs -0.072 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,06-10,path_06,TR10,A,A,A,81,A,fit 0.74 vs 1.15 cm and order 0.909 vs -0.128 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_011_plan_06-11_try_1,06-11,path_06,X1,A,A,A,79,A,fit 0.8 vs 1.18 cm and order 0.727 vs -0.23 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_013_plan_06-12_try_2,06-12,path_06,X1,A,A,A,74,A,fit 0.54 vs 1.39 cm and order 0.92 vs -0.07 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_014_plan_06-13_try_1,06-13,path_06,X1,A,A,A,83,A,fit 0.8 vs 1.17 cm and order 0.78 vs -0.179 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_015_plan_06-14_try_1,06-14,path_06,STD,A,B,B,120,B,fit 1.89 vs 0.89 cm and order 0.318 vs 0.489 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,06-15,path_06,STD,A,B,B,73,B,fit 1.96 vs 0.56 cm and order 0.123 vs 0.874 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_017_plan_06-16_try_1,06-16,path_06,STD,A,B,B,76,B,fit 2.11 vs 0.73 cm and order 0.432 vs 0.965 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1,06-17,path_06,STD,A,B,B,68,B,fit 1.97 vs 0.6 cm and order 0.247 vs 0.966 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_019_plan_06-18_try_1,06-18,path_06,STD,A,B,B,79,B,fit 1.56 vs 0.55 cm and order 0.438 vs 0.728 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,06-19,path_06,OL1.5,A,B,B,86,B,fit 2.4 vs 1.09 cm and order 0.495 vs 0.949 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_021_plan_06-20_try_1,06-20,path_06,OR1.5,A,B,B,87,B,fit 2.05 vs 0.96 cm and order 0.202 vs 0.991 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_022_plan_06-21_try_1,06-21,path_06,TL15,A,B,B,87,B,fit 1.69 vs 0.9 cm and order 0.196 vs 0.93 (A vs B) agree,True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_023_plan_06-22_try_1,06-22,path_06,NE,A,A,A,19,A,fit 0.29 vs 2.35 cm favours A; both order values negative; ends at y = +9.8 cm like the A episodes,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_024_plan_06-23_try_1,06-23,path_06,NE,A,A,A,17,A,fit 0.27 vs 3.43 cm and order 0.999 vs -0.618 (A vs B) agree,False,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_025_plan_06-24_try_1,06-24,path_06,NE,A,B,B,28,B,"fit 0.37 vs 0.85 cm favours B, order favours A; ends at y = -10.9 cm on the side where 06-14 to 06-21 end; last picture viewed: same scene as 06-14's last picture",True,False
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_026_plan_06-25_try_1,06-25,path_06,NE,A,B,B,25,B,fit 0.88 vs 0.36 cm and order 0.887 vs 0.993 (A vs B) agree,True,False

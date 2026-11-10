@@ -1,0 +1,4 @@
+scores | scores_1_2_3 | 216.1 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+scores | scores_2_3 | 164.7 s | within 45: 0.5647 | class accuracy: 0.4179 | stopped right: 0.1858 | early: 0.2053
+scores | score_3_only | 130.0 s | within 45: 0.5392 | class accuracy: 0.3949 | stopped right: 0.3376 | early: 0.1381
+scores | scores_weighted | 196.0 s | within 45: 0.5734 | class accuracy: 0.4118 | stopped right: 0.3059 | early: 0.1211

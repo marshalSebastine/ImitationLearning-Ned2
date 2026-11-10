@@ -1,0 +1,4 @@
+without_path_03: threshold 0.4, episodes 45, early 7, of these no line ahead 7, median distance 5.3 cm
+without_path_05: threshold 0.4, episodes 30, early 18, of these no line ahead 17, median distance 14.3 cm
+without_path_06: threshold 0.6, episodes 25, early 1, of these no line ahead 1, median distance 20.4 cm
+all: early 26, no line ahead 25 (0.96), median distance to the goal 14.3 cm (p25 6.1, p75 17.4)

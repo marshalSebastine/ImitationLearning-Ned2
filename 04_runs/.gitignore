@@ -1,0 +1,5 @@
+# Kept out of git (Model and training session, 9.11.26): model weights are ignored by the root .gitignore; these are
+# the per-picture prediction dumps (large, rebuilt by rerunning) and the quick-check folders of train_policy.py.
+*.npz
+*_check/
+predictions/

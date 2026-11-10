@@ -1,0 +1,79 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub\models--timm--resnet18.tv_in1k. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+resnet18_imagenet: 64 of 18522 pictures, 1 s
+resnet18_imagenet: 2624 of 18522 pictures, 39 s
+resnet18_imagenet: 5184 of 18522 pictures, 78 s
+resnet18_imagenet: 7744 of 18522 pictures, 116 s
+resnet18_imagenet: 10304 of 18522 pictures, 158 s
+resnet18_imagenet: 12864 of 18522 pictures, 201 s
+resnet18_imagenet: 15424 of 18522 pictures, 239 s
+resnet18_imagenet: 17984 of 18522 pictures, 276 s
+{"backbone": "resnet18_imagenet", "global_size": 512, "grid_size": 8192, "seconds": 284.5, "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}}
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub\models--timm--vit_small_patch14_dinov2.lvd142m. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+dinov2_small: 64 of 18522 pictures, 5 s
+dinov2_small: 2624 of 18522 pictures, 201 s
+dinov2_small: 5184 of 18522 pictures, 387 s
+dinov2_small: 7744 of 18522 pictures, 602 s
+dinov2_small: 10304 of 18522 pictures, 801 s
+dinov2_small: 12864 of 18522 pictures, 987 s
+dinov2_small: 15424 of 18522 pictures, 1175 s
+dinov2_small: 17984 of 18522 pictures, 1363 s
+{"backbone": "dinov2_small", "global_size": 384, "grid_size": 6144, "seconds": 1403.8, "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}}
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub\models--timm--efficientnet_b0.ra_in1k. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+efficientnet_b0_imagenet: 64 of 18522 pictures, 1 s
+efficientnet_b0_imagenet: 2624 of 18522 pictures, 33 s
+efficientnet_b0_imagenet: 5184 of 18522 pictures, 67 s
+efficientnet_b0_imagenet: 7744 of 18522 pictures, 102 s
+efficientnet_b0_imagenet: 10304 of 18522 pictures, 137 s
+efficientnet_b0_imagenet: 12864 of 18522 pictures, 172 s
+efficientnet_b0_imagenet: 15424 of 18522 pictures, 208 s
+efficientnet_b0_imagenet: 17984 of 18522 pictures, 239 s
+{"backbone": "efficientnet_b0_imagenet", "global_size": 1280, "grid_size": 20480, "seconds": 246.3, "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}}
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub\models--timm--mobilenetv3_large_100.ra_in1k. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+mobilenetv3_large_imagenet: 64 of 18522 pictures, 0 s
+mobilenetv3_large_imagenet: 2624 of 18522 pictures, 16 s
+mobilenetv3_large_imagenet: 5184 of 18522 pictures, 32 s
+mobilenetv3_large_imagenet: 7744 of 18522 pictures, 47 s
+mobilenetv3_large_imagenet: 10304 of 18522 pictures, 63 s
+mobilenetv3_large_imagenet: 12864 of 18522 pictures, 79 s
+mobilenetv3_large_imagenet: 15424 of 18522 pictures, 96 s
+mobilenetv3_large_imagenet: 17984 of 18522 pictures, 112 s
+{"backbone": "mobilenetv3_large_imagenet", "global_size": 1280, "grid_size": 15360, "seconds": 115.8, "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}}
+D:\AI_Project\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\e7dc\.cache\huggingface\hub\models--timm--vit_base_patch32_clip_224.openai. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+clip_vit_b32: 64 of 18522 pictures, 3 s
+clip_vit_b32: 2624 of 18522 pictures, 124 s
+clip_vit_b32: 5184 of 18522 pictures, 246 s
+clip_vit_b32: 7744 of 18522 pictures, 370 s
+clip_vit_b32: 10304 of 18522 pictures, 497 s
+clip_vit_b32: 12864 of 18522 pictures, 618 s
+clip_vit_b32: 15424 of 18522 pictures, 749 s
+clip_vit_b32: 17984 of 18522 pictures, 906 s
+{"backbone": "clip_vit_b32", "global_size": 768, "grid_size": 12288, "seconds": 934.6, "normalisation": {"mean": [0.48145466, 0.4578275, 0.40821073], "std": [0.26862954, 0.26130258, 0.27577711]}}
+resnet18_random: 64 of 18522 pictures, 1 s
+resnet18_random: 2624 of 18522 pictures, 42 s
+resnet18_random: 5184 of 18522 pictures, 81 s
+resnet18_random: 7744 of 18522 pictures, 123 s
+resnet18_random: 10304 of 18522 pictures, 164 s
+resnet18_random: 12864 of 18522 pictures, 205 s
+resnet18_random: 15424 of 18522 pictures, 246 s
+resnet18_random: 17984 of 18522 pictures, 288 s
+{"backbone": "resnet18_random", "global_size": 512, "grid_size": 8192, "seconds": 297.5, "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}}
+{"backbone": "resnet18_imagenet", "parameters_million": 11.18, "milliseconds_square_224_median": 26.1, "milliseconds_square_224_90th": 29.7, "milliseconds_wide_160_median": 16.7, "milliseconds_wide_160_90th": 19.1}
+{"backbone": "dinov2_small", "parameters_million": 21.63, "milliseconds_square_224_median": 82.9, "milliseconds_square_224_90th": 89.4}
+{"backbone": "efficientnet_b0_imagenet", "parameters_million": 4.01, "milliseconds_square_224_median": 20.1, "milliseconds_square_224_90th": 34.4, "milliseconds_wide_160_median": 22.7, "milliseconds_wide_160_90th": 31.6}
+{"backbone": "mobilenetv3_large_imagenet", "parameters_million": 4.2, "milliseconds_square_224_median": 25.0, "milliseconds_square_224_90th": 37.2, "milliseconds_wide_160_median": 15.0, "milliseconds_wide_160_90th": 22.3}
+{"backbone": "clip_vit_b32", "parameters_million": 87.46, "milliseconds_square_224_median": 91.0, "milliseconds_square_224_90th": 118.2}
+{"backbone": "resnet18_random", "parameters_million": 11.18, "milliseconds_square_224_median": 26.6, "milliseconds_square_224_90th": 29.5, "milliseconds_wide_160_median": 19.0, "milliseconds_wide_160_90th": 22.6}

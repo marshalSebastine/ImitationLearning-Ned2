@@ -1,0 +1,183 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+D:\AI_Project\.claude\worktrees\training-analysis\02_code\train_policy.py:363: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  epoch_loss += float(loss) * len(rows)
+resnet18_final_candidate | epoch 1 | train 1.1139 | validation 0.8504 | 254.5 s
+resnet18_final_candidate | epoch 2 | train 0.751 | validation 0.8838 | 254.6 s
+resnet18_final_candidate | epoch 3 | train 0.6842 | validation 0.6825 | 259.2 s
+resnet18_final_candidate | epoch 4 | train 0.6174 | validation 0.6038 | 240.8 s
+resnet18_final_candidate | epoch 5 | train 0.5487 | validation 0.5845 | 247.8 s
+resnet18_final_candidate | epoch 6 | train 0.5229 | validation 0.5705 | 248.0 s
+resnet18_final_candidate | epoch 7 | train 0.4749 | validation 0.5503 | 255.9 s
+resnet18_final_candidate | epoch 8 | train 0.4621 | validation 0.5507 | 290.0 s
+resnet18_final_candidate | without_path_01 | {"within_45_deg": 0.7785, "class_accuracy": 0.6505, "episodes_stopped_right": 0.6, "episodes_stopped_early": 0.2, "twist_sign_accuracy": 0.6765}
+resnet18_final_candidate | epoch 1 | train 1.1196 | validation 0.8072 | 216.7 s
+resnet18_final_candidate | epoch 2 | train 0.774 | validation 0.8092 | 215.2 s
+resnet18_final_candidate | epoch 3 | train 0.6481 | validation 0.7003 | 222.3 s
+resnet18_final_candidate | epoch 4 | train 0.6257 | validation 0.6143 | 252.2 s
+resnet18_final_candidate | epoch 5 | train 0.5797 | validation 0.5639 | 350.7 s
+resnet18_final_candidate | epoch 6 | train 0.508 | validation 0.5426 | 490.3 s
+resnet18_final_candidate | epoch 7 | train 0.4869 | validation 0.5339 | 572.8 s
+resnet18_final_candidate | epoch 8 | train 0.4717 | validation 0.5325 | 553.1 s
+resnet18_final_candidate | without_path_02 | {"within_45_deg": 0.6318, "class_accuracy": 0.4309, "episodes_stopped_right": 0.5333, "episodes_stopped_early": 0.0444, "twist_sign_accuracy": 0.8017}
+resnet18_final_candidate | epoch 1 | train 1.1657 | validation 0.834 | 528.0 s
+resnet18_final_candidate | epoch 2 | train 0.7993 | validation 0.7943 | 488.8 s
+resnet18_final_candidate | epoch 3 | train 0.6854 | validation 0.7471 | 470.7 s
+resnet18_final_candidate | epoch 4 | train 0.6092 | validation 0.6746 | 404.3 s
+resnet18_final_candidate | epoch 5 | train 0.5332 | validation 0.6455 | 497.8 s
+resnet18_final_candidate | epoch 6 | train 0.5199 | validation 0.6027 | 304.0 s
+resnet18_final_candidate | epoch 7 | train 0.488 | validation 0.6003 | 287.4 s
+resnet18_final_candidate | epoch 8 | train 0.4804 | validation 0.5936 | 257.9 s
+resnet18_final_candidate | without_path_03 | {"within_45_deg": 0.6802, "class_accuracy": 0.4644, "episodes_stopped_right": 0.7333, "episodes_stopped_early": 0.2, "twist_sign_accuracy": 0.8479}
+resnet18_final_candidate | epoch 1 | train 1.1786 | validation 1.0119 | 147.4 s
+resnet18_final_candidate | epoch 2 | train 0.8305 | validation 0.8066 | 168.4 s
+resnet18_final_candidate | epoch 3 | train 0.7279 | validation 0.806 | 174.8 s
+resnet18_final_candidate | epoch 4 | train 0.6526 | validation 0.6937 | 173.6 s
+resnet18_final_candidate | epoch 5 | train 0.5845 | validation 0.6354 | 166.7 s
+resnet18_final_candidate | epoch 6 | train 0.5477 | validation 0.6782 | 170.4 s
+resnet18_final_candidate | epoch 7 | train 0.508 | validation 0.6754 | 176.9 s
+resnet18_final_candidate | epoch 8 | train 0.5059 | validation 0.6774 | 170.8 s
+resnet18_final_candidate | without_path_04 | {"within_45_deg": 0.6423, "class_accuracy": 0.412, "episodes_stopped_right": 0.4, "episodes_stopped_early": 0.2889, "twist_sign_accuracy": 0.7729}
+resnet18_final_candidate | epoch 1 | train 1.0957 | validation 0.8978 | 229.6 s
+resnet18_final_candidate | epoch 2 | train 0.7961 | validation 0.7496 | 220.9 s
+resnet18_final_candidate | epoch 3 | train 0.6753 | validation 0.7408 | 216.2 s
+resnet18_final_candidate | epoch 4 | train 0.6502 | validation 0.6482 | 215.8 s
+resnet18_final_candidate | epoch 5 | train 0.5707 | validation 0.6062 | 220.8 s
+resnet18_final_candidate | epoch 6 | train 0.5213 | validation 0.589 | 221.7 s
+resnet18_final_candidate | epoch 7 | train 0.4974 | validation 0.5621 | 216.0 s
+resnet18_final_candidate | epoch 8 | train 0.4837 | validation 0.5459 | 220.7 s
+resnet18_final_candidate | without_path_05 | {"within_45_deg": 0.6485, "class_accuracy": 0.4547, "episodes_stopped_right": 0.4138, "episodes_stopped_early": 0.3793, "twist_sign_accuracy": 0.6772}
+resnet18_final_candidate | epoch 1 | train 1.0622 | validation 0.6809 | 228.5 s
+resnet18_final_candidate | epoch 2 | train 0.8069 | validation 0.6293 | 223.2 s
+resnet18_final_candidate | epoch 3 | train 0.7076 | validation 0.559 | 236.7 s
+resnet18_final_candidate | epoch 4 | train 0.6236 | validation 0.5131 | 247.4 s
+resnet18_final_candidate | epoch 5 | train 0.5828 | validation 0.4942 | 242.5 s
+resnet18_final_candidate | epoch 6 | train 0.5352 | validation 0.4603 | 230.6 s
+resnet18_final_candidate | epoch 7 | train 0.4951 | validation 0.4387 | 235.1 s
+resnet18_final_candidate | epoch 8 | train 0.4812 | validation 0.4374 | 219.0 s
+resnet18_final_candidate | without_path_06 | {"within_45_deg": 0.6844, "class_accuracy": 0.3903, "episodes_stopped_right": 0.08, "episodes_stopped_early": 0.08, "twist_sign_accuracy": 0.786}
+{
+ "test_rows_mean": 3005.3333,
+ "test_rows_minimum": 644.0,
+ "test_rows_maximum": 6227.0,
+ "test_episodes_mean": 34.8333,
+ "test_episodes_minimum": 20.0,
+ "test_episodes_maximum": 45.0,
+ "direction_rows_mean": 2665.8333,
+ "direction_rows_minimum": 578.0,
+ "direction_rows_maximum": 5264.0,
+ "angle_error_median_deg_mean": 26.5433,
+ "angle_error_median_deg_minimum": 13.11,
+ "angle_error_median_deg_maximum": 31.0,
+ "angle_error_mean_deg_mean": 38.38,
+ "angle_error_mean_deg_minimum": 28.94,
+ "angle_error_mean_deg_maximum": 42.36,
+ "class_accuracy_mean": 0.4671,
+ "class_accuracy_minimum": 0.3903,
+ "class_accuracy_maximum": 0.6505,
+ "class_balanced_accuracy_mean": 0.2567,
+ "class_balanced_accuracy_minimum": 0.1711,
+ "class_balanced_accuracy_maximum": 0.3345,
+ "within_30_deg_mean": 0.5394,
+ "within_30_deg_minimum": 0.4848,
+ "within_30_deg_maximum": 0.6903,
+ "within_45_deg_mean": 0.6776,
+ "within_45_deg_minimum": 0.6318,
+ "within_45_deg_maximum": 0.7785,
+ "within_60_deg_mean": 0.7742,
+ "within_60_deg_minimum": 0.741,
+ "within_60_deg_maximum": 0.8287,
+ "path_direction_rows_mean": 2400.8333,
+ "path_direction_rows_minimum": 529.0,
+ "path_direction_rows_maximum": 4502.0,
+ "path_angle_error_median_deg_mean": 19.0317,
+ "path_angle_error_median_deg_minimum": 8.52,
+ "path_angle_error_median_deg_maximum": 23.96,
+ "path_angle_error_mean_deg_mean": 28.6167,
+ "path_angle_error_mean_deg_minimum": 19.0,
+ "path_angle_error_mean_deg_maximum": 33.89,
+ "path_class_accuracy_mean": 0.5669,
+ "path_class_accuracy_minimum": 0.4904,
+ "path_class_accuracy_maximum": 0.7429,
+ "path_class_balanced_accuracy_mean": 0.3129,
+ "path_class_balanced_accuracy_minimum": 0.2039,
+ "path_class_balanced_accuracy_maximum": 0.4133,
+ "path_within_30_deg_mean": 0.6553,
+ "path_within_30_deg_minimum": 0.5884,
+ "path_within_30_deg_maximum": 0.7977,
+ "path_within_45_deg_mean": 0.7863,
+ "path_within_45_deg_minimum": 0.7352,
+ "path_within_45_deg_maximum": 0.8563,
+ "path_within_60_deg_mean": 0.8653,
+ "path_within_60_deg_minimum": 0.8247,
+ "path_within_60_deg_maximum": 0.9074,
+ "stop_precision_mean": 0.3237,
+ "stop_precision_minimum": 0.2212,
+ "stop_precision_maximum": 0.3788,
+ "stop_recall_mean": 0.6789,
+ "stop_recall_minimum": 0.129,
+ "stop_recall_maximum": 0.9048,
+ "stop_average_precision_mean": 0.434,
+ "stop_average_precision_minimum": 0.2633,
+ "stop_average_precision_maximum": 0.5446,
+ "episodes_stopped_right_mean": 0.4601,
+ "episodes_stopped_right_minimum": 0.08,
+ "episodes_stopped_right_maximum": 0.7333,
+ "episodes_stopped_early_mean": 0.1988,
+ "episodes_stopped_early_minimum": 0.0444,
+ "episodes_stopped_early_maximum": 0.3793,
+ "episodes_never_stopped_mean": 0.2623,
+ "episodes_never_stopped_minimum": 0.0222,
+ "episodes_never_stopped_maximum": 0.84,
+ "tuned_episodes_stopped_right_mean": 0.4877,
+ "tuned_episodes_stopped_right_minimum": 0.08,
+ "tuned_episodes_stopped_right_maximum": 0.6889,
+ "tuned_episodes_stopped_early_mean": 0.1476,
+ "tuned_episodes_stopped_early_minimum": 0.08,
+ "tuned_episodes_stopped_early_maximum": 0.3111,
+ "tuned_episodes_never_stopped_mean": 0.2941,
+ "tuned_episodes_never_stopped_minimum": 0.0889,
+ "tuned_episodes_never_stopped_maximum": 0.84,
+ "tuned_stop_threshold_mean": 0.55,
+ "tuned_stop_threshold_minimum": 0.3,
+ "tuned_stop_threshold_maximum": 0.8,
+ "tuned_two_episodes_stopped_right_mean": 0.4764,
+ "tuned_two_episodes_stopped_right_minimum": 0.2,
+ "tuned_two_episodes_stopped_right_maximum": 0.8,
+ "tuned_two_episodes_stopped_early_mean": 0.2827,
+ "tuned_two_episodes_stopped_early_minimum": 0.15,
+ "tuned_two_episodes_stopped_early_maximum": 0.48,
+ "tuned_two_episodes_never_stopped_mean": 0.1628,
+ "tuned_two_episodes_never_stopped_minimum": 0.0222,
+ "tuned_two_episodes_never_stopped_maximum": 0.32,
+ "tuned_two_stop_threshold_mean": 0.1917,
+ "tuned_two_stop_threshold_minimum": 0.05,
+ "tuned_two_stop_threshold_maximum": 0.4,
+ "twist_rows_mean": 1956.8333,
+ "twist_rows_minimum": 238.0,
+ "twist_rows_maximum": 4535.0,
+ "twist_sign_accuracy_mean": 0.7604,
+ "twist_sign_accuracy_minimum": 0.6765,
+ "twist_sign_accuracy_maximum": 0.8479,
+ "twist_error_mean_deg_mean": 3.1318,
+ "twist_error_mean_deg_minimum": 2.177,
+ "twist_error_mean_deg_maximum": 3.659,
+ "lean_rows_mean": 1225.8333,
+ "lean_rows_minimum": 469.0,
+ "lean_rows_maximum": 2100.0,
+ "lean_sign_accuracy_mean": 0.8535,
+ "lean_sign_accuracy_minimum": 0.7913,
+ "lean_sign_accuracy_maximum": 0.9147,
+ "lean_error_mean_deg_mean": 0.8372,
+ "lean_error_mean_deg_minimum": 0.732,
+ "lean_error_mean_deg_maximum": 1.009,
+ "hand_rows_mean": 4.3333,
+ "hand_rows_minimum": 0.0,
+ "hand_rows_maximum": 11.0,
+ "epochs_run_mean": 8.0,
+ "epochs_run_minimum": 8.0,
+ "epochs_run_maximum": 8.0,
+ "minutes_mean": 37.2,
+ "minutes_minimum": 23.4,
+ "minutes_maximum": 55.0
+}

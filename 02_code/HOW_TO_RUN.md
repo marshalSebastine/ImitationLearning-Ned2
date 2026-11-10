@@ -109,6 +109,43 @@ Guided check, which asks for each stick, trigger and button and compares the num
 
     D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/gamepad_check.py
 
+## Train and compare models (no robot, since 9.11.26)
+
+These never connect to the robot and never change `03_data/raw`. They work the processor hard: a training run takes
+20 to 30 minutes per held-out sheet on this laptop, so keep it plugged in with the lid open. The packages are listed in
+`02_code/requirements_training.txt`. What each result means: `06_deliverables/research_notes/Model and training/`.
+
+Build the training table and the picture caches (about a minute; run it again after new recordings):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/training_dataset.py
+
+Train one named model and score it on held-out sheets (the names are the entries of `TRAINING_RUNS` in `config.py`):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate
+
+Only one held-out sheet, or a one-minute check that everything works (its results go to a folder ending in `_check`):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate --folds without_path_04
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate --folds without_path_04 --epochs 1 --train-row-limit 512
+
+One table of every result so far, written to `04_runs/comparison.md`:
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/compare_runs.py
+
+Where a model goes wrong (sheet, bends, near the goal, light, camera view), for a probe variant or a run:
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/training_error_analysis.py resnet18_imagenet_grid
+
+Quick comparisons on frozen features: first the features (about an hour, once), then any experiment of
+`TRAINING_PROBE_EXPERIMENTS`, or `baselines`, or `all`:
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/training_features.py
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/training_probes.py designs
+
+Tests of the training code (under a minute):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_training.py
+
 ## Stopping
 
 - Esc at the "Put the puck at the start" prompt ends the session; the robot goes home.

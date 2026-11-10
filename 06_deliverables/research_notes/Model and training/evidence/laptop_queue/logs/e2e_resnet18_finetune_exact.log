@@ -1,0 +1,156 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+D:\AI_Project\.claude\worktrees\training-analysis\02_code\train_policy.py:363: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  epoch_loss += float(loss) * len(rows)
+resnet18_finetune_exact | epoch 1 | train 1.0673 | validation 0.8381 | 236.6 s
+resnet18_finetune_exact | epoch 2 | train 0.751 | validation 0.8208 | 159.9 s
+resnet18_finetune_exact | epoch 3 | train 0.6696 | validation 0.7055 | 149.1 s
+resnet18_finetune_exact | epoch 4 | train 0.6163 | validation 0.6432 | 143.3 s
+resnet18_finetune_exact | epoch 5 | train 0.5485 | validation 0.5947 | 144.1 s
+resnet18_finetune_exact | epoch 6 | train 0.519 | validation 0.5875 | 147.4 s
+resnet18_finetune_exact | epoch 7 | train 0.482 | validation 0.5869 | 154.9 s
+resnet18_finetune_exact | epoch 8 | train 0.4729 | validation 0.5818 | 160.1 s
+resnet18_finetune_exact | without_path_01 | {"within_45_deg": 0.7592, "class_accuracy": 0.6555, "episodes_stopped_right": 0.6316, "episodes_stopped_early": 0.1579, "twist_sign_accuracy": 0.6752}
+resnet18_finetune_exact | epoch 1 | train 1.0979 | validation 0.7564 | 144.5 s
+resnet18_finetune_exact | epoch 2 | train 0.7787 | validation 0.6794 | 153.0 s
+resnet18_finetune_exact | epoch 3 | train 0.7043 | validation 0.638 | 154.7 s
+resnet18_finetune_exact | epoch 4 | train 0.6012 | validation 0.5931 | 154.2 s
+resnet18_finetune_exact | epoch 5 | train 0.5741 | validation 0.593 | 153.8 s
+resnet18_finetune_exact | epoch 6 | train 0.521 | validation 0.5566 | 152.8 s
+resnet18_finetune_exact | epoch 7 | train 0.4826 | validation 0.5597 | 150.1 s
+resnet18_finetune_exact | epoch 8 | train 0.4738 | validation 0.5525 | 147.8 s
+resnet18_finetune_exact | without_path_02 | {"within_45_deg": 0.6307, "class_accuracy": 0.4199, "episodes_stopped_right": 0.4773, "episodes_stopped_early": 0.0455, "twist_sign_accuracy": 0.8073}
+resnet18_finetune_exact | epoch 1 | train 1.1008 | validation 0.879 | 115.5 s
+resnet18_finetune_exact | epoch 2 | train 0.7875 | validation 0.8244 | 115.9 s
+resnet18_finetune_exact | epoch 3 | train 0.7238 | validation 0.6894 | 114.7 s
+resnet18_finetune_exact | epoch 4 | train 0.6786 | validation 0.7758 | 114.2 s
+resnet18_finetune_exact | epoch 5 | train 0.7652 | validation 0.6654 | 115.6 s
+resnet18_finetune_exact | epoch 6 | train 0.6182 | validation 0.6701 | 116.0 s
+resnet18_finetune_exact | epoch 7 | train 0.6455 | validation 0.6377 | 116.6 s
+resnet18_finetune_exact | epoch 8 | train 0.6195 | validation 0.6408 | 117.3 s
+resnet18_finetune_exact | without_path_04 | {"within_45_deg": 0.6346, "class_accuracy": 0.4119, "episodes_stopped_right": 0.3333, "episodes_stopped_early": 0.3778, "twist_sign_accuracy": 0.7575}
+{
+ "test_rows_mean": 3240.0,
+ "test_rows_minimum": 658.0,
+ "test_rows_maximum": 6348.0,
+ "test_episodes_mean": 36.0,
+ "test_episodes_minimum": 19.0,
+ "test_episodes_maximum": 45.0,
+ "direction_rows_mean": 2737.3333,
+ "direction_rows_minimum": 569.0,
+ "direction_rows_maximum": 5271.0,
+ "angle_error_median_deg_mean": 26.0,
+ "angle_error_median_deg_minimum": 14.31,
+ "angle_error_median_deg_maximum": 32.5,
+ "angle_error_mean_deg_mean": 37.77,
+ "angle_error_mean_deg_minimum": 29.51,
+ "angle_error_mean_deg_maximum": 42.08,
+ "class_accuracy_mean": 0.4958,
+ "class_accuracy_minimum": 0.4119,
+ "class_accuracy_maximum": 0.6555,
+ "class_balanced_accuracy_mean": 0.1953,
+ "class_balanced_accuracy_minimum": 0.1862,
+ "class_balanced_accuracy_maximum": 0.2015,
+ "within_30_deg_mean": 0.5471,
+ "within_30_deg_minimum": 0.4741,
+ "within_30_deg_maximum": 0.6819,
+ "within_45_deg_mean": 0.6748,
+ "within_45_deg_minimum": 0.6307,
+ "within_45_deg_maximum": 0.7592,
+ "within_60_deg_mean": 0.7706,
+ "within_60_deg_minimum": 0.7344,
+ "within_60_deg_maximum": 0.8295,
+ "path_direction_rows_mean": 2467.3333,
+ "path_direction_rows_minimum": 542.0,
+ "path_direction_rows_maximum": 4588.0,
+ "path_angle_error_median_deg_mean": 18.9267,
+ "path_angle_error_median_deg_minimum": 8.96,
+ "path_angle_error_median_deg_maximum": 24.73,
+ "path_angle_error_mean_deg_mean": 28.67,
+ "path_angle_error_mean_deg_minimum": 19.57,
+ "path_angle_error_mean_deg_maximum": 34.11,
+ "path_class_accuracy_mean": 0.5877,
+ "path_class_accuracy_minimum": 0.5048,
+ "path_class_accuracy_maximum": 0.7417,
+ "path_class_balanced_accuracy_mean": 0.2233,
+ "path_class_balanced_accuracy_minimum": 0.1963,
+ "path_class_balanced_accuracy_maximum": 0.2429,
+ "path_within_30_deg_mean": 0.6528,
+ "path_within_30_deg_minimum": 0.5715,
+ "path_within_30_deg_maximum": 0.7878,
+ "path_within_45_deg_mean": 0.7711,
+ "path_within_45_deg_minimum": 0.7262,
+ "path_within_45_deg_maximum": 0.8579,
+ "path_within_60_deg_mean": 0.8546,
+ "path_within_60_deg_minimum": 0.8261,
+ "path_within_60_deg_maximum": 0.9077,
+ "stop_precision_mean": 0.296,
+ "stop_precision_minimum": 0.1423,
+ "stop_precision_maximum": 0.3774,
+ "stop_recall_mean": 0.6638,
+ "stop_recall_minimum": 0.4545,
+ "stop_recall_maximum": 0.8,
+ "stop_average_precision_mean": 0.4028,
+ "stop_average_precision_minimum": 0.2537,
+ "stop_average_precision_maximum": 0.5784,
+ "episodes_stopped_right_mean": 0.4807,
+ "episodes_stopped_right_minimum": 0.3333,
+ "episodes_stopped_right_maximum": 0.6316,
+ "episodes_stopped_early_mean": 0.1937,
+ "episodes_stopped_early_minimum": 0.0455,
+ "episodes_stopped_early_maximum": 0.3778,
+ "episodes_never_stopped_mean": 0.2513,
+ "episodes_never_stopped_minimum": 0.0889,
+ "episodes_never_stopped_maximum": 0.4545,
+ "tuned_episodes_stopped_right_mean": 0.5301,
+ "tuned_episodes_stopped_right_minimum": 0.4091,
+ "tuned_episodes_stopped_right_maximum": 0.7368,
+ "tuned_episodes_stopped_early_mean": 0.1119,
+ "tuned_episodes_stopped_early_minimum": 0.0,
+ "tuned_episodes_stopped_early_maximum": 0.1778,
+ "tuned_episodes_never_stopped_mean": 0.3034,
+ "tuned_episodes_never_stopped_minimum": 0.0526,
+ "tuned_episodes_never_stopped_maximum": 0.5909,
+ "tuned_stop_threshold_mean": 0.5667,
+ "tuned_stop_threshold_minimum": 0.3,
+ "tuned_stop_threshold_maximum": 0.7,
+ "tuned_two_episodes_stopped_right_mean": 0.4604,
+ "tuned_two_episodes_stopped_right_minimum": 0.3333,
+ "tuned_two_episodes_stopped_right_maximum": 0.6842,
+ "tuned_two_episodes_stopped_early_mean": 0.1994,
+ "tuned_two_episodes_stopped_early_minimum": 0.1053,
+ "tuned_two_episodes_stopped_early_maximum": 0.3111,
+ "tuned_two_episodes_never_stopped_mean": 0.2957,
+ "tuned_two_episodes_never_stopped_minimum": 0.2105,
+ "tuned_two_episodes_never_stopped_maximum": 0.4545,
+ "tuned_two_stop_threshold_mean": 0.3167,
+ "tuned_two_stop_threshold_minimum": 0.15,
+ "tuned_two_stop_threshold_maximum": 0.6,
+ "twist_rows_mean": 1983.0,
+ "twist_rows_minimum": 234.0,
+ "twist_rows_maximum": 4537.0,
+ "twist_sign_accuracy_mean": 0.7467,
+ "twist_sign_accuracy_minimum": 0.6752,
+ "twist_sign_accuracy_maximum": 0.8073,
+ "twist_error_mean_deg_mean": 2.8613,
+ "twist_error_mean_deg_minimum": 2.108,
+ "twist_error_mean_deg_maximum": 3.661,
+ "lean_rows_mean": 1243.6667,
+ "lean_rows_minimum": 461.0,
+ "lean_rows_maximum": 2106.0,
+ "lean_sign_accuracy_mean": 0.8739,
+ "lean_sign_accuracy_minimum": 0.8495,
+ "lean_sign_accuracy_maximum": 0.9132,
+ "lean_error_mean_deg_mean": 0.831,
+ "lean_error_mean_deg_minimum": 0.763,
+ "lean_error_mean_deg_maximum": 0.938,
+ "hand_rows_mean": 9.3333,
+ "hand_rows_minimum": 0.0,
+ "hand_rows_maximum": 15.0,
+ "epochs_run_mean": 8.0,
+ "epochs_run_minimum": 8.0,
+ "epochs_run_maximum": 8.0,
+ "minutes_mean": 19.5667,
+ "minutes_minimum": 16.2,
+ "minutes_maximum": 21.9
+}

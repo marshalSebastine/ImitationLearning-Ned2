@@ -1,0 +1,5 @@
+D:\AI_Project\.claude\worktrees\training-analysis\02_code\train_policy.py:363: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  epoch_loss += float(loss) * len(rows)
+resnet18_backup_names_plus_exact | epoch 1 | train 2.9904 | validation 2.5061 | 168.5 s
+resnet18_backup_names_plus_exact | epoch 2 | train 2.3494 | validation 2.308 | 173.5 s

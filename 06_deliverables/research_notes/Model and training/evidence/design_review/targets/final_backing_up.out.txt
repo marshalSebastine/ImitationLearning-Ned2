@@ -1,0 +1,2 @@
+without_path_01: backward moves 37 of 578; within 45 deg 0.054 on backward moves, 0.828 on the others; predicted straight back 0.000
+without_path_02: backward moves 280 of 2425; within 45 deg 0.139 on backward moves, 0.696 on the others; predicted straight back 0.000

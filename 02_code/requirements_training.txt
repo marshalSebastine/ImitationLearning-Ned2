@@ -1,0 +1,9 @@
+# Packages for training and comparing models (training_*.py, train_policy.py, compare_runs.py), on top of
+# requirements.txt. Installed into .venv on Emranul's laptop on 9.11.26 from PyPI (the processor build of PyTorch;
+# a dry run showed that none of the robot code's packages changed):
+#     ..\.venv\Scripts\python.exe -m pip install -r requirements_training.txt
+torch==2.15.0
+torchvision==0.29.2
+timm==1.0.31
+pandas==3.1.1
+scikit-learn==1.9.1

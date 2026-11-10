@@ -1,0 +1,36 @@
+pictures 8710 in 100 episodes (held-out sheets 03, 05, 06)
+--- predicted against demonstrated step length (cm): median predicted / median demonstrated / share predicted under 0.3 cm
+  moving rows: n 7738, 0.603 / 1.092 / 0.083
+  twists in place: n 598, 0.483 / 0.195 / 0.174
+  null rows (row 0, after corrections, duplicates): n 260, 0.503 / 0.011 / 0.192
+  stop rows: n 100, 0.303 / 0.000 / 0.500
+  moving rows by demonstrated length: 0.3-0.7 cm: pred 0.53, 0.7-1.0 cm: pred 0.56, 1.0-1.3 cm: pred 0.63, 1.3-2.0 cm: pred 0.66
+--- non-stop pictures by distance to the goal: n, median predicted cm, median demonstrated cm, share predicted under 0.3 cm
+  (-0.01, 1.0]: 127, 0.39, 0.35, 0.354
+  (1.0, 2.0]: 142, 0.55, 1.11, 0.148
+  (2.0, 3.0]: 208, 0.63, 1.05, 0.072
+  (3.0, 5.0]: 565, 0.57, 1.02, 0.110
+  (5.0, 10.0]: 1610, 0.57, 1.08, 0.100
+  (10.0, 1000.0]: 5958, 0.60, 1.07, 0.083
+  over 5 cm from the goal, no line ahead: n 2215, median predicted 0.57 cm, share under 0.3 cm 0.113, median stop probability 0.0024, p90 0.282
+  over 5 cm from the goal, line in view: n 5353, median predicted 0.61 cm, share under 0.3 cm 0.076, median stop probability 0.0003, p90 0.002
+--- twist (deg) on rows where the demonstration twisted at least 2 deg
+  n 5781; median |demonstrated| 5.62, median |predicted| 2.48; sign right 0.782; predicted |twist| under 1 deg 0.219; correlation 0.628
+  twists in place: n 598; median |predicted twist| 3.75 against 5.98; sign right 0.834; predicted step median 0.48 cm
+  moving rows without a twist (under 1 deg): n 1778; median |predicted twist| 1.39; predicted |twist| over 3 deg 0.165
+--- standing still away from the goal (predicted step under 0.3 cm and |twist| under 1 deg, more than 3 cm from the goal)
+  204 of 8133 pictures (0.0251); in 48 of 100 episodes; of these pictures 0.79 show no line ahead; demonstrated action there: {'forward_right': 34, 'right': 32, 'forward': 30, 'left': 26, 'small_motion': 22}
+  predicted step under 0.3 cm (any twist): 720 pictures (0.0885)
+--- stop rules per held-out sheet (right / early / never); thresholds chosen on the other two sheets
+  probability, 1 in a row, chosen on the other sheets: right 0.364 (0.16 to 0.73), early 0.265 (0.04 to 0.60), never 0.348; 03:0.73/0.16/0.04 at (0.4, None) 05:0.20/0.60/0.20 at (0.4, None) 06:0.16/0.04/0.80 at (0.6, None)
+  probability, 1 in a row, best on own sheet: right 0.429 (0.23 to 0.73), early 0.225 (0.12 to 0.40), never 0.324; 03:0.73/0.16/0.04 at (0.4, None) 05:0.23/0.40/0.37 at (0.6, None) 06:0.32/0.12/0.56 at (0.3, None)
+  probability, 2 in a row, chosen on the other sheets: right 0.324 (0.10 to 0.71), early 0.422 (0.13 to 0.73), never 0.232; 03:0.71/0.13/0.09 at (0.25, None) 05:0.10/0.73/0.17 at (0.15, None) 06:0.16/0.40/0.44 at (0.1, None)
+  probability, 2 in a row, best on own sheet: right 0.439 (0.20 to 0.76), early 0.288 (0.12 to 0.57), never 0.266; 03:0.76/0.18/0.04 at (0.15, None) 05:0.20/0.57/0.23 at (0.4, None) 06:0.36/0.12/0.52 at (0.25, None)
+  length, 1 in a row, chosen on the other sheets: right 0.126 (0.00 to 0.20), early 0.465 (0.27 to 0.69), never 0.409; 03:0.18/0.69/0.13 at (None, 0.2) 05:0.20/0.27/0.53 at (None, 0.1) 06:0.00/0.44/0.56 at (None, 0.2)
+  length, 1 in a row, best on own sheet: right 0.163 (0.00 to 0.27), early 0.326 (0.20 to 0.47), never 0.511; 03:0.22/0.31/0.47 at (None, 0.1) 05:0.27/0.47/0.27 at (None, 0.2) 06:0.00/0.20/0.80 at (None, 0.1)
+  length, 2 in a row, chosen on the other sheets: right 0.159 (0.00 to 0.30), early 0.177 (0.12 to 0.23), never 0.656; 03:0.18/0.18/0.62 at (None, 0.15) 05:0.30/0.23/0.47 at (None, 0.15) 06:0.00/0.12/0.88 at (None, 0.15)
+  length, 2 in a row, best on own sheet: right 0.159 (0.00 to 0.30), early 0.137 (0.00 to 0.23), never 0.696; 03:0.18/0.18/0.62 at (None, 0.15) 05:0.30/0.23/0.47 at (None, 0.15) 06:0.00/0.00/1.00 at (None, 0.1)
+  both, 1 in a row, chosen on the other sheets: right 0.364 (0.16 to 0.73), early 0.265 (0.04 to 0.60), never 0.348; 03:0.73/0.16/0.04 at (0.4, 0.6) 05:0.20/0.60/0.20 at (0.4, 0.6) 06:0.16/0.04/0.80 at (0.6, 0.5)
+  both, 1 in a row, best on own sheet: right 0.473 (0.32 to 0.73), early 0.190 (0.08 to 0.33), never 0.315; 03:0.73/0.16/0.04 at (0.4, 0.5) 05:0.37/0.33/0.30 at (0.2, 0.2) 06:0.32/0.08/0.60 at (0.3, 0.6)
+  both, 2 in a row, chosen on the other sheets: right 0.350 (0.10 to 0.71), early 0.329 (0.12 to 0.73), never 0.299; 03:0.71/0.13/0.09 at (0.25, 0.8) 05:0.10/0.73/0.17 at (0.15, 0.8) 06:0.24/0.12/0.64 at (0.15, 0.5)
+  both, 2 in a row, best on own sheet: right 0.494 (0.36 to 0.76), early 0.177 (0.12 to 0.23), never 0.321; 03:0.76/0.18/0.04 at (0.15, 0.6) 05:0.37/0.23/0.40 at (0.2, 0.2) 06:0.36/0.12/0.52 at (0.25, 0.8)

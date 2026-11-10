@@ -1,0 +1,91 @@
+        fold                                                                                 episode_folder start_end start_kind  row_in_episode  rows_in_test_episode  goal_distance_cm  distance_from_start_cm  forearm_turn_deg  stop_probability  brightness_mean
+0   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1_score_02         A        NaN              38                    52               3.3                    25.8              -5.5             0.636            142.8
+1   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_008_plan_01-06_try_1_score_03         A        OR1              20                    51              21.3                     6.4             -97.3             0.504            146.8
+2   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1_score_03         A       TL15              31                    40               4.6                    25.8               5.6             0.536            149.0
+3   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_007_plan_02-04_try_1_score_03         B        STD               2                    64              34.9                     0.6              -0.4             0.173             87.1
+4   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_015_plan_02-09_try_1_score_01         B        OR1              21                    99              20.9                     7.4             -69.9             0.238            100.1
+5   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2_score_03         A      OR1.5              54                    69               5.6                    24.4             -65.6             0.377            142.0
+6   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1_score_02         B      OR1.5              19                    65              19.7                     9.6             -88.3             0.183            147.6
+7   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1_score_02         A        STD              39                    51               3.8                    26.3             -69.3             0.166            157.1
+8   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1_score_03         B        STD              61                    68               3.3                    23.8              92.1             0.575            136.6
+9   final_02                2026-11-07_session_01_marshal/path_02_arc_episode_045_plan_02-35_try_1_score_02         A         NE              32                    37               4.8                     7.7              64.7             0.248            143.8
+10  final_02                2026-11-07_session_01_marshal/path_02_arc_episode_046_plan_02-36_try_1_score_02         A        SQL              34                    74               7.2                    24.4             -80.9             0.185            157.8
+11  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_004_plan_03-04_try_1_score_03         A        STD             115                   125               3.5                    22.8             -59.1             0.180            155.2
+12  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_013_plan_03-13_try_1_score_03         B        STD              95                   106               4.2                    26.4               9.3             0.757            151.4
+13  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1_score_02         B        STD             115                   121               3.6                    26.9               0.9             0.293            145.7
+14  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_033_plan_03-32_try_1_score_03         A      OR1.5             119                   127               3.1                    24.7              10.6             0.563            142.1
+15  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1_score_03         A       TL15              85                    96               4.4                    25.8              -1.8             0.789            148.7
+16  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_039_plan_03-38_try_1_score_03         A        MID              10                    77              13.7                     4.6             -25.2             0.810            153.3
+17  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_041_plan_03-40_try_1_score_03         A        MID               7                    70              15.0                     4.5             -10.5             0.418            148.1
+18  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_042_plan_03-41_try_1_score_03         A        MID               4                    57              15.4                     2.2              -0.6             0.179            159.1
+19  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3_score_03         B        STD              49                    99              16.4                    18.1             -75.9             0.864            127.1
+20  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_005_plan_05-02_try_2_score_03         B        STD              46                   124              18.8                    20.2             -80.5             0.496            129.7
+21  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1_score_03         B        STD              38                   110              14.6                    21.8             -86.6             0.721            144.5
+22  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1_score_03         B        STD              37                   103              17.1                    16.4             -48.2             0.365            146.8
+23  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1_score_02         B        OL1              52                   154              17.4                    15.5             -50.6             0.700            141.1
+24  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_013_plan_05-09_try_2_score_03         B       TL10              36                   122              12.4                    23.1             -30.8             0.379            156.9
+25  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1_score_03         B       TR10              38                   109              15.0                    20.7             -40.9             0.692            144.8
+26  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_017_plan_05-12_try_2_score_03         B         X1              41                   105              17.8                    10.8             -76.6             0.819            148.4
+27  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_018_plan_05-13_try_1_score_03         B         X1              40                    92              18.5                    13.2             -96.1             0.556            133.5
+28  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_019_plan_05-14_try_1_score_03         B        STD              36                   111               8.2                    27.6               4.0             0.545            133.2
+29  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1_score_02         B        STD              30                   124               6.3                    25.5              14.9             0.624            144.3
+30  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_022_plan_05-17_try_1_score_03         B        STD              27                   100               4.9                    24.1               7.0             0.530            151.6
+31  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1_score_02         B        STD              43                    99              11.9                    30.1              38.4             0.394            126.8
+32  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_024_plan_05-19_try_1_score_02         B        STD              27                   119               5.5                    25.0              -3.8             0.637            143.2
+33  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_025_plan_05-20_try_1_score_02         B      OL1.5              52                   122              15.3                    19.0             -59.0             0.306            141.4
+34  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1_score_02         B      OR1.5              39                   113              15.3                    26.7             -54.4             0.557            149.1
+35  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_027_plan_05-22_try_1_score_03         B       TL15              42                   120              19.3                    18.6             -47.3             0.623            147.8
+36  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_029_plan_05-24_try_1_score_02         B        OL1              34                   117               9.4                    26.9             -40.1             0.520            141.2
+37  exact_05         2026-11-09_session_01_emranul/path_05_alpha_loop_episode_032_plan_05-27_try_1_score_03         B         X2              17                    27               4.9                    17.8              63.1             0.585            156.6
+38  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1_score_03         A        STD              32                   129              20.4                    19.3              94.0             0.862            138.2
+39  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_006_plan_06-06_try_1_score_03         A        STD              38                    83              19.2                    18.3              61.0             0.332            140.2
+40  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1_score_03         A       TR10              37                    81              18.9                    15.5              65.5             0.288            140.0
+41  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_011_plan_06-11_try_1_score_03         A         X1              31                    79              21.3                    14.0              90.8             0.390            132.1
+42  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_013_plan_06-12_try_2_score_03         A         X1              31                    74              18.9                    14.1              65.9             0.248            126.2
+43  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_023_plan_06-22_try_1_score_03         A         NE               5                    19               6.5                     3.6             -26.1             0.227            146.3
+        fold                                                                                                    frame_path
+0   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1_score_02/frames/038.jpg
+1   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_008_plan_01-06_try_1_score_03/frames/020.jpg
+2   final_01      2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1_score_03/frames/031.jpg
+3   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_007_plan_02-04_try_1_score_03/frames/002.jpg
+4   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_015_plan_02-09_try_1_score_01/frames/021.jpg
+5   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2_score_03/frames/054.jpg
+6   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1_score_02/frames/019.jpg
+7   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1_score_02/frames/039.jpg
+8   final_02                2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1_score_03/frames/061.jpg
+9   final_02                2026-11-07_session_01_marshal/path_02_arc_episode_045_plan_02-35_try_1_score_02/frames/032.jpg
+10  final_02                2026-11-07_session_01_marshal/path_02_arc_episode_046_plan_02-36_try_1_score_02/frames/034.jpg
+11  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_004_plan_03-04_try_1_score_03/frames/115.jpg
+12  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_013_plan_03-13_try_1_score_03/frames/095.jpg
+13  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1_score_02/frames/115.jpg
+14  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_033_plan_03-32_try_1_score_03/frames/119.jpg
+15  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1_score_03/frames/085.jpg
+16  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_039_plan_03-38_try_1_score_03/frames/010.jpg
+17  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_041_plan_03-40_try_1_score_03/frames/007.jpg
+18  exact_03          2026-11-08_session_01_emranul/path_03_two_curve_episode_042_plan_03-41_try_1_score_03/frames/004.jpg
+19  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3_score_03/frames/049.jpg
+20  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_005_plan_05-02_try_2_score_03/frames/046.jpg
+21  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1_score_03/frames/038.jpg
+22  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1_score_03/frames/037.jpg
+23  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1_score_02/frames/052.jpg
+24  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_013_plan_05-09_try_2_score_03/frames/036.jpg
+25  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1_score_03/frames/038.jpg
+26  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_017_plan_05-12_try_2_score_03/frames/041.jpg
+27  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_018_plan_05-13_try_1_score_03/frames/040.jpg
+28  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_019_plan_05-14_try_1_score_03/frames/036.jpg
+29  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1_score_02/frames/030.jpg
+30  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_022_plan_05-17_try_1_score_03/frames/027.jpg
+31  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1_score_02/frames/043.jpg
+32  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_024_plan_05-19_try_1_score_02/frames/027.jpg
+33  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_025_plan_05-20_try_1_score_02/frames/052.jpg
+34  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1_score_02/frames/039.jpg
+35  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_027_plan_05-22_try_1_score_03/frames/042.jpg
+36  exact_05         2026-11-08_session_01_emranul/path_05_alpha_loop_episode_029_plan_05-24_try_1_score_02/frames/034.jpg
+37  exact_05         2026-11-09_session_01_emranul/path_05_alpha_loop_episode_032_plan_05-27_try_1_score_03/frames/017.jpg
+38  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1_score_03/frames/032.jpg
+39  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_006_plan_06-06_try_1_score_03/frames/038.jpg
+40  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1_score_03/frames/037.jpg
+41  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_011_plan_06-11_try_1_score_03/frames/031.jpg
+42  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_013_plan_06-12_try_2_score_03/frames/031.jpg
+43  exact_06  2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_023_plan_06-22_try_1_score_03/frames/005.jpg
+exit 0
