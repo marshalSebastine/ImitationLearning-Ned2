@@ -1,0 +1,48 @@
+CHECK 4c: every episode with at least one of my reference pictures, against the analyst's reliable ends
+camera corrected: 156 episodes measured by both
+  my place of the puck against the end differs from the analyst's by: median 1.8 mm, 75th percentile 2.9, 90th 4.5; over 5 mm in 13, over 10 mm in 9
+  on the 143 episodes where the two agree within 5 mm: covered (7 mm) by mine 77, by the analyst's 86
+     short: mine mean +2.2 sd 4.3; analyst mean +2.1 sd 4.0
+     aside: mine mean +0.2 sd 6.4; analyst mean +0.4 sd 6.2
+  all 156: covered by mine 81 (52 %), by the analyst's 93 (60 %); same verdict in 132
+     short_mm_mine: median +2.6, robust spread (1.4826 x median absolute deviation) 4.2 mm
+     aside_mm_mine: median +0.3, robust spread (1.4826 x median absolute deviation) 7.1 mm
+     short_mm_analyst: median +2.2, robust spread (1.4826 x median absolute deviation) 4.0 mm
+     aside_mm_analyst: median +0.4, robust spread (1.4826 x median absolute deviation) 6.4 mm
+  the eight largest disagreements (my simple end finder jumps to another piece of line on the meander and the dashed loop):
+                                   episode  short_mm_mine  short_mm_analyst  aside_mm_mine  aside_mm_analyst  references
+th_04_meander_episode_008_plan_04-01_try_6           55.5              -9.9           35.9             -10.3           3
+_03_two_curve_episode_004_plan_03-04_try_1           65.3              -6.8            0.7              -4.1           8
+th_04_meander_episode_026_plan_04-19_try_1           57.4              -1.0           32.9               0.5           9
+th_04_meander_episode_012_plan_04-05_try_1           59.6               4.5           28.5              -2.4           1
+a_loop_dashed_episode_002_plan_06-02_try_1          -16.0               9.2            4.2               2.8           7
+th_04_meander_episode_017_plan_04-10_try_1           21.7               2.0          -16.4              -5.5           5
+a_loop_dashed_episode_008_plan_06-08_try_1           -8.2               4.8           -4.4              -6.1          10
+a_loop_dashed_episode_004_plan_06-04_try_1           -9.5               2.0            5.7               3.4           8
+camera fitted: 157 episodes measured by both
+  my place of the puck against the end differs from the analyst's by: median 2.7 mm, 75th percentile 4.7, 90th 7.3; over 5 mm in 35, over 10 mm in 10
+  on the 122 episodes where the two agree within 5 mm: covered (7 mm) by mine 60, by the analyst's 71
+     short: mine mean +2.1 sd 4.6; analyst mean +2.1 sd 4.2
+     aside: mine mean -0.8 sd 6.6; analyst mean +0.5 sd 6.4
+  all 157: covered by mine 72 (46 %), by the analyst's 94 (60 %); same verdict in 123
+     short_mm_mine: median +2.6, robust spread (1.4826 x median absolute deviation) 5.4 mm
+     aside_mm_mine: median -1.9, robust spread (1.4826 x median absolute deviation) 7.3 mm
+     short_mm_analyst: median +2.2, robust spread (1.4826 x median absolute deviation) 3.9 mm
+     aside_mm_analyst: median +0.5, robust spread (1.4826 x median absolute deviation) 6.5 mm
+  the eight largest disagreements (my simple end finder jumps to another piece of line on the meander and the dashed loop):
+                                   episode  short_mm_mine  short_mm_analyst  aside_mm_mine  aside_mm_analyst  references
+th_04_meander_episode_008_plan_04-01_try_6           55.6              -9.9           35.7             -10.3           3
+_03_two_curve_episode_004_plan_03-04_try_1           65.3              -6.8            2.7              -4.1           8
+th_04_meander_episode_026_plan_04-19_try_1           57.4              -1.0           32.8               0.5           9
+th_04_meander_episode_012_plan_04-05_try_1           60.3               4.5           26.8              -2.4           2
+a_loop_dashed_episode_002_plan_06-02_try_1          -33.3               9.2           17.6               2.8           4
+a_loop_dashed_episode_008_plan_06-08_try_1          -18.6               4.8           -8.3              -6.1           9
+th_04_meander_episode_017_plan_04-10_try_1           19.0               2.0          -17.9              -5.5           5
+th_04_meander_episode_053_plan_04-40_try_1           11.0               3.0            0.7               9.9           3
+
+CHECK 16: the analyst's proposed gate for new episodes (centres at most 5 mm apart at the stop) on the existing demonstrations
+  the analyst's table: centres at most 5 mm apart in 59 of 175 (34 %)
+  the analyst's table: centres at most 7 mm apart in 104 of 175 (59 %)
+  the analyst's table: centres at most 12 mm apart in 161 of 175 (92 %)
+  two measures on the same 147 stops (without my finder's jumps), gate 5 mm: pass by mine 47, by the analyst's 49, same verdict in 123 (84 %), pass by one and fail by the other in 24
+  two measures on the same 147 stops (without my finder's jumps), gate 7 mm: pass by mine 80, by the analyst's 88, same verdict in 127 (86 %), pass by one and fail by the other in 20

@@ -1,0 +1,72 @@
+target settings that differ between the E and the A recipe: {}
+cleaned frames: 18032 rows, 209 episodes; actions: {'forward': 6449, 'forward_left': 2367, 'forward_right': 2142, 'small_motion': 1765, 'left': 1573, 'right': 1570, 'back_right': 788, 'back_left': 562, 'back': 544, 'stop': 259, 'turn_left': 9, 'turn_right': 4}
+
+================ E_recipe: 18032 pictures, 17773 without the stop rows
+demonstrated step: median 1.060, mean 0.943; under 0.5 cm 18.2 %, under 0.2 cm 5.4 %; with a twist of 6 degrees or more: median 0.648
+predicted length: median 0.675, mean 0.673; under 0.3 cm 4.7 %; over 1.2 cm 0.68 %; largest 1.43
+1. twists in place 1688 (9.5 % of rows), real moves 16008, neither 77
+   per sheet share of twists in place: 01 6.1 %, 02 6.6 %, 03 10.9 %, 04 14.2 %, 05 3.5 %, 06 4.5 %
+   predicted length median: twists in place 0.595, real moves 0.685
+   area under the curve (predicted length lower for twists in place): 0.626; per sheet: 01 0.712, 02 0.558, 03 0.606, 04 0.617, 05 0.673, 06 0.512
+   other scores: |predicted twist| / length (higher for twists in place): 0.672; |predicted twist| alone: 0.651
+   threshold 0.2 cm: twists in place missed 97.6 %; real moves frozen 1.6 %; of the 314 rows under it 13.1 % are twists in place
+   threshold 0.3 cm: twists in place missed 93.2 %; real moves frozen 4.3 %; of the 830 rows under it 13.9 % are twists in place
+   threshold 0.5 cm: twists in place missed 69.0 %; real moves frozen 19.5 %; of the 3688 rows under it 14.2 % are twists in place
+   equal-error threshold 0.64 cm: missed 40.9 %, frozen 40.9 %
+2. gain, moving rows (16008): median of ratios 1.515; ratio of medians 1.589; ratio of means 1.505; predicted median 0.685, demonstrated median 1.089
+   per sheet (median of ratios): 01 1.14, 02 1.56, 03 1.52, 04 1.52, 05 1.53, 06 1.50
+   correlation predicted with demonstrated length: all step rows 0.219; moving rows 0.183; rank correlation all 0.213
+3. where predicted < 0.3 cm (830 rows): demonstrated median 0.846 cm, mean 0.802; direction within 45 degrees (demonstrated >= 0.5 cm) 43.9 %, median error 53.5; where predicted >= 0.9: within 45 89.7 %, median error 12.4
+   all clear rows: direction within 45 degrees 68.5 %
+4. forearm turn per cm: demonstrated 4.360 deg/cm; shrink of length 0.714, of twist size 0.636
+   fixed 1.0 cm                              : turn per cm as a share of demonstrated 0.600 (01 0.57, 02 0.97, 03 0.65, 04 0.55, 05 0.47, 06 0.48); landing error one step ahead, mean: all 0.737, bend rows 0.775, straight rows 0.708, twists in place 0.947; mean step 1.000; twist clamped at 10 degrees on 0.00 %
+   own length, at most 1.2                   : turn per cm as a share of demonstrated 0.892 (01 0.66, 02 1.41, 03 0.98, 04 0.86, 05 0.66, 06 0.70); landing error one step ahead, mean: all 0.673, bend rows 0.587, straight rows 0.746, twists in place 0.549; mean step 0.673; twist clamped at 10 degrees on 0.00 %
+   gain 1.5, at most 1.0                     : turn per cm as a share of demonstrated 0.685 (01 0.64, 02 1.09, 03 0.76, 04 0.64, 05 0.51, 06 0.53); landing error one step ahead, mean: all 0.694, bend rows 0.685, straight rows 0.705, twists in place 0.773; mean step 0.876; twist clamped at 10 degrees on 0.00 %
+   gain 1.6, clamp 0.5 to 1.5 (report 4.4)   : turn per cm as a share of demonstrated 0.563 (01 0.46, 02 0.89, 03 0.62, 04 0.53, 05 0.41, 06 0.44); landing error one step ahead, mean: all 0.760, bend rows 0.788, straight rows 0.739, twists in place 0.901; mean step 1.067; twist clamped at 10 degrees on 0.00 %
+   gain 1.4 on length and twist, at most 1.2 : turn per cm as a share of demonstrated 0.922 (01 0.79, 02 1.46, 03 1.02, 04 0.87, 05 0.68, 06 0.72); landing error one step ahead, mean: all 0.696, bend rows 0.695, straight rows 0.700, twists in place 0.769; mean step 0.909; twist clamped at 10 degrees on 1.18 %
+   fixed 1.0 cm, twist gain 1.6              : turn per cm as a share of demonstrated 0.950 (01 0.91, 02 1.54, 03 1.01, 04 0.86, 05 0.75, 06 0.77); landing error one step ahead, mean: all 0.737, bend rows 0.775, straight rows 0.708, twists in place 0.947; mean step 1.000; twist clamped at 10 degrees on 3.92 %
+   twist sign right where the demonstrated twist is 2 degrees or more: 77.9 %; bend rows 7985, straight rows 6032
+   bend rows only, fixed 1.0 cm                              : turn per cm share 0.307; counting a wrong-sign twist as negative 0.245
+   bend rows only, own length, at most 1.2                   : turn per cm share 0.486; counting a wrong-sign twist as negative 0.388
+   bend rows only, gain 1.5, at most 1.0                     : turn per cm share 0.360; counting a wrong-sign twist as negative 0.287
+   bend rows only, gain 1.6, clamp 0.5 to 1.5 (report 4.4)   : turn per cm share 0.304; counting a wrong-sign twist as negative 0.242
+   bend rows only, gain 1.4 on length and twist, at most 1.2 : turn per cm share 0.494; counting a wrong-sign twist as negative 0.394
+   bend rows only, fixed 1.0 cm, twist gain 1.6              : turn per cm share 0.484; counting a wrong-sign twist as negative 0.385
+5. chunk output: length of its first position median 0.673 (exact step 0.675); mean hop over the 5 positions median 0.648; net distance of the fifth position / 5 median 0.638; correlation of first-position length with exact length 0.991
+   direction of chunk position 1 within 45 degrees of the demonstrated step (demonstrated >= 0.5 cm): 68.5 % (exact step 68.5 %)
+   direction of chunk position 2 within 45 degrees of the demonstrated step (demonstrated >= 0.5 cm): 68.2 % (exact step 68.5 %)
+   direction of chunk position 3 within 45 degrees of the demonstrated step (demonstrated >= 0.5 cm): 67.7 % (exact step 68.5 %)
+   direction of chunk position 4 within 45 degrees of the demonstrated step (demonstrated >= 0.5 cm): 67.2 % (exact step 68.5 %)
+   direction of chunk position 5 within 45 degrees of the demonstrated step (demonstrated >= 0.5 cm): 66.6 % (exact step 68.5 %)
+
+================ A_recipe: 18032 pictures, 17773 without the stop rows
+demonstrated step: median 1.060, mean 0.943; under 0.5 cm 18.2 %, under 0.2 cm 5.4 %; with a twist of 6 degrees or more: median 0.648
+predicted length: median 0.637, mean 0.648; under 0.3 cm 7.1 %; over 1.2 cm 0.70 %; largest 1.48
+1. twists in place 1688 (9.5 % of rows), real moves 16008, neither 77
+   per sheet share of twists in place: 01 6.1 %, 02 6.6 %, 03 10.9 %, 04 14.2 %, 05 3.5 %, 06 4.5 %
+   predicted length median: twists in place 0.552, real moves 0.650
+   area under the curve (predicted length lower for twists in place): 0.626; per sheet: 01 0.741, 02 0.545, 03 0.629, 04 0.632, 05 0.647, 06 0.570
+   other scores: |predicted twist| / length (higher for twists in place): 0.694; |predicted twist| alone: 0.667
+   threshold 0.2 cm: twists in place missed 96.7 %; real moves frozen 2.2 %; of the 408 rows under it 13.5 % are twists in place
+   threshold 0.3 cm: twists in place missed 89.7 %; real moves frozen 6.6 %; of the 1263 rows under it 13.8 % are twists in place
+   threshold 0.5 cm: twists in place missed 60.9 %; real moves frozen 26.8 %; of the 5002 rows under it 13.2 % are twists in place
+   equal-error threshold 0.59 cm: missed 40.8 %, frozen 40.8 %
+2. gain, moving rows (16008): median of ratios 1.561; ratio of medians 1.676; ratio of means 1.559; predicted median 0.650, demonstrated median 1.089
+   per sheet (median of ratios): 01 1.15, 02 1.67, 03 1.60, 04 1.48, 05 1.64, 06 1.58
+   correlation predicted with demonstrated length: all step rows 0.217; moving rows 0.181; rank correlation all 0.214
+3. where predicted < 0.3 cm (1263 rows): demonstrated median 0.899 cm, mean 0.826; direction within 45 degrees (demonstrated >= 0.5 cm) 41.3 %, median error 57.1; where predicted >= 0.9: within 45 87.3 %, median error 14.1
+   all clear rows: direction within 45 degrees 67.7 %
+4. forearm turn per cm: demonstrated 4.360 deg/cm; shrink of length 0.687, of twist size 0.655
+   fixed 1.0 cm                              : turn per cm as a share of demonstrated 0.617 (01 0.63, 02 1.05, 03 0.70, 04 0.53, 05 0.52, 06 0.45); landing error one step ahead, mean: all 0.745, bend rows 0.781, straight rows 0.718, twists in place 0.950; mean step 1.000; twist clamped at 10 degrees on 0.00 %
+   own length, at most 1.2                   : turn per cm as a share of demonstrated 0.953 (01 0.73, 02 1.63, 03 1.12, 04 0.83, 05 0.79, 06 0.69); landing error one step ahead, mean: all 0.679, bend rows 0.587, straight rows 0.758, twists in place 0.518; mean step 0.648; twist clamped at 10 degrees on 0.00 %
+   gain 1.5, at most 1.0                     : turn per cm as a share of demonstrated 0.736 (01 0.70, 02 1.25, 03 0.86, 04 0.64, 05 0.61, 06 0.52); landing error one step ahead, mean: all 0.693, bend rows 0.669, straight rows 0.715, twists in place 0.730; mean step 0.839; twist clamped at 10 degrees on 0.00 %
+   gain 1.6, clamp 0.5 to 1.5 (report 4.4)   : turn per cm as a share of demonstrated 0.603 (01 0.50, 02 1.03, 03 0.71, 04 0.52, 05 0.50, 06 0.44); landing error one step ahead, mean: all 0.756, bend rows 0.764, straight rows 0.752, twists in place 0.850; mean step 1.024; twist clamped at 10 degrees on 0.00 %
+   gain 1.4 on length and twist, at most 1.2 : turn per cm as a share of demonstrated 0.995 (01 0.86, 02 1.69, 03 1.17, 04 0.86, 05 0.82, 06 0.72); landing error one step ahead, mean: all 0.696, bend rows 0.677, straight rows 0.713, twists in place 0.721; mean step 0.868; twist clamped at 10 degrees on 0.77 %
+   fixed 1.0 cm, twist gain 1.6              : turn per cm as a share of demonstrated 0.981 (01 1.01, 02 1.68, 03 1.10, 04 0.85, 05 0.83, 06 0.72); landing error one step ahead, mean: all 0.745, bend rows 0.781, straight rows 0.718, twists in place 0.950; mean step 1.000; twist clamped at 10 degrees on 3.22 %
+   twist sign right where the demonstrated twist is 2 degrees or more: 78.5 %; bend rows 7985, straight rows 6032
+   bend rows only, fixed 1.0 cm                              : turn per cm share 0.316; counting a wrong-sign twist as negative 0.248
+   bend rows only, own length, at most 1.2                   : turn per cm share 0.526; counting a wrong-sign twist as negative 0.412
+   bend rows only, gain 1.5, at most 1.0                     : turn per cm share 0.391; counting a wrong-sign twist as negative 0.306
+   bend rows only, gain 1.6, clamp 0.5 to 1.5 (report 4.4)   : turn per cm share 0.329; counting a wrong-sign twist as negative 0.258
+   bend rows only, gain 1.4 on length and twist, at most 1.2 : turn per cm share 0.540; counting a wrong-sign twist as negative 0.423
+   bend rows only, fixed 1.0 cm, twist gain 1.6              : turn per cm share 0.501; counting a wrong-sign twist as negative 0.391

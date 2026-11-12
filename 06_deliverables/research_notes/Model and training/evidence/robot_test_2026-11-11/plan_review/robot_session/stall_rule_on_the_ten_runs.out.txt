@@ -1,0 +1,21 @@
+run | ending | pictures | rule | as driven | own length (open loop) | fixed 0.65 cm (open loop)   [picture index at which the rule would end the run, - = never]
+ 1 check_no_puck              | stopped  |  26 | plan 15/4cm/15deg  | - | - | -
+ 1 check_no_puck              | stopped  |  26 | today 30/3cm/15deg | - | - | -
+ 2 E_sheet01_run1             | stopped  |  25 | plan 15/4cm/15deg  | - | - | -
+ 2 E_sheet01_run1             | stopped  |  25 | today 30/3cm/15deg | - | - | -
+ 3 E_sheet02_run1             | quit     |  38 | plan 15/4cm/15deg  | - | - | -
+ 3 E_sheet02_run1             | quit     |  38 | today 30/3cm/15deg | - | - | -
+ 4 E_sheet02_run2             | stopped  |  42 | plan 15/4cm/15deg  | - | - | -
+ 4 E_sheet02_run2             | stopped  |  42 | today 30/3cm/15deg | - | - | -
+ 5 E_sheet03_run1             | stopped  |  60 | plan 15/4cm/15deg  | - | - | -
+ 5 E_sheet03_run1             | stopped  |  60 | today 30/3cm/15deg | - | - | -
+ 6 E_sheet04_run1             | stopped  |  69 | plan 15/4cm/15deg  | 31 | 26 | 27
+ 6 E_sheet04_run1             | stopped  |  69 | today 30/3cm/15deg | - | 42 | -
+ 7 E_sheet05_run1             | stopped  |  89 | plan 15/4cm/15deg  | - | - | -
+ 7 E_sheet05_run1             | stopped  |  89 | today 30/3cm/15deg | - | - | -
+ 8 E_sheet06_run1             | stopped  |  41 | plan 15/4cm/15deg  | - | - | -
+ 8 E_sheet06_run1             | stopped  |  41 | today 30/3cm/15deg | - | - | -
+ 9 E_sheet03_run2_no_hoodie   | stopped  |  90 | plan 15/4cm/15deg  | - | - | -
+ 9 E_sheet03_run2_no_hoodie   | stopped  |  90 | today 30/3cm/15deg | - | - | -
+10 B_team5_sheet03            | stopped  |  74 | plan 15/4cm/15deg  | - | - | -
+10 B_team5_sheet03            | stopped  |  74 | today 30/3cm/15deg | - | - | -

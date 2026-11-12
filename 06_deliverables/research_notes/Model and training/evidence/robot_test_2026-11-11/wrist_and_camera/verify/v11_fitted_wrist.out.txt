@@ -1,0 +1,15 @@
+start-mark rows: 16057
+  sheet  rows  constant_13.5  train_median  least_squares  table_of_medians  random_forest
+path_01   561           3.54          3.54           3.68              3.54           4.22
+path_02  2592           2.20          2.20           2.56              2.19           3.43
+path_03  3518           2.58          2.58           3.08              2.58           3.67
+path_04  5462           3.07          3.06           3.49              3.14           3.90
+path_05  2267           4.54          4.53           4.97              4.63           5.47
+path_06  1657           6.52          6.50           6.95              6.55           7.17
+
+mean distance to the demonstrated wrist over all start-mark rows (degrees):
+  constant_13.5      3.40
+  train_median       3.40
+  least_squares      3.82
+  table_of_medians   3.44
+  random_forest      4.34

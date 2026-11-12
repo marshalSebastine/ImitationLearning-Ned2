@@ -1,0 +1,46 @@
+training rows after the audit cleaning: 18430; stop rows: 208 in 208 episodes
+stop rows whose wrist is more than 5.7 degrees from the held 13.5: 115 (55.3 %); wrist at the stop rows: 5th percentile -10.8, median 10.8, 95th 29.2 degrees
+         stop_rows  wrist_median_deg  wrist_p10_deg  wrist_p90_deg  off_range_share  view_shift_mean_abs_160_px
+sheet                                                                                                          
+path_01         19              5.18          -8.71          13.69             0.58                        7.27
+path_02         44             10.06         -10.82          13.94             0.41                        5.58
+path_03         45              8.34         -10.66          15.20             0.53                        7.70
+path_04         45              8.96          -6.30          18.12             0.53                        6.06
+path_05         30             10.67          -5.10          20.02             0.53                        5.90
+path_06         25             27.33          16.11          36.36             0.88                       10.08
+by start (True: start mark, False: taught start):
+            stop_rows  wrist_median_deg  off_range_share
+is_on_mark                                              
+False              60             -5.85             0.95
+True              148             13.27             0.39
+for comparison, all training rows: 31.3 % are more than 5.7 degrees from 13.5
+
+=== stop chance at the demonstrated stop rows (a stop needs 0.5 or more) ===
+                         model                                           stop rows  count  content_shift_mean_abs_160_px  stop_chance_mean_demonstrated  stop_chance_mean_held_view  would_stop_share_demonstrated  would_stop_share_held_view  would_stop_share_whole_picture_moved  would_stop_share_moved_other_way
+          model E (all sheets)         wrist within range of 13.5 (view unchanged)     93                          1.462                          0.911                       0.916                          0.978                       0.968                                 0.968                             0.978
+          model E (all sheets)                             wrist out of range, all    115                         11.217                          0.956                       0.881                          1.000                       0.974                                 0.983                             0.904
+          model E (all sheets)   wrist out of range, below 13.5 (content moves up)     83                         11.639                          0.956                       0.894                          1.000                       0.976                                 0.976                             0.867
+          model E (all sheets) wrist out of range, above 13.5 (content moves down)     32                         10.125                          0.955                       0.848                          1.000                       0.969                                 1.000                             1.000
+fold models (sheet never seen)         wrist within range of 13.5 (view unchanged)     93                          1.462                          0.709                       0.700                          0.785                       0.742                                 0.742                             0.763
+fold models (sheet never seen)                             wrist out of range, all    115                         11.217                          0.641                       0.540                          0.687                       0.609                                 0.609                             0.513
+fold models (sheet never seen)   wrist out of range, below 13.5 (content moves up)     83                         11.639                          0.736                       0.610                          0.783                       0.675                                 0.699                             0.566
+fold models (sheet never seen) wrist out of range, above 13.5 (content moves down)     32                         10.125                          0.393                       0.360                          0.438                       0.438                                 0.375                             0.375
+model E (all sheets), out-of-range stop rows: share with a stop chance of 0.5 or more, held-wrist view against as demonstrated: -2.6 points (95 % interval -6.1 to +0.0)
+model E (all sheets), out-of-range stop rows: share with a stop chance of 0.5 or more, whole picture moved the same against as demonstrated: -1.7 points (95 % interval -4.3 to +0.0)
+model E (all sheets), out-of-range stop rows: share with a stop chance of 0.5 or more, moved the other way (fork kept) against as demonstrated: -9.6 points (95 % interval -14.8 to -5.2)
+model E (all sheets), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, held-wrist view against as demonstrated: -1.1 points (95 % interval -3.2 to +0.0)
+model E (all sheets), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, whole picture moved the same against as demonstrated: -1.1 points (95 % interval -3.2 to +0.0)
+model E (all sheets), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, moved the other way (fork kept) against as demonstrated: +0.0 points (95 % interval -3.2 to +3.2)
+fold models (sheet never seen), out-of-range stop rows: share with a stop chance of 0.5 or more, held-wrist view against as demonstrated: -7.8 points (95 % interval -13.9 to -1.7)
+fold models (sheet never seen), out-of-range stop rows: share with a stop chance of 0.5 or more, whole picture moved the same against as demonstrated: -7.8 points (95 % interval -13.9 to -1.7)
+fold models (sheet never seen), out-of-range stop rows: share with a stop chance of 0.5 or more, moved the other way (fork kept) against as demonstrated: -17.4 points (95 % interval -25.2 to -9.6)
+fold models (sheet never seen), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, held-wrist view against as demonstrated: -4.3 points (95 % interval -8.6 to -1.1)
+fold models (sheet never seen), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, whole picture moved the same against as demonstrated: -4.3 points (95 % interval -8.6 to -1.1)
+fold models (sheet never seen), in-range stop rows (moved by 4 px or less): share with a stop chance of 0.5 or more, moved the other way (fork kept) against as demonstrated: -2.2 points (95 % interval -5.4 to +0.0)
+
+=== every stop row under plain shifts of the whole picture (px at 160): share with a stop chance of the threshold or more ===
+                         model  unchanged  x+4 y+0  x-4 y+0  x+8 y+0  x-8 y+0  x+0 y+4  x+0 y-4  x+0 y+8  x+0 y-8  x+0 y+12  x+0 y-12
+          model E (all sheets)      0.990    0.990    0.990    0.981    0.986    0.995    0.986     0.99    0.986     0.976     0.976
+fold models (sheet never seen)      0.731    0.721    0.736    0.716    0.736    0.745    0.726     0.74    0.697     0.721     0.668
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\stop_views.csv and stop_views_plain_shifts.csv

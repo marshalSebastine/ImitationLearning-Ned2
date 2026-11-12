@@ -1,0 +1,11 @@
+guided_path.csv files found: 227
+guided points: 44328
+smoothed tip off the hand's path: median 0.49 mm, 95th percentile 1.78 mm, 99th 2.47 mm, largest 9.3 mm
+tip height change: lowest -14.21 mm, 1st percentile -2.71 mm, 99th percentile +2.35 mm, highest +13.14 mm
+points more than 5 mm off the path: 6 (0.01 %); more than 10 mm: 0
+   9.3 mm off in path_05_alpha_loop_episode_002_plan_05-01_try_2_score_00: the largest gap between neighbouring guided points there is 43 mm (the tool samples a point every few mm)
+   9.2 mm off in path_03_two_curve_episode_025_plan_03-25_try_1_score_00: the largest gap between neighbouring guided points there is 107 mm (the tool samples a point every few mm)
+   9.1 mm off in path_03_two_curve_episode_025_plan_03-25_try_1_score_00: the largest gap between neighbouring guided points there is 107 mm (the tool samples a point every few mm)
+   6.7 mm off in path_05_alpha_loop_episode_001_plan_05-01_try_1_score_00: the largest gap between neighbouring guided points there is 28 mm (the tool samples a point every few mm)
+   5.1 mm off in path_05_alpha_loop_episode_002_plan_05-01_try_2_score_00: the largest gap between neighbouring guided points there is 25 mm (the tool samples a point every few mm)
+median gap between guided points near the points more than 5 mm off: 35 mm; near all points: 5 mm

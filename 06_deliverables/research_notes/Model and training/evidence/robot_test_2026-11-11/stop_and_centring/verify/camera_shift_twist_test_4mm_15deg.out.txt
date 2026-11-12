@@ -1,0 +1,15 @@
+twists in place of 15 degrees or more with the tip within 4.0 mm, one per episode, puck fitted in both pictures: 56 episodes
+after_move: 12 twists, forearm turned by a median 21 degrees
+  camera 'fitted': the standing puck wanders by a median 3.7 mm (75th percentile 4.4 mm)
+  camera 'own': the standing puck wanders by a median 2.6 mm (75th percentile 3.1 mm)
+  camera 'other': the standing puck wanders by a median 3.5 mm (75th percentile 4.8 mm)
+  camera 'own shift only': the standing puck wanders by a median 2.4 mm (75th percentile 3.4 mm)
+  camera 'own roll only': the standing puck wanders by a median 3.2 mm (75th percentile 4.1 mm)
+  own correction better than as fitted in 9, worse in 3; own better than the other period's in 8, worse in 2
+before_move: 44 twists, forearm turned by a median 21 degrees
+  camera 'fitted': the standing puck wanders by a median 1.6 mm (75th percentile 2.4 mm)
+  camera 'own': the standing puck wanders by a median 1.5 mm (75th percentile 2.0 mm)
+  camera 'other': the standing puck wanders by a median 2.8 mm (75th percentile 3.6 mm)
+  camera 'own shift only': the standing puck wanders by a median 1.5 mm (75th percentile 2.3 mm)
+  camera 'own roll only': the standing puck wanders by a median 1.7 mm (75th percentile 2.5 mm)
+  own correction better than as fitted in 22, worse in 5; own better than the other period's in 33, worse in 5

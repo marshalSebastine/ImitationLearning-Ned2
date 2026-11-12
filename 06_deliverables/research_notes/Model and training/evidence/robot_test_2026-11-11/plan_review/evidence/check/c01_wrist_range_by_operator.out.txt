@@ -1,0 +1,31 @@
+episodes: 210
+          count  mean   std   min   25%  50%    75%    max
+operator                                                  
+emranul   193.0  9.91  9.23  0.00  1.14  8.0  15.64  40.87
+marshal    17.0  4.33  5.48  0.09  0.26  0.7   5.63  14.15
+
+by operator and sheet: episodes, median wrist range (degrees), share of episodes with a range under 2 degrees
+                  episodes  median_range  under_2
+operator sheet                                   
+emranul  path_01        20          8.26     0.30
+         path_02        32          3.43     0.44
+         path_03        42          3.69     0.31
+         path_04        44         10.37     0.18
+         path_05        30         12.61     0.37
+         path_06        25         18.98     0.00
+marshal  path_02        13          0.44     0.77
+         path_03         3         12.48     0.00
+         path_04         1         14.15     0.00
+
+start-mark episodes only (first wrist 13.0 to 14.5): by operator and sheet
+                  episodes  median_range  under_2  under_5
+operator sheet                                            
+emranul  path_01        14          3.56     0.36     0.57
+         path_02        26          4.31     0.31     0.62
+         path_03        27          3.69     0.19     0.59
+         path_04        29          8.35     0.14     0.28
+         path_05        21         13.97     0.24     0.33
+         path_06        18         18.15     0.00     0.00
+marshal  path_02        10          0.66     0.70     0.70
+         path_03         3         12.48     0.00     0.00
+         path_04         1         14.15     0.00     0.00

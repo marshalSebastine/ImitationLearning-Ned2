@@ -1,0 +1,30 @@
+start cap as drawn at [16.4, -1.5] cm; farthest reach of the centre line from the base axis, cm
+sheet end   | turn 0 | turn +15 | turn -15 | cm of line beyond 42 cm (turn 0) | beyond 47.5 cm (turn 0)
+01    first |   39.7 |     39.2 |     39.6 |    0.0 |    0.0
+01    last  |   39.7 |     39.2 |     39.6 |    0.0 |    0.0
+02    first |   31.9 |     29.3 |     34.3 |    0.0 |    0.0
+02    last  |   34.5 |     36.4 |     32.3 |    0.0 |    0.0
+03    first |   39.8 |     38.7 |     40.3 |    0.0 |    0.0
+03    last  |   40.2 |     39.6 |     40.2 |    0.0 |    0.0
+04    first |   40.7 |     39.9 |     40.8 |    0.0 |    0.0
+04    last  |   40.8 |     40.3 |     40.7 |    0.0 |    0.0
+05    first |   38.4 |     36.7 |     39.4 |    0.0 |    0.0
+05    last  |   37.1 |     37.5 |     36.2 |    0.0 |    0.0
+06    first |   32.0 |     32.4 |     31.0 |    0.0 |    0.0
+06    last  |   37.3 |     38.4 |     35.5 |    0.0 |    0.0
+
+start cap as recorded at [19.2, -1.5] cm; farthest reach of the centre line from the base axis, cm
+sheet end   | turn 0 | turn +15 | turn -15 | cm of line beyond 42 cm (turn 0) | beyond 47.5 cm (turn 0)
+01    first |   42.5 |     41.9 |     42.4 |    0.7 |    0.0
+01    last  |   42.5 |     42.0 |     42.4 |    0.6 |    0.0
+02    first |   34.4 |     31.7 |     36.8 |    0.0 |    0.0
+02    last  |   36.9 |     38.9 |     34.5 |    0.0 |    0.0
+03    first |   42.6 |     41.4 |     43.1 |    0.7 |    0.0
+03    last  |   43.0 |     42.3 |     43.0 |    1.2 |    0.0
+04    first |   43.5 |     42.7 |     43.6 |    1.6 |    0.0
+04    last  |   43.6 |     43.1 |     43.5 |    1.8 |    0.0
+05    first |   41.1 |     39.4 |     42.2 |    0.0 |    0.0
+05    last  |   39.8 |     40.3 |     38.8 |    0.0 |    0.0
+06    first |   34.7 |     35.2 |     33.6 |    0.0 |    0.0
+06    last  |   39.8 |     41.1 |     37.9 |    0.0 |    0.0
+

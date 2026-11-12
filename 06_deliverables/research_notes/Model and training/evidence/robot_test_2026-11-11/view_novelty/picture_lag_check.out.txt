@@ -1,0 +1,18 @@
+DOES THE PICTURE BELONG TO THE POSE LOGGED WITH IT? Misfit of consecutive pictures on the table (mean absolute grey difference), for five assumed lags
+(a pair 'tells the lags apart' when the mappings of lag 0 and lag 1 differ by 4.0 px or more; medians and shares are over those pairs)
+
+set                                pairs  telling apart | median misfit at lag      0    0.25     0.5    0.75       1 | share of pairs fitting best at lag      0    0.25     0.5    0.75       1
+demonstrations (24 episodes)        2809         2745 |   4.29    4.22    5.56    7.21    8.91 |    49 %     38 %      9 %      3 %      2 %
+robot run 1 (path_01)                 24            2 |   2.52    2.46    2.43    2.47    2.64 |     0 %     50 %      0 %     50 %      0 %
+robot run 2 (path_01)                 23            1 |   2.22    1.97    1.92    2.06    2.34 |     0 %      0 %    100 %      0 %      0 %
+robot run 3 (path_02)                 36           22 |   2.99    2.89    2.97    3.13    3.29 |    27 %     27 %     32 %      9 %      5 %
+robot run 4 (path_02)                 40           14 |   3.55    3.47    3.91    4.43    4.74 |    57 %     29 %      0 %     14 %      0 %
+robot run 5 (path_03)                 58           39 |   4.36    4.55    5.53    6.63    7.46 |    54 %     21 %     18 %      0 %      8 %
+robot run 6 (path_04)                 67           56 |   4.37    3.66    4.66    7.07    8.67 |    29 %     43 %     20 %      2 %      7 %
+robot run 7 (path_05)                 87           49 |   3.33    3.26    3.42    4.04    4.40 |    45 %     27 %     14 %      8 %      6 %
+robot run 8 (path_06)                 39           26 |   2.50    2.36    2.72    2.97    3.17 |    38 %     38 %      8 %      4 %     12 %
+robot run 9 (path_03)                 88           62 |   3.35    3.23    3.48    4.28    5.05 |    44 %     27 %     13 %      6 %     10 %
+robot run 10 (path_03)                72           48 |   2.86    2.85    3.04    3.67    4.19 |    38 %     40 %     15 %      6 %      2 %
+all ten robot runs                   534          319 |   3.37    3.28    3.59    4.11    4.83 |    40 %     32 %     16 %      6 %      7 %
+
+written: picture_lag_check_per_pair.csv

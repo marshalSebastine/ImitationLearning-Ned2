@@ -1,0 +1,8 @@
+run  3: steps 0 to 11 -> failure_strip_run_03.png
+run  5: steps 0 to 14 -> failure_strip_run_05.png
+run  6: steps 9 to 26 -> failure_strip_run_06.png
+run  8: steps 0 to 17 -> failure_strip_run_08.png
+run  9: steps 0 to 14 -> failure_strip_run_09.png
+run 10: steps 0 to 14 -> failure_strip_run_10.png
+run  1: steps 0 to 11 -> failure_strip_run_01.png
+run  4: steps 18 to 35 -> failure_strip_run_04.png

@@ -1,0 +1,23 @@
+=== 1. Two-stage choice rule, by convolution of the per-block lead ===
+  90% against 70%: two-stage chooses the better 0.961, stops after 12 0.481, expected blocks 18.2; fixed 24 blocks 0.962
+  90% against 80%: two-stage chooses the better 0.833, stops after 12 0.235, expected blocks 21.2; fixed 24 blocks 0.834
+  70% against 70%: two-stage chooses the better 0.500, stops after 12 0.263, expected blocks 20.8; fixed 24 blocks 0.500
+
+=== 2. Six held-out sheets: interval for the mean against the interval for one new track ===
+  classes: mean 0.577, standard deviation 0.0967; interval for the mean 0.475 to 0.678; prediction interval for one new track 0.308 to 0.845
+  exact: mean 0.591, standard deviation 0.0891; interval for the mean 0.498 to 0.685; prediction interval for one new track 0.344 to 0.839
+
+=== 3. Worst fold and six-fold mean over four seeds (default, 11, 12, 13) ===
+  classes step: worst fold per seed 0.467 (sheet 06), 0.471 (sheet 02), 0.444 (sheet 06), 0.448 (sheet 06); worst-fold range 2.7 points; six-fold mean range 3.1 points; largest single-sheet range 9.2 points
+  classes path: worst fold per seed 0.526 (sheet 06), 0.518 (sheet 06), 0.508 (sheet 06), 0.483 (sheet 06); worst-fold range 4.3 points; six-fold mean range 3.4 points; largest single-sheet range 10.7 points
+  exact step: worst fold per seed 0.483 (sheet 06), 0.565 (sheet 06), 0.549 (sheet 06), 0.544 (sheet 05); worst-fold range 8.2 points; six-fold mean range 2.4 points; largest single-sheet range 9.9 points
+  exact path: worst fold per seed 0.534 (sheet 06), 0.658 (sheet 05), 0.599 (sheet 05), 0.624 (sheet 05); worst-fold range 12.4 points; six-fold mean range 3.5 points; largest single-sheet range 16.0 points
+
+=== 4. Standard-start demonstrations (score 1 to 3) against the tool's step budget ===
+  path_01: tool budget 48 steps; STD episodes 6, over the tool budget 0, over 2 per cap-to-cap cm 0
+  path_02: tool budget 54 steps; STD episodes 10, over the tool budget 9, over 2 per cap-to-cap cm 8
+  path_03: tool budget 110 steps; STD episodes 16, over the tool budget 9, over 2 per cap-to-cap cm 14
+  path_04: tool budget 154 steps; STD episodes 16, over the tool budget 13, over 2 per cap-to-cap cm 15
+  path_05: tool budget 114 steps; STD episodes 12, over the tool budget 3, over 2 per cap-to-cap cm 4
+  path_06: tool budget 114 steps; STD episodes 11, over the tool budget 2, over 2 per cap-to-cap cm 5
+  all sheets: 71 STD episodes (208 scored episodes); over the tool budget 36; over 2 per cap-to-cap cm 46

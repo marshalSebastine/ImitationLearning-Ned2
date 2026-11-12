@@ -1,0 +1,69 @@
+=== 1 to 3. Arm model: picture's top from radial, rod lean and the tip's pixel (calculated; wrist held at 13.5 degrees) ===
+ reach_cm  tool_heading_j4_-117  camera_heading_j4_-117  lean_j4_-117  tool_heading_j4_+0  camera_heading_j4_+0  lean_j4_+0  tip_pixel_u  tip_pixel_v  tool_heading_j4_+117  camera_heading_j4_+117  lean_j4_+117
+     12.0                 106.3                   106.0          22.2                -0.0                  -0.5         4.5        312.8        366.9                -106.3                  -106.5          22.2
+     15.0                 108.1                   107.5          17.2                -0.0                  -0.5         1.5        312.9        368.0                -108.1                  -108.5          17.2
+     18.0                 109.5                   109.0          13.7                -0.0                  -0.5         7.0        312.9        369.0                -109.5                  -110.0          13.7
+     21.0                 110.7                   110.0          12.1                -0.0                  -0.5        12.0        312.9        370.0                -110.7                  -111.0          12.1
+     25.0                 112.1                   111.5          13.0                -0.0                  -0.5        18.4        312.9        371.3                -112.1                  -112.5          13.0
+     30.0                 113.9                   113.5          17.7                -0.0                  -0.5        26.1        312.9        372.9                -113.9                  -114.5          17.7
+     35.0                 116.0                   115.5          24.1                -0.0                   0.0        33.8        312.9        374.4                -116.0                  -116.5          24.1
+     40.0                 118.8                   118.0          31.8                -0.0                   0.0        42.1        312.9        376.1                -118.8                  -119.5          31.8
+     45.0                 123.2                   122.0          41.2                -0.0                   0.0        51.9        312.9        377.9                -123.2                  -123.5          41.2
+     47.0                 126.1                   124.5          46.0                -0.0                   0.0        56.6        312.9        378.7                -126.1                  -126.5          46.0
+     47.5                 127.0                   125.5          47.4                -0.0                   0.0        57.9        312.9        378.9                -127.0                  -127.5          47.4
+     48.0                 128.1                   126.5          48.8                -0.0                   0.0        59.3        312.9        379.1                -128.1                  -128.5          48.8
+     49.0                 130.7                   129.0          52.2                -0.0                   0.0        62.5        312.9        379.6                -130.7                  -131.0          52.2
+     49.5                 132.5                   130.5          54.3                -0.0                   0.0        64.4        312.9        379.9                -132.5                  -132.5          54.3
+rod lean limit of the driver: 58.0; with the forearm straight the lean first passes it at reach 48.0 cm
+  finer: the lean passes 58.0 degrees at reach 47.6 cm (forearm straight)
+  with joint 4 at 117 degrees the lean passes it at reach None cm (None = not within 49.5 cm)
+
+=== 4. The demonstrations (measured from the audit-cleaned index) ===
+|joint 4| of 100 or more: 966 pictures; |picture top from radial| median 105.0, largest 125.4
+least-squares slope of the picture's turn from radial against joint 4: -0.933
+fitted camera's 'straight up at the tip' minus the index's picture_heading_deg on 150 random rows: median -0.4 degrees, 10th to 90th percentile -0.6 to -0.1
+
+rows pushing back towards the base (path beyond 135 degrees from radial): 2776
+  reach: median 32.5 cm, 10th to 90th percentile 24.2 to 40.4; beyond 40 cm: 322 rows
+  rod lean there: median 28.2 degrees, 90th percentile 41.7; wrist (joint 5): median 13.5, 10th to 90th 2.4 to 26.6
+  all rows: wrist (joint 5) median 13.4, 10th to 90th 0.8 to 19.9; the driver holds 13.5
+    reach 12 to 20: 82 rows, demonstrated lean median 9.6, wrist median 13.5; the driver's lean at 16.0 cm with the forearm straight 3.4
+    reach 20 to 27.5: 523 rows, demonstrated lean median 15.9, wrist median 13.5; the driver's lean at 23.8 cm with the forearm straight 16.4
+    reach 27.5 to 35: 1167 rows, demonstrated lean median 25.7, wrist median 13.5; the driver's lean at 31.2 cm with the forearm straight 28.0
+    reach 35 to 42.5: 893 rows, demonstrated lean median 35.2, wrist median 13.4; the driver's lean at 38.8 cm with the forearm straight 40.0
+    reach 42.5 to 49.5: 111 rows, demonstrated lean median 45.7, wrist median 9.8; the driver's lean at 46.0 cm with the forearm straight 54.1
+  looking along the path there (within 30 degrees of the picture's top): 0.7 %; more than 90 off: 67.5 %; |joint 4| median 71.0
+
+pictures within 20 cm of the base axis with |joint 4| of 60 or more: 153 (of 1722 pictures within 20 cm); with |joint 4| of 80 or more: 38; episodes: 34
+  of these, moving along the picture's top (path within 30 degrees): 66 rows in 27 episodes
+episodes that START with |joint 4| of 40 or more: 29; of these within 25 cm of the base: 0
+plan_number start_kind  joint_4  reach
+      02-11         NE     62.1   36.7
+      02-12         NE     62.1   36.7
+      02-25         NE     60.6   35.2
+      02-26         NE     60.6   35.2
+      02-27         NE     60.6   35.2
+      02-28         NE     60.6   35.2
+      02-33         NE     70.0   37.5
+      02-34         NE     70.0   37.5
+      02-35         NE     70.0   37.5
+      03-22         NE    -63.9   35.8
+      03-23         NE    -64.0   35.8
+      03-24         NE    -64.0   35.8
+      04-10         NE    -72.7   37.0
+      04-11         NE    -72.7   36.9
+      04-12         NE    -72.7   37.0
+      04-28        MID    -51.4   30.8
+      04-29        MID    -51.6   30.8
+      04-39         NE    -45.5   37.6
+      04-40         NE    -45.5   37.7
+      04-41         NE    -45.5   37.6
+      04-42         NE    -45.5   37.7
+      05-25         X2     56.9   26.0
+      05-26         X2     56.9   26.0
+      05-27         X2     56.9   26.0
+      05-28         NE    -88.6   28.4
+      05-29         NE    -88.6   28.4
+      05-30         NE    -88.6   28.4
+      06-24         NE    -76.8   36.5
+      06-25         NE    -76.7   36.5

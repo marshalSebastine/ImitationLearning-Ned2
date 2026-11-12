@@ -1,0 +1,25 @@
+period before_move: path_04_meander_episode_015_plan_04-08_try_1 (34 pictures), path_03_two_curve_episode_007_plan_03-07_try_1 (28 pictures), path_03_two_curve_episode_004_plan_03-04_try_1 (25 pictures), path_02_arc_episode_022_plan_02-14_try_1 (17 pictures)
+sharpness without a shift, per run: [14.09, 11.87, 8.26, 6.17]
+
+gain in sharpness (mean natural logarithm of the ratio to no shift); rows: shift right, columns: shift down
+             -24     -16      -8       0       8
+     -16 -0.4457 -0.3082 -0.1846 -0.1586 -0.2546
+      -8 -0.3682 -0.1771 -0.0182 -0.0228 -0.1781
+       0 -0.3592 -0.1473  0.0179  0.0000 -0.1775
+       8 -0.4066 -0.2307 -0.0950 -0.1145 -0.2612
+      16 -0.4790 -0.3544 -0.2630 -0.2809 -0.3823
+      24 -0.5661 -0.4828 -0.4284 -0.4423 -0.5022
+
+finer search around (0, -8)
+             -12      -8      -4
+      -4 -0.0460  0.0230  0.0417
+       0 -0.0477  0.0179  0.0353
+       4 -0.0856 -0.0238 -0.0091
+
+best grid shift (-4, -4) with gain 0.0417; refined shift [-2.6, -4.7] px (right, down)
+gain by roll (degrees) at the refined shift: {-0.75: -0.0081, 0.0: 0.0446, 0.75: 0.0745, 1.5: 0.0744, 2.25: 0.0446}
+roll 1.12 degrees; shift refined with the roll held: [-3.1, -4.0] px (right, down)
+sharpness with the shift and the roll, per run: [14.65, 13.07, 9.55, 6.42]
+mean gain against no shift: 8.4 %
+shifts within 0.005 of the best gain: [(-4, -4)]
+written to camera_shift.json

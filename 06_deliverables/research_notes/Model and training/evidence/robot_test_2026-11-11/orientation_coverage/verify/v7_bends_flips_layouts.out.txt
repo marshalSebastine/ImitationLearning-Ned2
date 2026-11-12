@@ -1,0 +1,52 @@
+=== 1. How fast the course lines bend (traced lines, own measure: turn of the tangent over a 1-cm window) ===
+  sheet 01: length 23.3 cm, sharpest bend 0.1 degrees per cm (radius 500.0 cm), centimetres bending faster than 10 degrees per cm: 0.0, faster than 20: 0.0
+  sheet 02: length 31.3 cm, sharpest bend 5.9 degrees per cm (radius 9.7 cm), centimetres bending faster than 10 degrees per cm: 0.0, faster than 20: 0.0
+  sheet 03: length 50.7 cm, sharpest bend 77.2 degrees per cm (radius 0.7 cm), centimetres bending faster than 10 degrees per cm: 15.6, faster than 20: 7.0
+  sheet 04: length 72.4 cm, sharpest bend 77.8 degrees per cm (radius 0.7 cm), centimetres bending faster than 10 degrees per cm: 28.3, faster than 20: 15.3
+  sheet 05: length 56.6 cm, sharpest bend 27.1 degrees per cm (radius 2.1 cm), centimetres bending faster than 10 degrees per cm: 15.8, faster than 20: 2.7
+  sheet 06: length 46.5 cm, sharpest bend 47.9 degrees per cm (radius 1.2 cm), centimetres bending faster than 10 degrees per cm: 16.7, faster than 20: 2.1
+
+=== 2. Forearm flips (joint 4 from beyond 60 degrees on one side to beyond 60 on the other; own count) ===
+  flips: 157 in 103 episodes; per sheet: {'02': 3, '03': 30, '04': 87, '05': 17, '06': 20}
+  median rows 24, degrees 127, tip travel 19.4 cm; degrees per cm of travel: median 6.4
+  flips made over less than 12.7 cm of travel (which 127 degrees at 10 degrees per 1-cm step needs at least): 42 of 157
+
+=== 3. The six SQP episodes: which way the pushed path bends (own measure; end B starts to the left and bends right) ===
+  plan 02-13 (SQP, end B after the audit, plan said A): path direction every 8 cm: [70, 52, 14, -15, -34]; most leftward tip y 11.5 cm, last tip (40.6, 1.5)
+  plan 02-14 (SQP, end B after the audit, plan said A): path direction every 8 cm: [97, 56, 34, 34, 5, -126, 0, -103]; most leftward tip y 13.3 cm, last tip (41.4, 1.3)
+  plan 02-15 (SQP, end B after the audit, plan said A): path direction every 8 cm: [80, 108, 60, 26, -2, -31, -35]; most leftward tip y 10.4 cm, last tip (43.5, 3.5)
+  plan 02-16 (SQP, end B after the audit, plan said B): path direction every 8 cm: [81, 48, 27, -7, -45, 31, -98]; most leftward tip y 11.6 cm, last tip (42.8, 2.3)
+  plan 02-17 (SQP, end B after the audit, plan said B): path direction every 8 cm: [-79, 57, -26, 102, 74, 18, -19, -1]; most leftward tip y 10.4 cm, last tip (43.8, 2.4)
+  plan 02-18 (SQP, end B after the audit, plan said B): path direction every 8 cm: [2, 109, 41, -1, -17, -13, -138]; most leftward tip y 9.1 cm, last tip (41.8, 0.8)
+  plan 02-01 (STD, end B after the audit, plan said A): path direction every 8 cm: [0, -35, -11, -107, -76, -103, 117]; most leftward tip y 1.1 cm, last tip (35.6, -18.1)
+  plan 02-29 (STD, end A after the audit, plan said A): path direction every 8 cm: [18, 36, 80, 63, -169]; most leftward tip y 18.9 cm, last tip (32.0, 18.9)
+
+=== 4. The analyst's fitted lay-outs: does a paper corner meet the base's square in lay-outs that were really recorded? ===
+           episodes  paper_in_base_square  deepest_cm_median  deepest_cm_most  nearest_paper_x_median
+sheet end                                                                                            
+01    A          16                     0               -6.6             -3.7                    16.0
+      B           4                     0               -7.5             -7.3                    16.9
+02    A          12                     1               -4.5              0.5                    13.9
+      B          33                     0               -5.3             -0.1                    14.7
+03    A          25                     9               -0.5              2.4                     8.7
+      B          20                     0               -4.6             -0.6                    14.0
+04    A          33                     0               -4.0             -1.5                    13.2
+      B          12                     1               -4.8              0.2                    14.2
+05    A           8                     0               -2.7             -2.2                    12.1
+      B          21                     0               -4.2             -1.8                    13.6
+06    A          15                     1               -2.2              0.5                    11.6
+      B          10                     0               -1.5             -0.1                    10.9
+  recorded episodes whose fitted paper reaches into the base's square (half width 9.4 cm): 12 of 209; by more than 0.5 cm: 7; by more than 2 cm: 2
+
+=== 5. Minutes from the start of one episode to the start of the next (episodes.csv, same session and sheet) ===
+  start to start: median 5.8 minutes (25th to 75th percentile 4.2 to 7.9; 192 gaps under 30 minutes); an episode itself: median 4.3 minutes
+  by sheet (median start to start): {'path_01': 5.1, 'path_02': 6.4, 'path_03': 6.1, 'path_04': 7.3, 'path_05': 5.3, 'path_06': 4.4}
+                               episodes  hours  episodes_per_hour
+session                                                          
+2026-11-06_session_01_emranul        22    4.6                4.7
+2026-11-07_session_01_emranul        31    8.6                3.6
+2026-11-07_session_01_marshal        13    1.3               10.0
+2026-11-08_session_01_emranul       110   23.4                4.7
+2026-11-08_session_01_marshal         4   14.4                0.3
+2026-11-09_session_01_emranul        31    2.1               14.5
+  all sessions: 211 kept episodes in 54.5 hours of session time = 3.9 per hour (the index holds only kept episodes; discarded tries and breaks are inside the session time)

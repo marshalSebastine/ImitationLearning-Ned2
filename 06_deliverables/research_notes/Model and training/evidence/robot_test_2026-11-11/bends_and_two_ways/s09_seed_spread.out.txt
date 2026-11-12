@@ -1,0 +1,36 @@
+== path within 45 degrees per kind of place, every saved seed (held-out sheets; measured from the saved predictions) ==
+-- the direction of the exact step (exact recipe) or of the chunk's first step (chunk recipes) --
+place                                  straight  gentle bend  sharp bend  hairpin  line end  all places
+recipe                           seed                                                                  
+chunk recipe                     1        0.895        0.806       0.800    0.822     0.591       0.809
+                                 2        0.897        0.783       0.783    0.818     0.593       0.794
+chunk recipe, stop weight 25 (E) 1        0.891        0.793       0.794    0.801     0.480       0.796
+                                 2        0.869        0.789       0.781    0.836     0.542       0.791
+exact recipe (A)                 1        0.866        0.781       0.748    0.686     0.504       0.768
+                                 2        0.866        0.761       0.740    0.767     0.514       0.760
+                                 3        0.869        0.789       0.768    0.765     0.514       0.782
+                                 4        0.871        0.785       0.747    0.721     0.500       0.771
+                                 5        0.877        0.781       0.754    0.682     0.464       0.770
+-- the direction to the chunk's place 3 steps ahead (chunk recipes only) --
+place                                  straight  gentle bend  sharp bend  hairpin  line end  all places
+recipe                           seed                                                                  
+chunk recipe                     1        0.906        0.817       0.794    0.853     0.645       0.817
+                                 2        0.906        0.801       0.779    0.846     0.621       0.803
+chunk recipe, stop weight 25 (E) 1        0.896        0.806       0.793    0.836     0.542       0.806
+                                 2        0.877        0.799       0.777    0.866     0.581       0.797
+-- the 3-steps-ahead direction minus the first-step direction of the same model (points of path within 45) --
+place                                  straight  gentle bend  sharp bend  hairpin  line end  all places
+recipe                           seed                                                                  
+chunk recipe                     1          1.1          1.1        -0.6      3.1       5.4         0.8
+                                 2          0.9          1.8        -0.4      2.8       2.8         0.9
+chunk recipe, stop weight 25 (E) 1          0.5          1.3        -0.1      3.5       6.2         1.0
+                                 2          0.8          1.0        -0.4      3.0       3.9         0.6
+-- the spread between the five seeds of the exact recipe --
+               min    max  range in points
+place                                     
+straight     0.866  0.877              1.1
+gentle bend  0.761  0.789              2.8
+sharp bend   0.740  0.768              2.8
+hairpin      0.682  0.767              8.5
+line end     0.464  0.514              5.0
+all places   0.760  0.782              2.2

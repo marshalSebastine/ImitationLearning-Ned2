@@ -1,0 +1,10 @@
+01 021: short -1 aside +18 gap 18 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_not_in_goal | score 1.0
+02 022: short +14 aside +9 gap 17 | the analyst's ink ahead, square mm: 1.5 | operator's verdict: puck_in_goal | score 1.0
+02 012: short +9 aside -13 gap 16 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_in_goal | score 2.0
+02 015: short +4 aside +15 gap 16 | the analyst's ink ahead, square mm: 4.75 | operator's verdict: puck_in_goal | score 1.0
+02 021: short +10 aside -11 gap 15 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_in_goal | score 3.0
+02 031: short +4 aside -14 gap 15 | the analyst's ink ahead, square mm: 6.75 | operator's verdict: puck_in_goal | score 2.0
+04 008: short -10 aside -10 gap 14 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_in_goal | score 2.0
+01 007: short +2 aside +14 gap 14 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_in_goal | score 3.0
+01 003: short -2 aside +13 gap 13 | the analyst's ink ahead, square mm: 0.0 | operator's verdict: puck_in_goal | score 1.0
+looked at by the verifier: a stub of line shows beside the puck or the block in 3 of the 9 (02-022, 02-015, 02-031); nothing of the line shows in the other 6

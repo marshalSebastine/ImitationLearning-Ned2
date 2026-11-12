@@ -1,0 +1,21 @@
+guards: reach [12.0, 49.5] cm, x [11.5, 49.0] cm, y [-30.0, 25.0] cm, lean at most 58.0 degrees, forearm within 117.0 degrees, wrist held at 13.5
+
+sheet 01, end A, standard starts:
+   01-01: 29 pictures; largest reach 41.1 cm, tip x up to 41.1 cm, y -3.4 to -1.5 cm; largest planned lean 44.0 deg; none refused
+   01-02: 56 pictures; largest reach 43.2 cm, tip x up to 42.8 cm, y -9.3 to -1.2 cm; largest planned lean 47.9 deg; none refused
+   01-03: 45 pictures; largest reach 41.0 cm, tip x up to 40.5 cm, y -7.6 to -1.5 cm; largest planned lean 43.7 deg; none refused
+   01-04: 27 pictures; largest reach 41.5 cm, tip x up to 41.5 cm, y -2.8 to -1.5 cm; largest planned lean 44.8 deg; none refused
+
+sheet 03, end A, standard starts:
+   03-01: 108 pictures; largest reach 42.4 cm, tip x up to 41.3 cm, y -1.5 to 17.9 cm; largest planned lean 45.2 deg; none refused
+   03-02: 130 pictures; largest reach 41.1 cm, tip x up to 39.3 cm, y -1.5 to 18.3 cm; largest planned lean 41.5 deg; none refused
+   03-03: 112 pictures; largest reach 38.1 cm, tip x up to 37.7 cm, y -1.5 to 18.6 cm; largest planned lean 38.8 deg; none refused
+   03-04: 125 pictures; largest reach 38.3 cm, tip x up to 37.9 cm, y -1.6 to 17.6 cm; largest planned lean 39.2 deg; none refused
+   03-05: 109 pictures; largest reach 38.0 cm, tip x up to 37.6 cm, y -1.5 to 18.5 cm; largest planned lean 38.7 deg; none refused
+
+sheet 04, end A, standard starts:
+   04-01: 196 pictures; largest reach 44.3 cm, tip x up to 43.9 cm, y -13.1 to 2.6 cm; largest planned lean 45.8 deg; none refused
+   04-02: 205 pictures; largest reach 43.4 cm, tip x up to 43.3 cm, y -14.2 to 2.7 cm; largest planned lean 48.5 deg; none refused
+   04-03: 182 pictures; largest reach 43.7 cm, tip x up to 42.2 cm, y -15.5 to 2.7 cm; largest planned lean 48.8 deg; none refused
+   04-04: 208 pictures; largest reach 41.5 cm, tip x up to 41.2 cm, y -13.1 to 3.5 cm; largest planned lean 44.1 deg; none refused
+   04-05: 192 pictures; largest reach 42.2 cm, tip x up to 42.1 cm, y -13.8 to 2.8 cm; largest planned lean 44.0 deg; none refused

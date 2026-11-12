@@ -1,0 +1,10 @@
+run  1: jumps of the SIZE of the offset over 12 mm between two pictures: 0 at pictures []; clean and aligned pictures only: over 12 mm twice in a row first at 20, over 17 mm twice in a row first at 23
+run  2: jumps of the SIZE of the offset over 12 mm between two pictures: 0 at pictures []; clean and aligned pictures only: over 12 mm twice in a row first at None, over 17 mm twice in a row first at None
+run  3: jumps of the SIZE of the offset over 12 mm between two pictures: 0 at pictures []; clean and aligned pictures only: over 12 mm twice in a row first at 7, over 17 mm twice in a row first at 7
+run  4: jumps of the SIZE of the offset over 12 mm between two pictures: 1 at pictures [2]; clean and aligned pictures only: over 12 mm twice in a row first at 21, over 17 mm twice in a row first at 25
+run  5: jumps of the SIZE of the offset over 12 mm between two pictures: 4 at pictures [8, 10, 40, 42]; clean and aligned pictures only: over 12 mm twice in a row first at 9, over 17 mm twice in a row first at 9
+run  6: jumps of the SIZE of the offset over 12 mm between two pictures: 8 at pictures [12, 13, 40, 41, 49, 50, 55, 67]; clean and aligned pictures only: over 12 mm twice in a row first at 10, over 17 mm twice in a row first at 11
+run  7: jumps of the SIZE of the offset over 12 mm between two pictures: 7 at pictures [55, 56, 57, 59, 63, 64, 66]; clean and aligned pictures only: over 12 mm twice in a row first at 27, over 17 mm twice in a row first at 49
+run  8: jumps of the SIZE of the offset over 12 mm between two pictures: 0 at pictures []; clean and aligned pictures only: over 12 mm twice in a row first at 26, over 17 mm twice in a row first at 30
+run  9: jumps of the SIZE of the offset over 12 mm between two pictures: 2 at pictures [38, 40]; clean and aligned pictures only: over 12 mm twice in a row first at 21, over 17 mm twice in a row first at 21
+run 10: jumps of the SIZE of the offset over 12 mm between two pictures: 2 at pictures [4, 6]; clean and aligned pictures only: over 12 mm twice in a row first at 5, over 17 mm twice in a row first at 37

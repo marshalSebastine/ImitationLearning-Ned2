@@ -1,0 +1,67 @@
+run 1: pictures 26; my puck against the analyst's puck on the table: median 1.4 mm apart, largest 5.9 mm
+  line followed back at most 10 mm: no pictures
+  line followed back 10 to 35 mm, bend under 8 per m, 30 mm or more of line seen: 19 pictures; mine minus the analyst's 12-picture offset: median +0.2 mm, median size 0.6 mm, 90th percentile of the size 4.8 mm, largest 12.6 mm
+  my offsets on the 20 usable pictures: median 1.2 mm, within 7 mm 85 %, over 12 mm 5 %, largest 12.4 mm
+  the analyst's on 25 pictures:        median 5.3 mm, within 7 mm 56 %, over 12 mm 32 %, largest 22.2 mm
+run 2: pictures 25; my puck against the analyst's puck on the table: median 1.0 mm apart, largest 3.7 mm
+  line followed back at most 10 mm: 1 pictures; mine minus the analyst's 12-picture offset: median +4.4 mm, median size 4.4 mm, 90th percentile of the size 4.4 mm, largest 4.4 mm
+  line followed back 10 to 35 mm, bend under 8 per m, 30 mm or more of line seen: 17 pictures; mine minus the analyst's 12-picture offset: median -0.1 mm, median size 0.4 mm, 90th percentile of the size 1.3 mm, largest 4.2 mm
+  my offsets on the 19 usable pictures: median 0.9 mm, within 7 mm 100 %, over 12 mm 0 %, largest 3.0 mm
+  the analyst's on 24 pictures:        median 1.1 mm, within 7 mm 92 %, over 12 mm 4 %, largest 12.6 mm
+run 4: pictures 42; my puck against the analyst's puck on the table: median 1.4 mm apart, largest 3.1 mm
+  line followed back at most 10 mm: 10 pictures; mine minus the analyst's 12-picture offset: median -1.8 mm, median size 1.8 mm, 90th percentile of the size 2.7 mm, largest 2.9 mm
+  line followed back 10 to 35 mm, bend under 8 per m, 30 mm or more of line seen: 12 pictures; mine minus the analyst's 12-picture offset: median -1.4 mm, median size 1.4 mm, 90th percentile of the size 2.7 mm, largest 15.0 mm
+  my offsets on the 23 usable pictures: median 3.5 mm, within 7 mm 61 %, over 12 mm 30 %, largest 18.1 mm
+  the analyst's on 41 pictures:        median 6.5 mm, within 7 mm 59 %, over 12 mm 27 %, largest 20.9 mm
+run 7: pictures 89; my puck against the analyst's puck on the table: median 1.4 mm apart, largest 3.8 mm
+  line followed back at most 10 mm: 26 pictures; mine minus the analyst's 12-picture offset: median -0.1 mm, median size 17.4 mm, 90th percentile of the size 44.8 mm, largest 51.7 mm
+  line followed back 10 to 35 mm, bend under 8 per m, 30 mm or more of line seen: 5 pictures; mine minus the analyst's 12-picture offset: median -1.1 mm, median size 1.1 mm, 90th percentile of the size 3.5 mm, largest 4.8 mm
+  my offsets on the 32 usable pictures: median 17.9 mm, within 7 mm 22 %, over 12 mm 72 %, largest 52.6 mm
+  the analyst's on 88 pictures:        median 5.0 mm, within 7 mm 53 %, over 12 mm 28 %, largest 41.8 mm
+
+the last steps of run 2 and the middle of run 4 (my offset; how far the line was followed back; the analyst's offset):
+ run  step  offset_mm  extrapolated_mm  nearest_ink_mm  bend_per_m  offset_mm_analyst  single_offset_mm
+   2    14       -0.2             21.0            20.3         0.1               -0.3              -0.4
+   2    15        0.2             22.0            21.3         0.1                0.3               0.1
+   2    16        1.1             23.0            22.3         0.2                1.6               1.8
+   2    17        3.0             23.2            22.9         1.2                2.4               2.6
+   2    18        2.6             24.2            23.9         0.4                3.8               3.7
+   2    19        2.8             25.0            24.8         0.0                4.3               3.1
+   2    20        3.3             26.7            25.2         0.0                4.8               9.1
+   2    21        NaN              NaN             NaN         NaN                5.1               NaN
+   2    22        NaN              NaN             NaN         NaN                6.6               NaN
+   2    23        NaN              NaN             NaN         NaN                9.5               NaN
+   2    24        NaN              NaN             NaN         NaN               12.6               NaN
+ run  step  offset_mm  extrapolated_mm  nearest_ink_mm  bend_per_m  offset_mm_analyst  single_offset_mm
+   4    16        6.1             15.7            13.8        10.2                8.8               7.2
+   4    17        7.1             13.5            13.2        10.7                8.9               8.0
+   4    18        7.8             11.2            13.5        11.1               10.0               7.7
+   4    19        8.1              9.7            13.1         9.8               10.8               8.9
+   4    20        8.3             10.5            12.5         9.6               12.7               9.4
+   4    21        9.8             10.7            12.9         8.9               13.2              10.3
+   4    22       11.4              9.2            12.3         9.1               13.6               NaN
+   4    23       14.6              0.0            10.6         9.3               15.6               NaN
+   4    24       16.6              0.0            11.8         9.2               19.3               NaN
+   4    25       18.1              0.0            13.3         9.6               20.1               NaN
+   4    26       17.9              0.0            13.0         9.6               20.9              20.9
+   4    27       16.8              0.0            12.0         8.8               18.4              19.4
+   4    28       15.4              0.0            10.8         9.1               16.0              17.9
+   4    29       12.8              0.0            10.6         9.3               12.3              15.0
+   4    30        8.6             10.2            12.7         8.2                8.0              10.4
+   4    31        4.1             12.2            11.8         7.2                3.9               4.1
+   4    32        0.4             12.7            12.0         6.5                1.0               0.9
+ run  step  offset_mm  extrapolated_mm  nearest_ink_mm  bend_per_m  offset_mm_analyst  single_offset_mm
+   1    12       -0.9             19.2            18.6         0.1               -1.6              -1.1
+   1    13       -2.3             20.2            19.4         0.2               -2.1              -1.7
+   1    14       -3.8             20.7            20.2         0.3               -3.6              -3.8
+   1    15       -4.7             21.0            21.1         0.2               -4.9              -5.4
+   1    16       -6.1             22.0            21.3         0.2               -6.4              -7.9
+   1    17       -8.4             21.7            21.6         0.3               -8.7              -9.3
+   1    18       -9.0             23.2            22.0         1.0              -10.9             -11.6
+   1    19      -12.4             22.2            22.1         0.1              -13.6             -13.5
+   1    20      -16.0             20.0            22.3         2.1              -14.8             -18.7
+   1    21      -16.8             19.7            21.4         0.0              -16.7             -18.5
+   1    22      -19.8             15.0            21.7         0.0              -19.2             -27.2
+   1    23        NaN              NaN             NaN         NaN              -21.0               NaN
+   1    24        NaN              NaN             NaN         NaN              -22.2               NaN
+   1    25        NaN              NaN             NaN         NaN              -21.3               NaN

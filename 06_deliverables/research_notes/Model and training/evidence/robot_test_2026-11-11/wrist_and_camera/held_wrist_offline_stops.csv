@@ -1,0 +1,19 @@
+rows,view,episodes,stopped_right,stopped_early,never_stopped,stopped_between
+all sheets,as recorded,207,103,27,69,8
+all sheets,held-wrist view,207,90,28,83,6
+start-mark episodes,as recorded,147,66,25,49,7
+start-mark episodes,held-wrist view,147,60,26,55,6
+taught-start episodes,as recorded,60,37,2,20,1
+taught-start episodes,held-wrist view,60,30,2,28,0
+path_01,as recorded,19,15,2,0,2
+path_01,held-wrist view,19,15,2,0,2
+path_02,as recorded,44,12,1,28,3
+path_02,held-wrist view,44,9,1,32,2
+path_03,as recorded,45,33,3,8,1
+path_03,held-wrist view,45,30,2,12,1
+path_04,as recorded,45,29,8,6,2
+path_04,held-wrist view,45,29,9,6,1
+path_05,as recorded,29,6,11,12,0
+path_05,held-wrist view,29,3,11,15,0
+path_06,as recorded,25,8,2,15,0
+path_06,held-wrist view,25,4,3,18,0

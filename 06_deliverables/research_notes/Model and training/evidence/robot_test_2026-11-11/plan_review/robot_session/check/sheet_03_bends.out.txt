@@ -1,0 +1,42 @@
+sheet 03, from the first traced end: length 507 mm
+      bend from 5 to 63 mm of line (apex near 39 mm), turning +112 degrees
+      bend from 104 to 177 mm of line (apex near 127 mm), turning -74 degrees
+      bend from 225 to 264 mm of line (apex near 245 mm), turning -144 degrees
+      bend from 325 to 383 mm of line (apex near 346 mm), turning +120 degrees
+sheet 03, from the last traced end: length 507 mm
+      bend from 119 to 177 mm of line (apex near 159 mm), turning -120 degrees
+      bend from 238 to 277 mm of line (apex near 260 mm), turning +144 degrees
+      bend from 325 to 398 mm of line (apex near 378 mm), turning +74 degrees
+      bend from 439 to 497 mm of line (apex near 466 mm), turning -111 degrees
+
+sheet 04, from the first traced end: length 724 mm
+      bend from 33 to 86 mm of line (apex near 61 mm), turning -114 degrees
+      bend from 94 to 126 mm of line (apex near 108 mm), turning +122 degrees
+      bend from 161 to 210 mm of line (apex near 196 mm), turning +82 degrees
+      bend from 219 to 273 mm of line (apex near 243 mm), turning -171 degrees
+      bend from 287 to 362 mm of line (apex near 342 mm), turning -84 degrees
+      bend from 405 to 471 mm of line (apex near 434 mm), turning +167 degrees
+sheet 04, from the last traced end: length 724 mm
+      bend from 5 to 49 mm of line (apex near 23 mm), turning +92 degrees
+      bend from 102 to 181 mm of line (apex near 127 mm), turning -62 degrees
+      bend from 248 to 314 mm of line (apex near 288 mm), turning -167 degrees
+      bend from 357 to 432 mm of line (apex near 380 mm), turning +84 degrees
+      bend from 446 to 500 mm of line (apex near 479 mm), turning +171 degrees
+      bend from 509 to 558 mm of line (apex near 526 mm), turning -82 degrees
+
+sheet 05, from the first traced end: length 566 mm
+      bend from 5 to 43 mm of line (apex near 7 mm), turning +36 degrees
+      bend from 208 to 325 mm of line (apex near 240 mm), turning -169 degrees
+      bend from 342 to 454 mm of line (apex near 405 mm), turning -132 degrees
+sheet 05, from the last traced end: length 566 mm
+      bend from 107 to 219 mm of line (apex near 159 mm), turning +133 degrees
+      bend from 236 to 353 mm of line (apex near 324 mm), turning +169 degrees
+      bend from 518 to 556 mm of line (apex near 557 mm), turning -35 degrees
+
+sheet 06, from the first traced end: length 466 mm
+      bend from 124 to 321 mm of line (apex near 174 mm), turning -238 degrees
+      bend from 372 to 446 mm of line (apex near 415 mm), turning +75 degrees
+sheet 06, from the last traced end: length 466 mm
+      bend from 15 to 89 mm of line (apex near 49 mm), turning -75 degrees
+      bend from 140 to 337 mm of line (apex near 290 mm), turning +239 degrees
+

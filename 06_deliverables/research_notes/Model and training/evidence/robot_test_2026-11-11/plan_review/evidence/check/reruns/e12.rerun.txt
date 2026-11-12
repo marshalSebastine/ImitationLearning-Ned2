@@ -1,0 +1,22 @@
+1. how the ten runs ended
+   run  1 (172021_check_no_puck): ending 'stopped', 26 pictures, 25.7 s; stop chance on the last two pictures 0.86 and 0.92; largest stop chance before them 0.22
+   run  2 (172421_E_sheet01_run1): ending 'stopped', 25 pictures, 24.5 s; stop chance on the last two pictures 0.88 and 0.95; largest stop chance before them 0.08
+   run  3 (172743_E_sheet02_run1): ending 'quit', 38 pictures, 36.7 s; stop chance on the last two pictures 0.00 and 0.00; largest stop chance before them 0.02
+   run  4 (173036_E_sheet02_run2): ending 'stopped', 42 pictures, 40.0 s; stop chance on the last two pictures 0.90 and 0.88; largest stop chance before them 0.01
+   run  5 (173549_E_sheet03_run1): ending 'stopped', 60 pictures, 64.9 s; stop chance on the last two pictures 0.90 and 0.96; largest stop chance before them 0.37
+   run  6 (174108_E_sheet04_run1): ending 'stopped', 69 pictures, 63.1 s; stop chance on the last two pictures 0.63 and 0.78; largest stop chance before them 0.01
+   run  7 (174448_E_sheet05_run1): ending 'stopped', 89 pictures, 87.6 s; stop chance on the last two pictures 0.93 and 0.97; largest stop chance before them 0.02
+   run  8 (174936_E_sheet06_run1): ending 'stopped', 41 pictures, 43.2 s; stop chance on the last two pictures 0.94 and 0.90; largest stop chance before them 0.27
+   run  9 (175203_E_sheet03_run2_no_hoodie): ending 'stopped', 90 pictures, 95.4 s; stop chance on the last two pictures 0.56 and 0.82; largest stop chance before them 0.34
+   run 10 (175544_B_team5_sheet03): ending 'stopped', 74 pictures, 83.0 s; stop chance on the last two pictures 0.62 and 0.71; largest stop chance before them 0.44
+
+2. run 2, the last moves: asked length, asked direction in the picture, factor of the fixed 1.0 cm
+ step     action  asked_cm  asked_direction_deg  factor  model_stop_probability
+   20 model_step      0.97                13.16    1.03                    0.00
+   21 model_step      0.89                15.93    1.13                    0.00
+   22 model_step      0.60                26.87    1.67                    0.08
+   23 model_step      0.25                37.79    3.96                    0.88
+   24       stop      0.19                24.55    5.23                    0.95
+
+3. run 7, steps 47 to 55 (the walk round the puck)
+   asked [0.14, 0.2, 0.29, 0.25, 0.26, 0.38, 0.34, 0.25, 0.17] cm, sum 2.28 cm; driven 8.98 cm; forearm from -1.9 to 50.5 degrees

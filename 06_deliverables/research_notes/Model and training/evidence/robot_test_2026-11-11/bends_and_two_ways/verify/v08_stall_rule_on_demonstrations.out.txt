@@ -1,0 +1,13 @@
+episodes 210, rows 18522; every recorded row is used (also rows the training drops)
+
+== driver's rule: 30 pictures, diagonal 3 cm, forearm 15 deg ==
+fires in 0 of 210 demonstrations
+
+== analyst's rule 1: 15 pictures, diagonal 4 cm, forearm 15 deg ==
+fires in 0 of 210 demonstrations
+
+== analyst's rule 2: 12 pictures, net travel 1.5 cm, forearm 15 deg ==
+fires in 57 of 210 demonstrations
+   of these, more than 5 pictures before the demonstration's end: 50; median pictures still to go at the firing 24; median distance to the goal at the firing 9.2 cm
+   per sheet: 01: 5, 02: 19, 03: 12, 04: 12, 05: 6, 06: 3
+   firing more than 5 cm from the goal: 43; of the firing episodes, with a hand correction: 54

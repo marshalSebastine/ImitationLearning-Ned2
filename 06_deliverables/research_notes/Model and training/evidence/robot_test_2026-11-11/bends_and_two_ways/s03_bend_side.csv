@@ -1,0 +1,9 @@
+place,source,pictures,"twist into the bend, mean deg",share twisting into the bend (2 deg or more),share twisting out of it (2 deg or more),"sideways move to the outside, mean cm",share moving to the inside by 0.2 cm or more
+sharp bend,demonstration,6015,2.59,0.565,0.192,0.093,0.278
+sharp bend,recipe E (held-out sheet),6015,2.04,0.519,0.081,0.032,0.319
+sharp bend,recipe A (held-out sheet),6015,1.93,0.519,0.108,0.053,0.293
+sharp bend,model E itself (trained on),6015,2.55,0.607,0.148,0.068,0.279
+hairpin,demonstration,1091,5.81,0.848,0.024,0.277,0.092
+hairpin,recipe E (held-out sheet),1091,4.44,0.894,0.002,0.325,0.055
+hairpin,recipe A (held-out sheet),1091,4.21,0.919,0.007,0.296,0.047
+hairpin,model E itself (trained on),1091,5.63,0.935,0.002,0.267,0.033

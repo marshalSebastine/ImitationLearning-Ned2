@@ -1,0 +1,145 @@
+A. STALE PICTURES: consecutive pictures of every run
+run  pairs  byte-identical  identical after decoding  smallest mean change (grey levels) at step  median change  tip moved cm: least  most  seconds between pictures: least  most
+  1     25               0                         0                                2.93 at   8           4.78                 0.96  1.02                             0.79  1.17
+  2     24               0                         0                                2.69 at   9           4.77                 0.98  1.04                             0.82  1.07
+  3     37               0                         0                                3.48 at  21           9.33                 0.98  1.04                             0.69  1.30
+  4     41               0                         0                                2.24 at  14           7.26                 0.94  1.02                             0.70  1.42
+  5     59               0                         0                                4.97 at  57          13.19                 0.97  1.04                             0.68  1.37
+  6     68               0                         0                                3.85 at  50          12.92                 0.97  1.03                             0.76  1.25
+  7     88               0                         0                                4.27 at  87          10.29                 0.96  1.05                             0.69  1.33
+  8     40               0                         0                                5.11 at  30           7.62                 0.98  1.03                             0.70  1.50
+  9     89               0                         0                                3.76 at  81          10.29                 0.97  1.03                             0.66  1.45
+ 10     73               0                         0                                4.50 at  73           9.02                 0.97  1.02                             0.77  1.50
+all runs: 544 pairs, 0 byte-identical
+for scale: 0 of 18522 demonstration pictures are byte-identical to the one before (frames.csv)
+
+B. WHERE RUNS STARTED
+demonstrations, row 0 of the 71 standard-start episodes: tip x 14.00 to 14.04 cm (median 14.01), tip y -1.49 to -1.48 cm (median -1.49), forearm twist -0.08 to 0.09 degrees, wrist median 13.53, hand median -6.15
+demonstrations, rows 1 to 6 of the same episodes: tip x median 16.39 cm (5 % 14.01, 95 % 19.66), tip y median -1.49 cm
+run  sheet     tip x cm  tip y cm  from the demonstrations' row-0 start: forward  left  distance cm  forearm twist deg  wrist deg  hand deg
+  1  path_01      14.2       0.1                                            +0.2   +1.6          1.6               -1.8       13.3      -6.1
+  2  path_01      14.8       0.1                                            +0.8   +1.6          1.8               +6.1       13.5      -6.1
+  3  path_02      16.5      -1.4                                            +2.5   +0.1          2.5               -1.0       13.5      -6.1
+  4  path_02      15.0       2.2                                            +1.0   +3.7          3.8               +9.8       13.4      -6.1
+  5  path_03      12.2       1.0                                            -1.8   +2.5          3.1               -9.3       13.4      -6.1
+  6  path_04      18.2       1.3                                            +4.2   +2.8          5.0               +3.2       13.4      -6.1
+  7  path_05      15.9       2.0                                            +1.9   +3.5          4.0               -1.7       13.4      -6.1
+  8  path_06      16.0       1.0                                            +2.0   +2.5          3.2               +7.2       13.5      -6.1
+  9  path_03      14.1      -0.2                                            +0.1   +1.3          1.3               -5.2       13.5      -6.1
+ 10  path_03      15.8       1.2                                            +1.8   +2.7          3.3               -9.7       13.4      -6.1
+
+C. LIGHT: mean of the 160 x 120 picture (0 to 255), every sixth training picture against every robot picture
+training pictures (3087): median 144.7, 1 % 106.7, 5 % 120.2, 95 % 159.0, 99 % 162.6
+run  median  least  most  place of the median among the training pictures (percentile)  pictures outside the training pictures' 1 % to 99 %
+  1   148.4  131.6  155.6                                                            64           0 of 26
+  2   163.4  133.4  170.4                                                            99          13 of 25
+  3   154.1  132.7  165.3                                                            84          13 of 38
+  4   140.0  112.8  166.7                                                            34           3 of 42
+  5   154.9  130.7  165.1                                                            86           6 of 60
+  6   143.0  121.1  158.3                                                            44           0 of 69
+  7   148.3  127.3  165.4                                                            64          20 of 89
+  8   139.7  124.4  162.6                                                            33           0 of 41
+  9   146.8  125.2  158.9                                                            58           0 of 90
+ 10   149.2  119.2  165.0                                                            67           5 of 74
+
+D. THE BLUE HOODIE: share of the picture covered by a LARGE royal-blue object at the picture's border, per picture
+run  pictures with more than 0.5 % royal blue  first such step  largest share  steps (share in %)
+  1                                          3               23           4.9 %  23(0.7) 24(3.1) 25(4.9)
+  2                                          5               20           4.1 %  20(0.9) 21(2.0) 22(2.8) 23(3.5) 24(4.1)
+  3                                         16               22          11.9 %  22(0.6) 23(1.7) 24(2.0) 25(2.0) 26(1.5) 27(2.1) 28(3.0) 29(4.0) 30(4.2) 31(4.3) 32(4.5) 33(5.0) 34(5.2) 35(5.0) ...
+  4                                         23               19          18.0 %  19(0.9) 20(1.5) 21(3.4) 22(5.8) 23(7.9) 24(9.6) 25(11.5) 26(12.9) 27(15.6) 28(16.7) 29(18.0) 30(17.4) 31(16.7) 32(15.9) ...
+  5                                         24               16          14.1 %  16(1.1) 17(2.2) 18(3.7) 19(4.7) 20(6.2) 21(6.4) 22(6.7) 23(6.5) 24(5.3) 25(3.8) 26(1.7) 32(1.1) 33(1.7) 34(0.8) ...
+  6                                         56               13          13.3 %  13(0.9) 14(1.9) 15(2.9) 16(4.0) 17(5.2) 18(6.3) 19(7.6) 20(6.6) 21(7.1) 22(7.9) 23(7.2) 24(5.9) 25(6.0) 26(6.5) ...
+  7                                         28               16           8.6 %  16(0.8) 19(0.7) 20(0.6) 21(0.5) 26(0.5) 28(0.7) 29(0.9) 30(1.1) 31(1.0) 32(0.5) 39(0.5) 40(1.1) 41(1.9) 42(2.6) ...
+  8                                          5               23           1.0 %  23(0.6) 31(0.8) 32(1.0) 33(0.9) 34(0.5)
+  9                                         45                0          15.7 %  0(1.2) 16(1.5) 17(4.1) 18(4.5) 19(5.7) 20(6.0) 21(6.3) 22(5.7) 23(4.8) 24(3.5) 25(2.1) 26(0.9) 30(0.8) 31(0.8) ...
+ 10                                         45               22          12.9 %  22(0.7) 23(1.5) 24(2.5) 25(3.8) 26(4.9) 27(5.5) 28(5.0) 29(3.6) 30(2.3) 31(1.9) 32(0.9) 40(0.8) 41(1.5) 42(2.1) ...
+(royal blue is also the colour of the robot's own base, which comes into view at the bottom left when the forearm is twisted far to the
+ negative side; the figure shows which is which: the hoodie is at the top of the picture in runs 4 and 6)
+
+Model E's answer with the large royal-blue object painted over by the table's colour (median of the picture's non-blue, non-paper pixels)
+run  step  blue %  | as seen: cm  deg  twist  stop | painted over: cm  deg  twist  stop | change: deg  cm
+  6    11     0.0  | no royal blue in view
+  6    12     0.0  | no royal blue in view
+  6    13     0.9  |        0.53   -18   -0.7  0.00 |             0.50   -15   -0.3  0.00 |        +2.4 -0.02
+  6    14     1.9  |        0.53   -40   -1.3  0.00 |             0.54   -39   -1.3  0.00 |        +0.6 +0.01
+  6    15     2.9  |        0.56   -59   -1.8  0.00 |             0.55   -60   -1.8  0.00 |        -0.5 -0.01
+  6    16     4.0  |        0.53   -58   -1.5  0.00 |             0.49   -59   -1.3  0.00 |        -0.8 -0.04
+  6    17     5.2  |        0.55   -63   -3.2  0.00 |             0.47   -67   -2.9  0.00 |        -3.9 -0.08
+  6    18     6.3  |        0.35   -73   -2.0  0.00 |             0.24   -83   -1.2  0.00 |        -9.4 -0.10
+  6    19     7.6  |        0.15  +113   +1.7  0.01 |             0.25  +117   +2.2  0.00 |        +3.5 +0.09
+  6    20     6.6  |        0.20   -82   -1.0  0.00 |             0.13   -98   -0.7  0.00 |       -16.4 -0.07
+  6    21     7.1  |        0.03   +14   -0.2  0.00 |             0.08   +99   +0.2  0.00 |       +84.4 +0.04
+  6    22     7.9  |        0.36  +102   +1.5  0.00 |             0.43  +108   +2.0  0.00 |        +6.3 +0.08
+  6    23     7.2  |        0.23  +116   +1.2  0.00 |             0.30  +118   +1.6  0.00 |        +2.7 +0.07
+  4    20     1.5  |        0.65   +19   +2.0  0.00 |             0.69   +16   +1.8  0.00 |        -2.6 +0.04
+  4    25    11.5  |        0.75   +13   +0.9  0.01 |             0.72   +15   +1.1  0.00 |        +2.1 -0.03
+  4    30    17.4  |        0.60   -52   +0.6  0.00 |             0.59   -58   +0.6  0.00 |        -5.8 -0.01
+  4    35    14.4  |        1.00   -26   +1.1  0.00 |             0.99   -33   +1.0  0.00 |        -6.8 -0.01
+  4    38    14.5  |        0.82    -7   +1.7  0.00 |             0.78   -12   +1.5  0.00 |        -4.9 -0.04
+  4    39    14.8  |        0.51    +2   +2.5  0.01 |             0.51    -4   +2.0  0.01 |        -5.7 +0.00
+  4    40    14.2  |        0.24   -32   +0.9  0.90 |             0.30   -20   -0.7  0.22 |       +11.6 +0.06
+  4    41    13.2  |        0.25   -32   +0.9  0.88 |             0.31   -28   -0.2  0.37 |        +4.4 +0.06
+
+E. THE CAMERA'S CREEP UNDONE: every robot picture slid 17 px to the left (the right edge repeated), model E's answer as seen and slid
+run  step | as seen: cm  deg  twist | slid: cm  deg  twist | change: deg  cm  twist
+  3     0 |        0.36   -28   -5.3 |     0.40   -31   -4.5 |        -3.8 +0.04   +0.8
+  3     1 |        0.41    -4   -4.9 |     0.41   -11   -4.4 |        -6.8 -0.00   +0.5
+  3     2 |        0.49    +2   -4.1 |     0.43    -3   -3.5 |        -5.0 -0.06   +0.6
+  3     3 |        0.42   -18   -3.0 |     0.39    -8   -1.8 |       +10.4 -0.03   +1.1
+  5     2 |        0.58   -22   -1.6 |     0.53   -38   -3.2 |       -15.9 -0.05   -1.6
+  5     3 |        0.47   -54   -5.7 |     0.42   -50   -5.9 |        +4.2 -0.05   -0.1
+  5     4 |        0.45   -50   -5.9 |     0.42   -43   -5.9 |        +7.0 -0.03   +0.0
+  5     5 |        0.44   -45   -6.2 |     0.42   -44   -5.8 |        +0.4 -0.02   +0.4
+  6     6 |        0.69   +48   +4.0 |     0.65   +42   +4.0 |        -6.4 -0.04   -0.0
+  6     7 |        0.69   +29   +2.8 |     0.66   +34   +3.7 |        +5.0 -0.03   +0.9
+  6     8 |        0.80    +8   +1.2 |     0.76   +10   +2.2 |        +2.5 -0.04   +1.0
+  6     9 |        0.76    +1   +0.4 |     0.75    -5   +0.6 |        -5.8 -0.01   +0.2
+  6    10 |        0.74   -11   -0.8 |     0.74   -15   -0.5 |        -4.7 +0.00   +0.3
+  8     7 |        1.08   +19   +5.1 |     1.08   +20   +6.0 |        +0.9 +0.00   +0.8
+  8     9 |        0.94   +24   +5.2 |     0.92   +24   +5.2 |        +0.1 -0.02   -0.0
+  8    12 |        0.82   +32   +6.6 |     0.77   +34   +6.6 |        +2.3 -0.04   +0.1
+  8    15 |        0.68   +36   +6.4 |     0.63   +39   +5.9 |        +3.2 -0.05   -0.5
+  9     2 |        0.52   -31   -5.8 |     0.54   -24   -5.4 |        +7.5 +0.02   +0.5
+  9     3 |        0.49   -31   -6.0 |     0.46   -35   -6.0 |        -4.0 -0.03   -0.0
+  9     4 |        0.46   -38   -6.2 |     0.44   -38   -5.6 |        -0.3 -0.01   +0.6
+  9     5 |        0.44   -44   -5.6 |     0.42   -46   -5.3 |        -2.8 -0.02   +0.3
+  4     0 |        0.93    +1   -0.8 |     0.93    +2   -0.3 |        +1.0 -0.00   +0.5
+  4     1 |        0.92    +2   -0.8 |     0.98    +2   -0.5 |        +0.3 +0.06   +0.3
+  4     2 |        1.06    +6   -0.3 |     1.11    +7   -0.3 |        +0.4 +0.05   +0.1
+  4     3 |        1.06   +10   +0.9 |     1.12   +10   +0.8 |        +0.4 +0.06   -0.1
+
+the same over whole runs (model E's runs): median and largest turn of the asked direction, pictures whose asked length is 0.3 cm or more
+run  pictures  median turn deg  middle half        largest turn  median change of length cm  median change of twist deg
+  2        12             +1.4    -0.3 to  +1.6           2.0                       -0.01                       +0.34
+  3        19             -4.8    -9.8 to  +0.9          29.3                       +0.01                       -0.16
+  4        20             +1.3    -0.1 to  +4.0          28.9                       +0.04                       +0.04
+  5        26             +3.6    +1.2 to  +7.0          30.7                       +0.01                       +0.12
+  6        18             +2.0    -0.5 to  +8.8          31.1                       -0.01                       +0.05
+  7        41             +1.7    -0.9 to  +5.9          25.2                       +0.01                       +0.23
+  8        20             +2.1    -2.3 to  +4.0          16.1                       -0.01                       -0.12
+  9        38             +2.3    -1.7 to  +8.2          25.4                       +0.00                       +0.05
+
+F. SHEET 02 LYING SQUARE
+plan    kind  end in frames.csv  end as model E's training table has it (audit's corrected ends)  rows trained on  first-5-cm forearm twist deg
+02-01   STD   A                  B                                                                            62                         +2.8
+02-13   SQP   A                  B                                                                            64                        -44.2
+02-14   SQP   A                  B                                                                            79                        -20.9
+02-15   SQP   A                  B                                                                            65                         -7.2
+02-16   SQP   B                  B                                                                            74                        -24.8
+02-17   SQP   B                  B                                                                            92                        +33.0
+02-18   SQP   B                  B                                                                            63                        -21.2
+02-31   STD   B                  B                                                                            68                         +2.7
+02-36   SQL   A                  A                                                                            74                        -13.9
+02-41   SQL   B                  B                                                                            57                        +36.9
+
+Nearest demonstration START pictures (rows 1 to 8 of every sheet-02 episode) of the first pictures of runs 3 and 4, fold model without sheet 02
+run  step  5 nearest: plan kind end(row) distance ...                                                    | nearest distance by kind of start
+  3     0  02-14 SQP B(4) 0.092  02-14 SQP B(5) 0.108  02-14 SQP B(6) 0.108  02-16 SQP B(5) 0.143  02-16 SQP B(4) 0.150 | SQP B 0.092  OR1.5 B 0.317  OR1.5 A 0.322  SQL A 0.329  STD B 0.364  STD A 0.378
+  3     1  02-14 SQP B(4) 0.084  02-14 SQP B(6) 0.089  02-14 SQP B(5) 0.091  02-16 SQP B(5) 0.136  02-14 SQP B(7) 0.141 | SQP B 0.084  OR1.5 A 0.310  SQL A 0.319  OR1.5 B 0.335  STD A 0.363  STD B 0.370
+  3     2  02-14 SQP B(6) 0.083  02-14 SQP B(4) 0.094  02-14 SQP B(5) 0.094  02-14 SQP B(7) 0.138  02-16 SQP B(8) 0.150 | SQP B 0.083  OR1.5 A 0.340  SQL A 0.354  OR1.5 B 0.361  STD B 0.390  OL1.5 B 0.392
+  4     0  02-31 STD B(5) 0.054  02-32 STD B(6) 0.060  02-01 STD B(6) 0.061  02-32 STD B(5) 0.069  02-31 STD B(6) 0.072 | STD B 0.054  TL10 B 0.083  TR10 B 0.097  SQL B 0.114  STD A 0.116  TR15 B 0.141
+  4     1  02-10 TL10 B(6) 0.061  02-31 STD B(6) 0.065  02-31 STD B(7) 0.068  02-32 STD B(7) 0.075  02-01 STD B(6) 0.078 | TL10 B 0.061  STD B 0.065  SQL B 0.085  STD A 0.097  TR10 B 0.110  TR15 B 0.110
+  4     2  02-32 STD B(7) 0.038  02-01 STD B(7) 0.043  02-31 STD B(7) 0.051  02-10 TL10 B(7) 0.053  02-41 SQL B(8) 0.054 | STD B 0.038  TL10 B 0.053  SQL B 0.054  TR15 B 0.056  TR10 B 0.061  STD A 0.112
+
+written: figures/own_hoodie_first_views.png

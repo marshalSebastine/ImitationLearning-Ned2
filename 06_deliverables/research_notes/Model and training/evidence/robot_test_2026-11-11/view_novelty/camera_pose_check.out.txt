@@ -1,0 +1,118 @@
+THE VIEW'S GEOMETRY FROM THE JOINT ANGLES (calculated with the fitted camera model and the arm model; joints measured: frames.csv and steps.csv)
+
+The 18032 training pictures: 1 %, 5 %, 50 %, 95 %, 99 % points
+  camera_height_cm       18.4      19.7      22.0      23.1      23.6
+  tilt_deg                2.1       4.2      19.6      37.0      43.2
+  roll_deg              -33.7     -25.7       1.2      28.6      35.7
+  tip_u_px              312.1     312.3     312.7     313.3     313.5
+  tip_v_px              326.3     341.2     372.1     430.2     456.6
+  wrist_deg             -15.1      -6.7      13.4      25.3      31.4
+  hand_deg               -6.6      -6.2      -6.1       0.1      29.7
+  forearm_twist_deg    -105.2     -86.7       4.3      94.7     114.0
+  reach_cm               14.1      17.3      30.9      41.1      44.2
+
+The robot runs: smallest, median, largest per run; and how many pictures lie outside the training pictures' 1 % to 99 % range
+  camera_height_cm (training 18.4 to 23.6)
+      run  1:     21.2      22.6      22.9   outside:   0 of 26
+      run  2:     21.4      22.6      22.9   outside:   0 of 25
+      run  3:     21.8      22.5      22.9   outside:   0 of 38
+      run  4:     19.8      21.6      22.8   outside:   0 of 42
+      run  5:     20.5      22.3      22.9   outside:   0 of 60
+      run  6:     20.7      22.7      22.9   outside:   0 of 69
+      run  7:     20.9      22.7      22.9   outside:   0 of 89
+      run  8:     19.8      21.9      22.8   outside:   0 of 41
+      run  9:     21.1      22.4      22.9   outside:   0 of 90
+      run 10:     19.6      22.4      22.9   outside:   0 of 74
+  tilt_deg (training 2.1 to 43.2)
+      run  1:      2.4      13.3      32.5   outside:   0 of 26
+      run  2:      2.5      13.8      32.2   outside:   0 of 25
+      run  3:      0.7      20.5      30.3   outside:   2 of 38, 0 of them up to the first wrong decision
+      run  4:      2.6      23.5      32.9   outside:   0 of 42
+      run  5:      0.2       6.5      23.7   outside:  14 of 60, 0 of them up to the first wrong decision
+      run  6:      2.1      22.1      40.3   outside:   0 of 69
+      run  7:      1.4      14.1      30.5   outside:   2 of 89
+      run  8:      2.6      15.8      28.3   outside:   0 of 41
+      run  9:      0.9      10.5      34.1   outside:   2 of 90, 0 of them up to the first wrong decision
+      run 10:      0.9      19.2      43.6   outside:   5 of 74, 1 of them up to the first wrong decision
+  roll_deg (training -33.7 to 35.7)
+      run  1:     -0.3       1.4       3.2   outside:   0 of 26
+      run  2:     -4.4       0.6       3.1   outside:   0 of 25
+      run  3:      0.7       4.7       8.2   outside:   0 of 38
+      run  4:    -29.0     -16.7       3.8   outside:   0 of 42
+      run  5:     -8.5       0.3       6.1   outside:   0 of 60
+      run  6:     -1.9       0.9       6.1   outside:   0 of 69
+      run  7:    -22.0       1.5      25.4   outside:   0 of 89
+      run  8:    -27.8     -12.8       3.1   outside:   0 of 41
+      run  9:    -17.8      -0.5       7.0   outside:   0 of 90
+      run 10:    -17.5       0.3       7.8   outside:   0 of 74
+  tip_u_px (training 312.1 to 313.5)
+      run  1:    312.7     312.7     312.8   outside:   0 of 26
+      run  2:    312.7     312.7     312.7   outside:   0 of 25
+      run  3:    312.7     312.7     312.7   outside:   0 of 38
+      run  4:    312.7     312.7     312.8   outside:   0 of 42
+      run  5:    312.7     312.7     312.7   outside:   0 of 60
+      run  6:    312.7     312.7     312.7   outside:   0 of 69
+      run  7:    312.7     312.7     312.8   outside:   0 of 89
+      run  8:    312.7     312.7     312.7   outside:   0 of 41
+      run  9:    312.7     312.7     312.7   outside:   0 of 90
+      run 10:    312.7     312.7     312.8   outside:   0 of 74
+  tip_v_px (training 326.3 to 456.6)
+      run  1:    372.1     372.1     372.6   outside:   0 of 26
+      run  2:    371.9     371.9     371.9   outside:   0 of 25
+      run  3:    371.9     371.9     371.9   outside:   0 of 38
+      run  4:    372.1     372.1     372.6   outside:   0 of 42
+      run  5:    371.9     371.9     372.1   outside:   0 of 60
+      run  6:    371.9     372.1     372.1   outside:   0 of 69
+      run  7:    371.9     372.1     372.4   outside:   0 of 89
+      run  8:    371.9     372.1     372.1   outside:   0 of 41
+      run  9:    371.9     372.1     372.1   outside:   0 of 90
+      run 10:    371.9     372.1     372.4   outside:   0 of 74
+  wrist_deg (training -15.1 to 31.4)
+      run  1:     13.3      13.4      13.4   outside:   0 of 26
+      run  2:     13.5      13.5      13.5   outside:   0 of 25
+      run  3:     13.5      13.5      13.5   outside:   0 of 38
+      run  4:     13.3      13.4      13.4   outside:   0 of 42
+      run  5:     13.4      13.5      13.5   outside:   0 of 60
+      run  6:     13.4      13.4      13.5   outside:   0 of 69
+      run  7:     13.4      13.4      13.5   outside:   0 of 89
+      run  8:     13.4      13.4      13.5   outside:   0 of 41
+      run  9:     13.4      13.4      13.5   outside:   0 of 90
+      run 10:     13.4      13.4      13.5   outside:   0 of 74
+  hand_deg (training -6.6 to 29.7)
+      run  1:     -6.1      -6.1      -6.1   outside:   0 of 26
+      run  2:     -6.1      -6.1      -6.1   outside:   0 of 25
+      run  3:     -6.2      -6.1      -6.1   outside:   0 of 38
+      run  4:     -6.2      -6.1      -6.1   outside:   0 of 42
+      run  5:     -6.1      -6.1      -6.1   outside:   0 of 60
+      run  6:     -6.1      -6.1      -6.1   outside:   0 of 69
+      run  7:     -6.2      -6.1      -6.1   outside:   0 of 89
+      run  8:     -6.1      -6.1      -6.1   outside:   0 of 41
+      run  9:     -6.1      -6.1      -6.1   outside:   0 of 90
+      run 10:     -6.1      -6.1      -6.1   outside:   0 of 74
+  forearm_twist_deg (training -105.2 to 114.0)
+      run  1:     -4.4       6.7       9.9   outside:   0 of 26
+      run  2:      6.1       7.7      13.7   outside:   0 of 25
+      run  3:    -39.4     -14.5      -1.0   outside:   0 of 38
+      run  4:      7.6      59.6      86.7   outside:   0 of 42
+      run  5:    -71.3     -29.6      -4.9   outside:   0 of 60
+      run  6:    -12.1       1.9      16.8   outside:   0 of 69
+      run  7:    -73.3      -4.2      57.3   outside:   0 of 89
+      run  8:      6.3      85.3     101.5   outside:   0 of 41
+      run  9:    -80.9     -22.7      60.6   outside:   0 of 90
+      run 10:    -71.4       5.4      36.2   outside:   0 of 74
+  reach_cm (training 14.1 to 44.2)
+      run  1:     14.2      26.6      38.7   outside:   0 of 26
+      run  2:     14.8      26.9      38.8   outside:   0 of 25
+      run  3:     16.6      31.0      37.3   outside:   0 of 38
+      run  4:     15.2      34.2      40.1   outside:   0 of 42
+      run  5:     12.2      18.8      33.3   outside:   2 of 60, 2 of them up to the first wrong decision
+      run  6:     18.2      32.4      43.1   outside:   0 of 69
+      run  7:     16.0      27.0      38.5   outside:   0 of 89
+      run  8:     16.0      29.1      37.7   outside:   0 of 41
+      run  9:     14.1      23.9      40.2   outside:   0 of 90
+      run 10:     15.9      30.4      45.0   outside:   5 of 74, 0 of them up to the first wrong decision
+
+Wrist and hand as held by the driver (13.4 and -6.1 degrees): 55.1 % of the training pictures have both within 3 degrees of these; the wrist alone within 3 degrees: 56.7 %; the hand alone: 84.6 %
+Where the tip falls in the picture: training pictures median (313, 372) px, middle 90 % u 312 to 313, v 341 to 430; robot pictures median (313, 372) px, all within u 313 to 313, v 372 to 373
+
+written: camera_pose_check_robot.csv

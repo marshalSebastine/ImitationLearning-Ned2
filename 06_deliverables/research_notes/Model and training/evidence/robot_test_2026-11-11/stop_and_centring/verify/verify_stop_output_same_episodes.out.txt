@@ -1,0 +1,12 @@
+analyst's last-step rows: 1677 episodes 210 ; ends rows 210
+columns of ends: ['episode_id', 'sheet', 'plan_number', 'start_kind', 'score', 'outcome', 'operator', 'camera_period', 'pictures', 'last_action', 'last_three_moves_cm', 'pictures_used', 'is_puck_found', 'fit_quality', 'puck_x', 'puck_y', 'is_end_found', 'short_mm', 'aside_mm', 'centre_gap_mm', 'uncovered_mm', 'ink_beyond_mm2', 'is_end_seen', 'line_width_mm', 'ink_seen_ahead_mm2', 'end_x', 'end_y', 'is_direction_from_line']
+E recipe: episodes in the analyst's table 209, first stop-like picture found in 158
+   analyst's short_mm: median 7.4, 10th to 90th -0.0 to 19.7 (rows with a value 158)
+   arm model's tip distance to the stop place at the same pictures: median 11.3, 10th to 90th 0.0 to 32.1
+   pictures before the stop at the first stop-like picture: {0: 27, 1: 45, 2: 38, 3: 19, 4: 4, 5: 2, 6: 5, 7: 18}
+   difference tip distance minus short_mm: median 0.0 mm
+A recipe: episodes in the analyst's table 209, first stop-like picture found in 143
+   analyst's short_mm: median 6.5, 10th to 90th -0.5 to 17.4 (rows with a value 143)
+   arm model's tip distance to the stop place at the same pictures: median 9.4, 10th to 90th 0.0 to 31.8
+   pictures before the stop at the first stop-like picture: {0: 19, 1: 54, 2: 35, 3: 11, 4: 2, 5: 2, 6: 6, 7: 14}
+   difference tip distance minus short_mm: median 1.0 mm

@@ -1,0 +1,53 @@
+rows 18522
+my tip against the index's tip columns (mm): largest 0.005
+my lean against the index's rod_from_vertical_deg: largest difference 0.005 degrees
+tip above the fitted table (mm): median 2.8, 5th -0.6, 95th 12.0
+
+=== variant constant: solved 18522 of 18522; tip kept within 0.0010 mm ===
+  camera move, mm    median 1.66, 90th 13.89, 95th 18.46, most 38.86
+  camera turn, deg   median 0.27, 90th 2.58, 95th 3.62, most 10.07
+  tip    shift px at 640: median 5.20, 90th 41.2, 95th 58.5, most 131.5; over 8 px 43.6 %, over 16 px 30.9 %, over 20 px 27.1 %, over 40 px 10.6 %
+  table  shift px at 640: median 5.17, 90th 40.9, 95th 58.3, most 131.2; over 8 px 43.5 %, over 16 px 30.8 %, over 20 px 26.7 %, over 40 px 10.4 %
+  ahead  shift px at 640: median 5.38, 90th 43.3, 95th 59.6, most 124.2; over 8 px 44.1 %, over 16 px 31.3 %, over 20 px 27.4 %, over 40 px 11.7 %
+
+=== variant first_row: solved 18522 of 18522; tip kept within 0.0010 mm ===
+  camera move, mm    median 0.88, 90th 12.00, 95th 16.03, most 43.66
+  camera turn, deg   median 0.14, 90th 2.33, 95th 3.15, most 7.35
+  tip    shift px at 640: median 2.63, 90th 36.5, 95th 49.8, most 109.4; over 8 px 39.1 %, over 16 px 26.1 %, over 20 px 23.2 %, over 40 px 8.0 %
+  table  shift px at 640: median 2.63, 90th 36.3, 95th 49.3, most 107.0; over 8 px 39.1 %, over 16 px 26.0 %, over 20 px 23.0 %, over 40 px 7.8 %
+  ahead  shift px at 640: median 2.81, 90th 38.1, 95th 51.0, most 118.3; over 8 px 39.9 %, over 16 px 26.4 %, over 20 px 23.4 %, over 40 px 8.8 %
+
+constant 13.5: share of rows with the tip shifted over 20 px (at 640)
+by sheet:
+ sheet
+path_01    39.0
+path_02    17.4
+path_03    25.0
+path_04    23.4
+path_05    33.6
+path_06    43.8
+by |joint 4|:
+                 rows  over_20  median_px  p90_px  abs_offset_median
+twist_bin                                                          
+(-0.001, 30.0]  6551    0.241      2.224  40.558              0.821
+(30.0, 60.0]    5240    0.271      6.168  38.501              2.255
+(60.0, 90.0]    4833    0.287      7.139  46.273              2.607
+(90.0, 120.0]   1898    0.332      7.624  46.040              2.783
+by reach:
+                 rows  over_20  median_px  p90_px  abs_offset_median
+reach_bin                                                          
+(11.999, 20.0]  1882    0.023      0.319   6.412              0.117
+(20.0, 26.0]    3882    0.209      1.273  34.329              0.469
+(26.0, 32.0]    4500    0.297      6.653  44.386              2.431
+(32.0, 38.0]    5195    0.336      9.083  54.240              3.310
+(38.0, 50.0]    3063    0.351     11.037  50.786              4.073
+
+tip shift against (demonstrated wrist - 13.5), rows over 1 degree off (10177 rows):
+  down the picture: 2.803 px per degree at 640 (0.701 at 160), intercept -0.86, residual sd 1.54 px, r 0.9988
+  across the picture: 0.030 px per degree, |du| median 0.22 px, 95th 0.66 px
+  table point under the tip: 2.772 px per degree; table point 5 cm ahead: 2.852 px per degree
+  sign: a demonstrated wrist ABOVE 13.5 gives dv > 0, so in the driver's view the tip sits lower in the picture than in the demonstration
+
+rod lean: demonstrated median 24.6, 95th 42.5, most 63.0; held: median 25.1, 95th 42.1, most 60.4; held over 58 degrees in 4 rows
+demonstrated lean over 58 degrees in 7 rows
+reach: most 48.5 cm; rows beyond 46 cm: 77

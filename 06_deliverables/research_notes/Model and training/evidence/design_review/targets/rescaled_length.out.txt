@@ -1,0 +1,5 @@
+non-stop pictures 8610; gain that matches the moving-row medians 1.81
+executed with that gain and clamps 0.5 to 1.5 cm: median 1.07 cm; at the lower clamp 0.078; at the upper clamp 0.174
+  moving rows: n 7738, executed median 1.09 cm, demonstrated median 1.09 cm
+  twists in place: n 598, executed median 0.88 cm, demonstrated median 0.19 cm
+  within 3 cm of the goal: n 477, executed median 0.98 cm, demonstrated median 0.94 cm

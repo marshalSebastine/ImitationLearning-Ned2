@@ -1,0 +1,17 @@
+puck height 29 mm; lifted start joints [-6.1, -20.6, -70.7, 0.0, 13.5, -6.1] degrees
+
+the ten runs of 11.11 (tip's lowest height on the way back, mm above the table): one joint move | forearm straightened first
+   2026-11-11_172021_check_no_puck            forearm   -4.4 deg:    50 mm |    50 mm
+   2026-11-11_172421_E_sheet01_run1           forearm  +12.7 deg:    50 mm |    50 mm
+   2026-11-11_172743_E_sheet02_run1           forearm  -15.7 deg:    50 mm |    50 mm
+   2026-11-11_173036_E_sheet02_run2           forearm  +86.7 deg:    52 mm |    50 mm
+   2026-11-11_173549_E_sheet03_run1           forearm   -4.9 deg:    51 mm |    51 mm
+   2026-11-11_174108_E_sheet04_run1           forearm   +1.1 deg:    48 mm |    48 mm
+   2026-11-11_174448_E_sheet05_run1           forearm  +57.3 deg:    51 mm |    50 mm
+   2026-11-11_174936_E_sheet06_run1           forearm  +93.5 deg:    55 mm |    53 mm
+   2026-11-11_175203_E_sheet03_run2_no_hoodie forearm  +42.4 deg:    51 mm |    50 mm
+   2026-11-11_175544_B_team5_sheet03          forearm  +15.7 deg:    48 mm |    48 mm
+
+the last pictures of 210 demonstrations as end poses (0 could not be lifted 5 cm with the wrist held):
+   one joint move: lowest tip height median 50 mm, smallest 47 mm; under 40 mm in 0, under the puck's 29 mm in 0 of 210
+   forearm straightened first: median 49 mm, smallest 45 mm; under 40 mm in 0, under 29 mm in 0 of 210

@@ -1,0 +1,43 @@
+== A. overshoot round a balance point, or flips without regard to the place? (log only) ==
+swing axis on the table: (-0.14, -0.99); tip positions along it from -1.7 to +1.7 cm; spread across it 0.41 cm (standard deviation)
+correlation between where the tip is along the swing axis and the asked direction's part along it: unit direction -0.62, with its length -0.71 (-1 = always pointing back to the middle)
+answers pointing back towards the middle of the swing: 25 of 32; among the 18 pictures more than 0.5 cm from the middle: 16
+straight-line fit: asked part along the axis = -0.156 cm per cm of tip place -0.006 cm; the fixed step moved 1 cm per picture, so the loop gain was about 6.9 times the asked move (mean asked part along the axis 0.15 cm)
+asked forward part (picture frame) over these pictures: mean -0.000 cm, largest +0.14; asked twist: mean -0.24 deg, mean size 1.02; stop chance highest 0.007
+the swing axis against the camera: angle between the swing axis and the picture's left axis 4 deg
+
+== B. model E again on the logged pictures (verifier's forward pass) ==
+largest difference between the recomputed and the logged step: 0.00001 cm; twist 0.00001 deg
+   exact step    : reversals over 90 deg in steps 19 to 50: 20 of 31; median length there 0.16 cm, in steps 0 to 4 0.96 cm
+   chunk 1 ahead : reversals over 90 deg in steps 19 to 50: 19 of 31; median length there 0.16 cm, in steps 0 to 4 0.97 cm
+   chunk 2 ahead : reversals over 90 deg in steps 19 to 50: 19 of 31; median length there 0.34 cm, in steps 0 to 4 1.97 cm
+   chunk 3 ahead : reversals over 90 deg in steps 19 to 50: 18 of 31; median length there 0.53 cm, in steps 0 to 4 2.95 cm
+   chunk 4 ahead : reversals over 90 deg in steps 19 to 50: 12 of 31; median length there 0.73 cm, in steps 0 to 4 3.86 cm
+   chunk 5 ahead : reversals over 90 deg in steps 19 to 50: 6 of 31; median length there 0.97 cm, in steps 0 to 4 4.69 cm
+
+== C. look-alike demonstration pictures ==
+demonstration pictures 18032; model E on its own training pictures: predicted length median 0.74 cm
+-- description of the picture: hidden (256 numbers) --
+yardstick (600 random demonstration pictures, neighbours from other episodes): nearest distance median 4.46, 90th percentile 7.90; resultant median 0.87; both groups 8 %; length of the neighbours' mean move 0.77 cm against their mean length 0.92
+   the tenth of them farthest from other episodes (60): resultant median 0.72, both groups 25 %
+   hairpin: 36 pictures, resultant median 0.85, both groups 3 %
+   sharp bend: 211 pictures, resultant median 0.87, both groups 7 %
+   12 pictures at random, all sheets: resultant median 0.52, both groups 50 %, length of the mean move 0.48 cm against mean length 0.93
+   12 pictures at random, sheet 04 only: resultant median 0.53, both groups 46 %, length of the mean move 0.44 cm against mean length 0.85
+   12 pictures at random, hairpin and sharp-bend pictures: resultant median 0.47, both groups 54 %, length of the mean move 0.39 cm against mean length 0.84
+run 6, steps 19 to 50: nearest distance median 8.71 (steps 0 to 4: 4.53); resultant median 0.32; both groups 53 %; both twist signs 50 %; length of the neighbours' mean move 0.27 cm against their mean length 0.87
+   the answer went to the side of the larger group in 24 of 27 pictures with unequal groups; correlation between the neighbours' mean left part and the answer's left part +0.79
+   who the neighbours are (mean over these pictures, of 12): from sheet 04 6.2, from episodes travelling A to B 9.3, at hairpins or sharp bends 3.3
+   left group: mean twist +5.3 deg, share from A-to-B episodes 0.86; right group: mean twist -2.7 deg, share from A-to-B episodes 0.86
+-- description of the picture: features (6144 numbers) --
+yardstick (600 random demonstration pictures, neighbours from other episodes): nearest distance median 28.04, 90th percentile 45.50; resultant median 0.87; both groups 7 %; length of the neighbours' mean move 0.77 cm against their mean length 0.92
+   the tenth of them farthest from other episodes (60): resultant median 0.71, both groups 12 %
+   hairpin: 40 pictures, resultant median 0.84, both groups 0 %
+   sharp bend: 199 pictures, resultant median 0.89, both groups 7 %
+   12 pictures at random, all sheets: resultant median 0.53, both groups 51 %, length of the mean move 0.49 cm against mean length 0.93
+   12 pictures at random, sheet 04 only: resultant median 0.53, both groups 46 %, length of the mean move 0.44 cm against mean length 0.85
+   12 pictures at random, hairpin and sharp-bend pictures: resultant median 0.47, both groups 54 %, length of the mean move 0.39 cm against mean length 0.84
+run 6, steps 19 to 50: nearest distance median 57.57 (steps 0 to 4: 33.12); resultant median 0.60; both groups 41 %; both twist signs 3 %; length of the neighbours' mean move 0.65 cm against their mean length 1.12
+   the answer went to the side of the larger group in 20 of 32 pictures with unequal groups; correlation between the neighbours' mean left part and the answer's left part +0.89
+   who the neighbours are (mean over these pictures, of 12): from sheet 04 9.8, from episodes travelling A to B 11.6, at hairpins or sharp bends 6.8
+   left group: mean twist +4.1 deg, share from A-to-B episodes 0.95; right group: mean twist -0.9 deg, share from A-to-B episodes 1.00

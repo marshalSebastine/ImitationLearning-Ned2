@@ -1,0 +1,7 @@
+pooled: 1298 pictures, median 3.1 mm, 90th percentile 33.4 mm, over 5 mm in 449
+sheet 01:  143 pictures; signed difference median   1.7 mm, over 5 mm in  10 %, over 10 mm in   4 %; sizes differ by a median  1.6 mm, over 5 mm in   8 %; the two disagree on 'over 7 mm' in   6 % and on 'over 12 mm' in  10 %
+sheet 02:  214 pictures; signed difference median   1.7 mm, over 5 mm in   5 %, over 10 mm in   0 %; sizes differ by a median  1.4 mm, over 5 mm in   4 %; the two disagree on 'over 7 mm' in  12 % and on 'over 12 mm' in   4 %
+sheet 03:  248 pictures; signed difference median   4.2 mm, over 5 mm in  42 %, over 10 mm in  23 %; sizes differ by a median  3.9 mm, over 5 mm in  37 %; the two disagree on 'over 7 mm' in  29 % and on 'over 12 mm' in  21 %
+sheet 04:  202 pictures; signed difference median   7.7 mm, over 5 mm in  61 %, over 10 mm in  46 %; sizes differ by a median  6.7 mm, over 5 mm in  55 %; the two disagree on 'over 7 mm' in  52 % and on 'over 12 mm' in  46 %
+sheet 05:  316 pictures; signed difference median   2.9 mm, over 5 mm in  38 %, over 10 mm in  16 %; sizes differ by a median  2.4 mm, over 5 mm in  33 %; the two disagree on 'over 7 mm' in  28 % and on 'over 12 mm' in  15 %
+sheet 06:  175 pictures; signed difference median   4.3 mm, over 5 mm in  45 %, over 10 mm in  22 %; sizes differ by a median  3.6 mm, over 5 mm in  36 %; the two disagree on 'over 7 mm' in  30 % and on 'over 12 mm' in  20 %

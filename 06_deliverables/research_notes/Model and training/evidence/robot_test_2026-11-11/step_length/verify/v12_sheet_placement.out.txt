@@ -1,0 +1,29 @@
+the demonstration's sheet turned onto the run's sheet (positive = counter-clockwise seen from above); my shift is after a turn about the ink points' centroid, so it is not
+comparable with the analyst's shift (turn about the puck's first place)
+ run  plan  ink_points_run  ink_points_demonstration  my_turn_deg  my_shift_x_cm  my_shift_y_cm  mean_capped_distance_mm  analyst_turn_deg  difference_deg
+   5 03-01            2054                      1601          1.5           -1.4            0.2                     1.41               0.0             1.5
+   5 03-04            2054                      1574          1.0           -1.2            0.4                     1.14               7.0            -6.0
+   5 03-25            2054                      1691        -10.0           -2.0           -0.0                     1.64              -9.5            -0.5
+   5 03-27            2054                      1709        -11.0           -2.0           -0.0                     1.83              -9.5            -1.5
+   9 03-01            1885                      1601          4.0            0.4           -0.4                     1.14               3.0             1.0
+   9 03-04            1885                      1574          3.5            0.6           -0.2                     0.98               8.0            -4.5
+   9 03-25            1885                      1691         -8.0           -0.2           -0.6                     1.31              -8.5             0.5
+   9 03-27            1885                      1709         -9.0           -0.2           -0.6                     1.48              -7.0            -2.0
+  10 03-01            1823                      1601         -5.0            2.6           -0.6                     1.16              -8.5             3.5
+  10 03-04            1823                      1574         -5.0            2.8           -0.6                     0.55               0.5            -5.5
+  10 03-25            1823                      1691        -16.0            2.0           -0.8                     2.30             -18.0             2.0
+  10 03-27            1823                      1709        -16.0            2.0           -0.8                     2.46             -16.5             0.5
+   6 04-01            1785                      3119         11.0            4.2            3.8                     5.80              28.5           -17.5
+   6 04-05            1785                      3438         12.5            4.4            3.8                     6.01              29.5           -17.0
+   6 04-13            1785                       799         14.5            6.0            5.8                     0.15              17.0            -2.5
+   6 04-17            1785                      2154         13.5            4.8            5.0                     3.78              19.0            -5.5
+
+between demonstrations (first pictures, same robot pose): the second laid onto the first
+   03-04 onto 03-01: turn -0.5 degrees, mean capped distance 0.1 mm
+   03-25 onto 03-01: turn -11.0 degrees, mean capped distance 0.6 mm
+   03-27 onto 03-01: turn -11.5 degrees, mean capped distance 0.6 mm
+   03-27 onto 03-25: turn +0.0 degrees, mean capped distance 0.1 mm
+   04-05 onto 04-01: turn +0.0 degrees, mean capped distance 0.6 mm
+   04-13 onto 04-01: turn -7.5 degrees, mean capped distance 0.1 mm
+   04-17 onto 04-01: turn -8.0 degrees, mean capped distance 0.2 mm
+   04-17 onto 04-13: turn +10.0 degrees, mean capped distance 10.2 mm

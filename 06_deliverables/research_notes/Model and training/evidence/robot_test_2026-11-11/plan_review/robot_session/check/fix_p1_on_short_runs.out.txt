@@ -1,0 +1,12 @@
+run 5, line map from the whole run (545 middle cells, line seen up to 506 mm from the start cap): middle cells a median 1.3 mm from the laid-on line (90th percentile 3.1); rule (12 mm twice in a row, to 8 cm past the apex): FAIL at picture 10; largest distance 40.7 mm
+run 5, line map from pictures 0 to 26 only (553 middle cells, line seen up to 501 mm from the start cap): middle cells a median 1.5 mm from the laid-on line (90th percentile 3.3); rule (12 mm twice in a row, to 8 cm past the apex): FAIL at picture 10; largest distance 40.1 mm
+   the puck's distance from the line, short map against whole-run map: median difference 0.4 mm, largest 0.9 mm; place along the line: largest difference 1 mm
+
+run 9, line map from the whole run (562 middle cells, line seen up to 497 mm from the start cap): middle cells a median 1.3 mm from the laid-on line (90th percentile 3.1); rule (12 mm twice in a row, to 8 cm past the apex): FAIL at picture 17; largest distance 31.0 mm
+run 9, line map from pictures 0 to 24 only (580 middle cells, line seen up to 506 mm from the start cap): middle cells a median 1.5 mm from the laid-on line (90th percentile 3.3); rule (12 mm twice in a row, to 8 cm past the apex): FAIL at picture 17; largest distance 30.6 mm
+   the puck's distance from the line, short map against whole-run map: median difference 0.5 mm, largest 1.5 mm; place along the line: largest difference 2 mm
+
+run 10, line map from the whole run (543 middle cells, line seen up to 497 mm from the start cap): middle cells a median 1.2 mm from the laid-on line (90th percentile 2.9); rule (12 mm twice in a row, to 8 cm past the apex): PASS; largest distance 5.7 mm
+run 10, line map from pictures 0 to 17 only (601 middle cells, line seen up to 505 mm from the start cap): middle cells a median 1.6 mm from the laid-on line (90th percentile 3.8); rule (12 mm twice in a row, to 8 cm past the apex): PASS; largest distance 7.0 mm
+   the puck's distance from the line, short map against whole-run map: median difference 1.2 mm, largest 2.3 mm; place along the line: largest difference 3 mm
+

@@ -1,0 +1,18 @@
+                                               0                      1                      2                      3                      4                      5                      6                                7
+run                        172421_E_sheet01_run1  172743_E_sheet02_run1  173036_E_sheet02_run2  173549_E_sheet03_run1  174108_E_sheet04_run1  174448_E_sheet05_run1  174936_E_sheet06_run1  175203_E_sheet03_run2_no_hoodie
+pictures                                      25                     38                     42                     60                     69                     89                     41                               90
+check_largest_gap_to_log                     0.0                    0.0                    0.0                    0.0                    0.0                    0.0                    0.0                              0.0
+direction_turn_median_deg                    1.6                   4.44                   2.92                    6.7                  11.11                   4.21                   5.75                              8.0
+direction_turn_p90_deg                       3.0                  17.32                  14.57                  20.44                  51.19                  14.77                  17.52                             25.3
+other_way_turn_median_deg                   2.51                  12.86                   1.78                   6.46                  10.01                   3.31                   4.11                             9.31
+twist_mean_abs_plain                        0.38                    2.4                    1.9                   3.09                   1.36                   2.71                   2.52                             3.19
+twist_mean_abs_back                         0.57                    2.1                   1.77                   3.22                   1.42                   2.59                   2.69                             3.12
+twist_first15_plain                         2.35                 -31.49                  34.65                 -56.61                   8.61                 -40.54                  58.66                           -74.02
+twist_first15_back                          7.08                  -25.4                  33.46                 -56.38                   8.73                  -33.1                  65.51                           -70.04
+twist_first15_other                        -8.78                 -25.86                  36.69                 -53.21                  11.21                 -39.51                  54.13                            -71.4
+length_median_plain_cm                      1.14                   0.53                   0.86                   0.53                   0.34                   0.82                   0.82                             0.49
+length_median_back_cm                       1.13                   0.54                   0.86                   0.53                   0.33                   0.82                   0.77                             0.51
+stop_pictures_plain                            2                      0                      2                      2                      2                      2                      2                                2
+stop_pictures_back                             2                      0                      2                      2                      0                      2                      2                                2
+
+summed twist asked over the first 15 pictures, as seen against the camera moved back: sheets recorded before the step are 01, 02, 03 and 72 % of 04

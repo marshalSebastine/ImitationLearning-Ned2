@@ -1,0 +1,26 @@
+================ E_recipe: 209 demonstrations, 17773 decisions
+   stalled windows 0.35 % of the windows; demonstrations with at least one stall event 11.5 %; events per 100 decisions 0.14
+   stall events before the last tenth of the demonstration (a nudge in the middle of a healthy run): demonstrations with at least one 9.1 %
+   'stalled near the end' (a stalled window with a stop chance of 0.25 or more) BEFORE the last tenth, which would end a healthy run early: 1.9 % of the demonstrations
+         demonstrations  with_an_event_share  with_an_event_before_the_last_tenth  early_end_share
+sheet                                                                                             
+path_01              20                 0.00                                 0.00             0.00
+path_02              45                 0.04                                 0.02             0.00
+path_03              45                 0.18                                 0.13             0.00
+path_04              45                 0.18                                 0.13             0.00
+path_05              29                 0.07                                 0.07             0.07
+path_06              25                 0.16                                 0.16             0.08
+
+================ A_recipe: 209 demonstrations, 17773 decisions
+   stalled windows 0.57 % of the windows; demonstrations with at least one stall event 11.5 %; events per 100 decisions 0.16
+   stall events before the last tenth of the demonstration (a nudge in the middle of a healthy run): demonstrations with at least one 11.0 %
+   'stalled near the end' (a stalled window with a stop chance of 0.25 or more) BEFORE the last tenth, which would end a healthy run early: 2.4 % of the demonstrations
+         demonstrations  with_an_event_share  with_an_event_before_the_last_tenth  early_end_share
+sheet                                                                                             
+path_01              20                 0.05                                 0.00             0.00
+path_02              45                 0.04                                 0.04             0.00
+path_03              45                 0.11                                 0.11             0.02
+path_04              45                 0.18                                 0.18             0.00
+path_05              29                 0.17                                 0.17             0.14
+path_06              25                 0.12                                 0.12             0.00
+

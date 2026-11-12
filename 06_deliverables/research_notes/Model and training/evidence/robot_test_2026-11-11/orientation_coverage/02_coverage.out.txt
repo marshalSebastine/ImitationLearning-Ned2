@@ -1,0 +1,301 @@
+Pictures 18032, episodes 209; moving steps of 0.3 cm or more: 16008 (88.8 %); rows with a three-step path direction: 15691
+
+=== 1. Direction of travel on the table, from radial: share of moving steps (%) per sheet ===
+sheet_number       01    02    03    04    05    06   all  pictures
+from_radial_bin                                                    
+-150.0            1.0   3.3   5.7   6.0   5.5   7.4   5.4       870
+-120.0            1.7   5.5   5.5   5.8   4.3   4.1   5.1       820
+-90.0             3.8  12.0   7.5   9.7   5.9   8.5   8.6      1380
+-60.0             2.1   7.6   4.8   4.5   8.6   6.3   5.8       927
+-30.0            10.4  11.6   7.6   7.1  11.9   6.4   8.7      1386
+ 0.0             52.8  20.1  25.7  19.9  18.7  19.5  22.1      3543
+ 30.0            13.1  10.9  10.0  10.2   9.5   6.8   9.9      1577
+ 60.0             3.5   6.9   5.8   6.2   5.2   5.1   5.8       934
+ 90.0             4.7  10.3  10.0  13.8   9.1  10.2  11.0      1762
+ 120.0            1.9   3.4   5.1   4.8   6.2   8.3   5.2       826
+ 150.0            1.6   3.2   3.7   4.0   6.7   7.9   4.6       732
+ 180.0            3.5   5.3   8.5   8.0   8.5   9.7   7.8      1251
+
+The same from the path over the next three steps (less hand jitter), share of rows (%):
+sheet_number    01    02    03    04    05    06   all  pictures
+path_bin                                                        
+-150.0         1.3   4.0   7.0   6.4   6.5   7.3   6.2       965
+-120.0         1.5   5.2   6.2   6.6   4.7   3.7   5.5       867
+-90.0          2.2   9.1   5.4   7.7   4.6   7.5   6.7      1051
+-60.0          3.2  10.2   5.3   5.8   9.0   7.1   6.9      1077
+-30.0          8.6  13.6   8.5   8.2  12.6   8.3   9.7      1526
+ 0.0          56.3  18.5  25.0  18.1  15.5  18.7  20.6      3237
+ 30.0         13.1  12.2  11.9  12.8  11.6   7.1  11.7      1834
+ 60.0          4.5   8.6   6.5   7.0   6.3   3.8   6.6      1033
+ 90.0          3.0   6.5   7.8  10.9   7.1   9.7   8.6      1351
+ 120.0         3.2   4.3   5.7   5.7   7.0   8.9   6.0       939
+ 150.0         2.1   3.5   3.9   5.0   7.3   9.6   5.3       835
+ 180.0         1.1   4.3   6.8   5.8   7.7   8.2   6.2       976
+  labelled steps: within 45 degrees of radial-outwards 40.6 %, 45 to 135 (sideways) 41.5 %, beyond 135 (back towards the base) 17.8 %
+  three-step paths: within 45 degrees of radial-outwards 42.0 %, 45 to 135 (sideways) 40.3 %, beyond 135 (back towards the base) 17.7 %
+  left against right of radial (three-step paths, sideways part only): left 3323, right 2995
+
+=== 2. Forearm twist (joint 4, degrees): share of pictures (%) per sheet ===
+sheet_number         01    02    03    04    05    06   all  pictures
+joint_4_bin                                                          
+(-120.001, -90.0]   0.8   3.8   3.2   3.0   3.2  10.5   3.9       707
+(-90.0, -60.0]      1.6  12.4  11.3  13.7  11.9   9.5  11.8      2131
+(-60.0, -30.0]      2.8  11.7  12.6  13.5  21.0  17.7  14.2      2557
+(-30.0, -10.0]      9.8   6.5   9.5  10.1   9.6  10.8   9.4      1703
+(-10.0, 10.0]      54.0  10.0  16.0  12.8  10.1  13.5  14.2      2566
+(10.0, 30.0]       28.7   7.8  12.7  12.7   7.3   7.7  11.2      2026
+(30.0, 60.0]        1.4  22.4  14.2  10.1  22.5  10.7  14.4      2593
+(60.0, 90.0]        0.9  20.3  11.9  14.6  12.9  17.5  14.4      2605
+(90.0, 120.0]       0.0   5.1   8.6   9.5   1.4   2.0   6.3      1144
+  joint 4: min -119.3, 5th percentile -86.7, median 4.3, 95th 94.7, max 118.9; |joint 4| median 46.5; beyond 60: 36.5 %, beyond 90: 10.3 %, beyond 110: 2.2 %
+  How far the picture's top is turned from radial (heading_from_radial_deg) against joint 4 (measured):
+    least-squares slope -0.933 degrees per degree; range -125.4 to 120.1
+    joint 4 +100 to +121: picture top -106.7 from radial (5th to 95th percentile -117.7 to -97.1), 662 pictures
+    joint 4 -100 to -121: picture top +103.1 from radial (5th to 95th percentile +94.7 to +113.5), 304 pictures
+    joint 4 +80 to +100: picture top -84.0 from radial (5th to 95th percentile -95.8 to -75.3), 1138 pictures
+    joint 4 -80 to -100: picture top +83.2 from radial (5th to 95th percentile +75.2 to +94.6), 1043 pictures
+    joint 4 +50 to +80: picture top -59.0 from radial (5th to 95th percentile -73.0 to -46.1), 2966 pictures
+    joint 4 -50 to -80: picture top +58.3 from radial (5th to 95th percentile +45.5 to +72.9), 2343 pictures
+
+=== 3. Direction of travel in the picture (0 = to its top, + = to its left): share of moving steps (%) per sheet ===
+sheet_number    01    02    03    04    05    06   all  pictures
+picture_bin                                                     
+-150.0         0.5   2.1   2.5   2.7   3.4   4.6   2.8       449
+-120.0         1.2   3.3   5.6   4.7   4.3   2.7   4.3       684
+-90.0          4.8   5.2   8.7  11.0   6.6   7.8   8.4      1338
+-60.0          2.9  10.1  10.4   9.3   6.2   5.0   8.5      1357
+-30.0          6.4  13.5  12.7  12.1  11.1   8.4  11.7      1870
+ 0.0          52.6  25.4  24.3  24.2  26.7  18.0  25.1      4014
+ 30.0         16.3  17.4  15.2  12.3  12.9  13.8  14.1      2256
+ 60.0          4.8   9.2   9.7  10.1   6.5  10.6   9.2      1472
+ 90.0          5.2   6.1   6.5   8.1   9.1  16.3   8.4      1347
+ 120.0         1.2   3.3   2.0   2.9   6.0   6.8   3.6       582
+ 150.0         2.1   2.1   0.7   0.9   3.5   2.7   1.7       272
+ 180.0         1.9   2.5   1.7   1.6   3.7   3.3   2.3       367
+
+The same from the three-step path, share of rows (%):
+sheet_number        01    02    03    04    05    06   all  pictures
+path_picture_bin                                                    
+-150.0             0.6   2.2   1.9   2.3   3.3   4.5   2.5       398
+-120.0             1.7   3.3   4.6   4.4   4.3   4.0   4.1       649
+-90.0              3.0   4.5   8.0   8.5   6.2   6.6   7.1      1109
+-60.0              4.1   8.2  10.3   9.9   5.6   4.4   8.3      1300
+-30.0              5.4  13.2  15.2  13.4   9.8   8.3  12.4      1944
+ 0.0              58.3  32.8  26.8  26.9  31.6  19.5  28.7      4500
+ 30.0             14.2  18.9  17.9  15.2  12.1  15.7  15.9      2495
+ 60.0              5.0   7.0   9.6  12.2   5.6   9.1   9.3      1453
+ 90.0              4.1   4.7   3.5   4.8  10.0  16.8   6.6      1042
+ 120.0             1.9   2.8   1.1   1.4   5.4   6.4   2.7       427
+ 150.0             1.3   1.1   0.6   0.5   4.0   2.1   1.4       214
+ 180.0             0.4   1.2   0.3   0.5   2.0   2.6   1.0       160
+  three-step path within 30 degrees of the picture's top 45.7 %, 30 to 60 20.4 %, 60 to 120 (sideways in the picture) 26.0 %, beyond 120 (towards the picture's bottom, under the arm) 8.0 %
+
+=== 4. Gaps: travel direction from radial against reach (moving steps) ===
+
+pictures per cell (rows: reach in cm; columns: travel direction from radial):
+from_radial_deg  -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+reach_cm                                                                                                       
+12 to 20             26      20      71      75     182     570     237     101     115      29      26      55
+20 to 27.5          227     253     429     270     332    1003     419     213     441     181     134     296
+27.5 to 35          338     246     327     245     503    1167     559     289     543     283     307     485
+35 to 42.5          245     272     486     314     334     768     349     323     611     312     243     379
+42.5 to 49.5         34      29      67      23      35      35      13       8      52      21      22      36
+
+distinct lay-outs (from 01_placements) per cell (rows: reach in cm; columns: travel direction from radial):
+from_radial_deg  -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+reach_cm                                                                                                       
+12 to 20             12      14      21      21      24      36      30      20      24      14      14      17
+20 to 27.5           26      25      26      27      33      37      31      27      27      20      22      26
+27.5 to 35           30      34      30      33      40      40      36      35      34      28      27      32
+35 to 42.5           30      33      32      33      36      39      35      33      34      32      30      36
+42.5 to 49.5         11       5      11       8       9       9       4       6       9       8       7      10
+
+sheets per cell (rows: reach in cm; columns: travel direction from radial):
+from_radial_deg  -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+reach_cm                                                                                                       
+12 to 20              6       6       6       6       6       6       6       6       6       6       5       6
+20 to 27.5            6       6       6       6       6       6       6       6       6       6       6       6
+27.5 to 35            5       6       6       6       6       6       6       6       6       5       6       6
+35 to 42.5            6       6       6       6       6       6       6       6       6       6       6       6
+42.5 to 49.5          4       3       4       3       4       5       3       5       4       5       4       4
+
+share of the steps taken within 30 degrees of the picture's top per cell (rows: reach in cm; columns: travel direction from radial):
+from_radial_deg  -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+reach_cm                                                                                                       
+12 to 20           0.00    0.00    0.04    0.24    0.44    0.83    0.53    0.27    0.07    0.03    0.00     0.0
+20 to 27.5         0.03    0.14    0.30    0.65    0.65    0.76    0.61    0.46    0.36    0.14    0.00     0.0
+27.5 to 35         0.03    0.20    0.42    0.61    0.59    0.54    0.59    0.53    0.34    0.08    0.00     0.0
+35 to 42.5         0.01    0.14    0.49    0.70    0.55    0.53    0.43    0.65    0.48    0.07    0.00     0.0
+42.5 to 49.5       0.00    0.00    0.48    0.65    0.80    0.31    0.54    0.38    0.60    0.10    0.05     0.0
+
+Thin cells (under 100 pictures or under 3 lay-outs): 19 of 60
+    reach_cm  from_radial_deg  pictures  episodes  layouts  sheets
+    12 to 20           -150.0        26        20       12       6
+    12 to 20           -120.0        20        17       14       6
+    12 to 20            -90.0        71        43       21       6
+    12 to 20            -60.0        75        48       21       6
+    12 to 20            120.0        29        20       14       6
+    12 to 20            150.0        26        21       14       5
+    12 to 20            180.0        55        30       17       6
+42.5 to 49.5           -150.0        34        22       11       4
+42.5 to 49.5           -120.0        29        17        5       3
+42.5 to 49.5            -90.0        67        25       11       4
+42.5 to 49.5            -60.0        23        19        8       3
+42.5 to 49.5            -30.0        35        22        9       4
+42.5 to 49.5              0.0        35        16        9       5
+42.5 to 49.5             30.0        13         6        4       3
+42.5 to 49.5             60.0         8         7        6       5
+42.5 to 49.5             90.0        52        17        9       4
+42.5 to 49.5            120.0        21        12        8       5
+42.5 to 49.5            150.0        22        14        7       4
+42.5 to 49.5            180.0        36        22       10       4
+Share of all moving steps that lie in thin cells: 4.2 %
+
+=== 5. Travel direction from radial against joint 4 (moving steps, pictures) ===
+from_radial_bin    -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+joint_4_bin                                                                                                      
+(-120.001, -90.0]      66      17      14       6       5      31      23      45     225      88      54      82
+(-90.0, -60.0]         41      35      31      22      76     231     154     225     514     190     199     201
+(-60.0, -30.0]         54      45      40      57     126     437     376     287     280     235     187      99
+(-30.0, -10.0]         13      22      68      55     126     431     236      96     233      87      27      50
+(-10.0, 10.0]          21      33     168      68     197     988     318     118     270      38      11      36
+(10.0, 30.0]           65      69     189      67     225     680     208      85      96      20      19      72
+(30.0, 60.0]          183     234     263     284     404     422     164      47      45      33      77     156
+(60.0, 90.0]          292     221     401     300     167     261      74      25      57      89     102     350
+(90.0, 120.0]         135     144     206      68      60      62      24       6      42      46      56     205
+
+Travel direction in the picture against joint 4 (three-step paths, rows):
+path_picture_bin   -150.0  -120.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    120.0   150.0   180.0
+joint_4_bin                                                                                                      
+(-120.001, -90.0]       4       9      13      20      34     191     126      62      69      41      18       7
+(-90.0, -60.0]         19      19      63     100     180     510     369     243     225     105      50      21
+(-60.0, -30.0]         13      17      41     193     450     510     253     275     277     132      73      23
+(-30.0, -10.0]         17      29      24      97     274     529     143     140     155      45      32       8
+(-10.0, 10.0]          10      31      78      92     233    1019     393     170     136      37      14       7
+(10.0, 30.0]           54      78     123     106     113     585     438     146      43      19      17       5
+(30.0, 60.0]          115     154     249     239     250     466     439     202      33      13       4      30
+(60.0, 90.0]          130     239     386     272     251     478     232     155      66      16       3      46
+(90.0, 120.0]          36      73     132     181     159     212     102      60      38      19       3      13
+
+=== 6. The first five moving steps of every episode ===
+
+start mark: 148 episodes; start reach 14.1 to 14.8 cm (median 14.1); joint 4 at the start -0.7 to 1.5 (|joint 4| over 10 degrees in 0 episodes)
+  net direction of the first five moving steps, from radial: mean +6.7; within 20 degrees of radial 77, 20 to 45: 37, 45 to 90: 31, over 90: 3
+  the same in the first picture's frame: within 20 degrees of its top 77, 20 to 45: 37, 45 to 90: 31, over 90: 3
+  net travel of the five steps: median 5.24 cm of 5.56 cm stepped; forearm twist over the first 3 cm of travel: median |change| 9.8 degrees, over 20 degrees in 39 episodes
+
+taught (NE, MID, X): 61 episodes; start reach 16.0 to 37.7 cm (median 31.0); joint 4 at the start -88.6 to 70.0 (|joint 4| over 10 degrees in 33 episodes)
+  net direction of the first five moving steps, from radial: mean -2.3; within 20 degrees of radial 26, 20 to 45: 14, 45 to 90: 16, over 90: 5
+  the same in the first picture's frame: within 20 degrees of its top 42, 20 to 45: 14, 45 to 90: 5, over 90: 0
+  net travel of the five steps: median 4.51 cm of 5.26 cm stepped; forearm twist over the first 3 cm of travel: median |change| 6.8 degrees, over 20 degrees in 10 episodes
+
+Start-mark episodes by start kind (net direction of the first five moving steps from radial, degrees):
+            count   min  median   max
+start_kind                           
+OL1            10  -3.5    53.0  95.4
+OL1.5           8  -9.3    58.9  71.4
+OR1             9 -75.7   -41.2 -25.8
+OR1.5           8 -62.3   -44.0  21.9
+SQL            10 -94.5    53.8  99.3
+SQP             6 -19.0    -7.8  72.3
+STD            72 -31.5     5.8  39.7
+TL10            7 -36.6   -10.3  49.8
+TL15            6 -32.8    -0.2  39.0
+TR10            7 -54.4     7.0  19.3
+TR15            5  13.0    28.8  36.2
+
+Start-mark episodes whose first five steps go more than 45 degrees off radial, or that twist more than 20 degrees in the first 3 cm:
+ plan end start_kind  net_direction_from_radial_deg  net_cm  joint_4_change_first_3_cm_deg
+01-08   A       TR15                           27.8    5.00                           23.9
+02-10   B       TL10                           15.9    4.83                          -21.0
+02-13   B        SQP                          -16.2    4.27                          -21.1
+02-17   B        SQP                           72.3    3.98                            6.7
+02-19   A      OL1.5                           57.4    5.22                            3.9
+02-22   B      OL1.5                           46.1    5.45                            7.3
+02-37   A        SQL                          -76.1    2.91                          -38.3
+02-38   A        SQL                           55.0    0.48                          -41.0
+02-39   A        SQL                          -47.2    4.18                          -30.1
+02-40   A        SQL                          -94.5    4.32                          -20.6
+02-41   B        SQL                           52.6    3.06                           32.5
+02-42   B        SQL                           68.1    4.14                           23.4
+02-43   B        SQL                           86.5    4.55                           21.0
+02-44   B        SQL                           82.4    3.53                           28.8
+02-45   B        SQL                           99.3    3.01                           54.5
+03-04   A        STD                           18.6    3.35                          -54.1
+03-05   A        STD                           13.7    1.68                          -58.4
+03-06   A        OL1                           95.4    5.09                           12.6
+03-07   A        OR1                          -49.9    2.27                          -95.4
+03-18   B        OL1                           64.3    5.99                           15.4
+03-20   B       TL10                          -36.6    3.89                          -23.7
+03-21   B       TR10                           19.3    4.87                           23.3
+03-25   A        STD                            3.0    3.02                          -28.0
+03-27   A        STD                            7.0    4.58                          -35.0
+03-31   A      OL1.5                           69.2    5.40                            8.1
+03-32   A      OR1.5                          -60.2    3.47                          -35.2
+03-33   A       TL15                          -14.7    3.68                          -33.8
+03-34   B      OL1.5                           71.4    5.26                            9.8
+03-35   B      OR1.5                          -55.5    4.63                          -26.8
+03-36   B       TR15                           28.8    3.53                           26.0
+04-06   A        OL1                           88.2    5.95                            8.6
+04-07   A        OR1                          -25.8    3.14                          -44.2
+04-08   A       TL10                           49.8    4.84                           -5.1
+04-09   A       TR10                           17.8    3.89                           32.1
+04-19   A      OL1.5                           60.4    4.76                           15.5
+04-20   A      OR1.5                          -62.3    3.69                          -25.0
+04-22   A       TR15                           13.0    5.50                           21.6
+04-23   A        OL1                           53.9    6.74                           14.2
+04-24   A        OR1                          -39.9    3.77                          -33.5
+04-35   B        OL1                           46.8    6.14                            9.8
+04-36   B        OR1                          -52.6    4.40                          -36.7
+04-37   B       TL10                          -12.4    5.10                          -21.8
+04-38   B       TR10                          -54.4    5.53                          -15.7
+05-01   B        STD                           -6.0    4.68                          -22.2
+05-02   B        STD                            3.1    5.00                          -21.2
+05-07   B        OL1                           52.7    5.24                            9.7
+05-08   B        OR1                          -75.7    3.51                          -28.9
+05-20   B      OL1.5                           66.2    5.41                            6.7
+05-23   B       TR15                           36.2    5.71                           22.9
+03-01   A        STD                           39.1    2.20                          -49.1
+03-02   A        STD                           37.1    2.71                          -41.1
+03-03   A        STD                           10.2    4.55                          -52.3
+06-07   A        OL1                           53.4    6.12                            8.4
+06-08   A        OR1                          -60.8    4.82                          -17.1
+06-09   A       TL10                          -23.7    3.60                          -22.4
+06-16   B        STD                            7.7    4.44                           24.0
+06-19   B      OL1.5                           46.5    5.96                            6.5
+06-20   B      OR1.5                          -54.0    5.70                          -14.8
+
+Taught starts: direction from radial and forearm twist at the start, by sheet and kind:
+                      episodes  reach_cm  from_radial_deg  joint_4_start_deg
+sheet end start_kind                                                        
+01    A   NE                 6      31.4            -11.1                0.0
+02    B   NE                 9      36.7            -58.8               62.1
+03    A   MID                5      25.1              4.6               -0.1
+          NE                 5      28.9              5.1               -0.1
+      B   NE                 5      35.8             -0.2              -63.9
+04    A   MID                5      29.3            -22.7               -1.0
+          NE                 7      37.6             43.5              -45.5
+      B   NE                 3      31.0             -1.4               -3.9
+05    A   NE                 3      28.4             98.7              -88.6
+      B   X1                 3      23.1              0.1              -13.6
+          X2                 3      26.0            -61.1               56.9
+06    A   NE                 2      23.0              7.3               -6.5
+          X1                 3      16.0             -1.7                5.6
+      B   NE                 2      36.5             92.0              -76.8
+
+=== 7. The ten robot runs of 11.11.26 in the same terms ===
+ run sheet model                          outcome  steps  neighbours_median  steps_with_few_neighbours  first_step_with_few_neighbours reach_cm joint_4_deg from_radial_deg  steps_beyond_90_from_radial  steps_over_60_off_picture_top  share_in_thin_cells  fewest_pictures_in_a_visited_cell
+   1    01     A                  reached the end     25                368                          0                              -1 14 to 38    -4 to 10       -21 to 11                            0                              0                 0.00                                334
+   2    01     E                  reached the end     24                357                          0                              -1 15 to 38     6 to 14        -3 to 27                            0                              0                 0.00                                349
+   3    02     E      failed (lost the line, Esc)     38                 68                          5                              23 17 to 37   -39 to -1      -106 to 63                            5                             14                 0.00                                182
+   4    02     E                  reached the end     41                154                          0                              -1 15 to 40     8 to 86       -119 to 7                            9                              0                 0.00                                272
+   5    03     E failed (overshot the first bend)     59                 42                         18                              18 12 to 32   -71 to -6     -146 to 176                           19                             19                 0.29                                 20
+   6    04     E    failed (stuck at the hairpin)     68                 39                         15                              16 18 to 42   -12 to 17     -102 to 142                           16                             36                 0.00                                245
+   7    05     E                  reached the end     88                113                          2                              47 16 to 38   -73 to 57     -174 to 180                           31                             31                 0.00                                134
+   8    06     E    failed (left the dashed loop)     40                 80                          0                              -1 16 to 38    6 to 102     -177 to 179                           14                             10                 0.00                                182
+   9    03     E failed (overshot the first bend)     89                 53                         13                              16 14 to 40   -81 to 61     -162 to 174                           32                             37                 0.12                                 20
+  10    03     B failed (overshot the first bend)     73                 53                          5                              51 16 to 45   -71 to 36     -173 to 174                           20                             19                 0.15                                 23
+neighbours: demonstrated moving steps within 10 degrees of forearm twist, 15 degrees of travel direction from radial and 5 cm of reach; few = under 20. For scale, the demonstrations' own moving steps (each counted against all others):
+  median 74 neighbours; under 20: 10.7 % of 401 sampled steps
+
+Saved 02_coverage.png, 02_coverage_cells.csv, 02_first_five_steps.csv

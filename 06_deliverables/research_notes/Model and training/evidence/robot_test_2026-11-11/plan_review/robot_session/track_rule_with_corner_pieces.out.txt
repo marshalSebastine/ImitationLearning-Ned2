@@ -1,0 +1,9 @@
+track 1: kept after 157 attempts; length 35.9 cm; 5 corners; tightest bend 10.6 mm
+track 2: kept after 31 attempts; length 29.9 cm; 2 corners; tightest bend 10.5 mm
+track 3: kept after 10 attempts; length 52.8 cm; 4 corners; tightest bend 10.0 mm
+track 4: kept after 683 attempts; length 39.1 cm; 2 corners; tightest bend 10.2 mm
+track 5: kept after 779 attempts; length 39.7 cm; 4 corners; tightest bend 10.4 mm
+track 6: kept after 146 attempts; length 39.1 cm; 3 corners; tightest bend 8.5 mm
+
+6 of 6 tracks kept in 1 s with corner pieces (radius 8 to 13 mm, turn 60 to 120 degrees), the gap rule unchanged at 25 mm, no crossing
+for comparison, the six course sheets by the same 3-point measure (course_sheets_under_the_track_rule.out.txt): 6 mm (03), 6 mm (04), 20 mm (05), 10 mm (06)

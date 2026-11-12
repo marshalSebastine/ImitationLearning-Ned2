@@ -1,0 +1,38 @@
+(a) consecutive rows: 17533
+    label forearm_change_deg against measured joint-4 change to the next row: correlation 0.9985, median |difference| 0.089
+    heading change per degree of joint-4 change: slope -0.896, correlation -0.957
+    steps with |joint-4 change| > 4: heading change has the SAME sign in 0.003, opposite in 0.997
+(b) move_angle_deg against atan2(tip_left, tip_forward): median |difference| 0.002, 99th percentile 0.005 (steps longer than 0.05 cm: 17670)
+(c) demonstrated steps (longer than 0.05 cm): 17670; median |angle| 46.4; within 15: 0.238; within 45: 0.490; beyond 90: 0.237
+    pushing steps (0.7 cm or more): 12929; median |angle| 37.9; within 45: 0.541
+    length-weighted share of travel within 45 degrees of picture-up: 0.523; mean forward share of travel (sum forward / sum length): 0.469
+    path_01: median |angle| 15.0, within 45: 0.723
+    path_02: median |angle| 39.2, within 45: 0.548
+    path_03: median |angle| 44.8, within 45: 0.502
+    path_04: median |angle| 51.6, within 45: 0.457
+    path_05: median |angle| 44.1, within 45: 0.502
+    path_06: median |angle| 65.3, within 45: 0.400
+(d) within 90 degrees: correlation twist against travel angle 0.428, slope 0.0490 degrees of twist per degree
+    path_01: correlation 0.582
+    path_02: correlation 0.323
+    path_03: correlation 0.569
+    path_04: correlation 0.541
+    path_05: correlation 0.205
+    path_06: correlation 0.077
+    travel angle   45 to   90 (positive = picture-left): n  2481; twist > +1: 0.65; twist < -1: 0.20; mean twist +2.94
+    travel angle  -90 to  -45 (positive = picture-left): n  2355; twist > +1: 0.16; twist < -1: 0.64; mean twist -3.06
+    travel angle   15 to   45 (positive = picture-left): n  2425; twist > +1: 0.64; twist < -1: 0.15; mean twist +2.68
+    travel angle  -45 to  -15 (positive = picture-left): n  2035; twist > +1: 0.17; twist < -1: 0.59; mean twist -2.49
+(e) a twist of +1 degree turns the picture heading by -0.90 degrees; so 'turn the camera towards a travel direction on the picture-left (angle > 0)' asks for a twist of sign -1
+    demonstrated: on steps travelling 45 to 90 degrees to the picture-left the twist is positive (heading decreases: camera turns RIGHT, away from the travel) far more often than negative
+(f) robot runs: |model_angle_deg| median over the run, and in blocks of 10 pictures
+    run  1: median 5.6; blocks [5, 3, 11]
+    run  2: median 5.1; blocks [4, 7, 21]
+    run  3: median 28.6; blocks [8, 28, 71, 95]
+    run  4: median 15.8; blocks [15, 14, 24, 27, 32]
+    run  5: median 34.7; blocks [26, 102, 47, 109, 10, 17]
+    run  6: median 60.0; blocks [10, 49, 83, 87, 107, 41, 23]
+    run  7: median 21.3; blocks [8, 25, 70, 122, 49, 55, 71, 7, 6]
+    run  8: median 34.1; blocks [11, 35, 49, 73]
+    run  9: median 42.3; blocks [27, 72, 31, 113, 8, 18, 47, 88, 55]
+    run 10: median 45.9; blocks [42, 50, 49, 44, 13, 87, 89, 32]

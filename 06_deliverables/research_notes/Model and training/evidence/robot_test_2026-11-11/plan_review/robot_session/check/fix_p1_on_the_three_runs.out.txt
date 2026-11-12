@@ -1,0 +1,24 @@
+run 5: the traced line laid onto the run's ink map (mirrored False); middle cells of the ink band lie a median 1.3 mm from it (90th percentile 3.1 mm, largest 16.0 mm); the pictures saw the line up to 506 mm from the start cap
+   picture: mm along the line / mm from the centre line
+   0: 0/3  1: 6/6  2: 14/8  3: 23/6  4: 29/5  5: 35/2  6: 40/2  7: 44/7  8: 46/10  9: 50/14  10: 52/16  11: 52/17  12: 56/16  13: 57/14  14: 61/7  15: 65/2  16: 69/10  17: 74/18  18: 80/26  19: 84/33  20: 90/36  21: 96/38  22: 100/41  23: 102/38  24: 106/37  25: 112/35  26: 116/33  27: 120/30  28: 122/27  29: 123/24  30: 122/23  31: 124/21  32: 125/17  33: 124/11
+   window to 6.0 cm past the apex (to 99 mm of line, pictures 0 to 21; the second bend begins at 104 mm): 12 mm: FAIL at picture 10; 17 mm: FAIL at picture 18; largest distance in the window 37.6 mm
+   window to 6.5 cm past the apex (to 104 mm of line, pictures 0 to 23; the second bend begins at 104 mm): 12 mm: FAIL at picture 10; 17 mm: FAIL at picture 18; largest distance in the window 40.7 mm
+   window to 8.0 cm past the apex (to 119 mm of line, pictures 0 to 26; the second bend begins at 104 mm): 12 mm: FAIL at picture 10; 17 mm: FAIL at picture 18; largest distance in the window 40.7 mm
+   window to 10.0 cm past the apex (to 139 mm of line, pictures 0 to 46; the second bend begins at 104 mm): 12 mm: FAIL at picture 10; 17 mm: FAIL at picture 18; largest distance in the window 48.0 mm
+
+run 9: the traced line laid onto the run's ink map (mirrored False); middle cells of the ink band lie a median 1.3 mm from it (90th percentile 3.1 mm, largest 20.5 mm); the pictures saw the line up to 497 mm from the start cap
+   picture: mm along the line / mm from the centre line
+   0: 0/3  1: 1/1  2: 11/2  3: 19/1  4: 27/1  5: 33/2  6: 38/5  7: 42/8  8: 45/10  9: 48/10  10: 50/10  11: 56/8  12: 63/4  13: 70/1  14: 79/4  15: 85/11  16: 92/18  17: 97/24  18: 101/29  19: 103/30  20: 104/31  21: 108/31  22: 111/29  23: 114/28  24: 118/25  25: 120/23  26: 120/20  27: 120/20  28: 120/19  29: 121/16  30: 122/11  31: 116/12  32: 112/4  33: 103/1
+   window to 6.0 cm past the apex (to 99 mm of line, pictures 0 to 17; the second bend begins at 104 mm): 12 mm: FAIL at picture 17; 17 mm: FAIL at picture 17; largest distance in the window 24.5 mm
+   window to 6.5 cm past the apex (to 104 mm of line, pictures 0 to 20; the second bend begins at 104 mm): 12 mm: FAIL at picture 17; 17 mm: FAIL at picture 17; largest distance in the window 31.0 mm
+   window to 8.0 cm past the apex (to 119 mm of line, pictures 0 to 24; the second bend begins at 104 mm): 12 mm: FAIL at picture 17; 17 mm: FAIL at picture 17; largest distance in the window 31.0 mm
+   window to 10.0 cm past the apex (to 139 mm of line, pictures 0 to 44; the second bend begins at 104 mm): 12 mm: FAIL at picture 17; 17 mm: FAIL at picture 17; largest distance in the window 44.0 mm
+
+run 10: the traced line laid onto the run's ink map (mirrored False); middle cells of the ink band lie a median 1.2 mm from it (90th percentile 2.9 mm, largest 5.7 mm); the pictures saw the line up to 497 mm from the start cap
+   picture: mm along the line / mm from the centre line
+   0: 1/0  1: 8/4  2: 17/4  3: 24/4  4: 29/5  5: 33/4  6: 38/2  7: 42/1  8: 46/1  9: 54/1  10: 63/2  11: 69/0  12: 77/0  13: 86/0  14: 96/1  15: 104/4  16: 113/5  17: 119/6  18: 124/6  19: 130/7  20: 135/8  21: 140/10  22: 144/13  23: 147/12  24: 152/11  25: 156/8  26: 161/5  27: 164/0  28: 166/9  29: 167/19  30: 171/28  31: 179/37  32: 188/45  33: 195/52
+   window to 6.0 cm past the apex (to 99 mm of line, pictures 0 to 14; the second bend begins at 104 mm): 12 mm: PASS; 17 mm: PASS; largest distance in the window 4.7 mm
+   window to 6.5 cm past the apex (to 104 mm of line, pictures 0 to 15; the second bend begins at 104 mm): 12 mm: PASS; 17 mm: PASS; largest distance in the window 4.7 mm
+   window to 8.0 cm past the apex (to 119 mm of line, pictures 0 to 17; the second bend begins at 104 mm): 12 mm: PASS; 17 mm: PASS; largest distance in the window 5.7 mm
+   window to 10.0 cm past the apex (to 139 mm of line, pictures 0 to 20; the second bend begins at 104 mm): 12 mm: PASS; 17 mm: PASS; largest distance in the window 7.6 mm
+

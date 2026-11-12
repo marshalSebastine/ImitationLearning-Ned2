@@ -1,0 +1,31 @@
+start-mark demonstrations with a puck found: 131 of 148; with a clean line reading (spread 12 degrees or less): 15
+
+Direction in which the line leaves the puck in the first picture (0 = straight away from the robot, + = to its left), clean readings:
+                  count   min  median   max
+sheet start_kind                           
+01    STD             4  -8.0    -7.0  -6.0
+      TR15            1 -22.0   -22.0 -22.0
+02    OL1.5           2 -26.0   -22.0 -17.0
+      SQL             1 -84.0   -84.0 -84.0
+      SQP             1  66.0    66.0  66.0
+      STD             2  -7.0     3.0  13.0
+03    OR1             1   1.0     1.0   1.0
+04    STD             1 -12.0   -12.0 -12.0
+05    STD             1  -3.0    -3.0  -3.0
+      TL15            1 -27.0   -27.0 -27.0
+
+all clean readings: within 20 degrees of straight away 10, 20 to 40: 3, over 40: 2 (largest 84); over 40 by kind: {'SQP': 1, 'SQL': 1}
+
+The ten robot runs, first picture:
+  run 1 (sheet 01): puck (17.2, -0.5), line leaves at -141 degrees (spread 73, 144 pixels); demonstrations of this sheet: -22 to -6 (5 clean); inside that range: False; nearest: 01-08 TR15 (-22), 01-14 STD (-8), 01-16 STD (-7)
+  run 2 (sheet 01): puck (17.2, -0.3), line leaves at +nan degrees (spread nan, 0 pixels); demonstrations of this sheet: -22 to -6 (5 clean); inside that range: None; nearest: no line reading
+  run 3 (sheet 02): puck (18.8, -1.6), line leaves at +53 degrees (spread 4, 1799 pixels); demonstrations of this sheet: -84 to +66 (6 clean); inside that range: True; nearest: 02-14 SQP (+66), 02-06 STD (+13), 02-01 STD (-7)
+  run 4 (sheet 02): puck (18.6, 2.0), line leaves at +3 degrees (spread 19, 1836 pixels); demonstrations of this sheet: -84 to +66 (6 clean); inside that range: True; nearest: 02-01 STD (-7), 02-06 STD (+13), 02-19 OL1.5 (-17)
+  run 5 (sheet 03): puck (15.6, 0.6), line leaves at +nan degrees (spread nan, 0 pixels); demonstrations of this sheet: +1 to +1 (1 clean); inside that range: None; nearest: no line reading
+  run 6 (sheet 04): puck (21.0, 1.1), line leaves at +11 degrees (spread 6, 1906 pixels); demonstrations of this sheet: -12 to -12 (1 clean); inside that range: False; nearest: 04-17 STD (-12)
+  run 7 (sheet 05): puck (18.6, 1.7), line leaves at +12 degrees (spread 4, 1787 pixels); demonstrations of this sheet: -27 to -3 (2 clean); inside that range: False; nearest: 05-18 STD (-3), 05-22 TL15 (-27)
+  run 8 (sheet 06): puck (19.0, 0.2), line leaves at +104 degrees (spread 4, 608 pixels); demonstrations of this sheet: +nan to +nan (0 clean); inside that range: False; nearest: 
+  run 9 (sheet 03): puck (17.8, -1.0), line leaves at -119 degrees (spread 6, 431 pixels); demonstrations of this sheet: +1 to +1 (1 clean); inside that range: False; nearest: 03-19 OR1 (+1)
+  run 10 (sheet 03): puck (18.8, 0.0), line leaves at +28 degrees (spread 17, 2785 pixels); demonstrations of this sheet: +1 to +1 (1 clean); inside that range: False; nearest: 03-19 OR1 (+1)
+
+Verifier note: this line finder gave a clean reading (spread 12 degrees or less) in only 15 of 131 demonstration first pictures, where the puck lies 5 cm or more ahead and shadows join the line; and the readings of runs 1, 8, 9 and 10 are not trustworthy (dashes, large spread or few pixels). Only the readings of runs 3, 4, 6 and 7 and of plans 02-14, 02-18 and 02-01 were used in the verdicts; the lay-outs of the other runs were checked by eye (run 8 against plan 06-01).

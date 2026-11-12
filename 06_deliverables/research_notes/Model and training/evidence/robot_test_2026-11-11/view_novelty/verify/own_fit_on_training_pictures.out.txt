@@ -1,0 +1,15 @@
+MODEL E ON ITS OWN TRAINING PICTURES, by kind of demonstrated step (moving rows only)
+kind                  pictures  share   label length cm  answer length cm  direction error deg: median  75 %   share over 45 deg   label twist  answer twist (median size)
+straight push             4356    25 %             1.16              0.92                           11    21                9 %          1.7           2.1
+sideways push             5814    33 %             1.15              0.77                           24    46               26 %          2.5           2.1
+turn in place             3105    17 %             0.28              0.51                           38    73               44 %          6.3           5.8
+short without twist        135     1 %             0.26              0.35                           34    86               43 %          0.3           0.4
+all moving rows          17773   100 %             1.06              0.75                           20    43               23 %          4.2           3.0
+
+the same by sheet, sideways pushes only (direction error in degrees: median, share over 45)
+   path_01:   114 pictures, median  48, over 45 degrees  54 %, answer length median 0.70 cm against label 1.14 cm
+   path_02:   966 pictures, median  36, over 45 degrees  42 %, answer length median 0.72 cm against label 1.13 cm
+   path_03:  1221 pictures, median  24, over 45 degrees  28 %, answer length median 0.75 cm against label 1.14 cm
+   path_04:  1738 pictures, median  25, over 45 degrees  25 %, answer length median 0.74 cm against label 1.15 cm
+   path_05:   967 pictures, median  21, over 45 degrees  19 %, answer length median 0.86 cm against label 1.17 cm
+   path_06:   808 pictures, median  15, over 45 degrees  12 %, answer length median 0.83 cm against label 1.15 cm

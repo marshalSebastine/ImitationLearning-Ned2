@@ -1,0 +1,16 @@
+the generator's rule today: tightest bend 35 mm, smallest gap between parts that are not neighbours 25 mm (parts more than 50 mm apart along the line), length 24 to 77 cm, centre at least 22 mm from the paper's edge, pieces of constant bend 30 to 140 mm long, dashes 35 mm with 15 mm gaps
+
+sheet | length cm | tightest bend, mm (generator's own 3-point measure on the traced line, and on the line smoothed over 7 mm) | crossings | smallest gap mm (parts more than 50 mm apart) | would the rule keep it?
+  01  |  23.3 | 1669.6 raw, 3181.8 smoothed | 0 |  52.0 | kept
+  02  |  31.3 |  55.9 raw,  64.0 smoothed | 0 |  51.4 | kept
+  03  |  50.7 |   5.6 raw,   6.0 smoothed | 0 |  26.6 | REFUSED: bend tighter than 35 mm
+  04  |  72.4 |   5.3 raw,   5.6 smoothed | 0 |  26.3 | REFUSED: bend tighter than 35 mm
+  05  |  56.6 |  19.5 raw,  20.3 smoothed | 1 |  28.0 | REFUSED: bend tighter than 35 mm
+  06  |  46.6 |   9.6 raw,  10.3 smoothed | 1 |  38.5 | REFUSED: bend tighter than 35 mm
+
+how far one piece of constant bend turns [calculated: piece length / radius]:
+   radius   35 mm:   49 to  229 degrees; a half turn (hairpin) at this radius leaves its two legs 70 mm apart, the rule asks for 25 mm
+   radius   22 mm:   78 to  365 degrees; a half turn (hairpin) at this radius leaves its two legs 44 mm apart, the rule asks for 25 mm
+   radius   13 mm:  132 to  617 degrees; a half turn (hairpin) at this radius leaves its two legs 26 mm apart, the rule asks for 25 mm
+   radius   10 mm:  172 to  802 degrees; a half turn (hairpin) at this radius leaves its two legs 20 mm apart, the rule asks for 25 mm
+   radius    8 mm:  215 to 1003 degrees; a half turn (hairpin) at this radius leaves its two legs 16 mm apart, the rule asks for 25 mm

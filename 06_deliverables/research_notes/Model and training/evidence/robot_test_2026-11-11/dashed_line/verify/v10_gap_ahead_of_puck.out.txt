@@ -1,0 +1,42 @@
+sheet 06: 1847 cleaned pictures placed on the line (1245 in the loop)
+pictures by what lies in the first centimetre beyond the puck (measured in the picture):
+ahead                dash ahead  edge of a dash  gap ahead  not visible
+part                                                                   
+after the loop               10               4          8          272
+before the crossing         101              61        138            8
+in the loop                 250              94        165          736
+
+path direction within 45 degrees by class, models that never saw sheet 06 (scored rows only):
+model                               A recipe  E recipe  E recipe, seed 2
+part        class                                                       
+in the loop dash ahead                 0.844     0.889             0.858
+            edge of a dash             0.759     0.920             0.793
+            gap ahead                  0.813     0.833             0.793
+            hardly any ink ahead       0.750     0.750             0.728
+            ink ahead in view          0.809     0.839             0.818
+            line ahead not in view     0.727     0.773             0.748
+            not visible                0.757     0.769             0.769
+whole line  dash ahead                 0.888     0.918             0.897
+            edge of a dash             0.847     0.947             0.860
+            gap ahead                  0.894     0.894             0.884
+            hardly any ink ahead       0.800     0.661             0.739
+            ink ahead in view          0.866     0.827             0.825
+            line ahead not in view     0.738     0.762             0.744
+            not visible                0.795     0.701             0.729
+
+pictures and one standard error per class (E recipe):
+       part                  class  pictures  standard_error
+in the loop             dash ahead       225           0.021
+in the loop         edge of a dash        87           0.029
+in the loop              gap ahead       150           0.030
+in the loop            not visible       642           0.017
+in the loop   hardly any ink ahead        92           0.045
+in the loop      ink ahead in view       726           0.014
+in the loop line ahead not in view       286           0.025
+ whole line             dash ahead       329           0.015
+ whole line         edge of a dash       150           0.018
+ whole line              gap ahead       293           0.018
+ whole line            not visible       852           0.016
+ whole line   hardly any ink ahead       115           0.044
+ whole line      ink ahead in view      1189           0.011
+ whole line line ahead not in view       320           0.024

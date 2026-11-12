@@ -1,0 +1,73 @@
+place,answer,path rows,median_error_deg,within_45,beyond_90
+straight,"exact step (recipe E, held-out sheet)",1962,10.6,0.897,0.015
+straight,"chunk, 1 step ahead (recipe E)",1962,10.5,0.891,0.014
+straight,"chunk, 3 steps ahead (recipe E)",1962,10.0,0.896,0.014
+straight,"chunk, 5 steps ahead (recipe E)",1962,9.8,0.891,0.014
+straight,"exact step (recipe A, held-out sheet)",1962,11.3,0.866,0.014
+straight,exact step (backup model),1962,11.7,0.875,0.012
+straight,"exact step (model E itself, pictures it was trained on)",1962,7.5,0.958,0.003
+straight,"chunk, 3 steps ahead (model E itself, trained on)",1962,6.8,0.961,0.002
+straight,"names, most likely (backup)",1962,15.3,0.792,0.047
+straight,"names, mean direction (backup)",1962,14.2,0.832,0.023
+straight,always forward,1962,14.6,0.779,0.091
+straight,the demonstrated step itself,1962,10.3,0.894,0.014
+gentle bend,"exact step (recipe E, held-out sheet)",6052,19.0,0.795,0.047
+gentle bend,"chunk, 1 step ahead (recipe E)",6052,18.7,0.793,0.047
+gentle bend,"chunk, 3 steps ahead (recipe E)",6052,17.4,0.806,0.043
+gentle bend,"chunk, 5 steps ahead (recipe E)",6052,17.0,0.808,0.039
+gentle bend,"exact step (recipe A, held-out sheet)",6052,18.5,0.781,0.048
+gentle bend,exact step (backup model),6052,20.1,0.782,0.053
+gentle bend,"exact step (model E itself, pictures it was trained on)",6052,11.7,0.927,0.009
+gentle bend,"chunk, 3 steps ahead (model E itself, trained on)",6052,10.6,0.935,0.008
+gentle bend,"names, most likely (backup)",6052,25.8,0.686,0.107
+gentle bend,"names, mean direction (backup)",6052,23.3,0.738,0.08
+gentle bend,always forward,6052,30.0,0.601,0.212
+gentle bend,the demonstrated step itself,6052,16.3,0.854,0.02
+sharp bend,"exact step (recipe E, held-out sheet)",4828,21.0,0.79,0.044
+sharp bend,"chunk, 1 step ahead (recipe E)",4828,21.2,0.794,0.044
+sharp bend,"chunk, 3 steps ahead (recipe E)",4828,21.1,0.793,0.041
+sharp bend,"chunk, 5 steps ahead (recipe E)",4828,22.5,0.785,0.037
+sharp bend,"exact step (recipe A, held-out sheet)",4828,24.0,0.748,0.052
+sharp bend,exact step (backup model),4828,23.5,0.756,0.058
+sharp bend,"exact step (model E itself, pictures it was trained on)",4828,12.8,0.938,0.01
+sharp bend,"chunk, 3 steps ahead (model E itself, trained on)",4828,10.7,0.948,0.008
+sharp bend,"names, most likely (backup)",4828,27.6,0.667,0.104
+sharp bend,"names, mean direction (backup)",4828,25.4,0.708,0.086
+sharp bend,always forward,4828,45.4,0.498,0.199
+sharp bend,the demonstrated step itself,4828,18.5,0.827,0.022
+hairpin,"exact step (recipe E, held-out sheet)",544,26.9,0.8,0.022
+hairpin,"chunk, 1 step ahead (recipe E)",544,26.3,0.801,0.022
+hairpin,"chunk, 3 steps ahead (recipe E)",544,23.0,0.836,0.02
+hairpin,"chunk, 5 steps ahead (recipe E)",544,19.9,0.836,0.017
+hairpin,"exact step (recipe A, held-out sheet)",544,30.1,0.686,0.059
+hairpin,exact step (backup model),544,23.7,0.761,0.048
+hairpin,"exact step (model E itself, pictures it was trained on)",544,13.6,0.932,0.009
+hairpin,"chunk, 3 steps ahead (model E itself, trained on)",544,12.1,0.969,0.004
+hairpin,"names, most likely (backup)",544,29.7,0.649,0.077
+hairpin,"names, mean direction (backup)",544,27.5,0.691,0.074
+hairpin,always forward,544,31.0,0.607,0.057
+hairpin,the demonstrated step itself,544,21.5,0.75,0.059
+line end,"exact step (recipe E, held-out sheet)",504,46.8,0.478,0.133
+line end,"chunk, 1 step ahead (recipe E)",504,47.4,0.48,0.137
+line end,"chunk, 3 steps ahead (recipe E)",504,40.4,0.542,0.117
+line end,"chunk, 5 steps ahead (recipe E)",504,37.5,0.565,0.087
+line end,"exact step (recipe A, held-out sheet)",504,44.6,0.504,0.177
+line end,exact step (backup model),504,34.7,0.589,0.103
+line end,"exact step (model E itself, pictures it was trained on)",504,27.4,0.685,0.073
+line end,"chunk, 3 steps ahead (model E itself, trained on)",504,24.2,0.716,0.075
+line end,"names, most likely (backup)",504,39.5,0.567,0.188
+line end,"names, mean direction (backup)",504,34.2,0.645,0.117
+line end,always forward,504,79.9,0.329,0.425
+line end,the demonstrated step itself,504,24.0,0.744,0.056
+all places,"exact step (recipe E, held-out sheet)",13890,19.0,0.796,0.043
+all places,"chunk, 1 step ahead (recipe E)",13890,18.9,0.796,0.044
+all places,"chunk, 3 steps ahead (recipe E)",13890,18.2,0.806,0.04
+all places,"chunk, 5 steps ahead (recipe E)",13890,18.4,0.804,0.036
+all places,"exact step (recipe A, held-out sheet)",13890,20.2,0.768,0.05
+all places,exact step (backup model),13890,20.4,0.778,0.051
+all places,"exact step (model E itself, pictures it was trained on)",13890,11.7,0.926,0.011
+all places,"chunk, 3 steps ahead (model E itself, trained on)",13890,10.3,0.937,0.009
+all places,"names, most likely (backup)",13890,25.1,0.689,0.099
+all places,"names, mean direction (backup)",13890,23.1,0.735,0.075
+all places,always forward,13890,33.1,0.581,0.192
+all places,the demonstrated step itself,13890,16.5,0.843,0.022

@@ -1,0 +1,169 @@
+{
+ "rule": {
+  "page_mm": [
+   210.0,
+   297.0
+  ],
+  "line_width_mm": 10.0,
+  "dash_mm": 35.0,
+  "gap_mm": 15.0,
+  "edge_margin_mm": 22.0,
+  "length_mm": [
+   240.0,
+   770.0
+  ],
+  "smallest_radius_mm": 35.0,
+  "smallest_gap_mm": 25.0,
+  "smallest_crossing_deg": 45.0,
+  "near_end_mm": 45.0,
+  "far_end_mm": 90.0,
+  "start_from_bottom_mm": 70.0,
+  "control_points": [
+   3,
+   8
+  ],
+  "sets": {
+   "practice": 6,
+   "validation": 4,
+   "test": 10
+  },
+  "seed": 111126,
+  "attempts_per_track": 200000,
+  "output_folder": "D:\\AI_Project\\.claude\\worktrees\\training-analysis\\06_deliverables\\research_notes\\Model and training\\test_tracks"
+ },
+ "tracks": [
+  {
+   "name": "practice_03",
+   "set": "practice",
+   "is_dashed": false,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 264.0,
+   "smallest_radius_mm": 51.8,
+   "crossing_deg": null,
+   "end_from_edge_mm": 24.5,
+   "start_mm": [
+    69.2,
+    251.4
+   ],
+   "end_mm": [
+    176.2,
+    24.5
+   ]
+  },
+  {
+   "name": "practice_06",
+   "set": "practice",
+   "is_dashed": true,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 253.0,
+   "smallest_radius_mm": 69.9,
+   "crossing_deg": null,
+   "end_from_edge_mm": 32.7,
+   "start_mm": [
+    49.5,
+    248.6
+   ],
+   "end_mm": [
+    140.7,
+    32.7
+   ]
+  },
+  {
+   "name": "validation_01",
+   "set": "validation",
+   "is_dashed": false,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 281.0,
+   "smallest_radius_mm": 50.6,
+   "crossing_deg": null,
+   "end_from_edge_mm": 30.9,
+   "start_mm": [
+    68.7,
+    251.8
+   ],
+   "end_mm": [
+    179.1,
+    39.6
+   ]
+  },
+  {
+   "name": "validation_04",
+   "set": "validation",
+   "is_dashed": true,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 270.0,
+   "smallest_radius_mm": 84.3,
+   "crossing_deg": null,
+   "end_from_edge_mm": 25.6,
+   "start_mm": [
+    59.2,
+    265.7
+   ],
+   "end_mm": [
+    184.4,
+    42.4
+   ]
+  },
+  {
+   "name": "test_02",
+   "set": "test",
+   "is_dashed": true,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 279.0,
+   "smallest_radius_mm": 52.2,
+   "crossing_deg": null,
+   "end_from_edge_mm": 34.0,
+   "start_mm": [
+    114.0,
+    271.9
+   ],
+   "end_mm": [
+    106.8,
+    34.0
+   ]
+  },
+  {
+   "name": "test_05",
+   "set": "test",
+   "is_dashed": false,
+   "has_crossing": false,
+   "is_end_near": false,
+   "length_mm": 246.0,
+   "smallest_radius_mm": 39.7,
+   "crossing_deg": null,
+   "end_from_edge_mm": 90.9,
+   "start_mm": [
+    167.7,
+    273.4
+   ],
+   "end_mm": [
+    105.0,
+    90.9
+   ]
+  },
+  {
+   "name": "test_07",
+   "set": "test",
+   "is_dashed": false,
+   "has_crossing": false,
+   "is_end_near": true,
+   "length_mm": 249.0,
+   "smallest_radius_mm": 130.5,
+   "crossing_deg": null,
+   "end_from_edge_mm": 23.8,
+   "start_mm": [
+    43.5,
+    253.4
+   ],
+   "end_mm": [
+    121.7,
+    23.8
+   ]
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+THE CAMERA'S CREEP: the robot pictures slid sideways before model E sees them (negative = content to the left; -16 px undoes the creep since sheets 01 to 03 were recorded)
+
+Median distance to the 5 nearest training pictures, per slide (pictures with the puck still on the line; the smallest per run is marked *)
+run  sheet     view of that sheet's demonstrations   pictures |   -32 px    -24 px    -16 px     -8 px     +0 px     +8 px    +16 px
+  1  path_01   earlier                                    26 |  0.0301    0.0264    0.0261*   0.0320    0.0407    0.0467    0.0609 
+  2  path_01   earlier                                    25 |  0.0268    0.0201    0.0179*   0.0189    0.0230    0.0291    0.0397 
+  3  path_02   earlier                                     5 |  0.1362    0.1266    0.1163    0.1121    0.1096*   0.1141    0.1344 
+  4  path_02   earlier                                    42 |  0.0475    0.0467    0.0457*   0.0496    0.0531    0.0634    0.0739 
+  5  path_03   earlier                                     5 |  0.0789    0.0688    0.0708    0.0587*   0.0696    0.0868    0.1156 
+  6  path_04   72 % earlier                               16 |  0.1019    0.0984*   0.1079    0.1149    0.1110    0.1116    0.1224 
+  7  path_05   later                                      89 |  0.0600    0.0539*   0.0596    0.0541    0.0593    0.0625    0.0697 
+  8  path_06   later                                      11 |  0.0548    0.0481    0.0439    0.0347    0.0267*   0.0275    0.0330 
+  9  path_03   earlier                                     5 |  0.0661    0.0575    0.0562    0.0552*   0.0588    0.0676    0.0724 
+ 10  path_03   earlier                                     5 |  0.0707    0.0519    0.0510*   0.0567    0.0663    0.0824    0.0956 
+
+How far model E's answers move when the creep is undone (slide -16 px against no slide; the same pictures; medians, 90 % point in brackets)
+run  pictures | direction change deg | step vector change cm | asked length cm: as seen, creep undone | twist change deg (abs) | stop chance: largest change
+  1        26 |         3.4 ( 15.2) |         0.09 (0.19) |                      1.06,  1.08 |          0.49 (1.01) | 0.344
+  2        25 |         1.4 (  2.1) |         0.04 (0.07) |                      1.14,  1.12 |          0.32 (0.53) | 0.052
+  3         5 |         5.9 ( 13.0) |         0.07 (0.10) |                      0.41,  0.40 |          0.76 (1.18) | 0.097
+  4        42 |         2.9 ( 11.2) |         0.07 (0.17) |                      0.86,  0.87 |          0.15 (0.52) | 0.020
+  5         5 |         5.1 ( 12.8) |         0.06 (0.13) |                      0.58,  0.54 |          0.19 (1.14) | 0.000
+  6        16 |         2.7 (  9.2) |         0.05 (0.10) |                      0.73,  0.73 |          0.39 (0.80) | 0.001
+  7        89 |         3.6 ( 13.2) |         0.07 (0.15) |                      0.82,  0.85 |          0.34 (1.19) | 0.028
+  8        11 |         3.4 (  6.1) |         0.07 (0.15) |                      1.13,  1.09 |          1.03 (1.45) | 0.000
+  9         5 |         0.8 (  6.4) |         0.03 (0.07) |                      0.52,  0.54 |          0.32 (0.59) | 0.000
+ 10         5 |         3.2 (  9.1) |         0.06 (0.08) |                      0.64,  0.67 |          0.31 (0.47) | 0.000
+
+The first wrong decisions of the failed runs, as seen and with the creep undone (model E's answer: cm at degrees, twist)
+  run  3 step  0: as seen 0.36 at  -28, twist  -5.3  |  creep undone 0.40 at  -33, twist  -4.5
+  run  3 step  1: as seen 0.41 at   -4, twist  -4.9  |  creep undone 0.41 at  -10, twist  -4.5
+  run  3 step  2: as seen 0.49 at   +2, twist  -4.1  |  creep undone 0.43 at   -2, twist  -3.5
+  run  5 step  2: as seen 0.58 at  -22, twist  -1.6  |  creep undone 0.54 at  -38, twist  -3.2
+  run  5 step  3: as seen 0.47 at  -54, twist  -5.7  |  creep undone 0.43 at  -49, twist  -5.9
+  run  5 step  4: as seen 0.45 at  -50, twist  -5.9  |  creep undone 0.42 at  -42, twist  -6.0
+  run  6 step 14: as seen 0.53 at  -40, twist  -1.3  |  creep undone 0.48 at  -51, twist  -0.9
+  run  6 step 15: as seen 0.56 at  -59, twist  -1.8  |  creep undone 0.59 at  -62, twist  -2.6
+  run  6 step 16: as seen 0.53 at  -58, twist  -1.5  |  creep undone 0.49 at  -52, twist  -1.0
+  run  8 step  7: as seen 1.08 at  +19, twist  +5.1  |  creep undone 1.07 at  +20, twist  +5.9
+  run  8 step  8: as seen 1.07 at  +17, twist  +4.2  |  creep undone 1.06 at  +18, twist  +4.5
+  run  8 step  9: as seen 0.94 at  +24, twist  +5.2  |  creep undone 0.92 at  +24, twist  +5.4
+  run  9 step  2: as seen 0.52 at  -31, twist  -5.8  |  creep undone 0.54 at  -23, twist  -5.3
+  run  9 step  3: as seen 0.49 at  -31, twist  -6.0  |  creep undone 0.46 at  -34, twist  -6.0
+  run  9 step  4: as seen 0.46 at  -38, twist  -6.2  |  creep undone 0.44 at  -38, twist  -5.5
+  run 10 step  2: as seen 0.64 at  -23, twist  -3.1  |  creep undone 0.67 at  -24, twist  -3.0
+  run 10 step  3: as seen 0.52 at  -54, twist  -6.2  |  creep undone 0.48 at  -44, twist  -5.7
+  run 10 step  4: as seen 0.43 at  -36, twist  -6.2  |  creep undone 0.41 at  -43, twist  -5.9
+
+Which way the creep pushes the asked direction: the signed change of direction when the picture is slid (median over the pictures with the puck on the line; positive = more to the left)
+run  pictures | slide -32 px  slide -24 px  slide -16 px  slide  -8 px  slide  +8 px  slide +16 px
+  1        26 |         +2.1          +2.7          +1.7          +1.4          +0.2          -2.9
+  2        25 |         +0.1          +1.2          +1.0          +1.1          -1.4          -2.4
+  3         5 |         -9.4          -9.9          -4.1          +2.9          -9.2         -19.7
+  4        42 |         +0.8          +0.7          +1.1          +0.6          -0.5          -1.0
+  5         5 |         -4.3          -5.1          -1.7          -2.9          -1.8          -7.5
+  6        16 |         -7.3          -2.4          -1.1          +0.0          +0.1          +0.6
+  7        89 |         +2.1          +1.4          +1.6          +0.7          -0.6          -1.4
+  8        11 |         +2.2          +3.0          +3.4          +2.8          +0.0          -1.8
+  9         5 |         -2.6          -3.5          -0.2          -0.2          +0.3          +2.9
+ 10         5 |         +1.7          -1.8          -2.2          -1.0          -4.2         -11.3
+
+Run 1 with the model that drove it (model A): the asked direction with the creep undone against as seen, over its 26 pictures: median +2.5 degrees (positive = more to the left), middle half +1.8 to +3.8; steps 0 to 14: median +2.4
+
+written: camera_shift_counterfactual.csv

@@ -1,0 +1,32 @@
+
+sheet 05 (measured on the top view of run_7_folder; course photo: 56.6 cm cap to cap)
+    length_cm: 53.8
+    start_to_crossing_cm: 10.9
+    loop_length_cm: 31.5
+    crossing_to_far_end_cm: 11.4
+    loop_turn_deg: 309.0
+    loop_along_cm: 10.1
+    loop_across_cm: 10.6
+    loop_smallest_radius_cm: 1.8
+    loop_median_radius_cm: 6.9
+    loop_cm_tighter_than_3_cm_radius: 4.0
+    tightest_at_cm_after_crossing: 21.0
+    whole_line_smallest_radius_cm: 1.8
+sheet 06: reference laid onto plan 06-15 (started at end B): ink share under the dashes 0.78, under the gaps 0.30; ink or gap agrees with run 8 on 91.0 % of the line run 8 saw
+
+sheet 06 (measured on the top view of run_8_folder; course photo: 46.5 cm cap to cap)
+    length_cm: 45.6
+    start_to_crossing_cm: 6.8
+    loop_length_cm: 24.5
+    crossing_to_far_end_cm: 14.3
+    loop_turn_deg: -270.4
+    loop_along_cm: 8.8
+    loop_across_cm: 6.3
+    loop_smallest_radius_cm: 1.4
+    loop_median_radius_cm: 6.7
+    loop_cm_tighter_than_3_cm_radius: 2.7
+    tightest_at_cm_after_crossing: 10.7
+    whole_line_smallest_radius_cm: 1.4
+    dashes along the line, cm: 2.4, 2.3, 2.0, 1.9, 2.0, 1.9, 2.0, 1.9, 2.0, 1.9, 2.2, 1.9, 2.0, 1.9, 2.0, 1.4
+    gaps along the line, cm:   0.7, 0.9, 1.0, 0.9, 0.9, 1.2, 1.0, 0.9, 0.9, 1.0, 0.7, 1.0, 1.0, 1.0, 0.9
+    16 dashes; median dash 2.0 cm (the piece at the crossing counts once per pass), median gap 0.9 cm, ink on 69 % of the line's length

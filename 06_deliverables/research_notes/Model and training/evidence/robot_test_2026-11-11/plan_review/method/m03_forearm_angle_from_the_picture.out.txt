@@ -1,0 +1,47 @@
+A. Joint 4 read out of frozen ResNet-18 features by a least-squares fit, the scored sheet left out of the fit
+   rows: 18032; joint 4 over all rows: spread (standard deviation) 56.6 degrees, |joint 4| of 100 or more in 5.4 % of rows, of 60 or more in 36.5 %
+   features: one summary of the picture (512 numbers)
+      ridge  0.01 per row | 01: r +0.42, explained -0.92, median error 20 | 02: r +0.71, explained +0.51, median error 26 | 03: r +0.77, explained +0.57, median error 25 | 04: r +0.63, explained +0.40, median error 30 | 05: r +0.70, explained +0.50, median error 27 | 06: r +0.84, explained +0.52, median error 24
+         all sheets pooled: r +0.69, median error 27 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 89 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.62 (0.5 = chance)
+      ridge  0.10 per row | 01: r +0.41, explained -0.65, median error 18 | 02: r +0.70, explained +0.49, median error 26 | 03: r +0.75, explained +0.55, median error 25 | 04: r +0.60, explained +0.36, median error 32 | 05: r +0.69, explained +0.46, median error 29 | 06: r +0.81, explained +0.35, median error 29
+         all sheets pooled: r +0.65, median error 28 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 88 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.60 (0.5 = chance)
+         at a read-out size that 10 % of the other rows also reach (64 degrees), 19 % of the rows near the limit are found
+         sheet 02 lying square (SQP, SQL): 1081 rows, r +0.74, median error 26 degrees
+         sheet 02 standard starts: 701 rows, r +0.68, median error 24 degrees
+      ridge  1.00 per row | 01: r +0.35, explained -0.57, median error 18 | 02: r +0.66, explained +0.40, median error 31 | 03: r +0.72, explained +0.51, median error 27 | 04: r +0.53, explained +0.25, median error 37 | 05: r +0.64, explained +0.36, median error 31 | 06: r +0.75, explained +0.24, median error 29
+         all sheets pooled: r +0.58, median error 31 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 83 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.58 (0.5 = chance)
+   features: a grid of 16 cells (8,192 numbers, projected to 2,048)
+      ridge  0.01 per row | 01: r +0.57, explained -0.14, median error 12 | 02: r +0.87, explained +0.75, median error 16 | 03: r +0.89, explained +0.78, median error 16 | 04: r +0.82, explained +0.65, median error 19 | 05: r +0.87, explained +0.74, median error 19 | 06: r +0.90, explained +0.82, median error 15
+         all sheets pooled: r +0.85, median error 17 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 97 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.75 (0.5 = chance)
+      ridge  0.10 per row | 01: r +0.58, explained -0.32, median error 14 | 02: r +0.87, explained +0.75, median error 15 | 03: r +0.89, explained +0.78, median error 16 | 04: r +0.82, explained +0.65, median error 20 | 05: r +0.88, explained +0.76, median error 18 | 06: r +0.91, explained +0.82, median error 14
+         all sheets pooled: r +0.85, median error 17 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 97 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.74 (0.5 = chance)
+         at a read-out size that 10 % of the other rows also reach (71 degrees), 35 % of the rows near the limit are found
+         sheet 02 lying square (SQP, SQL): 1081 rows, r +0.89, median error 14 degrees
+         sheet 02 standard starts: 701 rows, r +0.82, median error 17 degrees
+      ridge  1.00 per row | 01: r +0.55, explained -0.53, median error 17 | 02: r +0.87, explained +0.73, median error 16 | 03: r +0.87, explained +0.74, median error 17 | 04: r +0.81, explained +0.61, median error 22 | 05: r +0.88, explained +0.75, median error 19 | 06: r +0.91, explained +0.78, median error 13
+         all sheets pooled: r +0.84, median error 18 degrees (always answering 0: 46); side right where the forearm is turned 60 or more: 97 %; 'within 17 degrees of the limit' told from the read-out's size: area under the curve 0.70 (0.5 = chance)
+
+B. The fold models on the sheets they never saw: twist asked against twist demonstrated, by where the forearm stands
+   ('towards the limit' = the twist has the sign of joint 4; negative = unwinding)
+   recipe E: 17773 step rows
+      |joint 4|        rows   shown mean   asked mean   shown unwinds 2 deg or more   of these the model also unwinds   shown winds on 2 or more   of these the model also winds on
+        0 to  30      6172        +0.43        +0.43                        29.2%                            76.8%                     37.5%                             85.7%
+       30 to  60      5104        +0.35        +0.62                        31.5%                            71.9%                     39.5%                             85.7%
+       60 to  90      4675        -0.05        +0.44                        30.6%                            68.4%                     32.4%                             80.1%
+       90 to 105      1190        -0.38        +0.08                        30.8%                            66.4%                     29.0%                             74.2%
+      105 to 121       632        -0.84        -0.06                        31.0%                            64.8%                     24.1%                             55.3%
+      windows of 10 rows (1687):
+         unwinding from 60 or more (net 30 or more towards zero): 240 windows; the model gives back 0.49 of the shown net turn, right sense in 85 % (per held-out sheet, windows in brackets: 01 0.39 (2), 02 0.44 (6), 03 0.67 (57), 04 0.52 (119), 05 0.04 (31), 06 0.35 (25))
+         winding on from under 60 (net 30 or more away from zero): 439 windows; the model gives back 0.53 of the shown net turn, right sense in 88 % (per held-out sheet, windows in brackets: 01 -0.13 (4), 02 0.61 (47), 03 0.59 (100), 04 0.55 (169), 05 0.33 (67), 06 0.53 (52))
+         every window with a net turn of 30 or more: 826 windows; the model gives back 0.51 of the shown net turn, right sense in 87 % (per held-out sheet, windows in brackets: 01 0.14 (7), 02 0.57 (65), 03 0.63 (205), 04 0.53 (347), 05 0.23 (112), 06 0.48 (90))
+   recipe A: 17773 step rows
+      |joint 4|        rows   shown mean   asked mean   shown unwinds 2 deg or more   of these the model also unwinds   shown winds on 2 or more   of these the model also winds on
+        0 to  30      6172        +0.43        +0.26                        29.2%                            80.9%                     37.5%                             83.8%
+       30 to  60      5104        +0.35        +0.39                        31.5%                            77.8%                     39.5%                             82.0%
+       60 to  90      4675        -0.05        +0.50                        30.6%                            72.0%                     32.4%                             78.7%
+       90 to 105      1190        -0.38        +0.06                        30.8%                            68.9%                     29.0%                             69.9%
+      105 to 121       632        -0.84        -0.44                        31.0%                            65.3%                     24.1%                             51.3%
+      windows of 10 rows (1687):
+         unwinding from 60 or more (net 30 or more towards zero): 240 windows; the model gives back 0.53 of the shown net turn, right sense in 88 % (per held-out sheet, windows in brackets: 01 0.61 (2), 02 0.53 (6), 03 0.70 (57), 04 0.52 (119), 05 0.23 (31), 06 0.44 (25))
+         winding on from under 60 (net 30 or more away from zero): 439 windows; the model gives back 0.51 of the shown net turn, right sense in 86 % (per held-out sheet, windows in brackets: 01 -0.13 (4), 02 0.73 (47), 03 0.68 (100), 04 0.45 (169), 05 0.44 (67), 06 0.34 (52))
+         every window with a net turn of 30 or more: 826 windows; the model gives back 0.52 of the shown net turn, right sense in 87 % (per held-out sheet, windows in brackets: 01 0.23 (7), 02 0.68 (65), 03 0.69 (205), 04 0.49 (347), 05 0.37 (112), 06 0.39 (90))

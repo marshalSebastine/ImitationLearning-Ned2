@@ -1,7 +1,9 @@
 # Training set-up analysis: what to build first, the backup, and the plan to the deadline
 
 **Date:** 9.11.26, written in the evening from the results on disk at 22:36; revised after midnight (10.11, about 00:50)
-after three independent critiques, with the runs that had finished by then.
+after three independent critiques, with the runs that had finished by then. Updated on 10.11.26 in the afternoon with
+the laptop runs that finished in the morning and the four runs trained that day on the OTH GPU pool computer ki-014
+(section 11.4).
 
 **Written by:** the Model and training session (Claude) for Emranul Hoque and Marshal Sebastine (Team M, Project 6,
 imitation learning on the Niryo Ned2).
@@ -12,11 +14,12 @@ imitation learning on the Niryo Ned2).
 |---|---|
 | Data audit and cleaning rules (section 3) | final: 165 findings, each re-checked by two independent checker agents |
 | Comparison code and settings (`02_code`, the `TRAINING_*` dictionaries in `config.py`) | final for this round; results in `04_runs` |
-| First set-up, the "final candidate" (section 2.1) | six test copies trained, each on five sheets and scored on the sixth, one training seed (finished 22:02). Not built yet: the exam copy trained on all six sheets, and the recording tool's model mode that lets a model drive |
+| First set-up, the "final candidate" (section 2.1) | six test copies trained, each on five sheets and scored on the sixth: on the laptop with one seed (finished 22:02 on 9.11) and on ki-014 with two seeds (10.11); confirmed first (2.5). Not built yet: the exam copy trained on all six sheets, and the recording tool's model mode that lets a model drive |
 | The earlier exact run (old rules) on all six sheets | finished 23:01; used in sections 2.1, 2.4 and A.4 |
 | Stop rule, executor rules, robot test plan (sections 4, 7, 9) | proposals; nothing has run on the robot |
-| Backup set-up and a second seed of the first set-up | the backup running since 01:09 on 10.11 (expected by about 03:30), then the second seed (by about 05:30) |
-| Other runs on the laptop | section 11.3: the mirror and chunk reruns finished at 00:04 and 01:08 with the same numbers as the first runs; the no-augmentation run follows the second seed (about 06:30); no number of a pending run is used or guessed here |
+| Backup set-up and a second seed of the first set-up | done 10.11. Backup: all six sheets on the laptop (finished 09:42) and on ki-014; it is behind the first set-up, and the rule of 2.5 says drop it (the team decides). Second seed: all six sheets on ki-014; on the laptop only sheets 01 to 04 before the queue was stopped |
+| Other runs | section 11.3: Emranul had the laptop queue stopped at about 11:05 on 10.11 to move the work to the GPU pool; the old-rules no-augmentation run ran on ki-014 instead. The fair augmentation test (the first set-up with only augmentation switched off, two seeds): done on ki-014 at about 13:05 on 10.11: switching augmentation off changes the six-sheet means by less than 1 point (two seeds each), but augmentation is ahead on the daylight episodes in all four seed pairings, so it stays (6.2) |
+| Where training runs | since 10.11 on the OTH GPU pool computer ki-014, about 10 times faster than the laptop (section 11.4); the robot will still run the model on the laptop |
 
 Nothing in this analysis ran on the robot and nothing in `03_data/raw` was changed. The model's only input is the one
 forearm camera, and its motion is learned from our own demonstrations only. Every choice below is a proposal: Emranul
@@ -32,8 +35,31 @@ and judges named below are Claude agents, not people. Technical words are explai
 
 ## 1. Summary for Emranul and Marshal
 
-*To act, read this section, 2.1, 2.5 and 9. Sections 3 to 8 are the evidence, 10 the open questions, 12 how to run the
-code and the glossary.*
+*To act, read this section, 2.1, 2.5 and 9. Sections 3 to 8 are the evidence, 10 the open questions, 11.4 the GPU pool,
+12 how to run the code and the glossary.*
+
+**In short, on 10.11.26** (all scores offline, on recorded pictures of sheets the model never trained on):
+
+- **The first set-up is confirmed.** Trained again on the GPU pool with two seeds (two random starts of the same
+  training), it points within 45 degrees of the demonstrated step on 68.1 % and 67.5 % of the moving pictures (the
+  laptop's run of 9.11: 67.8 %) [measured].
+- **The backup is behind.** The backup ("names plus exact", the same network with an extra output for the 8 move names)
+  is about 6 to 8 points (percentage points) lower on path within 45 (the share of pictures where the push points within
+  45 degrees of where the demonstrator's tip went in the next three steps) on both computers, so the rule fixed in 2.5
+  says drop it; Emranul and Marshal decide [measured; judgement].
+- **Stopping is the weak point.** Under the fixed stop rule (stop when the model's stop chance is 0.5 or more on two
+  pictures in a row) only 92 and 104 of 209 episodes stop in the right place on ki-014 (laptop: 102), and that count
+  moved by 12 between two seeds with the same settings [measured].
+- **Does augmentation (changing the light, blur and position of training pictures a little) help?**
+  Barely on our six sheets: the first set-up with only augmentation switched off scores within 1 point of the same
+  set-up with it (two seeds each), but on the 25 daylight episodes augmentation is ahead in all four seed pairings, by
+  about 2 points of step within 45 and 3 of path within 45 [measured]. It stays in the first set-up, because its main
+  aim, new light on exam day, is hardly tested by our sheets (6.2) [judgement].
+- **Training now runs on ki-014**, a computer of the OTH GPU pool (university computers with graphics cards, which
+  train networks much faster): one held-out sheet in about 2 minutes instead of about 19 on the laptop running alone
+  (11.4) [measured]. Model 1 for the first robot tests, trained there on all six sheets, is on the laptop (2.1).
+
+The details:
 
 - **The data** [measured]. 210 demonstrations, 18,522 rows (a row is one picture and the move recorded after it). The
   bookkeeping is right, but the hand-guided labels are noisy, 449 rows are pauses and episodes from one sitting are
@@ -43,24 +69,31 @@ code and the glossary.*
   network, pretrained on everyday photos and trained on our pictures, predicts from one camera picture the next step as
   numbers (tip forward, tip sideways, forearm twist) and the chance that this is the stop. On the robot it would step 1
   cm in that direction, twist within limits, keep wrist and hand at fixed values, and stop at a chance of 0.5 or more on
-  two pictures in a row. Six test copies exist, each trained on five sheets; the exam copy (all six sheets) and the
-  recording tool's *model mode*, which lets a model drive, are not built yet (4.6). Emranul's plan of 6.11 was the move
-  names first; switching is his and Marshal's decision (1.1).
-- **Offline scores** (recorded pictures of unseen sheets, not robot runs; one training seed, that is one random start)
-  [measured]. The push points within 45 degrees of where the demonstrator's tip went in the next three steps in 74 to 86
-  of 100 pictures (always straight ahead: 43 to 80). Of 209 held-out episodes it would stop within 2 cm of the
-  demonstrator's stop in 102, over 3 cm early in 25, 2 to 3 cm short in 13 and never in 69 (21 of 25 on the dashed
-  loop). In natural light its lead roughly halves (3.7). Only robot runs show how often it finishes [judgement].
-- **Backup: names plus exact** (results expected by about 03:30 on 10.11) [judgement of two judges]. The same network plus an output
+  two pictures in a row. Six test copies exist from the laptop (one seed) and twelve from ki-014 (two seeds), each
+  trained on five sheets; the exam copy (all six sheets) and the recording tool's *model mode*, which lets a model
+  drive, are not built yet (4.6). Emranul's plan of 6.11 was the move names first; switching is his and Marshal's
+  decision (1.1).
+- **Offline scores** (recorded pictures of unseen sheets, not robot runs; the laptop's run of 9.11, one training seed,
+  that is one random start; the two ki-014 seeds of 10.11 beside it) [measured]. The push points within 45 degrees of
+  where the demonstrator's tip went in the next three steps in 74 to 86 of 100 pictures (ki-014: 73 to 85; always
+  straight ahead: 43 to 80). Of 209 held-out episodes it would stop within 2 cm of the demonstrator's stop in 102, over
+  3 cm early in 25, 2 to 3 cm short in 13 and never in 69 (21 of 25 on the dashed loop); on ki-014 the two seeds stopped
+  right in 92 and 104, early in 30 and 30, and never in 82 and 71. In natural light its lead roughly halves (3.7). Only
+  robot runs show how often it finishes [judgement].
+- **Backup: names plus exact** [judgement of two judges; result measured on 10.11]. The same network plus an output
   for the 8 move names, steering by their average direction, aimed at the first set-up's weak spot, pushing backwards: on
   the backward-labelled moves of sheets 03, 05 and 06 an earlier names model pointed within 45 degrees on 0.66, the
-  first set-up on 0.43 [measured; one run each]. Whether that helps win back a puck that slid is not shown offline (2.2).
-- **Next steps** (owners are yours to agree). (0) Note what meeting 2 answered. (1) 10.11, once the laptop queue is done (about 06:30): run
-  `compare_runs.py`, which now also scores every run with the fixed two-in-a-row stop rule, and decide on the backup
-  with 2.5. (2) Build the model mode (no estimate exists), check
-  that it reproduces the saved predictions, try it in the tool's `--simulated` mode (the robot does not move) and write
-  the session-1 checklist (7.4). (3) Before meeting 3 on 23.11, send the professor questions 1, 3 and 5 of 10.1. Plan
-  with about 31 to 46 robot hours to 20.12.26 [calculated, partly from guesses; 8.4].
+  first set-up on 0.43 [measured; one run each]. Trained on all six sheets on 10.11, it lost about 6 to 8 points of path
+  within 45 against the first set-up on both computers, more than the 5-point drop line of 2.5, while its stop was about
+  level; whether it backs up better was not re-scored (2.2, 2.5).
+- **Next steps** (owners are yours to agree). (0) Note what meeting 2 answered. (1) Done 10.11: the backup and the
+  second seed are scored, with `compare_runs.py` on ki-014; decide on the backup with 2.5 (row 5 of 1.1). (2) On
+  ki-014: add a split with no held-out sheet to `train_policy.py` (a small code addition), train the exam model on all
+  six sheets with two seeds, and copy it to the laptop (9.1). (3) Build the model mode (no estimate exists), check that
+  it reproduces the saved predictions, try it in the tool's `--simulated` mode (the robot does not move) and write the
+  session-1 checklist (7.4); the first robot test only with Emranul's go and that checklist. (4) Before meeting 3 on
+  23.11, send the professor questions 1, 3 and 5 of 10.1. Plan with about 31 to 46 robot hours to 20.12.26
+  [calculated, partly from guesses; 8.4].
 
 ### 1.1 Decisions for Emranul and Marshal
 
@@ -69,10 +102,10 @@ code and the glossary.*
 | # | Decision | Proposal | Evidence | In the code? |
 |---|---|---|---|---|
 | 1 | Exact step instead of the move names first (changes Emranul's plan of 6.11) | exact step | 2.4, 4.1 | yes, in the final candidate |
-| 2 | Stop rule | fixed 0.5, two pictures in a row, the same for every model | 4.5 | no: the fold files and `compare_runs.py` report one picture at 0.5 and the tuned rules |
+| 2 | Stop rule | fixed 0.5, two pictures in a row, the same for every model | 4.5 | in the scoring only: since 10.11 the new fold files and `compare_runs.py` report it beside one picture at 0.5 and the tuned rules; no executor uses it yet |
 | 3 | Robot rules for the first tests | 1-cm step, twist clamped, joint 4 within 115 degrees, wrist and hand at fixed start values, step budget on | 2.1, 4.3 to 4.6 | no: the model mode does not exist |
 | 4 | What the robot does after a refused step | none proposed yet (stop, hand over to the operator, or a shorter step) | 2.1, 4.6 | no |
-| 5 | Keep, promote or drop the backup | the rules of 2.5 | 2.5 | run pending |
+| 5 | Keep, promote or drop the backup | drop it, as the rule of 2.5 says (about 6 to 8 points lower on path within 45 on both computers); the chunk target, rerun with the cleaning, becomes the backup candidate | 2.2, 2.5 | results in (10.11); your decision |
 | 6 | The audit cleaning (449 null rows dropped, 50 stops relabelled, score 1 kept) | as applied | 3.9, 10.3 | yes |
 | 7 | Who builds the model mode, by when, and how the weights reach the builder | none yet | 4.6, 9 | no |
 | 8 | Which professor questions go now, and who sends them | questions 1, 3 and 5 of 10.1 | 10.1 | no |
@@ -94,7 +127,8 @@ the last move. Both are offline scores on recorded pictures of a held-out sheet.
 
 ### 2.1 The first set-up: the final candidate
 
-Configured as `resnet18_final_candidate` in `config.py` (lines 1797 to 1804). "Final candidate" is only the run's name:
+Configured as `resnet18_final_candidate` in `config.py` (lines 1800 to 1807 on 10.11; the second seed,
+`resnet18_final_candidate_seed_2`, at line 1817). "Final candidate" is only the run's name:
 it is the first set-up, not a final model. Its six fold copies (one per held-out sheet) are for testing; the *exam
 model* would be a seventh copy, trained later on all six sheets with the same recipe.
 
@@ -112,9 +146,9 @@ model* would be a seventh copy, trained later on all six sheets with the same re
 
 | What | Where or how |
 |---|---|
-| Train it | from `D:\AI_Project\02_code` once this branch is there: `..\.venv\Scripts\python.exe train_policy.py resnet18_final_candidate` (all six held-out sheets; section 12.1) |
-| The six test copies | `04_runs/2026-11-09_resnet18_final_candidate/checkpoints/without_path_01.pt` to `_06.pt`, 51 MB each, each the copy that never saw that sheet; out of git and only on Emranul's laptop, so they must reach Marshal another way (for example a shared drive) |
-| The exam model | not trained: `train_policy.py` needs an "all sheets" option first (its arguments today: the run name, `--folds`, `--epochs`, `--train-row-limit`); about 1 to 1.5 hours per seed |
+| Train it | from `D:\AI_Project\02_code` once this branch is there: `..\.venv\Scripts\python.exe train_policy.py resnet18_final_candidate` (all six held-out sheets; section 12.1); faster on ki-014 (section 11.4 and `02_code/HOW_TO_RUN.md`) |
+| The six test copies | `04_runs/2026-11-09_resnet18_final_candidate/checkpoints/without_path_01.pt` to `_06.pt` (laptop, seed 1), 51 MB each, each the copy that never saw that sheet; the ki-014 copies of both seeds are in `04_runs/gpu_ki014/2026-11-09_resnet18_final_candidate/checkpoints/` and `..._seed_2/checkpoints/` (moved back from the graphics card to ordinary memory before saving, so the laptop, which has no graphics card, can load them). Out of git and only on Emranul's laptop and his ki-014 home folder, so they must reach Marshal another way (for example a shared drive) |
+| The exam model | Model 1 (the first set-up trained on all six sheets, 18,032 pictures, no check pictures; `split` "all" in `train_policy.py`; runs `resnet18_model_1_all_sheets` and `..._seed_2`) was trained on ki-014 on 10.11, 2.3 minutes per seed, and copied to the laptop: `04_runs/gpu_ki014/2026-11-10_resnet18_model_1_all_sheets*/checkpoints/all_sheets.pt` (not committed); it has no offline score of its own (every picture was used for training), the robot is its test. Retrained the same way after each correction round [measured] |
 | Loading a saved copy | no code in `02_code` does it yet; the training-settings exam-risk critic's `stress_test_final_candidate.py` (now in `evidence/design_review/training_settings/critic_exam_risk/`) loads the copies and reproduces their saved predictions exactly, a starting point for the model mode |
 | Preparing a camera picture | the 640 x 480 picture in RGB colour order, shrunk to 160 x 120 with `cv2.INTER_AREA` exactly as `training_dataset.py` line 436 does, then the ImageNet normalisation of `TRAINING_RUN_PARAMETERS["normalisation"]` |
 | Not built yet | the model mode with its nine missing pieces (4.6), and the hand-over to the exact-replay decider after a "reguide" |
@@ -122,13 +156,19 @@ model* would be a seventh copy, trained later on all six sheets with the same re
 
 **Why it comes first**
 
-- It is the only set-up trained in its final form and scored on all six held-out sheets: path within 45 0.735 to 0.856
-  (mean 0.786) and step within 45 0.632 to 0.779 (mean 0.678), above always forward on every sheet [measured; final
-  candidate fold files]; on the same pictures the path margin is 5.5 to 38.0 points [calculated by judge 1].
+- It was the only set-up trained in its final form and scored on all six held-out sheets on 9.11: path within 45 0.735
+  to 0.856 (mean 0.786) and step within 45 0.632 to 0.779 (mean 0.678), above always forward on every sheet [measured;
+  final candidate fold files]; on the same pictures the path margin is 5.5 to 38.0 points [calculated by judge 1].
+- **Confirmed on ki-014 with two seeds (10.11).** Seed 1: step within 45 0.681, path within 45 0.787 (worst sheet
+  0.738); seed 2: 0.675 and 0.772 (worst 0.732); path above always forward on every sheet in both [measured; fold files
+  in `04_runs/gpu_ki014/`]. It beat the backup on 5 of 6 sheets with both seeds, by 2.4 to 3.0 points of step within 45
+  and about 6 to 8 points of path within 45, while its two seeds differ by 0.6 and 1.5 points on the six-sheet means
+  [calculated]. Only six-sheet means are compared: on one sheet the two seeds differ by up to 3.6 points of step within
+  45 (2.5).
 - Its two main design choices are the firmest results of the comparison: training the whole network beat frozen
   features by 7.6 to 19.2 points of step within 45, and the exact step beat the move names on path within 45 and on the
   twist (section 2.4). [measured]
-- Its stop is at least as good as the other end-to-end runs', but the lead is inside the seed noise (under the 7-point
+- On 9.11 its stop was at least as good as the other end-to-end runs', but the lead is inside the seed noise (under the 7-point
   bar of section 6.1). On sheets 03, 05 and 06 it stopped right in 47 of 99 episodes at 0.5 with one picture (46 of 99,
   with 12 early and 36 never, under the proposed two in a row), against 42 of 100 for the same design without the
   cleaning and 18 to 41 for the class heads [measured; judge 1; one seed each]. On all six sheets the earlier exact run
@@ -136,20 +176,24 @@ model* would be a seventh copy, trained later on all six sheets with the same re
   (worst sheet 0.735 against 0.726), and at 0.5 with one picture 101 right, 41 early and 50 never of 209 against 90, 47
   and 59 of 208, a gain of 5.0 points of right stops [calculated from the fold files; one seed each, and the cleaning
   changes the test rows slightly]. So the cleaning and the last weights cost nothing measurable and may help the stop
-  [judgement].
-- It fits the laptop and the robot loop: 23.4 to 55.0 minutes per held-out sheet to train, 37.4 ms per picture (busy
-  laptop) against a 1.22 s robot step. [measured]
+  [judgement]. Against the backup under the fixed rule the stop is about level: 102 against 102 right on the laptop,
+  92 and 104 against 91 on ki-014 (2.5) [measured] (at one picture the backup stopped right slightly more often: 104
+  against 101 on the laptop, 110 against 103 and 104 on ki-014 [measured; fold files]).
+- It fits the laptop and the robot loop: 23.4 to 55.0 minutes per held-out sheet to train on a shared laptop (1.4 to
+  2.1 minutes on ki-014), 37.4 ms per picture (busy laptop) against a 1.22 s robot step. [measured]
 
-**Main risks.** The stop (102 of 209 right; 21 of 25 never on the dashed loop). Backing up: 647 of 1,894 (34 %) of the
-backward-labelled moves within 45 degrees, against 70 % of the other moves; about half of these moves are ordinary
-pushing seen through a turned camera, so this is not a direct measure of recovery after a drift [measured]. Light: in
+**Main risks.** The stop (102 of 209 right on the laptop, 92 and 104 for the two ki-014 seeds; 19 to 21 of 25 never on
+the dashed loop). Backing up: 647 of 1,894 (34 %) of the backward-labelled moves within 45 degrees, against 70 % of
+the other moves; about half of these moves are ordinary pushing seen through a turned camera, so this is not a direct
+measure of recovery after a drift [measured]. Light: in
 natural light its lead over always forward is about half that under the ceiling light, and the exam light is not known
 (3.7) [measured; calculated]. And everything closed loop, which no offline number shows [judgement].
 
 ### 2.2 The backup: names plus exact
 
-Configured as `resnet18_backup_names_plus_exact` (`config.py` lines 1806 to 1813); its six-fold run started at 01:09
-on 10.11 and is expected by about 03:30.
+Configured as `resnet18_backup_names_plus_exact` (`config.py` lines 1809 to 1816 on 10.11). Its six-fold run on the
+laptop started at 01:09 on 10.11 and finished at 09:42; the same run was trained on ki-014 the same day. Both are
+scored in the Result table below; the decision rule is in 2.5.
 
 | Part | Difference from the first set-up |
 |---|---|
@@ -157,7 +201,29 @@ on 10.11 and is expected by about 03:30.
 | What the robot executes | the direction is the names head's *mean direction*: the average of the 8 move directions, each weighted by how likely the model finds it; the twist comes from the exact head; length, clamps, wrist, hand and stop rule as in 2.1 |
 | Everything else | identical: picture, network, cleaning, augmentation, optimiser, 8 epochs, last weights, validation |
 
-**Why this backup**
+**Result (10.11.26)** [measured; fold files; differences calculated]:
+
+| Run (computer) | Step within 45, mean (worst sheet) | Path within 45, mean (worst sheet) | Twist sign, mean | Stop, fixed 0.5, two in a row: right / early / never of 209 |
+|---|---|---|---|---|
+| First set-up, seed 1 (laptop, 9.11) | 0.678 (0.632) | 0.786 (0.735) | 0.760 | 102 / 25 / 69 |
+| Backup (laptop, 10.11) | 0.641 (0.566) | 0.706 (0.630) | 0.754 | 102 / 25 / 74 |
+| First set-up, seed 1 (ki-014) | 0.681 (0.625) | 0.787 (0.738) | 0.773 | 92 / 30 / 82 |
+| First set-up, seed 2 (ki-014) | 0.675 (0.629) | 0.772 (0.732) | 0.758 | 104 / 30 / 71 |
+| Backup (ki-014) | 0.651 (0.579) | 0.710 (0.645) | 0.746 | 91 / 24 / 91 |
+
+- On path within 45, the measure ranked first (7.2), the backup is 8.0 points below the first set-up on the laptop and
+  7.7 and 6.3 points below the two seeds on ki-014; on step within 45 it is 3.7, 3.0 and 2.4 points below. Against
+  every first-set-up run it is lower on at least 5 of the 6 sheets on both measures (on ki-014 it is ahead only on the
+  straight sheet 01; on the laptop only on sheet 05, step within 45). [calculated]
+- Its stop is about level on right and early stops: the same 102 right and 25 early on the laptop; on ki-014 91 right
+  and 24 early, against 92 and 104 right and 30 early for the two seeds. But on ki-014 it never stopped more often (91
+  of 209 against 82 and 71). Its lean sign is about the same (0.858 against 0.847 and 0.849 on ki-014). [measured]
+- On sheet 02 its path within 45 (0.630 laptop, 0.645 ki-014) is below always forward's 0.657, so it fails the
+  offline gate of 7.2 there. [measured; calculated]
+- Not re-scored for the new runs: backing up and the first rows after a hand correction (the judges' scripts, appendix
+  A.6). So whether it backs up better end to end is not known.
+
+**Why this backup** (the case made on 9.11, before its results)
 
 - It aims at the first set-up's clearest measured weakness after the stop: pushing backwards. Backward-labelled moves
   within 45 degrees (this table is the reference for every backing-up number in the report):
@@ -176,27 +242,29 @@ on 10.11 and is expected by about 03:30.
   pictures within 45 degrees, the earlier exact model 169 (both on the old rules, like for like), the final candidate
   151 and always forward 138 [measured; judge 1].
 - It keeps the exact twist and the same stop output, so it should keep the camera turning on loops, where names-only
-  twist heads got the sign right on only 0.37 to 0.47 of the twisting rows [measured; the backup's own twist is
-  untested, so judgement].
+  twist heads got the sign right on only 0.37 to 0.47 of the twisting rows [measured; the backup's own twist was
+  untested on 9.11, so judgement]. It did: on 10.11 its twist sign was 0.754 (laptop) and 0.746 (ki-014) on the
+  six-sheet mean, close to the first set-up's [measured].
 - In the frozen probes the combined design matched the exact step at the same seed (step within 45 0.602 against
   0.591, path 0.677 against 0.673; the exact step's four-seed means are 0.603 and 0.691) and backed up better (0.363
   against 0.270). [measured]
 - It needs one configuration entry and, as far as the code was read, no new training code. [judgement; read in
   `config.py` and `train_policy.py`]
 
-**Main risks.** It has never been trained end to end. The separate names model, read the same way, gave up 4.6 points
-of path within 45 (0.744 against 0.790) [calculated by judge 1 from the two runs]. Over all 2,921 pictures after a hand
-correction on sheets 03, 05 and 06 the names model read as its most likely class and the exact model tied (0.605 and
-0.605), so better backing up has not yet shown as better recovery offline [measured; validation draft V4]. Counting all
-three back classes, the names model predicts backward moves on 22.1 % of the pictures against 13.6 % demonstrated, a
-risk of stepping back and forth (dithering) [measured].
+**Main risks** (written on 9.11, before its results). It had never been trained end to end. The risk was that, like
+the separate names model read the same way (which gave up 4.6 points of path within 45, 0.744 against 0.790
+[calculated by judge 1 from the two runs]), it would lose path within 45; on 10.11 this came true: it lost about 6 to 8
+points (result above). Over all 2,921 pictures after a hand correction on sheets 03, 05 and 06 the names model read as its most
+likely class and the exact model tied (0.605 and 0.605), so better backing up has not yet shown as better recovery
+offline [measured; validation draft V4]. Counting all three back classes, the names model predicts backward moves on
+22.1 % of the pictures against 13.6 % demonstrated, a risk of stepping back and forth (dithering) [measured].
 
 ### 2.3 All options, ranked (judge 1's order)
 
 | Rank | Set-up | State on 9.11 | Why this place | Main risk |
 |---|---|---|---|---|
 | 1 | Final candidate: exact step plus own stop, ResNet-18 trained end to end (2.1) | six held-out sheets, one seed | complete; at least as good a stop as any other end-to-end run on the shared sheets; best path and twist measured end to end | the stop; backing up; no closed-loop evidence |
-| 2 | Names plus exact on the same recipe (2.2) | six-fold run queued | aims at rank 1's weakest measured skill, backing up | never trained end to end; may lose path within 45 |
+| 2 | Names plus exact on the same recipe (2.2) | six-fold run queued (on 10.11: six sheets on the laptop and on ki-014, path within 45 0.706 and 0.710 against 0.772 to 0.787 for rank 1) | aims at rank 1's weakest measured skill, backing up | lost about 6 to 8 points of path within 45 on 10.11, so 2.5's rule drops it and rank 3 becomes the backup candidate |
 | 3 | Chunk of 5 future tip places, first step executed (judge 3's backup) | sheets 03, 05, 06 on the old rules | best path within 45 on 03 and 05 (0.837 and 0.795); on 06 0.770 against the final candidate's 0.810, so about +1.2 points over the three sheets (different test rows) | its stop: 31 of 100 right at 0.5 against 42 for the exact run, and on sheet 06 it never stopped in 24 of 25 episodes; needs a rerun with the cleaning and last weights |
 | 4 | Small network trained from scratch, exact step plus stop | only its names version was run | ties the ResNet-18 when both names heads are read as a mean direction; tiny and fast | its exact version never ran; pretrained weights are allowed anyway (question 10, answered 26.10.26) |
 | 5 | Names head with square-root weights and mirrored pictures | sheets 03, 05, 06 on the old rules | best after a hand correction (221 of 500 within 45 degrees); about level with the plain names head on backing up (0.68 against 0.71 with a straight forearm); best stop of the names heads (41 of 100) | twist sign 0.37 to 0.47 on the loops; mirrored pictures cannot occur with this camera; lost 4.1 points on sheet 06 |
@@ -238,16 +306,16 @@ names head with or without mirroring 6th, frozen 7th. The numbers are measured a
 | The head: a 3 x 4 grid, one hidden layer of 256, dropout 0.2 | Frozen probes: a linear head lost 7.8 points of step within 45, a 1,024-wide layer 1.9 (6.8); dropout in the head helped on real robots (Dasari et al. 2023) | measured (frozen); literature |
 | Huber loss | No comparison with another loss on our data | judgement (untested) |
 | Stop weight 10 | No other weight tested; with a fixed threshold it sets where 0.5 falls (6.3) | judgement (untested) |
-| The photometric augmentation | Ranges set from the measured light and colour of our pictures (6.2); its effect end to end is the pending no-augmentation run (11.3) | measured ranges; judgement |
-| Stop at a fixed 0.5, two in a row | Over all 209 held-out episodes: 102 right, 25 early, 69 never; the threshold tuned on validation episodes (two in a row) gave 98 right but 58 early; no rule tried stopped right in more than 105 | measured |
-| Backup: names plus exact | Backward moves 0.663 against 0.392 for the earlier exact model and 0.426 for the final candidate (03, 05, 06); first five rows after a correction 216 against 169 of 500 like for like, 151 for the final candidate; a tie (0.605) over all pictures after a correction | measured |
+| The photometric augmentation | Ranges set from the measured light and colour of our pictures (6.2); end to end it changes the six-sheet means by less than 1 point but is ahead on the daylight episodes with both seeds (fair test on ki-014, 10.11, 6.2); the old-rules no-augmentation run cannot answer it | measured ranges; judgement |
+| Stop at a fixed 0.5, two in a row | Over all 209 held-out episodes: 102 right, 25 early, 69 never (laptop); the threshold tuned on validation episodes (two in a row) gave 98 right but 58 early; no rule tried stopped right in more than 105. On ki-014 the two seeds gave 92 and 104 right, 30 and 30 early, 82 and 71 never (tuned, two in a row: 101 and 96 right) | measured |
+| Backup: names plus exact | Backward moves 0.663 against 0.392 for the earlier exact model and 0.426 for the final candidate (03, 05, 06); first five rows after a correction 216 against 169 of 500 like for like, 151 for the final candidate; a tie (0.605) over all pictures after a correction. Trained end to end on six sheets (10.11): path within 45 0.706 (laptop) and 0.710 (ki-014), about 6 to 8 points below the first set-up | measured |
 
 ### 2.5 When to switch to the backup
 
-**Offline, when the backup's six folds are in (expected by about 03:30 on 10.11)** [judgement; thresholds from judges 1 and 2]. The
-two-in-a-row stop, the backing-up counts and the first rows after a hand correction come from the judges' scripts
-(`judge_rescoring.py`, `judge2_checks.py`, `judge_recovery_checks.py`; appendix A.6), pointed at the new run names;
-`compare_runs.py` does not compute them yet.
+**Offline, when the backup's six folds are in** [judgement; thresholds from judges 1 and 2; written on 9.11, before the
+results]. The two-in-a-row stop is now scored by `compare_runs.py` and stored in every new fold file; the backing-up
+counts and the first rows after a hand correction still come from the judges' scripts (`judge_rescoring.py`,
+`judge2_checks.py`, `judge_recovery_checks.py`; appendix A.6), pointed at the new run names.
 
 - Keep it as the backup (judge 1's rule) if its path within 45 is at most about 3 points below the first set-up's
   0.786, its first rows after a hand correction are clearly better than the first set-up's (415 of 1,124 within 45
@@ -264,7 +332,31 @@ two-in-a-row stop, the backing-up counts and the first rows after a hand correct
   offline and only the robot can choose.
 - Before any robot time, the backup passes the same offline gate as the first set-up (section 7.2).
 
-**On the robot, after the first runs of the fold models on their own held-out sheets** [judgement; judges 1 and 2]:
+**What the rules give on 10.11.26** [measured numbers from 2.2; the reading is a judgement]:
+
+- Path within 45: the backup is 8.0 points below the first set-up on the laptop and 7.7 and 6.3 points below the two
+  seeds on ki-014, so it loses more than the 5-point drop line on both computers. The rule says: drop it.
+- Stop under the fixed rule: 102 right and 25 early on the laptop (the keep line of about 95 and 30 is met), 91 right
+  and 24 early on ki-014 (just under 95 right). The stop does not decide here; the path loss does.
+- Seeds: the first set-up's two ki-014 seeds differ by 0.6 points of step within 45 and 1.5 of path within 45 on the
+  six-sheet means, far less than the gap to the backup, so the two set-ups are not tied offline.
+- Seeds of the backup: it has one seed per computer, fewer than rule 2 of 6.9 asks for (two per setting). Its path
+  loss on ki-014 (6.3 to 7.7 points) is more than four times the first set-up's seed spread (1.5 points) [calculated],
+  so a second seed is unlikely to change the result [judgement]. A second ki-014 seed of the backup needs one more entry
+  in `config.py` and about 11 minutes, if Emranul and Marshal want it before deciding.
+- Gate (7.2): the backup's path within 45 on sheet 02 is below always forward on both computers, so it would not pass
+  the gate before robot time either.
+- So the first set-up stays first, and by the rule fixed in advance the backup is dropped; the chunk target, rerun with
+  the cleaning and the last weights on six sheets (9.1, item 7; now minutes on ki-014), becomes the backup candidate.
+  Emranul and Marshal decide (1.1, row 5). The backing-up counts were not re-scored; under this rule they cannot change
+  the result, because the path loss alone triggers the drop.
+- Compare only six-sheet means: on single sheets the two seeds of the same settings differ by up to 3.6 points of step
+  within 45 and 6.7 of path within 45 (sheet 06), and the right stops on one sheet by up to 7 of 45 (sheet 04).
+  [calculated]
+
+**On the robot, after the first runs of the fold models on their own held-out sheets** [judgement; judges 1 and 2; if
+the team drops "names plus exact", "the backup" below means whichever set-up replaces it, such as the rerun chunk
+target]:
 
 - Failures mostly lost pucks that need a backward move, or no recovery after a drift: run the backup's fold models the
   same way, then a paired comparison if both finish most runs, including starts with the puck laid beside the block
@@ -517,11 +609,13 @@ gives the twist, and the stop keeps its own output [read in the code].
 | Chunk of 5, first step (end to end, old rules) | 03, 05, 06 | 0.670 | 0.801 | 0.760 |
 | Exact step, final candidate (cleaned rows, last weights) | 03, 05, 06 | 0.671 | 0.788 | 0.770 |
 | Exact step, final candidate | all 6 | 0.678 | 0.786 (worst sheet 0.735) | 0.760 |
+| Exact step, final candidate, ki-014 seeds 1 and 2 (10.11) | all 6 | 0.681 and 0.675 | 0.787 and 0.772 (worst 0.738 and 0.732) | 0.773 and 0.758 |
+| Names plus exact, mean direction (the backup; cleaned rows, last weights), laptop and ki-014 (10.11) | all 6 | 0.641 and 0.651 | 0.706 and 0.710 (worst 0.630 and 0.645) | 0.754 and 0.746 |
 
 [measured; frozen probes in `04_runs/2026-11-09_frozen_feature_probes/designs.json` and `seeds.json`; end-to-end runs in
-their fold files `fold_without_path_XX.json` (a run trained in parts keeps only its last part in `metrics.json`); "old
-rules" means no audit cleaning and the best-validation weights (the network as it was at the epoch with the lowest
-validation loss); twist sign means are the means of the per-sheet values]
+their fold files `fold_without_path_XX.json` (a run trained in parts keeps only its last part in `metrics.json`); the
+ki-014 runs in `04_runs/gpu_ki014/`; "old rules" means no audit cleaning and the best-validation weights (the network as
+it was at the epoch with the lowest validation loss); twist sign means are the means of the per-sheet values]
 
 - **Against the names as they would run (most likely class)** the exact step leads by 4.3 points of step within 45 and
   7.8 of path within 45 over four probe seeds, and end to end by 2.6 and 8.3 points; the seed range alone is about 3
@@ -537,7 +631,9 @@ validation loss); twist sign means are the means of the per-sheet values]
   stays unweighted and the backup covers backing up. Whether that trade is bad on the robot is a judgement, because both
   sides are scored on the demonstrators' pictures. [measured; judgement]
 - **Both at once** adds nothing when the names part is read as the most likely class (step within 45 0.565), but read as
-  a mean direction it matches the better of the two in the probes. That is the backup. [measured]
+  a mean direction it matches the better of the two in the probes. That is the backup. [measured] End to end on six
+  sheets (10.11) it did not: about 6 to 8 points lower path within 45 than the exact step alone, on both computers
+  (2.2). [calculated]
 - **The chunk** (where the tip is after each of the next 5 steps) is a near-tie on direction with a worse stop: end to
   end, path within 45 +3.5, +1.8 and -2.1 points against the exact run on sheets 03, 05 and 06 (mean +1.1), while it
   stopped right in 31 of 100 episodes at 0.5 against 42, and in none of the 25 on sheet 06. Against the final candidate
@@ -635,6 +731,12 @@ demonstration stopped; "early": more than 3 cm before it; "2 to 3 cm": between) 
 - **No rule changes the right count much:** the rules in the table stop right in 86 to 105 of 209 recorded episodes,
   most of them in 98 to 105; they differ mainly in how many episodes end early against never. The Wilson interval of
   102 of 209 alone is 0.42 to 0.56. [measured; calculated]
+- **The seed moves the stop more than the direction** (ki-014, 10.11, same settings, fixed 0.5, two in a row): seed 1
+  stopped right in 92 of 209, early in 30, never in 82; seed 2 in 104, 30 and 71. That is 12 right stops (5.7 points)
+  apart, against 0.6 points of six-sheet step within 45; on sheet 04 alone 21 against 28 of 45. With the threshold
+  tuned on validation episodes (two in a row) they stopped right in 101 and 96. The laptop's seed 1 gave 102, 25 and
+  69 under the fixed rule. So the stop is the weakest and the least steady part, and stop counts of one run must be read
+  with care. [measured; calculated]
 - **Reject tuning on validation episodes.** Its thresholds fell to 0.1 or lower on four of six folds and it gave the most
   early stops (58). Validation episodes are near-twins of training episodes (section 3.6). [measured; judgement]
 - **Fix 0.5.** It needs no tuning set, so the same rule serves the fold models and the exam model trained on all six
@@ -669,7 +771,7 @@ demonstration stopped; "early": more than 3 cm before it; "2 to 3 cm": between) 
   - *Extra weight on the far pictures where a first model wrongly fired* (mined hard negatives): started, not finished.
 
   The combined rule and the near-goal output at a high threshold are robot A/B candidates (2.5); an end-to-end
-  near-goal run is an optional laptop item (9.1). [judgement]
+  near-goal run is an optional item of 9.1 (minutes on ki-014). [judgement]
 - **Stop picture or at-goal.** The recordings also carry an at-goal label (`is_at_goal`, added on 7.11: the tip within
   2 cm of where the demonstration stopped) on 808 rows (4.36 %, 3.85 times the stop rows). It is not the stop target
   because it is noisy: in 30 of 210 episodes the tip enters the 2-cm zone and leaves it again (124 at-goal rows come
@@ -704,7 +806,8 @@ professor (section 10.1).
   outputs, the clamps and the guards, not the model's skill [read in the code]. Two more checks need no robot. A replay
   check: run the new decider on the logged raw pictures of one held-out sheet; its angles and stop probabilities must
   equal the saved predictions, which catches a decoding or resizing mismatch with `training_dataset.py` (a first
-  sub-step: load `checkpoints/without_path_01.pt` and reproduce the sheet-01 fold file). A fresh-picture check: each
+  sub-step: load `checkpoints/without_path_01.pt` of the copy chosen for the robot, for example the laptop seed-1
+  copies in `04_runs/2026-11-09_resnet18_final_candidate/checkpoints/`, and reproduce that copy's sheet-01 fold file). A fresh-picture check: each
   decision must use a picture taken after the last move; the audit found 863 rows with a fresh-picture wait over 0.2 s,
   where stale pictures cluster, and lists camera latency as a robot test (audit 11.1 D5, 11.3 item 23).
 - **Wrist and hand.** Keeping joints 5 and 6 and solving joints 1 to 3 for the tip reproduced the next demonstrated view
@@ -771,8 +874,8 @@ and `designs.json`]:
 | ResNet-18, final candidate (cleaned, last weights) | exact step plus stop | 0.680 / 0.649 / 0.684 (0.671) | 0.788 | 0.848 / 0.677 / 0.786 | 47 / 22 / 27 of 99 |
 
 - **Training on our pictures is the largest gain measured.** But the end-to-end runs also changed the augmentation, the
-  picture size and the grid, so the gain is not the fine-tuning alone; the pending run without augmentation (section
-  11.3) separates part of it. [measured; judgement]
+  picture size and the grid, so the gain is not the fine-tuning alone; the fair augmentation test on ki-014 (6.2)
+  separates part of it. [measured; judgement]
 - **ImageNet ResNet-18 against the small network** (same names head): +2.9, +2.5 and +1.7 points of step within 45 when
   the most likely class is executed, but +1.9, +1.9 and -4.4 points of path within 45 when both are read as a mean
   direction. The two runs also differed in learning rate, epochs (8 against 16) and which weights were kept. So the
@@ -798,7 +901,8 @@ and `designs.json`]:
   benchmarks (Pan et al. 2026), and a diffusion policy trained on 30 demonstrations replayed memorised trajectories even
   for unrelated pictures (He et al. 2026). Training recipes use 75 to 3,000 passes over the data (about 500 in LeRobot's
   Push-T recipe); at 4 to 8 minutes per pass of our ResNet-18 encoder, 500 passes would take about 33 to 67 hours per
-  model and held-out sheet before the denoising network. Published processor times are over 5,000 ms per decision for
+  model and held-out sheet before the denoising network; on ki-014 (about 26 seconds per pass, two rounds of about 13 s)
+  about 3.6 hours. Published processor times are over 5,000 ms per decision for
   the variants measured; a right-sized head might be much faster, but that is unchecked. [literature; calculated]
 - **DINOv2 or CLIP fine-tuned.** Fully fine-tuning a large vision transformer on few demonstrations collapsed in one
   study (VC-1, Adroit 59.3 to 15.9) and hurt in another (MVP 44.0 frozen against 31.1 fine-tuned), while CLIP ViT-B/16
@@ -806,7 +910,11 @@ and `designs.json`]:
   multiply-adds per 224 x 224 picture against 1.81 G for ResNet-18. Here, frozen, both scored below ResNet-18 and were
   3.2 to 3.5 times slower at 224 x 224. [literature; measured]
 - **Judgement:** none of these fits the laptop now, and nothing shows that they handle unseen tracks better. A fair
-  comparison would need the GPU pool, the same encoder and a held-out sheet.
+  comparison would need the GPU pool, the same encoder and a held-out sheet. The GPU pool works since 10.11 (11.4), but
+  ki-014's card has 8 GB of memory, enough for our ResNet-18 but possibly too little for the larger transformer and
+  diffusion networks [judgement], and the robot would still run the model on the laptop's processor; the published processor
+  times are 182 ms per decision for ACT (on an M1) and over 5,000 ms for the diffusion variants measured. So they stay
+  behind the exam model and the robot tests [judgement].
 
 ### 5.4 One picture or a short picture history
 
@@ -843,13 +951,14 @@ Frozen ResNet-18 grid probe, names head, step within 45 per held-out sheet [meas
 
 ### 5.5 Size and speed: the laptop and the robot loop
 
-Laptop: AMD Ryzen AI 5 PRO 340, 6 cores, no NVIDIA GPU, PyTorch 2.15 on the processor. All timings were taken while other
-jobs shared the processor, so they are upper bounds [measured].
+Laptop: AMD Ryzen AI 5 PRO 340, 6 cores, no NVIDIA GPU, PyTorch 2.15 on the processor. The timings of 9.11 were taken
+while other jobs shared the processor, so they are upper bounds; those marked "no other training running" or "alone"
+(the mirror rerun and the runs of 10.11) were not [measured].
 
 | Model | Parameters | Multiply-adds per 160 x 120 picture | Time per picture | Share of a 1.22 s robot step | Training per held-out sheet | Weights file |
 |---|---|---|---|---|---|---|
 | Small network from scratch | 1.61 M | 0.19 G | 2.5 to 13.5 ms | 0.2 to 1.1 % | 15.8 to 24.7 min (16 epochs) | 6.5 MB |
-| ResNet-18 trained end to end | 12.75 M | 0.72 G | 16.7 to 37.4 ms (whole model; the final candidate 37.4) | 1.4 to 3.1 % | 16.2 to 68.2 min (8 epochs; the long ones while other training ran; the mirror rerun, with no other training running, 19.2 to 21.4) | 51.1 MB |
+| ResNet-18 trained end to end | 12.75 M | 0.72 G | 16.7 to 37.4 ms (whole model; the final candidate 37.4); 11.9 ms for the backup, timed on 10.11 with no other training running | 1.0 to 3.1 % | 16.2 to 68.2 min (8 epochs; the long ones while other training ran; the mirror rerun, with no other training running, 19.2 to 21.4; the backup and the second seed on 10.11, alone, 15.4 to 24.1); 1.4 to 2.1 min on ki-014 (11.4) | 51.1 MB |
 | MobileNetV3 / EfficientNet-B0 backbone (frozen) | 4.2 / 4.0 M | not counted | 15.0 / 22.7 ms | 1.2 / 1.9 % | not run end to end | not saved |
 | DINOv2-small / CLIP ViT-B/32 backbone at 224 x 224 | 21.6 / 87.5 M | not counted | 82.9 / 91.0 ms | 6.8 / 7.4 % | not run end to end | not saved |
 | ACT, LeRobot (literature, M1 processor) | 52 M | not counted | 182 ms | 14.9 % | about 5 h per task on a GPU as published | not run |
@@ -862,8 +971,13 @@ jobs shared the processor, so they are upper bounds [measured].
 - One ResNet-18 configuration on all six held-out sheets takes about 2 to 7 hours: about 2 to 2.5 hours when no other
   training runs (the mirror rerun took 19.2 to 21.4 minutes per fold), up to about 7 hours when other training shares
   the processor (folds of up to 68.2 minutes); the final candidate took 223 minutes while sharing. The exam model on all six
-  sheets should take under about 1.5 hours per seed. The GPU pool (the university's graphics-card computers) is still
-  unconfirmed, so the plan must not depend on it. [measured; calculated]
+  sheets should take about half an hour per seed on the laptop running alone (the folds of 10.11, alone, took 15.4 to
+  24.1 minutes for training parts of 10,074 to 14,681 pictures), up to about 1.5 hours when shared. [measured;
+  calculated]
+- **Since 10.11 training runs on the GPU pool** (the university's graphics-card computers), on ki-014: about 11
+  minutes for all six held-out sheets (1.4 to 2.1 minutes per sheet), about 10 times faster than the laptop running one
+  training alone (section 11.4) [measured; calculated]. The laptop stays the computer at the robot, so the model is
+  still timed and run there.
 - Not yet timed: the whole decider on the robot (decoding the 640 x 480 JPEG, resizing it exactly as
   `training_dataset.py` does, the model and the joint solve). Only the fixed-wrist joint solve is measured: about 0.005 s
   per step. [measured by the audit; the rest not timed]
@@ -883,8 +997,11 @@ jobs shared the processor, so they are upper bounds [measured].
   points. [measured]
 - **Seed against seed on identical test pictures**, for the most lopsided seed pairs a sign test on the episode counts
   gave p of 0.05 to 0.07 although only the seed differed, so an episode-level test overstates certainty. [measured]
-- **End-to-end runs have one seed each.** Their seed spread is unknown until the second seed of the final candidate is
-  in (expected by about 05:30 on 10.11). [measured]
+- **End to end, only the first set-up has two seeds** (ki-014, 10.11, all six sheets; every other end-to-end run has
+  one). The two seeds differ by 0.6 points of six-sheet step within 45 and 1.5 points of path within 45; on one sheet
+  by up to 3.6 and 6.7 points (sheet 06); and by 12 right stops of 209 (92 against 104, 5.7 points) under the fixed stop
+  rule. On the laptop the second seed finished only sheets 01 to 04: there the two laptop seeds differ by 0.5 points of
+  step within 45 and 1.5 of path within 45 (means over those four sheets). [measured; calculated]
 - **Consequence:** with one run each, a difference under about 3.5 points of six-sheet step within 45, or under about 7
   points of stopped right, is not evidence. [calculated; judgement]
 
@@ -918,6 +1035,37 @@ audit:
   30 with shifts against 8 of 30 without). A bundle of colour, blur and noise changes moved driving in an unseen town
   from 0 to 64 % (Codevilla et al. 2018), which guards against new light and tables, not new curves. Flips and rotations
   added to crops lowered scores in RAD. No paper measured mirrored, label-swapped pictures on robot success. [literature]
+- **What it does in practice.** `04_runs/gpu_ki014/augmentation_examples.png` shows one real camera picture next to
+  versions made darker, brighter, with less contrast, slightly blurred, grainy, shifted by 3 px, and all mixed at random.
+  Training uses 18,032 pictures after the audit cleaning; per held-out sheet the training part is 10,074 to 14,681
+  pictures [measured]. Each round uses a random half of them and there are 8 rounds, so every picture is seen about 4
+  times, each time changed differently: 40,296 to 58,720 changed views per training [calculated]. The changed pictures
+  are made on the fly and never saved to disk [read in the code].
+- **Does it help end to end?** Measured on ki-014 on 10.11 (started about 12:40, finished about 13:05) with
+  `resnet18_final_candidate_no_augmentation` and `resnet18_final_candidate_no_augmentation_seed_2` (`config.py` lines
+  1819 to 1823 on 10.11, not committed): the first set-up and its second seed with only the augmentation switched
+  off, beside the two ki-014 seeds of the first set-up. Results in `04_runs/gpu_ki014/`.
+
+  | Six held-out sheets, ki-014 | step within 45 | path within 45 | worst sheet, path within 45 | stopped right / early / never of 209 (fixed rule) | twist sign |
+  |---|---|---|---|---|---|
+  | With augmentation, seed 1 / seed 2 | 0.681 / 0.675 | 0.787 / 0.772 | 0.738 / 0.732 | 92 / 30 / 82 and 104 / 30 / 71 | 0.773 / 0.758 |
+  | Without augmentation, seed 1 / seed 2 | 0.669 / 0.674 | 0.778 / 0.775 | 0.706 / 0.737 | 104 / 27 / 71 and 84 / 24 / 95 | 0.745 / 0.752 |
+
+  On the six-sheet means the difference is under 1 point (with augmentation, seed 1: +1.1 step within 45, +1.0 path
+  within 45; seed 2: +0.1 and -0.3), far below the 5 points that rule 2 of 6.9 asks for, and the stop moves more
+  between the seeds than between the two settings [measured]. On the 25 daylight episodes (2,938 pictures, pooled
+  over the six held-out sheets) augmentation is ahead in all four pairings: step within 45 0.594 and 0.615 against
+  0.574 and 0.604, path within 45 0.705 and 0.713 against 0.668 and 0.693 [measured]; under the ceiling lamps the gap
+  is about 1 point. Read together: augmentation costs nothing measurable, helps a little in the light the sheets
+  rarely show, and its main aim, new light on exam day, is hardly tested by our sheets, so it stays in the first
+  set-up, as the rule written before the result (9.1, item 1a) says [judgement].
+- **Why the older no-augmentation run cannot answer it.** `resnet18_finetune_no_augmentation` (ki-014, 10.11) differs
+  from the first set-up not only in augmentation but in its design (move names), cleaning (none), epochs and the
+  weights kept, so its lower scores (six-sheet step within 45 0.612, path within 45 0.659, stopped right 50 of 208 under
+  the fixed rule) say nothing about augmentation in the first set-up. It was meant to be compared with
+  `resnet18_finetune_classes` on sheets 03, 05 and 06: there it is 4.6 points lower on step within 45 (0.608 against
+  0.654) and 5.3 on path within 45 (0.654 against 0.707), but the two ran on different computers with one seed each
+  (11.4), so this is at most a hint for a names model. [measured; calculated; judgement]
 - **Mirror test so far (names head, old rules).** Step within 45 0.670 against 0.663 (sheet 03), 0.659 against 0.659
   (05) and 0.599 against 0.640 (06, -4.1 points); stopped right at 0.5 in 41 against 18 of 100 episodes. The comparison
   is confounded: the plain run kept its best-validation weights from epochs 7, 5 and 7, the mirrored run from epoch 8 on
@@ -960,8 +1108,8 @@ AdamW, head learning rate 0.001, backbone 0.3 times that, weight decay 0.05, bat
 epoch, then a cosine decay to zero [measured]. Nothing on our data shows the rate is too high. Gentler fine-tuning is
 suggested by the literature (an encoder at one tenth of the policy's rate gave Chi et al. their best results; training
 the head first and then everything was on average 10 % better out of distribution in Kumar et al. 2022), but neither
-result comes from a pushing task. Test "backbone factor 0.1 plus one head-only epoch" as one combined change only when
-laptop time allows. [literature; judgement]
+result comes from a pushing task. Test "backbone factor 0.1 plus one head-only epoch" as one combined change, two seeds
+on ki-014 (9.1, item 11). [literature; judgement]
 
 ### 6.7 Epochs and which weights to keep
 
@@ -1002,8 +1150,11 @@ Rules for Team M [judgement]:
 
 1. Frozen probes (2 to 4 minutes each): at least 4 seeds per setting; act only on 3.5 points or more of six-sheet step
    within 45, or 7 points or more of stopped right.
-2. End-to-end runs (about 2 to 7 hours for six sheets, section 5.5): 2 seeds per setting, and only for changes
-   expected to move path within 45 by 5 points or more; smaller questions go to the robot or stay at the default.
+2. End-to-end runs (about 2 to 7 hours for six sheets on the laptop, about 11 minutes on ki-014, section 5.5): 2 seeds
+   per setting, and only for changes expected to move path within 45 by 5 points or more; smaller questions go to the
+   robot or stay at the default. On ki-014 two seeds cost minutes, so the limit is now robot time, not training time.
+   The first end-to-end seed pair (the first set-up, 10.11) differed by 0.6 and 1.5 points on the six-sheet means
+   (6.1), well inside this rule. Compare runs from one computer only (11.4).
 3. Seed each fold from its sheet, not from its place in the list: today `train_policy.run_training` adds the fold's
    position to the seed and to the validation draw, so a run on sheets 03, 05, 06 and a run on all six sheets use
    different seeds and validation episodes for the same sheet. [measured; read in `train_policy.py`]
@@ -1065,9 +1216,14 @@ raised the offline-to-driving correlation from 0.39 to 0.54 (Codevilla et al. 20
 the rows after a hand correction are measure 4.
 
 **Offline gate before any robot time** (judge 2; the final candidate meets all three) [judgement]: path within 45 above
-always forward on every held-out sheet (final candidate: +5.0 to +37.7 points), twist sign 0.6 or more on every sheet
-(0.676 to 0.848), and early stops under about 15 % pooled under the fixed rule (25 of 209, 12 %). The backup passes the
-same gate; the exam model, which has no held-out sheet, is checked on printed validation tracks instead (4.5, 7.4).
+always forward on every held-out sheet (final candidate: +5.5 to +38.0 points, against always forward on the same
+cleaned pictures, A.1), twist sign 0.6 or more on every sheet (0.676 to 0.848), and early stops under about 15 % pooled
+under the fixed rule (25 of 209, 12 %). The backup must pass the same gate (on 10.11 it did not, see below); the exam
+model, which has no held-out sheet, is checked on printed validation tracks instead (4.5, 7.4).
+On 10.11 [measured; calculated]: both ki-014 seeds of the final candidate pass (path above always forward on every
+sheet, twist sign 0.629 to 0.858, 30 early stops of 209 each, 14 %, close to the 15 % line); the backup fails the first
+condition on sheet 02 on both computers (path within 45 0.630 and 0.645 against always forward's 0.657), while it meets
+the other two (twist sign 0.663 to 0.852; 25 and 24 early stops).
 
 **Checking this order on our robot.** Write each candidate's per-sheet offline numbers (path within 45, the stop counts,
 the rows after a correction) into the robot plan as a calibration table and set its phase 1a and phase 2 results beside
@@ -1092,8 +1248,11 @@ robot shows these.
 | Stopped right, six-sheet mean | 5.9 (names), 4.3 (exact) | 7 points |
 | Stopped right, one sheet | 11 to 26 (names), 7 to 32 (exact) | 30 points |
 
-[measured; thresholds are judgements] Also require the same sign on at least five of the six sheets, and compare designs
-on three or more seeds. For one new track like these six the range is wide: for the final candidate's path within 45 a
+[measured; thresholds are judgements] End to end, the first measured seed pair (the first set-up on ki-014, 10.11)
+stays below every limit in the table's last column: 0.6 points of six-sheet step within 45, 1.5 of path within 45, up
+to 3.6 and 6.7 points on one sheet, 5.7 points of stopped right on the six sheets and up to 15.6 points (7 of 45) on one
+sheet [calculated]. These limits hold for runs from one computer; a run on the other computer moves single sheets as much as another seed (11.4). Also
+require the same sign on at least five of the six sheets, and compare designs on three or more seeds. For one new track like these six the range is wide: for the final candidate's path within 45 a
 prediction interval for one new track is about 0.66 to 0.91. [calculated by judge 2]
 
 ### 7.4 The robot test protocol
@@ -1177,8 +1336,8 @@ the steps and 2.5-minute resets, both guesses. Section 8.4 uses the same base. [
 | Phase | What | Trials | Robot time | Reported as |
 |---|---|---|---|---|
 | 0a | Executor check without a model: replay recorded steps through the new model-step executor on sheets 01, 02 and 04 (both ends); force one refusal; drive joint 4 to its clamp; camera check | | not estimated | not a result |
-| 0b | Pipeline check: the final candidate's fold model on sheet 01, 3 runs per end; measures the real reset time and steps per run | 6 | 15 min (21) | not a result |
-| 1a | Unseen sheets without printing: each fold model on its own held-out sheet (`without_path_03` on sheet 03, and so on for 04, 05, 06), about 5 runs each, plus a few runs with one provided sheet laid on a larger white sheet (does the stop depend on the paper edge?); optionally `without_path_02` on sheet 02, about 5 runs, a far-from-edge stop test without printing (its line ends lie 6.2 and 6.4 cm from the paper edge, and its fold model never stopped in 24 of 45 episodes offline, two in a row) | about 20 plus (25 with sheet 02) | about 2 to 2.5 h, plus about 16 min for sheet 02 | exploratory |
+| 0b | Pipeline check: the final candidate's fold model on sheet 01 (which copy goes to the robot, the laptop seed-1 copies in `04_runs/2026-11-09_resnet18_final_candidate/checkpoints/` or a ki-014 copy, Emranul and Marshal choose before session 1; the per-sheet numbers in this table are the laptop copy's), 3 runs per end; measures the real reset time and steps per run | 6 | 15 min (21) | not a result |
+| 1a | Unseen sheets without printing: each fold model on its own held-out sheet (`without_path_03` on sheet 03, and so on for 04, 05, 06), about 5 runs each, plus a few runs with one provided sheet laid on a larger white sheet (does the stop depend on the paper edge?); optionally `without_path_02` on sheet 02, about 5 runs, a far-from-edge stop test without printing (its line ends lie 6.2 and 6.4 cm from the paper edge, and its fold model never stopped in 24 of 45 episodes offline, two in a row; laptop copy, the ki-014 copies 29 and 26) | about 20 plus (25 with sheet 02) | about 2 to 2.5 h, plus about 16 min for sheet 02 | exploratory |
 | 1 | Model choice, only if two candidates survive and both finish most 1a runs: 24 paired blocks on the hard sheets and the validation tracks; in each block both candidates run from the same start in random order; an interim look after 12 blocks | 48 | 3.4 h (4.8); about 2.5 h (3.7) expected with the interim look | exploratory |
 | 1b | Speed, if the time is to be improved: the chosen model at the 20 % cap against one faster setting, 12 paired blocks, decided by finish first, then time | 24 | about 1.6 h (2.4) | exploratory |
 | 2 | Final test: the six known sheets x 5 trials and ten sealed tracks of the final set x 3 trials, in one random order over two sessions | 60 | 4.0 h (5.7) | the reported result |
@@ -1462,46 +1621,53 @@ all robot work finished by 20.12.26; freeze 8.1.27; hand-in 10.1.27 (23:59); liv
 waits for Emranul's and Marshal's decision and a checklist. Hours come from sections 5, 7 and 8; the order is a
 judgement.
 
-| Week | Laptop (hours) | Robot (hours) | What it decides |
+| Week | Laptop or GPU pool (hours) | Robot (hours) | What it decides |
 |---|---|---|---|
-| 9.11 to 15.11 | The queue runs until about 06:30 on 10.11 (already started). Then: run `compare_runs.py`, which scores the backup and the second seed under the fixed stop rule (minutes); add an "all sheets" option to `train_policy.py` and train the exam model (under about 1.5 h per seed); stress-test all six fold models under light and shift changes, scored under the fixed rule (about a minute per condition per fold); build the model mode (not estimated), with the replay and fresh-picture checks and a run in `--simulated` mode (4.6); write the session-1 checklist, the robot test plan, the track-drawing rule (a small script) and the exam lay-out rule; fix `record_episodes.py` line 1120 before more recording (low priority: the cleaning relabels those rows); send the professor the questions of section 10.1 | none | the first set-up and the backup; the end-to-end seed spread; an executor ready for the robot |
-| 16.11 to 22.11 | If wanted: the chunk rerun with the cleaning and last weights on six sheets (one six-sheet run, about 2 to 7 h); the near-end-start check of 8.4 (minutes as a frozen probe, one six-sheet run end to end) | Session 1 (needs the model mode): phase 0a executor check (not estimated); phase 0b on sheet 01 (15 to 21 min); phase 1a, each fold model on its own held-out sheet, with the white-underlay test (about 2 to 2.5 h, about 16 min more with sheet 02); a pilot of 5 correction episodes (0.4 to 0.6 h) | does the executor work; the real time per trial; the main failure type; does the stop rely on the paper edge |
+| 9.11 to 15.11 | Done 10.11: the laptop queue stopped at about 11:05 (Emranul) and training moved to ki-014; the backup and the second seed scored there with `compare_runs.py` (the backup is behind, 2.5); the fair augmentation test done on ki-014 (augmentation stays, 6.2). Next: add an "all sheets" option to `train_policy.py` and train the exam model on ki-014, two seeds (minutes each), and copy it to the laptop; stress-test all six fold models under light and shift changes, scored under the fixed rule (about a minute per condition per fold); build the model mode (not estimated), with the replay and fresh-picture checks and a run in `--simulated` mode (4.6); write the session-1 checklist, the robot test plan, the track-drawing rule (a small script) and the exam lay-out rule; fix `record_episodes.py` line 1120 before more recording (low priority: the cleaning relabels those rows); send the professor the questions of section 10.1 | none | the first set-up and the backup; the end-to-end seed spread; an executor ready for the robot |
+| 16.11 to 22.11 | If the team drops the backup (2.5): the chunk rerun with the cleaning and last weights on six sheets, two seeds (minutes on ki-014; 2 to 7 h on the laptop); the near-end-start check of 8.4 (minutes as a frozen probe, one six-sheet run end to end) | Session 1 (needs the model mode): phase 0a executor check (not estimated); phase 0b on sheet 01 (15 to 21 min); phase 1a, each fold model on its own held-out sheet, with the white-underlay test (about 2 to 2.5 h, about 16 min more with sheet 02); a pilot of 5 correction episodes (0.4 to 0.6 h) | does the executor work; the real time per trial; the main failure type; does the stop rely on the paper edge |
 | 23.11 (meeting 3) to 29.11 | Retrain only if session 1 shows a data or setting problem | If printing is allowed: print the practice, validation and two sealed sets; start step A (10.3 to 13.9 h in all) and the recovery starts (2.8 to 3.6 h). If not: corrections, near-end and recovery starts on the six sheets | the professor's answers set the data plan |
-| 30.11 to 6.12 | Retrain from scratch on all data (about 1 to 1.5 h per model; a six-sheet check about 5 to 6 h, a guess); a 16-epoch test if time allows (4 to 7 h per seed) | Finish step A; step B, the baseline test of the all-sheets model with the correction pilot (3.6 to 6.1 h); phase 1 only if two candidates survive (about 2.5 to 4.8 h) | which model goes on; freeze the executor |
-| 7.12 (meeting 4) to 13.12 | Retrain after the corrections (about 1 to 1.5 h) | Step C, correction round 1 (3.7 to 6.3 h), if failures are drift or wrong turns; step D, paired test of new against old on the development tracks (part of 6.4 to 11.0 h). PRIMUSS registration opens 9.12 | does the correction round help; freeze the model and the executor by about 13.12 |
+| 30.11 to 6.12 | Retrain from scratch on all data (about 1 to 1.5 h per model on the laptop, minutes on ki-014; a six-sheet check about 5 to 6 h on the laptop, a guess, or well under an hour on ki-014); a 16-epoch test (4 to 7 h per seed on the laptop, under an hour on ki-014) | Finish step A; step B, the baseline test of the all-sheets model with the correction pilot (3.6 to 6.1 h); phase 1 only if two candidates survive (about 2.5 to 4.8 h) | which model goes on; freeze the executor |
+| 7.12 (meeting 4) to 13.12 | Retrain after the corrections (about 1 to 1.5 h on the laptop, minutes on ki-014) | Step C, correction round 1 (3.7 to 6.3 h), if failures are drift or wrong turns; step D, paired test of new against old on the development tracks (part of 6.4 to 11.0 h). PRIMUSS registration opens 9.12 | does the correction round help; freeze the model and the executor by about 13.12 |
 | 14.12 to 20.12 | none needed | Phase 2 final test on the six sheets and the final sealed set (4.0 h, 5.7 in the slow case); the light block (0.4 to 0.5 h); one timed rehearsal of the exam procedure (not estimated). PRIMUSS closes 17.12. Robot work ends 20.12 | the reported result |
 | 21.12 to 8.1.27 | Figures, tables and the documentation (7 pages per the course catalogue, if question 7 on `requests_to_professor.md` confirms it); slides | none | freeze on 8.1.27 |
 | 9.1 to 11.1.27 | | the demo runs the locked model and executor | hand-in 10.1.27; live demo 11.1.27 |
 
-Laptop total for the prioritised items: about 13 hours of queue tonight plus roughly 10 to 25 hours of retraining and
-checks over the six weeks, well within the laptop's time if runs for decisions do not share the processor (the
-training-settings draft listed 31 to 53 hours for every possible experiment, which its evidence critic corrected to
-about 31 to 73, so most must stay optional; 9.1). [calculated from the items above; judgement] Robot total: about 31 to
-46 hours if printing is allowed (section 8.4); a reduced robot plan is in 7.4.
+Laptop total for the prioritised items, as planned on 9.11: about 13 hours of queue that night plus roughly 10 to 25
+hours of retraining and checks over the six weeks (the training-settings draft listed 31 to 53 hours for every
+possible experiment, which its evidence critic corrected to about 31 to 73, so most had to stay optional; 9.1).
+[calculated from the items above; judgement] Since 10.11 the training runs on ki-014, about 10 times faster, so
+training time no longer limits the plan; the laptop keeps the robot-side work (the model mode, its checks, the decider
+timing) [judgement]. Robot total: about 31 to 46 hours if printing is allowed (section 8.4); a reduced robot plan is in
+7.4.
 
 **Who does what.** No owners are set; that is the team's decision (1.1, row 7). The team memory's provisional split has
 Emranul running the robot sessions and Marshal building the recording tool and the dataset pipeline and sorting out
-the GPU pool. The model mode is recording-tool work, and the trained copies are on Emranul's laptop, out of git (2.1).
+the GPU pool; on 10.11 the GPU pool was opened from Emranul's OTH account instead (11.4). The model mode is
+recording-tool work, and the trained copies are on Emranul's laptop and in his ki-014 home folder, out of git (2.1).
 
 **If the model mode is late.** Session 1 needs it. If it is not ready by about 15.11, session 1 and every robot date
 after it move by the same amount; step A of 8.4 (new demonstrations, which need no model) can come first if printing
 is allowed. [judgement]
 
-### 9.1 Laptop experiments, in order
+### 9.1 Training and laptop experiments, in order
 
-A six-sheet run takes about 2 to 2.5 hours when no other training runs, up to about 7 hours when shared (5.5); a
-frozen probe 2 to 4 minutes. Priorities and rules are judgements, fixed before the results.
+On the laptop a six-sheet run takes about 2 to 2.5 hours when no other training runs, up to about 7 hours when shared
+(5.5); on ki-014 about 11 minutes (11.4); a frozen probe 2 to 4 minutes. The "Laptop time" column was written on 9.11;
+every end-to-end training item now runs on ki-014 in about a tenth of it, with its numbers compared only with other
+ki-014 runs (the frozen probes need the feature files, which are not on ki-014).
+Priorities and rules are judgements, fixed before the results.
 
 | # | Experiment | Question it answers | Laptop time | Priority | Rule fixed in advance |
 |---|---|---|---|---|---|
-| 1 | Score the backup and the second seed with the judges' scripts | keep, promote or drop the backup; the end-to-end seed spread | minutes | do (10.11) | section 2.5 |
-| 2 | "All sheets" option in `train_policy.py`; the exam model, one seed plus a spare | the model for the exam | 1 to 1.5 h per seed | do | none: the same recipe |
+| 1 | Score the backup and the second seed with the judges' scripts | keep, promote or drop the backup; the end-to-end seed spread | minutes | done 10.11 with `compare_runs.py` on ki-014 (2.2, 2.5, 6.1); the judges' backing-up and correction-row scripts not run on the new runs | section 2.5 |
+| 1a | Augmentation alone: the first set-up and its second seed with only augmentation switched off (`resnet18_final_candidate_no_augmentation`, `..._seed_2`) | does augmentation help the first set-up end to end | two six-sheet runs | done on ki-014 on 10.11: under 1 point on the six-sheet means, ahead on daylight with both seeds (6.2) | proposed on 10.11, before the result: keep augmentation unless switching it off gains about 5 points or more of path within 45 with both seeds (6.9, rule 2), because its main aim, new light, is hardly tested by the six sheets. Applied on 10.11: switching it off gained nothing, so augmentation stays |
+| 2 | "All sheets" option in `train_policy.py` (a split with no held-out sheet); the exam model, two seeds (one as the spare), copied to the laptop | the model for the exam | 1 to 1.5 h per seed (minutes on ki-014) | do next, on ki-014 | none: the same recipe |
 | 3 | Replay and fresh-picture checks of the model mode (4.6) | does the robot side prepare pictures as training did | not estimated | do, before session 1 | its angles and stop probabilities equal the saved ones |
 | 4 | Stress test of all six fold models (brightness 0.65 and 1.35, 8-px shift, 3-degree roll), scored under the fixed rule | how fragile the stop is | about a minute per condition per fold | do | none; it informs the light plan |
 | 5 | Time the whole decider on a quiet laptop | the real decision time | about 0.5 h | do | none |
 | 6 | Near-end-start check: train once without the 42 near-end-start episodes | do near-end starts help the mid-track false stops | minutes as a frozen probe; one six-sheet run end to end | do, before recording many near-end starts | record many more only if leaving them out raises the early stops |
-| 7 | Chunk rerun with the cleaning and last weights, six sheets | is the chunk the better backup | one six-sheet run | optional | judge 3: stays a backup if its right stops are within about 7 points of the first set-up's; first if its path lead is above about 3.5 points on most sheets |
-| 8 | Near-goal-window stop on the final recipe, six sheets | a better stop target (4.5) | one six-sheet run | optional | keep only if more than about 7 points more right stops (about 117 of 209 under the fixed rule) without more early stops |
+| 7 | Chunk rerun with the cleaning and last weights, six sheets, two seeds on ki-014 | is the chunk the better backup | two six-sheet runs (minutes on ki-014) | do, if the team drops the names-plus-exact backup (2.5) | judge 3: stays a backup if its right stops are within about 7 points of the first set-up's; first if its path lead is above about 3.5 points on most sheets |
+| 8 | Near-goal-window stop on the final recipe, six sheets | a better stop target (4.5) | two six-sheet runs (minutes on ki-014) | optional | keep only if, with two seeds on ki-014, it stops right in about 7 points (about 15 episodes) more than the first set-up's ki-014 seeds (92 and 104 of 209 under the fixed rule), without more early stops; the two seeds alone differed by 12 |
 | 9 | Combined stop rule on the saved models (re-run to read the step length) | a better stop rule without retraining (4.5) | minutes | optional | keep only if it cuts early stops by more than about 7 points without losing right stops |
 | 10 | 8-px shift against 4 px, 2 seeds | a wider shift for the exam model | two six-sheet runs | optional | adopt only if path within 45 gains 5 points or more (6.9, rule 2) |
 | 11 | Gentler fine-tuning (backbone factor 0.1 plus one head-only epoch), 2 seeds | robustness to new tracks | two six-sheet runs | optional | the same 5-point rule |
@@ -1528,7 +1694,7 @@ and 5 to the list and sends them before meeting 3 on 23.11.
 | 3 | **More tracks.** When do the extra training tracks promised on 26.10 arrive (1)? May we print our own tracks of the same size and line thickness, for training and for testing (15)? | the stop and unseen-track tests need varied line ends |
 | 4 | **What unseen tracks may contain:** sharper corners, crossings near 90 degrees, line ends far from the paper's edge, close parallel lines, other dash rhythms? (audit 11.3, question 20) | every line end in our six sheets lies 2.35 to 8.03 cm from a paper edge |
 | 5 | **The exam run.** How is "finished" judged: the puck centre within what distance of the line's end? Must the robot stop by itself, and does pushing past the end count? When does the clock start and stop? How many attempts per track, and is there a time limit? Which table and which light (19; daylight appears only on sheets 02 and 04)? How is the start set (18)? | decides the stop rule (early against never) and the test's success rule |
-| 6 | **Where the model runs** (10): on this laptop, offline? Is the GPU pool usable for training (6; our VPN was not yet connected on 3.11)? | the plan assumes the laptop only |
+| 6 | **Where the model runs** (10): on this laptop, offline? (The GPU pool is usable for training since 10.11: Adel, covering for Tamara Graf, allowed our own code and data and Python packages in the home folder; 11.4.) | the plan trains on ki-014 and runs the model on the laptop at the robot |
 | 7 | May the exam model be trained on all six provided sheets, with none held out? (audit 11.3, question 19) | the exam model uses all six |
 | 8 | May a fixed mask over the robot's own parts in the picture (the same pixels every time) be used as preprocessing? (audit 11.3, question 17) | a guard against shortcut cues |
 | 9 | Low priority: may the model see the previous camera picture? Do mirrored copies of our demonstrations count as our own? | only if history or mirroring returns |
@@ -1582,8 +1748,9 @@ reverse each of them.
 
 ### 11.1 Kinds of evidence
 
-- **Measured:** every score of a model on held-out sheets (from its fold files), every count in the data audit, the
-  laptop and robot-step timings, the take-over times, the stress test on two fold models.
+- **Measured:** every score of a model on held-out sheets (from its fold files, on the laptop or on ki-014), every count
+  in the data audit, the laptop, ki-014 and robot-step timings, the take-over times, the stress test on two fold models,
+  and the GPU pool facts of 11.4 (access, the computer, the set-up).
 - **Calculated:** robot hours per trial and per plan step, Wilson intervals and trial numbers, the seeds-needed table,
   the always-forward margins, the data-amount fit and its projected gains, the one-track prediction interval.
 - **Literature:** only claims that an independent checker confirmed against their sources (360 of 397 checked claims were
@@ -1600,8 +1767,11 @@ reverse each of them.
 
 - It ran nothing on the robot and changed nothing in `03_data/raw`. No model has driven the robot, so there is no
   closed-loop evidence at all.
-- No end-to-end run has a second seed yet (pending), so every end-to-end gap of a few points may be seed noise.
-- No exam model trained on all six sheets exists; `train_policy.py` has no "all sheets" option yet.
+- Only the first set-up has a second seed end to end (ki-014, six sheets; on the laptop sheets 01 to 04), so every
+  other end-to-end gap of a few points may be seed noise. The fair augmentation test (6.2) finished at about
+  13:05 on 10.11 and was added afterwards.
+- Model 1 (all six sheets) exists since 10.11 but has no offline score of its own: every picture was used to train it,
+  so only the robot can test it.
 - The recording tool's model mode does not exist.
 - The predicted step length is not saved in the run files; it was re-run only for some folds.
 - The stress test (light, colour, shift, roll, blur) covered only the fold models of sheets 01 and 02, and no change
@@ -1610,7 +1780,8 @@ reverse each of them.
   on a near-goal window end to end; the combined stop rule on the final candidate; mined hard negatives for the stop
   (started in a frozen probe, not finished); an 8-px shift; gentler fine-tuning; sheet-balanced sampling; the chunk
   target with the cleaning; the copy test of a history input; timing of the whole decider on a quiet laptop; the
-  puck-off-line, bend-radius and crossing splits for the final candidate.
+  puck-off-line, bend-radius and crossing splits for the final candidate; the judges' backing-up and correction-row
+  checks on the runs of 10.11.
 - The label frame at large forearm turns was not corrected, and the look-by-eye list of the cleaning (about 50 to 70
   rows, plus the audit's lists D1, D2 and D5) was not viewed.
 - The design sections, critic notes, judges' notes and scripts, this report's parts and critiques, the queue script and
@@ -1624,21 +1795,23 @@ reverse each of them.
 
 State at about 01:10 on 10.11, from the queue logs copied to `evidence/laptop_queue/logs/` (`e2e_queue.log`,
 `e2e_queue_3.log`, `e2e_queue_4.log`): lines starting "===" give each run's start and finish, the lines after them its
-sheets and scores. No number of a pending run is used or guessed in this report.
+sheets and scores. Updated on 10.11 in the afternoon from the runs' fold files and their file times (the logs in
+`evidence/` end at 01:10). Emranul had the queue stopped at about 11:05 on 10.11 to move the work to the GPU pool
+(11.4). No number of a pending run is used or guessed in this report.
 
 | Run | Sheets | Rules | State | What it decides |
 |---|---|---|---|---|
 | `resnet18_finetune_exact` | 01, 02, 04 (its 03, 05, 06 ran 16:14 to 17:26) | old rules: no audit cleaning, best-validation weights | finished 23:01; used in 2.1, 2.4 and A.4 [measured] | completes the earlier exact run on six sheets |
 | `resnet18_finetune_mirror` | 03, 05, 06 again | old rules | rerun 23:02 to 00:04: every score equal to the first run's; only the minutes changed | nothing new: it repeats folds already on disk |
 | `resnet18_finetune_chunk` | 03, 05, 06 again | old rules | rerun 00:04 to 01:08: every score equal to the first run's | nothing new: it repeated folds already on disk |
-| `resnet18_backup_names_plus_exact` | all six | audit cleaning, last weights | running since 01:09 on 10.11, expected by about 03:30 | the backup's offline test (section 2.5) |
-| `resnet18_final_candidate_seed_2` | all six | as the first set-up, another seed | queued, expected by about 05:30 on 10.11 | the end-to-end seed spread |
-| `resnet18_finetune_no_augmentation` | 03, 05, 06 | old rules, names head (compare with `resnet18_finetune_classes`) | queued, expected by about 06:30 on 10.11 | how much of the end-to-end gain comes from the augmentation |
+| `resnet18_backup_names_plus_exact` | all six | audit cleaning, last weights | started 01:09 on 10.11; sheets 01 to 04 done by 02:28, then a pause of about six and a half hours (cause not recorded), sheets 05 and 06 done 09:22 and 09:42; 15.5 to 24.1 minutes per sheet [measured]; results in 2.2 and A.4. Also run on ki-014 | the backup's offline test (section 2.5) |
+| `resnet18_final_candidate_seed_2` | all six | as the first set-up, another seed | sheets 01 to 04 done 10:04 to 10:57 on 10.11 (15.4 to 21.8 minutes each); stopped during sheet 05 at about 11:05; results in A.4. All six sheets run on ki-014 | the end-to-end seed spread (6.1) |
+| `resnet18_finetune_no_augmentation` | 03, 05, 06 | old rules, names head (compare with `resnet18_finetune_classes`) | never started on the laptop; run on all six sheets on ki-014 (6.2, A.4) | it cannot show what augmentation does in the first set-up (6.2); the fair test is item 1a of 9.1 |
 
 Why the mirror and chunk runs ran twice: at 17:26 the main session stopped the first queue to put the six-sheet test
 first, but only the queue's outer shell stopped; its inner loop went on and trained the mirror run (18:18 to 20:37)
 and the chunk run (20:39 to 22:07) beside the final candidate, sharing the processor (the final candidate's epochs took
-about 4 minutes, against about 3 for a run alone on the processor). The later queue then ran both again as planned. The same seed gives the same
+about 4 minutes, against about 2 to 3 (median about 2.3) for a run alone on the processor, 11.4). The later queue then ran both again as planned. The same seed gives the same
 numbers, so no result is affected; the cost was about 2 hours of processor time. The process could not be stopped from
 the session (stopping a process by its number was refused by the safety check). [measured]
 
@@ -1650,6 +1823,99 @@ Defined in `config.py` but not run, with the reason:
 | `resnet18_finetune_mixed` | superseded by the backup run with the cleaning (`resnet18_backup_names_plus_exact`) |
 | `resnet18_finetune_exact_distance_stop` | the distance stop lost in the frozen test (tuned, two in a row: stopped right 0.15 to 0.16, never stopped 0.75 to 0.79) |
 
+### 11.4 The OTH GPU pool (10.11.26)
+
+A graphics card (GPU) does the many small multiplications of network training side by side, so it trains much faster
+than the laptop's processor. The OTH has a pool of such computers in room DC 1.07. On 10.11.26 Emranul's Model and
+training session prepared one of them, ki-014, for our training; everything in this section was measured or seen that
+day unless marked.
+
+**How it is reached**
+
+- Only through the OTH VPN (FortiClient). ki-003, the example in the OTH guide, is closed to SSH (the remote login used
+  here). Adel, who covers for Tamara Graf while she is on parental leave, named the computers that accept it: ki-013 to
+  ki-016 and ki-025 to ki-032. At about 10:40, ki-014, 015, 016 and 028 to 032 answered; 013 and 025 to 027 did not.
+- Log in from the Terminal panel with `ssh e.hoque@oth-aw.de@ki-014.oth-aw.de`. Emranul types his own OTH password (the
+  Moodle one); Claude never types it. On the pool the account shows as e7dc@oth-aw.de, with the home folder /home/e7dc.
+  A login waits about two minutes for the password and then closes. A login key could not be created from the
+  session, so every login and every copy asks for the password.
+- The lab rules (the valid version of 1.11.25, `/share/labor/LaboratoryRegulations.pdf` on the pool) forbid copying
+  software or data and installing programs. Emranul asked Adel, who allowed copying our own code and data into the home
+  folder and installing Python packages there (e-mail, 10.11.26). So everything of ours stays inside `~/ai_project`,
+  and packages go only into its private environment.
+
+**The computer ki-014**: one NVIDIA GeForce RTX 2080 SUPER graphics card with 8 GB, 24 processor cores, 62 GB of
+memory, 2.8 TB free under /home, Ubuntu 22.04, Python 3.12.11, and PyTorch 2.8.0+cu129 already installed with the
+graphics card working.
+
+**What is on it** (`~/ai_project`): `02_code`; the processed training data (`frames.csv`, `episodes.csv`,
+`build_summary.json` and the 160 x 120 picture cache `images_wide_160.npy`, 1.09 GB packed, copied in about 1.5
+minutes at about 11 MB/s); the audit's `corrected_ends.csv` and the two `review.json` files the cleaning reads; and a
+private Python environment `~/ai_project/.venv`, made with `python3 -m venv --system-site-packages`, so it uses the
+pool's PyTorch 2.8 and torchvision 0.23 with the graphics card, plus the laptop's versions of timm 1.0.31, pandas
+3.1.1, scikit-learn 1.9.1, numpy 2.4.6 and scipy 1.17.1. pip warned that numba, orange3 and cupy (other pool software,
+not used by us) want an older numpy; that does not touch our code [judgement]. Raw recordings (`03_data/raw`) are not
+on the pool.
+
+**The code change** (not committed; Emranul said that nothing from this session goes into git): `train_policy.py` got a
+`device` setting in `TRAINING_RUN_PARAMETERS` ("auto": the graphics card when PyTorch sees one, else the processor);
+the model and each batch move to that device, the outputs come back to the processor, the saved copies of the network
+(checkpoints) are moved back to ordinary memory before saving, so the laptop can load them, and the time per picture is
+measured on ki-014's processor. `training_probes.head_losses` now makes its helper numbers (tensors, PyTorch's tables
+of numbers) on the same chip as the model's outputs (graphics card or processor), because PyTorch cannot mix the two
+in one calculation. On the laptop nothing changes (it has no graphics card for PyTorch), and the 11 tests in
+`test_training.py` still pass. GPU runs switch on `torch.backends.cudnn.benchmark` (the card picks its fastest method
+for our fixed picture size), so a GPU run is not repeatable bit for bit. `config.py` also got the two runs of the fair
+augmentation test (6.2). [read in the code; the tests were run by the session on 10.11]
+
+**How a run is used** (the commands are in `02_code/HOW_TO_RUN.md`, section "Train and compare models"): a run is
+started in the background with `nohup`, so it goes on after logging out; its messages go to `~/ai_project/logs/`, its
+results to `~/ai_project/04_runs/<date>_<run name>/`; the results were copied back to the laptop with `scp` into
+`04_runs/gpu_ki014/`, which holds the four compared runs, their `comparison.md` and `comparison.csv`, and
+`augmentation_examples.png`. The folder `2026-11-09_resnet18_final_candidate_check` there is a one-epoch test on 512
+pictures (0.190 within 45 on 5 episodes), not a result; ignore its row in `comparison.md`.
+
+**Speed** [measured from the fold files; ratios calculated]:
+
+| | ki-014 | Laptop, one training alone | Laptop shared with another training |
+|---|---|---|---|
+| One training round (epoch) of the first set-up or the backup | 10 to 19 s (median 13 s) | 103 to 187 s (the backup and the second seed, 10.11) | 147 to 573 s (the first set-up, 9.11) |
+| One held-out sheet (8 rounds plus scoring) | 1.4 to 2.1 min | 15.4 to 24.1 min (about 19 on average) | 23.4 to 55.0 min |
+| Six held-out sheets | about 11 min | about 2 h | 223 min |
+
+So ki-014 trains about 10 times faster than the laptop running one training alone, and about 20 times faster than the
+shared laptop of 9.11 [calculated]. In plain terms: a question that cost a night on the laptop now costs a coffee
+break. The milliseconds per picture in the ki-014 runs' files were timed on ki-014's processor, not on the laptop, so
+they say nothing about the robot loop.
+
+**Why GPU and laptop runs are compared only within the same computer**
+
+- A graphics card adds the numbers up in another order than a processor, the cudnn setting lets it choose its method
+  anew in every run, its random numbers for dropout come from another generator, and the pool has other library
+  versions (PyTorch 2.8 and torchvision 0.23 against 2.15 and 0.29.2 on the laptop). So the same settings and seed do
+  not give the same network on the two computers. [read in the code; judgement]
+- Measured, same settings and same seed, six-sheet runs on both computers: the first set-up gave step within 45 0.678
+  (laptop) and 0.681 (ki-014), path within 45 0.786 and 0.787, and 102 against 92 right stops under the fixed rule; the
+  backup gave 0.641 and 0.651, 0.706 and 0.710, and 102 against 91 right stops. On single sheets the two computers
+  differ by up to 5.0 points of step within 45 (the backup on sheet 06: 0.566 and 0.615) and 4.4 of path within 45
+  (the second seed on sheet 03: 0.768 and 0.813), and on sheet 03 the backup stopped right in 31 of 45 episodes on the
+  laptop and in 10 on ki-014. [measured; calculated]
+- So changing the computer acts like changing the seed: the six-sheet means agree within about 1 point, but single
+  sheets and the stop move as much as between two seeds. Every comparison that decides something (the backup against
+  the first set-up, seed against seed, with and without augmentation) therefore uses runs from one computer only; on
+  10.11 all of them are ki-014 runs. The laptop numbers stay in this report as the record of 9.11 and as a check.
+  [judgement]
+- The first check run on ki-014 trained the first set-up on sheet 03 only: 0.703 step within 45 in 1.7 minutes (read
+  from the session's output; no file of it was copied back). The full six-sheet ki-014 run gave 0.689 on sheet 03. This
+  1.4-point gap is not the graphics card alone: when only one sheet is run, the code gives that sheet another seed and
+  other validation episodes than in a six-sheet run (6.9, rule 3). [measured; read in the code]
+
+**What it changes** [judgement]: two seeds per setting now cost minutes, so the 5-point rule of 6.9 with two seeds is
+affordable for every question that matters; experiments that did not fit the laptop (16 epochs, a larger picture, the
+chunk rerun, gentler fine-tuning) fit into one afternoon. The model still runs on the laptop at the robot, and only
+one program may talk to the robot. Done on 10.11: model 1 (the first set-up trained on all six sheets, 18,032 pictures, no check pictures; `split` "all" in `train_policy.py`; runs `resnet18_model_1_all_sheets` and `..._seed_2`) was trained on ki-014 on 10.11, 2.3 minutes per seed, and copied to the laptop: `04_runs/gpu_ki014/2026-11-10_resnet18_model_1_all_sheets*/checkpoints/all_sheets.pt` (not committed). Next: the
+recording tool's model mode, then the first robot test only with Emranul's go and a checklist.
+
 ---
 
 ## 12. How to use the comparison set-up, and the words used
@@ -1657,7 +1923,8 @@ Defined in `config.py` but not run, with the reason:
 ### 12.1 Running a comparison yourself
 
 Everything runs from `D:\AI_Project\02_code` with the project's Python, once this branch is merged or checked out
-there. Only `D:\AI_Project\.venv` exists, so from the worktree folder
+there. Training also runs on the GPU pool computer ki-014 (section 11.4; the commands are in `02_code/HOW_TO_RUN.md`),
+about 10 times faster; compare its results only with other ki-014 runs. Only `D:\AI_Project\.venv` exists, so from the worktree folder
 `D:\AI_Project\.claude\worktrees\training-analysis\02_code` the same Python is `..\..\..\..\.venv\Scripts\python.exe`
 (as the queue script uses). All settings are in `02_code/config.py`, in the dictionaries whose names start with
 `TRAINING_`. Nothing touches the robot, and nothing in `03_data/raw` is changed.
@@ -1667,7 +1934,7 @@ there. Only `D:\AI_Project\.venv` exists, so from the worktree folder
 | 1 | `..\.venv\Scripts\python.exe training_dataset.py` | Builds one table of all kept pictures with their labels, plus picture caches, in `03_data/processed/v01_training_index/` | about 1 minute |
 | 2 | `..\.venv\Scripts\python.exe training_features.py` | Turns every picture into numbers with six pretrained image models (frozen features), and times each model | about 55 minutes |
 | 3 | `..\.venv\Scripts\python.exe training_probes.py backbones` | Trains small heads on the frozen features and scores them on held-out sheets; any experiment name of `TRAINING_PROBE_EXPERIMENTS`, `baselines`, or `all` | 2 to 40 minutes per experiment |
-| 4 | `..\.venv\Scripts\python.exe train_policy.py resnet18_final_candidate --folds without_path_03` | Trains a whole network on the pictures for one named run of `TRAINING_RUNS`; without `--folds` it does all six held-out sheets | about 20 to 70 minutes per held-out sheet (the long ones while other jobs shared the processor) |
+| 4 | `..\.venv\Scripts\python.exe train_policy.py resnet18_final_candidate --folds without_path_03` | Trains a whole network on the pictures for one named run of `TRAINING_RUNS`; without `--folds` it does all six held-out sheets | about 15 to 70 minutes per held-out sheet (the long ones while other jobs shared the processor); 1.4 to 2.1 minutes on ki-014 |
 | 5 | `..\.venv\Scripts\python.exe compare_runs.py` | Collects every result into `04_runs/comparison.md` | seconds |
 | 6 | `..\.venv\Scripts\python.exe training_error_analysis.py resnet18_imagenet_grid` | Shows where a model goes wrong: per sheet, bends against straight stretches, near the goal, light, camera view | under a minute |
 | Test | `..\.venv\Scripts\python.exe test_training.py` | Checks the training code on small made-up examples and against the real labels | under a minute |
@@ -1683,16 +1950,19 @@ ignores):
 
 Notes for this round:
 
-- `04_runs/comparison.md` was built at 18:19 and does not yet include the final candidate, the mirror and chunk runs or
-  the new exact folds: run `compare_runs.py` again when the queue is done.
+- `04_runs/comparison.md` was rebuilt at 01:30 on 10.11; it does not yet include the laptop runs of 10.11 (the backup
+  and the second seed): run `compare_runs.py` again on the laptop. The ki-014 runs have
+  their own table, `04_runs/gpu_ki014/comparison.md` (and `.csv`), built on ki-014 on 10.11; ignore its `_check` row (a
+  one-epoch test) and do not mix its rows with the laptop's (11.4).
 - `comparison.md` sorts by step within 45; read path within 45 first (section 7.2), and use the "same held-out sheets
-  only" table when runs cover different sheets. Ignore rows whose split is "episodes" (today the first and third rows,
+  only" table when runs cover different sheets. Ignore rows whose split is "episodes" (today the first and fifth rows,
   0.707 and 0.655): they are optimistic, because held-out episodes have near-twins in training (3.6).
 - A run trained in parts keeps only its last part in `metrics.json` (the earlier exact run's file now holds sheets 01,
   02 and 04); the fold files `fold_without_path_XX.json` keep every sheet, and `compare_runs.py` rebuilds from them.
 - The fold files store the stop under a fixed 0.5 and under thresholds tuned on validation episodes; the fixed rule with
-  two pictures in a row, proposed here, was computed by the judges' read-only scripts from the saved predictions
-  (appendix A.6). Adding it to `training_metrics.py` would make it a standard column (a proposal, not done).
+  two pictures in a row, proposed here, was first computed by the judges' read-only scripts from the saved predictions
+  (appendix A.6). Since 10.11 it is a standard column: fold files written since then carry it (`fixed_two_` keys), and
+  `compare_runs.py` rescores older runs from their saved predictions [read in the code and the files].
 - Only one long run at a time when its numbers will decide something: runs that share the processor slow down (one
   mirror fold took 68.2 minutes while sharing, 21.4 when its rerun ran with no other training).
 
@@ -1705,7 +1975,7 @@ Notes for this round:
 | `training_metrics.py` | The measures every model gets: push direction against the demonstrated step and against the path direction, class accuracy, the stop per episode (right, early, never), twist, lean and hand signs, chunk errors |
 | `training_features.py` | Frozen features of every picture from six backbones (ResNet-18 pretrained and untrained, EfficientNet-B0, MobileNetV3, DINOv2-small, CLIP ViT-B/32), and the time per picture of each |
 | `training_probes.py` | Quick comparisons: small heads on frozen features, one experiment per question, all folds, results in `04_runs/2026-11-09_frozen_feature_probes/`; also the rules without a model (`baselines`) |
-| `train_policy.py` | Trains a whole network on the pictures (a small network from scratch, or a pretrained one fine-tuned), with label-aware augmentation, fold by fold; results in `04_runs/<date>_<run>/` |
+| `train_policy.py` | Trains a whole network on the pictures (a small network from scratch, or a pretrained one fine-tuned), with label-aware augmentation, fold by fold; on the graphics card when PyTorch sees one (the `device` setting, since 10.11, not committed), else on the processor; results in `04_runs/<date>_<run>/` |
 | `training_error_analysis.py` | Where a model goes wrong (sheet, bends, near the goal, forearm turn, light, camera view, score), and what averaging the direction over the last pictures would give |
 | `compare_runs.py` | One table of everything run so far: `04_runs/comparison.md` |
 | `test_training.py` | Tests on small made-up examples, and a check that the direction rule gives the recording tool's own labels on all real moving rows |
@@ -1720,7 +1990,8 @@ Installed into `.venv` on 9.11.26 (from PyPI, after a dry run showed that nothin
 torch 2.15.0 (processor build), torchvision 0.29.2, timm 1.0.31, pandas 3.1.1, scikit-learn 1.9.1, pinned in
 `02_code/requirements_training.txt`. Marshal installs the same versions on his Mac with `python -m pip install -r
 02_code/requirements_training.txt`; on a Mac, PyTorch can use the Apple GPU ("mps"), which `train_policy.py` does not
-use yet.
+use yet (its "auto" device picks only an NVIDIA card). On ki-014 the private environment uses the pool's PyTorch 2.8
+and torchvision 0.23 with the laptop's timm, pandas and scikit-learn versions (11.4).
 
 ### 12.3 Glossary
 
@@ -1734,6 +2005,7 @@ use yet.
 | Backbone | The pretrained part of a network that turns a picture into numbers (for example ResNet-18, trained on ImageNet photos; `timm resnet18.tv_in1k` is the exact pretrained file, from the timm library). |
 | Backward moves | Moves labelled back, back-left or back-right in the picture's frame; about half are ordinary pushing seen through a sideways-turned camera, some are recovery moves. |
 | Best-validation weights, old rules | The runs before the final candidate kept the network as it was at the epoch with the lowest validation loss (best-validation weights) and trained on the uncleaned rows; together these are the "old rules". |
+| Checkpoint | A saved copy of the trained network (its weights) in a .pt file, one per held-out sheet; the model mode will load one. |
 | Chunk | A target of several future steps (here the tip's place after each of the next 5 steps); the robot would still execute one step per picture. |
 | Class weights (square-root) | Rare classes count more in the loss, each by the square root of its rarity. |
 | Closed loop, offline, open loop | Offline: scoring a model on recorded pictures. Closed loop: the model drives and sees the results of its own moves; only closed loop shows whether it finishes. Open loop: adding up predictions without the robot moving or new pictures arriving. |
@@ -1752,7 +2024,8 @@ use yet.
 | Fixed-wrist solve | Joints 5 and 6 held at fixed start values, joints 1 to 3 computed so the tip moves as asked (`solve_with_wrist_fixed`). |
 | Fold | One train-and-test round with one sheet held out; "worst sheet" or "worst fold" is the sheet the model did worst on. |
 | Frozen features, probe | The backbone is used as it is and only a small head on top learns. Fast, but the backbone never learns about lines and pucks. (For tables, rules and settings that must not change, the report says fixed or locked.) |
-| GPU pool | The university's graphics-card computers; access not yet confirmed. |
+| GPU pool, ki-014 | The OTH's computers with graphics cards (room DC 1.07), reached over the OTH VPN; since 10.11 our training runs on one of them, ki-014, about 10 times faster than on the laptop (11.4). |
+| GPU, graphics card | A chip that does many small multiplications side by side; it trains networks much faster than a processor. |
 | Guards, fallback | Checks before each move: the tip stays inside the sheet in use and at its pushing height, and a counter catches a refused move that keeps coming back. The fallback, what the robot then does, is not decided yet. |
 | Head | The last small layers that turn the backbone's numbers into a move, a twist and a stop decision. |
 | Held-out sheet (leave one sheet out) | Train on five sheets, test on the sixth, six times. It stands in for an unseen exam track. |
@@ -1772,6 +2045,7 @@ use yet.
 | Picture's frame | Directions measured in the camera picture: up is forward, left is left; every label and output uses it. |
 | Point | One percentage point (0.01 of a share). |
 | Positive weight 10 | In training, a stop picture counts ten times as much as a non-stop picture in the stop output's loss. |
+| Private Python environment (.venv), pip | A folder with its own Python packages, separate from the computer's; pip is the program that installs Python packages into it. |
 | Recipe | The training settings of the training-settings draft, now the final candidate's; "the recipe's former rule" was its stop threshold tuned on validation episodes. |
 | Recording block, sitting | Episodes recorded in one go; their pictures are near-copies of each other. |
 | ResNet-18 | A common 18-layer picture network; here pretrained on ImageNet and then trained on our pictures. |
@@ -1782,6 +2056,7 @@ use yet.
 | Sign test, p, power, prediction interval, bootstrap | Statistics checks used in 6.1, 6.9, 7.3 and 8.2; the plain conclusion is always in the sentence beside them. |
 | Simulated robot | The recording tool's `--simulated` practice mode: it draws a plain page, a line and a puck, and the real robot does not move. |
 | Small motion | A recorded step where the tip barely moved; mostly a forearm twist in place. |
+| SSH, scp, VPN, nohup | SSH logs in to another computer and types commands there; scp copies files between computers the same way; the VPN (FortiClient) puts the laptop inside the OTH network, which the GPU pool needs; nohup keeps a command running after logging out. |
 | Step budget | The largest number of steps the executor allows in one run; a safety stop. |
 | Step within 45 | The share of moving pictures where the predicted push direction is less than 45 degrees off the demonstrated next step. |
 | Stop probability, threshold, two in a row | The stop output's value per picture; the robot stops when it reaches the threshold (here 0.5), on one picture or on two pictures in a row. |
@@ -1901,19 +2176,70 @@ Stop at a fixed 0.5 with one picture, as counts of episodes [measured; `04_runs/
 | | 05 | 0.649 | 0.754 | 0.677 | 12 / 11 / 5 of 29 | 29.9 |
 | | 06 | 0.684 | 0.810 | 0.786 | 2 / 2 / 21 of 25 | 31.5 |
 
+**Runs of 10.11.26** (laptop and ki-014; the stop here under the proposed fixed rule, 0.5 on two pictures in a row, as
+right / early / 2 to 3 cm / never, then one picture at 0.5 as right / early / never) [measured; the fold files in
+`04_runs/2026-11-09_<run>/` and `04_runs/gpu_ki014/2026-11-09_<run>/`]. Compare rows only within one computer (11.4).
+
+| Run (computer) | Sheet | Step within 45 | Path within 45 | Twist sign | Fixed 0.5, two in a row | Fixed 0.5, one picture | Minutes |
+|---|---|---|---|---|---|---|---|
+| `resnet18_backup_names_plus_exact` (laptop) | 01 | 0.765 | 0.847 | 0.668 | 16 / 2 / 0 / 2 of 20 | 14 / 4 / 1 | 24.1 |
+| | 02 | 0.570 | 0.630 | 0.792 | 16 / 2 / 1 / 26 of 45 | 20 / 2 / 20 | 20.9 |
+| | 03 | 0.647 | 0.701 | 0.852 | 31 / 1 / 1 / 12 of 45 | 31 / 7 / 6 | 18.0 |
+| | 04 | 0.628 | 0.684 | 0.768 | 24 / 7 / 3 / 11 of 45 | 23 / 9 / 7 | 15.5 |
+| | 05 | 0.669 | 0.723 | 0.699 | 5 / 13 / 0 / 11 of 29 | 7 / 17 / 5 | 17.7 |
+| | 06 | 0.566 | 0.653 | 0.746 | 10 / 0 / 3 / 12 of 25 | 9 / 1 / 12 | 20.1 |
+| `resnet18_final_candidate_seed_2` (laptop; stopped before sheet 05) | 01 | 0.768 | 0.845 | 0.702 | 13 / 2 / 1 / 4 of 20 | 14 / 1 / 2 | 21.8 |
+| | 02 | 0.617 | 0.721 | 0.808 | 19 / 3 / 0 / 23 of 45 | 22 / 2 / 17 | 19.5 |
+| | 03 | 0.673 | 0.768 | 0.832 | 29 / 1 / 1 / 14 of 45 | 32 / 2 / 9 | 17.7 |
+| | 04 | 0.654 | 0.759 | 0.785 | 24 / 8 / 10 / 3 of 45 | 21 / 11 / 1 | 15.4 |
+| `resnet18_final_candidate`, seed 1 (ki-014) | 01 | 0.777 | 0.845 | 0.710 | 16 / 1 / 1 / 2 of 20 | 11 / 4 / 2 | 2.1 |
+| | 02 | 0.625 | 0.749 | 0.807 | 14 / 2 / 0 / 29 of 45 | 19 / 2 / 21 | 1.8 |
+| | 03 | 0.689 | 0.791 | 0.858 | 27 / 4 / 1 / 13 of 45 | 33 / 5 / 5 | 1.7 |
+| | 04 | 0.645 | 0.738 | 0.770 | 21 / 11 / 2 / 11 of 45 | 25 / 12 / 5 | 1.4 |
+| | 05 | 0.670 | 0.773 | 0.729 | 9 / 12 / 1 / 7 of 29 | 9 / 16 / 3 | 1.8 |
+| | 06 | 0.681 | 0.827 | 0.761 | 5 / 0 / 0 / 20 of 25 | 6 / 0 / 19 | 2.0 |
+| `resnet18_final_candidate_seed_2` (ki-014) | 01 | 0.773 | 0.841 | 0.706 | 15 / 1 / 2 / 2 of 20 | 14 / 2 / 1 | 2.1 |
+| | 02 | 0.629 | 0.732 | 0.814 | 19 / 0 / 0 / 26 of 45 | 22 / 2 / 18 | 1.8 |
+| | 03 | 0.707 | 0.813 | 0.852 | 32 / 3 / 1 / 9 of 45 | 31 / 7 / 3 | 1.7 |
+| | 04 | 0.650 | 0.745 | 0.771 | 28 / 11 / 1 / 5 of 45 | 26 / 13 / 2 | 1.4 |
+| | 05 | 0.643 | 0.744 | 0.629 | 5 / 14 / 0 / 10 of 29 | 6 / 17 / 5 | 1.8 |
+| | 06 | 0.645 | 0.761 | 0.778 | 5 / 1 / 0 / 19 of 25 | 5 / 1 / 18 | 1.9 |
+| `resnet18_backup_names_plus_exact` (ki-014) | 01 | 0.792 | 0.856 | 0.668 | 15 / 2 / 1 / 2 of 20 | 15 / 1 / 1 | 2.1 |
+| | 02 | 0.579 | 0.645 | 0.806 | 17 / 3 / 0 / 25 of 45 | 23 / 2 / 20 | 1.8 |
+| | 03 | 0.659 | 0.710 | 0.850 | 10 / 2 / 1 / 32 of 45 | 21 / 6 / 17 | 1.7 |
+| | 04 | 0.617 | 0.682 | 0.774 | 30 / 6 / 1 / 8 of 45 | 31 / 8 / 3 | 1.4 |
+| | 05 | 0.641 | 0.694 | 0.663 | 7 / 10 / 0 / 12 of 29 | 9 / 14 / 6 | 1.8 |
+| | 06 | 0.615 | 0.673 | 0.714 | 12 / 1 / 0 / 12 of 25 | 11 / 1 / 12 | 1.9 |
+| `resnet18_finetune_no_augmentation` (ki-014; old rules, names head) | 01 | 0.721 | 0.788 | 0.141 | 10 / 1 / 0 / 8 of 19 | 11 / 2 / 6 | 1.3 |
+| | 02 | 0.521 | 0.537 | 0.629 | 3 / 0 / 0 / 41 of 44 | 4 / 0 / 40 | 1.1 |
+| | 03 | 0.626 | 0.669 | 0.608 | 13 / 0 / 1 / 31 of 45 | 21 / 0 / 21 | 1.2 |
+| | 04 | 0.609 | 0.664 | 0.587 | 18 / 2 / 0 / 25 of 45 | 24 / 3 / 17 | 1.0 |
+| | 05 | 0.620 | 0.658 | 0.397 | 0 / 3 / 0 / 27 of 30 | 2 / 5 / 23 | 1.2 |
+| | 06 | 0.578 | 0.636 | 0.352 | 6 / 0 / 0 / 19 of 25 | 8 / 1 / 15 | 1.3 |
+
+Six-sheet sums under the fixed rule (two in a row): laptop backup 102 / 25 / 8 / 74 of 209; ki-014 seed 1 92 / 30 / 5
+/ 82, seed 2 104 / 30 / 4 / 71, backup 91 / 24 / 3 / 91 of 209, the old-rules no-augmentation run 50 / 6 / 1 / 151 of
+208; the laptop's second seed on sheets 01 to 04: 85 / 14 / 12 / 44 of 155 [calculated]. Six-sheet means of the twist
+sign on ki-014: 0.773, 0.758, 0.746 and 0.452; of the lean sign 0.847, 0.849 and 0.858 (the names-only run has no lean
+output) [measured; `comparison.md`]. The ki-014 runs' minutes cover 8 rounds plus scoring (on sheets 01 and 02 the
+names-only run's training ended after 7 rounds instead of 8: under its old rules a training ends once the validation
+loss has not improved for 3 rounds).
+
 Moving pictures per sheet for the final candidate: 578, 2,425, 3,458, 5,264, 2,461 and 1,809; path pictures 529,
 2,243, 3,116, 4,502, 2,324 and 1,691; twisting rows 238, 1,195, 2,630, 4,535, 1,713 and 1,430. The old-rules runs used
 the uncleaned rows (for example 569 moving pictures and 19 episodes on sheet 01). The earlier exact run on six sheets:
 step within 45 mean 0.678, path within 45 mean 0.781 (worst 0.726), twist sign mean 0.759, stop 90 / 47 / 59 of 208
 [calculated]. The mirror run was repeated from 23:02 to 00:04 with every score equal; its fold files now hold the
 rerun's minutes. Milliseconds per picture (busy laptop): small network 13.5 and 2.5, ResNet-18 names 26.9, exact 21.5
-(first part, in `comparison.md`) and 16.7 (second part, in its `metrics.json` now), chunk 27.0, final candidate 37.4.
+(first part, no longer in any file) and 16.7 (second part, in its `metrics.json` and in `comparison.md`), chunk 27.0, final candidate 37.4.
 [measured]
 
 ### A.5 The first set-up under every stop rule
 
-The final candidate's saved predictions on all 209 held-out episodes; right / early / 2 to 3 cm / never [measured;
-judge 2's re-scoring, which reproduces every fold file's fixed-0.5 counts]:
+The final candidate's saved predictions on all 209 held-out episodes (the laptop's seed-1 run of 9.11); right / early /
+2 to 3 cm / never [measured; judge 2's re-scoring, which reproduces every fold file's fixed-0.5 counts]. The two ki-014
+seeds of 10.11 under the fixed rule (two in a row), per sheet, are in A.4: 92 / 30 / 5 / 82 and 104 / 30 / 4 / 71 of
+209; with the threshold tuned on validation episodes (two in a row) 101 and 96 right.
 
 | Rule | Right | Early | 2 to 3 cm | Never | Right, Wilson 95 % | Early, Wilson 95 % |
 |---|---:|---:|---:|---:|---|---|
@@ -1959,14 +2285,21 @@ In the repository (this worktree, `D:/AI_Project/.claude/worktrees/training-anal
   `<question>_check.md` for nine questions: action_chunking, action_representation, augmentation,
   diffusion_and_generative, evaluation_statistics, history_and_causal_confusion, interactive_correction,
   offline_vs_closed_loop, pretrained_representations.
-- **Run results:** `04_runs/comparison.md` (built 18:19); `04_runs/2026-11-09_frozen_feature_probes/<experiment>.json`
+- **Run results:** `04_runs/comparison.md` (built 01:30 on 10.11); `04_runs/2026-11-09_frozen_feature_probes/<experiment>.json`
   (backbones, baselines, balance, cleaning, data_amount, designs, history, head_size, scores, seeds, splits, stop,
   stop_distance and the fixed-threshold copies); `04_runs/2026-11-09_<run>/fold_without_path_XX.json` for each sheet of
   each end-to-end run, and `metrics.json` (for a run trained in parts only its last part: the earlier exact run's file
   was rewritten at 23:01 and now holds sheets 01, 02 and 04); per-picture predictions in
   `predictions_without_path_XX.npz` and weights in `checkpoints/` (both kept out of git).
-- **Code and settings:** `02_code` (files in 12.2); `02_code/config.py`, `TRAINING_*` dictionaries (the final candidate
-  at lines 1797 to 1804, the backup and the second seed at lines 1806 to 1814).
+- **Runs of 10.11:** the laptop's backup (`04_runs/2026-11-09_resnet18_backup_names_plus_exact/`, six sheets) and second
+  seed (`04_runs/2026-11-09_resnet18_final_candidate_seed_2/`, fold files of sheets 01 to 04 only, no `metrics.json`);
+  the ki-014 runs copied back into `04_runs/gpu_ki014/` (`2026-11-09_resnet18_final_candidate`, `..._seed_2`,
+  `2026-11-09_resnet18_backup_names_plus_exact`, `2026-11-09_resnet18_finetune_no_augmentation`, each with
+  `metrics.json`, six fold files, predictions and checkpoints; the one-epoch test `..._final_candidate_check`; the table
+  `comparison.md` and `comparison.csv`; and `augmentation_examples.png`).
+- **Code and settings:** `02_code` (files in 12.2); `02_code/config.py`, `TRAINING_*` dictionaries (on 10.11: the final
+  candidate at lines 1800 to 1807, the backup at 1809 to 1816, the second seed at 1817, the fair augmentation test at
+  1819 to 1823, the `device` setting at line 1602; the `device` setting and the fair test are not committed).
 - **Project files used for context:** `05_meetings/requests_to_professor.md` (questions and answers so far), `STATUS.md`
   (Emranul's plan of 6.11 to train on the move names first).
 

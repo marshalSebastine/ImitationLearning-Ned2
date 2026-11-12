@@ -1,0 +1,12 @@
+demonstration pictures in the library: 18032
+run  1: best correlation of the first 13 pictures: median 0.776 (least 0.751, most 0.797); kinds of the best matches: {'STD': 8, 'OR1.5': 4, 'TR15': 1}
+run  2: best correlation of the first 13 pictures: median 0.815 (least 0.787, most 0.829); kinds of the best matches: {'TR15': 10, 'STD': 3}
+run  3: best correlation of the first 13 pictures: median 0.751 (least 0.709, most 0.781); kinds of the best matches: {'SQP': 7, 'STD': 4, 'SQL': 1, 'TL10': 1}
+run  4: best correlation of the first 13 pictures: median 0.840 (least 0.793, most 0.876); kinds of the best matches: {'SQP': 6, 'OL1': 3, 'STD': 2, 'TR10': 1, 'OR1': 1}
+run  5: best correlation of the first 13 pictures: median 0.666 (least 0.640, most 0.701); kinds of the best matches: {'OL1.5': 5, 'OR1': 3, 'TR10': 2, 'OL1': 1, 'STD': 1, 'SQP': 1}
+run  6: best correlation of the first 13 pictures: median 0.749 (least 0.640, most 0.823); kinds of the best matches: {'STD': 7, 'TR10': 3, 'TL10': 2, 'OL1': 1}
+run  7: best correlation of the first 13 pictures: median 0.813 (least 0.730, most 0.901); kinds of the best matches: {'STD': 8, 'OL1': 3, 'OL1.5': 2}
+run  8: best correlation of the first 13 pictures: median 0.800 (least 0.767, most 0.847); kinds of the best matches: {'STD': 7, 'TL10': 4, 'OL1': 2}
+run  9: best correlation of the first 13 pictures: median 0.691 (least 0.649, most 0.738); kinds of the best matches: {'STD': 6, 'OL1.5': 4, 'OR1': 2, 'OL1': 1}
+run 10: best correlation of the first 13 pictures: median 0.698 (least 0.663, most 0.773); kinds of the best matches: {'SQP': 5, 'STD': 3, 'OL1.5': 2, 'OL1': 2, 'TL15': 1}
+for scale, 40 random demonstration episodes, first 13 kept rows against all other episodes: median of the medians 0.934, 10th to 90th percentile 0.898 to 0.979

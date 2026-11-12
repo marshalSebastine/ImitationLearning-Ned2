@@ -1,0 +1,23 @@
+demonstration pictures 18032 ; puck placed on the table in 0.993
+tip to puck centre: median 2.94 cm, quartiles 2.44 to 3.70; within 2.8 cm: 0.44; further than 4 cm: 0.18
+   touching distance by the config: puck radius 1.2 cm + tip radius 0.65 cm = 1.85 cm
+   rod lean (rod_from_vertical_deg): median 24.8, 5 to 95 %: 5.3 to 42.5; correlation of the tip-to-puck distance with the lean: +0.05
+   lean  0 to 15 degrees:  4254 pictures, tip to puck median 2.83 cm, within 2.8 cm in 0.49
+   lean 15 to 25 degrees:  4866 pictures, tip to puck median 2.72 cm, within 2.8 cm in 0.53
+   lean 25 to 35 degrees:  5649 pictures, tip to puck median 2.99 cm, within 2.8 cm in 0.42
+   lean 35 to 60 degrees:  3135 pictures, tip to puck median 3.45 cm, within 2.8 cm in 0.29
+   sheet 01 (straight pushing): tip to puck median 2.67 cm; lean median 19.1
+aim, all pictures: median -3.4; touching (within 2.8 cm): median +1.7, quartiles -11.1 to +16.2; within 20 degrees of the median: 0.68; within 30: 0.86; within 45: 0.96
+aim with a looser 'at the puck' (within 4 cm, 0.82 of the pictures): median -0.6, quartiles -21.8 to +20.5; within 20 degrees of the median: 0.48; within 45: 0.78
+twist as a correction of the aim, demonstrations (touching, within 45 degrees of the median aim): rows 7479, slope -0.074 degrees of twist per degree of aim, correlation -0.25
+   run  1: aim median -24.6; outside -28.3 to +39.6 in 0.35 of the pictures; tip to puck median 2.1 cm
+   run  2: aim median -6.0; outside -28.3 to +39.6 in 0.00 of the pictures; tip to puck median 1.9 cm
+   run  3: aim median -30.5; outside -28.3 to +39.6 in 0.53 of the pictures; tip to puck median 2.4 cm
+   run  4: aim median -22.9; outside -28.3 to +39.6 in 0.45 of the pictures; tip to puck median 2.9 cm
+   run  5: aim median -21.9; outside -28.3 to +39.6 in 0.55 of the pictures; tip to puck median 2.4 cm
+   run  6: aim median +49.9; outside -28.3 to +39.6 in 0.71 of the pictures; tip to puck median 2.7 cm
+   run  7: aim median -19.2; outside -28.3 to +39.6 in 0.61 of the pictures; tip to puck median 2.8 cm
+   run  8: aim median -18.5; outside -28.3 to +39.6 in 0.41 of the pictures; tip to puck median 3.0 cm
+   run  9: aim median -27.8; outside -28.3 to +39.6 in 0.67 of the pictures; tip to puck median 2.7 cm
+   run 10: aim median -41.6; outside -28.3 to +39.6 in 0.77 of the pictures; tip to puck median 2.9 cm
+robot, all ten runs: rows 295, slope -0.046 per decision, correlation -0.30; that is 0.61 of the demonstrated slope

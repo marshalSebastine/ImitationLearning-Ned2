@@ -1,0 +1,11 @@
+A. the logged answers against the models run again on the logged pictures
+   run 5 (model E), 60 pictures: largest difference forward 0.0000 cm, left 0.0000 cm, twist 0.0000 degrees, stop chance 0.0000
+   run 10 (team B = mean of 5), 74 pictures: largest difference forward 0.0000 cm, left 0.0000 cm, twist 0.0000 degrees, stop chance 0.0000
+
+B. the team's length against its members' lengths on the 74 pictures of run 10
+   members' length, median over pictures: 0.539, 0.502, 0.574, 0.542, 0.568; mean of the five per picture, median 0.553 cm
+   team length median 0.544 cm; team / mean member length: median 0.979, 10th percentile 0.925, least 0.334; under 0.9 on 8 % of pictures, under 0.7 on 7 %
+   pictures where the team asks under 0.3 cm: 13; there the members' mean length is 0.233 cm (team 0.186), and the members' directions spread by 35 degrees (circular standard deviation, median) against 10 elsewhere
+   first 15 decisions: team [0.72, 0.73, 0.61, 0.5, 0.43, 0.38, 0.34, 0.22, 0.13, 0.19, 0.24, 0.26, 0.41, 0.55, 0.67]
+                       mean of members [0.73, 0.74, 0.61, 0.51, 0.43, 0.38, 0.34, 0.23, 0.21, 0.29, 0.25, 0.27, 0.42, 0.55, 0.67]
+   twist: team median size 2.02 degrees; mean of the members' sizes 2.02

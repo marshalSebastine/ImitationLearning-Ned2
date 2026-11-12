@@ -1,0 +1,6 @@
+without_path_01, 1 in a row at 0.7: right 0.65, early 0.10, never 0.15; early stops 2, no line ahead 2, median distance 3.2 cm
+without_path_01, 2 in a row at 0.4: right 0.80, early 0.15, never 0.05; early stops 3, no line ahead 2, median distance 4.6 cm
+without_path_01: over 5 cm from the goal, p90 stop probability with no line ahead 0.002 (n 176) against 0.004 (n 319); stop pictures median 0.918
+without_path_02, 1 in a row at 0.3: right 0.56, early 0.09, never 0.31; early stops 4, no line ahead 3, median distance 4.1 cm
+without_path_02, 2 in a row at 0.1: right 0.42, early 0.18, never 0.29; early stops 8, no line ahead 6, median distance 6.4 cm
+without_path_02: over 5 cm from the goal, p90 stop probability with no line ahead 0.026 (n 301) against 0.003 (n 1880); stop pictures median 0.724

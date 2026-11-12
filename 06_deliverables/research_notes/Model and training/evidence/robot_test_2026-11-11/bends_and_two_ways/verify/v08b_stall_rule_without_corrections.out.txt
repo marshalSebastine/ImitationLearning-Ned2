@@ -1,0 +1,4 @@
+demonstrations without a hand correction: 79 of 210
+driver's rule: 30 pictures, diagonal 3 cm, forearm 15 deg: fires in 0
+analyst's rule 1: 15 pictures, diagonal 4 cm, forearm 15 deg: fires in 0
+analyst's rule 2: 12 pictures, net travel 1.5 cm, forearm 15 deg: fires in 3: 01 NE row 17 of 27, 7.7 cm from the goal; 01 OR1.5 row 20 of 44, 23.9 cm from the goal; 06 OR1 row 14 of 101, 14.6 cm from the goal

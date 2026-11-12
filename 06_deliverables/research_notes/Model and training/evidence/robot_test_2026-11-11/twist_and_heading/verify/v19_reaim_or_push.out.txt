@@ -1,0 +1,20 @@
+MODEL E: re-aim steps 4627: demonstrated 0.39 cm and 6.93 degrees; asked 0.61 cm and 3.39 degrees
+         push steps 12929: demonstrated 1.15 cm and 3.16 degrees; asked 0.70 cm and 2.36 degrees
+         told apart (area under the curve): by asked length 0.62, by asked |twist| 0.65, by asked twist per cm 0.67
+         first 15 pictures of standard starts, per held-out sheet:
+            01: demonstrated 1.13 cm, 1.7 deg; asked 1.19 cm, 0.7 deg; net twist asked / demonstrated 0.57
+            02: demonstrated 1.06 cm, 2.8 deg; asked 0.90 cm, 2.0 deg; net twist asked / demonstrated -0.78
+            03: demonstrated 0.94 cm, 4.5 deg; asked 0.75 cm, 3.7 deg; net twist asked / demonstrated 0.14
+            04: demonstrated 0.81 cm, 5.1 deg; asked 0.66 cm, 3.5 deg; net twist asked / demonstrated 1.29
+            05: demonstrated 1.09 cm, 3.6 deg; asked 0.82 cm, 1.6 deg; net twist asked / demonstrated 0.36
+            06: demonstrated 1.02 cm, 4.7 deg; asked 0.78 cm, 3.2 deg; net twist asked / demonstrated 0.55
+MODEL A: re-aim steps 4627: demonstrated 0.39 cm and 6.93 degrees; asked 0.58 cm and 3.51 degrees
+         push steps 12929: demonstrated 1.15 cm and 3.16 degrees; asked 0.68 cm and 2.42 degrees
+         told apart (area under the curve): by asked length 0.62, by asked |twist| 0.66, by asked twist per cm 0.69
+         first 15 pictures of standard starts, per held-out sheet:
+            01: demonstrated 1.13 cm, 1.7 deg; asked 1.09 cm, 0.6 deg; net twist asked / demonstrated 0.21
+            02: demonstrated 1.06 cm, 2.8 deg; asked 0.90 cm, 2.2 deg; net twist asked / demonstrated 0.65
+            03: demonstrated 0.94 cm, 4.5 deg; asked 0.72 cm, 4.3 deg; net twist asked / demonstrated 0.25
+            04: demonstrated 0.81 cm, 5.1 deg; asked 0.72 cm, 3.7 deg; net twist asked / demonstrated 0.79
+            05: demonstrated 1.09 cm, 3.6 deg; asked 0.83 cm, 1.5 deg; net twist asked / demonstrated 0.33
+            06: demonstrated 1.02 cm, 4.7 deg; asked 0.86 cm, 3.0 deg; net twist asked / demonstrated 0.67

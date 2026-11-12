@@ -1,0 +1,47 @@
+1. The plan's block A rule (new at least 3 of 4, old at most 1 of 4), every setting with the same pass chance p:
+   p = 0.33: one named new setting 0.066; at least one of the two new settings 0.124
+   p = 0.47: one named new setting 0.096; at least one of the two new settings 0.167
+   p = 0.50: one named new setting 0.098; at least one of the two new settings 0.165
+   a real step from 1/3 to 2/3: taken on with chance 0.351; from 0.1 to 0.9: 0.898
+   model E alone lost the first bend in 2 of 2 runs on 11.11 (run 10 was the team of five): Clopper-Pearson 90 % for its pass chance: 0 to 0.78
+
+2. The critic's rank rule, 5 against 5, rank sum of the new setting at most 19: orders that meet it
+   12 of 252 = 0.048
+
+3. Power when runs fall into two groups (kept about 6 mm, lost about 35 mm), 40,000 simulated sessions:
+   chance old keeps, chance new keeps | rank rule 5v5 (sum <= 19), with the critic's guard (old keeps at most 3 of 5) | plan's count rule 4v4 (>=3, <=1) | count rule 5v5 (new - old >= 3)
+   0.33, 0.33 | 0.048, 0.048 | 0.066 | 0.044
+   0.50, 0.50 | 0.049, 0.048 | 0.098 | 0.053
+   0.33, 0.67 | 0.208, 0.208 | 0.351 | 0.295
+   0.20, 0.80 | 0.483, 0.482 | 0.671 | 0.675
+   0.10, 0.90 | 0.756, 0.756 | 0.898 | 0.929
+   0.00, 0.50 | 0.370, 0.370 | 0.312 | 0.500
+   0.00, 0.80 | 0.767, 0.767 | 0.819 | 0.940
+
+4. The critic's rule for the model's own length (4 runs): 'it replaces fixed 0.65 cm (5 runs) only if its median is lower'. Both equally good:
+   both keep the line with chance 0.3: the own length has the lower median in 54 % of sessions
+   both keep the line with chance 0.5: the own length has the lower median in 50 % of sessions
+   both keep the line with chance 0.8: the own length has the lower median in 47 % of sessions
+   a stricter rule, 'own length keeps the line in all 4 runs and fixed 0.65 cm loses it in at least 2 of 5':
+   both keep the line with chance 0.3: met by luck with chance 0.008
+   both keep the line with chance 0.5: met by luck with chance 0.051
+   both keep the line with chance 0.8: met by luck with chance 0.108
+   own keeps with 0.9, fixed with 0.4: met with chance 0.599
+
+5. Block C, the plan's rule ('dashes' if solid 06 finished at least 2 of 3 and dashed 05 fails at least 2 of 3), all prints finished with chance p:
+   p = 0.3: 0.169
+   p = 0.5: 0.250
+   p = 0.7: 0.169
+   the critic's 2 x 2 rule (solid at least 3 of 4, dashed at most 1 of 4): no effect p = 0.5: 0.098 ; solid 0.8, dashed 0.2: 0.671
+   third truth (learnt print 0.8, any changed print 0.2): the plan's rule says 'shape' (solid 06 fails at least 2 of 3) with chance 0.896
+
+6. Block D, 2 runs per start, both starts equally good with chance p of keeping the line: the counts differ with chance
+   p = 0.3: 0.575
+   p = 0.5: 0.625
+   p = 0.7: 0.575
+
+7. Block B, 3 runs: Clopper-Pearson 90 % limits: 0 of 3 -> upper 0.63 ; 3 of 3 -> lower 0.37
+   6 short runs of the unseen-sheet model, 3 per step (the critic's fix): chance that 0.65 cm keeps the line in 3 of 3 and 1.0 cm in 0 of 3 when both keep it with chance p:
+   p = 0.33: 0.011; '0.65 cm has at least 2 more passes than 1.0 cm': 0.093
+   p = 0.50: 0.016; '0.65 cm has at least 2 more passes than 1.0 cm': 0.109
+   the same when 1.0 cm keeps it with 0.2 and 0.65 cm with 0.8: 'at least 2 more passes': 0.655

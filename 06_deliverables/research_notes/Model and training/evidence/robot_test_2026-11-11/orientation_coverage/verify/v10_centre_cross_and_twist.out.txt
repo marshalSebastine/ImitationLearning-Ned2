@@ -1,0 +1,19 @@
+=== 1. Paper centre on (31, 0) cm: reach of the tip over 24 turns and both ends (calculated) ===
+  sheet_01: possible 48 of 48; tip reach 16.7 to 45.3 cm
+  sheet_02: possible 48 of 48; tip reach 17.0 to 45.0 cm
+  sheet_03: possible 48 of 48; tip reach 15.3 to 46.9 cm
+  sheet_04: possible 48 of 48; tip reach 15.4 to 46.8 cm
+  sheet_05: possible 48 of 48; tip reach 16.9 to 45.1 cm
+  sheet_06: possible 48 of 48; tip reach 18.2 to 43.8 cm
+  practice_01: possible 48 of 48; tip reach 20.1 to 42.0 cm
+  practice_02: possible 48 of 48; tip reach 19.5 to 42.5 cm
+  practice_03: possible 48 of 48; tip reach 14.7 to 47.4 cm
+  practice_04: possible 48 of 48; tip reach 18.6 to 43.4 cm
+  practice_05: possible 48 of 48; tip reach 19.6 to 42.4 cm
+  practice_06: possible 48 of 48; tip reach 16.8 to 45.2 cm
+  all shapes: possible 576 of 576; tip reach 14.7 to 47.4 cm (limits used: reach 12 to 47.5, x 11.5 to 49, y -30 to 25)
+
+=== 2. The forearm twist against the bend ahead (measured from the audit-cleaned index) ===
+  rows with both: 14745; correlation of the twist with the bend ahead: -0.45
+  correlation of the twist with where the path lies in the picture (within 90 degrees of its top): +0.41
+  mean twist where the path will turn left by more than 30 degrees: -3.10; right: +3.21 (joint 4 falling turns the camera left)

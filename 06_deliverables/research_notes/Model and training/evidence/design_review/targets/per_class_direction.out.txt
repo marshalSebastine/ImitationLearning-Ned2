@@ -1,0 +1,22 @@
+share within 45 deg by demonstrated class (end-to-end, sheets 03, 05, 06 pooled): exact / names; rows; predicted-class share exact / names
+        forward: 0.819 / 0.683; rows 2971; predicted as this class 0.448 / 0.336 (demonstrated 0.384)
+   forward_left: 0.668 / 0.581; rows 1123; predicted as this class 0.147 / 0.099 (demonstrated 0.145)
+           left: 0.622 / 0.662; rows 876; predicted as this class 0.097 / 0.110 (demonstrated 0.113)
+      back_left: 0.392 / 0.720; rows 329; predicted as this class 0.038 / 0.108 (demonstrated 0.043)
+           back: 0.190 / 0.603; rows 305; predicted as this class 0.001 / 0.047 (demonstrated 0.039)
+     back_right: 0.538 / 0.660; rows 420; predicted as this class 0.052 / 0.066 (demonstrated 0.054)
+          right: 0.675 / 0.683; rows 729; predicted as this class 0.093 / 0.122 (demonstrated 0.094)
+  forward_right: 0.665 / 0.632; rows 985; predicted as this class 0.123 / 0.112 (demonstrated 0.127)
+  all back classes: within 45 0.392 / 0.662 over 1054 rows; other classes 0.730 / 0.656
+frozen probes, six held-out sheets pooled: within 45 deg on back classes / on the other classes
+  end-to-end resnet18_finetune_classes (angle_expected_deg): back 0.663 / other 0.674 / all 0.672
+  end-to-end resnet18_finetune_exact (angle_deg): back 0.392 / other 0.730 / all 0.684
+  exact_held_out_sheets (angle_deg): 0.270 / 0.613 (back rows 1892 of 15950); predicted back share 0.017
+  classes_held_out_sheets (angle_deg): 0.403 / 0.577 (back rows 1892 of 15950); predicted back share 0.037
+  classes_held_out_sheets (angle_expected_deg): 0.400 / 0.616 (back rows 1892 of 15950); predicted back share 0.020
+  chunk_of_5_steps (angle_deg): 0.290 / 0.621 (back rows 1892 of 15950); predicted back share 0.017
+  mixed_classes_and_exact (angle_vector_deg): 0.271 / 0.590 (back rows 1892 of 15950); predicted back share 0.018
+  mixed_classes_and_exact (angle_deg): 0.369 / 0.564 (back rows 1892 of 15950); predicted back share 0.035
+  mixed_classes_and_exact (angle_expected_deg): 0.363 / 0.608 (back rows 1892 of 15950); predicted back share 0.022
+  no_class_weights (angle_deg): 0.294 / 0.607 (back rows 1892 of 15950); predicted back share 0.018
+  no_class_weights (angle_expected_deg): 0.273 / 0.642 (back rows 1892 of 15950); predicted back share 0.008

@@ -1,0 +1,22 @@
+decisions taken while the puck's centre was at most 0.3 cm outside the ink, with 4 later decisions logged: 259 in 10 runs
+                                                        decisions  runs  leaves_centre_share  leaves_line_share  largest_later_median_cm
+kind                                                                                                                                    
+asked 0.5 cm or more with a twist of 4 degrees or more         26     5                 0.23               0.08                     0.44
+asked under 0.5 cm with a twist of 4 degrees or more           26     5                 0.62               0.27                     0.76
+asked under 0.5 cm, twist under 4 degrees                      49     5                 0.18               0.12                     0.00
+other                                                         158    10                 0.19               0.08                     0.20
+
+per run, the decisions of the kind 'asked under 0.5 cm with a twist of 4 degrees or more' taken on the line:
+     decisions  first  last  leaves_centre_share  leaves_line_share  largest_later_cm
+run                                                                                  
+3            2      0     1                 1.00               1.00              2.80
+5            5      3    54                 0.80               0.60              2.40
+7            3     23    25                 1.00               0.00              0.72
+9            8      3    54                 0.88               0.25              2.84
+10           8      4    11                 0.00               0.00              0.00
+
+how far the driver moved against the asked length, by what followed (decisions on the line):
+               decisions  asked_median_cm  twist_median_deg  done_over_asked_median
+leaves_centre                                                                      
+False                198             0.89              1.43                    1.13
+True                  61             0.58              2.76                    1.72

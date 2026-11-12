@@ -1,0 +1,32 @@
+== 1. seeds: path within 45 deg per kind of place (saved predictions; chunk runs: the first chunk step and the point 3 steps ahead) ==
+                                  run            answer  straight  gentle bend  sharp bend  hairpin  line end  all places  rows
+             resnet18_final_candidate        exact step     0.869        0.779       0.747    0.686     0.489       0.768 13890
+      resnet18_final_candidate_seed_2        exact step     0.871        0.759       0.738    0.767     0.499       0.760 13890
+      resnet18_final_candidate_seed_3        exact step     0.872        0.787       0.768    0.765     0.499       0.782 13890
+      resnet18_final_candidate_seed_4        exact step     0.874        0.784       0.746    0.721     0.485       0.771 13890
+      resnet18_final_candidate_seed_5        exact step     0.878        0.779       0.754    0.682     0.448       0.770 13890
+       resnet18_final_candidate_chunk chunk, first step     0.897        0.805       0.798    0.822     0.579       0.809 13890
+       resnet18_final_candidate_chunk    chunk, 3 ahead     0.906        0.817       0.792    0.853     0.634       0.817 13890
+resnet18_final_candidate_chunk_seed_2 chunk, first step     0.901        0.780       0.783    0.818     0.581       0.794 13890
+resnet18_final_candidate_chunk_seed_2    chunk, 3 ahead     0.908        0.799       0.778    0.846     0.609       0.803 13890
+        resnet18_chunk_stop_weight_25 chunk, first step     0.895        0.791       0.794    0.801     0.464       0.796 13890
+        resnet18_chunk_stop_weight_25    chunk, 3 ahead     0.899        0.804       0.793    0.836     0.528       0.806 13890
+ resnet18_chunk_stop_weight_25_seed_2 chunk, first step     0.874        0.788       0.780    0.836     0.528       0.791 13890
+ resnet18_chunk_stop_weight_25_seed_2    chunk, 3 ahead     0.882        0.797       0.776    0.866     0.569       0.797 13890
+sharp bend: exact seeds 0.738 to 0.768; chunk-trained, first step 0.780 to 0.798; chunk 3 ahead minus first step, per model: -0.6, -0.5, -0.1, -0.4 points
+hairpin: exact seeds 0.682 to 0.767; chunk-trained, first step 0.801 to 0.836; chunk 3 ahead minus first step, per model: +3.1, +2.8, +3.5, +3.0 points
+all places: exact seeds 0.760 to 0.782; chunk-trained, first step 0.791 to 0.809; chunk 3 ahead minus first step, per model: +0.8, +0.9, +1.0, +0.6 points
+
+== 2. the backup model's move names (saved predictions) ==
+most likely name              : {'straight': 0.796, 'gentle bend': 0.683, 'sharp bend': 0.667, 'hairpin': 0.649, 'line end': 0.556, 'all places': 0.689, 'rows': 13890}
+mean direction of the names   : {'straight': 0.837, 'gentle bend': 0.735, 'sharp bend': 0.707, 'hairpin': 0.691, 'line end': 0.634, 'all places': 0.735, 'rows': 13890}
+exact step of the same model  : {'straight': 0.879, 'gentle bend': 0.78, 'sharp bend': 0.755, 'hairpin': 0.761, 'line end': 0.577, 'all places': 0.778, 'rows': 13890}
+most likely name              : reverses by more than 90 deg (on the table) between consecutive pictures on 4.4 % of 16752 pairs
+mean direction of the names   : reverses by more than 90 deg (on the table) between consecutive pictures on 1.7 % of 16752 pairs
+exact step of the same model  : reverses by more than 90 deg (on the table) between consecutive pictures on 0.7 % of 16752 pairs
+
+== 3. frozen-feature history probes of 9.11.26 (names heads; mean direction of the names) ==
+one_picture                 : {'straight': 0.794, 'gentle bend': 0.662, 'sharp bend': 0.65, 'hairpin': 0.73, 'line end': 0.436, 'all places': 0.672, 'rows': 13839} | where the demonstration kept its direction 0.717 (8385 rows), where it changed 0.597 (5274 rows) | answer within 30 deg of the previous demonstrated step 40.3 %
+plus_previous_picture       : {'straight': 0.792, 'gentle bend': 0.653, 'sharp bend': 0.662, 'hairpin': 0.752, 'line end': 0.497, 'all places': 0.676, 'rows': 13839} | where the demonstration kept its direction 0.722 (8385 rows), where it changed 0.599 (5274 rows) | answer within 30 deg of the previous demonstrated step 41.4 %
+plus_change_since_previous  : {'straight': 0.808, 'gentle bend': 0.681, 'sharp bend': 0.678, 'hairpin': 0.713, 'line end': 0.53, 'all places': 0.695, 'rows': 13839} | where the demonstration kept its direction 0.765 (8385 rows), where it changed 0.583 (5274 rows) | answer within 30 deg of the previous demonstrated step 45.8 %
+plus_pictures_2_and_4_back  : {'straight': 0.738, 'gentle bend': 0.674, 'sharp bend': 0.679, 'hairpin': 0.706, 'line end': 0.538, 'all places': 0.682, 'rows': 13839} | where the demonstration kept its direction 0.735 (8385 rows), where it changed 0.596 (5274 rows) | answer within 30 deg of the previous demonstrated step 43.6 %

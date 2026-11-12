@@ -1,0 +1,105 @@
+(a) Dashes and gaps of sheet 06, measured along the course-photo centre line placed on my top views
+  run 8, pictures with the forearm under 45 degrees: 11 dashes: median 2.5 cm (range 2.2 to 2.8); 11 gaps: median 0.5 cm (range 0.2 to 0.8); ink on 84 % of the seen line; dash plus gap 3.0 cm
+    dashes: [2.5, 2.3, 2.6, 2.5, 2.7, 2.4, 2.8, 2.6, 2.2, 2.4, 2.6]
+    gaps:   [0.6, 0.5, 0.4, 0.8, 0.6, 0.4, 0.2, 0.6, 0.6, 0.4, 0.4]
+  demonstration 06-15, forearm under 45 degrees: 12 dashes: median 2.5 cm (range 0.1 to 2.7); 13 gaps: median 0.4 cm (range 0.1 to 1.4); ink on 83 % of the seen line; dash plus gap 2.9 cm
+    dashes: [2.4, 2.5, 2.1, 2.7, 2.7, 2.2, 2.2, 2.7, 0.1, 2.5, 2.5, 2.6]
+    gaps:   [0.6, 0.4, 0.4, 0.4, 1.4, 0.6, 0.6, 0.2, 0.6, 0.1, 0.4, 0.6, 0.2]
+  demonstration 06-03, forearm under 45 degrees: 10 dashes: median 2.4 cm (range 2.2 to 2.8); 12 gaps: median 0.6 cm (range 0.4 to 1.2); ink on 82 % of the seen line; dash plus gap 3.0 cm
+    dashes: [2.3, 2.4, 2.4, 2.7, 2.3, 2.4, 2.6, 2.2, 2.5, 2.8]
+    gaps:   [0.4, 0.5, 0.6, 1.2, 0.6, 0.4, 0.5, 0.4, 0.6, 0.6, 0.4, 0.6]
+  practice tracks (config.TEST_TRACK_PARAMETERS): dash 35.0 mm, gap 15.0 mm, smallest radius 35.0 mm, line width 10.0 mm
+
+(b) Tightest bend of each course sheet's centre line (course photos, Recording session's file), radius in cm
+  sheet 01: length 23.3 cm; smallest radius 500.0 cm at 18.6 cm (unsmoothed, points 1 cm apart), 882.5 cm at 18.7 cm (smoothed over 1.5 cm); 0.0 cm of the line bend tighter than 3.5 cm radius (smoothed)
+  sheet 02: length 31.3 cm; smallest radius 9.7 cm at 16.3 cm (unsmoothed, points 1 cm apart), 9.8 cm at 16.2 cm (smoothed over 1.5 cm); 0.0 cm of the line bend tighter than 3.5 cm radius (smoothed)
+  sheet 03: length 50.7 cm; smallest radius 0.8 cm at 24.6 cm (unsmoothed, points 1 cm apart), 0.8 cm at 24.6 cm (smoothed over 1.5 cm); 9.2 cm of the line bend tighter than 3.5 cm radius (smoothed)
+  sheet 04: length 72.4 cm; smallest radius 0.8 cm at 10.9 cm (unsmoothed, points 1 cm apart), 0.8 cm at 10.9 cm (smoothed over 1.5 cm); 18.7 cm of the line bend tighter than 3.5 cm radius (smoothed)
+  sheet 05: length 56.6 cm; smallest radius 2.1 cm at 24.0 cm (unsmoothed, points 1 cm apart), 2.2 cm at 23.9 cm (smoothed over 1.5 cm); 5.4 cm of the line bend tighter than 3.5 cm radius (smoothed)
+  sheet 06: length 46.5 cm; smallest radius 1.2 cm at 17.4 cm (unsmoothed, points 1 cm apart), 1.3 cm at 17.5 cm (smoothed over 1.5 cm); 3.4 cm of the line bend tighter than 3.5 cm radius (smoothed)
+
+(c) Per sheet, cleaned training pictures: steps away from forward, and the wrist (the driver holds 13.5 deg)
+         pictures  moving_steps  over_60_from_forward  over_90_backward  wrist_over_5_from_13.5  wrist_median  wrist_90th  step_median_cm  steps_under_0.5_cm
+sheet                                                                                                                                                        
+path_01       644           578                 0.213             0.131                   0.411        11.069      13.706           1.106               0.106
+path_02      2670          2426                 0.339             0.185                   0.218        13.442      13.706           1.094               0.114
+path_03      3955          3465                 0.371             0.194                   0.285        13.003      13.793           1.046               0.197
+path_04      6227          5269                 0.411             0.216                   0.303        13.442      17.749           1.010               0.260
+path_05      2600          2461                 0.432             0.287                   0.418        13.530      25.668           1.109               0.105
+path_06      1936          1809                 0.526             0.327                   0.522        17.089      30.844           1.065               0.126
+
+(d) The lean output of the fold models on their held-out sheet (rows with a demonstrated lean change of 1 degree or more)
+  E recipe, sheet 03: 1541 of 3955 rows change the lean by 1 deg or more; right sign 0.86; asked size 0.43 of the demonstrated; correlation over all rows 0.44; summed over an episode: demonstrated 46.8 deg, asked 41.4 deg (medians of absolute sums)
+  E recipe, sheet 04: 2100 of 6227 rows change the lean by 1 deg or more; right sign 0.84; asked size 0.37 of the demonstrated; correlation over all rows 0.35; summed over an episode: demonstrated 63.5 deg, asked 61.3 deg (medians of absolute sums)
+  E recipe, sheet 05: 1286 of 2600 rows change the lean by 1 deg or more; right sign 0.85; asked size 0.41 of the demonstrated; correlation over all rows 0.44; summed over an episode: demonstrated 40.7 deg, asked 39.3 deg (medians of absolute sums)
+  E recipe, sheet 06: 781 of 1936 rows change the lean by 1 deg or more; right sign 0.80; asked size 0.30 of the demonstrated; correlation over all rows 0.31; summed over an episode: demonstrated 36.0 deg, asked 11.7 deg (medians of absolute sums)
+  A recipe, sheet 03: 1541 of 3955 rows change the lean by 1 deg or more; right sign 0.86; asked size 0.43 of the demonstrated; correlation over all rows 0.46; summed over an episode: demonstrated 46.8 deg, asked 37.4 deg (medians of absolute sums)
+  A recipe, sheet 04: 2100 of 6227 rows change the lean by 1 deg or more; right sign 0.84; asked size 0.39 of the demonstrated; correlation over all rows 0.36; summed over an episode: demonstrated 63.5 deg, asked 61.6 deg (medians of absolute sums)
+  A recipe, sheet 05: 1286 of 2600 rows change the lean by 1 deg or more; right sign 0.82; asked size 0.36 of the demonstrated; correlation over all rows 0.41; summed over an episode: demonstrated 40.7 deg, asked 37.6 deg (medians of absolute sums)
+  A recipe, sheet 06: 781 of 1936 rows change the lean by 1 deg or more; right sign 0.80; asked size 0.28 of the demonstrated; correlation over all rows 0.34; summed over an episode: demonstrated 36.0 deg, asked 17.7 deg (medians of absolute sums)
+
+(e) Run 8's recorded pictures answered by models that never saw sheet 06 (E recipe folds) and by model E
+ step  beside_cm  E_angle  E_twist  E_stop  E_vs_line  fold_angle  fold_twist  fold_length  fold_stop  fold_vs_line  fold2_angle  fold2_twist  fold2_length  fold2_stop  fold2_vs_line
+    0       0.28    -9.15    -0.80    0.00     -22.83      -11.94       -2.43         0.95       0.00        -25.62        -0.04         0.12          0.97        0.00         -13.72
+    1       0.18     0.34    -0.05    0.00      -9.37      -11.21       -1.93         0.95       0.00        -20.91         5.31        -0.07          1.10        0.00          -4.40
+    2       0.11     0.76     0.70    0.00      -7.77       -4.17       -1.01         1.04       0.00        -12.71         3.37        -0.21          1.07        0.00          -5.17
+    3       0.06     4.97     1.20    0.00      -4.47      -11.08       -2.22         1.02       0.00        -20.51         7.53         0.43          1.08        0.00          -1.90
+    4       0.03     9.84     2.54    0.00       2.18      -15.86       -2.20         0.97       0.00        -23.52        12.49         1.82          0.90        0.00           4.83
+    5       0.13    14.42     4.09    0.00      18.08      -13.84       -0.99         0.96       0.00        -10.17        13.93         2.63          0.89        0.00          17.60
+    6       0.36    12.08     3.81    0.00       8.92       -6.31        0.36         0.89       0.00         -9.47        10.75         1.96          0.86        0.00           7.59
+    7       0.28    18.98     5.14    0.00      -1.67        7.93        2.57         0.78       0.00        -12.72        22.55         3.10          0.81        0.00           1.90
+    8       0.11    17.12     4.23    0.00      -1.94       13.18        2.71         0.76       0.00         -5.88        13.82         2.31          0.91        0.00          -5.24
+    9      -0.02    23.90     5.21    0.00       8.41       19.69        3.77         0.64       0.00          4.20        21.66         3.32          0.86        0.00           6.17
+   10      -0.05    33.51     6.63    0.00      19.07       31.00        4.79         0.53       0.00         16.56        33.45         4.14          0.82        0.00          19.01
+   11       0.03    30.47     6.25    0.00      13.27       13.31        3.36         0.49       0.00         -3.89        20.38         3.06          0.83        0.00           3.18
+   12      -0.06    31.79     6.59    0.00      11.28        3.56        2.30         0.37       0.00        -16.95        21.74         2.68          0.77        0.00           1.23
+   13      -0.05    37.55     6.57    0.00      12.37      -33.18       -0.79         0.42       0.00        -58.36        43.49         1.91          0.56        0.00          18.31
+   14      -0.14    35.52     6.55    0.00       6.69        4.11        2.66         0.40       0.00        -24.72        31.09         2.14          0.69        0.00           2.25
+   15      -0.36    35.79     6.42    0.00       5.79        6.94        2.99         0.32       0.00        -23.07        26.80         1.82          0.67        0.00          -3.21
+   16      -0.61    34.66     4.94    0.00       6.64       65.32        5.17         0.54       0.00         37.30        53.49         2.43          0.55        0.00          25.47
+   17      -0.83    34.94     3.67    0.00      10.97       75.42        4.86         0.71       0.00         51.46        61.21         2.16          0.56        0.00          37.25
+   18      -1.13    53.74     1.20    0.00      35.52       90.33        3.85         0.75       0.00         72.11        69.44         1.14          0.57        0.00          51.22
+   19      -1.04    61.06     1.40    0.00     115.17       78.12        2.19         0.72       0.00        132.23        54.45         0.25          0.62        0.00         108.57
+   20      -0.50    56.52     1.99    0.00     108.47       71.07        2.97         0.73       0.00        123.01        51.87         1.15          0.65        0.00         103.81
+   21      -0.42    42.71     1.93    0.00      99.18       30.61        2.28         0.40       0.01         87.08        20.88         0.86          0.60        0.00          77.34
+   22      -0.26    20.74     0.84    0.00      75.36      -32.52        0.57         0.53       0.00         22.10       -13.69        -0.21          0.50        0.00          40.93
+   23       0.29    12.21     0.86    0.00      70.46      -51.31        0.83         0.51       0.00          6.94       -16.24        -0.37          0.53        0.00          42.01
+   24       0.57   -24.22     0.61    0.00      38.49      -96.54        0.20         0.61       0.00        -33.83       -75.25         0.41          0.56        0.01         -12.55
+   25       0.85   -42.42     1.08    0.00      29.06      -75.65        0.63         0.64       0.00         -4.17       -59.83         0.79          0.70        0.01          11.65
+   26       0.94   -55.04     1.72    0.00      22.90      -81.05        0.91         0.64       0.01         -3.11       -80.00         1.13          0.78        0.01          -2.06
+   27       1.15   -66.93     1.60    0.00      13.57      -81.42        0.86         0.64       0.01         -0.92       -80.96         1.06          0.75        0.01          -0.46
+   28       1.30   -78.67     1.70    0.00       4.80      -66.16        1.11         0.65       0.02         17.31       -59.27         1.07          0.72        0.02          24.20
+   29       1.42   -63.81     1.63    0.00      23.13      -50.99        1.11         0.66       0.01         35.94       -49.08         1.09          0.77        0.01          37.85
+   30       1.78   -74.93     1.39    0.00      13.81      -52.71        0.85         0.59       0.05         36.03       -58.46         1.31          0.76        0.02          30.28
+   31       2.32   -80.15     0.57    0.02      11.83      -61.84        0.77         0.47       0.37         30.15       -69.47         1.22          0.64        0.30          22.51
+   32       2.74   -87.58    -0.30    0.07       8.82      -36.82        0.66         0.45       0.71         59.58       -88.93         0.80          0.47        0.82           7.47
+   33       3.11   -90.23    -0.31    0.16      11.10      -43.47        0.50         0.40       0.81         57.87       -89.19         0.57          0.37        0.85          12.15
+   34       3.56   -84.20    -1.85    0.02      18.88      -11.43        0.77         0.56       0.73         91.64       -45.55         0.15          0.22        0.93          57.53
+   35       3.82   -71.54    -1.27    0.02      34.85        3.71        0.89         0.52       0.79        110.10         1.03         0.34          0.40        0.83         107.41
+   36       4.04   -31.46    -1.92    0.00      75.81      -19.93       -0.00         0.64       0.30         87.34         6.90         0.04          0.40        0.88         114.17
+   37       4.79   -17.31    -1.84    0.02      89.10      -36.22       -1.55         0.68       0.05         70.19        19.38        -0.21          0.32        0.84         125.79
+   38       5.57    10.57    -1.33    0.27     115.57      -22.76        0.11         0.42       0.72         82.25        45.80         0.18          0.33        0.60         150.80
+   39       6.41     6.31    -0.43    0.94     108.41      -16.94        0.20         0.13       0.93         85.16        56.03        -0.15          0.24        0.88         158.13
+   40       7.33    30.22    -0.30    0.90        NaN       -8.84        0.17         0.11       0.94           NaN        63.89         0.18          0.30        0.75            NaN
+
+(f) Step direction against the line's direction (+ = outside the loop): run 8's asked steps and the demonstrations' steps within 0.75 cm along the line
+  (run 8's line placed at 198.4 deg; the demonstrations' at 173.1 to 272.4 deg)
+ step  along_cm  run_asked_vs_line  demo_steps  demo_median_vs_line  demo_25  demo_75
+   16       8.0                6.6          33                 20.7     -1.3     32.3
+   17       9.0               11.0          30                  0.8    -37.0     33.8
+   18       9.9               35.5          17                 20.8    -20.6     53.1
+   19      10.9              115.2          41                 53.2     24.6     86.3
+   20      11.8              108.5          80                 53.4      4.3    107.1
+   21      12.1               99.2          71                 46.8    -11.9    107.4
+   22      12.3               75.4          66                 47.3    -13.9    107.7
+   23      12.7               70.5          48                  5.4    -27.4    101.0
+   24      13.1               38.5          34                -10.8    -40.1     10.4
+   25      13.7               29.1          26                 -1.0    -19.5     13.3
+   26      14.5               22.9          28                 11.2    -11.9     31.3
+   27      15.3               13.6          47                 22.8      1.3     75.7
+   28      16.1                4.8          53                 32.4    -30.4     74.5
+   29      16.8               23.1          91                 16.6    -44.8     81.7
+   30      17.5               13.8         152                  9.3    -41.5     89.4
+   31      18.1               11.8         203                  0.7    -60.3     77.1
+   32      18.6                8.8         210                 -5.7    -76.9     70.3
+   33      19.0               11.1         198                 -0.6    -73.3     76.9

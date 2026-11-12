@@ -1,0 +1,93 @@
+camera: principal point [343.7, 243.7] (the fitted one moved by the shift of camera_shift.json, period robot_test)
+
+run 1 (172021_check_no_puck; model A, sheet 01; 26 pictures; reached the end: True)
+  puck found in 26 pictures; median fit quality 0.95
+  sideways offset, steps with the line beside the puck: {'steps_measured': 25, 'steps_on_one_clean_stretch': 25, 'median_abs_mm': 5.34, 'mean_signed_mm': -5.23, 'p90_abs_mm': 20.27, 'largest_abs_mm': 22.15, 'share_within_2_5_mm': 0.28, 'share_within_5_mm': 0.48, 'share_within_cover_limit': 0.56, 'share_puck_off_the_line': 0.16}
+  at the stop: puck centre -3.9 mm short of the round end's centre (negative: beyond it), -21.3 mm to the left of the line (negative: right); centres 21.7 mm apart; the end's rim sticks out +14.6 mm at its worst point (0 or less: covered completely); line width in the map 9.8 mm; end seen: True
+  ink ahead of the puck's centre and outside its foot, seen from above: 5 square mm; ink the stop picture itself shows ahead of the puck: 0 square mm
+  last steps (short of the end's centre along the line, left of the line, in mm; the model's answer in cm):
+    step  20: short  +41.7, left  -16.3; model forward +0.82, left -0.14 (length 0.83), stop chance 0.000, model_step
+    step  21: short  +32.7, left  -17.9; model forward +0.66, left -0.23 (length 0.70), stop chance 0.000, model_step
+    step  22: short  +24.0, left  -20.0; model forward +0.70, left -0.26 (length 0.75), stop chance 0.003, model_step
+    step  23: short  +14.7, left  -21.4; model forward +0.54, left -0.10 (length 0.55), stop chance 0.221, model_step
+    step  24: short   +5.4, left  -22.3; model forward +0.20, left -0.02 (length 0.21), stop chance 0.862, model_step
+    step  25: short   -3.9, left  -21.3; model forward +0.16, left -0.00 (length 0.16), stop chance 0.919, stop
+
+run 2 (172421_E_sheet01_run1; model E, sheet 01; 25 pictures; reached the end: True)
+  puck found in 25 pictures; median fit quality 0.975
+  sideways offset, steps with the line beside the puck: {'steps_measured': 24, 'steps_on_one_clean_stretch': 24, 'median_abs_mm': 1.15, 'mean_signed_mm': 1.91, 'p90_abs_mm': 6.14, 'largest_abs_mm': 12.61, 'share_within_2_5_mm': 0.62, 'share_within_5_mm': 0.83, 'share_within_cover_limit': 0.92, 'share_puck_off_the_line': 0.0}
+  at the stop: puck centre -1.9 mm short of the round end's centre (negative: beyond it), +13.1 mm to the left of the line (negative: right); centres 13.2 mm apart; the end's rim sticks out +6.2 mm at its worst point (0 or less: covered completely); line width in the map 10.0 mm; end seen: True
+  ink ahead of the puck's centre and outside its foot, seen from above: 14 square mm; ink the stop picture itself shows ahead of the puck: 0 square mm
+  last steps (short of the end's centre along the line, left of the line, in mm; the model's answer in cm):
+    step  19: short  +44.1, left   +5.7; model forward +1.02, left +0.25 (length 1.05), stop chance 0.000, model_step
+    step  20: short  +34.8, left   +5.8; model forward +0.95, left +0.22 (length 0.97), stop chance 0.000, model_step
+    step  21: short  +25.0, left   +5.8; model forward +0.85, left +0.24 (length 0.89), stop chance 0.000, model_step
+    step  22: short  +15.7, left   +6.8; model forward +0.54, left +0.27 (length 0.60), stop chance 0.078, model_step
+    step  23: short   +6.9, left   +9.7; model forward +0.20, left +0.15 (length 0.25), stop chance 0.884, model_step
+    step  24: short   -1.9, left  +13.1; model forward +0.17, left +0.08 (length 0.19), stop chance 0.949, stop
+
+run 3 (172743_E_sheet02_run1; model E, sheet 02; 38 pictures; reached the end: False)
+  puck found in 38 pictures; median fit quality 0.99
+  sideways offset, steps with the line beside the puck: {'steps_measured': 37, 'steps_on_one_clean_stretch': 29, 'median_abs_mm': 31.8, 'mean_signed_mm': -28.17, 'p90_abs_mm': 46.4, 'largest_abs_mm': 50.98, 'share_within_2_5_mm': 0.03, 'share_within_5_mm': 0.11, 'share_within_cover_limit': 0.14, 'share_puck_off_the_line': 0.73}
+
+run 4 (173036_E_sheet02_run2; model E, sheet 02; 42 pictures; reached the end: True)
+  puck found in 42 pictures; median fit quality 0.974
+  sideways offset, steps with the line beside the puck: {'steps_measured': 41, 'steps_on_one_clean_stretch': 41, 'median_abs_mm': 6.51, 'mean_signed_mm': 7.06, 'p90_abs_mm': 16.3, 'largest_abs_mm': 20.85, 'share_within_2_5_mm': 0.34, 'share_within_5_mm': 0.41, 'share_within_cover_limit': 0.59, 'share_puck_off_the_line': 0.1}
+  at the stop: puck centre -7.5 mm short of the round end's centre (negative: beyond it), -0.3 mm to the left of the line (negative: right); centres 7.5 mm apart; the end's rim sticks out -2.8 mm at its worst point (0 or less: covered completely); line width in the map 10.2 mm; end seen: True
+  ink ahead of the puck's centre and outside its foot, seen from above: 0 square mm; ink the stop picture itself shows ahead of the puck: 0 square mm
+  last steps (short of the end's centre along the line, left of the line, in mm; the model's answer in cm):
+    step  36: short  +36.4, left   -6.5; model forward +0.97, left -0.34 (length 1.03), stop chance 0.000, model_step
+    step  37: short  +27.2, left   -4.0; model forward +0.95, left -0.21 (length 0.98), stop chance 0.000, model_step
+    step  38: short  +18.1, left   -1.1; model forward +0.82, left -0.10 (length 0.82), stop chance 0.000, model_step
+    step  39: short   +9.4, left   +0.3; model forward +0.51, left +0.02 (length 0.51), stop chance 0.009, model_step
+    step  40: short   +1.9, left   +1.3; model forward +0.20, left -0.12 (length 0.23), stop chance 0.897, model_step
+    step  41: short   -7.5, left   -0.3; model forward +0.21, left -0.13 (length 0.25), stop chance 0.882, stop
+
+run 5 (173549_E_sheet03_run1; model E, sheet 03; 60 pictures; reached the end: False)
+  puck found in 60 pictures; median fit quality 0.97
+  sideways offset, steps with the line beside the puck: {'steps_measured': 59, 'steps_on_one_clean_stretch': 44, 'median_abs_mm': 15.64, 'mean_signed_mm': 5.05, 'p90_abs_mm': 37.55, 'largest_abs_mm': 49.43, 'share_within_2_5_mm': 0.1, 'share_within_5_mm': 0.19, 'share_within_cover_limit': 0.31, 'share_puck_off_the_line': 0.41}
+
+run 6 (174108_E_sheet04_run1; model E, sheet 04; 69 pictures; reached the end: False)
+  puck found in 69 pictures; median fit quality 0.979
+  sideways offset, steps with the line beside the puck: {'steps_measured': 68, 'steps_on_one_clean_stretch': 58, 'median_abs_mm': 8.19, 'mean_signed_mm': 2.03, 'p90_abs_mm': 24.78, 'largest_abs_mm': 40.33, 'share_within_2_5_mm': 0.13, 'share_within_5_mm': 0.26, 'share_within_cover_limit': 0.44, 'share_puck_off_the_line': 0.18}
+
+run 7 (174448_E_sheet05_run1; model E, sheet 05; 89 pictures; reached the end: True)
+  puck found in 89 pictures; median fit quality 0.977
+  sideways offset, steps with the line beside the puck: {'steps_measured': 88, 'steps_on_one_clean_stretch': 75, 'median_abs_mm': 5.02, 'mean_signed_mm': 0.66, 'p90_abs_mm': 19.7, 'largest_abs_mm': 41.81, 'share_within_2_5_mm': 0.33, 'share_within_5_mm': 0.5, 'share_within_cover_limit': 0.53, 'share_puck_off_the_line': 0.17}
+  at the stop: puck centre -1.3 mm short of the round end's centre (negative: beyond it), +1.9 mm to the left of the line (negative: right); centres 2.3 mm apart; the end's rim sticks out -5.0 mm at its worst point (0 or less: covered completely); line width in the map 9.9 mm; end seen: True
+  ink ahead of the puck's centre and outside its foot, seen from above: 0 square mm; ink the stop picture itself shows ahead of the puck: 0 square mm
+  last steps (short of the end's centre along the line, left of the line, in mm; the model's answer in cm):
+    step  83: short  +42.3, left  -18.8; model forward +0.95, left -0.01 (length 0.95), stop chance 0.000, model_step
+    step  84: short  +34.9, left  -13.5; model forward +0.85, left -0.01 (length 0.85), stop chance 0.000, model_step
+    step  85: short  +26.2, left  -10.1; model forward +0.78, left -0.09 (length 0.78), stop chance 0.000, model_step
+    step  86: short  +17.0, left   -4.6; model forward +0.51, left -0.02 (length 0.51), stop chance 0.024, model_step
+    step  87: short   +7.9, left   -1.6; model forward +0.22, left -0.02 (length 0.22), stop chance 0.928, model_step
+    step  88: short   -1.3, left   +1.9; model forward +0.15, left -0.03 (length 0.15), stop chance 0.968, stop
+
+run 8 (174936_E_sheet06_run1; model E, sheet 06; 41 pictures; reached the end: False)
+  puck found in 41 pictures; median fit quality 0.956
+  sideways offset, steps with the line beside the puck: {'steps_measured': 37, 'steps_on_one_clean_stretch': 30, 'median_abs_mm': 6.09, 'mean_signed_mm': 9.05, 'p90_abs_mm': 33.55, 'largest_abs_mm': 46.96, 'share_within_2_5_mm': 0.41, 'share_within_5_mm': 0.49, 'share_within_cover_limit': 0.57, 'share_puck_off_the_line': 0.24}
+
+run 9 (175203_E_sheet03_run2_no_hoodie; model E, sheet 03; 90 pictures; reached the end: False)
+  puck found in 90 pictures; median fit quality 0.98
+  sideways offset, steps with the line beside the puck: {'steps_measured': 83, 'steps_on_one_clean_stretch': 61, 'median_abs_mm': 11.6, 'mean_signed_mm': 0.93, 'p90_abs_mm': 32.27, 'largest_abs_mm': 58.75, 'share_within_2_5_mm': 0.11, 'share_within_5_mm': 0.19, 'share_within_cover_limit': 0.29, 'share_puck_off_the_line': 0.36}
+
+run 10 (175544_B_team5_sheet03; model B, sheet 03; 74 pictures; reached the end: False)
+  puck found in 74 pictures; median fit quality 0.984
+  sideways offset, steps with the line beside the puck: {'steps_measured': 70, 'steps_on_one_clean_stretch': 56, 'median_abs_mm': 14.72, 'mean_signed_mm': 0.9, 'p90_abs_mm': 46.66, 'largest_abs_mm': 62.35, 'share_within_2_5_mm': 0.14, 'share_within_5_mm': 0.24, 'share_within_cover_limit': 0.27, 'share_puck_off_the_line': 0.43}
+
+check A, the camera model: the offset against the votes of the last 12 pictures and against the votes of every picture of the run
+  the four runs that reached the end: 165 steps, difference median +0.00 mm, median size 0.48 mm, 90th percentile 5.13 mm, largest 56.2 mm
+  all ten runs: 442 steps, difference median +0.00 mm, median size 0.59 mm, 90th percentile 7.51 mm, largest 125.1 mm
+
+check B, one picture alone against the votes of the last 12 pictures
+  the four runs that reached the end: 165 steps; one picture gives an offset in 132 and a clean one in 114; difference median -0.08 mm, median size 1.57 mm, 90th percentile 6.12 mm, over 5 mm in 15 steps, largest 103.3 mm
+    line followed back 0 to 10 mm:   9 steps, median size 3.40 mm, 90th percentile 85.03 mm
+    line followed back 10 to 30 mm:  99 steps, median size 1.52 mm, 90th percentile 4.93 mm
+    line followed back 30 to 80 mm:   6 steps, median size 1.15 mm, 90th percentile 6.57 mm
+  all ten runs: 443 steps; one picture gives an offset in 301 and a clean one in 220; difference median -0.13 mm, median size 2.78 mm, 90th percentile 26.75 mm, over 5 mm in 66 steps, largest 103.3 mm
+    line followed back 0 to 10 mm:  59 steps, median size 22.50 mm, 90th percentile 45.22 mm
+    line followed back 10 to 30 mm: 152 steps, median size 2.37 mm, 90th percentile 6.76 mm
+    line followed back 30 to 80 mm:   9 steps, median size 1.84 mm, 90th percentile 10.27 mm
+
+written: robot_runs_steps.csv, robot_runs_ends.csv, robot_runs_maps.png, robot_runs_offsets.png, robot_runs_ends.png

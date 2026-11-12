@@ -1,0 +1,21 @@
+model E: D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt
+
+CHECK B: policy.decide on the saved JPEG against the answer logged on the robot (largest absolute difference per run)
+run  model  pictures  forward cm  left cm   twist deg  stop chance
+  2  E            25  0.000005    0.000005  0.000005   0.000004
+  3  E            38  0.000005    0.000005  0.000005   0.000005
+  4  E            42  0.000005    0.000005  0.000005   0.000005
+  5  E            60  0.000005    0.000005  0.000005   0.000005
+  6  E            69  0.000005    0.000005  0.000005   0.000005
+  7  E            89  0.000005    0.000005  0.000005   0.000005
+  8  E            41  0.000005    0.000005  0.000005   0.000005
+  9  E            90  0.000005    0.000005  0.000005   0.000005
+pictures of model E's runs checked: 454
+robot pictures: 554; grid 6144, hidden 256
+    training pictures 0 of 18522
+    training pictures 3840 of 18522
+    training pictures 7680 of 18522
+    training pictures 11520 of 18522
+    training pictures 15360 of 18522
+training pictures: 18522
+done after 180 s

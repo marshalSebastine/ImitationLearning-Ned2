@@ -1,0 +1,13 @@
+pairs with the tip moving under 0.15 cm and joint 4 turning 5 degrees or more: 584
+pairs fitted: 216; with 25 inliers or more and a fitted rotation of 3 degrees or more: 199
+fitted picture rotation over the calculated heading change: median -0.92 (25th to 75th percentile -1.01 to -0.81); the content turns the opposite way to the camera, so -1 is the expected value; scale median 0.998
+point the picture turns about: u median 319 (25th to 75th 307 to 330), v median 369 (351 to 396)
+tip's pixel in the same pictures (fitted camera): u median 313, v median 376; picture centre (320, 240)
+distance of the fitted fixed point from the tip's pixel: median 27 px; from the picture's centre: median 132 px; nearer the tip's pixel than the centre in 98 % of pairs
+
+tip's pixel (313, 371) lies 132 px from the picture's centre; rotated about the centre it moves 11 px at 5 degrees, 23 px at 10 degrees, 46 px at 20 degrees, 68 px at 30 degrees, 101 px at 45 degrees
+  rotation by 5 degrees about the tip's pixel: 4.6 % of the table part comes from outside the picture, 2.1 % from the rows of the robot's parts; together 6.7 %
+  rotation by 10 degrees about the tip's pixel: 8.3 % of the table part comes from outside the picture, 4.3 % from the rows of the robot's parts; together 12.6 %
+  rotation by 20 degrees about the tip's pixel: 13.9 % of the table part comes from outside the picture, 8.7 % from the rows of the robot's parts; together 22.6 %
+  rotation by 30 degrees about the tip's pixel: 17.6 % of the table part comes from outside the picture, 13.0 % from the rows of the robot's parts; together 30.6 %
+  rotation by 45 degrees about the tip's pixel: 23.3 % of the table part comes from outside the picture, 16.5 % from the rows of the robot's parts; together 39.8 %

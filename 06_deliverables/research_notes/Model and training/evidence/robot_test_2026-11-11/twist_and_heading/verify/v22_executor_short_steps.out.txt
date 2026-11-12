@@ -1,0 +1,4 @@
+as configured (fixed 1 cm, recorded steps of 0.5 cm or more): 400 steps; refused 0 (0.0 %); direction error median 0.22, 95th percentile 1.16 degrees; twist error median 0.089; clamped turns 7
+predicted length, recorded steps of 0.5 cm or more: 400 steps; refused 0 (0.0 %); direction error median 0.22, 95th percentile 1.16 degrees; twist error median 0.089; clamped turns 7
+predicted length, ALL recorded steps: 1200 steps; refused 0 (0.0 %); direction error median 0.29, 95th percentile 4.23 degrees; twist error median 0.089; clamped turns 49
+recorded steps of 0.05 to 0.5 cm through model_step with the predicted length: 500 steps (median |twist| 6.3 degrees); refused 0 (0.0 %); planned minus recorded tip move: median +0.002 cm, 95th percentile of |error| 0.018 cm; direction error median 1.0, 95th percentile 8.5 degrees

@@ -1,0 +1,82 @@
+=== step 3, new shapes: 12 tracks x 4 episodes (two lay-outs, a solid and a dashed print); the plan says about 6 hours ===
+  48 x 5.8 min (the median gap inside one sheet; no new lay-out, no discarded episode, no break): 4.6 h
+  the orientation verifier's own formula (5.8 min an episode plus 10 min a new lay-out; the 10 min is the analyst's guess) with 24 lay-outs: 8.6 h
+  each of the 4 episodes of a new shape is among its first five: measured mean of the first five kept episodes of the six sheets 10.6 min -> 8.5 h
+  48 x 8.13 min (all sittings of 6 to 9.11.26 divided by the kept episodes, breaks and discards inside): 6.5 h, before any extra lay-out
+  so about 8.5 to 13 hours, not 6 [calculated from measured times; the 10 min a lay-out is a guess]
+
+=== step 2: which runs of session 2 drive a line the model has not trained on ===
+  block A (model E on sheet 03, a sheet it trained on): 12 runs, 0 on an unseen line
+  block B (the model without sheet 03 on sheet 03; model E on two new tracks): 12 runs, 12 on an unseen line
+  block C (model E on the shapes of sheets 05 and 06, which it trained on): 8 runs, 0 on an unseen line
+  block D (model E on sheet 02 lying square, recorded six times): 4 runs, 0 on an unseen line
+  12 of 36 runs (33 %) measure the exam case; only 6 of them use a provided sheet as an unseen one (sheet 03)
+
+=== block A: the rule needs fixed 1.0 cm to pass at most 1 of 4 ===
+  true pass chance of fixed 1.0 cm 0.20: it passes 2 or more of 4 with chance 0.18; then no new rule can be taken on, however well it did
+  true pass chance of fixed 1.0 cm 0.33: it passes 2 or more of 4 with chance 0.40; then no new rule can be taken on, however well it did
+  true pass chance of fixed 1.0 cm 0.50: it passes 2 or more of 4 with chance 0.69; then no new rule can be taken on, however well it did
+  on 11.11.26 model E with fixed 1.0 cm passed this bend 0 times in 2 (runs 5 and 9); model B passed it once (run 10)
+
+=== the stop on sheets the model never trained on (two pictures in a row at 0.5), offline on the demonstrators' pictures ===
+  E recipe: right 106 of 209 (51 %), never 34 %, too early 15 %; mean of the six sheets 50 %; by sheet 01: 80 %, 02: 27 %, 03: 76 %, 04: 67 %, 05: 21 %, 06: 32 %
+  E recipe, seed 2: right 109 of 209 (52 %), never 24 %, too early 23 %; mean of the six sheets 51 %; by sheet 01: 85 %, 02: 31 %, 03: 78 %, 04: 67 %, 05: 28 %, 06: 20 %
+  A recipe: right 97 of 209 (46 %), never 39 %, too early 14 %; mean of the six sheets 47 %; by sheet 01: 85 %, 02: 27 %, 03: 62 %, 04: 56 %, 05: 34 %, 06: 20 %
+  block B drives only sheet 03 as an unseen provided sheet: the sheet where the unseen stop is second best (76 %); the worst are 05 (21 %), 02 (27 %) and 06 (32 %)
+
+  what the plan's recording adds to the stop, by the fit of report 8.2 (+8.7 points per doubling of stop pictures; frozen features, an extrapolation):
+    10 line-end episodes: +0.5 points, 107 of 209
+    30 line-end episodes: +1.4 points, 109 of 209
+    all of step 3 at its smallest (48 + 30 + 10): +3.7 points, 114 of 209
+    all of step 3 at its largest (48 + 30 + 30): +4.4 points, 115 of 209
+    a doubling of the stop pictures: +8.7 points, 124 of 209
+    a doubling needs 259 more episodes with an end; as near-end starts at 2.4 min each (report 8.4) that is about 10 robot hours
+
+=== section 7: how much is asked ===
+  question 1: 30 words, 2 question marks, 2 clauses that each want an answer (question marks plus semicolons)
+  question 2: 28 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 3: 59 words, 1 question marks, 6 clauses that each want an answer (question marks plus semicolons)
+  question 4: 31 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 5: 61 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 6: 30 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 7: 13 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 8: 26 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  question 9: 12 words, 1 question marks, 1 clauses that each want an answer (question marks plus semicolons)
+  in all 9 numbered questions, 290 words, 10 question marks
+  the team's meetings with the professor are ten minutes long (09:50 to 10:00; claude_memory/user-ai-project-team.md)
+
+=== step 1: 'about two to three days of this session's work' against the analysts' own efforts (days of 8 hours) ===
+  the scoring command (analyst: about one day; verifier: optimistic for about 2,000 lines): 1.0 to 2.0
+  driver switches with tests (step-length analyst: half a day; twist analyst: 2 to 3 hours): 0.5 to 0.9
+  the controlled start: a new robot movement with tests and its own checklist (no estimate anywhere; a guess): 0.5 to 1.0
+  print set: new drawing rule and tracks.json (analyst: about an hour), the two prints of sheets 05 and 06 traced from JPEG photos, true-size PDF (a guess): 0.5 to 1.0
+  the two checks without the robot (dashed copies of run 7; whole-episode stop report): 0.25 to 0.5
+  the checklist and the run table of session 2 (bends analyst: half an hour for 18 runs; here 36 runs in six blocks): 0.25 to 0.5
+  sum 3.0 to 5.9 days; and every step is first proposed to Emranul and explained (CLAUDE.md), which the sum leaves out
+
+=== the calendar ===
+  meeting 3: Monday 23.11.2026, 12 days after 11.11.26
+  the plan's driver freeze: Sunday 06.12.2026, 25 days after 11.11.26
+  meeting 4: Monday 07.12.2026, 26 days after 11.11.26
+  the plan's model freeze: Sunday 13.12.2026, 32 days after 11.11.26
+  robot work ends: Sunday 20.12.2026, 39 days after 11.11.26
+  our freeze: Friday 08.01.2027, 58 days after 11.11.26
+  the presentation with the live run: Monday 11.01.2027, 61 days after 11.11.26
+  from the end of robot work to the live run: 22 days without a single run in the plan
+  first frozen model in the plan: 13.12.26, 32 days from now and 7 days before robot work ends
+  a first session that needs no new tool and no print: 4 provided sheets as unseen ones (the models trained without them) x 2 step rules x 3 runs = 24 runs; at 3.93 to 5.5 min a run 1.6 to 2.2 h, plus the dry run
+
+=== a paired rule in place of block A: 4 unseen provided sheets x 3 pairs, one run with each setting, the better run of a pair counted ===
+  chance that the new setting is the better run of a pair 0.50: ahead in 9 or more of 12 pairs with chance 0.07
+  chance that the new setting is the better run of a pair 0.65: ahead in 9 or more of 12 pairs with chance 0.35
+  chance that the new setting is the better run of a pair 0.75: ahead in 9 or more of 12 pairs with chance 0.65
+  chance that the new setting is the better run of a pair 0.80: ahead in 9 or more of 12 pairs with chance 0.79
+  chance that the new setting is the better run of a pair 0.90: ahead in 9 or more of 12 pairs with chance 0.97
+  0.50 is 'no difference': the rule then takes the new setting on 7 times in 100; block A's rule finds a true 0.9 against 0.33 only 57 times in 100
+
+=== minutes per full run on the four sheets (median demonstrated steps; 1.04 s a move; 3.0 min between the end of a run and the next start, measured 11.11.26) ===
+  sheet 02: fixed 1.0 cm 4.1 min; the model's own length 4.5 to 4.8 min
+  sheet 03: fixed 1.0 cm 4.8 min; the model's own length 5.4 to 5.8 min
+  sheet 05: fixed 1.0 cm 4.8 min; the model's own length 5.3 to 5.8 min
+  sheet 06: fixed 1.0 cm 4.4 min; the model's own length 4.8 to 5.2 min
+  24 runs: 1.9 to 2.0 h; with the dry run (about 20 min) and a photo at each stop (about 1 min each) 2.6 to 2.7 h

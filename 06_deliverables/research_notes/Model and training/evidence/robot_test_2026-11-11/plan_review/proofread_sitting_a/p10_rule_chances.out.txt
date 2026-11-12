@@ -1,0 +1,12 @@
+plan: 0.65 cm goes on when it keeps the line in at least 3 more runs than 1.0 cm (5 against 5)
+   by luck at most 0.055 (at p = 0.50), which is 1 sitting in 18; a real step from 0.2 to 0.8: 0.68; a real step from 0.3 to 0.7: 0.31; a real step from 0.1 to 0.9: 0.93
+plan: the own length replaces 0.65 cm when it keeps all 4 while 0.65 cm loses 2 or more of 5
+   by luck at most 0.116 (at p = 0.74), which is 1 sitting in 9; a real step from 0.2 to 0.8: 0.41; a real step from 0.3 to 0.7: 0.19; a real step from 0.1 to 0.9: 0.66
+plan: with the model that never saw the sheet, 0.65 cm keeps the line in fewer runs than 1.0 cm (3 against 3)
+   by luck at most 0.344 (at p = 0.50), which is 1 sitting in 3; a real step from 0.2 to 0.8: 0.02; a real step from 0.3 to 0.7: 0.10; a real step from 0.1 to 0.9: 0.00
+missing rule, proposal: the team of five counts as better at the bend when it keeps 3 or 4 of 4 while model E keeps at most 1 of 5
+   by luck at most 0.062 (at p = 0.44), which is 1 sitting in 16; a real step from 0.2 to 0.8: 0.60; a real step from 0.3 to 0.7: 0.28; a real step from 0.1 to 0.9: 0.87
+missing rule, proposal: the own length goes on against 1.0 cm when it keeps all 4 while 1.0 cm keeps at most 1 of 5
+   by luck at most 0.012 (at p = 0.54), which is 1 sitting in 83; a real step from 0.2 to 0.8: 0.30; a real step from 0.3 to 0.7: 0.09; a real step from 0.1 to 0.9: 0.60
+plan, A5: through the first S-bend in at least 2 of 3 runs: true chance 0.3 -> 0.22, true chance 0.5 -> 0.50, true chance 0.7 -> 0.78
+plan, A3: fewer than 2 of 3 finished: true chance 0.5 -> 0.50, true chance 0.7 -> 0.22, true chance 0.9 -> 0.03

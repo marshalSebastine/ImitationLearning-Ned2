@@ -1,0 +1,20 @@
+demonstration pictures after the audit's cleaning: 18032
+recipe_e | without_path_01 | 644 pictures | 8 s | largest difference to the saved angle: 0.0001 deg | ok
+recipe_e | without_path_02 | 2670 pictures | 36 s | largest difference to the saved angle: 0.0008 deg | ok
+recipe_e | without_path_03 | 3955 pictures | 56 s | largest difference to the saved angle: 0.0005 deg | ok
+recipe_e | without_path_04 | 6227 pictures | 92 s | largest difference to the saved angle: 0.0018 deg | ok
+recipe_e | without_path_05 | 2600 pictures | 41 s | largest difference to the saved angle: 0.0002 deg | ok
+recipe_e | without_path_06 | 1936 pictures | 29 s | largest difference to the saved angle: 0.0004 deg | ok
+all_sheets_e | 18032 demonstration pictures | 307 s | outputs ['chunk', 'exact', 'hidden', 'stop']
+backup | without_path_01 | 644 pictures | 10 s | largest difference to the saved angle: 0.0002 deg | ok
+backup | without_path_02 | 2670 pictures | 33 s | largest difference to the saved angle: 0.0005 deg | ok
+backup | without_path_03 | 3955 pictures | 51 s | largest difference to the saved angle: 0.0020 deg | ok
+backup | without_path_04 | 6227 pictures | 71 s | largest difference to the saved angle: 0.0005 deg | ok
+backup | without_path_05 | 2600 pictures | 30 s | largest difference to the saved angle: 0.0003 deg | ok
+backup | without_path_06 | 1936 pictures | 24 s | largest difference to the saved angle: 0.0003 deg | ok
+recipe_a | without_path_01 | 644 pictures | 9 s | largest difference to the saved angle: 0.0002 deg | ok
+recipe_a | without_path_02 | 2670 pictures | 33 s | largest difference to the saved angle: 0.0012 deg | ok
+recipe_a | without_path_03 | 3955 pictures | 40 s | largest difference to the saved angle: 0.0006 deg | ok
+recipe_a | without_path_04 | 6227 pictures | 63 s | largest difference to the saved angle: 0.0020 deg | ok
+recipe_a | without_path_05 | 2600 pictures | 28 s | largest difference to the saved angle: 0.0007 deg | ok
+recipe_a | without_path_06 | 1936 pictures | 22 s | largest difference to the saved angle: 0.0009 deg | ok

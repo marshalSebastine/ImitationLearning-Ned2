@@ -1,0 +1,14 @@
+sample of consecutive demonstrated steps: 4000 ; tip move from the arm model against the labelled length: median |difference| 0.004 cm
+swing of the tip per degree of twist (steps twisting 3 degrees or more): median 0.045 cm per degree = lever arm 2.6 cm; sideways (picture-left) per degree of POSITIVE twist: median -0.045 cm; forward -0.000 cm
+re-aim steps (under 0.7 cm, twist 3 degrees or more): 1066; recorded tip move median 0.39 cm; the swing from the twist alone median 0.28 cm; what is left after taking the swing away median 0.55 cm
+   direction of the recorded move against the direction of the swing: median angle between them 124 degrees; within 30 degrees in 0.14; share of re-aim steps where taking the swing away leaves under 0.25 cm: 0.16
+pushing steps (0.7 cm or more): 2881; recorded median 1.14 cm; swing median 0.09 cm; left after taking the swing away median 1.19 cm
+
+twist against the travel direction in the picture (within 90 degrees): correlation +0.42 with the recorded move (n 3086)
+   after taking the swing of the twist away from every step: correlation +0.66 (n 3105); median |direction| 52.6 against 45.5 with the swing in; within 45 degrees of picture-up: 0.44 against 0.49
+   pushing steps only (0.7 cm or more), recorded move: correlation +0.39 (n 2256)
+   pushing steps only, swing taken away: correlation +0.51 (n 2265)
+
+net tip move over the next five steps, in the current picture frame (15756 rows with a net move of 0.5 cm or more):
+   median |direction| 32.2 degrees; within 15: 0.31; within 45: 0.60; beyond 90: 0.16; path over net move, median 1.15
+   correlation of this step's twist with that direction (within 90 degrees): +0.35

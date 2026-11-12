@@ -1,0 +1,15 @@
+run 5, pictures 0 to 22: sizes (mm)   nan  13.4   8.9   5.8  15.9  10.9   6.3   7.8  49.4  44.2  16.2  17.0  15.6  13.8   6.7   6.7  10.0  19.4  28.5  35.1  37.5  39.1  41.1
+   raw sizes: first two in a row over 12 mm at picture 9
+   median of three:  13.4  11.2   8.9   8.9  10.9  10.9   7.8   7.8  44.2  44.2  17.0  16.2  15.6  13.8   6.7   6.7  10.0  19.4  28.5  35.1  37.5  39.1  41.1
+   median of three: first two in a row over 12 mm at picture 9
+   jumps over 10 mm dropped (at most two in a row): first two in a row over 12 mm at picture 11; readings dropped at pictures [4, 8, 9]
+run 9, pictures 0 to 22: sizes (mm)   nan   0.1   0.7   0.3   1.1   2.9   6.7   9.6  11.6  11.5  11.5   8.1   3.9   0.1   5.1  12.3  20.5  27.4  31.8  32.4  32.7  32.7  31.1
+   raw sizes: first two in a row over 12 mm at picture 16
+   median of three:   0.1   0.4   0.3   0.7   1.1   2.9   6.7   9.6  11.5  11.5  11.5   8.1   3.9   3.9   5.1  12.3  20.5  27.4  31.8  32.4  32.7  32.7  31.1
+   median of three: first two in a row over 12 mm at picture 16
+   jumps over 10 mm dropped (at most two in a row): first two in a row over 12 mm at picture 16; readings dropped at pictures []
+run 10, pictures 0 to 22: sizes (mm)   nan   7.4   3.6   2.7  19.0  14.7   1.2   0.2   1.8   1.2   3.0   1.2   1.5   2.0   3.1   5.9   7.9   8.4   9.3   9.7  10.1  12.5  15.6
+   raw sizes: first two in a row over 12 mm at picture 5
+   median of three:   7.4   5.5   3.6   3.6  14.7  14.7   1.2   1.2   1.2   1.8   1.2   1.5   1.5   2.0   3.1   5.9   7.9   8.4   9.3   9.7  10.1  12.5  15.6
+   median of three: first two in a row over 12 mm at picture 5
+   jumps over 10 mm dropped (at most two in a row): first two in a row over 12 mm at picture 22; readings dropped at pictures [4, 5]

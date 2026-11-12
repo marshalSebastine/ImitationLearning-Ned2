@@ -1,0 +1,28 @@
+run 1 (2026-11-11_172021_check_no_puck): the end's centre from 10 reference pictures at [ 0.3958 -0.0052], the line's direction there -2.1 degrees in the base frame
+  picture  21: puck short  +33.7 mm, left  -16.7 mm; stop chance 0.000; model asked 0.70 cm
+  picture  22: puck short  +24.5 mm, left  -18.8 mm; stop chance 0.003; model asked 0.75 cm; since the picture before: puck  +9.1 along,  -2.2 left; tip  +9.2 along,  -3.6 left
+  picture  23: puck short  +15.4 mm, left  -20.5 mm; stop chance 0.221; model asked 0.55 cm; since the picture before: puck  +9.2 along,  -1.6 left; tip  +9.5 along,  -3.2 left
+  picture  24: puck short   +6.0 mm, left  -21.4 mm; stop chance 0.862; model asked 0.21 cm; since the picture before: puck  +9.4 along,  -0.9 left; tip  +9.8 along,  -1.7 left
+  picture  25: puck short   -3.3 mm, left  -20.8 mm; stop chance 0.919; model asked 0.16 cm; since the picture before: puck  +9.3 along,  +0.5 left; tip  +9.9 along,  -0.7 left
+  the analyst: the puck was 5.4 mm short when the stop chance first passed 0.5 (the picture before the last)
+run 2 (2026-11-11_172421_E_sheet01_run1): the end's centre from 9 reference pictures at [ 0.3989 -0.0048], the line's direction there -1.2 degrees in the base frame
+  picture  20: puck short  +36.1 mm, left   +4.7 mm; stop chance 0.000; model asked 0.97 cm
+  picture  21: puck short  +26.5 mm, left   +5.7 mm; stop chance 0.000; model asked 0.89 cm; since the picture before: puck  +9.5 along,  +1.0 left; tip +10.1 along,  +0.1 left
+  picture  22: puck short  +16.9 mm, left   +6.9 mm; stop chance 0.078; model asked 0.60 cm; since the picture before: puck  +9.6 along,  +1.2 left; tip +10.0 along,  +0.8 left
+  picture  23: puck short   +8.3 mm, left  +10.3 mm; stop chance 0.884; model asked 0.25 cm; since the picture before: puck  +8.6 along,  +3.4 left; tip  +9.6 along,  +2.9 left
+  picture  24: puck short   -0.5 mm, left  +13.7 mm; stop chance 0.949; model asked 0.19 cm; since the picture before: puck  +8.8 along,  +3.5 left; tip  +8.7 along,  +4.6 left
+  the analyst: the puck was 6.9 mm short when the stop chance first passed 0.5 (the picture before the last)
+run 4 (2026-11-11_173036_E_sheet02_run2): the end's centre from 9 reference pictures at [ 0.3211 -0.1631], the line's direction there -125.0 degrees in the base frame
+  picture  37: puck short  +26.3 mm, left   -3.6 mm; stop chance 0.000; model asked 0.98 cm
+  picture  38: puck short  +17.1 mm, left   -2.0 mm; stop chance 0.000; model asked 0.82 cm; since the picture before: puck  +9.1 along,  +1.6 left; tip  +9.3 along,  +3.6 left
+  picture  39: puck short   +8.1 mm, left   -0.6 mm; stop chance 0.009; model asked 0.51 cm; since the picture before: puck  +9.0 along,  +1.4 left; tip  +9.3 along,  +3.8 left
+  picture  40: puck short   +0.6 mm, left   -0.3 mm; stop chance 0.897; model asked 0.23 cm; since the picture before: puck  +7.5 along,  +0.3 left; tip  +8.4 along,  +4.8 left
+  picture  41: puck short   -8.7 mm, left   -2.4 mm; stop chance 0.882; model asked 0.25 cm; since the picture before: puck  +9.3 along,  -2.0 left; tip  +9.7 along,  -1.8 left
+  the analyst: the puck was 1.9 mm short when the stop chance first passed 0.5 (the picture before the last)
+run 7 (2026-11-11_174448_E_sheet05_run1): the end's centre from 9 reference pictures at [ 0.3863 -0.019 ], the line's direction there -71.9 degrees in the base frame
+  picture  84: puck short  +35.7 mm, left  -12.1 mm; stop chance 0.000; model asked 0.85 cm
+  picture  85: puck short  +26.5 mm, left   -9.4 mm; stop chance 0.000; model asked 0.78 cm; since the picture before: puck  +9.3 along,  +2.7 left; tip  +8.7 along,  +4.9 left
+  picture  86: puck short  +17.2 mm, left   -5.5 mm; stop chance 0.024; model asked 0.51 cm; since the picture before: puck  +9.3 along,  +3.9 left; tip  +9.2 along,  +3.9 left
+  picture  87: puck short   +7.7 mm, left   -3.9 mm; stop chance 0.928; model asked 0.22 cm; since the picture before: puck  +9.4 along,  +1.6 left; tip  +9.2 along,  +4.0 left
+  picture  88: puck short   -1.7 mm, left   -1.4 mm; stop chance 0.968; model asked 0.15 cm; since the picture before: puck  +9.4 along,  +2.5 left; tip  +9.7 along,  +2.7 left
+  the analyst: the puck was 7.9 mm short when the stop chance first passed 0.5 (the picture before the last)

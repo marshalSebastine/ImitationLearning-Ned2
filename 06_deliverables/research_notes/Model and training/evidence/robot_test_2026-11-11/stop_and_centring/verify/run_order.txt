@@ -1,0 +1,45 @@
+Verifier's folder for the analyst "stop_and_centring" (11.11.26). Everything here was written by the verifier, apart
+from the analyst's own code, to recompute the claims that matter for a decision. Nothing connects to the robot;
+pictures, logged joints, frames.csv and saved model answers are only read; every result is written into this folder.
+
+Python: D:/AI_Project/.venv/Scripts/python.exe, with this folder as the working directory (each script a few seconds
+to two minutes).
+
+My own tools (not the analyst's):
+  my_measure.py       red top face of the puck -> foot on the table (extent in 16 directions), dark-on-paper line mask,
+                      table <-> picture through the project's forearm camera, the camera with a shift and a roll
+  end_tools.py        the line's round end from ONE earlier picture at a time, against the puck in the stop picture
+  centring_tools.py   the sideways offset with puck and line from the SAME picture
+  contact_sheet.py    raw pictures side by side, to be looked at
+
+Checks, in the order they were made (printed output kept as <script>.out.txt):
+   1  verify_labels_and_logs.py              the labels at the stop rows; the training rows of models A and E; the
+                                             driver's last steps in runs 1, 2, 4, 7 (the full centimetre after the
+                                             first stop-like picture)
+   2  verify_stop_output.py                  the fold models' first stop-like picture by the arm model's tip distance
+      verify_stop_output_same_episodes.py    ... beside the analyst's puck-based shortfall (the tip measure overstates
+                                             where the tip moves round a standing puck: sheet_04_038_last.png)
+   3  verify_robot_ends.py                   where the robot stopped in runs 1, 2, 4, 7 (camera as fitted and corrected)
+   4  verify_demonstration_ends.py fitted 1 6 (then: corrected 1 6, swapped 1 6)   every demonstration's end
+      compare_demonstration_ends.py, compare_demonstration_ends_all.py             beside the analyst's; the 5 mm gate
+   5  verify_robot_centring.py               the offset per step of runs 1, 2, 4, 7 from one picture
+   6  look_at_demonstration_offsets.py       seeded sample of demonstration pictures by the analyst's offset, with my
+                                             foot circle: look_far_off.png, look_off.png, look_centred.png
+   7  recount_demonstration_centring.py      the analyst's offsets split into pushed and standing pucks
+   8  camera_correction_check.py             do single views agree better with the analyst's camera correction
+   9  recount_claims.py                      smaller claims recounted; camera angle; puck size (check F in it failed,
+                                             see the note at the end of its output)
+  10  verify_robot_last_steps.py             the last five pictures of the four runs: puck and tip moves along and
+                                             across the line
+  11  check_keep_previous_direction.py       the analyst's driver variant (b) offline
+  12  recount_stop_table.py                  the analyst's stop table recounted; what it says for a driver that moves
+                                             the predicted length
+  13  verify_demonstration_centring.py       sheets 01 and 02 of the analyst's sample with my one-picture measure
+  14  check_drop_rule.py                     what the analyst's retraining rule (2) would remove
+  15  camera_shift_twist_test.py [4 15]      a line-free test of the camera shift: a standing puck during twists in place
+  17  check_last_moves_direction.py          which way the demonstrated last moves go when the puck is beside the line
+  18  check_early_and_never_stops.py         the stop rule over whole held-out episodes: never, early, at the end
+  19  look_uncovered_stop_pictures.py        the stop pictures of the nine least covered demonstration ends
+      try_measure.py <run> <out.png> <steps> overlays of my detection (try_measure_run2.png, _run4.png, _run7.png)
+
+(Check 16, the 5 mm gate, is part of compare_demonstration_ends_all.py.)

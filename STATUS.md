@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), and 9.11.26 by the Model and training session (its section only).
+Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), 9.11.26 by the Model and training session (its section only), and 10 and 11.11.26 by the Model and training session (its section only: GPU pool; first robot test, its check and the plan after it).
 
 ## Dates that cannot move
 
@@ -109,29 +109,47 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
 
 ## Model and training
 
-- Done 9.11.26 (Model and training session, for Emranul; branch `emranul/training-analysis`): the training analysis and
-  a set-up that compares models on equal terms. Report with a plain summary at the top:
-  `06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`. One table of all main-data
-  pictures (`02_code/training_dataset.py`: 211 episodes, 18,522 pictures) and a data audit whose every finding was
-  re-checked twice (`evidence/audit_synthesis.md`: drop 469 null rows, relabel 50 as stop, 30 start ends corrected, keep
-  score 1); the literature behind each choice checked against its sources (397 claims); 13 frozen-feature experiments and
-  end-to-end training runs, all scored by holding out one whole sheet at a time.
-- Found (to be confirmed by Emranul and Marshal): first set-up `TRAINING_RUNS["resnet18_final_candidate"]`, an ImageNet
-  ResNet-18 fine-tuned on one 160 x 120 picture, predicting the exact step and the forearm twist plus its own stop output,
-  with the audit's cleaning, 8 epochs and the last weights. On held-out sheets 63 to 78 percent of its steps point within
-  45 degrees of the demonstration (always forward: 40 to 75); stop at a fixed 0.5 on two pictures in a row: 102 right,
-  25 early, 69 never of 209 episodes, the weakest part. Backup: the same with the move names added (six-fold run still
-  running). The robot must carry it out with fixed 1 cm steps, the twist clamped and wrist and hand held (a fixed-wrist
-  solve); the tool's keyboard and gamepad paths would show the model views it never saw.
-- Installed 9.11 into `.venv`: torch 2.15 (processor build), torchvision, timm, pandas, scikit-learn
-  (`02_code/requirements_training.txt`); Marshal needs the same on his Mac.
-- Still running on Emranul's laptop in the night of 9 to 10.11: the backup and a second seed on all six sheets, plus the
-  mirroring, chunk and no-augmentation runs; their results land in `04_runs` and the report gets an update.
-- Next: the recording tool's model mode (a decider with the fixed-wrist executor, clamps, the step budget and its own
-  folder; code and simulator tests first); the professor's answers to the report's questions; then a first closed-loop
-  check on sheet 01, only after the team decides and with a checklist.
-- Blocked on: the professor (joints in the controller, correction rounds, printing our own tracks). GPU pool still
-  unknown (VPN not connected on 3.11).
+- Done 9.11.26 (branch `emranul/training-analysis`): the training analysis, with a plain summary at the top of
+  `06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`; one table of all main-data
+  pictures (211 episodes, 18,522 pictures), a twice-checked data audit (drop 469 null rows, relabel 50 as stop, 30 start
+  ends corrected, keep score 1), the literature checked against its sources, and runs scored by holding out whole sheets.
+  Installed 9.11 into `.venv`: `02_code/requirements_training.txt` (torch 2.15, processor build); Marshal needs it too.
+- Done 10.11.26 (same session; nothing committed, as Emranul said): training moved to the OTH GPU pool computer ki-014
+  (OTH VPN; `ssh e.hoque@oth-aw.de@ki-014.oth-aw.de` with Emranul's own OTH password; Adel allowed our code, data and
+  Python packages in the home folder): about 10 times faster (one held-out sheet in about 2 minutes, laptop about 19).
+  `train_policy.py` got a `device` setting (not committed). How to: `02_code/HOW_TO_RUN.md`; report section 11.4;
+  results in `04_runs/gpu_ki014/`. Laptop queue stopped at about 11:05 on Emranul's request.
+- Found 9 to 10.11 (to be confirmed by Emranul and Marshal): first set-up `TRAINING_RUNS["resnet18_final_candidate"]`
+  (ImageNet ResNet-18 fine-tuned on one 160 x 120 picture; exact step, forearm twist, its own stop; 8 epochs): on
+  held-out sheets 77 to 79 % of its steps point within 45 degrees of where the tip went next (five seeds on ki-014);
+  the backup "names plus exact" is 6 to 8 points lower, so the report's rule (2.5) says drop it; the stop is the weak
+  point (right place in 92 to 105 of 209 episodes). Augmentation stays (report 6.2). Compare runs within one computer.
+- Done 10 to 11.11.26 (not committed): more recipes on ki-014 (chunk outputs, stop weighted 25, ResNet-34, a team of
+  five; `04_runs/gpu_ki014/`, table in `claude_memory/project-gpu-pool-access.md`), models trained on all six sheets
+  (`.../2026-11-10_resnet18_model_*_all_sheets*/checkpoints/all_sheets.pt`), and the model mode `02_code/model_mode.py`
+  (the driver: one picture, one step; `test_model_mode.py` needs no robot).
+- Done 11.11.26: first robot test, ten runs (`03_data/model_runs/2026-11-11_17*`): four reached the end and stopped
+  (sheet 01 twice, 02, 05; two of them on the end by the 12 mm rule), six lost the line (02 lying square, 03 three
+  times, 04, 06). Checked the same evening by eight analyses, each recomputed by an independent checker
+  (`06_deliverables/research_notes/Model and training/evidence/robot_test_2026-11-11/check_results_complete.md`).
+  Confirmed: the driver moved a fixed 1 cm where the model asked a median 0.61 cm. Open: sheet 04 (the sheet lay 15 to
+  25 degrees off) and the dashed loop. Never driven: a line the model has not seen. Short form with all findings:
+  `claude_memory/project-first-robot-test.md`.
+- Plan from the check, version 2 (reviewed by four critics, each objection tested by a second agent; all in
+  `.../evidence/robot_test_2026-11-11/plan_review/`): `.../Model and training/2026-11-11_plan_after_first_robot_test.md`.
+  Three short test sittings (A: small steps, the measure, the step at sheet 03's bend, sheet 04 again; B: the loop,
+  lines never seen, the driver decision; C: the stop, dashes, orientation); version 1 frozen early as the fallback; a
+  pilot and a recording round on 18 to 24 new shapes in one written style; models judged by a panel fixed in advance;
+  a final test in exam form. About 35 to 45 robot hours until 20.12.
+- Reported by Emranul on 11.11 (the first four are the professor's words; `claude_memory/project-exam-rules-reported.md`):
+  own printed tracks may be trained on; an unseen track can be anything; finishing first, then time, ranked; what the
+  model lacks may be trained; the robot must stop by itself; the team lays every sheet; one try per track; unseen
+  tracks only on the day. Not yet in `05_meetings/requests_to_professor.md` (for the orchestrator).
+- Next: Emranul's decisions, one at a time: (1) a safety copy and whether to commit, (2) the exam lay-out rule, with
+  Marshal, (3) go for the tools and checklist of sitting A. Then this session builds the tools of the plan's step 1.
+- Blocked on: Emranul's go to commit (Marshal sees none of this work; the repository is public, so a push is decided
+  with Marshal); changes of the recording tool (wrist held by the replay, take-over for corrections) need the
+  orchestrator and the Recording and data session.
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`.
 

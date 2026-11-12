@@ -1,0 +1,280 @@
+=== 1. Which placements are physically possible (calculated from the traced lines and the driver's limits) ===
+Tip reach 12 to 47.5 cm with 0.5 cm margin; tip box x [11.5, 49.0], y [-30.0, 25.0] cm; paper off the base's square (half width 9.4 cm, margin 0.5 cm). Table size not checked (unknown here). Mark family: start cap at [19.2, -1.2] cm; centre family: paper centre at [31.0, 0.0] cm.
+
+Possible placements per sheet, end and family (24 turns each):
+family             centre      mark
+shape       end                    
+practice_01 A    24 of 24   2 of 24
+            B    24 of 24   0 of 24
+practice_02 A    24 of 24   8 of 24
+            B    24 of 24   0 of 24
+practice_03 A    24 of 24   4 of 24
+            B    24 of 24  10 of 24
+practice_04 A    24 of 24   4 of 24
+            B    24 of 24   0 of 24
+practice_05 A    24 of 24   3 of 24
+            B    24 of 24   0 of 24
+practice_06 A    24 of 24   6 of 24
+            B    24 of 24   8 of 24
+sheet_01    A    24 of 24   4 of 20
+            B    24 of 24   4 of 20
+sheet_02    A    24 of 24  10 of 24
+            B    24 of 24   9 of 24
+sheet_03    A    24 of 24   9 of 24
+            B    24 of 24   9 of 24
+sheet_04    A    24 of 24   9 of 24
+            B    24 of 24  10 of 24
+sheet_05    A    24 of 24   9 of 24
+            B    24 of 24   7 of 20
+sheet_06    A    24 of 24   3 of 24
+            B    24 of 24   9 of 24
+
+Mark family: the line's start directions (degrees from straight away, + = to the robot's left) that are possible:
+  practice_01 end A: [-30, -15]
+  practice_01 end B: none
+  practice_02 end A: [0, 15, 30, 45, 60, 75, 90, 105]
+  practice_02 end B: none
+  practice_03 end A: [-15, 0, 15, 30]
+  practice_03 end B: [-30, -15, 0, 15, 30, 45, 60, 75, 90, 105]
+  practice_04 end A: [-75, -60, 0, 15]
+  practice_04 end B: none
+  practice_05 end A: [-30, -15, 0]
+  practice_05 end B: none
+  practice_06 end A: [0, 15, 30, 45, 60, 75]
+  practice_06 end B: [-75, -60, -45, -30, -15, 0, 15, 30]
+  sheet_01 end A: [-30, -15, 15, 30]
+  sheet_01 end B: [-30, -15, 15, 30]
+  sheet_02 end A: [-105, -90, -75, -60, -45, -30, -15, 0, 15, 30]
+  sheet_02 end B: [-30, -15, 0, 15, 30, 45, 60, 75, 90]
+  sheet_03 end A: [-135, -120, -105, -90, -75, -60, -45, -30, -15]
+  sheet_03 end B: [-30, -15, 0, 15, 30, 45, 60, 75, 90]
+  sheet_04 end A: [-30, -15, 0, 15, 30, 45, 60, 75, 90]
+  sheet_04 end B: [-120, -105, -90, -75, -60, -45, -30, -15, 0, 15]
+  sheet_05 end A: [-75, -60, -45, -30, -15, 0, 15, 30, 45]
+  sheet_05 end B: [-75, -45, -30, -15, 0, 15, 45]
+  sheet_06 end A: [-30, -15, 0]
+  sheet_06 end B: [-30, -15, 0, 15, 30, 45, 60, 75, 90]
+
+Why the others are not possible (candidates; a candidate may have several reasons):
+reason  paper on the base  tip outside the box in x  tip too near the base
+family                                                                    
+mark                  495                       305                    246
+
+=== 2. The physics classes of a line, by placement (centimetres of line; calculated) ===
+outward: within 45 degrees of radial; sideways: 45 to 110 (the camera can still point along the line); back-slanted: to 140; back sector: beyond (sideways in the picture even at full twist); flips: the line passes straight back to the base, so the forearm must swing from one side to the other; tight bend: the line turns more than 10 degrees per cm, more than the driver can twist while it moves 1 cm per step.
+
+Centre family over all 24 turns and both ends:
+             turns_possible  line_cm  back_sector_cm_least  back_sector_cm_median  back_sector_cm_most  flips_least  flips_most  tight_bend_cm
+shape                                                                                                                                         
+practice_01              24     35.0                     3                    8.0                   15            0           2           22.0
+practice_02              24     31.0                     0                    6.0                   19            0           1           16.0
+practice_03              24     25.0                     0                    0.5                   25            0           2            0.0
+practice_04              24     41.0                     6                    8.0                   17            1           3           23.0
+practice_05              24     42.0                     3                   10.0                   17            0           2           19.0
+practice_06              24     36.0                     0                    9.0                   16            0           2           10.0
+sheet_01                 24     23.0                     0                    0.0                   23            0           1            0.0
+sheet_02                 24     31.0                     0                    6.0                   18            0           1            0.0
+sheet_03                 24     51.0                     0                   10.0                   31            0           3           16.0
+sheet_04                 24     72.0                     0                   15.0                   37            0           5           27.5
+sheet_05                 24     57.0                     4                   10.0                   32            0           2           17.0
+sheet_06                 24     47.0                     3                   11.5                   21            0           4           17.0
+
+The lay-out rule of the demonstrations (mark family, the line leaving straight away), both ends:
+      shape end  turn_deg  line_cm  reach_least_cm  reach_most_cm  outward_cm  sideways_cm  back_slanted_cm  back_sector_cm  flips  tight_bend_cm  is_possible                                                            why_not
+   sheet_01   A      90.3       23            17.2           39.2          23            0                0               0      0              0         True                                                                   
+   sheet_01   B     -90.0       23            17.2           39.2          23            0                0               0      0              0         True                                                                   
+   sheet_02   A     163.5       31            17.2           34.0          10           21                0               0      0              0         True                                                                   
+   sheet_02   B    -159.8       31            17.2           36.2          13           18                0               0      0              0         True                                                                   
+   sheet_03   A     118.3       51            17.2           39.0          27           14                5               5      0             16        False                                                  paper on the base
+   sheet_03   B     -85.8       51            17.2           40.7          27           16                8               0      0             16         True                                                                   
+   sheet_04   A      97.6       72            17.2           40.6          28           31                6               7      0             28         True                                                                   
+   sheet_04   B     -76.3       72            17.2           40.0          31           25                5              11      2             27         True                                                                   
+   sheet_05   A     144.7       57            17.2           40.8          16           26                8               7      1             16         True                                                                   
+   sheet_05   B    -120.1       57            17.2           39.3          29           13                6               9      1             18         True                                                                   
+   sheet_06   A    -169.1       47            17.2           35.8          14           16                6              11      1             17         True                                                                   
+   sheet_06   B    -159.3       47            17.2           40.3          14           15                1              17      1             17         True                                                                   
+practice_01   A     -67.0       35            17.2           35.4          15            7                5               8      1             22        False                                                  paper on the base
+practice_01   B    -155.1       35            14.2           26.4           5           15                6               9      1             22        False                                                  paper on the base
+practice_02   A    -106.3       31            17.2           38.1          17            5                2               7      1             16         True                                                                   
+practice_02   B     -61.9       31            10.0           25.4           4            6                6              15      1             16        False tip too near the base; tip outside the box in x; paper on the base
+practice_03   A     -95.2       25            17.2           38.4          21            4                0               0      0              0         True                                                                   
+practice_03   B      93.8       25            17.2           39.0          22            3                0               0      0              0         True                                                                   
+practice_04   A    -107.5       41            17.2           28.3          15           15                5               6      1             24         True                                                                   
+practice_04   B      41.0       41            17.2           30.5          11           19                4               7      1             22        False                                                  paper on the base
+practice_05   A     -70.7       42            17.2           36.6          12           16                3              11      1             19         True                                                                   
+practice_05   B     -54.4       42            17.2           30.2           9           13               10              10      1             19        False                                                  paper on the base
+practice_06   A    -112.2       36            17.2           34.8          14            7                4              11      0             11         True                                                                   
+practice_06   B    -121.8       36            17.2           34.8          13            8                3              12      2              9         True                                                                   
+  possible for 18 of 24 shape ends; over these the tip stays between 17.2 and 40.8 cm from the base axis, and 109 of 747 cm of line (15 %) lie in the back sector
+
+The gentlest possible placement of each shape and end (fewest back-sector centimetres, then fewest flips), either family:
+      shape end family  turn_deg  start_direction_deg  puck_start_x_cm  puck_start_y_cm  outward_cm  sideways_cm  back_slanted_cm  back_sector_cm  flips
+practice_01   A centre    -150.0                -83.0             27.3              7.8           7           16                8               4      0
+practice_01   B centre       0.0                155.0             30.2             -2.7           7           14               11               3      0
+practice_02   A centre       0.0                106.0             26.8             -8.6           6           13               12               0      0
+practice_02   B centre     165.0               -133.0             31.3             -2.7           5           24                2               0      0
+practice_03   A   mark    -110.2                -15.0             19.2             -1.2          18            7                0               0      0
+practice_03   B   mark      63.8                -30.0             19.2             -1.2          17            8                0               0      0
+practice_04   A   mark    -107.5                  0.0             19.2             -1.2          15           15                5               6      1
+practice_04   B centre      30.0                -11.0             30.6              3.6          12           18                5               6      1
+practice_05   A centre     -15.0                 56.0             29.3             -9.0           6           18               15               3      0
+practice_05   B centre     150.0               -156.0             33.3              3.2           9           17               11               5      0
+practice_06   A centre     -45.0                 67.0             21.8             -7.6           8           28                0               0      0
+practice_06   B centre     150.0                -88.0             28.5              9.7           8           25                3               0      0
+   sheet_01   A   mark      60.3                -30.0             19.2             -1.2          23            0                0               0      0
+   sheet_01   B   mark    -120.0                -30.0             19.2             -1.2          23            0                0               0      0
+   sheet_02   A   mark      58.5               -105.0             19.2             -1.2          17           14                0               0      0
+   sheet_02   B   mark    -159.8                 -0.0             19.2             -1.2          13           18                0               0      0
+   sheet_03   A centre     120.0                  2.0             23.6            -10.0          24           12               15               0      0
+   sheet_03   B   mark     -40.8                 45.0             19.2             -1.2          18           27                6               0      0
+   sheet_04   A   mark     142.6                 45.0             19.2             -1.2          12           43               17               0      0
+   sheet_04   B centre     -60.0                 16.0             22.6             -9.7          26           25               13               8      0
+   sheet_05   A   mark     159.7                 15.0             19.2             -1.2           9           33                9               6      1
+   sheet_05   B centre    -165.0                -45.0             22.1              7.6          10           36                7               4      1
+   sheet_06   A centre     120.0                -71.0             28.1              5.5          13           26                5               3      1
+   sheet_06   B centre     -60.0                 99.0             23.2             -8.1          13           23                8               3      1
+
+=== 3. What the demonstrations hold (the two coverage tables) ===
+Pictures per travel cell, all sheets (three-step paths; rows: reach in cm, columns: direction from radial):
+              -150  -120  -90   -60   -30    0     30    60    90    120   150   180
+12 to 20        35    25    36    74   235   640   267   142    76    28    29    18
+20 to 27.5     230   313   348   307   418  1072   512   212   381   207   109   184
+27.5 to 35     359   219   236   307   545  1063   702   302   399   309   353   455
+35 to 42.5     302   262   400   347   307   449   345   369   456   368   309   282
+42.5 to 49.5    39    48    31    42    21    13     8     8    39    27    35    37
+
+Episodes per start cell (rows: start reach, columns: the line's direction from radial at the start):
+              -150  -120  -90   -60   -30    0     30    60    90    120   150   180
+12 to 20         0     0     0     0    21    84    32     3     1     0     0     0
+20 to 27.5       0     0     0     3     3    11     4     1     1     0     0     0
+27.5 to 35       0     0     2     1     3    13     2     0     3     0     0     0
+35 to 42.5       0     0     1     6     2     0     7     3     2     0     0     0
+42.5 to 49.5     0     0     0     0     0     0     0     0     0     0     0     0
+
+Fullness now: travel 44.1 of 60 cells (a cell is full at 150 pictures); starts 15.8 of 60 cells (full at 4 episodes).
+Per sheet: cells holding under 30 pictures of that sheet (of 60): 01: 56, 02: 34, 03: 22, 04: 23, 05: 28, 06: 37
+Start cells that some possible candidate reaches: 44 of 60; of these, the demonstrations hold 19 with at least one start and 6 full.
+
+=== 4. The placements that are easy to lay (paper square to the robot in either family, or the demonstrations' lay-out rule) ===
+150 possible; comfortable (line leaves within 120 degrees of radial and at most 35 % of it in the back sector): 102
+            possible      comfortable     
+family        centre mark      centre mark
+shape                                     
+practice_01        8    1           4    1
+practice_02        8    3           4    3
+practice_03        8    5           6    5
+practice_04        8    4           4    3
+practice_05        8    2           3    2
+practice_06        8    5           3    4
+sheet_01           8    4           6    4
+sheet_02           8    6           4    6
+sheet_03           8    5           5    4
+sheet_04           8    6           5    6
+sheet_05           8    8           4    8
+sheet_06           8    5           4    4
+
+Square placements that are possible but not comfortable (test placements, hardest first):
+      shape end family  turn_deg  start_direction_deg  start_from_radial_deg  start_reach_cm  line_cm  back_sector_cm  flips
+   sheet_04   A centre     -90.0                172.0                  180.0            45.6       72              33      5
+   sheet_05   B centre      90.0               -150.0                 -160.0            43.1       57              32      2
+   sheet_04   B centre      90.0                166.0                  162.0            45.2       72              31      4
+   sheet_03   B centre      90.0                176.0                 -177.0            45.8       51              28      3
+   sheet_03   A centre     -90.0                152.0                  147.0            44.4       51              27      2
+   sheet_05   A centre     -90.0                125.0                  132.0            43.6       57              25      2
+   sheet_01   B centre      90.0                180.0                  180.0            44.8       23              23      0
+   sheet_01   A centre     -90.0                180.0                  180.0            44.4       23              23      1
+practice_03   B centre     -90.0                176.0                 -175.0            45.8       25              21      2
+practice_02   A centre      90.0               -164.0                 -159.0            41.7       31              19      1
+   sheet_06   A centre     -90.0                 79.0                   94.0            31.5       47              18      2
+   sheet_06   B centre      90.0               -111.0                 -118.0            42.8       47              18      2
+   sheet_02   B centre      90.0               -110.0                 -119.0            43.5       31              17      1
+practice_03   A centre      90.0               -175.0                 -174.0            42.6       25              17      1
+practice_02   B centre     -90.0                -28.0                  -31.0            31.8       31              17      1
+   sheet_02   A centre     -90.0                106.0                  115.0            43.6       31              17      1
+practice_04   A centre      90.0               -162.0                 -167.0            41.0       41              17      1
+   sheet_06   B   mark    -159.3                 -0.0                    4.0            17.2       47              17      1
+practice_04   B centre     -90.0               -131.0                 -131.0            35.6       41              16      1
+practice_05   B centre     -90.0                -36.0                  -39.0            25.5       42              15      2
+practice_06   B centre     -90.0                 32.0                   52.0            23.6       36              15      1
+practice_05   A centre      90.0                161.0                  161.0            42.0       42              15      2
+   sheet_04   B centre    -180.0               -104.0                 -131.0            30.6       72              14      4
+practice_06   B   mark     -90.0                 32.0                   39.0            17.6       36              14      2
+
+Picking rule: 2 episodes per placement; score = travel cells filled + start cells filled + 0.01 x new-for-the-sheet centimetres; best score per hour first; stop below a score of 0.3.
+
+=== 5. Plan C: the six course sheets only (at most two new placements per sheet) ===
+       shape end  family  turn_deg  start_direction_deg  puck_start_x_cm  puck_start_y_cm  start_from_radial_deg  start_reach_cm  line_cm  travel_gain  start_gain  new_for_sheet_cm  score  hours  sideways_cm  back_slanted_cm  back_sector_cm  flips  tight_bend_cm  starts_full_after
+0   sheet_01   A  centre    -180.0                 90.0             30.8            -11.4                  113.0            33.6       23         0.00         0.5                23   0.73   0.33           20                3               0      0              0               16.2
+1   sheet_01   A  centre       0.0                -90.0             31.2             11.4                 -114.0            34.0       23         0.00         0.5                23   0.73   0.33           20                3               0      0              0               16.8
+2   sheet_06   A  centre      90.0               -101.0             31.2              6.2                 -115.0            32.6       47         0.01         0.5                27   0.78   0.38           11               15               4      1             17               17.2
+3   sheet_03   B    mark       0.0                 86.0             19.2             -1.2                   95.0            19.3       51         0.11         0.5                13   0.74   0.39           34                5               4      0             16               17.8
+4   sheet_02   A    mark      90.0                -74.0             19.2             -1.2                  -76.0            18.6       31         0.07         0.5                 5   0.62   0.35           15                0               0      0              0               18.2
+5   sheet_05   A  centre      90.0                -55.0             19.9              3.3                  -69.0            19.3       57         0.09         0.5                11   0.70   0.40           11                4              11      1             16               18.8
+6   sheet_05   B    mark     179.9                -60.0             19.2             -1.2                  -62.0            18.2       57         0.05         0.5                12   0.67   0.40           35                6               5      1             18               19.2
+7   sheet_06   B  centre     -90.0                 69.0             20.2             -3.1                   83.0            20.1       47         0.03         0.5                11   0.64   0.38           16                8               6      1             17               19.8
+8   sheet_02   A  centre      90.0                -74.0             19.5              4.6                  -92.0            20.0       31         0.04         0.5                 4   0.58   0.35           15                0               0      0              0               20.2
+9   sheet_04   B    mark    -180.0               -104.0             19.2             -1.2                 -106.0            19.7       72         0.04         0.5                 3   0.57   0.43           30               11              13      2             27               20.8
+10  sheet_04   B  centre       0.0                 76.0             35.2            -12.1                   98.0            37.5       72         0.01         0.5                 5   0.56   0.43           36                5              17      2             27               21.2
+11  sheet_03   B  centre    -180.0                -94.0             36.8             12.4                 -115.0            39.6       51         0.00         0.5                 0   0.50   0.39           11               24               5      2             16               21.8
+
+=== 6. Plan P: the six practice tracks (first the demonstrations' lay-out rule, then two more placements per track) ===
+          shape end  family  turn_deg  start_direction_deg  puck_start_x_cm  puck_start_y_cm  start_from_radial_deg  start_reach_cm  line_cm  travel_gain  start_gain  new_for_sheet_cm  score  hours  sideways_cm  back_slanted_cm  back_sector_cm  flips  tight_bend_cm  starts_full_after
+0   practice_01   A    mark     -82.0                -15.0             19.2             -1.2                  -13.0            17.3       35         0.00        0.00                35   0.35   0.35            7                5               8      1             22               15.8
+1   practice_02   A    mark    -106.3                 -0.0             19.2             -1.2                    4.0            17.2       31         0.00        0.00                31   0.31   0.35            5                2               7      1             16               15.8
+2   practice_03   A    mark     -95.2                 -0.0             19.2             -1.2                    4.0            17.2       25         0.00        0.00                25   0.25   0.33            4                0               0      0              0               15.8
+3   practice_04   A    mark    -107.5                  0.0             19.2             -1.2                    4.0            17.2       41         0.12        0.00                41   0.53   0.37           15                5               6      1             24               15.8
+4   practice_05   A    mark     -70.7                  0.0             19.2             -1.2                    4.0            17.2       42         0.01        0.00                42   0.43   0.37           16                3              11      1             19               15.8
+5   practice_06   A    mark    -112.2                  0.0             19.2             -1.2                    4.0            17.2       36         0.00        0.00                36   0.36   0.36            7                4              11      0             11               15.8
+6   practice_02   A    mark       0.0                106.0             19.2             -1.2                  115.0            20.0       31         0.20        0.50                31   1.01   0.35           20                5               1      0             16               16.2
+7   practice_04   A    mark    -180.0                -72.0             19.2             -1.2                  -75.0            18.6       41         0.11        0.50                41   1.02   0.37           13               10               7      1             24               16.8
+8   practice_04   B  centre      90.0                 49.0             27.7              1.5                   49.0            26.4       41         0.07        0.50                41   0.98   0.37           12                5               6      1             22               17.2
+9   practice_03   B    mark    -180.0                 86.0             19.2             -1.2                   96.0            19.3       25         0.13        0.50                25   0.88   0.33           13                0               0      0              0               17.8
+10  practice_06   B    mark    -180.0                -58.0             19.2             -1.2                  -60.0            18.1       36         0.05        0.50                36   0.91   0.36           15                7               4      0              9               18.2
+11  practice_05   B  centre       0.0                 54.0             30.6             -3.9                   65.0            29.9       42         0.00        0.50                42   0.92   0.37           23                5               7      1             19               18.8
+12  practice_01   B  centre      90.0               -115.0             33.7             -0.8                 -117.0            34.5       35         0.01        0.50                35   0.86   0.35           10                5               8      1             22               19.2
+13  practice_06   A  centre    -180.0                -68.0             32.1             11.9                  -91.0            34.3       36         0.00        0.50                36   0.86   0.36           14               13               9      1             11               19.8
+14  practice_02   A  centre    -180.0                -74.0             35.2              8.6                  -91.0            36.2       31         0.00        0.50                31   0.81   0.35           20                5               6      1             16               20.2
+15  practice_03   A  centre    -180.0                -85.0             31.8              9.6                 -105.0            33.7       25         0.00        0.50                25   0.75   0.33           11                8               6      0              0               20.8
+16  practice_05   A  centre       0.0                 71.0             31.7             -9.1                   90.0            32.9       42         0.01        0.25                42   0.68   0.37           17               12               6      0             19               21.0
+17  practice_01   A  centre     -90.0                -23.0             22.4              0.7                  -27.0            20.7       35         0.00        0.25                35   0.60   0.35           10                6               7      1             22               21.2
+
+=== 7. Both together: the course sheets picked after plan P is in the tables ===
+       shape end  family  turn_deg  start_direction_deg  puck_start_x_cm  puck_start_y_cm  start_from_radial_deg  start_reach_cm  line_cm  travel_gain  start_gain  new_for_sheet_cm  score  hours  sideways_cm  back_slanted_cm  back_sector_cm  flips  tight_bend_cm  starts_full_after
+0   sheet_01   A  centre    -180.0                 90.0             30.8            -11.4                  113.0            33.6       23         0.00        0.50                23   0.73   0.33           20                3               0      0              0               21.8
+1   sheet_06   B  centre     -90.0                 69.0             20.2             -3.1                   83.0            20.1       47         0.01        0.50                18   0.69   0.38           16                8               6      1             17               22.2
+2   sheet_02   A    mark      90.0                -74.0             19.2             -1.2                  -76.0            18.6       31         0.07        0.50                 5   0.62   0.35           15                0               0      0              0               22.8
+3   sheet_01   B  centre       0.0                 90.0             31.1            -11.8                  114.0            34.0       23         0.00        0.50                 6   0.56   0.33           20                3               0      0              0               23.2
+4   sheet_02   A  centre      90.0                -74.0             19.5              4.6                  -92.0            20.0       31         0.04        0.50                 4   0.58   0.35           15                0               0      0              0               23.8
+5   sheet_03   B  centre    -180.0                -94.0             36.8             12.4                 -115.0            39.6       51         0.00        0.50                 6   0.56   0.39           11               24               5      2             16               24.2
+6   sheet_05   A  centre    -180.0                 35.0             27.7            -11.1                   61.0            28.8       57         0.00        0.50                 6   0.56   0.40           35               12               6      1             16               24.8
+7   sheet_05   B  centre    -180.0                -60.0             24.3              9.6                  -86.0            26.0       57         0.00        0.50                 4   0.54   0.40           38                9               4      1             18               25.2
+8   sheet_03   A  centre    -180.0                 62.0             35.9            -11.4                   82.0            37.4       51         0.00        0.50                 2   0.52   0.39           32                4              11      2             16               25.8
+9   sheet_04   B    mark    -180.0               -104.0             19.2             -1.2                 -106.0            19.7       72         0.04        0.50                 3   0.57   0.43           30               11              13      2             27               26.2
+10  sheet_06   B    mark     -90.0                 69.0             19.2             -1.2                   78.0            18.7       47         0.01        0.25                18   0.44   0.38           14                8               7      1             17               26.5
+11  sheet_04   A  centre       0.0                -98.0             36.4             12.3                 -119.0            39.3       72         0.00        0.50                 0   0.50   0.43           26               17              13      4             28               27.0
+
+=== 8. A test ladder that needs no recording: the straight sheet and the arc on the centre cross, every 45 degrees, easiest first ===
+   shape end  turn_deg  start_direction_deg  puck_start_x_cm  puck_start_y_cm  start_from_radial_deg  start_reach_cm  line_cm  outward_cm  sideways_cm  back_slanted_cm  back_sector_cm  flips  is_comfortable
+sheet_01   A      90.0                 -0.0             19.6              0.2                   -1.0            17.6       23          23            0                0               0      0            True
+sheet_01   A      45.0                -45.0             23.1              8.3                  -69.0            23.7       23           9           14                0               0      0            True
+sheet_01   A     135.0                 45.0             22.7             -7.9                   68.0            23.3       23           9           14                0               0      0            True
+sheet_01   A    -180.0                 90.0             30.8            -11.4                  113.0            33.6       23           0           20                3               0      0            True
+sheet_01   A       0.0                -90.0             31.2             11.4                 -114.0            34.0       23           0           20                3               0      0            True
+sheet_01   A    -135.0                135.0             38.9             -8.3                  148.0            41.5       23           0            0               13              10      0           False
+sheet_01   A     -45.0               -135.0             39.3              7.9                 -148.0            41.7       23           0            0               13              10      0           False
+sheet_01   A     -90.0                180.0             42.4             -0.2                  180.0            44.4       23           0            0                0              23      1           False
+sheet_02   A      90.0                -74.0             19.5              4.6                  -92.0            20.0       31          16           15                0               0      0            True
+sheet_02   A     135.0                -29.0             19.6             -4.9                  -16.0            18.3       31          13           18                0               0      0            True
+sheet_02   A    -180.0                 16.0             26.4            -11.5                   43.0            27.3       31           1           18               12               0      0            True
+sheet_02   A      45.0               -119.0             26.1             11.4                 -144.0            30.1       31          16            9                5               1      0           False
+sheet_02   A       0.0               -164.0             35.6             11.5                  179.0            39.4       31           8            9                5               9      1           False
+sheet_02   A    -135.0                 61.0             35.9            -11.4                   82.0            37.3       31           0            9                8              14      1           False
+sheet_02   A     -45.0                151.0             42.4              4.9                  146.0            44.3       31           0           10                5              16      1           False
+sheet_02   A     -90.0                106.0             42.5             -4.6                  115.0            43.6       31           0            1               13              17      1           False
+16 placements; with one run each at about 2.5 to 3 minutes a run (report 8.4) and a taught start per placement, about 1.9 hours (a guess: 4 minutes to tape and teach each placement).
+
+Plan C (course sheets alone): 12 placements x 2 episodes = 24 episodes, about 1124 pictures, 4.6 robot hours; travel cells full 44.6 of 60 (now 44.1), start cells full 21.8 (now 15.8)
+Plan P (practice tracks alone): 18 placements x 2 episodes = 36 episodes, about 1260 pictures, 6.4 robot hours; travel cells full 44.9 of 60 (now 44.1), start cells full 21.2 (now 15.8)
+Course sheets after plan P: 12 placements x 2 episodes = 24 episodes, about 1124 pictures, 4.6 robot hours; travel cells full 45.0 of 60 (now 44.1), start cells full 27.0 (now 15.8)
+
+Saved 05_candidates.csv, 05_plan.csv, 05_plan_course_sheets.png, 05_plan_practice_tracks.png

@@ -1,0 +1,164 @@
+held-out pictures scored: 17177 (not the stop row, with a line position); path rows among them: 13890
+every number is measured on demonstration pictures; recipe E, recipe A and the backup were trained WITHOUT the picture's sheet
+
+== 1. step length per kind of place (cm) ==
+      place  pictures  demonstrated median  demonstrated under 0.3  recipe E: median  recipe E: under 0.3  recipe A: median  recipe A: under 0.3  backup model: median  backup model: under 0.3  model E itself, pictures it was trained on: median  model E itself, pictures it was trained on: under 0.3  chunk, 1 step ahead (recipe E: median  chunk, 1 step ahead (recipe E: under 0.3
+   straight      2186                 1.13                   0.056              0.85                0.038              0.84                0.031                  0.81                    0.027                                                0.98                                                  0.016                                   0.85                                     0.039
+gentle bend      6772                 1.09                   0.056              0.70                0.024              0.67                0.052                  0.67                    0.042                                                0.80                                                  0.014                                   0.71                                     0.027
+ sharp bend      6305                 1.01                   0.129              0.63                0.050              0.59                0.080                  0.60                    0.063                                                0.69                                                  0.035                                   0.63                                     0.058
+    hairpin      1091                 0.53                   0.300              0.63                0.073              0.60                0.078                  0.63                    0.020                                                0.46                                                  0.109                                   0.63                                     0.078
+   line end       823                 1.08                   0.104              0.47                0.217              0.41                0.282                  0.41                    0.262                                                0.44                                                  0.290                                   0.41                                     0.301
+
+== 1b. how far ahead: the chunk's place 3 and 5 steps ahead against the demonstrated place (median distance from the tip, cm) ==
+straight     | 3 ahead: demonstrated 3.22, chunk 2.61, chunk under 0.5 cm: 0.008 | 5 ahead: demonstrated 4.85, chunk 4.11, chunk under 0.5 cm: 0.001
+gentle bend  | 3 ahead: demonstrated 2.78, chunk 2.14, chunk under 0.5 cm: 0.008 | 5 ahead: demonstrated 4.09, chunk 3.34, chunk under 0.5 cm: 0.005
+sharp bend   | 3 ahead: demonstrated 2.35, chunk 1.93, chunk under 0.5 cm: 0.013 | 5 ahead: demonstrated 3.53, chunk 2.99, chunk under 0.5 cm: 0.005
+hairpin      | 3 ahead: demonstrated 1.49, chunk 1.87, chunk under 0.5 cm: 0.016 | 5 ahead: demonstrated 2.45, chunk 2.90, chunk under 0.5 cm: 0.010
+line end     | 3 ahead: demonstrated 1.85, chunk 1.13, chunk under 0.5 cm: 0.176 | 5 ahead: demonstrated 2.02, chunk 1.60, chunk under 0.5 cm: 0.084
+
+== 2. direction against where the demonstration went over the next 3 steps (path rows only) ==
+-- within_45 --
+place                                                    straight  gentle bend  sharp bend  hairpin  line end  all places
+answer                                                                                                                   
+exact step (recipe E, held-out sheet)                       0.897        0.795       0.790    0.800     0.478       0.796
+chunk, 1 step ahead (recipe E)                              0.891        0.793       0.794    0.801     0.480       0.796
+chunk, 3 steps ahead (recipe E)                             0.896        0.806       0.793    0.836     0.542       0.806
+chunk, 5 steps ahead (recipe E)                             0.891        0.808       0.785    0.836     0.565       0.804
+exact step (recipe A, held-out sheet)                       0.866        0.781       0.748    0.686     0.504       0.768
+exact step (backup model)                                   0.875        0.782       0.756    0.761     0.589       0.778
+exact step (model E itself, pictures it was trained on)     0.958        0.927       0.938    0.932     0.685       0.926
+chunk, 3 steps ahead (model E itself, trained on)           0.961        0.935       0.948    0.969     0.716       0.937
+names, most likely (backup)                                 0.792        0.686       0.667    0.649     0.567       0.689
+names, mean direction (backup)                              0.832        0.738       0.708    0.691     0.645       0.735
+always forward                                              0.779        0.601       0.498    0.607     0.329       0.581
+the demonstrated step itself                                0.894        0.854       0.827    0.750     0.744       0.843
+-- median_error_deg --
+place                                                    straight  gentle bend  sharp bend  hairpin  line end  all places
+answer                                                                                                                   
+exact step (recipe E, held-out sheet)                        10.6         19.0        21.0     26.9      46.8        19.0
+chunk, 1 step ahead (recipe E)                               10.5         18.7        21.2     26.3      47.4        18.9
+chunk, 3 steps ahead (recipe E)                              10.0         17.4        21.1     23.0      40.4        18.2
+chunk, 5 steps ahead (recipe E)                               9.8         17.0        22.5     19.9      37.5        18.4
+exact step (recipe A, held-out sheet)                        11.3         18.5        24.0     30.1      44.6        20.2
+exact step (backup model)                                    11.7         20.1        23.5     23.7      34.7        20.4
+exact step (model E itself, pictures it was trained on)       7.5         11.7        12.8     13.6      27.4        11.7
+chunk, 3 steps ahead (model E itself, trained on)             6.8         10.6        10.7     12.1      24.2        10.3
+names, most likely (backup)                                  15.3         25.8        27.6     29.7      39.5        25.1
+names, mean direction (backup)                               14.2         23.3        25.4     27.5      34.2        23.1
+always forward                                               14.6         30.0        45.4     31.0      79.9        33.1
+the demonstrated step itself                                 10.3         16.3        18.5     21.5      24.0        16.5
+-- beyond_90 --
+place                                                    straight  gentle bend  sharp bend  hairpin  line end  all places
+answer                                                                                                                   
+exact step (recipe E, held-out sheet)                       0.015        0.047       0.044    0.022     0.133       0.043
+chunk, 1 step ahead (recipe E)                              0.014        0.047       0.044    0.022     0.137       0.044
+chunk, 3 steps ahead (recipe E)                             0.014        0.043       0.041    0.020     0.117       0.040
+chunk, 5 steps ahead (recipe E)                             0.014        0.039       0.037    0.017     0.087       0.036
+exact step (recipe A, held-out sheet)                       0.014        0.048       0.052    0.059     0.177       0.050
+exact step (backup model)                                   0.012        0.053       0.058    0.048     0.103       0.051
+exact step (model E itself, pictures it was trained on)     0.003        0.009       0.010    0.009     0.073       0.011
+chunk, 3 steps ahead (model E itself, trained on)           0.002        0.008       0.008    0.004     0.075       0.009
+names, most likely (backup)                                 0.047        0.107       0.104    0.077     0.188       0.099
+names, mean direction (backup)                              0.023        0.080       0.086    0.074     0.117       0.075
+always forward                                              0.091        0.212       0.199    0.057     0.425       0.192
+the demonstrated step itself                                0.014        0.020       0.022    0.059     0.056       0.022
+
+== 3. change of direction from one picture to the next, on the table (pairs of consecutive pictures of one episode) ==
+-- over_90 --
+place                                                    straight  gentle bend  sharp bend  hairpin  line end  all places
+answer                                                                                                                   
+exact step (recipe E, held-out sheet)                       0.004        0.003       0.004    0.002     0.003       0.004
+chunk, 1 step ahead (recipe E)                              0.004        0.003       0.004    0.001     0.003       0.003
+chunk, 3 steps ahead (recipe E)                             0.002        0.003       0.003    0.003     0.005       0.003
+chunk, 5 steps ahead (recipe E)                             0.001        0.003       0.003    0.006     0.005       0.003
+exact step (recipe A, held-out sheet)                       0.003        0.005       0.007    0.006     0.007       0.005
+exact step (backup model)                                   0.004        0.008       0.007    0.002     0.012       0.007
+exact step (model E itself, pictures it was trained on)     0.006        0.003       0.001    0.000     0.008       0.003
+chunk, 3 steps ahead (model E itself, trained on)           0.005        0.002       0.001    0.000     0.008       0.002
+names, most likely (backup)                                 0.047        0.039       0.048    0.017     0.099       0.044
+names, mean direction (backup)                              0.013        0.015       0.021    0.004     0.050       0.017
+the demonstrated step itself                                0.066        0.074       0.097    0.184     0.116       0.090
+the demonstrated path direction (3 steps ahead)             0.009        0.013       0.013    0.026     0.041       0.014
+-- median_change_deg --
+place                                                    straight  gentle bend  sharp bend  hairpin  line end  all places
+answer                                                                                                                   
+exact step (recipe E, held-out sheet)                         6.3          8.0        10.2      8.8      11.5         8.7
+chunk, 1 step ahead (recipe E)                                6.3          8.0        10.1      8.9      11.4         8.7
+chunk, 3 steps ahead (recipe E)                               5.7          7.7         9.8      8.8      12.0         8.4
+chunk, 5 steps ahead (recipe E)                               5.3          7.3         9.3      8.4      11.4         7.9
+exact step (recipe A, held-out sheet)                         6.3          8.4        10.0      8.8      10.8         8.8
+exact step (backup model)                                     6.5          8.5        10.7      9.5      12.3         9.3
+exact step (model E itself, pictures it was trained on)       5.2          8.7        10.8      9.2      13.1         9.3
+chunk, 3 steps ahead (model E itself, trained on)             4.9          8.2        10.5      9.2      13.7         8.9
+names, most likely (backup)                                   2.7          5.2         6.1      6.6       4.4         5.5
+names, mean direction (backup)                                7.0          9.3        10.8      9.4      14.7         9.7
+the demonstrated step itself                                 16.0         23.6        26.0     32.9      28.6        23.8
+the demonstrated path direction (3 steps ahead)               7.8         13.1        14.5     13.7      23.4        13.1
+
+== 4. the backup's move names: is the probability split over opposite names? ==
+      place  pictures  top probability, median  probability over 90 deg from the top name, mean  share of pictures with 0.25 or more there  resultant length, median  share with resultant under 0.5  entropy, median bits
+   straight      2186                    0.586                                            0.034                                      0.024                     0.835                           0.038                  1.52
+gentle bend      6772                    0.478                                            0.054                                      0.033                     0.776                           0.073                  1.82
+ sharp bend      6305                    0.459                                            0.063                                      0.042                     0.764                           0.099                  1.90
+    hairpin      1091                    0.486                                            0.036                                      0.007                     0.789                           0.020                  1.77
+   line end       823                    0.343                                            0.157                                      0.221                     0.501                           0.493                  2.48
+ all places     17177                    0.475                                            0.058                                      0.043                     0.775                           0.095                  1.83
+
+-- the names where the exact step of the SAME (backup) model is short or long --
+exact under 0.3 cm     | pictures   977 | top probability median 0.281 | probability over 90 deg from the top name: mean 0.241, share of pictures with 0.25 or more 0.432 | resultant median 0.368
+exact 0.3 to 0.7 cm    | pictures  9322 | top probability median 0.424 | probability over 90 deg from the top name: mean 0.072, share of pictures with 0.25 or more 0.033 | resultant median 0.717
+exact 0.7 cm or more   | pictures  6878 | top probability median 0.587 | probability over 90 deg from the top name: mean 0.014, share of pictures with 0.25 or more 0.001 | resultant median 0.838
+
+== 5. where recipe E's exact step is short: what the demonstration did at the same picture ==
+      place predicted length  pictures  share of the place  demonstrated: twist in place  demonstrated: under 0.3 cm  demonstrated: 0.7 cm or more  demonstrated median cm  direction beyond 90 of the demonstrated step (real moves)  path within 45  path beyond 90
+   straight       0.0 to 0.3        82               0.038                         0.146                       0.146                         0.744                    1.10                                                      0.148           0.650           0.100
+   straight       0.3 to 0.6       378               0.173                         0.135                       0.138                         0.696                    1.04                                                      0.163           0.683           0.063
+   straight       0.6 to 0.9       822               0.376                         0.046                       0.049                         0.848                    1.14                                                      0.040           0.899           0.007
+   straight       0.9 to 5.0       904               0.414                         0.019                       0.020                         0.940                    1.16                                                      0.013           0.976           0.001
+gentle bend       0.0 to 0.3       164               0.024                         0.049                       0.049                         0.793                    1.09                                                      0.292           0.500           0.214
+gentle bend       0.3 to 0.6      1863               0.275                         0.076                       0.077                         0.777                    1.07                                                      0.158           0.644           0.091
+gentle bend       0.6 to 0.9      3712               0.548                         0.053                       0.055                         0.802                    1.09                                                      0.079           0.829           0.030
+gentle bend       0.9 to 5.0      1033               0.153                         0.024                       0.024                         0.890                    1.14                                                      0.013           0.962           0.010
+ sharp bend       0.0 to 0.3       313               0.050                         0.198                       0.198                         0.460                    0.64                                                      0.292           0.467           0.144
+ sharp bend       0.3 to 0.6      2372               0.376                         0.165                       0.166                         0.566                    0.83                                                      0.123           0.723           0.067
+ sharp bend       0.6 to 0.9      3063               0.486                         0.103                       0.105                         0.698                    1.04                                                      0.076           0.822           0.030
+ sharp bend       0.9 to 5.0       557               0.088                         0.068                       0.068                         0.790                    1.10                                                      0.027           0.950           0.008
+    hairpin       0.0 to 0.3        80               0.073                         0.350                       0.350                         0.212                    0.43                                                      0.118           0.440           0.080
+    hairpin       0.3 to 0.6       384               0.352                         0.349                       0.352                         0.336                    0.44                                                      0.039           0.719           0.029
+    hairpin       0.6 to 0.9       551               0.505                         0.278                       0.279                         0.441                    0.58                                                      0.037           0.850           0.019
+    hairpin       0.9 to 5.0        76               0.070                         0.132                       0.132                         0.618                    0.94                                                      0.000           0.864           0.000
+   line end       0.0 to 0.3       179               0.217                         0.028                       0.151                         0.704                    1.02                                                      0.357           0.218           0.264
+   line end       0.3 to 0.6       415               0.504                         0.065                       0.111                         0.706                    1.07                                                      0.177           0.457           0.127
+   line end       0.6 to 0.9       213               0.259                         0.033                       0.056                         0.864                    1.13                                                      0.130           0.610           0.082
+   line end       0.9 to 5.0        16               0.019                         0.000                       0.062                         0.750                    1.04                                                      0.000           1.000           0.000
+ all places       0.0 to 0.3       818               0.048                         0.141                       0.167                         0.584                    0.85                                                      0.285           0.453           0.177
+ all places       0.3 to 0.6      5412               0.315                         0.137                       0.142                         0.642                    1.01                                                      0.142           0.671           0.079
+ all places       0.6 to 0.9      8361               0.487                         0.085                       0.087                         0.746                    1.07                                                      0.074           0.830           0.028
+ all places       0.9 to 5.0      2586               0.151                         0.035                       0.036                         0.877                    1.13                                                      0.015           0.963           0.006
+
+== 6. twist and sideways move against the side the line bends to (pictures where the line turns 60 degrees or more within 6 cm) ==
+     place                      source  pictures  twist into the bend, mean deg  share twisting into the bend (2 deg or more)  share twisting out of it (2 deg or more)  sideways move to the outside, mean cm  share moving to the inside by 0.2 cm or more
+sharp bend               demonstration      6015                           2.59                                         0.565                                     0.192                                  0.093                                         0.278
+sharp bend   recipe E (held-out sheet)      6015                           2.04                                         0.519                                     0.081                                  0.032                                         0.319
+sharp bend   recipe A (held-out sheet)      6015                           1.93                                         0.519                                     0.108                                  0.053                                         0.293
+sharp bend model E itself (trained on)      6015                           2.55                                         0.607                                     0.148                                  0.068                                         0.279
+   hairpin               demonstration      1091                           5.81                                         0.848                                     0.024                                  0.277                                         0.092
+   hairpin   recipe E (held-out sheet)      1091                           4.44                                         0.894                                     0.002                                  0.325                                         0.055
+   hairpin   recipe A (held-out sheet)      1091                           4.21                                         0.919                                     0.007                                  0.296                                         0.047
+   hairpin model E itself (trained on)      1091                           5.63                                         0.935                                     0.002                                  0.267                                         0.033
+
+== 6b. recipe E trained twice (two seeds), held-out sheets: step length and path within 45 for the exact step and the chunk ==
+      place  seed 1: length median  seed 1: under 0.3  seed 1: exact  seed 1: chunk-3  seed 1: chunk-5  seed 2: length median  seed 2: under 0.3  seed 2: exact  seed 2: chunk-3  seed 2: chunk-5
+   straight                   0.85              0.038          0.897            0.896            0.891                   0.83              0.029          0.869            0.877            0.876
+gentle bend                   0.70              0.024          0.795            0.806            0.808                   0.67              0.036          0.787            0.799            0.800
+ sharp bend                   0.63              0.050          0.790            0.793            0.785                   0.62              0.049          0.777            0.777            0.765
+    hairpin                   0.63              0.073          0.800            0.836            0.836                   0.61              0.026          0.836            0.866            0.882
+   line end                   0.47              0.217          0.478            0.542            0.565                   0.41              0.283          0.536            0.581            0.597
+ all places                   0.67              0.048          0.796            0.806            0.804                   0.65              0.051          0.787            0.797            0.795
+
+== 7. twist size per kind of place (median of the absolute forearm change per step, degrees) ==
+straight     | demonstrated 2.37 | recipe E 1.70 | recipe A 1.74 | model E itself 1.86 | sum predicted / sum demonstrated (recipe E): 0.66
+gentle bend  | demonstrated 3.43 | recipe E 2.33 | recipe A 2.44 | model E itself 2.48 | sum predicted / sum demonstrated (recipe E): 0.68
+sharp bend   | demonstrated 5.27 | recipe E 2.55 | recipe A 2.75 | model E itself 4.34 | sum predicted / sum demonstrated (recipe E): 0.57
+hairpin      | demonstrated 6.15 | recipe E 4.59 | recipe A 4.38 | model E itself 6.22 | sum predicted / sum demonstrated (recipe E): 0.74
+line end     | demonstrated 0.79 | recipe E 0.90 | recipe A 0.86 | model E itself 0.54 | sum predicted / sum demonstrated (recipe E): 0.65

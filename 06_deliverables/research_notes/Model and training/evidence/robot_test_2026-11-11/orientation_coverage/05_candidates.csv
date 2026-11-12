@@ -1,0 +1,1249 @@
+shape,end,family,turn_deg,paper_centre_x_cm,paper_centre_y_cm,puck_start_x_cm,puck_start_y_cm,start_direction_deg,start_from_radial_deg,start_reach_cm,line_cm,reach_least_cm,reach_most_cm,is_possible,why_not,outward_cm,sideways_cm,back_slanted_cm,back_sector_cm,flips,tight_bend_cm,minutes_per_episode,is_square,is_comfortable
+sheet_01,A,mark,-89.7,7.8,-1.0,19.2,-1.2,-180.0,-177.0,21.2,23,1.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,1,20,0,0,4.9,True,False
+sheet_01,A,mark,-74.7,8.1,-4.0,19.2,-1.2,-165.0,-163.0,21.1,23,6.1,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,5,5,13,0,0,4.9,False,False
+sheet_01,A,mark,-59.7,9.2,-6.8,19.2,-1.2,-150.0,-149.0,20.9,23,10.6,20.9,False,tip too near the base; tip outside the box in x; paper on the base,0,8,9,6,0,0,4.9,False,False
+sheet_01,A,mark,-44.7,11.0,-9.2,19.2,-1.2,-135.0,-136.0,20.6,23,14.4,20.6,False,tip outside the box in x; paper on the base,0,13,10,0,0,0,4.9,False,False
+sheet_01,A,mark,-29.7,13.3,-11.0,19.2,-1.2,-120.0,-122.0,20.2,23,17.2,20.7,False,tip outside the box in x; paper on the base,0,18,5,0,0,0,4.9,False,False
+sheet_01,A,mark,-14.7,16.1,-12.2,19.2,-1.2,-105.0,-107.0,19.7,23,18.9,24.8,False,paper on the base,0,23,0,0,0,0,4.9,False,True
+sheet_01,A,mark,0.3,19.0,-12.6,19.2,-1.2,-90.0,-92.0,19.2,23,19.2,28.6,False,paper on the base,3,20,0,0,0,0,4.9,True,True
+sheet_01,A,mark,15.3,22.0,-12.3,19.2,-1.2,-75.0,-77.0,18.7,23,18.7,31.9,False,paper on the base,8,15,0,0,0,0,4.9,False,True
+sheet_01,A,mark,30.3,24.8,-11.2,19.2,-1.2,-60.0,-62.0,18.2,23,18.2,34.6,False,paper on the base,15,8,0,0,0,0,4.9,False,True
+sheet_01,A,mark,45.3,27.2,-9.4,19.2,-1.2,-45.0,-46.0,17.8,23,17.8,36.7,False,paper on the base,22,1,0,0,0,0,4.9,False,True
+sheet_01,A,mark,60.3,29.0,-7.1,19.2,-1.2,-30.0,-29.0,17.5,23,17.5,38.2,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,mark,75.3,30.2,-4.3,19.2,-1.2,-15.0,-13.0,17.3,23,17.3,39.0,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,mark,90.3,30.6,-1.4,19.2,-1.2,0.0,4.0,17.2,23,17.2,39.2,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,A,mark,105.3,30.3,1.6,19.2,-1.2,15.0,21.0,17.4,23,17.4,38.7,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,mark,120.3,29.2,4.4,19.2,-1.2,30.0,37.0,17.6,23,17.6,37.6,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,mark,135.3,27.4,6.8,19.2,-1.2,45.0,53.0,18.0,23,18.0,35.8,False,paper on the base,19,4,0,0,0,0,4.9,False,True
+sheet_01,A,mark,150.3,25.1,8.6,19.2,-1.2,60.0,69.0,18.4,23,18.4,33.4,False,paper on the base,12,11,0,0,0,0,4.9,False,True
+sheet_01,A,mark,165.3,22.3,9.8,19.2,-1.2,75.0,85.0,18.9,23,18.9,30.4,False,paper on the base,5,18,0,0,0,0,4.9,False,True
+sheet_01,A,mark,-179.7,19.4,10.2,19.2,-1.2,90.0,99.0,19.5,23,19.2,26.9,False,paper on the base,0,23,0,0,0,0,4.9,True,True
+sheet_01,A,mark,-164.7,16.4,9.9,19.2,-1.2,105.0,114.0,20.0,23,18.2,22.9,False,paper on the base,0,21,2,0,0,0,4.9,False,True
+sheet_01,A,mark,-149.7,13.6,8.8,19.2,-1.2,120.0,128.0,20.4,23,16.0,20.4,False,tip outside the box in x; paper on the base,0,16,7,0,0,0,4.9,False,False
+sheet_01,A,mark,-134.7,11.2,7.0,19.2,-1.2,135.0,142.0,20.8,23,12.8,20.8,False,tip outside the box in x; paper on the base,0,11,10,2,0,0,4.9,False,False
+sheet_01,A,mark,-119.7,9.4,4.7,19.2,-1.2,150.0,156.0,21.0,23,8.6,21.0,False,tip too near the base; tip outside the box in x; paper on the base,0,6,8,9,0,0,4.9,False,False
+sheet_01,A,mark,-104.7,8.2,1.9,19.2,-1.2,165.0,170.0,21.2,23,3.8,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,3,3,17,0,0,4.9,False,False
+sheet_01,A,mark,-180.0,19.4,10.2,19.2,-1.2,90.0,99.0,19.5,23,19.2,27.0,False,paper on the base,0,23,0,0,0,0,4.9,True,True
+sheet_01,A,mark,-90.0,7.8,-1.0,19.2,-1.2,180.0,-177.0,21.2,23,1.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,1,20,0,0,4.9,True,False
+sheet_01,A,mark,0.0,19.0,-12.6,19.2,-1.2,-90.0,-93.0,19.2,23,19.2,28.5,False,paper on the base,3,20,0,0,0,0,4.9,True,True
+sheet_01,A,mark,90.0,30.6,-1.4,19.2,-1.2,-0.0,4.0,17.2,23,17.2,39.2,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,A,centre,-180.0,31.0,0.0,30.8,-11.4,90.0,113.0,33.6,23,30.8,33.6,True,,0,20,3,0,0,0,4.9,True,True
+sheet_01,A,centre,-165.0,31.0,-0.0,33.7,-11.1,105.0,126.0,36.6,23,29.8,36.6,True,,0,12,11,0,0,0,4.9,False,False
+sheet_01,A,centre,-150.0,31.0,0.0,36.5,-10.0,120.0,137.0,39.3,23,27.6,39.3,True,,0,3,20,0,0,0,4.9,False,False
+sheet_01,A,centre,-135.0,31.0,0.0,38.9,-8.3,135.0,148.0,41.5,23,25.6,41.5,True,,0,0,13,10,0,0,4.9,False,False
+sheet_01,A,centre,-120.0,31.0,0.0,40.8,-5.9,150.0,159.0,43.1,23,23.9,43.1,True,,0,0,1,22,0,0,4.9,False,False
+sheet_01,A,centre,-105.0,31.0,0.0,42.0,-3.2,165.0,169.0,44.1,23,22.8,44.1,True,,0,0,0,23,0,0,4.9,False,False
+sheet_01,A,centre,-90.0,31.0,-0.0,42.4,-0.2,180.0,180.0,44.4,23,22.4,44.4,True,,0,0,0,23,1,0,4.9,True,False
+sheet_01,A,centre,-75.0,31.0,0.0,42.1,2.7,-165.0,-170.0,44.2,23,22.9,44.2,True,,0,0,0,23,0,0,4.9,False,False
+sheet_01,A,centre,-60.0,31.0,0.0,41.0,5.5,-150.0,-159.0,43.3,23,24.0,43.3,True,,0,0,1,22,0,0,4.9,False,False
+sheet_01,A,centre,-45.0,31.0,0.0,39.3,7.9,-135.0,-148.0,41.7,23,25.8,41.7,True,,0,0,13,10,0,0,4.9,False,False
+sheet_01,A,centre,-30.0,31.0,0.0,36.9,9.8,-120.0,-137.0,39.6,23,27.8,39.6,True,,0,3,20,0,0,0,4.9,False,False
+sheet_01,A,centre,-15.0,31.0,0.0,34.2,11.0,-105.0,-126.0,37.0,23,30.1,37.0,True,,0,12,11,0,0,0,4.9,False,False
+sheet_01,A,centre,0.0,31.0,0.0,31.2,11.4,-90.0,-114.0,34.0,23,31.2,34.0,True,,0,20,3,0,0,0,4.9,True,True
+sheet_01,A,centre,15.0,31.0,-0.0,28.3,11.1,-75.0,-101.0,30.7,23,30.2,34.3,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,A,centre,30.0,31.0,0.0,25.5,10.0,-60.0,-86.0,27.2,23,27.2,36.1,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,A,centre,45.0,31.0,-0.0,23.1,8.3,-45.0,-69.0,23.7,23,23.7,37.6,True,,9,14,0,0,0,0,4.9,False,True
+sheet_01,A,centre,60.0,31.0,0.0,21.2,5.9,-30.0,-50.0,20.7,23,20.7,38.7,True,,20,3,0,0,0,0,4.9,False,True
+sheet_01,A,centre,75.0,31.0,-0.0,20.0,3.2,-15.0,-27.0,18.5,23,18.5,39.4,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,centre,90.0,31.0,-0.0,19.6,0.2,-0.0,-1.0,17.6,23,17.6,39.6,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,A,centre,105.0,31.0,0.0,19.9,-2.7,15.0,25.0,18.2,23,18.2,39.3,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,A,centre,120.0,31.0,0.0,21.0,-5.5,30.0,48.0,20.3,23,20.3,38.6,True,,21,2,0,0,0,0,4.9,False,True
+sheet_01,A,centre,135.0,31.0,0.0,22.7,-7.9,45.0,68.0,23.3,23,23.3,37.5,True,,9,14,0,0,0,0,4.9,False,True
+sheet_01,A,centre,150.0,31.0,-0.0,25.1,-9.8,60.0,85.0,26.7,23,26.7,36.0,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,A,centre,165.0,31.0,0.0,27.8,-11.0,75.0,100.0,30.2,23,29.7,34.1,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,mark,90.0,7.4,-1.3,19.2,-1.2,180.0,-177.0,21.2,23,1.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,1,20,0,0,4.9,True,False
+sheet_01,B,mark,105.0,7.8,-4.4,19.2,-1.2,-165.0,-163.0,21.1,23,6.0,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,4,5,14,0,0,4.9,False,False
+sheet_01,B,mark,120.0,9.0,-7.2,19.2,-1.2,-150.0,-149.0,20.9,23,10.6,20.9,False,tip too near the base; tip outside the box in x; paper on the base,0,8,9,6,0,0,4.9,False,False
+sheet_01,B,mark,135.0,10.9,-9.7,19.2,-1.2,-135.0,-136.0,20.6,23,14.4,20.6,False,tip outside the box in x; paper on the base,0,13,10,0,0,0,4.9,False,False
+sheet_01,B,mark,150.0,13.4,-11.5,19.2,-1.2,-120.0,-122.0,20.2,23,17.2,20.6,False,tip outside the box in x; paper on the base,0,18,5,0,0,0,4.9,False,False
+sheet_01,B,mark,165.0,16.2,-12.7,19.2,-1.2,-105.0,-107.0,19.7,23,18.9,24.8,False,paper on the base,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-180.0,19.3,-13.0,19.2,-1.2,-90.0,-92.0,19.2,23,19.2,28.5,False,paper on the base,2,21,0,0,0,0,4.9,True,True
+sheet_01,B,mark,-165.0,22.4,-12.6,19.2,-1.2,-75.0,-77.0,18.7,23,18.7,31.8,False,paper on the base,8,15,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-150.0,25.2,-11.4,19.2,-1.2,-60.0,-62.0,18.2,23,18.2,34.5,False,paper on the base,15,8,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-135.0,27.7,-9.5,19.2,-1.2,-45.0,-46.0,17.8,23,17.8,36.7,False,paper on the base,22,1,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-120.0,29.5,-7.0,19.2,-1.2,-30.0,-29.0,17.5,23,17.5,38.2,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-105.0,30.7,-4.2,19.2,-1.2,-15.0,-13.0,17.3,23,17.3,39.0,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-90.0,31.0,-1.1,19.2,-1.2,0.0,4.0,17.2,23,17.2,39.2,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,B,mark,-75.0,30.6,2.0,19.2,-1.2,15.0,21.0,17.4,23,17.4,38.7,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-60.0,29.4,4.8,19.2,-1.2,30.0,37.0,17.6,23,17.6,37.6,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-45.0,27.5,7.3,19.2,-1.2,45.0,53.0,18.0,23,18.0,35.8,False,paper on the base,19,4,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-30.0,25.0,9.1,19.2,-1.2,60.0,69.0,18.4,23,18.4,33.4,False,paper on the base,12,11,0,0,0,0,4.9,False,True
+sheet_01,B,mark,-15.0,22.2,10.3,19.2,-1.2,75.0,85.0,18.9,23,18.9,30.4,False,paper on the base,6,17,0,0,0,0,4.9,False,True
+sheet_01,B,mark,0.0,19.1,10.6,19.2,-1.2,90.0,99.0,19.5,23,19.2,27.0,False,paper on the base,0,23,0,0,0,0,4.9,True,True
+sheet_01,B,mark,15.0,16.0,10.2,19.2,-1.2,105.0,114.0,20.0,23,18.2,23.0,False,paper on the base,0,21,2,0,0,0,4.9,False,True
+sheet_01,B,mark,30.0,13.2,9.0,19.2,-1.2,120.0,128.0,20.4,23,16.1,20.4,False,tip outside the box in x; paper on the base,0,16,7,0,0,0,4.9,False,False
+sheet_01,B,mark,45.0,10.7,7.1,19.2,-1.2,135.0,142.0,20.8,23,12.8,20.8,False,tip outside the box in x; paper on the base,0,11,10,2,0,0,4.9,False,False
+sheet_01,B,mark,60.0,8.9,4.6,19.2,-1.2,150.0,156.0,21.0,23,8.7,21.0,False,tip too near the base; tip outside the box in x; paper on the base,0,6,8,9,0,0,4.9,False,False
+sheet_01,B,mark,75.0,7.7,1.8,19.2,-1.2,165.0,170.0,21.2,23,3.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,3,3,17,0,0,4.9,False,False
+sheet_01,B,mark,-180.0,19.3,-13.0,19.2,-1.2,-90.0,-92.0,19.2,23,19.2,28.5,False,paper on the base,2,21,0,0,0,0,4.9,True,True
+sheet_01,B,mark,-90.0,31.0,-1.1,19.2,-1.2,0.0,4.0,17.2,23,17.2,39.2,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,B,mark,0.0,19.1,10.6,19.2,-1.2,90.0,99.0,19.5,23,19.2,27.0,False,paper on the base,0,23,0,0,0,0,4.9,True,True
+sheet_01,B,mark,90.0,7.4,-1.3,19.2,-1.2,180.0,-177.0,21.2,23,1.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,1,20,0,0,4.9,True,False
+sheet_01,B,centre,-180.0,31.0,0.0,30.9,11.8,-90.0,-114.0,33.9,23,30.8,33.9,True,,0,20,3,0,0,0,4.9,True,True
+sheet_01,B,centre,-165.0,31.0,-0.0,27.8,11.4,-75.0,-101.0,30.4,23,29.8,33.8,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-150.0,31.0,0.0,25.0,10.2,-60.0,-86.0,26.8,23,26.8,35.6,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-135.0,31.0,0.0,22.5,8.3,-45.0,-70.0,23.3,23,23.3,37.1,True,,8,15,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-120.0,31.0,0.0,20.7,5.8,-30.0,-50.0,20.1,23,20.1,38.2,True,,20,3,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-105.0,31.0,0.0,19.5,3.0,-15.0,-26.0,17.9,23,17.9,38.9,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-90.0,31.0,-0.0,19.2,-0.1,0.0,0.0,17.2,23,17.2,39.2,True,,23,0,0,0,0,0,4.9,True,True
+sheet_01,B,centre,-75.0,31.0,0.0,19.6,-3.2,15.0,27.0,18.0,23,18.0,39.0,True,,23,0,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-60.0,31.0,0.0,20.8,-6.0,30.0,50.0,20.3,23,20.3,38.4,True,,20,3,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-45.0,31.0,0.0,22.7,-8.5,45.0,70.0,23.5,23,23.5,37.3,True,,9,14,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-30.0,31.0,0.0,25.2,-10.3,60.0,86.0,27.0,23,27.0,35.9,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,centre,-15.0,31.0,0.0,28.0,-11.5,75.0,101.0,30.6,23,30.1,34.2,True,,0,23,0,0,0,0,4.9,False,True
+sheet_01,B,centre,0.0,31.0,0.0,31.1,-11.8,90.0,114.0,34.0,23,31.2,34.0,True,,0,20,3,0,0,0,4.9,True,True
+sheet_01,B,centre,15.0,31.0,-0.0,34.2,-11.4,105.0,126.0,37.2,23,30.2,37.2,True,,0,12,11,0,0,0,4.9,False,False
+sheet_01,B,centre,30.0,31.0,0.0,37.0,-10.2,120.0,137.0,39.8,23,28.0,39.8,True,,0,3,20,0,0,0,4.9,False,False
+sheet_01,B,centre,45.0,31.0,-0.0,39.5,-8.3,135.0,148.0,42.0,23,26.1,42.0,True,,0,0,13,10,0,0,4.9,False,False
+sheet_01,B,centre,60.0,31.0,0.0,41.3,-5.8,150.0,159.0,43.6,23,24.4,43.6,True,,0,0,1,22,0,0,4.9,False,False
+sheet_01,B,centre,75.0,31.0,-0.0,42.5,-3.0,165.0,169.0,44.5,23,23.3,44.5,True,,0,0,0,23,0,0,4.9,False,False
+sheet_01,B,centre,90.0,31.0,-0.0,42.8,0.1,180.0,180.0,44.8,23,22.8,44.8,True,,0,0,0,23,0,0,4.9,True,False
+sheet_01,B,centre,105.0,31.0,0.0,42.4,3.2,-165.0,-170.0,44.5,23,23.1,44.5,True,,0,0,0,23,0,0,4.9,False,False
+sheet_01,B,centre,120.0,31.0,0.0,41.2,6.0,-150.0,-159.0,43.5,23,24.1,43.5,True,,0,0,0,23,0,0,4.9,False,False
+sheet_01,B,centre,135.0,31.0,0.0,39.3,8.5,-135.0,-149.0,41.9,23,25.7,41.9,True,,0,0,12,11,0,0,4.9,False,False
+sheet_01,B,centre,150.0,31.0,-0.0,36.8,10.3,-120.0,-138.0,39.7,23,27.6,39.7,True,,0,3,20,0,0,0,4.9,False,False
+sheet_01,B,centre,165.0,31.0,0.0,34.0,11.5,-105.0,-126.0,37.0,23,29.7,37.0,True,,0,11,12,0,0,0,4.9,False,False
+sheet_02,A,mark,-16.5,11.5,-10.9,19.2,-1.2,-180.0,-177.0,21.2,31,10.4,23.4,False,tip too near the base; tip outside the box in x; paper on the base,14,6,3,8,0,0,5.4,False,False
+sheet_02,A,mark,-1.5,14.3,-12.6,19.2,-1.2,-165.0,-163.0,21.1,31,12.9,27.6,False,tip outside the box in x; paper on the base,15,7,4,5,0,0,5.4,False,False
+sheet_02,A,mark,13.5,17.4,-13.4,19.2,-1.2,-150.0,-150.0,20.9,31,15.0,31.3,False,paper on the base,17,7,5,2,0,0,5.4,False,False
+sheet_02,A,mark,28.5,20.6,-13.5,19.2,-1.2,-135.0,-136.0,20.6,31,16.8,34.5,False,paper on the base,19,8,4,0,0,0,5.4,False,False
+sheet_02,A,mark,43.5,23.8,-12.7,19.2,-1.2,-120.0,-122.0,20.2,31,18.1,37.1,False,paper on the base,18,11,2,0,0,0,5.4,False,False
+sheet_02,A,mark,58.5,26.6,-11.1,19.2,-1.2,-105.0,-107.0,19.7,31,18.8,39.0,True,,17,14,0,0,0,0,5.4,False,True
+sheet_02,A,mark,73.5,28.9,-8.9,19.2,-1.2,-90.0,-92.0,19.2,31,19.0,40.3,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,mark,88.5,30.6,-6.1,19.2,-1.2,-75.0,-77.0,18.7,31,18.7,41.0,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,mark,103.5,31.4,-3.0,19.2,-1.2,-60.0,-62.0,18.2,31,18.2,40.9,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,mark,118.5,31.5,0.2,19.2,-1.2,-45.0,-46.0,17.8,31,17.8,40.1,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,mark,133.5,30.7,3.4,19.2,-1.2,-30.0,-29.0,17.5,31,17.5,38.7,True,,15,16,0,0,0,0,5.4,False,True
+sheet_02,A,mark,148.5,29.1,6.2,19.2,-1.2,-15.0,-13.0,17.3,31,17.3,36.5,True,,13,18,0,0,0,0,5.4,False,True
+sheet_02,A,mark,163.5,26.9,8.5,19.2,-1.2,0.0,4.0,17.2,31,17.2,34.0,True,,10,21,0,0,0,0,5.4,False,True
+sheet_02,A,mark,178.5,24.1,10.2,19.2,-1.2,15.0,21.0,17.4,31,17.4,31.3,True,,8,21,2,0,0,0,5.4,False,True
+sheet_02,A,mark,-166.5,21.0,11.0,19.2,-1.2,30.0,37.0,17.6,31,17.6,28.6,True,,3,22,6,0,0,0,5.4,False,True
+sheet_02,A,mark,-151.5,17.8,11.1,19.2,-1.2,45.0,53.0,18.0,31,18.0,25.8,False,paper on the base,0,21,10,0,0,0,5.4,False,True
+sheet_02,A,mark,-136.5,14.6,10.3,19.2,-1.2,60.0,69.0,18.5,31,17.7,22.9,False,tip outside the box in x; paper on the base,0,17,14,0,0,0,5.4,False,True
+sheet_02,A,mark,-121.5,11.8,8.7,19.2,-1.2,75.0,85.0,19.0,31,12.8,20.5,False,tip outside the box in x; paper on the base,0,14,17,0,0,0,5.4,False,True
+sheet_02,A,mark,-106.5,9.5,6.5,19.2,-1.2,90.0,99.0,19.5,31,7.8,19.5,False,tip too near the base; tip outside the box in x; paper on the base,0,8,18,5,0,0,5.4,False,True
+sheet_02,A,mark,-91.5,7.8,3.7,19.2,-1.2,105.0,114.0,20.0,31,3.3,20.0,False,tip too near the base; tip outside the box in x; paper on the base,0,0,19,12,0,0,5.4,False,False
+sheet_02,A,mark,-76.5,7.0,0.6,19.2,-1.2,120.0,128.0,20.4,31,0.7,20.4,False,tip too near the base; tip outside the box in x; paper on the base,4,1,7,19,0,0,5.4,False,False
+sheet_02,A,mark,-61.5,6.9,-2.6,19.2,-1.2,135.0,142.0,20.8,31,2.0,20.8,False,tip too near the base; tip outside the box in x; paper on the base,7,3,1,20,1,0,5.4,False,False
+sheet_02,A,mark,-46.5,7.7,-5.8,19.2,-1.2,150.0,156.0,21.1,31,4.8,21.1,False,tip too near the base; tip outside the box in x; paper on the base,10,4,2,15,1,0,5.4,False,False
+sheet_02,A,mark,-31.5,9.3,-8.6,19.2,-1.2,165.0,170.0,21.2,31,7.7,21.2,False,tip too near the base; tip outside the box in x; paper on the base,12,5,3,11,1,0,5.4,False,False
+sheet_02,A,mark,-180.0,23.8,10.3,19.2,-1.2,16.0,22.0,17.4,31,17.4,31.1,True,,7,22,2,0,0,0,5.4,True,True
+sheet_02,A,mark,-90.0,7.7,3.4,19.2,-1.2,106.0,115.0,20.0,31,3.0,20.0,False,tip too near the base; tip outside the box in x; paper on the base,0,1,17,13,0,0,5.4,True,False
+sheet_02,A,mark,0.0,14.6,-12.7,19.2,-1.2,-164.0,-162.0,21.1,31,13.1,28.0,False,tip outside the box in x; paper on the base,16,6,4,5,0,0,5.4,True,False
+sheet_02,A,mark,90.0,30.7,-5.8,19.2,-1.2,-74.0,-76.0,18.6,31,18.6,41.0,True,,16,15,0,0,0,0,5.4,True,True
+sheet_02,A,centre,-180.0,31.0,0.0,26.4,-11.5,16.0,43.0,27.3,31,27.3,35.9,True,,1,18,12,0,0,0,5.4,True,True
+sheet_02,A,centre,-165.0,31.0,-0.0,29.5,-12.3,31.0,57.0,30.9,31,28.4,36.2,True,,0,16,10,5,0,0,5.4,False,True
+sheet_02,A,centre,-150.0,31.0,0.0,32.8,-12.2,46.0,70.0,34.3,31,25.8,37.1,True,,0,13,7,11,0,0,5.4,False,False
+sheet_02,A,centre,-135.0,31.0,0.0,35.9,-11.4,61.0,82.0,37.3,31,23.5,38.4,True,,0,9,8,14,1,0,5.4,False,False
+sheet_02,A,centre,-120.0,31.0,0.0,38.7,-9.7,76.0,93.0,39.9,31,21.8,40.1,True,,0,6,8,17,1,0,5.4,False,False
+sheet_02,A,centre,-105.0,31.0,0.0,40.9,-7.4,91.0,104.0,42.0,31,20.9,42.0,True,,0,2,11,18,1,0,5.4,False,False
+sheet_02,A,centre,-90.0,31.0,-0.0,42.5,-4.6,106.0,115.0,43.6,31,21.0,43.6,True,,0,1,13,17,1,0,5.4,True,False
+sheet_02,A,centre,-75.0,31.0,0.0,43.3,-1.5,121.0,126.0,44.5,31,22.1,44.5,True,,0,4,11,16,1,0,5.4,False,False
+sheet_02,A,centre,-60.0,31.0,0.0,43.2,1.8,136.0,136.0,44.7,31,23.8,44.7,True,,0,7,6,18,1,0,5.4,False,False
+sheet_02,A,centre,-45.0,31.0,0.0,42.4,4.9,151.0,146.0,44.3,31,25.0,44.3,True,,0,10,5,16,1,0,5.4,False,False
+sheet_02,A,centre,-30.0,31.0,0.0,40.7,7.7,166.0,157.0,43.3,31,25.8,43.3,True,,2,11,4,14,1,0,5.4,False,False
+sheet_02,A,centre,-15.0,31.0,0.0,38.4,9.9,-179.0,168.0,41.6,31,26.1,41.6,True,,5,10,5,11,1,0,5.4,False,False
+sheet_02,A,centre,0.0,31.0,0.0,35.6,11.5,-164.0,179.0,39.4,31,26.1,39.4,True,,8,9,5,9,1,0,5.4,True,False
+sheet_02,A,centre,15.0,31.0,-0.0,32.5,12.3,-149.0,-170.0,36.7,31,25.9,36.7,True,,11,9,4,7,0,0,5.4,False,False
+sheet_02,A,centre,30.0,31.0,0.0,29.2,12.2,-134.0,-158.0,33.5,31,25.3,38.3,True,,14,8,5,4,0,0,5.4,False,False
+sheet_02,A,centre,45.0,31.0,-0.0,26.1,11.4,-119.0,-144.0,30.1,31,24.4,39.7,True,,16,9,5,1,0,0,5.4,False,False
+sheet_02,A,centre,60.0,31.0,0.0,23.3,9.7,-104.0,-130.0,26.5,31,23.2,40.7,True,,18,9,4,0,0,0,5.4,False,False
+sheet_02,A,centre,75.0,31.0,-0.0,21.1,7.4,-89.0,-113.0,23.0,31,21.7,41.2,True,,18,12,1,0,0,0,5.4,False,True
+sheet_02,A,centre,90.0,31.0,-0.0,19.5,4.6,-74.0,-92.0,20.0,31,19.8,41.1,True,,16,15,0,0,0,0,5.4,True,True
+sheet_02,A,centre,105.0,31.0,0.0,18.7,1.5,-59.0,-69.0,17.9,31,17.9,40.5,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,centre,120.0,31.0,0.0,18.8,-1.8,-44.0,-42.0,17.3,31,17.3,39.5,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,A,centre,135.0,31.0,0.0,19.6,-4.9,-29.0,-16.0,18.3,31,18.3,37.9,True,,13,18,0,0,0,0,5.4,False,True
+sheet_02,A,centre,150.0,31.0,-0.0,21.3,-7.7,-14.0,7.0,20.6,31,20.6,36.5,True,,10,20,1,0,0,0,5.4,False,True
+sheet_02,A,centre,165.0,31.0,0.0,23.6,-9.9,1.0,26.0,23.8,31,23.8,35.9,True,,6,18,7,0,0,0,5.4,False,True
+sheet_02,B,mark,20.2,11.0,7.8,19.2,-1.2,180.0,-177.0,21.2,31,8.6,21.2,False,tip too near the base; tip outside the box in x; paper on the base,12,6,3,10,1,0,5.4,False,False
+sheet_02,B,mark,35.2,8.9,5.4,19.2,-1.2,-165.0,-163.0,21.2,31,5.5,21.2,False,tip too near the base; tip outside the box in x; paper on the base,10,5,2,14,1,0,5.4,False,False
+sheet_02,B,mark,50.2,7.5,2.5,19.2,-1.2,-150.0,-150.0,21.0,31,2.5,21.0,False,tip too near the base; tip outside the box in x; paper on the base,9,2,2,18,1,0,5.4,False,False
+sheet_02,B,mark,65.2,7.0,-0.6,19.2,-1.2,-135.0,-136.0,20.6,31,0.7,20.6,False,tip too near the base; tip outside the box in x; paper on the base,5,1,2,23,0,0,5.4,False,False
+sheet_02,B,mark,80.2,7.3,-3.8,19.2,-1.2,-120.0,-122.0,20.2,31,2.9,20.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,16,13,0,0,5.4,False,False
+sheet_02,B,mark,95.2,8.3,-6.8,19.2,-1.2,-105.0,-107.0,19.8,31,6.7,19.8,False,tip too near the base; tip outside the box in x; paper on the base,0,1,23,7,0,0,5.4,False,True
+sheet_02,B,mark,110.2,10.2,-9.4,19.2,-1.2,-90.0,-93.0,19.2,31,11.6,19.6,False,tip too near the base; tip outside the box in x; paper on the base,0,14,17,0,0,0,5.4,False,True
+sheet_02,B,mark,125.2,12.6,-11.5,19.2,-1.2,-75.0,-77.0,18.7,31,16.6,22.0,False,tip outside the box in x; paper on the base,0,18,13,0,0,0,5.4,False,True
+sheet_02,B,mark,140.2,15.5,-12.9,19.2,-1.2,-60.0,-62.0,18.2,31,18.2,25.0,False,tip outside the box in x; paper on the base,0,21,10,0,0,0,5.4,False,True
+sheet_02,B,mark,155.2,18.6,-13.4,19.2,-1.2,-45.0,-46.0,17.8,31,17.8,28.1,False,paper on the base,0,23,8,0,0,0,5.4,False,True
+sheet_02,B,mark,170.2,21.8,-13.1,19.2,-1.2,-30.0,-30.0,17.5,31,17.5,31.1,True,,6,20,5,0,0,0,5.4,False,True
+sheet_02,B,mark,-174.8,24.8,-12.1,19.2,-1.2,-15.0,-13.0,17.3,31,17.3,33.8,True,,10,19,2,0,0,0,5.4,False,True
+sheet_02,B,mark,-159.8,27.4,-10.2,19.2,-1.2,-0.0,4.0,17.2,31,17.2,36.2,True,,13,18,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-144.8,29.5,-7.8,19.2,-1.2,15.0,20.0,17.3,31,17.3,38.4,True,,15,16,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-129.8,30.9,-4.9,19.2,-1.2,30.0,37.0,17.6,31,17.6,40.0,True,,17,14,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-114.8,31.4,-1.8,19.2,-1.2,45.0,53.0,18.0,31,18.0,41.0,True,,18,13,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-99.8,31.1,1.4,19.2,-1.2,60.0,69.0,18.4,31,18.4,41.2,True,,17,14,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-84.8,30.1,4.4,19.2,-1.2,75.0,84.0,18.9,31,18.9,40.8,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-69.8,28.2,7.0,19.2,-1.2,90.0,99.0,19.4,31,19.0,39.7,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,B,mark,-54.8,25.8,9.1,19.2,-1.2,105.0,114.0,19.9,31,18.6,37.9,False,paper on the base,16,14,1,0,0,0,5.4,False,True
+sheet_02,B,mark,-39.8,22.9,10.5,19.2,-1.2,120.0,128.0,20.4,31,17.6,35.4,False,paper on the base,17,11,3,0,0,0,5.4,False,False
+sheet_02,B,mark,-24.8,19.8,11.0,19.2,-1.2,135.0,142.0,20.8,31,16.1,32.3,False,paper on the base,17,8,5,1,0,0,5.4,False,False
+sheet_02,B,mark,-9.8,16.6,10.7,19.2,-1.2,150.0,156.0,21.0,31,14.0,28.7,False,paper on the base,16,7,5,3,0,0,5.4,False,False
+sheet_02,B,mark,5.2,13.6,9.7,19.2,-1.2,165.0,170.0,21.2,31,11.4,24.7,False,tip too near the base; tip outside the box in x; paper on the base,14,6,5,6,0,0,5.4,False,False
+sheet_02,B,mark,-180.0,23.8,-12.5,19.2,-1.2,-20.0,-19.0,17.3,31,17.3,32.9,True,,9,19,3,0,0,0,5.4,True,True
+sheet_02,B,mark,-90.0,30.5,3.4,19.2,-1.2,70.0,79.0,18.7,31,18.7,41.0,True,,17,14,0,0,0,0,5.4,True,True
+sheet_02,B,mark,0.0,14.6,10.1,19.2,-1.2,160.0,165.0,21.2,31,12.3,26.1,False,tip too near the base; tip outside the box in x; paper on the base,15,6,5,5,0,0,5.4,True,False
+sheet_02,B,mark,90.0,7.9,-5.8,19.2,-1.2,-110.0,-112.0,19.9,31,5.0,19.9,False,tip too near the base; tip outside the box in x; paper on the base,0,0,22,9,0,0,5.4,True,True
+sheet_02,B,centre,-180.0,31.0,0.0,26.4,11.3,-20.0,-46.0,27.3,31,27.3,35.9,True,,0,20,10,1,0,0,5.4,True,True
+sheet_02,B,centre,-165.0,31.0,-0.0,23.6,9.7,-5.0,-30.0,23.8,31,23.8,36.2,True,,5,19,7,0,0,0,5.4,False,True
+sheet_02,B,centre,-150.0,31.0,0.0,21.3,7.5,10.0,-11.0,20.6,31,20.6,37.1,True,,11,17,3,0,0,0,5.4,False,True
+sheet_02,B,centre,-135.0,31.0,0.0,19.7,4.7,25.0,12.0,18.3,31,18.3,38.3,True,,14,17,0,0,0,0,5.4,False,True
+sheet_02,B,centre,-120.0,31.0,0.0,18.9,1.7,40.0,38.0,17.3,31,17.3,39.9,True,,17,14,0,0,0,0,5.4,False,True
+sheet_02,B,centre,-105.0,31.0,0.0,18.9,-1.5,55.0,65.0,18.0,31,18.0,40.9,True,,17,14,0,0,0,0,5.4,False,True
+sheet_02,B,centre,-90.0,31.0,-0.0,19.7,-4.6,70.0,89.0,20.0,31,19.9,41.5,True,,16,15,0,0,0,0,5.4,True,True
+sheet_02,B,centre,-75.0,31.0,0.0,21.3,-7.4,85.0,109.0,23.1,31,22.0,41.5,True,,16,15,0,0,0,0,5.4,False,True
+sheet_02,B,centre,-60.0,31.0,0.0,23.5,-9.7,100.0,126.0,26.5,31,23.8,41.0,True,,17,11,3,0,0,0,5.4,False,False
+sheet_02,B,centre,-45.0,31.0,0.0,26.3,-11.3,115.0,141.0,30.1,31,25.0,40.0,True,,16,9,5,1,0,0,5.4,False,False
+sheet_02,B,centre,-30.0,31.0,0.0,29.3,-12.1,130.0,154.0,33.5,31,25.7,38.4,True,,13,9,6,3,0,0,5.4,False,False
+sheet_02,B,centre,-15.0,31.0,0.0,32.5,-12.1,145.0,166.0,36.7,31,26.1,36.7,True,,11,9,5,6,0,0,5.4,False,False
+sheet_02,B,centre,0.0,31.0,0.0,35.6,-11.3,160.0,177.0,39.4,31,26.2,39.4,True,,9,8,5,9,0,0,5.4,True,False
+sheet_02,B,centre,15.0,31.0,-0.0,38.4,-9.7,175.0,-171.0,41.6,31,25.9,41.6,True,,6,9,4,12,1,0,5.4,False,False
+sheet_02,B,centre,30.0,31.0,0.0,40.7,-7.5,-170.0,-161.0,43.2,31,25.3,43.2,True,,3,10,4,14,1,0,5.4,False,False
+sheet_02,B,centre,45.0,31.0,-0.0,42.3,-4.7,-155.0,-150.0,44.3,31,24.4,44.3,True,,0,10,5,16,1,0,5.4,False,False
+sheet_02,B,centre,60.0,31.0,0.0,43.1,-1.7,-140.0,-140.0,44.7,31,23.2,44.7,True,,0,8,5,18,1,0,5.4,False,False
+sheet_02,B,centre,75.0,31.0,-0.0,43.1,1.5,-125.0,-129.0,44.4,31,21.7,44.4,True,,0,5,8,18,1,0,5.4,False,False
+sheet_02,B,centre,90.0,31.0,-0.0,42.3,4.6,-110.0,-119.0,43.5,31,20.6,43.5,True,,0,1,13,17,1,0,5.4,True,False
+sheet_02,B,centre,105.0,31.0,0.0,40.7,7.4,-95.0,-108.0,42.0,31,20.5,42.0,True,,0,1,14,16,1,0,5.4,False,False
+sheet_02,B,centre,120.0,31.0,0.0,38.5,9.7,-80.0,-97.0,39.9,31,21.5,40.0,True,,0,5,10,16,1,0,5.4,False,False
+sheet_02,B,centre,135.0,31.0,0.0,35.7,11.3,-65.0,-86.0,37.3,31,23.4,37.9,True,,0,10,8,13,1,0,5.4,False,False
+sheet_02,B,centre,150.0,31.0,-0.0,32.7,12.1,-50.0,-74.0,34.2,31,25.8,36.5,True,,0,14,7,10,0,0,5.4,False,True
+sheet_02,B,centre,165.0,31.0,0.0,29.5,12.1,-35.0,-61.0,30.9,31,28.5,35.9,True,,0,17,8,6,0,0,5.4,False,True
+sheet_03,A,mark,-61.7,11.5,-10.9,19.2,-1.2,-180.0,-177.0,21.3,51,9.9,22.8,False,tip too near the base; tip outside the box in x; paper on the base,0,26,16,9,2,16,6.6,False,False
+sheet_03,A,mark,-46.7,14.2,-12.6,19.2,-1.2,-165.0,-163.0,21.1,51,14.2,26.8,False,tip outside the box in x; paper on the base,6,24,14,7,2,16,6.6,False,False
+sheet_03,A,mark,-31.7,17.4,-13.5,19.2,-1.2,-150.0,-150.0,20.9,51,16.4,30.3,False,tip outside the box in x; paper on the base,8,26,9,8,2,16,6.6,False,False
+sheet_03,A,mark,-16.7,20.6,-13.6,19.2,-1.2,-135.0,-136.0,20.6,51,16.9,33.3,True,,10,26,4,11,2,16,6.6,False,False
+sheet_03,A,mark,-1.7,23.7,-12.8,19.2,-1.2,-120.0,-122.0,20.1,51,17.6,35.7,True,,12,25,4,10,2,16,6.6,False,False
+sheet_03,A,mark,13.3,26.6,-11.2,19.2,-1.2,-105.0,-107.0,19.7,51,18.2,37.8,True,,17,22,2,10,2,16,6.6,False,True
+sheet_03,A,mark,28.3,28.9,-8.9,19.2,-1.2,-90.0,-92.0,19.1,51,18.6,39.2,True,,23,16,2,10,2,16,6.6,False,True
+sheet_03,A,mark,43.3,30.6,-6.2,19.2,-1.2,-75.0,-77.0,18.6,51,18.3,40.0,True,,27,14,1,9,2,16,6.6,False,True
+sheet_03,A,mark,58.3,31.5,-3.0,19.2,-1.2,-60.0,-62.0,18.1,51,18.1,40.2,True,,29,12,1,9,0,16,6.6,False,True
+sheet_03,A,mark,73.3,31.6,0.2,19.2,-1.2,-45.0,-46.0,17.7,51,17.7,40.0,True,,29,12,1,9,0,16,6.6,False,True
+sheet_03,A,mark,88.3,30.8,3.3,19.2,-1.2,-30.0,-29.0,17.4,51,17.4,40.4,True,,29,12,2,8,0,16,6.6,False,True
+sheet_03,A,mark,103.3,29.2,6.2,19.2,-1.2,-15.0,-12.0,17.2,51,17.2,40.1,True,,29,13,3,6,0,16,6.6,False,True
+sheet_03,A,mark,118.3,26.9,8.5,19.2,-1.2,0.0,4.0,17.2,51,17.2,39.0,False,paper on the base,27,14,5,5,0,16,6.6,False,True
+sheet_03,A,mark,133.3,24.2,10.2,19.2,-1.2,15.0,21.0,17.4,51,17.4,37.3,False,paper on the base,26,10,15,0,0,16,6.6,False,True
+sheet_03,A,mark,148.3,21.0,11.1,19.2,-1.2,30.0,37.0,17.6,51,16.7,35.0,False,paper on the base,24,11,16,0,0,16,6.6,False,True
+sheet_03,A,mark,163.3,17.8,11.2,19.2,-1.2,45.0,54.0,18.0,51,14.1,32.1,False,tip outside the box in x; paper on the base,22,15,8,6,0,16,6.6,False,True
+sheet_03,A,mark,178.3,14.7,10.4,19.2,-1.2,60.0,69.0,18.5,51,11.2,28.6,False,tip too near the base; tip outside the box in x; paper on the base,17,21,6,7,0,16,6.6,False,True
+sheet_03,A,mark,-166.7,11.8,8.8,19.2,-1.2,75.0,85.0,19.0,51,8.2,24.7,False,tip too near the base; tip outside the box in x; paper on the base,5,32,4,10,0,16,6.6,False,True
+sheet_03,A,mark,-151.7,9.5,6.5,19.2,-1.2,90.0,99.0,19.6,51,5.4,20.3,False,tip too near the base; tip outside the box in x; paper on the base,4,29,5,13,2,16,6.6,False,True
+sheet_03,A,mark,-136.7,7.8,3.8,19.2,-1.2,105.0,114.0,20.1,51,1.4,20.2,False,tip too near the base; tip outside the box in x; paper on the base,4,24,4,19,2,16,6.6,False,False
+sheet_03,A,mark,-121.7,6.9,0.6,19.2,-1.2,120.0,128.0,20.5,51,0.7,20.5,False,tip too near the base; tip outside the box in x; paper on the base,6,14,12,19,2,16,6.6,False,False
+sheet_03,A,mark,-106.7,6.8,-2.6,19.2,-1.2,135.0,142.0,20.9,51,4.8,20.9,False,tip too near the base; tip outside the box in x; paper on the base,0,18,18,15,2,16,6.6,False,False
+sheet_03,A,mark,-91.7,7.6,-5.7,19.2,-1.2,150.0,156.0,21.1,51,0.1,21.1,False,tip too near the base; tip outside the box in x; paper on the base,2,15,16,18,3,16,6.6,False,False
+sheet_03,A,mark,-76.7,9.2,-8.6,19.2,-1.2,165.0,169.0,21.2,51,5.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,20,18,13,3,16,6.6,False,False
+sheet_03,A,mark,-180.0,14.3,10.2,19.2,-1.2,62.0,71.0,18.6,51,10.8,28.2,False,tip too near the base; tip outside the box in x; paper on the base,13,23,8,7,0,16,6.6,True,True
+sheet_03,A,mark,-90.0,7.8,-6.1,19.2,-1.2,152.0,157.0,21.1,51,0.7,21.1,False,tip too near the base; tip outside the box in x; paper on the base,2,17,14,18,3,16,6.6,True,False
+sheet_03,A,mark,0.0,24.1,-12.6,19.2,-1.2,-118.0,-120.0,20.1,51,17.7,35.9,True,,12,25,4,10,2,16,6.6,True,False
+sheet_03,A,mark,90.0,30.6,3.7,19.2,-1.2,-28.0,-27.0,17.4,51,17.4,40.4,True,,29,13,1,8,0,16,6.6,True,True
+sheet_03,A,centre,-180.0,31.0,0.0,35.9,-11.4,62.0,82.0,37.4,51,23.6,38.8,True,,4,32,4,11,2,16,6.6,True,True
+sheet_03,A,centre,-165.0,31.0,-0.0,38.7,-9.8,77.0,94.0,40.1,51,22.6,40.7,True,,7,24,8,12,2,16,6.6,False,True
+sheet_03,A,centre,-150.0,31.0,0.0,41.0,-7.4,92.0,105.0,42.2,51,22.3,42.5,True,,10,18,8,15,2,16,6.6,False,True
+sheet_03,A,centre,-135.0,31.0,0.0,42.5,-4.6,107.0,115.0,43.7,51,22.0,43.7,True,,10,5,19,17,2,16,6.6,False,True
+sheet_03,A,centre,-120.0,31.0,0.0,43.3,-1.5,122.0,126.0,44.6,51,22.5,44.6,True,,9,4,22,16,2,16,6.6,False,False
+sheet_03,A,centre,-105.0,31.0,0.0,43.3,1.8,137.0,136.0,44.8,51,23.8,44.8,True,,8,4,12,27,2,16,6.6,False,False
+sheet_03,A,centre,-90.0,31.0,-0.0,42.4,4.9,152.0,147.0,44.4,51,22.0,44.4,True,,5,11,8,27,2,16,6.6,True,False
+sheet_03,A,centre,-75.0,31.0,0.0,40.8,7.7,167.0,157.0,43.4,51,20.4,43.4,True,,0,18,6,27,3,16,6.6,False,False
+sheet_03,A,centre,-60.0,31.0,0.0,38.4,10.0,-178.0,168.0,41.7,51,19.8,41.7,True,,0,18,7,26,3,16,6.6,False,False
+sheet_03,A,centre,-45.0,31.0,0.0,35.6,11.5,-163.0,179.0,39.5,51,20.4,39.5,True,,0,20,15,16,3,16,6.6,False,False
+sheet_03,A,centre,-30.0,31.0,0.0,32.5,12.3,-148.0,-170.0,36.7,51,22.0,37.7,True,,0,22,20,9,2,16,6.6,False,False
+sheet_03,A,centre,-15.0,31.0,0.0,29.2,12.3,-133.0,-158.0,33.5,51,24.4,37.9,True,,6,21,19,5,2,16,6.6,False,False
+sheet_03,A,centre,0.0,31.0,0.0,26.1,11.4,-118.0,-144.0,30.1,51,25.8,39.0,True,,8,25,12,6,2,16,6.6,True,False
+sheet_03,A,centre,15.0,31.0,-0.0,23.3,9.8,-103.0,-130.0,26.4,51,23.2,39.6,True,,10,26,4,11,2,16,6.6,False,False
+sheet_03,A,centre,30.0,31.0,0.0,21.0,7.4,-88.0,-113.0,22.9,51,21.1,39.8,True,,13,25,3,10,2,16,6.6,False,True
+sheet_03,A,centre,45.0,31.0,-0.0,19.5,4.6,-73.0,-92.0,19.9,51,19.3,40.0,True,,23,16,2,10,2,16,6.6,False,True
+sheet_03,A,centre,60.0,31.0,0.0,18.7,1.5,-58.0,-68.0,17.8,51,17.7,39.7,True,,27,14,1,9,0,16,6.6,False,True
+sheet_03,A,centre,75.0,31.0,-0.0,18.7,-1.8,-43.0,-42.0,17.2,51,17.2,39.7,True,,30,11,1,9,0,16,6.6,False,True
+sheet_03,A,centre,90.0,31.0,-0.0,19.6,-4.9,-28.0,-16.0,18.2,51,18.2,41.1,True,,29,13,2,7,0,16,6.6,True,True
+sheet_03,A,centre,105.0,31.0,0.0,21.2,-7.7,-13.0,8.0,20.6,51,20.6,41.9,True,,27,11,11,2,0,16,6.6,False,True
+sheet_03,A,centre,120.0,31.0,0.0,23.6,-10.0,2.0,27.0,23.8,51,23.8,42.2,True,,24,12,15,0,0,16,6.6,False,True
+sheet_03,A,centre,135.0,31.0,0.0,26.4,-11.5,17.0,43.0,27.3,51,24.1,41.9,True,,23,16,8,4,0,16,6.6,False,True
+sheet_03,A,centre,150.0,31.0,-0.0,29.5,-12.3,32.0,58.0,30.9,51,24.3,41.1,True,,6,35,3,7,0,16,6.6,False,True
+sheet_03,A,centre,165.0,31.0,0.0,32.8,-12.3,47.0,70.0,34.4,51,24.7,39.7,True,,4,34,4,9,0,16,6.6,False,True
+sheet_03,B,mark,94.2,6.4,3.7,19.2,-1.2,180.0,-177.0,21.2,51,1.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,9,6,7,29,4,16,6.6,False,False
+sheet_03,B,mark,109.2,5.6,0.2,19.2,-1.2,-165.0,-163.0,21.1,51,1.1,21.1,False,tip too near the base; tip outside the box in x; paper on the base,8,10,3,30,1,16,6.6,False,False
+sheet_03,B,mark,124.2,5.7,-3.4,19.2,-1.2,-150.0,-149.0,20.9,51,0.2,20.9,False,tip too near the base; tip outside the box in x; paper on the base,10,11,6,24,3,16,6.6,False,False
+sheet_03,B,mark,139.2,6.7,-6.8,19.2,-1.2,-135.0,-136.0,20.6,51,3.2,20.6,False,tip too near the base; tip outside the box in x; paper on the base,13,7,23,8,2,16,6.6,False,False
+sheet_03,B,mark,154.2,8.6,-9.8,19.2,-1.2,-120.0,-122.0,20.2,51,6.0,23.4,False,tip too near the base; tip outside the box in x; paper on the base,13,19,7,12,2,16,6.6,False,False
+sheet_03,B,mark,169.2,11.2,-12.3,19.2,-1.2,-105.0,-107.0,19.7,51,8.5,27.5,False,tip too near the base; tip outside the box in x; paper on the base,13,25,3,10,2,16,6.6,False,True
+sheet_03,B,mark,-175.8,14.3,-14.0,19.2,-1.2,-90.0,-92.0,19.2,51,11.6,31.2,False,tip too near the base; tip outside the box in x; paper on the base,15,25,1,10,2,16,6.6,False,True
+sheet_03,B,mark,-160.8,17.8,-14.8,19.2,-1.2,-75.0,-77.0,18.7,51,15.0,34.4,False,tip outside the box in x; paper on the base,15,25,1,10,0,16,6.6,False,True
+sheet_03,B,mark,-145.8,21.4,-14.7,19.2,-1.2,-60.0,-62.0,18.2,51,18.2,37.0,False,paper on the base,14,27,2,8,0,16,6.6,False,True
+sheet_03,B,mark,-130.8,24.8,-13.7,19.2,-1.2,-45.0,-46.0,17.8,51,17.8,38.9,False,paper on the base,26,15,2,8,0,16,6.6,False,True
+sheet_03,B,mark,-115.8,27.8,-11.8,19.2,-1.2,-30.0,-29.0,17.5,51,17.5,40.2,True,,28,13,4,6,0,16,6.6,False,True
+sheet_03,B,mark,-100.8,30.3,-9.2,19.2,-1.2,-15.0,-13.0,17.3,51,17.3,40.8,True,,28,14,9,0,0,16,6.6,False,True
+sheet_03,B,mark,-85.8,32.0,-6.1,19.2,-1.2,-0.0,4.0,17.2,51,17.2,40.7,True,,27,16,8,0,0,16,6.6,False,True
+sheet_03,B,mark,-70.8,32.8,-2.6,19.2,-1.2,15.0,21.0,17.4,51,17.4,40.0,True,,26,17,8,0,0,16,6.6,False,True
+sheet_03,B,mark,-55.8,32.7,1.0,19.2,-1.2,30.0,37.0,17.6,51,17.6,39.8,True,,22,20,9,0,0,16,6.6,False,True
+sheet_03,B,mark,-40.8,31.7,4.4,19.2,-1.2,45.0,53.0,18.0,51,18.0,39.1,True,,18,27,6,0,0,16,6.6,False,True
+sheet_03,B,mark,-25.8,29.8,7.4,19.2,-1.2,60.0,69.0,18.4,51,18.4,37.8,True,,12,32,7,0,0,16,6.6,False,True
+sheet_03,B,mark,-10.8,27.2,9.9,19.2,-1.2,75.0,85.0,18.9,51,18.9,35.9,True,,9,33,9,0,0,16,6.6,False,True
+sheet_03,B,mark,4.2,24.1,11.6,19.2,-1.2,90.0,99.0,19.5,51,19.2,33.4,True,,7,34,6,4,0,16,6.6,False,True
+sheet_03,B,mark,19.2,20.6,12.4,19.2,-1.2,105.0,114.0,20.0,51,18.3,30.6,False,tip outside the box in x,6,33,6,6,0,16,6.6,False,True
+sheet_03,B,mark,34.2,17.0,12.3,19.2,-1.2,120.0,128.0,20.4,51,16.3,27.4,False,tip outside the box in x; paper on the base,5,27,12,7,0,16,6.6,False,False
+sheet_03,B,mark,49.2,13.6,11.3,19.2,-1.2,135.0,142.0,20.8,51,12.4,24.8,False,tip too near the base; tip outside the box in x; paper on the base,7,20,13,11,0,16,6.6,False,False
+sheet_03,B,mark,64.2,10.6,9.4,19.2,-1.2,150.0,156.0,21.0,51,7.5,22.0,False,tip too near the base; tip outside the box in x; paper on the base,12,6,17,16,0,16,6.6,False,False
+sheet_03,B,mark,79.2,8.1,6.8,19.2,-1.2,165.0,170.0,21.2,51,2.5,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,5,11,24,0,16,6.6,False,False
+sheet_03,B,mark,-180.0,13.4,-13.6,19.2,-1.2,-94.0,-97.0,19.4,51,10.7,30.3,False,tip too near the base; tip outside the box in x; paper on the base,15,25,1,10,2,16,6.6,True,True
+sheet_03,B,mark,-90.0,31.6,-7.0,19.2,-1.2,-4.0,-1.0,17.2,51,17.2,40.8,True,,26,17,8,0,0,16,6.6,True,True
+sheet_03,B,mark,0.0,25.0,11.2,19.2,-1.2,86.0,95.0,19.3,51,19.2,34.2,True,,8,34,5,4,0,16,6.6,True,True
+sheet_03,B,mark,90.0,6.8,4.6,19.2,-1.2,176.0,179.0,21.2,51,0.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,9,6,8,28,3,16,6.6,True,False
+sheet_03,B,centre,-180.0,31.0,0.0,36.8,12.4,-94.0,-115.0,39.6,51,24.6,39.6,True,,11,11,24,5,2,16,6.6,True,True
+sheet_03,B,centre,-165.0,31.0,-0.0,33.4,13.5,-79.0,-104.0,36.4,51,24.1,40.3,True,,12,25,5,9,2,16,6.6,False,True
+sheet_03,B,centre,-150.0,31.0,0.0,29.8,13.6,-64.0,-92.0,32.8,51,23.2,41.5,True,,15,23,3,10,2,16,6.6,False,True
+sheet_03,B,centre,-135.0,31.0,0.0,26.3,12.9,-49.0,-79.0,28.9,51,22.6,42.1,True,,15,25,1,10,2,16,6.6,False,True
+sheet_03,B,centre,-120.0,31.0,0.0,23.2,11.2,-34.0,-64.0,24.8,51,22.9,42.2,True,,16,25,0,10,0,16,6.6,False,True
+sheet_03,B,centre,-105.0,31.0,0.0,20.5,8.8,-19.0,-46.0,20.9,51,20.9,41.8,True,,25,16,2,8,0,16,6.6,False,True
+sheet_03,B,centre,-90.0,31.0,-0.0,18.6,5.8,-4.0,-24.0,17.6,51,17.6,40.8,True,,29,12,4,6,0,16,6.6,True,True
+sheet_03,B,centre,-75.0,31.0,0.0,17.5,2.4,11.0,3.0,15.7,51,15.7,39.2,True,,27,16,8,0,0,16,6.6,False,True
+sheet_03,B,centre,-60.0,31.0,0.0,17.4,-1.2,26.0,33.0,15.7,51,15.7,38.0,True,,24,17,10,0,0,16,6.6,False,True
+sheet_03,B,centre,-45.0,31.0,0.0,18.1,-4.7,41.0,61.0,17.7,51,17.7,38.1,True,,15,29,7,0,0,16,6.6,False,True
+sheet_03,B,centre,-30.0,31.0,0.0,19.8,-7.8,56.0,83.0,20.9,51,20.9,37.9,True,,8,34,9,0,0,16,6.6,False,True
+sheet_03,B,centre,-15.0,31.0,0.0,22.2,-10.5,71.0,101.0,24.8,51,24.4,37.6,True,,7,34,4,6,0,16,6.6,False,True
+sheet_03,B,centre,0.0,31.0,0.0,25.2,-12.4,86.0,116.0,28.9,51,26.2,37.4,True,,5,30,8,8,0,16,6.6,True,True
+sheet_03,B,centre,15.0,31.0,-0.0,28.6,-13.5,101.0,129.0,32.8,51,23.5,38.3,True,,11,16,14,10,2,16,6.6,False,False
+sheet_03,B,centre,30.0,31.0,0.0,32.2,-13.6,116.0,141.0,36.5,51,21.3,39.1,True,,10,8,20,13,2,16,6.6,False,False
+sheet_03,B,centre,45.0,31.0,-0.0,35.7,-12.9,131.0,152.0,39.7,51,20.0,39.7,True,,10,4,14,23,2,16,6.6,False,False
+sheet_03,B,centre,60.0,31.0,0.0,38.8,-11.2,146.0,163.0,42.3,51,19.8,42.3,True,,10,3,9,29,2,16,6.6,False,False
+sheet_03,B,centre,75.0,31.0,-0.0,41.5,-8.8,161.0,173.0,44.4,51,20.8,44.4,True,,8,3,9,31,2,16,6.6,False,False
+sheet_03,B,centre,90.0,31.0,-0.0,43.4,-5.8,176.0,-177.0,45.8,51,22.7,45.8,True,,7,9,7,28,3,16,6.6,True,False
+sheet_03,B,centre,105.0,31.0,0.0,44.5,-2.4,-169.0,-167.0,46.5,51,24.3,46.5,True,,1,17,5,28,2,16,6.6,False,False
+sheet_03,B,centre,120.0,31.0,0.0,44.6,1.2,-154.0,-157.0,46.5,51,24.0,46.5,True,,0,20,5,26,2,16,6.6,False,False
+sheet_03,B,centre,135.0,31.0,0.0,43.9,4.7,-139.0,-147.0,45.8,51,23.9,45.8,True,,4,18,6,23,2,16,6.6,False,False
+sheet_03,B,centre,150.0,31.0,-0.0,42.2,7.8,-124.0,-137.0,44.4,51,24.2,44.4,True,,7,15,23,6,2,16,6.6,False,False
+sheet_03,B,centre,165.0,31.0,0.0,39.8,10.5,-109.0,-126.0,42.3,51,24.5,42.3,True,,8,15,24,4,2,16,6.6,False,False
+sheet_04,A,mark,-82.4,6.3,2.5,19.2,-1.2,-180.0,-177.0,21.2,72,1.3,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,13,18,30,3,28,7.8,False,False
+sheet_04,A,mark,-67.4,5.8,-0.9,19.2,-1.2,-165.0,-163.0,21.1,72,1.7,21.1,False,tip too near the base; tip outside the box in x; paper on the base,13,14,9,36,3,28,7.8,False,False
+sheet_04,A,mark,-52.4,6.2,-4.4,19.2,-1.2,-150.0,-149.0,20.9,72,0.9,20.9,False,tip too near the base; tip outside the box in x; paper on the base,15,17,6,34,3,28,7.8,False,False
+sheet_04,A,mark,-37.4,7.5,-7.7,19.2,-1.2,-135.0,-136.0,20.6,72,2.3,20.6,False,tip too near the base; tip outside the box in x; paper on the base,20,15,17,20,4,28,7.8,False,False
+sheet_04,A,mark,-22.4,9.5,-10.5,19.2,-1.2,-120.0,-122.0,20.2,72,5.0,23.2,False,tip too near the base; tip outside the box in x; paper on the base,21,16,17,18,4,28,7.8,False,False
+sheet_04,A,mark,-7.4,12.3,-12.7,19.2,-1.2,-105.0,-107.0,19.7,72,7.6,27.3,False,tip too near the base; tip outside the box in x; paper on the base,22,25,8,17,4,28,7.8,False,True
+sheet_04,A,mark,7.6,15.5,-14.1,19.2,-1.2,-90.0,-92.0,19.2,72,10.4,30.9,False,tip too near the base; tip outside the box in x; paper on the base,24,25,5,18,4,28,7.8,False,True
+sheet_04,A,mark,22.6,18.9,-14.6,19.2,-1.2,-75.0,-77.0,18.7,72,13.3,34.0,False,tip outside the box in x; paper on the base,27,22,7,16,2,28,7.8,False,True
+sheet_04,A,mark,37.6,22.4,-14.2,19.2,-1.2,-60.0,-62.0,18.2,72,16.4,36.6,False,paper on the base,27,23,9,13,2,28,7.8,False,True
+sheet_04,A,mark,52.6,25.7,-12.9,19.2,-1.2,-45.0,-46.0,17.8,72,17.8,38.5,False,paper on the base,28,26,6,12,2,28,7.8,False,True
+sheet_04,A,mark,67.6,28.5,-10.9,19.2,-1.2,-30.0,-29.0,17.5,72,17.5,39.7,True,,30,26,6,10,0,28,7.8,False,True
+sheet_04,A,mark,82.6,30.7,-8.1,19.2,-1.2,-15.0,-13.0,17.3,72,17.3,40.3,True,,31,27,6,8,0,28,7.8,False,True
+sheet_04,A,mark,97.6,32.1,-4.9,19.2,-1.2,0.0,4.0,17.2,72,17.2,40.6,True,,28,31,6,7,0,28,7.8,False,True
+sheet_04,A,mark,112.6,32.6,-1.5,19.2,-1.2,15.0,21.0,17.4,72,17.4,41.0,True,,26,36,4,6,0,28,7.8,False,True
+sheet_04,A,mark,127.6,32.2,2.0,19.2,-1.2,30.0,37.0,17.6,72,17.6,40.7,True,,22,37,10,3,0,28,7.8,False,True
+sheet_04,A,mark,142.6,30.9,5.3,19.2,-1.2,45.0,53.0,18.0,72,18.0,39.9,True,,12,43,17,0,0,28,7.8,False,True
+sheet_04,A,mark,157.6,28.9,8.1,19.2,-1.2,60.0,69.0,18.4,72,18.4,38.5,True,,11,44,17,0,0,28,7.8,False,True
+sheet_04,A,mark,172.6,26.1,10.3,19.2,-1.2,75.0,85.0,18.9,72,18.9,36.6,True,,11,42,18,1,0,28,7.8,False,True
+sheet_04,A,mark,-172.4,22.9,11.7,19.2,-1.2,90.0,99.0,19.5,72,18.6,34.2,True,,13,43,11,5,0,28,7.8,False,True
+sheet_04,A,mark,-157.4,19.5,12.2,19.2,-1.2,105.0,114.0,20.0,72,17.2,31.4,False,tip outside the box in x; paper on the base,13,39,12,8,0,28,7.8,False,True
+sheet_04,A,mark,-142.4,16.0,11.8,19.2,-1.2,120.0,128.0,20.4,72,14.7,28.3,False,tip outside the box in x; paper on the base,12,35,13,12,0,28,7.8,False,False
+sheet_04,A,mark,-127.4,12.7,10.5,19.2,-1.2,135.0,142.0,20.8,72,11.0,25.7,False,tip too near the base; tip outside the box in x; paper on the base,13,25,19,15,2,28,7.8,False,False
+sheet_04,A,mark,-112.4,9.9,8.5,19.2,-1.2,150.0,156.0,21.0,72,7.0,23.0,False,tip too near the base; tip outside the box in x; paper on the base,13,16,23,20,2,28,7.8,False,False
+sheet_04,A,mark,-97.4,7.7,5.7,19.2,-1.2,165.0,170.0,21.2,72,2.5,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,15,16,30,2,28,7.8,False,False
+sheet_04,A,mark,-180.0,24.6,11.1,19.2,-1.2,82.0,92.0,19.2,72,19.1,35.5,True,,11,42,17,2,0,28,7.8,True,True
+sheet_04,A,mark,-90.0,6.9,4.2,19.2,-1.2,172.0,176.0,21.2,72,0.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,13,17,31,2,28,7.8,True,False
+sheet_04,A,mark,0.0,13.8,-13.5,19.2,-1.2,-98.0,-100.0,19.5,72,8.9,29.2,False,tip too near the base; tip outside the box in x; paper on the base,24,23,7,18,4,28,7.8,True,True
+sheet_04,A,mark,90.0,31.5,-6.6,19.2,-1.2,-8.0,-4.0,17.2,72,17.2,40.3,True,,29,30,5,8,0,28,7.8,True,True
+sheet_04,A,centre,-180.0,31.0,0.0,25.6,-12.3,82.0,112.0,29.1,72,25.8,39.4,True,,12,37,10,13,0,28,7.8,True,True
+sheet_04,A,centre,-165.0,31.0,-0.0,29.0,-13.3,97.0,125.0,33.0,72,25.0,40.2,True,,13,25,19,15,2,28,7.8,False,False
+sheet_04,A,centre,-150.0,31.0,0.0,32.5,-13.3,112.0,137.0,36.5,72,22.9,41.0,True,,14,16,23,19,4,28,7.8,False,False
+sheet_04,A,centre,-135.0,31.0,0.0,35.9,-12.5,127.0,148.0,39.7,72,21.4,41.5,True,,14,12,18,28,4,28,7.8,False,False
+sheet_04,A,centre,-120.0,31.0,0.0,38.9,-10.8,142.0,159.0,42.3,72,20.9,42.3,True,,15,9,11,37,4,28,7.8,False,False
+sheet_04,A,centre,-105.0,31.0,0.0,41.5,-8.4,157.0,169.0,44.3,72,21.3,44.3,True,,12,12,15,33,4,28,7.8,False,False
+sheet_04,A,centre,-90.0,31.0,-0.0,43.3,-5.4,172.0,180.0,45.6,72,22.7,45.6,True,,10,17,12,33,5,28,7.8,True,False
+sheet_04,A,centre,-75.0,31.0,0.0,44.3,-2.0,-173.0,-170.0,46.3,72,22.9,46.3,True,,9,23,9,31,4,28,7.8,False,False
+sheet_04,A,centre,-60.0,31.0,0.0,44.3,1.5,-158.0,-160.0,46.2,72,22.6,46.2,True,,7,27,10,28,4,28,7.8,False,False
+sheet_04,A,centre,-45.0,31.0,0.0,43.5,4.9,-143.0,-150.0,45.5,72,22.5,45.5,True,,7,24,15,26,4,28,7.8,False,False
+sheet_04,A,centre,-30.0,31.0,0.0,41.8,7.9,-128.0,-140.0,44.1,72,22.5,44.1,True,,9,25,20,18,4,28,7.8,False,False
+sheet_04,A,centre,-15.0,31.0,0.0,39.4,10.5,-113.0,-130.0,42.0,72,22.6,42.0,True,,12,24,20,16,4,28,7.8,False,False
+sheet_04,A,centre,0.0,31.0,0.0,36.4,12.3,-98.0,-119.0,39.3,72,22.6,39.3,True,,16,26,17,13,4,28,7.8,True,True
+sheet_04,A,centre,15.0,31.0,-0.0,33.0,13.3,-83.0,-108.0,36.1,72,22.3,38.8,True,,19,29,9,15,4,28,7.8,False,True
+sheet_04,A,centre,30.0,31.0,0.0,29.5,13.3,-68.0,-95.0,32.5,72,21.3,40.0,True,,23,24,10,15,4,28,7.8,False,True
+sheet_04,A,centre,45.0,31.0,-0.0,26.1,12.5,-53.0,-82.0,28.6,72,20.6,40.8,True,,27,22,8,15,4,28,7.8,False,True
+sheet_04,A,centre,60.0,31.0,0.0,23.1,10.8,-38.0,-67.0,24.6,72,20.4,41.1,True,,29,20,7,16,2,28,7.8,False,True
+sheet_04,A,centre,75.0,31.0,-0.0,20.5,8.4,-23.0,-49.0,20.8,72,20.8,40.9,True,,27,24,8,13,2,28,7.8,False,True
+sheet_04,A,centre,90.0,31.0,-0.0,18.7,5.4,-8.0,-26.0,17.7,72,17.7,40.1,True,,30,26,7,9,0,28,7.8,True,True
+sheet_04,A,centre,105.0,31.0,0.0,17.7,2.0,7.0,1.0,15.9,72,15.9,39.2,True,,28,31,6,7,0,28,7.8,False,True
+sheet_04,A,centre,120.0,31.0,0.0,17.7,-1.5,22.0,30.0,16.0,72,16.0,39.4,True,,23,39,6,4,0,28,7.8,False,True
+sheet_04,A,centre,135.0,31.0,0.0,18.5,-4.9,37.0,57.0,18.0,72,18.0,39.5,True,,13,41,18,0,0,28,7.8,False,True
+sheet_04,A,centre,150.0,31.0,-0.0,20.2,-7.9,52.0,79.0,21.2,72,21.2,39.5,True,,11,40,20,1,0,28,7.8,False,True
+sheet_04,A,centre,165.0,31.0,0.0,22.6,-10.5,67.0,97.0,25.1,72,24.2,39.4,True,,14,42,8,8,0,28,7.8,False,True
+sheet_04,B,mark,103.7,8.5,-8.2,19.2,-1.2,-180.0,-177.0,21.2,72,5.4,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,35,24,13,4,27,7.8,False,False
+sheet_04,B,mark,118.7,10.6,-10.7,19.2,-1.2,-165.0,-163.0,21.1,72,10.4,23.5,False,tip too near the base; tip outside the box in x; paper on the base,2,46,10,14,4,27,7.8,False,False
+sheet_04,B,mark,133.7,13.4,-12.6,19.2,-1.2,-150.0,-149.0,20.9,72,13.7,27.4,False,tip outside the box in x; paper on the base,8,41,8,15,4,27,7.8,False,False
+sheet_04,B,mark,148.7,16.6,-13.7,19.2,-1.2,-135.0,-136.0,20.6,72,16.0,31.4,False,tip outside the box in x; paper on the base,12,36,10,14,4,27,7.8,False,False
+sheet_04,B,mark,163.7,19.9,-14.0,19.2,-1.2,-120.0,-121.0,20.2,72,17.4,34.8,True,,17,29,13,13,4,27,7.8,False,False
+sheet_04,B,mark,178.7,23.2,-13.4,19.2,-1.2,-105.0,-107.0,19.7,72,17.8,37.6,True,,18,30,11,13,2,27,7.8,False,True
+sheet_04,B,mark,-166.3,26.2,-11.9,19.2,-1.2,-90.0,-92.0,19.2,72,18.0,39.9,True,,24,24,10,14,2,27,7.8,False,True
+sheet_04,B,mark,-151.3,28.7,-9.8,19.2,-1.2,-75.0,-77.0,18.7,72,18.3,41.7,True,,28,21,8,15,2,27,7.8,False,True
+sheet_04,B,mark,-136.3,30.6,-7.0,19.2,-1.2,-60.0,-62.0,18.2,72,18.2,42.8,True,,33,17,6,16,2,27,7.8,False,True
+sheet_04,B,mark,-121.3,31.7,-3.8,19.2,-1.2,-45.0,-46.0,17.8,72,17.8,43.2,True,,34,18,5,15,2,27,7.8,False,True
+sheet_04,B,mark,-106.3,32.0,-0.5,19.2,-1.2,-30.0,-29.0,17.5,72,17.5,42.9,True,,34,19,7,12,2,27,7.8,False,True
+sheet_04,B,mark,-91.3,31.4,2.8,19.2,-1.2,-15.0,-13.0,17.3,72,17.3,41.8,True,,32,23,6,11,2,27,7.8,False,True
+sheet_04,B,mark,-76.3,29.9,5.8,19.2,-1.2,0.0,4.0,17.2,72,17.2,40.0,True,,31,25,5,11,2,27,7.8,False,True
+sheet_04,B,mark,-61.3,27.8,8.3,19.2,-1.2,15.0,21.0,17.4,72,17.4,38.9,True,,30,28,5,9,2,27,7.8,False,True
+sheet_04,B,mark,-46.3,25.0,10.2,19.2,-1.2,30.0,37.0,17.6,72,17.6,37.2,False,paper on the base,29,24,11,8,0,27,7.8,False,True
+sheet_04,B,mark,-31.3,21.8,11.3,19.2,-1.2,45.0,53.0,18.0,72,16.1,34.8,False,paper on the base,25,25,14,8,0,27,7.8,False,True
+sheet_04,B,mark,-16.3,18.5,11.6,19.2,-1.2,60.0,69.0,18.4,72,13.3,31.9,False,tip outside the box in x; paper on the base,24,26,10,12,0,27,7.8,False,True
+sheet_04,B,mark,-1.3,15.2,11.0,19.2,-1.2,75.0,85.0,19.0,72,10.3,28.4,False,tip too near the base; tip outside the box in x; paper on the base,24,21,13,14,0,27,7.8,False,True
+sheet_04,B,mark,13.7,12.2,9.5,19.2,-1.2,90.0,100.0,19.5,72,7.1,24.5,False,tip too near the base; tip outside the box in x; paper on the base,19,26,9,18,0,27,7.8,False,True
+sheet_04,B,mark,28.7,9.7,7.4,19.2,-1.2,105.0,114.0,20.0,72,3.9,20.3,False,tip too near the base; tip outside the box in x; paper on the base,15,24,12,21,2,27,7.8,False,True
+sheet_04,B,mark,43.7,7.8,4.6,19.2,-1.2,120.0,128.0,20.4,72,0.5,20.4,False,tip too near the base; tip outside the box in x; paper on the base,14,18,11,29,4,27,7.8,False,False
+sheet_04,B,mark,58.7,6.7,1.4,19.2,-1.2,135.0,142.0,20.8,72,0.4,20.8,False,tip too near the base; tip outside the box in x; paper on the base,7,18,18,29,3,27,7.8,False,False
+sheet_04,B,mark,73.7,6.4,-1.9,19.2,-1.2,150.0,156.0,21.1,72,0.7,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,26,27,19,4,27,7.8,False,False
+sheet_04,B,mark,88.7,7.0,-5.2,19.2,-1.2,165.0,170.0,21.2,72,0.5,21.2,False,tip too near the base; tip outside the box in x; paper on the base,2,25,29,16,5,27,7.8,False,False
+sheet_04,B,mark,-180.0,23.5,-13.3,19.2,-1.2,-104.0,-106.0,19.7,72,17.9,37.9,True,,18,30,11,13,2,27,7.8,True,True
+sheet_04,B,mark,-90.0,31.3,3.1,19.2,-1.2,-14.0,-11.0,17.3,72,17.3,41.7,True,,32,23,6,11,2,27,7.8,True,True
+sheet_04,B,mark,0.0,14.9,10.9,19.2,-1.2,76.0,86.0,19.0,72,10.0,28.1,False,tip too near the base; tip outside the box in x; paper on the base,24,22,11,15,0,27,7.8,True,True
+sheet_04,B,mark,90.0,7.1,-5.4,19.2,-1.2,166.0,171.0,21.2,72,0.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,2,27,27,16,5,27,7.8,True,False
+sheet_04,B,centre,-180.0,31.0,0.0,26.8,12.1,-104.0,-131.0,30.6,72,25.9,40.0,True,,12,38,8,14,4,27,7.8,True,False
+sheet_04,B,centre,-165.0,31.0,-0.0,23.8,10.6,-89.0,-117.0,26.8,72,24.2,41.2,True,,16,32,10,14,4,27,7.8,False,True
+sheet_04,B,centre,-150.0,31.0,0.0,21.3,8.4,-74.0,-100.0,23.1,72,21.6,41.9,True,,19,29,11,13,2,27,7.8,False,True
+sheet_04,B,centre,-135.0,31.0,0.0,19.4,5.6,-59.0,-80.0,19.8,72,19.2,42.3,True,,27,22,9,14,2,27,7.8,False,True
+sheet_04,B,centre,-120.0,31.0,0.0,18.4,2.4,-44.0,-56.0,17.4,72,17.4,42.4,True,,34,17,5,16,2,27,7.8,False,True
+sheet_04,B,centre,-105.0,31.0,0.0,18.2,-1.0,-29.0,-29.0,16.5,72,16.5,41.8,True,,34,19,7,12,2,27,7.8,False,True
+sheet_04,B,centre,-90.0,31.0,-0.0,18.9,-4.3,-14.0,-1.0,17.4,72,17.4,40.8,True,,31,25,5,11,2,27,7.8,True,True
+sheet_04,B,centre,-75.0,31.0,0.0,20.4,-7.2,1.0,23.0,19.8,72,19.8,41.0,True,,30,28,5,9,0,27,7.8,False,True
+sheet_04,B,centre,-60.0,31.0,0.0,22.6,-9.7,16.0,43.0,23.1,72,22.5,41.2,True,,26,25,13,8,0,27,7.8,False,True
+sheet_04,B,centre,-45.0,31.0,0.0,25.4,-11.6,31.0,59.0,26.9,72,22.5,40.9,True,,24,27,13,8,0,27,7.8,False,True
+sheet_04,B,centre,-30.0,31.0,0.0,28.6,-12.6,46.0,74.0,30.7,72,22.6,40.1,True,,18,29,15,10,0,27,7.8,False,True
+sheet_04,B,centre,-15.0,31.0,0.0,32.0,-12.8,61.0,86.0,34.3,72,22.7,38.8,True,,13,34,12,13,0,27,7.8,False,True
+sheet_04,B,centre,0.0,31.0,0.0,35.2,-12.1,76.0,98.0,37.5,72,22.8,38.5,True,,14,36,5,17,2,27,7.8,True,True
+sheet_04,B,centre,15.0,31.0,-0.0,38.2,-10.6,91.0,110.0,40.3,72,21.6,40.7,True,,14,30,7,21,4,27,7.8,False,True
+sheet_04,B,centre,30.0,31.0,0.0,40.7,-8.4,106.0,120.0,42.6,72,20.3,42.6,True,,16,19,14,23,4,27,7.8,False,False
+sheet_04,B,centre,45.0,31.0,-0.0,42.6,-5.6,121.0,131.0,44.2,72,19.8,44.2,True,,14,16,15,27,4,27,7.8,False,False
+sheet_04,B,centre,60.0,31.0,0.0,43.6,-2.4,136.0,141.0,45.2,72,19.7,45.2,True,,15,10,19,28,4,27,7.8,False,False
+sheet_04,B,centre,75.0,31.0,-0.0,43.8,1.0,151.0,151.0,45.5,72,20.8,45.5,True,,13,12,16,31,4,27,7.8,False,False
+sheet_04,B,centre,90.0,31.0,-0.0,43.1,4.2,166.0,162.0,45.2,72,22.1,45.2,True,,9,20,12,31,4,27,7.8,True,False
+sheet_04,B,centre,105.0,31.0,0.0,41.6,7.2,-179.0,172.0,44.2,72,21.2,44.2,True,,7,25,12,28,5,27,7.8,False,False
+sheet_04,B,centre,120.0,31.0,0.0,39.4,9.7,-164.0,-178.0,42.5,72,20.8,42.5,True,,4,28,15,25,4,27,7.8,False,False
+sheet_04,B,centre,135.0,31.0,0.0,36.6,11.6,-149.0,-167.0,40.3,72,21.3,40.3,True,,0,30,28,14,4,27,7.8,False,False
+sheet_04,B,centre,150.0,31.0,-0.0,33.4,12.6,-134.0,-156.0,37.5,72,22.8,39.5,True,,0,33,26,13,4,27,7.8,False,False
+sheet_04,B,centre,165.0,31.0,0.0,30.0,12.8,-119.0,-144.0,34.2,72,25.0,39.3,True,,8,39,11,14,4,27,7.8,False,False
+sheet_05,A,mark,-35.3,10.1,-8.3,19.2,-1.2,-180.0,-177.0,21.2,57,6.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,17,17,8,15,1,16,6.9,False,False
+sheet_05,A,mark,-20.3,12.2,-10.5,19.2,-1.2,-165.0,-163.0,21.1,57,10.2,24.2,False,tip too near the base; tip outside the box in x; paper on the base,16,20,9,12,1,16,6.9,False,False
+sheet_05,A,mark,-5.3,14.9,-12.0,19.2,-1.2,-150.0,-150.0,20.9,57,14.0,27.8,False,tip outside the box in x; paper on the base,15,24,7,11,1,16,6.9,False,False
+sheet_05,A,mark,9.7,17.8,-12.7,19.2,-1.2,-135.0,-136.0,20.6,57,17.6,31.1,False,tip outside the box in x; paper on the base,23,17,7,10,1,16,6.9,False,False
+sheet_05,A,mark,24.7,20.8,-12.7,19.2,-1.2,-120.0,-122.0,20.2,57,18.3,34.6,False,paper on the base,27,14,6,10,1,16,6.9,False,False
+sheet_05,A,mark,39.7,23.7,-11.9,19.2,-1.2,-105.0,-107.0,19.7,57,18.7,37.5,False,paper on the base,28,14,5,10,1,16,6.9,False,True
+sheet_05,A,mark,54.7,26.3,-10.3,19.2,-1.2,-90.0,-92.0,19.2,57,18.7,39.9,False,paper on the base,30,12,4,11,1,16,6.9,False,True
+sheet_05,A,mark,69.7,28.5,-8.2,19.2,-1.2,-75.0,-77.0,18.7,57,18.6,41.6,True,,31,11,5,10,1,16,6.9,False,True
+sheet_05,A,mark,84.7,30.0,-5.5,19.2,-1.2,-60.0,-62.0,18.2,57,18.2,42.8,True,,30,13,4,10,1,16,6.9,False,True
+sheet_05,A,mark,99.7,30.7,-2.6,19.2,-1.2,-45.0,-46.0,17.8,57,17.8,43.2,True,,29,13,6,9,1,16,6.9,False,True
+sheet_05,A,mark,114.7,30.7,0.4,19.2,-1.2,-30.0,-29.0,17.4,57,17.4,43.1,True,,27,15,6,9,1,16,6.9,False,True
+sheet_05,A,mark,129.7,29.9,3.3,19.2,-1.2,-15.0,-13.0,17.3,57,17.3,42.3,True,,24,19,6,8,1,16,6.9,False,True
+sheet_05,A,mark,144.7,28.3,5.9,19.2,-1.2,0.0,4.0,17.2,57,17.2,40.8,True,,16,26,8,7,1,16,6.9,False,True
+sheet_05,A,mark,159.7,26.2,8.1,19.2,-1.2,15.0,21.0,17.4,57,17.4,38.7,True,,9,33,9,6,1,16,6.9,False,True
+sheet_05,A,mark,174.7,23.5,9.6,19.2,-1.2,30.0,37.0,17.6,57,17.6,36.1,True,,5,37,9,6,1,16,6.9,False,True
+sheet_05,A,mark,-170.3,20.6,10.3,19.2,-1.2,45.0,53.0,18.0,57,18.0,32.9,True,,3,38,10,6,1,16,6.9,False,True
+sheet_05,A,mark,-155.3,17.6,10.3,19.2,-1.2,60.0,69.0,18.5,57,17.6,29.3,False,tip outside the box in x; paper on the base,4,36,11,6,1,16,6.9,False,True
+sheet_05,A,mark,-140.3,14.7,9.5,19.2,-1.2,75.0,85.0,19.0,57,13.1,25.3,False,tip outside the box in x; paper on the base,4,32,13,8,1,16,6.9,False,True
+sheet_05,A,mark,-125.3,12.1,7.9,19.2,-1.2,90.0,99.0,19.5,57,8.4,21.3,False,tip too near the base; tip outside the box in x; paper on the base,3,21,23,10,1,16,6.9,False,True
+sheet_05,A,mark,-110.3,9.9,5.8,19.2,-1.2,105.0,114.0,20.0,57,3.5,20.0,False,tip too near the base; tip outside the box in x; paper on the base,3,16,19,19,1,16,6.9,False,True
+sheet_05,A,mark,-95.3,8.4,3.1,19.2,-1.2,120.0,128.0,20.5,57,1.6,20.5,False,tip too near the base; tip outside the box in x; paper on the base,2,17,10,28,0,16,6.9,False,False
+sheet_05,A,mark,-80.3,7.7,0.2,19.2,-1.2,135.0,142.0,20.8,57,1.5,20.8,False,tip too near the base; tip outside the box in x; paper on the base,0,25,11,21,1,16,6.9,False,False
+sheet_05,A,mark,-65.3,7.7,-2.8,19.2,-1.2,150.0,156.0,21.1,57,1.9,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,27,8,22,1,16,6.9,False,False
+sheet_05,A,mark,-50.3,8.5,-5.7,19.2,-1.2,165.0,170.0,21.2,57,2.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,4,26,9,18,2,16,6.9,False,False
+sheet_05,A,mark,-180.0,22.5,9.9,19.2,-1.2,35.0,43.0,17.7,57,17.7,35.0,True,,5,37,9,6,1,16,6.9,True,True
+sheet_05,A,mark,-90.0,8.1,2.1,19.2,-1.2,125.0,133.0,20.6,57,1.5,20.6,False,tip too near the base; tip outside the box in x; paper on the base,1,20,8,28,0,16,6.9,True,False
+sheet_05,A,mark,0.0,15.9,-12.3,19.2,-1.2,-145.0,-145.0,20.8,57,15.3,29.0,False,tip outside the box in x; paper on the base,18,20,8,11,1,16,6.9,True,False
+sheet_05,A,mark,90.0,30.3,-4.5,19.2,-1.2,-55.0,-56.0,18.0,57,18.0,43.0,True,,30,12,5,10,1,16,6.9,True,True
+sheet_05,A,centre,-180.0,31.0,0.0,27.7,-11.1,35.0,61.0,28.8,57,26.7,39.1,True,,4,35,12,6,1,16,6.9,True,True
+sheet_05,A,centre,-165.0,31.0,-0.0,30.7,-11.6,50.0,74.0,32.2,57,24.6,38.0,True,,5,27,15,10,1,16,6.9,False,True
+sheet_05,A,centre,-150.0,31.0,0.0,33.7,-11.3,65.0,87.0,35.4,57,23.0,36.9,True,,5,18,18,16,1,16,6.9,False,True
+sheet_05,A,centre,-135.0,31.0,0.0,36.5,-10.2,80.0,99.0,38.2,57,22.0,38.4,True,,7,13,22,15,1,16,6.9,False,True
+sheet_05,A,centre,-120.0,31.0,0.0,39.0,-8.4,95.0,110.0,40.5,57,21.9,40.6,True,,8,10,10,29,0,16,6.9,False,False
+sheet_05,A,centre,-105.0,31.0,0.0,40.9,-6.1,110.0,121.0,42.4,57,20.1,42.4,True,,10,8,7,32,0,16,6.9,False,False
+sheet_05,A,centre,-90.0,31.0,-0.0,42.1,-3.3,125.0,132.0,43.6,57,19.0,43.6,True,,10,8,14,25,2,16,6.9,True,False
+sheet_05,A,centre,-75.0,31.0,0.0,42.6,-0.3,140.0,142.0,44.2,57,18.6,44.2,True,,10,9,14,24,2,16,6.9,False,False
+sheet_05,A,centre,-60.0,31.0,0.0,42.3,2.7,155.0,153.0,44.2,57,18.8,44.2,True,,9,21,2,25,2,16,6.9,False,False
+sheet_05,A,centre,-45.0,31.0,0.0,41.2,5.5,170.0,163.0,43.5,57,19.7,43.5,True,,7,22,13,15,2,16,6.9,False,False
+sheet_05,A,centre,-30.0,31.0,0.0,39.4,8.0,-175.0,174.0,42.2,57,21.0,42.2,True,,6,21,19,11,2,16,6.9,False,False
+sheet_05,A,centre,-15.0,31.0,0.0,37.1,9.9,-160.0,-175.0,40.4,57,22.4,40.4,True,,6,30,11,10,1,16,6.9,False,False
+sheet_05,A,centre,0.0,31.0,0.0,34.3,11.1,-145.0,-164.0,38.0,57,23.5,38.0,True,,7,31,10,9,1,16,6.9,True,False
+sheet_05,A,centre,15.0,31.0,-0.0,31.3,11.6,-130.0,-152.0,35.1,57,24.5,38.5,True,,17,22,9,9,1,16,6.9,False,False
+sheet_05,A,centre,30.0,31.0,0.0,28.3,11.3,-115.0,-139.0,31.9,57,25.5,39.5,True,,16,25,7,9,1,16,6.9,False,False
+sheet_05,A,centre,45.0,31.0,-0.0,25.5,10.2,-100.0,-125.0,28.5,57,26.2,40.1,True,,23,17,7,10,1,16,6.9,False,False
+sheet_05,A,centre,60.0,31.0,0.0,23.0,8.4,-85.0,-109.0,25.1,57,23.9,41.4,True,,28,14,5,10,1,16,6.9,False,True
+sheet_05,A,centre,75.0,31.0,-0.0,21.1,6.1,-70.0,-91.0,21.9,57,21.5,42.5,True,,30,13,3,11,1,16,6.9,False,True
+sheet_05,A,centre,90.0,31.0,-0.0,19.9,3.3,-55.0,-69.0,19.3,57,19.3,43.2,True,,31,11,4,11,1,16,6.9,True,True
+sheet_05,A,centre,105.0,31.0,0.0,19.4,0.3,-40.0,-45.0,17.9,57,17.9,43.4,True,,30,13,5,9,1,16,6.9,False,True
+sheet_05,A,centre,120.0,31.0,0.0,19.7,-2.7,-25.0,-19.0,18.0,57,18.0,43.3,True,,24,19,6,8,1,16,6.9,False,True
+sheet_05,A,centre,135.0,31.0,0.0,20.8,-5.5,-10.0,6.0,19.5,57,19.5,42.7,True,,14,29,7,7,1,16,6.9,False,True
+sheet_05,A,centre,150.0,31.0,-0.0,22.6,-8.0,5.0,27.0,22.1,57,22.1,41.8,True,,6,36,9,6,1,16,6.9,False,True
+sheet_05,A,centre,165.0,31.0,0.0,24.9,-9.9,20.0,45.0,25.4,57,25.4,40.5,True,,4,37,10,6,1,16,6.9,False,True
+sheet_05,B,mark,59.9,7.5,-2.1,19.2,-1.2,-180.0,-177.0,21.2,57,2.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,11,5,30,0,18,6.9,False,False
+sheet_05,B,mark,74.9,8.2,-5.1,19.2,-1.2,-165.0,-163.0,21.1,57,1.8,22.5,False,tip too near the base; tip outside the box in x; paper on the base,8,12,5,32,1,18,6.9,False,False
+sheet_05,B,mark,89.9,9.5,-7.8,19.2,-1.2,-150.0,-149.0,20.9,57,6.7,24.8,False,tip too near the base; tip outside the box in x; paper on the base,6,14,14,23,1,18,6.9,True,False
+sheet_05,B,mark,104.9,11.6,-10.1,19.2,-1.2,-135.0,-136.0,20.6,57,11.7,26.8,False,tip too near the base; tip outside the box in x; paper on the base,6,17,26,8,1,18,6.9,False,False
+sheet_05,B,mark,119.9,14.2,-11.8,19.2,-1.2,-120.0,-122.0,20.2,57,16.5,28.9,False,tip outside the box in x; paper on the base,6,19,27,5,1,18,6.9,False,False
+sheet_05,B,mark,134.9,17.1,-12.7,19.2,-1.2,-105.0,-107.0,19.7,57,18.8,30.6,False,tip outside the box in x; paper on the base,6,34,13,4,1,18,6.9,False,True
+sheet_05,B,mark,149.9,20.1,-12.9,19.2,-1.2,-90.0,-92.0,19.2,57,19.2,32.1,False,paper on the base,6,39,8,4,1,18,6.9,False,True
+sheet_05,B,mark,164.9,23.1,-12.2,19.2,-1.2,-75.0,-77.0,18.7,57,18.7,33.3,True,,8,39,5,5,1,18,6.9,False,True
+sheet_05,B,mark,179.9,25.8,-10.9,19.2,-1.2,-60.0,-62.0,18.2,57,18.2,34.3,True,,11,35,6,5,1,18,6.9,True,True
+sheet_05,B,mark,-165.1,28.1,-8.8,19.2,-1.2,-45.0,-46.0,17.8,57,17.8,35.0,True,,15,30,6,6,1,18,6.9,False,True
+sheet_05,B,mark,-150.1,29.8,-6.2,19.2,-1.2,-30.0,-29.0,17.5,57,17.5,37.0,True,,15,29,6,7,1,18,6.9,False,True
+sheet_05,B,mark,-135.1,30.7,-3.3,19.2,-1.2,-15.0,-13.0,17.3,57,17.3,38.5,True,,23,20,7,7,1,18,6.9,False,True
+sheet_05,B,mark,-120.1,30.9,-0.3,19.2,-1.2,0.0,4.0,17.2,57,17.2,39.3,True,,29,13,6,9,1,18,6.9,False,True
+sheet_05,B,mark,-105.1,30.2,2.7,19.2,-1.2,15.0,21.0,17.4,57,17.4,39.4,True,,31,12,4,10,1,18,6.9,False,True
+sheet_05,B,mark,-90.1,28.9,5.4,19.2,-1.2,30.0,37.0,17.6,57,17.6,38.9,True,,32,10,5,10,1,18,6.9,True,True
+sheet_05,B,mark,-75.1,26.8,7.7,19.2,-1.2,45.0,53.0,18.0,57,15.6,37.7,True,,21,20,5,11,1,18,6.9,False,True
+sheet_05,B,mark,-60.1,24.2,9.4,19.2,-1.2,60.0,69.0,18.4,57,13.2,35.8,False,paper on the base,23,19,4,11,1,18,6.9,False,True
+sheet_05,B,mark,-45.1,21.3,10.3,19.2,-1.2,75.0,85.0,18.9,57,10.8,33.4,False,tip too near the base; tip outside the box in x; paper on the base,24,18,4,11,1,18,6.9,False,True
+sheet_05,B,mark,-30.1,18.3,10.5,19.2,-1.2,90.0,99.0,19.5,57,8.7,30.3,False,tip too near the base; tip outside the box in x; paper on the base,20,22,6,9,1,18,6.9,False,True
+sheet_05,B,mark,-15.1,15.3,9.8,19.2,-1.2,105.0,114.0,20.0,57,6.7,26.8,False,tip too near the base; tip outside the box in x; paper on the base,16,25,7,9,1,18,6.9,False,True
+sheet_05,B,mark,-0.1,12.6,8.5,19.2,-1.2,120.0,128.0,20.4,57,5.1,22.8,False,tip too near the base; tip outside the box in x; paper on the base,13,19,17,8,1,18,6.9,True,False
+sheet_05,B,mark,14.9,10.3,6.4,19.2,-1.2,135.0,142.0,20.8,57,4.0,20.8,False,tip too near the base; tip outside the box in x; paper on the base,12,18,17,10,1,18,6.9,False,False
+sheet_05,B,mark,29.9,8.6,3.8,19.2,-1.2,150.0,156.0,21.0,57,3.2,21.0,False,tip too near the base; tip outside the box in x; paper on the base,12,14,13,18,1,18,6.9,False,False
+sheet_05,B,mark,44.9,7.7,0.9,19.2,-1.2,165.0,170.0,21.2,57,3.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,13,12,6,26,1,18,6.9,False,False
+sheet_05,B,mark,-180.0,25.9,-10.8,19.2,-1.2,-60.0,-62.0,18.2,57,18.2,34.3,True,,11,35,6,5,1,18,6.9,True,True
+sheet_05,B,mark,-90.0,28.8,5.5,19.2,-1.2,30.0,37.0,17.6,57,17.6,38.9,True,,32,10,5,10,1,18,6.9,True,True
+sheet_05,B,mark,0.0,12.5,8.4,19.2,-1.2,120.0,128.0,20.4,57,5.1,22.8,False,tip too near the base; tip outside the box in x; paper on the base,13,19,17,8,1,18,6.9,True,False
+sheet_05,B,mark,90.0,9.6,-7.9,19.2,-1.2,-150.0,-149.0,20.9,57,6.8,24.8,False,tip too near the base; tip outside the box in x; paper on the base,6,14,14,23,1,18,6.9,True,False
+sheet_05,B,centre,-180.0,31.0,0.0,24.3,9.6,-60.0,-86.0,26.0,57,26.0,39.3,True,,6,38,9,4,1,18,6.9,True,True
+sheet_05,B,centre,-165.0,31.0,-0.0,22.1,7.6,-45.0,-68.0,22.5,57,22.5,37.8,True,,10,36,7,4,1,18,6.9,False,True
+sheet_05,B,centre,-150.0,31.0,0.0,20.4,5.0,-30.0,-48.0,19.6,57,19.6,36.7,True,,14,31,6,6,1,18,6.9,False,True
+sheet_05,B,centre,-135.0,31.0,0.0,19.5,2.1,-15.0,-23.0,17.7,57,17.7,37.9,True,,15,28,8,6,1,18,6.9,False,True
+sheet_05,B,centre,-120.0,31.0,0.0,19.3,-0.9,0.0,3.0,17.3,57,17.3,39.3,True,,29,14,5,9,1,18,6.9,False,True
+sheet_05,B,centre,-105.0,31.0,0.0,20.0,-3.9,15.0,29.0,18.6,57,18.6,40.3,True,,31,11,5,10,1,18,6.9,False,True
+sheet_05,B,centre,-90.0,31.0,-0.0,21.4,-6.7,30.0,51.0,21.1,57,18.6,40.8,True,,21,21,5,10,1,18,6.9,True,True
+sheet_05,B,centre,-75.0,31.0,0.0,23.4,-8.9,45.0,70.0,24.3,57,18.1,40.7,True,,23,19,4,11,1,18,6.9,False,True
+sheet_05,B,centre,-60.0,31.0,0.0,26.0,-10.6,60.0,86.0,27.8,57,18.6,40.2,True,,25,18,4,10,1,18,6.9,False,True
+sheet_05,B,centre,-45.0,31.0,0.0,28.9,-11.5,75.0,100.0,31.4,57,19.5,39.2,True,,14,29,6,8,1,18,6.9,False,True
+sheet_05,B,centre,-30.0,31.0,0.0,31.9,-11.7,90.0,113.0,34.7,57,20.8,37.7,True,,11,22,17,7,1,18,6.9,False,True
+sheet_05,B,centre,-15.0,31.0,0.0,34.9,-11.0,105.0,125.0,37.8,57,22.3,37.8,True,,10,25,16,6,1,18,6.9,False,False
+sheet_05,B,centre,0.0,31.0,0.0,37.7,-9.6,120.0,136.0,40.3,57,23.7,40.3,True,,8,29,13,7,1,18,6.9,True,False
+sheet_05,B,centre,15.0,31.0,-0.0,39.9,-7.6,135.0,147.0,42.3,57,24.8,42.3,True,,9,20,12,16,1,18,6.9,False,False
+sheet_05,B,centre,30.0,31.0,0.0,41.6,-5.0,150.0,158.0,43.7,57,25.8,43.7,True,,9,16,16,16,1,18,6.9,False,False
+sheet_05,B,centre,45.0,31.0,-0.0,42.5,-2.1,165.0,168.0,44.5,57,26.0,44.5,True,,9,14,10,24,1,18,6.9,False,False
+sheet_05,B,centre,60.0,31.0,0.0,42.7,0.9,-180.0,179.0,44.7,57,23.8,44.7,True,,10,11,8,28,1,18,6.9,False,False
+sheet_05,B,centre,75.0,31.0,-0.0,42.0,3.9,-165.0,-171.0,44.2,57,22.1,44.2,True,,10,9,8,30,0,18,6.9,False,False
+sheet_05,B,centre,90.0,31.0,-0.0,40.7,6.7,-150.0,-160.0,43.1,57,21.3,43.7,True,,10,9,6,32,2,18,6.9,True,False
+sheet_05,B,centre,105.0,31.0,0.0,38.6,8.9,-135.0,-149.0,41.3,57,21.3,43.9,True,,10,10,7,30,2,18,6.9,False,False
+sheet_05,B,centre,120.0,31.0,0.0,36.0,10.6,-120.0,-138.0,39.0,57,22.3,43.7,True,,8,12,13,24,2,18,6.9,False,False
+sheet_05,B,centre,135.0,31.0,0.0,33.1,11.5,-105.0,-127.0,36.2,57,24.1,42.9,True,,7,16,19,15,1,18,6.9,False,False
+sheet_05,B,centre,150.0,31.0,-0.0,30.1,11.7,-90.0,-114.0,33.0,57,26.4,41.9,True,,6,20,24,7,1,18,6.9,False,True
+sheet_05,B,centre,165.0,31.0,0.0,27.1,11.0,-75.0,-101.0,29.5,57,28.9,40.7,True,,6,30,16,5,1,18,6.9,False,True
+sheet_06,A,mark,10.9,13.1,-2.2,19.2,-1.2,180.0,-177.0,21.2,47,5.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,10,21,3,13,1,17,6.3,False,False
+sheet_06,A,mark,25.9,13.5,-3.7,19.2,-1.2,-165.0,-163.0,21.1,47,2.4,22.3,False,tip too near the base; tip outside the box in x; paper on the base,16,14,1,16,1,17,6.3,False,False
+sheet_06,A,mark,40.9,14.4,-5.1,19.2,-1.2,-150.0,-149.0,20.9,47,3.1,24.7,False,tip too near the base; tip outside the box in x; paper on the base,15,13,1,18,1,17,6.3,False,False
+sheet_06,A,mark,55.9,15.6,-6.2,19.2,-1.2,-135.0,-136.0,20.6,47,6.1,26.7,False,tip too near the base; tip outside the box in x; paper on the base,18,9,14,6,1,17,6.3,False,False
+sheet_06,A,mark,70.9,17.0,-7.0,19.2,-1.2,-120.0,-121.0,20.2,47,9.2,28.4,False,tip too near the base; tip outside the box in x; paper on the base,16,11,17,3,1,17,6.3,False,False
+sheet_06,A,mark,85.9,18.6,-7.4,19.2,-1.2,-105.0,-107.0,19.7,47,11.9,29.6,False,tip too near the base; tip outside the box in x; paper on the base,14,23,7,3,1,17,6.3,False,True
+sheet_06,A,mark,100.9,20.2,-7.3,19.2,-1.2,-90.0,-92.0,19.2,47,14.6,30.3,False,tip outside the box in x; paper on the base,12,26,5,4,1,17,6.3,False,True
+sheet_06,A,mark,115.9,21.7,-6.9,19.2,-1.2,-75.0,-77.0,18.7,47,17.2,30.5,False,paper on the base,10,28,4,5,1,17,6.3,False,True
+sheet_06,A,mark,130.9,23.1,-6.0,19.2,-1.2,-60.0,-62.0,18.2,47,18.2,30.3,False,paper on the base,7,30,5,5,1,17,6.3,False,True
+sheet_06,A,mark,145.9,24.2,-4.8,19.2,-1.2,-45.0,-46.0,17.8,47,17.8,30.9,False,paper on the base,3,31,7,6,1,17,6.3,False,True
+sheet_06,A,mark,160.9,25.0,-3.4,19.2,-1.2,-30.0,-29.0,17.5,47,17.5,33.1,True,,11,22,7,7,1,17,6.3,False,True
+sheet_06,A,mark,175.9,25.4,-1.8,19.2,-1.2,-15.0,-13.0,17.3,47,17.3,34.8,True,,14,17,8,8,1,17,6.3,False,True
+sheet_06,A,mark,-169.1,25.3,-0.2,19.2,-1.2,-0.0,4.0,17.2,47,17.2,35.8,True,,14,16,6,11,1,17,6.3,False,True
+sheet_06,A,mark,-154.1,24.9,1.3,19.2,-1.2,15.0,21.0,17.3,47,17.3,36.3,False,paper on the base,15,13,7,12,1,17,6.3,False,True
+sheet_06,A,mark,-139.1,24.0,2.7,19.2,-1.2,30.0,37.0,17.6,47,17.6,36.1,False,paper on the base,16,7,11,13,1,17,6.3,False,True
+sheet_06,A,mark,-124.1,22.8,3.8,19.2,-1.2,45.0,53.0,18.0,47,16.7,35.4,False,paper on the base,14,4,13,16,2,17,6.3,False,True
+sheet_06,A,mark,-109.1,21.4,4.6,19.2,-1.2,60.0,69.0,18.4,47,13.8,34.1,False,paper on the base,11,8,11,17,2,17,6.3,False,False
+sheet_06,A,mark,-94.1,19.8,5.0,19.2,-1.2,75.0,85.0,18.9,47,11.0,32.4,False,tip too near the base; tip outside the box in x; paper on the base,9,10,5,23,2,17,6.3,False,False
+sheet_06,A,mark,-79.1,18.2,4.9,19.2,-1.2,90.0,99.0,19.5,47,8.8,30.2,False,tip too near the base; tip outside the box in x; paper on the base,7,13,8,19,2,17,6.3,False,False
+sheet_06,A,mark,-64.1,16.7,4.5,19.2,-1.2,105.0,114.0,20.0,47,8.0,27.5,False,tip too near the base; tip outside the box in x; paper on the base,4,19,8,16,2,17,6.3,False,True
+sheet_06,A,mark,-49.1,15.3,3.6,19.2,-1.2,120.0,128.0,20.4,47,8.3,24.4,False,tip too near the base; tip outside the box in x; paper on the base,5,19,10,13,0,17,6.3,False,False
+sheet_06,A,mark,-34.1,14.2,2.4,19.2,-1.2,135.0,142.0,20.8,47,8.9,21.4,False,tip too near the base; tip outside the box in x; paper on the base,6,18,12,11,0,17,6.3,False,False
+sheet_06,A,mark,-19.1,13.4,1.0,19.2,-1.2,150.0,156.0,21.0,47,10.2,21.0,False,tip too near the base; tip outside the box in x; paper on the base,7,18,15,7,0,17,6.3,False,False
+sheet_06,A,mark,-4.1,13.0,-0.6,19.2,-1.2,165.0,170.0,21.2,47,8.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,8,17,13,9,0,17,6.3,False,False
+sheet_06,A,mark,-180.0,25.4,-1.4,19.2,-1.2,-11.0,-8.0,17.3,47,17.3,35.1,True,,14,16,8,9,1,17,6.3,True,True
+sheet_06,A,mark,-90.0,19.4,5.0,19.2,-1.2,79.0,89.0,19.1,47,10.3,31.9,False,tip too near the base; tip outside the box in x; paper on the base,8,11,6,22,2,17,6.3,True,False
+sheet_06,A,mark,0.0,13.0,-1.0,19.2,-1.2,169.0,173.0,21.2,47,7.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,8,18,11,10,0,17,6.3,True,False
+sheet_06,A,mark,90.0,19.0,-7.4,19.2,-1.2,-101.0,-103.0,19.6,47,12.7,29.8,False,tip outside the box in x; paper on the base,14,24,6,3,1,17,6.3,True,True
+sheet_06,A,centre,-180.0,31.0,0.0,24.8,0.2,-11.0,-12.0,22.8,47,22.8,40.2,True,,13,18,7,9,1,17,6.3,True,True
+sheet_06,A,centre,-165.0,31.0,-0.0,25.0,-1.4,4.0,8.0,23.0,47,23.0,41.7,True,,15,14,6,12,1,17,6.3,False,True
+sheet_06,A,centre,-150.0,31.0,0.0,25.5,-2.9,19.0,28.0,23.9,47,23.9,42.7,True,,16,9,8,14,1,17,6.3,False,True
+sheet_06,A,centre,-135.0,31.0,0.0,26.5,-4.3,34.0,46.0,25.4,47,24.3,43.2,True,,16,2,13,16,2,17,6.3,False,True
+sheet_06,A,centre,-120.0,31.0,0.0,27.7,-5.3,49.0,63.0,27.3,47,22.4,43.2,True,,11,8,10,18,2,17,6.3,False,False
+sheet_06,A,centre,-105.0,31.0,0.0,29.2,-5.9,64.0,79.0,29.4,47,21.2,42.8,True,,8,12,6,21,2,17,6.3,False,False
+sheet_06,A,centre,-90.0,31.0,-0.0,30.8,-6.2,79.0,94.0,31.5,47,21.0,41.9,True,,5,16,8,18,2,17,6.3,True,False
+sheet_06,A,centre,-75.0,31.0,0.0,32.4,-6.0,94.0,108.0,33.5,47,21.8,40.5,True,,4,21,7,15,4,17,6.3,False,True
+sheet_06,A,centre,-60.0,31.0,0.0,33.9,-5.5,109.0,121.0,35.4,47,23.3,38.9,True,,3,23,8,13,0,17,6.3,False,False
+sheet_06,A,centre,-45.0,31.0,0.0,35.3,-4.5,124.0,134.0,36.9,47,24.8,37.7,True,,2,22,13,10,0,17,6.3,False,False
+sheet_06,A,centre,-30.0,31.0,0.0,36.3,-3.3,139.0,146.0,38.1,47,26.3,38.1,True,,4,20,16,7,0,17,6.3,False,False
+sheet_06,A,centre,-15.0,31.0,0.0,36.9,-1.8,154.0,158.0,38.8,47,26.7,38.8,True,,7,17,16,7,0,17,6.3,False,False
+sheet_06,A,centre,0.0,31.0,0.0,37.2,-0.2,169.0,170.0,39.2,47,24.1,39.2,True,,10,18,9,10,0,17,6.3,True,False
+sheet_06,A,centre,15.0,31.0,-0.0,37.0,1.4,-176.0,-178.0,39.1,47,21.8,39.1,True,,13,17,4,13,3,17,6.3,False,False
+sheet_06,A,centre,30.0,31.0,0.0,36.5,2.9,-161.0,-166.0,38.5,47,19.8,38.5,True,,15,15,2,15,3,17,6.3,False,False
+sheet_06,A,centre,45.0,31.0,-0.0,35.5,4.3,-146.0,-154.0,37.6,47,18.9,39.1,True,,17,13,0,17,1,17,6.3,False,False
+sheet_06,A,centre,60.0,31.0,0.0,34.3,5.3,-131.0,-142.0,36.2,47,18.8,40.3,True,,18,11,2,16,1,17,6.3,False,False
+sheet_06,A,centre,75.0,31.0,-0.0,32.8,5.9,-116.0,-129.0,34.6,47,19.6,40.9,True,,20,9,9,9,1,17,6.3,False,False
+sheet_06,A,centre,90.0,31.0,-0.0,31.2,6.2,-101.0,-115.0,32.6,47,21.1,41.0,True,,17,11,15,4,1,17,6.3,True,True
+sheet_06,A,centre,105.0,31.0,0.0,29.6,6.0,-86.0,-101.0,30.5,47,22.5,40.6,True,,15,22,7,3,1,17,6.3,False,True
+sheet_06,A,centre,120.0,31.0,0.0,28.1,5.5,-71.0,-86.0,28.4,47,23.8,39.7,True,,13,26,5,3,1,17,6.3,False,True
+sheet_06,A,centre,135.0,31.0,0.0,26.7,4.5,-56.0,-69.0,26.4,47,25.3,38.3,True,,10,28,5,4,1,17,6.3,False,True
+sheet_06,A,centre,150.0,31.0,-0.0,25.7,3.3,-41.0,-52.0,24.6,47,24.6,36.8,True,,6,30,6,5,1,17,6.3,False,True
+sheet_06,A,centre,165.0,31.0,0.0,25.1,1.8,-26.0,-32.0,23.4,47,23.4,38.1,True,,8,25,7,7,1,17,6.3,False,True
+sheet_06,B,mark,20.7,12.5,7.8,19.2,-1.2,180.0,-177.0,21.2,47,12.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,7,21,10,9,2,17,6.3,False,False
+sheet_06,B,mark,35.7,10.4,5.8,19.2,-1.2,-165.0,-163.0,21.2,47,7.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,9,16,11,11,2,17,6.3,False,False
+sheet_06,B,mark,50.7,8.9,3.3,19.2,-1.2,-150.0,-150.0,21.0,47,2.1,21.0,False,tip too near the base; tip outside the box in x; paper on the base,11,6,16,14,2,17,6.3,False,False
+sheet_06,B,mark,65.7,8.1,0.4,19.2,-1.2,-135.0,-136.0,20.6,47,2.7,20.6,False,tip too near the base; tip outside the box in x; paper on the base,6,6,15,20,1,17,6.3,False,False
+sheet_06,B,mark,80.7,8.0,-2.5,19.2,-1.2,-120.0,-122.0,20.2,47,0.8,20.2,False,tip too near the base; tip outside the box in x; paper on the base,4,12,13,18,2,17,6.3,False,False
+sheet_06,B,mark,95.7,8.7,-5.4,19.2,-1.2,-105.0,-107.0,19.8,47,4.9,19.8,False,tip too near the base; tip outside the box in x; paper on the base,5,10,20,12,0,17,6.3,False,True
+sheet_06,B,mark,110.7,10.2,-7.9,19.2,-1.2,-90.0,-93.0,19.3,47,9.2,19.9,False,tip too near the base; tip outside the box in x; paper on the base,6,9,22,10,0,17,6.3,False,True
+sheet_06,B,mark,125.7,12.2,-10.0,19.2,-1.2,-75.0,-78.0,18.7,47,12.2,23.3,False,tip too near the base; tip outside the box in x; paper on the base,7,12,14,14,0,17,6.3,False,True
+sheet_06,B,mark,140.7,14.7,-11.5,19.2,-1.2,-60.0,-62.0,18.2,47,15.0,27.7,False,tip outside the box in x; paper on the base,7,15,11,14,0,17,6.3,False,True
+sheet_06,B,mark,155.7,17.6,-12.3,19.2,-1.2,-45.0,-46.0,17.8,47,17.8,31.7,False,paper on the base,8,20,4,15,3,17,6.3,False,True
+sheet_06,B,mark,170.7,20.5,-12.4,19.2,-1.2,-30.0,-30.0,17.5,47,17.5,35.2,True,,11,18,2,16,3,17,6.3,False,True
+sheet_06,B,mark,-174.3,23.4,-11.7,19.2,-1.2,-15.0,-13.0,17.3,47,17.3,38.0,True,,13,16,1,17,1,17,6.3,False,False
+sheet_06,B,mark,-159.3,25.9,-10.2,19.2,-1.2,-0.0,4.0,17.2,47,17.2,40.3,True,,14,15,1,17,1,17,6.3,False,False
+sheet_06,B,mark,-144.3,28.0,-8.2,19.2,-1.2,15.0,20.0,17.3,47,17.3,42.0,True,,16,13,5,13,1,17,6.3,False,True
+sheet_06,B,mark,-129.3,29.5,-5.7,19.2,-1.2,30.0,37.0,17.6,47,17.6,43.0,True,,17,12,7,11,1,17,6.3,False,True
+sheet_06,B,mark,-114.3,30.3,-2.8,19.2,-1.2,45.0,53.0,17.9,47,17.9,43.2,True,,20,9,9,9,1,17,6.3,False,True
+sheet_06,B,mark,-99.3,30.4,0.1,19.2,-1.2,60.0,69.0,18.4,47,18.4,42.8,True,,19,13,7,8,1,17,6.3,False,True
+sheet_06,B,mark,-84.3,29.7,3.0,19.2,-1.2,75.0,84.0,18.9,47,18.8,41.6,True,,17,16,8,6,1,17,6.3,False,True
+sheet_06,B,mark,-69.3,28.2,5.5,19.2,-1.2,90.0,99.0,19.4,47,18.8,39.7,True,,16,20,6,5,1,17,6.3,False,True
+sheet_06,B,mark,-54.3,26.2,7.6,19.2,-1.2,105.0,114.0,19.9,47,18.2,37.1,False,paper on the base,14,21,8,4,1,17,6.3,False,True
+sheet_06,B,mark,-39.3,23.7,9.1,19.2,-1.2,120.0,128.0,20.4,47,17.4,34.0,False,paper on the base,13,21,10,3,1,17,6.3,False,False
+sheet_06,B,mark,-24.3,20.8,9.9,19.2,-1.2,135.0,142.0,20.8,47,16.4,30.5,False,paper on the base,11,24,7,5,1,17,6.3,False,False
+sheet_06,B,mark,-9.3,17.9,10.0,19.2,-1.2,150.0,156.0,21.0,47,15.3,26.6,False,paper on the base,8,26,7,6,1,17,6.3,False,False
+sheet_06,B,mark,5.7,15.0,9.3,19.2,-1.2,165.0,169.0,21.2,47,14.2,22.6,False,tip outside the box in x; paper on the base,6,26,8,7,1,17,6.3,False,False
+sheet_06,B,mark,-180.0,22.3,-12.0,19.2,-1.2,-21.0,-19.0,17.3,47,17.3,37.0,True,,12,17,2,16,1,17,6.3,True,True
+sheet_06,B,mark,-90.0,30.0,1.9,19.2,-1.2,69.0,78.0,18.7,47,18.7,42.1,True,,18,14,8,7,1,17,6.3,True,True
+sheet_06,B,mark,0.0,16.1,9.6,19.2,-1.2,159.0,164.0,21.2,47,14.6,24.1,False,tip outside the box in x; paper on the base,5,28,7,7,1,17,6.3,True,False
+sheet_06,B,mark,90.0,8.4,-4.3,19.2,-1.2,-111.0,-113.0,19.9,47,3.3,19.9,False,tip too near the base; tip outside the box in x; paper on the base,5,10,18,14,0,17,6.3,True,True
+sheet_06,B,centre,-180.0,31.0,0.0,27.9,10.8,-21.0,-45.0,28.5,47,27.3,39.6,True,,8,17,8,14,0,17,6.3,True,True
+sheet_06,B,centre,-165.0,31.0,-0.0,25.2,9.6,-6.0,-29.0,25.2,47,25.2,41.4,True,,11,19,2,15,3,17,6.3,False,True
+sheet_06,B,centre,-150.0,31.0,0.0,22.9,7.8,9.0,-11.0,22.2,47,22.2,42.7,True,,13,16,2,16,1,17,6.3,False,True
+sheet_06,B,centre,-135.0,31.0,0.0,21.2,5.5,24.0,10.0,19.9,47,19.9,43.6,True,,14,15,2,16,1,17,6.3,False,True
+sheet_06,B,centre,-120.0,31.0,0.0,20.1,2.7,39.0,34.0,18.6,47,18.6,43.9,True,,16,13,7,11,1,17,6.3,False,True
+sheet_06,B,centre,-105.0,31.0,0.0,19.8,-0.2,54.0,60.0,18.6,47,18.6,43.6,True,,21,9,8,9,1,17,6.3,False,True
+sheet_06,B,centre,-90.0,31.0,-0.0,20.2,-3.1,69.0,83.0,20.1,47,20.0,42.7,True,,17,16,8,6,1,17,6.3,True,True
+sheet_06,B,centre,-75.0,31.0,0.0,21.4,-5.8,84.0,104.0,22.5,47,21.5,41.3,True,,15,22,6,4,1,17,6.3,False,True
+sheet_06,B,centre,-60.0,31.0,0.0,23.2,-8.1,99.0,122.0,25.5,47,22.9,39.4,True,,13,23,8,3,1,17,6.3,False,False
+sheet_06,B,centre,-45.0,31.0,0.0,25.5,-9.8,114.0,138.0,28.8,47,24.7,37.5,True,,9,26,9,3,1,17,6.3,False,False
+sheet_06,B,centre,-30.0,31.0,0.0,28.3,-10.9,129.0,152.0,32.1,47,26.5,36.0,True,,7,27,8,5,1,17,6.3,False,False
+sheet_06,B,centre,-15.0,31.0,0.0,31.2,-11.2,144.0,165.0,35.1,47,27.4,35.1,True,,7,25,7,8,1,17,6.3,False,False
+sheet_06,B,centre,0.0,31.0,0.0,34.1,-10.8,159.0,177.0,37.8,47,25.0,37.8,True,,10,20,7,10,1,17,6.3,True,False
+sheet_06,B,centre,15.0,31.0,-0.0,36.8,-9.6,174.0,-172.0,40.0,47,22.6,40.0,True,,13,15,6,13,2,17,6.3,False,False
+sheet_06,B,centre,30.0,31.0,0.0,39.1,-7.8,-171.0,-161.0,41.8,47,20.3,41.8,True,,15,8,9,15,2,17,6.3,False,False
+sheet_06,B,centre,45.0,31.0,-0.0,40.8,-5.5,-156.0,-150.0,42.9,47,18.7,42.9,True,,17,2,12,16,2,17,6.3,False,False
+sheet_06,B,centre,60.0,31.0,0.0,41.9,-2.7,-141.0,-139.0,43.5,47,18.1,43.5,True,,16,3,10,18,2,17,6.3,False,False
+sheet_06,B,centre,75.0,31.0,-0.0,42.2,0.2,-126.0,-128.0,43.5,47,18.7,43.5,True,,6,14,7,20,2,17,6.3,False,False
+sheet_06,B,centre,90.0,31.0,-0.0,41.8,3.1,-111.0,-118.0,42.8,47,20.5,42.8,True,,3,19,7,18,2,17,6.3,True,False
+sheet_06,B,centre,105.0,31.0,0.0,40.6,5.8,-96.0,-107.0,41.6,47,22.4,41.6,True,,2,23,7,15,4,17,6.3,False,True
+sheet_06,B,centre,120.0,31.0,0.0,38.8,8.1,-81.0,-96.0,39.8,47,24.2,40.0,True,,3,24,7,13,0,17,6.3,False,True
+sheet_06,B,centre,135.0,31.0,0.0,36.5,9.8,-66.0,-84.0,37.5,47,25.5,38.6,True,,3,16,18,10,0,17,6.3,False,True
+sheet_06,B,centre,150.0,31.0,-0.0,33.7,10.9,-51.0,-72.0,34.8,47,26.8,37.0,True,,5,13,24,5,0,17,6.3,False,True
+sheet_06,B,centre,165.0,31.0,0.0,30.8,11.2,-36.0,-59.0,31.7,47,27.4,37.3,True,,7,14,16,10,0,17,6.3,False,True
+practice_01,A,mark,113.0,11.0,-3.9,19.2,-1.2,180.0,-177.0,21.2,35,4.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,11,2,16,2,22,5.6,False,False
+practice_01,A,mark,128.0,12.0,-5.9,19.2,-1.2,-165.0,-163.0,21.2,35,6.4,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,11,6,12,2,22,5.6,False,False
+practice_01,A,mark,143.0,13.5,-7.6,19.2,-1.2,-150.0,-149.0,20.9,35,9.2,20.9,False,tip too near the base; tip outside the box in x; paper on the base,6,12,7,10,0,22,5.6,False,False
+practice_01,A,mark,158.0,15.3,-8.9,19.2,-1.2,-135.0,-136.0,20.6,35,11.9,23.0,False,tip too near the base; tip outside the box in x; paper on the base,7,12,8,8,0,22,5.6,False,False
+practice_01,A,mark,173.0,17.5,-9.6,19.2,-1.2,-120.0,-121.0,20.2,35,14.2,25.8,False,tip outside the box in x; paper on the base,7,13,9,6,0,22,5.6,False,False
+practice_01,A,mark,-172.0,19.7,-9.8,19.2,-1.2,-105.0,-107.0,19.8,35,16.3,28.3,False,paper on the base,7,15,8,5,0,22,5.6,False,True
+practice_01,A,mark,-157.0,21.9,-9.4,19.2,-1.2,-90.0,-92.0,19.2,35,18.0,30.6,False,paper on the base,8,16,5,6,1,22,5.6,False,True
+practice_01,A,mark,-142.0,23.9,-8.4,19.2,-1.2,-75.0,-77.0,18.7,35,18.7,32.5,False,paper on the base,9,16,3,7,1,22,5.6,False,True
+practice_01,A,mark,-127.0,25.6,-6.9,19.2,-1.2,-60.0,-62.0,18.2,35,18.2,34.0,False,paper on the base,10,14,3,8,1,22,5.6,False,True
+practice_01,A,mark,-112.0,26.9,-5.1,19.2,-1.2,-45.0,-46.0,17.8,35,17.8,35.1,False,paper on the base,10,13,5,7,1,22,5.6,False,True
+practice_01,A,mark,-97.0,27.6,-2.9,19.2,-1.2,-30.0,-29.0,17.5,35,17.5,35.6,True,,12,10,6,7,1,22,5.6,False,True
+practice_01,A,mark,-82.0,27.8,-0.7,19.2,-1.2,-15.0,-13.0,17.3,35,17.3,35.8,True,,15,7,5,8,1,22,5.6,False,True
+practice_01,A,mark,-67.0,27.4,1.5,19.2,-1.2,-0.0,4.0,17.2,35,17.2,35.4,False,paper on the base,15,7,5,8,1,22,5.6,False,True
+practice_01,A,mark,-52.0,26.4,3.5,19.2,-1.2,15.0,21.0,17.3,35,17.3,34.6,False,paper on the base,13,9,5,8,1,22,5.6,False,True
+practice_01,A,mark,-37.0,24.9,5.2,19.2,-1.2,30.0,37.0,17.6,35,17.6,33.3,False,paper on the base,11,11,5,8,1,22,5.6,False,True
+practice_01,A,mark,-22.0,23.1,6.5,19.2,-1.2,45.0,53.0,18.0,35,18.0,31.5,False,paper on the base,9,12,6,8,1,22,5.6,False,True
+practice_01,A,mark,-7.0,20.9,7.2,19.2,-1.2,60.0,69.0,18.4,35,18.3,29.4,False,paper on the base,6,16,6,7,1,22,5.6,False,True
+practice_01,A,mark,8.0,18.7,7.4,19.2,-1.2,75.0,85.0,18.9,35,15.9,26.9,False,paper on the base,3,19,6,7,1,22,5.6,False,True
+practice_01,A,mark,23.0,16.5,7.0,19.2,-1.2,90.0,99.0,19.4,35,13.2,24.2,False,tip outside the box in x; paper on the base,2,20,5,8,1,22,5.6,False,True
+practice_01,A,mark,38.0,14.5,6.0,19.2,-1.2,105.0,114.0,19.9,35,10.4,21.5,False,tip too near the base; tip outside the box in x; paper on the base,3,17,7,8,1,22,5.6,False,True
+practice_01,A,mark,53.0,12.8,4.5,19.2,-1.2,120.0,128.0,20.4,35,7.6,20.4,False,tip too near the base; tip outside the box in x; paper on the base,5,12,10,8,1,22,5.6,False,False
+practice_01,A,mark,68.0,11.5,2.7,19.2,-1.2,135.0,142.0,20.8,35,5.0,20.8,False,tip too near the base; tip outside the box in x; paper on the base,6,8,12,9,1,22,5.6,False,False
+practice_01,A,mark,83.0,10.8,0.5,19.2,-1.2,150.0,156.0,21.0,35,3.2,21.0,False,tip too near the base; tip outside the box in x; paper on the base,6,6,11,12,1,22,5.6,False,False
+practice_01,A,mark,98.0,10.6,-1.7,19.2,-1.2,165.0,170.0,21.2,35,2.8,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,9,4,16,1,22,5.6,False,False
+practice_01,A,mark,-180.0,18.5,-9.8,19.2,-1.2,-113.0,-115.0,20.0,35,15.2,27.0,False,paper on the base,8,12,11,4,0,22,5.6,True,True
+practice_01,A,mark,-90.0,27.8,-1.9,19.2,-1.2,-23.0,-22.0,17.4,35,17.4,35.8,True,,14,8,5,8,1,22,5.6,True,True
+practice_01,A,mark,0.0,19.9,7.4,19.2,-1.2,67.0,76.0,18.6,35,17.2,28.3,False,paper on the base,3,19,5,8,1,22,5.6,True,True
+practice_01,A,mark,90.0,10.6,-0.5,19.2,-1.2,157.0,162.0,21.1,35,2.8,21.1,False,tip too near the base; tip outside the box in x; paper on the base,6,7,8,14,1,22,5.6,True,False
+practice_01,A,centre,-180.0,31.0,0.0,31.7,8.6,-113.0,-131.0,34.1,35,25.0,35.9,True,,7,13,8,7,0,22,5.6,True,False
+practice_01,A,centre,-165.0,31.0,-0.0,29.5,8.4,-98.0,-117.0,31.5,35,25.2,36.5,True,,7,14,9,5,0,22,5.6,False,True
+practice_01,A,centre,-150.0,31.0,0.0,27.3,7.8,-83.0,-103.0,28.8,35,25.3,37.1,True,,7,16,8,4,0,22,5.6,False,True
+practice_01,A,centre,-135.0,31.0,0.0,25.4,6.5,-68.0,-87.0,26.1,35,25.2,37.7,True,,8,16,5,6,1,22,5.6,False,True
+practice_01,A,centre,-120.0,31.0,0.0,23.9,4.9,-53.0,-69.0,23.7,35,23.7,38.2,True,,9,16,3,7,1,22,5.6,False,True
+practice_01,A,centre,-105.0,31.0,0.0,22.9,2.9,-38.0,-49.0,21.7,35,21.7,38.6,True,,10,14,3,8,1,22,5.6,False,True
+practice_01,A,centre,-90.0,31.0,-0.0,22.4,0.7,-23.0,-27.0,20.7,35,20.7,38.9,True,,12,10,6,7,1,22,5.6,True,True
+practice_01,A,centre,-75.0,31.0,0.0,22.6,-1.5,-8.0,-4.0,20.6,35,20.6,39.0,True,,15,7,5,8,1,22,5.6,False,True
+practice_01,A,centre,-60.0,31.0,0.0,23.2,-3.7,7.0,17.0,21.6,35,21.6,39.0,True,,13,9,5,8,1,22,5.6,False,True
+practice_01,A,centre,-45.0,31.0,0.0,24.5,-5.6,22.0,38.0,23.5,35,23.5,38.7,True,,11,11,6,7,1,22,5.6,False,True
+practice_01,A,centre,-30.0,31.0,0.0,26.1,-7.1,37.0,56.0,25.9,35,25.9,38.4,True,,8,14,6,7,1,22,5.6,False,True
+practice_01,A,centre,-15.0,31.0,0.0,28.1,-8.1,52.0,72.0,28.5,35,26.8,37.8,True,,5,18,5,7,1,22,5.6,False,True
+practice_01,A,centre,0.0,31.0,0.0,30.3,-8.6,67.0,86.0,31.3,35,26.3,37.2,True,,2,20,5,8,1,22,5.6,True,True
+practice_01,A,centre,15.0,31.0,-0.0,32.5,-8.4,82.0,100.0,33.9,35,25.7,36.8,True,,3,18,7,7,1,22,5.6,False,True
+practice_01,A,centre,30.0,31.0,0.0,34.7,-7.8,97.0,113.0,36.2,35,25.1,36.7,True,,5,14,9,7,1,22,5.6,False,True
+practice_01,A,centre,45.0,31.0,-0.0,36.6,-6.5,112.0,125.0,38.2,35,24.5,38.2,True,,6,12,9,8,1,22,5.6,False,False
+practice_01,A,centre,60.0,31.0,0.0,38.1,-4.9,127.0,136.0,39.8,35,23.9,39.8,True,,7,8,11,9,1,22,5.6,False,False
+practice_01,A,centre,75.0,31.0,-0.0,39.1,-2.9,142.0,148.0,40.9,35,23.4,40.9,True,,8,6,11,10,1,22,5.6,False,False
+practice_01,A,centre,90.0,31.0,-0.0,39.6,-0.7,157.0,159.0,41.4,35,23.1,41.4,True,,7,8,7,13,1,22,5.6,True,False
+practice_01,A,centre,105.0,31.0,0.0,39.4,1.5,172.0,170.0,41.4,35,23.0,41.4,True,,8,8,4,15,1,22,5.6,False,False
+practice_01,A,centre,120.0,31.0,0.0,38.8,3.7,-173.0,-178.0,40.9,35,23.0,40.9,True,,7,11,2,15,2,22,5.6,False,False
+practice_01,A,centre,135.0,31.0,0.0,37.5,5.6,-158.0,-167.0,39.9,35,23.3,39.9,True,,7,12,3,13,2,22,5.6,False,False
+practice_01,A,centre,150.0,31.0,-0.0,35.9,7.1,-143.0,-155.0,38.4,35,23.8,38.4,True,,7,12,5,11,2,22,5.6,False,False
+practice_01,A,centre,165.0,31.0,0.0,33.9,8.1,-128.0,-143.0,36.4,35,24.3,36.4,True,,7,13,6,9,0,22,5.6,False,False
+practice_01,B,mark,24.9,18.8,1.6,19.2,-1.2,180.0,-177.0,21.2,35,13.5,24.7,False,paper on the base,7,18,6,4,1,22,5.6,False,False
+practice_01,B,mark,39.9,18.1,1.4,19.2,-1.2,-165.0,-163.0,21.2,35,12.1,23.9,False,tip too near the base; paper on the base,7,20,2,6,1,22,5.6,False,False
+practice_01,B,mark,54.9,17.5,1.0,19.2,-1.2,-150.0,-150.0,21.0,35,10.8,23.3,False,tip too near the base; tip outside the box in x; paper on the base,6,19,2,8,1,22,5.6,False,False
+practice_01,B,mark,69.9,17.0,0.5,19.2,-1.2,-135.0,-136.0,20.6,35,9.7,22.5,False,tip too near the base; tip outside the box in x; paper on the base,9,15,3,8,1,22,5.6,False,False
+practice_01,B,mark,84.9,16.6,-0.1,19.2,-1.2,-120.0,-122.0,20.2,35,8.8,22.3,False,tip too near the base; tip outside the box in x; paper on the base,11,11,5,8,1,22,5.6,False,False
+practice_01,B,mark,99.9,16.4,-0.8,19.2,-1.2,-105.0,-107.0,19.8,35,8.4,21.9,False,tip too near the base; tip outside the box in x; paper on the base,12,9,6,8,1,22,5.6,False,True
+practice_01,B,mark,114.9,16.4,-1.6,19.2,-1.2,-90.0,-93.0,19.3,35,8.6,21.3,False,tip too near the base; tip outside the box in x; paper on the base,15,6,5,9,1,22,5.6,False,True
+practice_01,B,mark,129.9,16.6,-2.3,19.2,-1.2,-75.0,-78.0,18.7,35,9.3,20.6,False,tip too near the base; tip outside the box in x; paper on the base,12,9,6,8,1,22,5.6,False,True
+practice_01,B,mark,144.9,17.0,-2.9,19.2,-1.2,-60.0,-62.0,18.2,35,10.5,21.3,False,tip too near the base; tip outside the box in x; paper on the base,10,11,6,8,1,22,5.6,False,True
+practice_01,B,mark,159.9,17.5,-3.4,19.2,-1.2,-45.0,-46.0,17.8,35,11.6,22.4,False,tip too near the base; tip outside the box in x; paper on the base,8,13,6,8,1,22,5.6,False,True
+practice_01,B,mark,174.9,18.1,-3.8,19.2,-1.2,-30.0,-30.0,17.5,35,12.6,23.7,False,paper on the base,7,14,7,7,1,22,5.6,False,True
+practice_01,B,mark,-170.1,18.8,-4.0,19.2,-1.2,-15.0,-13.0,17.3,35,13.5,25.1,False,paper on the base,4,17,6,8,1,22,5.6,False,True
+practice_01,B,mark,-155.1,19.6,-4.0,19.2,-1.2,-0.0,3.0,17.2,35,14.2,26.4,False,paper on the base,5,15,6,9,1,22,5.6,False,True
+practice_01,B,mark,-140.1,20.3,-3.8,19.2,-1.2,15.0,20.0,17.3,35,14.9,27.5,False,paper on the base,6,13,7,9,1,22,5.6,False,True
+practice_01,B,mark,-125.1,20.9,-3.4,19.2,-1.2,30.0,37.0,17.6,35,15.7,28.6,False,paper on the base,7,10,8,10,1,22,5.6,False,True
+practice_01,B,mark,-110.1,21.4,-2.9,19.2,-1.2,45.0,53.0,17.9,35,16.0,29.3,False,paper on the base,7,8,8,12,1,22,5.6,False,True
+practice_01,B,mark,-95.1,21.8,-2.3,19.2,-1.2,60.0,69.0,18.4,35,16.3,29.8,False,paper on the base,7,9,4,15,1,22,5.6,False,False
+practice_01,B,mark,-80.1,22.0,-1.6,19.2,-1.2,75.0,84.0,18.9,35,16.8,30.0,False,paper on the base,8,9,3,15,1,22,5.6,False,False
+practice_01,B,mark,-65.1,22.0,-0.8,19.2,-1.2,90.0,99.0,19.4,35,17.5,30.0,False,paper on the base,8,10,4,13,2,22,5.6,False,False
+practice_01,B,mark,-50.1,21.8,-0.1,19.2,-1.2,105.0,114.0,19.9,35,18.3,29.6,False,paper on the base,8,10,6,11,2,22,5.6,False,True
+practice_01,B,mark,-35.1,21.4,0.5,19.2,-1.2,120.0,128.0,20.4,35,17.8,28.9,False,paper on the base,8,10,9,8,0,22,5.6,False,False
+practice_01,B,mark,-20.1,20.9,1.0,19.2,-1.2,135.0,142.0,20.8,35,17.0,27.9,False,paper on the base,8,11,10,6,0,22,5.6,False,False
+practice_01,B,mark,-5.1,20.3,1.4,19.2,-1.2,150.0,156.0,21.0,35,15.9,26.7,False,paper on the base,7,14,10,4,0,22,5.6,False,False
+practice_01,B,mark,9.9,19.6,1.6,19.2,-1.2,165.0,169.0,21.2,35,14.7,25.6,False,paper on the base,7,16,9,3,0,22,5.6,False,False
+practice_01,B,mark,-180.0,18.4,-3.8,19.2,-1.2,-25.0,-24.0,17.4,35,12.9,24.2,False,paper on the base,5,16,6,8,1,22,5.6,True,True
+practice_01,B,mark,-90.0,21.9,-2.0,19.2,-1.2,65.0,74.0,18.6,35,16.4,29.9,False,paper on the base,8,8,3,16,1,22,5.6,True,False
+practice_01,B,mark,0.0,20.0,1.5,19.2,-1.2,155.0,160.0,21.1,35,15.6,26.3,False,paper on the base,7,14,11,3,0,22,5.6,True,False
+practice_01,B,mark,90.0,16.6,-0.4,19.2,-1.2,-115.0,-117.0,20.1,35,8.6,22.2,False,tip too near the base; tip outside the box in x; paper on the base,12,9,5,9,1,22,5.6,True,True
+practice_01,B,centre,-180.0,31.0,0.0,31.8,2.7,-25.0,-32.0,30.2,35,25.0,35.9,True,,7,14,7,7,1,22,5.6,True,True
+practice_01,B,centre,-165.0,31.0,-0.0,31.1,2.8,-10.0,-16.0,29.3,35,25.2,36.5,True,,4,17,7,7,1,22,5.6,False,True
+practice_01,B,centre,-150.0,31.0,0.0,30.4,2.7,5.0,-0.0,28.5,35,25.3,37.1,True,,4,16,7,8,1,22,5.6,False,True
+practice_01,B,centre,-135.0,31.0,0.0,29.7,2.5,20.0,16.0,27.9,35,25.3,37.7,True,,6,14,6,9,1,22,5.6,False,True
+practice_01,B,centre,-120.0,31.0,0.0,29.1,2.1,35.0,33.0,27.5,35,25.4,38.3,True,,7,10,8,10,1,22,5.6,False,True
+practice_01,B,centre,-105.0,31.0,0.0,28.7,1.5,50.0,50.0,27.3,35,25.4,38.7,True,,7,8,10,10,1,22,5.6,False,True
+practice_01,B,centre,-90.0,31.0,-0.0,28.3,0.8,65.0,67.0,27.5,35,25.4,38.9,True,,8,8,6,13,1,22,5.6,True,False
+practice_01,B,centre,-75.0,31.0,0.0,28.2,0.1,80.0,83.0,27.9,35,25.8,39.0,True,,8,9,3,15,1,22,5.6,False,False
+practice_01,B,centre,-60.0,31.0,0.0,28.3,-0.6,95.0,100.0,28.5,35,26.6,39.0,True,,7,11,4,13,2,22,5.6,False,False
+practice_01,B,centre,-45.0,31.0,0.0,28.5,-1.3,110.0,116.0,29.4,35,27.5,38.7,True,,7,11,6,11,2,22,5.6,False,True
+practice_01,B,centre,-30.0,31.0,0.0,28.9,-1.9,125.0,131.0,30.3,35,27.2,38.2,True,,7,12,8,8,0,22,5.6,False,False
+practice_01,B,centre,-15.0,31.0,0.0,29.5,-2.3,140.0,146.0,31.2,35,26.8,37.6,True,,8,12,10,5,0,22,5.6,False,False
+practice_01,B,centre,0.0,31.0,0.0,30.2,-2.7,155.0,161.0,32.2,35,26.3,37.1,True,,7,14,11,3,0,22,5.6,True,False
+practice_01,B,centre,15.0,31.0,-0.0,30.9,-2.8,170.0,175.0,33.0,35,25.7,36.8,True,,7,17,7,4,0,22,5.6,False,False
+practice_01,B,centre,30.0,31.0,0.0,31.6,-2.7,-175.0,-171.0,33.7,35,25.1,36.7,True,,7,19,4,5,1,22,5.6,False,False
+practice_01,B,centre,45.0,31.0,-0.0,32.3,-2.5,-160.0,-157.0,34.2,35,24.5,36.7,True,,7,19,3,6,1,22,5.6,False,False
+practice_01,B,centre,60.0,31.0,0.0,32.9,-2.1,-145.0,-144.0,34.5,35,23.9,36.6,True,,8,17,2,8,1,22,5.6,False,False
+practice_01,B,centre,75.0,31.0,-0.0,33.3,-1.5,-130.0,-130.0,34.7,35,23.4,36.6,True,,11,12,4,8,1,22,5.6,False,False
+practice_01,B,centre,90.0,31.0,-0.0,33.7,-0.8,-115.0,-117.0,34.5,35,23.1,36.6,True,,12,10,5,8,1,22,5.6,True,True
+practice_01,B,centre,105.0,31.0,0.0,33.8,-0.1,-100.0,-103.0,34.2,35,23.0,36.3,True,,14,8,5,8,1,22,5.6,False,True
+practice_01,B,centre,120.0,31.0,0.0,33.7,0.6,-85.0,-90.0,33.7,35,23.1,35.7,True,,15,7,5,8,1,22,5.6,False,True
+practice_01,B,centre,135.0,31.0,0.0,33.5,1.3,-70.0,-76.0,33.0,35,23.4,34.8,True,,12,10,5,8,1,22,5.6,False,True
+practice_01,B,centre,150.0,31.0,-0.0,33.1,1.9,-55.0,-62.0,32.1,35,24.0,34.9,True,,10,13,5,7,1,22,5.6,False,True
+practice_01,B,centre,165.0,31.0,0.0,32.5,2.3,-40.0,-47.0,31.2,35,24.5,35.3,True,,8,14,5,8,1,22,5.6,False,True
+practice_02,A,mark,73.7,12.1,5.2,19.2,-1.2,180.0,-177.0,21.2,31,1.3,21.2,False,tip too near the base; tip outside the box in x; paper on the base,3,9,1,18,1,16,5.4,False,False
+practice_02,A,mark,88.7,10.7,3.2,19.2,-1.2,-165.0,-163.0,21.1,31,0.6,21.1,False,tip too near the base; tip outside the box in x; paper on the base,4,3,2,22,1,16,5.4,False,False
+practice_02,A,mark,103.7,9.8,0.8,19.2,-1.2,-150.0,-149.0,20.9,31,2.5,20.9,False,tip too near the base; tip outside the box in x; paper on the base,3,2,13,13,1,16,5.4,False,False
+practice_02,A,mark,118.7,9.6,-1.6,19.2,-1.2,-135.0,-136.0,20.6,31,5.9,20.6,False,tip too near the base; tip outside the box in x; paper on the base,1,8,15,7,1,16,5.4,False,False
+practice_02,A,mark,133.7,10.1,-4.1,19.2,-1.2,-120.0,-122.0,20.2,31,9.5,20.2,False,tip too near the base; tip outside the box in x; paper on the base,0,14,10,7,1,16,5.4,False,False
+practice_02,A,mark,148.7,11.1,-6.4,19.2,-1.2,-105.0,-107.0,19.7,31,13.2,22.7,False,tip outside the box in x; paper on the base,0,19,6,6,1,16,5.4,False,True
+practice_02,A,mark,163.7,12.8,-8.3,19.2,-1.2,-90.0,-92.0,19.2,31,16.9,26.1,False,tip outside the box in x; paper on the base,0,20,5,6,1,16,5.4,False,True
+practice_02,A,mark,178.7,14.8,-9.7,19.2,-1.2,-75.0,-77.0,18.7,31,18.7,29.2,False,paper on the base,0,20,4,7,1,16,5.4,False,True
+practice_02,A,mark,-166.3,17.2,-10.6,19.2,-1.2,-60.0,-62.0,18.2,31,18.2,32.0,False,paper on the base,6,13,5,7,1,16,5.4,False,True
+practice_02,A,mark,-151.3,19.6,-10.8,19.2,-1.2,-45.0,-46.0,17.8,31,17.8,34.2,False,paper on the base,14,6,4,7,1,16,5.4,False,True
+practice_02,A,mark,-136.3,22.1,-10.3,19.2,-1.2,-30.0,-29.0,17.5,31,17.5,36.1,False,paper on the base,16,5,3,7,1,16,5.4,False,True
+practice_02,A,mark,-121.3,24.4,-9.3,19.2,-1.2,-15.0,-13.0,17.3,31,17.3,37.4,False,paper on the base,16,5,3,7,1,16,5.4,False,True
+practice_02,A,mark,-106.3,26.3,-7.6,19.2,-1.2,-0.0,4.0,17.2,31,17.2,38.1,True,,17,5,2,7,1,16,5.4,False,True
+practice_02,A,mark,-91.3,27.7,-5.6,19.2,-1.2,15.0,21.0,17.4,31,17.4,38.3,True,,18,4,3,6,1,16,5.4,False,True
+practice_02,A,mark,-76.3,28.6,-3.2,19.2,-1.2,30.0,37.0,17.6,31,17.6,37.8,True,,18,5,3,5,1,16,5.4,False,True
+practice_02,A,mark,-61.3,28.8,-0.8,19.2,-1.2,45.0,53.0,18.0,31,18.0,36.9,True,,15,9,2,5,1,16,5.4,False,True
+practice_02,A,mark,-46.3,28.3,1.7,19.2,-1.2,60.0,69.0,18.4,31,18.4,35.4,True,,8,16,3,4,0,16,5.4,False,True
+practice_02,A,mark,-31.3,27.3,4.0,19.2,-1.2,75.0,85.0,18.9,31,18.9,33.3,True,,6,19,3,3,0,16,5.4,False,True
+practice_02,A,mark,-16.3,25.6,5.9,19.2,-1.2,90.0,99.0,19.5,31,19.2,30.9,True,,5,21,3,2,0,16,5.4,False,True
+practice_02,A,mark,-1.3,23.6,7.3,19.2,-1.2,105.0,114.0,20.0,31,18.2,28.0,True,,6,19,5,1,0,16,5.4,False,True
+practice_02,A,mark,13.7,21.2,8.2,19.2,-1.2,120.0,128.0,20.4,31,15.5,24.8,False,tip outside the box in x,6,14,11,0,0,16,5.4,False,False
+practice_02,A,mark,28.7,18.8,8.4,19.2,-1.2,135.0,142.0,20.8,31,12.0,21.3,False,tip too near the base; tip outside the box in x; paper on the base,5,11,13,2,0,16,5.4,False,False
+practice_02,A,mark,43.7,16.3,7.9,19.2,-1.2,150.0,156.0,21.0,31,8.3,21.0,False,tip too near the base; tip outside the box in x; paper on the base,5,10,6,10,0,16,5.4,False,False
+practice_02,A,mark,58.7,14.0,6.9,19.2,-1.2,165.0,170.0,21.2,31,4.6,21.2,False,tip too near the base; tip outside the box in x; paper on the base,4,11,1,15,0,16,5.4,False,False
+practice_02,A,mark,-180.0,15.0,-9.8,19.2,-1.2,-74.0,-76.0,18.7,31,18.7,29.5,False,paper on the base,0,20,4,7,1,16,5.4,True,True
+practice_02,A,mark,-90.0,27.8,-5.4,19.2,-1.2,16.0,22.0,17.4,31,17.4,38.2,True,,18,4,3,6,1,16,5.4,True,True
+practice_02,A,mark,0.0,23.4,7.4,19.2,-1.2,106.0,115.0,20.0,31,18.1,27.8,True,,5,20,5,1,0,16,5.4,True,True
+practice_02,A,mark,90.0,10.6,3.0,19.2,-1.2,-164.0,-162.0,21.1,31,0.4,21.1,False,tip too near the base; tip outside the box in x; paper on the base,3,4,2,22,1,16,5.4,True,False
+practice_02,A,centre,-180.0,31.0,0.0,35.2,8.6,-74.0,-91.0,36.2,31,31.0,40.4,True,,0,20,5,6,1,16,5.4,True,True
+practice_02,A,centre,-165.0,31.0,-0.0,32.8,9.4,-59.0,-78.0,33.7,31,32.2,41.6,True,,0,20,5,6,1,16,5.4,False,True
+practice_02,A,centre,-150.0,31.0,0.0,30.3,9.6,-44.0,-64.0,30.9,31,30.9,42.4,True,,0,20,5,6,1,16,5.4,False,True
+practice_02,A,centre,-135.0,31.0,0.0,27.9,9.1,-29.0,-50.0,28.0,31,28.0,42.8,True,,11,8,6,6,1,16,5.4,False,True
+practice_02,A,centre,-120.0,31.0,0.0,25.7,7.9,-14.0,-33.0,25.2,31,25.2,42.8,True,,15,5,5,6,1,16,5.4,False,True
+practice_02,A,centre,-105.0,31.0,0.0,23.8,6.3,1.0,-15.0,22.7,31,22.7,42.5,True,,16,5,3,7,1,16,5.4,False,True
+practice_02,A,centre,-90.0,31.0,-0.0,22.4,4.2,16.0,6.0,20.8,31,20.8,41.7,True,,17,5,2,7,1,16,5.4,True,True
+practice_02,A,centre,-75.0,31.0,0.0,21.6,1.8,31.0,29.0,19.9,31,19.9,40.6,True,,18,5,2,6,1,16,5.4,False,True
+practice_02,A,centre,-60.0,31.0,0.0,21.4,-0.7,46.0,52.0,20.2,31,20.2,39.1,True,,15,9,2,5,1,16,5.4,False,True
+practice_02,A,centre,-45.0,31.0,0.0,21.9,-3.1,61.0,74.0,21.5,31,21.5,37.4,True,,6,19,3,3,0,16,5.4,False,True
+practice_02,A,centre,-30.0,31.0,0.0,23.1,-5.3,76.0,94.0,23.7,31,23.7,35.5,True,,6,20,3,2,0,16,5.4,False,True
+practice_02,A,centre,-15.0,31.0,0.0,24.7,-7.2,91.0,112.0,26.4,31,24.5,33.7,True,,6,20,4,1,0,16,5.4,False,True
+practice_02,A,centre,0.0,31.0,0.0,26.8,-8.6,106.0,127.0,29.3,31,22.6,32.0,True,,6,13,12,0,0,16,5.4,True,False
+practice_02,A,centre,15.0,31.0,-0.0,29.2,-9.4,121.0,141.0,32.2,31,21.1,32.2,True,,6,10,13,2,0,16,5.4,False,False
+practice_02,A,centre,30.0,31.0,0.0,31.7,-9.6,136.0,155.0,34.9,31,19.9,34.9,True,,6,9,2,14,0,16,5.4,False,False
+practice_02,A,centre,45.0,31.0,-0.0,34.1,-9.1,151.0,167.0,37.2,31,19.2,37.2,True,,6,8,2,15,0,16,5.4,False,False
+practice_02,A,centre,60.0,31.0,0.0,36.3,-7.9,166.0,179.0,39.2,31,19.2,39.2,True,,7,6,1,17,0,16,5.4,False,False
+practice_02,A,centre,75.0,31.0,-0.0,38.2,-6.3,-179.0,-170.0,40.7,31,19.8,40.7,True,,7,4,2,18,1,16,5.4,False,False
+practice_02,A,centre,90.0,31.0,-0.0,39.6,-4.2,-164.0,-159.0,41.7,31,21.0,41.7,True,,6,4,2,19,1,16,5.4,True,False
+practice_02,A,centre,105.0,31.0,0.0,40.4,-1.8,-149.0,-148.0,42.1,31,22.6,42.1,True,,5,4,7,15,1,16,5.4,False,False
+practice_02,A,centre,120.0,31.0,0.0,40.6,0.7,-134.0,-137.0,42.0,31,24.4,42.0,True,,3,5,17,6,1,16,5.4,False,False
+practice_02,A,centre,135.0,31.0,0.0,40.1,3.1,-119.0,-125.0,41.3,31,26.2,41.3,True,,2,7,16,6,1,16,5.4,False,False
+practice_02,A,centre,150.0,31.0,-0.0,38.9,5.3,-104.0,-114.0,40.1,31,28.0,40.1,True,,1,16,8,6,1,16,5.4,False,True
+practice_02,A,centre,165.0,31.0,0.0,37.3,7.2,-89.0,-103.0,38.4,31,29.6,39.0,True,,0,21,4,6,1,16,5.4,False,True
+practice_02,B,mark,118.1,21.0,0.8,19.2,-1.2,-180.0,-177.0,21.2,31,14.2,28.6,False,paper on the base,6,19,2,4,0,16,5.4,False,False
+practice_02,B,mark,133.1,20.4,1.2,19.2,-1.2,-165.0,-163.0,21.1,31,15.4,28.2,False,paper on the base,6,20,3,2,0,16,5.4,False,False
+practice_02,B,mark,148.1,19.7,1.4,19.2,-1.2,-150.0,-150.0,20.9,31,16.5,27.3,False,paper on the base,6,22,2,1,0,16,5.4,False,False
+practice_02,B,mark,163.1,19.0,1.5,19.2,-1.2,-135.0,-136.0,20.6,31,17.4,26.4,False,paper on the base,5,24,2,0,0,16,5.4,False,False
+practice_02,B,mark,178.1,18.3,1.4,19.2,-1.2,-120.0,-122.0,20.2,31,18.0,27.5,False,paper on the base,5,20,6,0,0,16,5.4,False,False
+practice_02,B,mark,-166.9,17.7,1.0,19.2,-1.2,-105.0,-107.0,19.7,31,18.4,28.2,False,paper on the base,5,16,10,0,0,16,5.4,False,True
+practice_02,B,mark,-151.9,17.2,0.6,19.2,-1.2,-90.0,-92.0,19.2,31,18.6,28.5,False,paper on the base,6,9,16,0,0,16,5.4,False,True
+practice_02,B,mark,-136.9,16.8,-0.0,19.2,-1.2,-75.0,-77.0,18.7,31,18.1,28.6,False,paper on the base,6,8,10,7,0,16,5.4,False,True
+practice_02,B,mark,-121.9,16.6,-0.7,19.2,-1.2,-60.0,-62.0,18.2,31,15.7,28.4,False,paper on the base,6,7,3,15,0,16,5.4,False,False
+practice_02,B,mark,-106.9,16.5,-1.4,19.2,-1.2,-45.0,-46.0,17.8,31,13.3,28.0,False,paper on the base,6,6,3,16,0,16,5.4,False,False
+practice_02,B,mark,-91.9,16.6,-2.1,19.2,-1.2,-30.0,-29.0,17.5,31,11.3,27.3,False,tip too near the base; tip outside the box in x; paper on the base,6,5,3,17,0,16,5.4,False,False
+practice_02,B,mark,-76.9,17.0,-2.7,19.2,-1.2,-15.0,-13.0,17.3,31,10.1,26.4,False,tip too near the base; tip outside the box in x; paper on the base,5,5,3,18,1,16,5.4,False,False
+practice_02,B,mark,-61.9,17.4,-3.2,19.2,-1.2,0.0,4.0,17.2,31,10.0,25.4,False,tip too near the base; tip outside the box in x; paper on the base,4,6,6,15,1,16,5.4,False,False
+practice_02,B,mark,-46.9,18.0,-3.6,19.2,-1.2,15.0,21.0,17.4,31,11.0,24.2,False,tip too near the base; tip outside the box in x; paper on the base,3,9,11,8,1,16,5.4,False,True
+practice_02,B,mark,-31.9,18.7,-3.8,19.2,-1.2,30.0,37.0,17.6,31,12.5,23.0,False,tip outside the box in x; paper on the base,1,15,9,6,1,16,5.4,False,True
+practice_02,B,mark,-16.9,19.4,-3.9,19.2,-1.2,45.0,53.0,18.0,31,13.0,21.8,False,paper on the base,0,19,6,6,1,16,5.4,False,True
+practice_02,B,mark,-1.9,20.1,-3.8,19.2,-1.2,60.0,69.0,18.5,31,12.0,20.8,False,tip too near the base; paper on the base,1,19,5,6,1,16,5.4,False,True
+practice_02,B,mark,13.1,20.7,-3.4,19.2,-1.2,75.0,85.0,19.0,31,10.8,20.1,False,tip too near the base; tip outside the box in x; paper on the base,8,11,6,6,1,16,5.4,False,True
+practice_02,B,mark,28.1,21.2,-3.0,19.2,-1.2,90.0,99.0,19.5,31,10.0,22.3,False,tip too near the base; tip outside the box in x; paper on the base,14,5,5,7,1,16,5.4,False,True
+practice_02,B,mark,43.1,21.6,-2.4,19.2,-1.2,105.0,114.0,20.0,31,9.9,24.2,False,tip too near the base; tip outside the box in x; paper on the base,16,3,5,7,1,16,5.4,False,True
+practice_02,B,mark,58.1,21.8,-1.7,19.2,-1.2,120.0,128.0,20.4,31,10.2,25.9,False,tip too near the base; tip outside the box in x; paper on the base,17,3,4,7,1,16,5.4,False,False
+practice_02,B,mark,73.1,21.9,-1.0,19.2,-1.2,135.0,142.0,20.8,31,10.9,27.2,False,tip too near the base; tip outside the box in x; paper on the base,18,3,2,8,1,16,5.4,False,False
+practice_02,B,mark,88.1,21.8,-0.3,19.2,-1.2,150.0,156.0,21.1,31,11.8,28.0,False,tip too near the base; tip outside the box in x; paper on the base,19,4,2,6,1,16,5.4,False,False
+practice_02,B,mark,103.1,21.4,0.3,19.2,-1.2,165.0,170.0,21.2,31,13.0,28.5,False,paper on the base,13,11,2,5,1,16,5.4,False,False
+practice_02,B,mark,-180.0,18.2,1.3,19.2,-1.2,-118.0,-120.0,20.1,31,18.1,27.6,False,paper on the base,6,19,6,0,0,16,5.4,True,True
+practice_02,B,mark,-90.0,16.7,-2.1,19.2,-1.2,-28.0,-27.0,17.4,31,11.1,27.2,False,tip too near the base; tip outside the box in x; paper on the base,6,5,3,17,1,16,5.4,True,False
+practice_02,B,mark,0.0,20.1,-3.7,19.2,-1.2,62.0,71.0,18.5,31,11.8,20.7,False,tip too near the base; paper on the base,2,18,5,6,1,16,5.4,True,True
+practice_02,B,mark,90.0,21.7,-0.3,19.2,-1.2,152.0,158.0,21.1,31,12.0,28.1,False,tip too near the base; tip outside the box in x; paper on the base,19,4,2,6,1,16,5.4,True,False
+practice_02,B,centre,-180.0,31.0,0.0,32.0,-2.5,-118.0,-117.0,32.9,31,30.9,40.4,True,,6,18,7,0,0,16,5.4,True,True
+practice_02,B,centre,-165.0,31.0,-0.0,32.6,-2.2,-103.0,-103.0,33.0,31,31.9,41.6,True,,6,11,14,0,0,16,5.4,False,True
+practice_02,B,centre,-150.0,31.0,0.0,33.1,-1.7,-88.0,-89.0,33.0,31,32.5,42.4,True,,6,9,16,0,0,16,5.4,False,True
+practice_02,B,centre,-135.0,31.0,0.0,33.5,-1.1,-73.0,-74.0,32.9,31,31.3,42.8,True,,6,8,5,12,0,16,5.4,False,False
+practice_02,B,centre,-120.0,31.0,0.0,33.7,-0.4,-58.0,-60.0,32.6,31,29.3,42.8,True,,6,7,2,16,0,16,5.4,False,False
+practice_02,B,centre,-105.0,31.0,0.0,33.7,0.3,-43.0,-46.0,32.3,31,27.3,42.5,True,,6,6,3,16,0,16,5.4,False,False
+practice_02,B,centre,-90.0,31.0,-0.0,33.5,0.9,-28.0,-31.0,31.8,31,25.6,41.7,True,,6,5,3,17,1,16,5.4,True,False
+practice_02,B,centre,-75.0,31.0,0.0,33.2,1.6,-13.0,-17.0,31.3,31,24.2,40.6,True,,5,6,2,18,1,16,5.4,False,False
+practice_02,B,centre,-60.0,31.0,0.0,32.7,2.1,2.0,-2.0,30.8,31,23.4,39.1,True,,4,6,4,17,1,16,5.4,False,False
+practice_02,B,centre,-45.0,31.0,0.0,32.1,2.5,17.0,13.0,30.3,31,23.3,37.4,True,,3,6,16,6,1,16,5.4,False,True
+practice_02,B,centre,-30.0,31.0,0.0,31.4,2.7,32.0,29.0,29.8,31,23.9,35.6,True,,2,12,11,6,1,16,5.4,False,True
+practice_02,B,centre,-15.0,31.0,0.0,30.7,2.7,47.0,45.0,29.4,31,24.5,33.7,True,,1,20,4,6,1,16,5.4,False,True
+practice_02,B,centre,0.0,31.0,0.0,30.1,2.5,62.0,60.0,29.1,31,23.3,32.0,True,,0,20,5,6,1,16,5.4,True,True
+practice_02,B,centre,15.0,31.0,-0.0,29.4,2.2,77.0,76.0,29.0,31,21.3,30.6,True,,1,19,5,6,1,16,5.4,False,True
+practice_02,B,centre,30.0,31.0,0.0,28.9,1.7,92.0,92.0,29.0,31,19.9,30.6,True,,12,8,4,7,1,16,5.4,False,True
+practice_02,B,centre,45.0,31.0,-0.0,28.5,1.1,107.0,108.0,29.2,31,19.2,32.6,True,,15,5,5,6,1,16,5.4,False,True
+practice_02,B,centre,60.0,31.0,0.0,28.3,0.4,122.0,124.0,29.4,31,19.2,34.4,True,,16,4,4,7,1,16,5.4,False,False
+practice_02,B,centre,75.0,31.0,-0.0,28.3,-0.3,137.0,140.0,29.8,31,19.8,36.0,True,,18,3,3,7,1,16,5.4,False,False
+practice_02,B,centre,90.0,31.0,-0.0,28.5,-0.9,152.0,155.0,30.3,31,20.9,37.2,True,,19,4,2,6,1,16,5.4,True,False
+practice_02,B,centre,105.0,31.0,0.0,28.8,-1.6,167.0,171.0,30.8,31,22.5,38.1,True,,14,10,2,5,1,16,5.4,False,False
+practice_02,B,centre,120.0,31.0,0.0,29.3,-2.1,-178.0,-174.0,31.3,31,24.3,38.6,True,,5,20,3,3,0,16,5.4,False,False
+practice_02,B,centre,135.0,31.0,0.0,29.9,-2.5,-163.0,-160.0,31.8,31,26.2,38.7,True,,5,22,2,2,0,16,5.4,False,False
+practice_02,B,centre,150.0,31.0,-0.0,30.6,-2.7,-148.0,-145.0,32.3,31,28.0,38.4,True,,5,23,2,1,0,16,5.4,False,False
+practice_02,B,centre,165.0,31.0,0.0,31.3,-2.7,-133.0,-131.0,32.6,31,29.6,38.6,True,,5,24,2,0,0,16,5.4,False,False
+practice_03,A,mark,84.8,9.7,0.4,19.2,-1.2,180.0,-177.0,21.2,25,8.3,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,5,14,6,1,0,5.0,False,False
+practice_03,A,mark,99.8,9.6,-2.1,19.2,-1.2,-165.0,-163.0,21.1,25,3.3,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,1,9,15,1,0,5.0,False,False
+practice_03,A,mark,114.8,10.2,-4.5,19.2,-1.2,-150.0,-149.0,20.9,25,1.1,20.9,False,tip too near the base; tip outside the box in x; paper on the base,1,2,0,22,2,0,5.0,False,False
+practice_03,A,mark,129.8,11.3,-6.8,19.2,-1.2,-135.0,-136.0,20.6,25,4.3,20.6,False,tip too near the base; tip outside the box in x; paper on the base,0,7,3,15,2,0,5.0,False,False
+practice_03,A,mark,144.8,13.0,-8.6,19.2,-1.2,-120.0,-121.0,20.2,25,8.1,20.2,False,tip too near the base; tip outside the box in x; paper on the base,0,9,7,9,0,0,5.0,False,False
+practice_03,A,mark,159.8,15.2,-10.0,19.2,-1.2,-105.0,-107.0,19.8,25,11.8,19.8,False,tip too near the base; tip outside the box in x; paper on the base,6,6,9,4,0,0,5.0,False,True
+practice_03,A,mark,174.8,17.6,-10.7,19.2,-1.2,-90.0,-92.0,19.2,25,15.1,21.3,False,tip outside the box in x; paper on the base,7,10,8,0,0,0,5.0,False,True
+practice_03,A,mark,-170.2,20.1,-10.8,19.2,-1.2,-75.0,-77.0,18.7,25,18.1,25.4,False,paper on the base,8,13,4,0,0,0,5.0,False,True
+practice_03,A,mark,-155.2,22.5,-10.2,19.2,-1.2,-60.0,-62.0,18.2,25,18.2,29.1,False,paper on the base,9,16,0,0,0,0,5.0,False,True
+practice_03,A,mark,-140.2,24.8,-9.1,19.2,-1.2,-45.0,-46.0,17.8,25,17.8,32.3,False,paper on the base,10,15,0,0,0,0,5.0,False,True
+practice_03,A,mark,-125.2,26.6,-7.4,19.2,-1.2,-30.0,-29.0,17.5,25,17.5,35.0,False,paper on the base,15,10,0,0,0,0,5.0,False,True
+practice_03,A,mark,-110.2,28.0,-5.2,19.2,-1.2,-15.0,-13.0,17.3,25,17.3,37.0,True,,18,7,0,0,0,0,5.0,False,True
+practice_03,A,mark,-95.2,28.7,-2.8,19.2,-1.2,-0.0,4.0,17.2,25,17.2,38.4,True,,21,4,0,0,0,0,5.0,False,True
+practice_03,A,mark,-80.2,28.8,-0.3,19.2,-1.2,15.0,21.0,17.3,25,17.3,39.2,True,,23,2,0,0,0,0,5.0,False,True
+practice_03,A,mark,-65.2,28.2,2.1,19.2,-1.2,30.0,37.0,17.6,25,17.6,39.2,True,,25,0,0,0,0,0,5.0,False,True
+practice_03,A,mark,-50.2,27.1,4.4,19.2,-1.2,45.0,53.0,18.0,25,18.0,38.6,False,paper on the base,21,4,0,0,0,0,5.0,False,True
+practice_03,A,mark,-35.2,25.4,6.2,19.2,-1.2,60.0,69.0,18.4,25,18.4,37.4,False,paper on the base,17,8,0,0,0,0,5.0,False,True
+practice_03,A,mark,-20.2,23.2,7.6,19.2,-1.2,75.0,85.0,18.9,25,18.8,35.5,False,paper on the base,13,12,0,0,0,0,5.0,False,True
+practice_03,A,mark,-5.2,20.8,8.3,19.2,-1.2,90.0,99.0,19.4,25,18.8,33.0,False,paper on the base,10,15,0,0,0,0,5.0,False,True
+practice_03,A,mark,9.8,18.3,8.4,19.2,-1.2,105.0,114.0,19.9,25,18.4,29.9,False,paper on the base,6,18,1,0,0,0,5.0,False,True
+practice_03,A,mark,24.8,15.9,7.8,19.2,-1.2,120.0,128.0,20.4,25,17.7,26.4,False,paper on the base,3,20,2,0,0,0,5.0,False,False
+practice_03,A,mark,39.8,13.6,6.7,19.2,-1.2,135.0,142.0,20.8,25,16.7,22.9,False,paper on the base,0,21,3,1,0,0,5.0,False,False
+practice_03,A,mark,54.8,11.8,5.0,19.2,-1.2,150.0,156.0,21.0,25,15.3,21.0,False,tip outside the box in x; paper on the base,0,20,3,2,0,0,5.0,False,False
+practice_03,A,mark,69.8,10.4,2.8,19.2,-1.2,165.0,170.0,21.2,25,13.2,21.2,False,tip outside the box in x; paper on the base,0,13,8,4,0,0,5.0,False,False
+practice_03,A,mark,-180.0,18.4,-10.8,19.2,-1.2,-85.0,-87.0,19.1,25,16.2,22.8,False,tip outside the box in x; paper on the base,7,11,7,0,0,0,5.0,True,True
+practice_03,A,mark,-90.0,28.8,-2.0,19.2,-1.2,5.0,10.0,17.3,25,17.3,38.7,True,,21,4,0,0,0,0,5.0,True,True
+practice_03,A,mark,0.0,20.0,8.4,19.2,-1.2,95.0,105.0,19.6,25,18.7,32.0,False,paper on the base,8,17,0,0,0,0,5.0,True,True
+practice_03,A,mark,90.0,9.6,-0.4,19.2,-1.2,-175.0,-172.0,21.2,25,6.6,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,2,16,7,1,0,5.0,True,False
+practice_03,A,centre,-180.0,31.0,0.0,31.8,9.6,-85.0,-105.0,33.7,25,23.2,33.7,True,,0,11,8,6,0,0,5.0,True,True
+practice_03,A,centre,-165.0,31.0,-0.0,29.2,9.5,-70.0,-92.0,30.8,25,24.5,31.2,True,,0,16,8,1,0,0,5.0,False,True
+practice_03,A,centre,-150.0,31.0,0.0,26.8,8.7,-55.0,-77.0,27.7,25,25.6,31.5,True,,7,12,6,0,0,0,5.0,False,True
+practice_03,A,centre,-135.0,31.0,0.0,24.7,7.3,-40.0,-60.0,24.8,25,24.8,34.2,True,,8,16,1,0,0,0,5.0,False,True
+practice_03,A,centre,-120.0,31.0,0.0,23.0,5.5,-25.0,-41.0,22.2,25,22.2,36.7,True,,11,14,0,0,0,0,5.0,False,True
+practice_03,A,centre,-105.0,31.0,0.0,21.9,3.2,-10.0,-20.0,20.3,25,20.3,38.8,True,,16,9,0,0,0,0,5.0,False,True
+practice_03,A,centre,-90.0,31.0,-0.0,21.4,0.8,5.0,3.0,19.4,25,19.4,40.5,True,,21,4,0,0,0,0,5.0,True,True
+practice_03,A,centre,-75.0,31.0,0.0,21.5,-1.8,20.0,27.0,19.8,25,19.8,41.6,True,,25,0,0,0,0,0,5.0,False,True
+practice_03,A,centre,-60.0,31.0,0.0,22.3,-4.2,35.0,50.0,21.3,25,21.3,42.2,True,,21,4,0,0,0,0,5.0,False,True
+practice_03,A,centre,-45.0,31.0,0.0,23.7,-6.3,50.0,69.0,23.7,25,23.7,42.2,True,,15,10,0,0,0,0,5.0,False,True
+practice_03,A,centre,-30.0,31.0,0.0,25.5,-8.0,65.0,87.0,26.5,25,26.3,41.7,True,,10,15,0,0,0,0,5.0,False,True
+practice_03,A,centre,-15.0,31.0,0.0,27.8,-9.1,80.0,102.0,29.6,25,28.7,40.6,True,,8,17,0,0,0,0,5.0,False,True
+practice_03,A,centre,0.0,31.0,0.0,30.2,-9.6,95.0,116.0,32.5,25,30.7,39.4,True,,4,20,1,0,0,0,5.0,True,True
+practice_03,A,centre,15.0,31.0,-0.0,32.8,-9.5,110.0,129.0,35.3,25,32.2,38.3,True,,0,22,3,0,0,0,5.0,False,False
+practice_03,A,centre,30.0,31.0,0.0,35.2,-8.7,125.0,141.0,37.7,25,33.3,37.7,True,,0,17,7,1,0,0,5.0,False,False
+practice_03,A,centre,45.0,31.0,-0.0,37.3,-7.3,140.0,153.0,39.7,25,31.7,39.7,True,,0,11,12,2,0,0,5.0,False,False
+practice_03,A,centre,60.0,31.0,0.0,39.0,-5.5,155.0,164.0,41.2,25,28.8,41.2,True,,0,7,12,6,0,0,5.0,False,False
+practice_03,A,centre,75.0,31.0,-0.0,40.1,-3.2,170.0,175.0,42.2,25,25.9,42.2,True,,0,3,9,13,0,0,5.0,False,False
+practice_03,A,centre,90.0,31.0,-0.0,40.6,-0.8,-175.0,-174.0,42.6,25,23.2,42.6,True,,0,0,8,17,1,0,5.0,True,False
+practice_03,A,centre,105.0,31.0,0.0,40.5,1.8,-160.0,-163.0,42.4,25,21.1,42.4,True,,0,0,4,21,2,0,5.0,False,False
+practice_03,A,centre,120.0,31.0,0.0,39.7,4.2,-145.0,-152.0,41.7,25,19.9,41.7,True,,0,0,0,25,2,0,5.0,False,False
+practice_03,A,centre,135.0,31.0,0.0,38.3,6.3,-130.0,-141.0,40.4,25,19.8,40.4,True,,0,0,6,19,2,0,5.0,False,False
+practice_03,A,centre,150.0,31.0,-0.0,36.5,8.0,-115.0,-129.0,38.6,25,20.9,38.6,True,,0,4,7,14,2,0,5.0,False,False
+practice_03,A,centre,165.0,31.0,0.0,34.2,9.1,-100.0,-118.0,36.3,25,22.1,36.3,True,,0,7,8,10,0,0,5.0,False,False
+practice_03,B,mark,-86.2,6.6,5.1,19.2,-1.2,-180.0,-177.0,21.2,25,5.3,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,4,6,15,1,0,5.0,False,False
+practice_03,B,mark,-71.2,5.4,1.6,19.2,-1.2,-165.0,-163.0,21.1,25,0.5,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,1,1,23,1,0,5.0,False,False
+practice_03,B,mark,-56.2,5.1,-2.0,19.2,-1.2,-150.0,-149.0,20.9,25,4.5,20.9,False,tip too near the base; tip outside the box in x; paper on the base,0,4,9,12,0,0,5.0,False,False
+practice_03,B,mark,-41.2,5.8,-5.7,19.2,-1.2,-135.0,-136.0,20.6,25,9.3,20.6,False,tip too near the base; tip outside the box in x; paper on the base,1,5,16,3,0,0,5.0,False,False
+practice_03,B,mark,-26.2,7.4,-9.0,19.2,-1.2,-120.0,-121.0,20.2,25,13.9,20.2,False,tip outside the box in x; paper on the base,1,14,10,0,0,0,5.0,False,False
+practice_03,B,mark,-11.2,9.8,-11.8,19.2,-1.2,-105.0,-107.0,19.7,25,18.1,20.9,False,tip outside the box in x; paper on the base,2,19,4,0,0,0,5.0,False,True
+practice_03,B,mark,3.8,12.9,-13.8,19.2,-1.2,-90.0,-92.0,19.2,25,19.0,23.7,False,paper on the base,3,21,1,0,0,0,5.0,False,True
+practice_03,B,mark,18.8,16.4,-15.0,19.2,-1.2,-75.0,-77.0,18.7,25,18.7,27.6,False,paper on the base,3,22,0,0,0,0,5.0,False,True
+practice_03,B,mark,33.8,20.0,-15.3,19.2,-1.2,-60.0,-62.0,18.2,25,18.2,31.0,False,paper on the base,8,17,0,0,0,0,5.0,False,True
+practice_03,B,mark,48.8,23.7,-14.6,19.2,-1.2,-45.0,-46.0,17.8,25,17.8,33.9,False,paper on the base,13,12,0,0,0,0,5.0,False,True
+practice_03,B,mark,63.8,27.0,-13.0,19.2,-1.2,-30.0,-29.0,17.5,25,17.5,36.3,True,,17,8,0,0,0,0,5.0,False,True
+practice_03,B,mark,78.8,29.8,-10.6,19.2,-1.2,-15.0,-13.0,17.3,25,17.3,38.0,True,,19,6,0,0,0,0,5.0,False,True
+practice_03,B,mark,93.8,31.8,-7.5,19.2,-1.2,0.0,4.0,17.2,25,17.2,39.0,True,,22,3,0,0,0,0,5.0,False,True
+practice_03,B,mark,108.8,33.0,-4.0,19.2,-1.2,15.0,21.0,17.4,25,17.4,39.4,True,,24,1,0,0,0,0,5.0,False,True
+practice_03,B,mark,123.8,33.3,-0.4,19.2,-1.2,30.0,37.0,17.6,25,17.6,39.2,True,,24,1,0,0,0,0,5.0,False,True
+practice_03,B,mark,138.8,32.6,3.3,19.2,-1.2,45.0,53.0,18.0,25,18.0,38.2,True,,18,7,0,0,0,0,5.0,False,True
+practice_03,B,mark,153.8,31.0,6.6,19.2,-1.2,60.0,69.0,18.4,25,18.4,36.6,True,,16,9,0,0,0,0,5.0,False,True
+practice_03,B,mark,168.8,28.6,9.4,19.2,-1.2,75.0,85.0,19.0,25,19.0,34.4,True,,14,11,0,0,0,0,5.0,False,True
+practice_03,B,mark,-176.2,25.5,11.4,19.2,-1.2,90.0,100.0,19.5,25,18.4,31.6,True,,11,14,0,0,0,0,5.0,False,True
+practice_03,B,mark,-161.2,22.0,12.6,19.2,-1.2,105.0,114.0,20.0,25,16.7,28.2,True,,9,10,6,0,0,0,5.0,False,True
+practice_03,B,mark,-146.2,18.4,12.9,19.2,-1.2,120.0,128.0,20.4,25,14.7,24.4,False,paper on the base,5,12,8,0,0,0,5.0,False,False
+practice_03,B,mark,-131.2,14.7,12.2,19.2,-1.2,135.0,142.0,20.8,25,12.4,20.8,False,tip too near the base; tip outside the box in x; paper on the base,3,13,3,6,0,0,5.0,False,False
+practice_03,B,mark,-116.2,11.4,10.6,19.2,-1.2,150.0,156.0,21.1,25,9.9,21.1,False,tip too near the base; tip outside the box in x; paper on the base,0,13,3,9,0,0,5.0,False,False
+practice_03,B,mark,-101.2,8.6,8.2,19.2,-1.2,165.0,170.0,21.2,25,7.4,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,11,3,11,2,0,5.0,False,False
+practice_03,B,mark,-180.0,26.3,11.0,19.2,-1.2,86.0,96.0,19.3,25,18.8,32.3,True,,12,13,0,0,0,0,5.0,True,True
+practice_03,B,mark,-90.0,7.0,6.0,19.2,-1.2,176.0,180.0,21.2,25,6.1,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,8,3,14,2,0,5.0,True,False
+practice_03,B,mark,0.0,12.1,-13.4,19.2,-1.2,-94.0,-96.0,19.3,25,19.0,22.8,False,tip outside the box in x; paper on the base,2,21,2,0,0,0,5.0,True,True
+practice_03,B,mark,90.0,31.4,-8.3,19.2,-1.2,-4.0,-0.0,17.2,25,17.2,38.8,True,,20,5,0,0,0,0,5.0,True,True
+practice_03,B,centre,-180.0,31.0,0.0,23.9,-12.2,86.0,117.0,27.6,25,23.2,32.6,True,,5,13,7,0,0,0,5.0,True,True
+practice_03,B,centre,-165.0,31.0,-0.0,27.2,-13.6,101.0,131.0,31.7,25,24.5,31.7,True,,0,16,8,1,0,0,5.0,False,False
+practice_03,B,centre,-150.0,31.0,0.0,30.9,-14.1,116.0,143.0,35.6,25,25.7,35.6,True,,0,13,5,7,0,0,5.0,False,False
+practice_03,B,centre,-135.0,31.0,0.0,34.6,-13.7,131.0,154.0,39.0,25,26.7,39.0,True,,0,10,6,9,0,0,5.0,False,False
+practice_03,B,centre,-120.0,31.0,0.0,38.0,-12.3,146.0,165.0,41.8,25,26.3,41.8,True,,0,5,8,12,0,0,5.0,False,False
+practice_03,B,centre,-105.0,31.0,0.0,40.9,-10.1,161.0,175.0,44.1,25,25.3,44.1,True,,0,0,9,16,2,0,5.0,False,False
+practice_03,B,centre,-90.0,31.0,-0.0,43.2,-7.2,176.0,-175.0,45.8,25,24.7,45.8,True,,0,0,4,21,2,0,5.0,True,False
+practice_03,B,centre,-75.0,31.0,0.0,44.6,-3.8,-169.0,-165.0,46.7,25,24.7,46.7,True,,0,0,0,25,2,0,5.0,False,False
+practice_03,B,centre,-60.0,31.0,0.0,45.1,-0.1,-154.0,-155.0,46.9,25,25.2,46.9,True,,0,0,2,23,2,0,5.0,False,False
+practice_03,B,centre,-45.0,31.0,0.0,44.7,3.6,-139.0,-145.0,46.4,25,26.1,46.4,True,,0,0,8,17,2,0,5.0,False,False
+practice_03,B,centre,-30.0,31.0,0.0,43.3,7.0,-124.0,-135.0,45.2,25,27.5,45.2,True,,0,1,13,11,0,0,5.0,False,False
+practice_03,B,centre,-15.0,31.0,0.0,41.1,9.9,-109.0,-125.0,43.3,25,29.0,43.3,True,,0,7,11,7,0,0,5.0,False,False
+practice_03,B,centre,0.0,31.0,0.0,38.1,12.2,-94.0,-114.0,40.8,25,30.7,40.8,True,,0,12,9,4,0,0,5.0,True,True
+practice_03,B,centre,15.0,31.0,-0.0,34.8,13.6,-79.0,-103.0,37.7,25,32.2,38.3,True,,0,17,8,0,0,0,5.0,False,True
+practice_03,B,centre,30.0,31.0,0.0,31.1,14.1,-64.0,-91.0,34.1,25,33.3,37.0,True,,0,20,5,0,0,0,5.0,False,True
+practice_03,B,centre,45.0,31.0,-0.0,27.4,13.7,-49.0,-79.0,30.2,25,30.2,35.8,True,,2,21,2,0,0,0,5.0,False,True
+practice_03,B,centre,60.0,31.0,0.0,24.0,12.3,-34.0,-65.0,26.1,25,26.1,36.2,True,,5,20,0,0,0,0,5.0,False,True
+practice_03,B,centre,75.0,31.0,-0.0,21.1,10.1,-19.0,-48.0,22.0,25,22.0,36.9,True,,13,12,0,0,0,0,5.0,False,True
+practice_03,B,centre,90.0,31.0,-0.0,18.8,7.1,-4.0,-27.0,18.3,25,18.3,37.3,True,,17,8,0,0,0,0,5.0,True,True
+practice_03,B,centre,105.0,31.0,0.0,17.4,3.8,11.0,-1.0,15.8,25,15.8,37.4,True,,20,5,0,0,0,0,5.0,False,True
+practice_03,B,centre,120.0,31.0,0.0,16.9,0.1,26.0,29.0,15.1,25,15.1,37.0,True,,25,0,0,0,0,0,5.0,False,True
+practice_03,B,centre,135.0,31.0,0.0,17.3,-3.6,41.0,58.0,16.6,25,16.6,36.3,True,,18,7,0,0,0,0,5.0,False,True
+practice_03,B,centre,150.0,31.0,-0.0,18.7,-7.0,56.0,82.0,19.6,25,19.6,35.3,True,,14,11,0,0,0,0,5.0,False,True
+practice_03,B,centre,165.0,31.0,0.0,20.9,-9.9,71.0,101.0,23.5,25,21.9,34.1,True,,9,16,0,0,0,0,5.0,False,True
+practice_04,A,mark,72.5,10.8,-1.4,19.2,-1.2,-180.0,-177.0,21.2,41,10.8,23.0,False,tip too near the base; tip outside the box in x; paper on the base,6,10,9,16,1,24,6.0,False,False
+practice_04,A,mark,87.5,11.1,-3.5,19.2,-1.2,-165.0,-163.0,21.1,41,9.8,24.7,False,tip too near the base; tip outside the box in x; paper on the base,6,10,7,18,1,24,6.0,False,False
+practice_04,A,mark,102.5,12.0,-5.5,19.2,-1.2,-150.0,-150.0,20.9,41,10.1,26.3,False,tip too near the base; tip outside the box in x; paper on the base,6,12,7,16,3,24,6.0,False,False
+practice_04,A,mark,117.5,13.4,-7.2,19.2,-1.2,-135.0,-136.0,20.6,41,11.4,27.6,False,tip too near the base; tip outside the box in x; paper on the base,6,14,7,14,3,24,6.0,False,False
+practice_04,A,mark,132.5,15.1,-8.5,19.2,-1.2,-120.0,-122.0,20.2,41,13.4,28.8,False,paper on the base,6,15,8,12,1,24,6.0,False,False
+practice_04,A,mark,147.5,17.2,-9.3,19.2,-1.2,-105.0,-107.0,19.7,41,15.3,29.6,False,paper on the base,8,16,5,12,1,24,6.0,False,True
+practice_04,A,mark,162.5,19.4,-9.6,19.2,-1.2,-90.0,-92.0,19.2,41,17.1,30.2,False,paper on the base,10,14,10,7,1,24,6.0,False,True
+practice_04,A,mark,177.5,21.5,-9.3,19.2,-1.2,-75.0,-77.0,18.7,41,18.6,30.5,True,,11,13,10,7,1,24,6.0,False,True
+practice_04,A,mark,-167.5,23.5,-8.4,19.2,-1.2,-60.0,-62.0,18.2,41,18.2,30.4,True,,12,17,5,7,1,24,6.0,False,True
+practice_04,A,mark,-152.5,25.2,-7.0,19.2,-1.2,-45.0,-46.0,17.8,41,17.8,30.0,False,paper on the base,13,17,4,7,1,24,6.0,False,True
+practice_04,A,mark,-137.5,26.5,-5.3,19.2,-1.2,-30.0,-29.0,17.5,41,17.5,29.3,False,paper on the base,14,16,5,6,1,24,6.0,False,True
+practice_04,A,mark,-122.5,27.3,-3.2,19.2,-1.2,-15.0,-13.0,17.3,41,17.3,28.3,False,paper on the base,14,16,5,6,1,24,6.0,False,True
+practice_04,A,mark,-107.5,27.6,-1.0,19.2,-1.2,0.0,4.0,17.2,41,17.2,28.3,True,,15,15,5,6,1,24,6.0,False,True
+practice_04,A,mark,-92.5,27.3,1.1,19.2,-1.2,15.0,21.0,17.4,41,15.8,28.7,True,,17,13,5,6,1,24,6.0,False,True
+practice_04,A,mark,-77.5,26.4,3.1,19.2,-1.2,30.0,37.0,17.6,41,14.2,28.6,False,paper on the base,15,15,5,6,1,24,6.0,False,True
+practice_04,A,mark,-62.5,25.0,4.8,19.2,-1.2,45.0,53.0,18.0,41,12.6,28.1,False,paper on the base,13,17,5,6,1,24,6.0,False,True
+practice_04,A,mark,-47.5,23.3,6.1,19.2,-1.2,60.0,69.0,18.5,41,11.0,27.2,False,tip too near the base; tip outside the box in x; paper on the base,13,16,6,6,1,24,6.0,False,True
+practice_04,A,mark,-32.5,21.2,6.9,19.2,-1.2,75.0,85.0,19.0,41,9.5,25.8,False,tip too near the base; tip outside the box in x; paper on the base,13,15,6,7,1,24,6.0,False,True
+practice_04,A,mark,-17.5,19.0,7.2,19.2,-1.2,90.0,99.0,19.5,41,8.5,24.1,False,tip too near the base; tip outside the box in x; paper on the base,9,17,7,8,1,24,6.0,False,True
+practice_04,A,mark,-2.5,16.9,6.9,19.2,-1.2,105.0,114.0,20.0,41,8.0,22.2,False,tip too near the base; tip outside the box in x; paper on the base,6,19,8,8,1,24,6.0,False,True
+practice_04,A,mark,12.5,14.9,6.0,19.2,-1.2,120.0,128.0,20.4,41,8.2,20.4,False,tip too near the base; tip outside the box in x; paper on the base,5,20,6,10,1,24,6.0,False,False
+practice_04,A,mark,27.5,13.2,4.6,19.2,-1.2,135.0,142.0,20.8,41,8.9,20.8,False,tip too near the base; tip outside the box in x; paper on the base,6,16,8,11,1,24,6.0,False,False
+practice_04,A,mark,42.5,11.9,2.9,19.2,-1.2,150.0,156.0,21.1,41,10.2,21.1,False,tip too near the base; tip outside the box in x; paper on the base,5,13,12,11,1,24,6.0,False,False
+practice_04,A,mark,57.5,11.1,0.8,19.2,-1.2,165.0,170.0,21.2,41,11.7,21.4,False,tip too near the base; tip outside the box in x; paper on the base,6,9,13,13,1,24,6.0,False,False
+practice_04,A,mark,-180.0,21.9,-9.1,19.2,-1.2,-72.0,-75.0,18.6,41,18.6,30.5,True,,11,13,10,7,1,24,6.0,True,True
+practice_04,A,mark,-90.0,27.1,1.5,19.2,-1.2,18.0,24.0,17.4,41,15.6,28.7,True,,16,14,5,6,1,24,6.0,True,True
+practice_04,A,mark,0.0,16.5,6.8,19.2,-1.2,108.0,116.0,20.1,41,8.0,21.8,False,tip too near the base; tip outside the box in x; paper on the base,5,19,8,9,1,24,6.0,True,True
+practice_04,A,mark,90.0,11.2,-3.9,19.2,-1.2,-162.0,-161.0,21.1,41,9.8,25.0,False,tip too near the base; tip outside the box in x; paper on the base,6,11,5,19,1,24,6.0,True,False
+practice_04,A,centre,-180.0,31.0,0.0,28.3,7.9,-72.0,-92.0,29.4,41,26.7,40.3,True,,8,16,9,8,1,24,6.0,True,True
+practice_04,A,centre,-165.0,31.0,-0.0,26.4,7.0,-57.0,-76.0,26.7,41,26.3,38.5,True,,11,14,9,7,1,24,6.0,False,True
+practice_04,A,centre,-150.0,31.0,0.0,24.7,5.5,-42.0,-59.0,24.2,41,24.2,36.4,True,,12,17,6,6,1,24,6.0,False,True
+practice_04,A,centre,-135.0,31.0,0.0,23.5,3.7,-27.0,-40.0,22.2,41,22.2,34.3,True,,15,14,6,6,1,24,6.0,False,True
+practice_04,A,centre,-120.0,31.0,0.0,22.8,1.7,-12.0,-18.0,20.9,41,20.9,32.2,True,,14,16,5,6,1,24,6.0,False,True
+practice_04,A,centre,-105.0,31.0,0.0,22.6,-0.5,3.0,4.0,20.6,41,20.6,31.7,True,,16,14,5,6,1,24,6.0,False,True
+practice_04,A,centre,-90.0,31.0,-0.0,23.1,-2.7,18.0,26.0,21.4,41,19.1,32.7,True,,16,14,4,7,1,24,6.0,True,True
+practice_04,A,centre,-75.0,31.0,0.0,24.0,-4.6,33.0,47.0,23.1,41,18.1,33.5,True,,14,16,5,6,1,24,6.0,False,True
+practice_04,A,centre,-60.0,31.0,0.0,25.5,-6.3,48.0,65.0,25.3,41,17.9,34.2,True,,13,16,5,7,1,24,6.0,False,True
+practice_04,A,centre,-45.0,31.0,0.0,27.3,-7.5,63.0,82.0,28.0,41,18.5,34.6,True,,13,15,7,6,1,24,6.0,False,True
+practice_04,A,centre,-30.0,31.0,0.0,29.3,-8.2,78.0,97.0,30.7,41,19.7,34.9,True,,9,17,7,8,1,24,6.0,False,True
+practice_04,A,centre,-15.0,31.0,0.0,31.5,-8.4,93.0,111.0,33.3,41,21.4,35.1,True,,7,18,8,8,1,24,6.0,False,True
+practice_04,A,centre,0.0,31.0,0.0,33.7,-7.9,108.0,124.0,35.7,41,23.5,35.7,True,,6,18,9,8,1,24,6.0,True,False
+practice_04,A,centre,15.0,31.0,-0.0,35.6,-7.0,123.0,136.0,37.7,41,25.6,37.7,True,,6,18,6,11,1,24,6.0,False,False
+practice_04,A,centre,30.0,31.0,0.0,37.3,-5.5,138.0,148.0,39.4,41,27.7,39.4,True,,6,15,8,12,1,24,6.0,False,False
+practice_04,A,centre,45.0,31.0,-0.0,38.5,-3.7,153.0,159.0,40.6,41,29.7,40.6,True,,6,13,10,12,1,24,6.0,False,False
+practice_04,A,centre,60.0,31.0,0.0,39.2,-1.7,168.0,170.0,41.2,41,31.3,41.2,True,,6,10,13,12,2,24,6.0,False,False
+practice_04,A,centre,75.0,31.0,-0.0,39.4,0.5,-177.0,-178.0,41.4,41,30.8,42.4,True,,7,9,9,16,1,24,6.0,False,False
+practice_04,A,centre,90.0,31.0,-0.0,39.0,2.7,-162.0,-167.0,41.0,41,29.7,43.4,True,,7,10,7,17,1,24,6.0,True,False
+practice_04,A,centre,105.0,31.0,0.0,38.0,4.6,-147.0,-156.0,40.1,41,28.8,44.0,True,,6,11,8,16,1,24,6.0,False,False
+practice_04,A,centre,120.0,31.0,0.0,36.5,6.3,-132.0,-144.0,38.7,41,28.0,44.1,True,,6,12,9,14,3,24,6.0,False,False
+practice_04,A,centre,135.0,31.0,0.0,34.7,7.5,-117.0,-132.0,36.8,41,27.4,43.8,True,,6,13,9,13,3,24,6.0,False,False
+practice_04,A,centre,150.0,31.0,-0.0,32.7,8.2,-102.0,-120.0,34.6,41,27.1,43.0,True,,7,15,6,13,1,24,6.0,False,True
+practice_04,A,centre,165.0,31.0,0.0,30.5,8.4,-87.0,-106.0,32.1,41,26.9,41.8,True,,7,16,6,12,1,24,6.0,False,True
+practice_04,B,mark,-139.0,18.2,2.3,19.2,-1.2,180.0,-177.0,21.2,41,13.3,23.9,False,tip outside the box in x; paper on the base,6,14,7,14,2,22,6.0,False,False
+practice_04,B,mark,-124.0,17.3,1.9,19.2,-1.2,-165.0,-163.0,21.2,41,11.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,12,6,17,2,22,6.0,False,False
+practice_04,B,mark,-109.0,16.6,1.3,19.2,-1.2,-150.0,-150.0,21.0,41,8.0,21.0,False,tip too near the base; tip outside the box in x; paper on the base,5,9,11,16,2,22,6.0,False,False
+practice_04,B,mark,-94.0,16.0,0.5,19.2,-1.2,-135.0,-136.0,20.6,41,5.2,20.6,False,tip too near the base; tip outside the box in x; paper on the base,5,9,8,19,1,22,6.0,False,False
+practice_04,B,mark,-79.0,15.7,-0.4,19.2,-1.2,-120.0,-122.0,20.2,41,3.1,20.2,False,tip too near the base; tip outside the box in x; paper on the base,5,11,10,15,3,22,6.0,False,False
+practice_04,B,mark,-64.0,15.6,-1.3,19.2,-1.2,-105.0,-107.0,19.8,41,2.6,19.8,False,tip too near the base; tip outside the box in x; paper on the base,5,14,6,16,1,22,6.0,False,False
+practice_04,B,mark,-49.0,15.7,-2.2,19.2,-1.2,-90.0,-93.0,19.3,41,4.0,19.8,False,tip too near the base; tip outside the box in x; paper on the base,5,15,9,12,1,22,6.0,False,True
+practice_04,B,mark,-34.0,16.1,-3.1,19.2,-1.2,-75.0,-78.0,18.7,41,6.6,20.4,False,tip too near the base; tip outside the box in x; paper on the base,7,13,14,7,1,22,6.0,False,True
+practice_04,B,mark,-19.0,16.7,-3.8,19.2,-1.2,-60.0,-62.0,18.2,41,9.6,21.4,False,tip too near the base; tip outside the box in x; paper on the base,8,17,9,7,1,22,6.0,False,True
+practice_04,B,mark,-4.0,17.5,-4.4,19.2,-1.2,-45.0,-46.0,17.8,41,12.7,22.6,False,tip outside the box in x; paper on the base,9,19,6,7,1,22,6.0,False,True
+practice_04,B,mark,11.0,18.4,-4.7,19.2,-1.2,-30.0,-30.0,17.5,41,15.7,25.5,False,tip outside the box in x; paper on the base,10,20,4,7,1,22,6.0,False,True
+practice_04,B,mark,26.0,19.3,-4.8,19.2,-1.2,-15.0,-13.0,17.3,41,17.3,28.1,False,paper on the base,11,19,5,6,1,22,6.0,False,True
+practice_04,B,mark,41.0,20.2,-4.7,19.2,-1.2,-0.0,3.0,17.2,41,17.2,30.5,False,paper on the base,11,19,4,7,1,22,6.0,False,True
+practice_04,B,mark,56.0,21.1,-4.3,19.2,-1.2,15.0,20.0,17.3,41,17.3,32.5,False,paper on the base,14,16,4,7,1,22,6.0,False,True
+practice_04,B,mark,71.0,21.8,-3.7,19.2,-1.2,30.0,37.0,17.6,41,17.6,34.1,False,paper on the base,16,14,5,6,1,22,6.0,False,True
+practice_04,B,mark,86.0,22.4,-2.9,19.2,-1.2,45.0,53.0,17.9,41,17.9,35.2,False,paper on the base,17,13,5,6,1,22,6.0,False,True
+practice_04,B,mark,101.0,22.7,-2.0,19.2,-1.2,60.0,69.0,18.4,41,18.4,35.8,False,paper on the base,16,14,4,7,1,22,6.0,False,True
+practice_04,B,mark,116.0,22.8,-1.1,19.2,-1.2,75.0,84.0,18.9,41,18.7,36.0,False,paper on the base,15,14,6,6,1,22,6.0,False,True
+practice_04,B,mark,131.0,22.7,-0.2,19.2,-1.2,90.0,99.0,19.4,41,18.7,35.6,False,paper on the base,13,16,6,6,1,22,6.0,False,True
+practice_04,B,mark,146.0,22.3,0.7,19.2,-1.2,105.0,114.0,19.9,41,18.4,34.7,False,paper on the base,12,16,6,7,1,22,6.0,False,True
+practice_04,B,mark,161.0,21.7,1.4,19.2,-1.2,120.0,128.0,20.4,41,17.8,33.3,False,paper on the base,12,14,8,7,1,22,6.0,False,False
+practice_04,B,mark,176.0,20.9,2.0,19.2,-1.2,135.0,142.0,20.8,41,16.9,31.5,False,paper on the base,11,14,8,8,1,22,6.0,False,False
+practice_04,B,mark,-169.0,20.0,2.3,19.2,-1.2,150.0,156.0,21.0,41,15.8,29.3,False,paper on the base,6,17,9,9,1,22,6.0,False,False
+practice_04,B,mark,-154.0,19.1,2.4,19.2,-1.2,165.0,169.0,21.2,41,14.5,26.8,False,paper on the base,6,16,7,12,1,22,6.0,False,False
+practice_04,B,mark,-180.0,20.7,2.1,19.2,-1.2,139.0,146.0,20.8,41,16.6,31.0,True,,10,14,8,9,1,22,6.0,True,False
+practice_04,B,mark,-90.0,15.9,0.3,19.2,-1.2,-131.0,-132.0,20.5,41,4.5,20.5,False,tip too near the base; tip outside the box in x; paper on the base,5,9,9,18,1,22,6.0,True,False
+practice_04,B,mark,0.0,17.7,-4.5,19.2,-1.2,-41.0,-42.0,17.7,41,13.5,23.3,False,tip outside the box in x; paper on the base,9,20,5,7,1,22,6.0,True,True
+practice_04,B,mark,90.0,22.5,-2.7,19.2,-1.2,49.0,57.0,18.1,41,18.1,35.4,False,paper on the base,18,12,5,6,1,22,6.0,True,True
+practice_04,B,centre,-180.0,31.0,0.0,29.5,-3.3,139.0,147.0,31.3,41,26.7,40.3,True,,8,16,9,8,1,22,6.0,True,False
+practice_04,B,centre,-165.0,31.0,-0.0,30.4,-3.6,154.0,162.0,32.5,41,26.3,38.5,True,,7,15,8,11,1,22,6.0,False,False
+practice_04,B,centre,-150.0,31.0,0.0,31.4,-3.6,169.0,176.0,33.6,41,26.1,36.4,True,,7,14,8,12,1,22,6.0,False,False
+practice_04,B,centre,-135.0,31.0,0.0,32.3,-3.4,-176.0,-171.0,34.4,41,24.4,34.4,True,,6,14,6,15,2,22,6.0,False,False
+practice_04,B,centre,-120.0,31.0,0.0,33.1,-2.9,-161.0,-158.0,35.1,41,22.4,35.1,True,,6,9,12,14,2,22,6.0,False,False
+practice_04,B,centre,-105.0,31.0,0.0,33.8,-2.3,-146.0,-144.0,35.5,41,20.5,35.5,True,,6,10,8,17,1,22,6.0,False,False
+practice_04,B,centre,-90.0,31.0,-0.0,34.3,-1.5,-131.0,-131.0,35.6,41,19.0,35.6,True,,6,11,8,16,1,22,6.0,True,False
+practice_04,B,centre,-75.0,31.0,0.0,34.6,-0.6,-116.0,-118.0,35.5,41,18.1,35.5,True,,6,11,9,15,3,22,6.0,False,False
+practice_04,B,centre,-60.0,31.0,0.0,34.6,0.4,-101.0,-105.0,35.1,41,17.9,35.2,True,,6,13,9,13,1,22,6.0,False,True
+practice_04,B,centre,-45.0,31.0,0.0,34.4,1.3,-86.0,-92.0,34.4,41,18.5,35.0,True,,6,16,5,14,1,22,6.0,False,True
+practice_04,B,centre,-30.0,31.0,0.0,33.9,2.1,-71.0,-78.0,33.6,41,19.7,34.9,True,,7,15,10,9,1,22,6.0,False,True
+practice_04,B,centre,-15.0,31.0,0.0,33.3,2.8,-56.0,-64.0,32.5,41,21.4,35.1,True,,7,15,12,7,1,22,6.0,False,True
+practice_04,B,centre,0.0,31.0,0.0,32.5,3.3,-41.0,-50.0,31.3,41,23.5,35.4,True,,8,17,9,7,1,22,6.0,True,True
+practice_04,B,centre,15.0,31.0,-0.0,31.6,3.6,-26.0,-35.0,30.1,41,25.6,35.7,True,,11,18,5,7,1,22,6.0,False,True
+practice_04,B,centre,30.0,31.0,0.0,30.6,3.6,-11.0,-19.0,29.0,41,27.7,37.5,True,,12,18,5,6,1,22,6.0,False,True
+practice_04,B,centre,45.0,31.0,-0.0,29.7,3.4,4.0,-3.0,27.9,41,27.9,39.4,True,,12,18,4,7,1,22,6.0,False,True
+practice_04,B,centre,60.0,31.0,0.0,28.9,2.9,19.0,14.0,27.1,41,27.1,41.1,True,,12,18,4,7,1,22,6.0,False,True
+practice_04,B,centre,75.0,31.0,-0.0,28.2,2.3,34.0,31.0,26.6,41,26.6,42.5,True,,16,14,4,7,1,22,6.0,False,True
+practice_04,B,centre,90.0,31.0,-0.0,27.7,1.5,49.0,49.0,26.4,41,26.4,43.5,True,,18,12,5,6,1,22,6.0,True,True
+practice_04,B,centre,105.0,31.0,0.0,27.4,0.6,64.0,66.0,26.6,41,26.6,44.0,True,,16,14,5,6,1,22,6.0,False,True
+practice_04,B,centre,120.0,31.0,0.0,27.4,-0.4,79.0,84.0,27.1,41,26.9,44.1,True,,14,15,6,6,1,22,6.0,False,True
+practice_04,B,centre,135.0,31.0,0.0,27.6,-1.3,94.0,100.0,27.9,41,27.0,43.8,True,,13,16,6,6,1,22,6.0,False,True
+practice_04,B,centre,150.0,31.0,-0.0,28.1,-2.1,109.0,117.0,29.0,41,27.1,43.0,True,,13,15,6,7,1,22,6.0,False,True
+practice_04,B,centre,165.0,31.0,0.0,28.7,-2.8,124.0,132.0,30.1,41,27.0,41.8,True,,11,15,8,7,1,22,6.0,False,False
+practice_05,A,mark,109.3,10.8,-4.9,19.2,-1.2,-180.0,-177.0,21.2,42,7.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,16,7,13,1,19,6.0,False,False
+practice_05,A,mark,124.3,12.1,-6.9,19.2,-1.2,-165.0,-163.0,21.1,42,10.7,21.2,False,tip too near the base; tip outside the box in x; paper on the base,6,17,8,11,1,19,6.0,False,False
+practice_05,A,mark,139.3,13.8,-8.6,19.2,-1.2,-150.0,-150.0,20.9,42,14.0,24.7,False,tip outside the box in x; paper on the base,6,18,8,10,1,19,6.0,False,False
+practice_05,A,mark,154.3,15.9,-9.7,19.2,-1.2,-135.0,-136.0,20.6,42,16.8,28.0,False,paper on the base,7,18,10,7,1,19,6.0,False,False
+practice_05,A,mark,169.3,18.2,-10.3,19.2,-1.2,-120.0,-122.0,20.2,42,18.1,30.9,False,paper on the base,9,17,9,7,1,19,6.0,False,False
+practice_05,A,mark,-175.7,20.6,-10.2,19.2,-1.2,-105.0,-107.0,19.7,42,18.6,33.4,False,paper on the base,11,15,7,9,1,19,6.0,False,True
+practice_05,A,mark,-160.7,22.9,-9.6,19.2,-1.2,-90.0,-92.0,19.2,42,18.8,35.5,False,paper on the base,12,14,7,9,1,19,6.0,False,True
+practice_05,A,mark,-145.7,24.9,-8.3,19.2,-1.2,-75.0,-77.0,18.7,42,18.6,37.0,False,paper on the base,15,10,7,10,1,19,6.0,False,True
+practice_05,A,mark,-130.7,26.6,-6.6,19.2,-1.2,-60.0,-62.0,18.2,42,18.2,38.0,False,paper on the base,16,9,7,10,1,19,6.0,False,True
+practice_05,A,mark,-115.7,27.7,-4.5,19.2,-1.2,-45.0,-46.0,17.8,42,17.8,38.5,False,paper on the base,16,9,5,12,1,19,6.0,False,True
+practice_05,A,mark,-100.7,28.3,-2.2,19.2,-1.2,-30.0,-29.0,17.5,42,17.5,38.4,True,,14,12,4,12,1,19,6.0,False,True
+practice_05,A,mark,-85.7,28.2,0.2,19.2,-1.2,-15.0,-13.0,17.3,42,17.3,37.7,True,,14,13,3,12,1,19,6.0,False,True
+practice_05,A,mark,-70.7,27.6,2.5,19.2,-1.2,0.0,4.0,17.2,42,17.2,36.6,True,,12,16,3,11,1,19,6.0,False,True
+practice_05,A,mark,-55.7,26.3,4.5,19.2,-1.2,15.0,21.0,17.4,42,17.4,34.9,False,paper on the base,9,19,3,11,1,19,6.0,False,True
+practice_05,A,mark,-40.7,24.6,6.2,19.2,-1.2,30.0,37.0,17.6,42,17.6,32.7,False,paper on the base,9,20,4,9,0,19,6.0,False,True
+practice_05,A,mark,-25.7,22.5,7.3,19.2,-1.2,45.0,53.0,18.0,42,18.0,30.1,False,paper on the base,7,20,8,7,0,19,6.0,False,True
+practice_05,A,mark,-10.7,20.2,7.9,19.2,-1.2,60.0,69.0,18.5,42,16.7,27.1,False,paper on the base,6,18,14,4,0,19,6.0,False,True
+practice_05,A,mark,4.3,17.8,7.8,19.2,-1.2,75.0,85.0,19.0,42,13.4,23.7,False,tip outside the box in x; paper on the base,6,16,16,4,0,19,6.0,False,True
+practice_05,A,mark,19.3,15.5,7.2,19.2,-1.2,90.0,99.0,19.5,42,9.7,20.0,False,tip too near the base; tip outside the box in x; paper on the base,7,14,15,6,0,19,6.0,False,True
+practice_05,A,mark,34.3,13.5,5.9,19.2,-1.2,105.0,114.0,20.0,42,6.1,20.0,False,tip too near the base; tip outside the box in x; paper on the base,6,17,8,11,2,19,6.0,False,True
+practice_05,A,mark,49.3,11.8,4.2,19.2,-1.2,120.0,128.0,20.4,42,2.5,20.4,False,tip too near the base; tip outside the box in x; paper on the base,5,17,4,16,2,19,6.0,False,False
+practice_05,A,mark,64.3,10.7,2.1,19.2,-1.2,135.0,142.0,20.8,42,0.3,20.8,False,tip too near the base; tip outside the box in x; paper on the base,3,14,4,21,2,19,6.0,False,False
+practice_05,A,mark,79.3,10.1,-0.2,19.2,-1.2,150.0,156.0,21.1,42,0.8,21.1,False,tip too near the base; tip outside the box in x; paper on the base,10,5,8,19,2,19,6.0,False,False
+practice_05,A,mark,94.3,10.2,-2.6,19.2,-1.2,165.0,170.0,21.2,42,3.5,21.2,False,tip too near the base; tip outside the box in x; paper on the base,9,10,8,15,2,19,6.0,False,False
+practice_05,A,mark,-180.0,19.9,-10.3,19.2,-1.2,-109.0,-111.0,19.9,42,18.5,32.7,False,paper on the base,10,16,8,8,1,19,6.0,True,True
+practice_05,A,mark,-90.0,28.3,-0.5,19.2,-1.2,-19.0,-17.0,17.3,42,17.3,38.0,True,,14,13,3,12,1,19,6.0,True,True
+practice_05,A,mark,0.0,18.5,7.9,19.2,-1.2,71.0,80.0,18.8,42,14.4,24.7,False,tip outside the box in x; paper on the base,7,16,16,3,0,19,6.0,True,True
+practice_05,A,mark,90.0,10.1,-1.9,19.2,-1.2,161.0,166.0,21.2,42,2.6,21.2,False,tip too near the base; tip outside the box in x; paper on the base,10,8,9,15,2,19,6.0,True,False
+practice_05,A,centre,-180.0,31.0,0.0,30.3,9.1,-109.0,-129.0,32.8,42,29.0,39.9,True,,6,21,8,7,1,19,6.0,True,False
+practice_05,A,centre,-165.0,31.0,-0.0,28.0,8.6,-94.0,-115.0,30.0,42,28.3,40.8,True,,9,18,8,7,1,19,6.0,False,True
+practice_05,A,centre,-150.0,31.0,0.0,25.9,7.5,-79.0,-100.0,27.2,42,26.4,41.4,True,,11,15,8,8,1,19,6.0,False,True
+practice_05,A,centre,-135.0,31.0,0.0,24.1,5.9,-64.0,-83.0,24.5,42,24.3,41.7,True,,14,11,8,9,1,19,6.0,False,True
+practice_05,A,centre,-120.0,31.0,0.0,22.8,4.0,-49.0,-64.0,22.1,42,22.1,41.7,True,,17,7,7,11,1,19,6.0,False,True
+practice_05,A,centre,-105.0,31.0,0.0,22.0,1.7,-34.0,-42.0,20.6,42,20.6,41.4,True,,17,8,5,12,1,19,6.0,False,True
+practice_05,A,centre,-90.0,31.0,-0.0,21.9,-0.7,-19.0,-19.0,20.0,42,20.0,40.7,True,,15,12,3,12,1,19,6.0,True,True
+practice_05,A,centre,-75.0,31.0,0.0,22.4,-3.0,-4.0,4.0,20.6,42,20.6,39.8,True,,12,16,3,11,1,19,6.0,False,True
+practice_05,A,centre,-60.0,31.0,0.0,23.5,-5.1,11.0,25.0,22.2,42,22.2,38.7,True,,10,19,3,10,1,19,6.0,False,True
+practice_05,A,centre,-45.0,31.0,0.0,25.1,-6.9,26.0,44.0,24.5,42,24.5,37.4,True,,8,19,8,7,0,19,6.0,False,True
+practice_05,A,centre,-30.0,31.0,0.0,27.0,-8.2,41.0,61.0,27.3,42,25.6,36.0,True,,7,18,13,4,0,19,6.0,False,True
+practice_05,A,centre,-15.0,31.0,0.0,29.3,-9.0,56.0,76.0,30.1,42,24.1,34.4,True,,6,18,15,3,0,19,6.0,False,True
+practice_05,A,centre,0.0,31.0,0.0,31.7,-9.1,71.0,90.0,32.9,42,22.8,33.5,True,,7,17,12,6,0,19,6.0,True,True
+practice_05,A,centre,15.0,31.0,-0.0,34.0,-8.6,86.0,103.0,35.5,42,21.6,35.6,True,,7,19,6,10,2,19,6.0,False,True
+practice_05,A,centre,30.0,31.0,0.0,36.1,-7.5,101.0,115.0,37.8,42,20.7,37.8,True,,6,17,6,13,2,19,6.0,False,True
+practice_05,A,centre,45.0,31.0,-0.0,37.9,-5.9,116.0,127.0,39.6,42,20.3,39.6,True,,8,13,4,17,2,19,6.0,False,False
+practice_05,A,centre,60.0,31.0,0.0,39.2,-4.0,131.0,138.0,40.9,42,20.3,40.9,True,,10,10,5,17,2,19,6.0,False,False
+practice_05,A,centre,75.0,31.0,-0.0,40.0,-1.7,146.0,150.0,41.7,42,20.8,41.7,True,,11,7,9,15,2,19,6.0,False,False
+practice_05,A,centre,90.0,31.0,-0.0,40.1,0.7,161.0,161.0,42.0,42,21.6,42.0,True,,12,7,8,15,2,19,6.0,True,False
+practice_05,A,centre,105.0,31.0,0.0,39.6,3.0,176.0,172.0,41.7,42,22.8,41.7,True,,11,11,7,13,2,19,6.0,False,False
+practice_05,A,centre,120.0,31.0,0.0,38.5,5.1,-169.0,-177.0,40.9,42,24.1,40.9,True,,9,13,9,11,1,19,6.0,False,False
+practice_05,A,centre,135.0,31.0,0.0,36.9,6.9,-154.0,-166.0,39.5,42,25.6,39.5,True,,7,16,9,10,1,19,6.0,False,False
+practice_05,A,centre,150.0,31.0,-0.0,35.0,8.2,-139.0,-154.0,37.7,42,27.1,37.7,True,,5,20,8,9,1,19,6.0,False,False
+practice_05,A,centre,165.0,31.0,0.0,32.7,9.0,-124.0,-142.0,35.4,42,28.2,38.7,True,,6,20,8,8,1,19,6.0,False,False
+practice_05,B,mark,125.6,15.8,-3.1,19.2,-1.2,-180.0,-177.0,21.2,42,11.1,21.7,False,tip too near the base; tip outside the box in x; paper on the base,10,15,10,7,0,19,6.0,False,False
+practice_05,B,mark,140.6,16.4,-3.9,19.2,-1.2,-165.0,-163.0,21.1,42,13.3,24.0,False,tip outside the box in x; paper on the base,9,16,10,7,0,19,6.0,False,False
+practice_05,B,mark,155.6,17.2,-4.6,19.2,-1.2,-150.0,-149.0,20.9,42,15.5,26.2,False,paper on the base,7,18,10,7,0,19,6.0,False,False
+practice_05,B,mark,170.6,18.1,-5.0,19.2,-1.2,-135.0,-136.0,20.6,42,17.0,28.2,False,paper on the base,7,18,9,8,0,19,6.0,False,False
+practice_05,B,mark,-174.4,19.2,-5.1,19.2,-1.2,-120.0,-122.0,20.2,42,16.9,30.0,False,paper on the base,7,18,7,10,2,19,6.0,False,False
+practice_05,B,mark,-159.4,20.2,-5.0,19.2,-1.2,-105.0,-107.0,19.7,42,16.3,31.4,False,paper on the base,8,17,5,12,2,19,6.0,False,True
+practice_05,B,mark,-144.4,21.1,-4.6,19.2,-1.2,-90.0,-92.0,19.2,42,15.9,32.4,False,paper on the base,9,13,6,14,2,19,6.0,False,True
+practice_05,B,mark,-129.4,21.9,-4.0,19.2,-1.2,-75.0,-77.0,18.7,42,15.8,33.0,False,paper on the base,10,10,5,17,2,19,6.0,False,False
+practice_05,B,mark,-114.4,22.6,-3.2,19.2,-1.2,-60.0,-62.0,18.2,42,15.9,33.3,False,paper on the base,11,8,5,18,2,19,6.0,False,False
+practice_05,B,mark,-99.4,23.0,-2.3,19.2,-1.2,-45.0,-46.0,17.8,42,16.4,33.1,False,paper on the base,11,8,7,16,2,19,6.0,False,False
+practice_05,B,mark,-84.4,23.1,-1.2,19.2,-1.2,-30.0,-29.0,17.5,42,17.0,32.5,False,paper on the base,11,7,11,13,2,19,6.0,False,True
+practice_05,B,mark,-69.4,23.0,-0.2,19.2,-1.2,-15.0,-13.0,17.3,42,17.3,31.5,False,paper on the base,10,10,11,11,1,19,6.0,False,True
+practice_05,B,mark,-54.4,22.6,0.7,19.2,-1.2,0.0,4.0,17.2,42,17.2,30.2,False,paper on the base,9,13,10,10,1,19,6.0,False,True
+practice_05,B,mark,-39.4,22.0,1.5,19.2,-1.2,15.0,21.0,17.4,42,17.4,28.5,False,paper on the base,6,19,10,7,1,19,6.0,False,True
+practice_05,B,mark,-24.4,21.2,2.2,19.2,-1.2,30.0,37.0,17.6,42,16.2,26.6,False,paper on the base,2,25,8,7,1,19,6.0,False,True
+practice_05,B,mark,-9.4,20.3,2.6,19.2,-1.2,45.0,53.0,18.0,42,14.0,24.5,False,paper on the base,2,28,5,7,1,19,6.0,False,True
+practice_05,B,mark,5.6,19.2,2.7,19.2,-1.2,60.0,69.0,18.4,42,11.7,22.3,False,tip too near the base; tip outside the box in x; paper on the base,5,24,6,7,1,19,6.0,False,True
+practice_05,B,mark,20.6,18.2,2.6,19.2,-1.2,75.0,85.0,19.0,42,9.4,22.3,False,tip too near the base; tip outside the box in x; paper on the base,9,20,6,7,1,19,6.0,False,True
+practice_05,B,mark,35.6,17.3,2.2,19.2,-1.2,90.0,99.0,19.5,42,7.3,22.6,False,tip too near the base; tip outside the box in x; paper on the base,13,11,10,8,1,19,6.0,False,True
+practice_05,B,mark,50.6,16.5,1.6,19.2,-1.2,105.0,114.0,20.0,42,5.8,22.7,False,tip too near the base; tip outside the box in x; paper on the base,15,7,12,8,1,19,6.0,False,True
+practice_05,B,mark,65.6,15.8,0.8,19.2,-1.2,120.0,128.0,20.4,42,5.2,22.6,False,tip too near the base; tip outside the box in x; paper on the base,15,9,6,12,1,19,6.0,False,False
+practice_05,B,mark,80.6,15.4,-0.1,19.2,-1.2,135.0,142.0,20.8,42,5.7,22.3,False,tip too near the base; tip outside the box in x; paper on the base,13,13,2,14,1,19,6.0,False,False
+practice_05,B,mark,95.6,15.3,-1.2,19.2,-1.2,150.0,156.0,21.1,42,7.1,21.8,False,tip too near the base; tip outside the box in x; paper on the base,13,14,3,12,1,19,6.0,False,False
+practice_05,B,mark,110.6,15.4,-2.2,19.2,-1.2,165.0,170.0,21.2,42,9.0,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,16,6,9,1,19,6.0,False,False
+practice_05,B,mark,-180.0,18.8,-5.1,19.2,-1.2,-126.0,-127.0,20.4,42,17.1,29.3,False,paper on the base,7,18,8,9,0,19,6.0,True,False
+practice_05,B,mark,-90.0,23.1,-1.6,19.2,-1.2,-36.0,-35.0,17.6,42,16.7,32.8,False,paper on the base,12,6,9,15,2,19,6.0,True,False
+practice_05,B,mark,0.0,19.6,2.7,19.2,-1.2,54.0,63.0,18.3,42,12.6,23.1,False,tip outside the box in x; paper on the base,4,25,5,8,1,19,6.0,True,True
+practice_05,B,mark,90.0,15.3,-0.8,19.2,-1.2,144.0,151.0,21.0,42,6.5,22.0,False,tip too near the base; tip outside the box in x; paper on the base,12,16,2,12,1,19,6.0,True,False
+practice_05,B,centre,-180.0,31.0,0.0,31.4,3.9,-126.0,-135.0,33.0,42,29.0,39.9,True,,7,19,10,6,0,19,6.0,True,False
+practice_05,B,centre,-165.0,31.0,-0.0,30.4,3.9,-111.0,-121.0,31.6,42,28.3,40.8,True,,8,17,8,9,2,19,6.0,False,False
+practice_05,B,centre,-150.0,31.0,0.0,29.4,3.6,-96.0,-106.0,30.1,42,26.7,41.4,True,,8,17,6,11,2,19,6.0,False,True
+practice_05,B,centre,-135.0,31.0,0.0,28.5,3.1,-81.0,-91.0,28.6,42,25.4,41.7,True,,8,14,6,14,2,19,6.0,False,True
+practice_05,B,centre,-120.0,31.0,0.0,27.8,2.3,-66.0,-74.0,27.3,42,24.5,41.7,True,,10,10,5,17,2,19,6.0,False,False
+practice_05,B,centre,-105.0,31.0,0.0,27.3,1.4,-51.0,-57.0,26.2,42,24.1,41.4,True,,11,8,6,17,2,19,6.0,False,False
+practice_05,B,centre,-90.0,31.0,-0.0,27.1,0.4,-36.0,-39.0,25.5,42,24.4,40.8,True,,12,6,9,15,2,19,6.0,True,False
+practice_05,B,centre,-75.0,31.0,0.0,27.1,-0.6,-21.0,-21.0,25.2,42,25.2,39.8,True,,11,9,9,13,1,19,6.0,False,True
+practice_05,B,centre,-60.0,31.0,0.0,27.4,-1.6,-6.0,-2.0,25.5,42,25.5,38.7,True,,9,13,9,11,1,19,6.0,False,True
+practice_05,B,centre,-45.0,31.0,0.0,27.9,-2.5,9.0,16.0,26.1,42,26.1,37.4,True,,6,18,11,7,1,19,6.0,False,True
+practice_05,B,centre,-30.0,31.0,0.0,28.7,-3.2,24.0,33.0,27.2,42,25.6,36.1,True,,3,23,10,6,1,19,6.0,False,True
+practice_05,B,centre,-15.0,31.0,0.0,29.6,-3.7,39.0,49.0,28.5,42,24.2,34.7,True,,3,26,6,7,1,19,6.0,False,True
+practice_05,B,centre,0.0,31.0,0.0,30.6,-3.9,54.0,65.0,29.9,42,22.8,33.4,True,,7,23,5,7,1,19,6.0,True,True
+practice_05,B,centre,15.0,31.0,-0.0,31.6,-3.9,69.0,80.0,31.4,42,21.6,34.8,True,,10,18,6,8,1,19,6.0,False,True
+practice_05,B,centre,30.0,31.0,0.0,32.6,-3.6,84.0,94.0,32.9,42,20.7,36.1,True,,13,14,8,7,1,19,6.0,False,True
+practice_05,B,centre,45.0,31.0,-0.0,33.5,-3.1,99.0,108.0,34.2,42,20.3,37.1,True,,16,8,10,8,1,19,6.0,False,True
+practice_05,B,centre,60.0,31.0,0.0,34.2,-2.3,114.0,121.0,35.2,42,20.3,37.7,True,,16,8,8,10,1,19,6.0,False,False
+practice_05,B,centre,75.0,31.0,-0.0,34.7,-1.4,129.0,134.0,36.1,42,20.7,37.9,True,,16,10,4,12,1,19,6.0,False,False
+practice_05,B,centre,90.0,31.0,-0.0,34.9,-0.4,144.0,147.0,36.6,42,21.6,37.7,True,,14,13,3,12,1,19,6.0,True,False
+practice_05,B,centre,105.0,31.0,0.0,34.9,0.6,159.0,160.0,36.8,42,22.8,37.2,True,,12,17,2,11,1,19,6.0,False,False
+practice_05,B,centre,120.0,31.0,0.0,34.6,1.6,174.0,172.0,36.6,42,24.1,36.6,True,,12,16,5,9,1,19,6.0,False,False
+practice_05,B,centre,135.0,31.0,0.0,34.1,2.5,-171.0,-175.0,36.1,42,25.5,36.1,True,,11,17,7,7,0,19,6.0,False,False
+practice_05,B,centre,150.0,31.0,-0.0,33.3,3.2,-156.0,-162.0,35.4,42,26.8,37.4,True,,9,17,11,5,0,19,6.0,False,False
+practice_05,B,centre,165.0,31.0,0.0,32.4,3.7,-141.0,-149.0,34.3,42,28.1,38.7,True,,8,18,10,6,0,19,6.0,False,False
+practice_06,A,mark,67.8,8.6,4.4,19.2,-1.2,-180.0,-177.0,21.2,36,3.8,21.2,False,tip too near the base; tip outside the box in x; paper on the base,15,2,4,15,1,11,5.7,False,False
+practice_06,A,mark,82.8,7.5,1.4,19.2,-1.2,-165.0,-163.0,21.1,36,3.7,21.1,False,tip too near the base; tip outside the box in x; paper on the base,12,2,8,14,1,11,5.7,False,False
+practice_06,A,mark,97.8,7.2,-1.7,19.2,-1.2,-150.0,-149.0,20.9,36,4.6,20.9,False,tip too near the base; tip outside the box in x; paper on the base,8,8,9,11,1,11,5.7,False,False
+practice_06,A,mark,112.8,7.8,-4.8,19.2,-1.2,-135.0,-136.0,20.6,36,6.9,20.6,False,tip too near the base; tip outside the box in x; paper on the base,1,16,9,10,1,11,5.7,False,False
+practice_06,A,mark,127.8,9.1,-7.6,19.2,-1.2,-120.0,-122.0,20.2,36,8.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,0,17,10,9,1,11,5.7,False,False
+practice_06,A,mark,142.8,11.1,-10.0,19.2,-1.2,-105.0,-107.0,19.7,36,9.9,23.8,False,tip too near the base; tip outside the box in x; paper on the base,0,15,11,10,1,11,5.7,False,True
+practice_06,A,mark,157.8,13.6,-11.8,19.2,-1.2,-90.0,-92.0,19.2,36,11.6,26.2,False,tip too near the base; tip outside the box in x; paper on the base,2,13,9,12,1,11,5.7,False,True
+practice_06,A,mark,172.8,16.6,-12.9,19.2,-1.2,-75.0,-77.0,18.7,36,13.8,28.4,False,paper on the base,5,11,4,16,1,11,5.7,False,False
+practice_06,A,mark,-172.2,19.7,-13.2,19.2,-1.2,-60.0,-62.0,18.2,36,16.3,30.4,False,paper on the base,8,9,4,15,1,11,5.7,False,False
+practice_06,A,mark,-157.2,22.8,-12.6,19.2,-1.2,-45.0,-46.0,17.8,36,17.8,32.1,False,paper on the base,11,7,4,14,1,11,5.7,False,False
+practice_06,A,mark,-142.2,25.6,-11.3,19.2,-1.2,-30.0,-29.0,17.5,36,17.5,33.4,False,paper on the base,12,7,4,13,0,11,5.7,False,False
+practice_06,A,mark,-127.2,28.0,-9.3,19.2,-1.2,-15.0,-13.0,17.3,36,17.3,34.3,False,paper on the base,13,7,4,12,0,11,5.7,False,True
+practice_06,A,mark,-112.2,29.8,-6.8,19.2,-1.2,0.0,4.0,17.2,36,17.2,34.8,True,,14,7,4,11,0,11,5.7,False,True
+practice_06,A,mark,-97.2,30.9,-3.8,19.2,-1.2,15.0,21.0,17.4,36,17.4,34.9,True,,14,8,7,7,0,11,5.7,False,True
+practice_06,A,mark,-82.2,31.2,-0.7,19.2,-1.2,30.0,37.0,17.6,36,17.6,34.5,True,,10,13,13,0,0,11,5.7,False,True
+practice_06,A,mark,-67.2,30.6,2.4,19.2,-1.2,45.0,53.0,18.0,36,18.0,33.7,True,,7,18,11,0,0,11,5.7,False,True
+practice_06,A,mark,-52.2,29.3,5.2,19.2,-1.2,60.0,69.0,18.4,36,18.4,32.5,True,,7,21,8,0,0,11,5.7,False,True
+practice_06,A,mark,-37.2,27.3,7.6,19.2,-1.2,75.0,85.0,18.9,36,18.9,31.0,True,,8,27,1,0,0,11,5.7,False,True
+practice_06,A,mark,-22.2,24.8,9.4,19.2,-1.2,90.0,99.0,19.5,36,17.2,28.9,False,paper on the base,8,27,1,0,0,11,5.7,False,True
+practice_06,A,mark,-7.2,21.8,10.5,19.2,-1.2,105.0,114.0,20.0,36,14.7,27.2,False,paper on the base,8,19,9,0,0,11,5.7,False,True
+practice_06,A,mark,7.8,18.7,10.8,19.2,-1.2,120.0,128.0,20.4,36,12.1,25.8,False,tip too near the base; tip outside the box in x; paper on the base,8,18,7,3,0,11,5.7,False,False
+practice_06,A,mark,22.8,15.6,10.2,19.2,-1.2,135.0,142.0,20.8,36,9.6,24.0,False,tip too near the base; tip outside the box in x; paper on the base,8,16,2,10,0,11,5.7,False,False
+practice_06,A,mark,37.8,12.8,8.9,19.2,-1.2,150.0,156.0,21.1,36,7.2,21.9,False,tip too near the base; tip outside the box in x; paper on the base,9,14,1,12,2,11,5.7,False,False
+practice_06,A,mark,52.8,10.4,6.9,19.2,-1.2,165.0,170.0,21.2,36,5.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,14,6,2,14,2,11,5.7,False,False
+practice_06,A,mark,-180.0,18.1,-13.1,19.2,-1.2,-68.0,-70.0,18.4,36,15.0,29.4,False,paper on the base,6,11,3,16,1,11,5.7,True,False
+practice_06,A,mark,-90.0,31.1,-2.3,19.2,-1.2,22.0,29.0,17.5,36,17.5,34.7,True,,11,12,11,2,0,11,5.7,True,True
+practice_06,A,mark,0.0,20.3,10.7,19.2,-1.2,112.0,121.0,20.2,36,13.5,26.6,False,tip outside the box in x; paper on the base,8,18,10,0,0,11,5.7,True,False
+practice_06,A,mark,90.0,7.3,-0.1,19.2,-1.2,-158.0,-157.0,21.1,36,4.0,21.1,False,tip too near the base; tip outside the box in x; paper on the base,10,4,10,12,1,11,5.7,True,False
+practice_06,A,centre,-180.0,31.0,0.0,32.1,11.9,-68.0,-91.0,34.3,36,25.9,39.9,True,,0,14,13,9,1,11,5.7,True,True
+practice_06,A,centre,-165.0,31.0,-0.0,29.0,11.8,-53.0,-79.0,30.9,36,24.6,39.2,True,,3,12,10,11,1,11,5.7,False,True
+practice_06,A,centre,-150.0,31.0,0.0,26.0,10.9,-38.0,-64.0,27.3,36,23.8,38.4,True,,7,9,4,16,1,11,5.7,False,False
+practice_06,A,centre,-135.0,31.0,0.0,23.4,9.2,-23.0,-48.0,23.7,36,23.7,37.4,True,,10,8,3,15,1,11,5.7,False,False
+practice_06,A,centre,-120.0,31.0,0.0,21.2,6.9,-8.0,-28.0,20.6,36,20.6,36.4,True,,12,7,4,13,0,11,5.7,False,False
+practice_06,A,centre,-105.0,31.0,0.0,19.8,4.2,7.0,-5.0,18.2,36,18.2,35.5,True,,13,8,4,11,0,11,5.7,False,True
+practice_06,A,centre,-90.0,31.0,-0.0,19.1,1.1,22.0,21.0,17.2,36,17.2,34.7,True,,14,8,7,7,0,11,5.7,True,True
+practice_06,A,centre,-75.0,31.0,0.0,19.2,-2.0,37.0,48.0,17.9,36,17.9,34.1,True,,6,18,12,0,0,11,5.7,False,True
+practice_06,A,centre,-60.0,31.0,0.0,20.1,-5.0,52.0,71.0,20.0,36,20.0,33.7,True,,7,22,7,0,0,11,5.7,False,True
+practice_06,A,centre,-45.0,31.0,0.0,21.8,-7.6,67.0,91.0,23.0,36,21.8,33.5,True,,8,28,0,0,0,11,5.7,False,True
+practice_06,A,centre,-30.0,31.0,0.0,24.1,-9.8,82.0,108.0,26.5,36,21.5,34.1,True,,9,19,8,0,0,11,5.7,False,True
+practice_06,A,centre,-15.0,31.0,0.0,26.8,-11.2,97.0,123.0,30.1,36,21.7,35.7,True,,8,17,8,3,0,11,5.7,False,False
+practice_06,A,centre,0.0,31.0,0.0,29.9,-11.9,112.0,136.0,33.6,36,22.3,36.9,True,,8,16,4,8,0,11,5.7,True,False
+practice_06,A,centre,15.0,31.0,-0.0,33.0,-11.8,127.0,149.0,36.7,36,23.1,37.8,True,,15,8,2,11,0,11,5.7,False,False
+practice_06,A,centre,30.0,31.0,0.0,36.0,-10.9,142.0,160.0,39.5,36,24.1,39.5,True,,16,6,2,12,2,11,5.7,False,False
+practice_06,A,centre,45.0,31.0,-0.0,38.6,-9.2,157.0,171.0,41.7,36,25.0,41.7,True,,15,5,3,13,2,11,5.7,False,False
+practice_06,A,centre,60.0,31.0,0.0,40.8,-6.9,172.0,-178.0,43.3,36,26.0,43.3,True,,13,6,2,15,1,11,5.7,False,False
+practice_06,A,centre,75.0,31.0,-0.0,42.2,-4.2,-173.0,-168.0,44.4,36,26.8,44.4,True,,12,5,6,13,1,11,5.7,False,False
+practice_06,A,centre,90.0,31.0,-0.0,42.9,-1.1,-158.0,-157.0,44.8,36,27.5,44.8,True,,10,6,9,11,1,11,5.7,True,False
+practice_06,A,centre,105.0,31.0,0.0,42.8,2.0,-143.0,-147.0,44.5,36,28.0,44.5,True,,9,7,10,10,1,11,5.7,False,False
+practice_06,A,centre,120.0,31.0,0.0,41.9,5.0,-128.0,-136.0,43.6,36,28.3,43.6,True,,0,18,10,8,1,11,5.7,False,False
+practice_06,A,centre,135.0,31.0,0.0,40.2,7.6,-113.0,-126.0,42.1,36,28.6,42.1,True,,0,20,7,9,1,11,5.7,False,False
+practice_06,A,centre,150.0,31.0,-0.0,37.9,9.8,-98.0,-115.0,40.0,36,28.7,40.5,True,,0,21,6,9,1,11,5.7,False,True
+practice_06,A,centre,165.0,31.0,0.0,35.2,11.2,-83.0,-103.0,37.3,36,27.5,40.4,True,,0,22,6,8,1,11,5.7,False,True
+practice_06,B,mark,58.2,9.4,-3.4,19.2,-1.2,-180.0,-177.0,21.2,36,6.2,21.2,False,tip too near the base; tip outside the box in x; paper on the base,10,11,3,12,0,9,5.7,False,False
+practice_06,B,mark,73.2,10.3,-5.9,19.2,-1.2,-165.0,-163.0,21.1,36,8.9,21.4,False,tip too near the base; tip outside the box in x; paper on the base,9,15,2,10,0,9,5.7,False,False
+practice_06,B,mark,88.2,11.8,-8.0,19.2,-1.2,-150.0,-149.0,20.9,36,11.6,23.5,False,tip too near the base; tip outside the box in x; paper on the base,8,17,5,6,0,9,5.7,False,False
+practice_06,B,mark,103.2,13.8,-9.7,19.2,-1.2,-135.0,-136.0,20.6,36,14.3,26.1,False,tip outside the box in x; paper on the base,8,18,10,0,0,9,5.7,False,False
+practice_06,B,mark,118.2,16.2,-10.8,19.2,-1.2,-120.0,-121.0,20.2,36,16.7,28.9,False,paper on the base,8,21,7,0,0,9,5.7,False,False
+practice_06,B,mark,133.2,18.8,-11.2,19.2,-1.2,-105.0,-107.0,19.7,36,18.8,31.3,False,paper on the base,8,23,5,0,0,9,5.7,False,True
+practice_06,B,mark,148.2,21.4,-11.0,19.2,-1.2,-90.0,-92.0,19.2,36,19.2,33.3,False,paper on the base,8,21,7,0,0,9,5.7,False,True
+practice_06,B,mark,163.2,23.9,-10.1,19.2,-1.2,-75.0,-77.0,18.7,36,18.7,34.8,True,,8,19,7,2,0,9,5.7,False,True
+practice_06,B,mark,178.2,26.0,-8.6,19.2,-1.2,-60.0,-62.0,18.2,36,18.2,35.7,True,,9,16,7,4,0,9,5.7,False,True
+practice_06,B,mark,-166.8,27.7,-6.6,19.2,-1.2,-45.0,-46.0,17.8,36,17.8,36.2,True,,15,8,7,6,0,9,5.7,False,True
+practice_06,B,mark,-151.8,28.8,-4.2,19.2,-1.2,-30.0,-29.0,17.5,36,17.5,36.2,True,,15,8,4,9,0,9,5.7,False,True
+practice_06,B,mark,-136.8,29.2,-1.6,19.2,-1.2,-15.0,-13.0,17.3,36,17.3,35.7,True,,14,8,3,11,0,9,5.7,False,True
+practice_06,B,mark,-121.8,29.0,1.0,19.2,-1.2,0.0,4.0,17.2,36,17.2,34.8,True,,13,8,3,12,2,9,5.7,False,True
+practice_06,B,mark,-106.8,28.1,3.5,19.2,-1.2,15.0,21.0,17.4,36,17.4,33.4,True,,12,8,3,13,2,9,5.7,False,False
+practice_06,B,mark,-91.8,26.6,5.6,19.2,-1.2,30.0,37.0,17.6,36,17.6,31.7,True,,11,8,3,14,2,9,5.7,False,False
+practice_06,B,mark,-76.8,24.6,7.3,19.2,-1.2,45.0,53.0,18.0,36,16.7,29.6,False,paper on the base,6,12,4,14,1,9,5.7,False,False
+practice_06,B,mark,-61.8,22.2,8.4,19.2,-1.2,60.0,69.0,18.4,36,14.3,27.2,False,paper on the base,0,17,5,14,1,9,5.7,False,False
+practice_06,B,mark,-46.8,19.6,8.8,19.2,-1.2,75.0,85.0,18.9,36,12.0,24.5,False,tip too near the base; tip outside the box in x; paper on the base,0,15,13,8,1,9,5.7,False,True
+practice_06,B,mark,-31.8,17.0,8.6,19.2,-1.2,90.0,100.0,19.5,36,10.4,21.8,False,tip too near the base; tip outside the box in x; paper on the base,0,14,14,8,1,9,5.7,False,True
+practice_06,B,mark,-16.8,14.5,7.7,19.2,-1.2,105.0,114.0,20.0,36,8.0,20.0,False,tip too near the base; tip outside the box in x; paper on the base,0,19,8,9,1,9,5.7,False,True
+practice_06,B,mark,-1.8,12.4,6.2,19.2,-1.2,120.0,128.0,20.4,36,4.4,20.4,False,tip too near the base; tip outside the box in x; paper on the base,0,13,14,9,1,9,5.7,False,False
+practice_06,B,mark,13.2,10.7,4.2,19.2,-1.2,135.0,142.0,20.8,36,2.4,20.8,False,tip too near the base; tip outside the box in x; paper on the base,10,2,12,12,1,9,5.7,False,False
+practice_06,B,mark,28.2,9.6,1.8,19.2,-1.2,150.0,156.0,21.0,36,2.5,21.0,False,tip too near the base; tip outside the box in x; paper on the base,12,3,2,19,1,9,5.7,False,False
+practice_06,B,mark,43.2,9.2,-0.8,19.2,-1.2,165.0,170.0,21.2,36,3.9,21.2,False,tip too near the base; tip outside the box in x; paper on the base,11,8,2,15,1,9,5.7,False,False
+practice_06,B,mark,-180.0,26.2,-8.4,19.2,-1.2,-58.0,-60.0,18.1,36,18.1,35.8,True,,10,15,7,4,0,9,5.7,True,True
+practice_06,B,mark,-90.0,26.4,5.9,19.2,-1.2,32.0,39.0,17.6,36,17.6,31.4,True,,11,8,3,14,2,9,5.7,True,False
+practice_06,B,mark,0.0,12.1,6.0,19.2,-1.2,122.0,130.0,20.5,36,4.1,20.5,False,tip too near the base; tip outside the box in x; paper on the base,0,11,15,10,1,9,5.7,True,False
+practice_06,B,mark,90.0,12.0,-8.2,19.2,-1.2,-148.0,-148.0,20.9,36,11.9,23.8,False,tip too near the base; tip outside the box in x; paper on the base,8,18,5,5,0,9,5.7,True,False
+practice_06,B,centre,-180.0,31.0,0.0,23.9,7.2,-58.0,-79.0,24.6,36,24.6,40.0,True,,9,19,7,1,0,9,5.7,True,True
+practice_06,B,centre,-165.0,31.0,-0.0,22.3,5.1,-43.0,-60.0,21.9,36,21.9,39.4,True,,8,17,7,4,0,9,5.7,False,True
+practice_06,B,centre,-150.0,31.0,0.0,21.3,2.7,-28.0,-39.0,19.9,36,19.9,38.5,True,,16,7,5,8,0,9,5.7,False,True
+practice_06,B,centre,-135.0,31.0,0.0,20.9,0.1,-13.0,-15.0,19.0,36,19.0,37.5,True,,14,8,3,11,0,9,5.7,False,True
+practice_06,B,centre,-120.0,31.0,0.0,21.3,-2.5,2.0,10.0,19.4,36,19.4,36.4,True,,13,7,3,13,2,9,5.7,False,False
+practice_06,B,centre,-105.0,31.0,0.0,22.2,-5.0,17.0,32.0,21.1,36,21.1,35.5,True,,11,8,3,14,2,9,5.7,False,False
+practice_06,B,centre,-90.0,31.0,-0.0,23.8,-7.1,32.0,52.0,23.6,36,21.8,34.7,True,,4,13,4,15,1,9,5.7,True,False
+practice_06,B,centre,-75.0,31.0,0.0,25.9,-8.7,47.0,69.0,26.5,36,21.4,34.1,True,,0,16,11,9,1,9,5.7,False,True
+practice_06,B,centre,-60.0,31.0,0.0,28.3,-9.7,62.0,85.0,29.7,36,22.0,33.7,True,,0,17,12,7,1,9,5.7,False,True
+practice_06,B,centre,-45.0,31.0,0.0,30.9,-10.1,77.0,98.0,32.7,36,22.2,33.6,True,,0,22,6,8,1,9,5.7,False,True
+practice_06,B,centre,-30.0,31.0,0.0,33.5,-9.7,92.0,111.0,35.6,36,21.6,35.6,True,,0,20,7,9,1,9,5.7,False,True
+practice_06,B,centre,-15.0,31.0,0.0,36.0,-8.8,107.0,123.0,38.1,36,21.6,38.1,True,,2,11,14,9,1,9,5.7,False,False
+practice_06,B,centre,0.0,31.0,0.0,38.0,-7.2,122.0,135.0,40.1,36,22.1,40.1,True,,8,6,14,8,1,9,5.7,True,False
+practice_06,B,centre,15.0,31.0,-0.0,39.7,-5.1,137.0,146.0,41.6,36,23.0,41.6,True,,11,4,5,16,1,9,5.7,False,False
+practice_06,B,centre,30.0,31.0,0.0,40.7,-2.7,152.0,157.0,42.6,36,24.0,42.6,True,,12,5,3,16,1,9,5.7,False,False
+practice_06,B,centre,45.0,31.0,-0.0,41.1,-0.1,167.0,168.0,43.0,36,25.0,43.0,True,,13,6,2,15,1,9,5.7,False,False
+practice_06,B,centre,60.0,31.0,0.0,40.7,2.5,-178.0,178.0,42.8,36,25.9,42.8,True,,15,5,3,13,1,9,5.7,False,False
+practice_06,B,centre,75.0,31.0,-0.0,39.8,5.0,-163.0,-171.0,42.0,36,26.8,42.0,True,,12,10,2,12,0,9,5.7,False,False
+practice_06,B,centre,90.0,31.0,-0.0,38.2,7.0,-148.0,-160.0,40.7,36,27.5,40.7,True,,11,12,3,10,0,9,5.7,True,False
+practice_06,B,centre,105.0,31.0,0.0,36.1,8.7,-133.0,-148.0,38.8,36,28.0,40.6,True,,10,14,3,9,0,9,5.7,False,False
+practice_06,B,centre,120.0,31.0,0.0,33.7,9.7,-118.0,-136.0,36.5,36,28.3,40.2,True,,8,18,10,0,0,9,5.7,False,False
+practice_06,B,centre,135.0,31.0,0.0,31.1,10.1,-103.0,-124.0,33.7,36,28.4,40.1,True,,9,18,9,0,0,9,5.7,False,False
+practice_06,B,centre,150.0,31.0,-0.0,28.5,9.7,-88.0,-111.0,30.7,36,28.3,40.4,True,,8,25,3,0,0,9,5.7,False,True
+practice_06,B,centre,165.0,31.0,0.0,26.0,8.8,-73.0,-96.0,27.6,36,27.5,40.4,True,,8,23,5,0,0,9,5.7,False,True

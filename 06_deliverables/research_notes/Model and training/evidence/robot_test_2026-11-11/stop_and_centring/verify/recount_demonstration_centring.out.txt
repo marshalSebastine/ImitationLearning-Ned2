@@ -1,0 +1,38 @@
+THE ANALYST'S TABLE OF DEMONSTRATION OFFSETS, recounted
+all sampled pictures with an offset:                   3260 pictures: median  5.4 mm, within 7 mm  60 %, over 12 mm  23 %, over 17 mm  15 %
+episodes: 36 ; by start kind: {'MID': 1, 'NE': 3, 'OL1': 3, 'OL1.5': 3, 'OR1': 6, 'STD': 18, 'TL15': 1, 'X1': 1}
+standard starts after the first 15 pictures:           1408 pictures: median  6.1 mm, within 7 mm  56 %, over 12 mm  27 %, over 17 mm  17 %
+
+split by what the puck does until the next picture (the analyst's fitted puck places):
+  the puck is pushed 4 mm or more:                     1593 pictures: median  4.5 mm, within 7 mm  68 %, over 12 mm  16 %, over 17 mm   8 %
+  the puck stands (under 2 mm) while the tip moves:     762 pictures: median  6.4 mm, within 7 mm  53 %, over 12 mm  30 %, over 17 mm  21 %
+  the rest (small moves, twists in place, last rows):   905 pictures: median  7.0 mm, within 7 mm  50 %, over 12 mm  32 %, over 17 mm  20 %
+of the 766 pictures over 12 mm: pushed 249, standing while the tip moves 226, rest 291
+
+without sheet 06 (dashed: the measure has no line in the gaps):
+  all pictures:                                        2717 pictures: median  5.7 mm, within 7 mm  58 %, over 12 mm  25 %, over 17 mm  15 %
+  pushed 4 mm or more:                                 1316 pictures: median  4.6 mm, within 7 mm  67 %, over 12 mm  17 %, over 17 mm   9 %
+  pushed, standard starts only:                         722 pictures: median  4.3 mm, within 7 mm  69 %, over 12 mm  17 %, over 17 mm   9 %
+  pushed, puck put aside at the start, after picture 15:   418 pictures: median  5.0 mm, within 7 mm  63 %, over 12 mm  17 %, over 17 mm   8 %
+per sheet, pushed pictures:
+  path_01:   123 pictures: median  2.8 mm, within 7 mm  80 %, over 12 mm   6 %, over 17 mm   2 %
+  path_02:   187 pictures: median  5.4 mm, within 7 mm  57 %, over 12 mm  23 %, over 17 mm  12 %
+  path_03:   303 pictures: median  5.0 mm, within 7 mm  65 %, over 12 mm  21 %, over 17 mm  13 %
+  path_04:   357 pictures: median  4.8 mm, within 7 mm  68 %, over 12 mm  16 %, over 17 mm   8 %
+  path_05:   346 pictures: median  4.4 mm, within 7 mm  71 %, over 12 mm  15 %, over 17 mm   8 %
+  path_06:   277 pictures: median  4.0 mm, within 7 mm  73 %, over 12 mm  10 %, over 17 mm   4 %
+
+the same pictures by the analyst's ONE-PICTURE offset (clean and aligned ones only):
+  all with a clean one-picture offset:                 1368 pictures: median  6.6 mm, within 7 mm  52 %, over 12 mm  32 %, over 17 mm  24 %
+  both measures on 1348 pictures: 12-picture  1348 pictures: median  4.4 mm, within 7 mm  68 %, over 12 mm  17 %, over 17 mm  10 %
+                                   one-picture  1348 pictures: median  6.7 mm, within 7 mm  51 %, over 12 mm  32 %, over 17 mm  24 %
+  size of one-picture minus 12-picture: median +1.2 mm, median size 2.8 mm, over 5 mm apart in 434
+
+the episodes' own shares (12-picture offset, pushed pictures): how many of the sampled episodes keep the puck within 7 mm in 80 % or more of their pushed pictures
+  8 of 36 episodes; median share 70 %, range 38 to 100 %
+
+THE ROBOT'S RUNS (the analyst's ../robot_runs_steps.csv), the same split
+  run 1, all pictures:    25 pictures: median  5.3 mm, within 7 mm  56 %, over 12 mm  32 %, over 17 mm  16 % ; pushed 4 mm or more:    24 pictures: median  5.1 mm, within 7 mm  58 %, over 12 mm  29 %, over 17 mm  12 %
+  run 2, all pictures:    24 pictures: median  1.1 mm, within 7 mm  92 %, over 12 mm   4 %, over 17 mm   0 % ; pushed 4 mm or more:    23 pictures: median  1.1 mm, within 7 mm  96 %, over 12 mm   0 %, over 17 mm   0 %
+  run 4, all pictures:    41 pictures: median  6.5 mm, within 7 mm  59 %, over 12 mm  27 %, over 17 mm  10 % ; pushed 4 mm or more:    38 pictures: median  6.3 mm, within 7 mm  61 %, over 12 mm  24 %, over 17 mm   8 %
+  run 7, all pictures:    88 pictures: median  5.0 mm, within 7 mm  53 %, over 12 mm  28 %, over 17 mm  17 % ; pushed 4 mm or more:    63 pictures: median  2.6 mm, within 7 mm  67 %, over 12 mm  25 %, over 17 mm  10 %

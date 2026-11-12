@@ -1,0 +1,233 @@
+﻿
+######## final_candidate (exact, audit cleaning, last weights)
+
+== sheet 01: 644 test rows, 20 episodes
+   check against fold file at 0.5, one picture: right 12 early 4 never 1 | fold file shares right 0.6 early 0.2 never 0.05
+   inner-validation rule tuned_(0.7, 1 in a row): right 13 early 2 between 2 never 3 of 20
+   inner-validation rule tuned_two_(0.4, 2 in a row): right 16 early 3 between 0 never 1 of 20
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   8/  5/  0 |  15/  3/  0 |  17/  3/  0
+        0.10 |                  10/  4/  0 |  15/  2/  1 |  17/  2/  1
+        0.15 |                  11/  4/  0 |  15/  2/  1 |  17/  2/  1
+        0.20 |                  12/  3/  1 |  15/  2/  1 |  15/  2/  3
+        0.30 |                  11/  3/  1 |  15/  3/  1 |  15/  2/  3
+        0.40 |                  11/  4/  1 |  16/  3/  1 |  14/  2/  4
+        0.50 |                  12/  4/  1 |  16/  3/  1 |  13/  2/  5
+        0.60 |                  12/  4/  1 |  14/  1/  4 |  11/  1/  7
+        0.70 |                  13/  2/  3 |  14/  1/  4 |  11/  0/  8
+        0.80 |                  13/  1/  4 |  14/  1/  5 |   9/  0/ 11
+        0.90 |                  13/  1/  6 |   9/  0/ 11 |   2/  0/ 18
+   early stops at 0.5, one picture: 4; goal distance median 4.4 cm (min 3.0, max 20.3); share of the episode done median 0.70 (min 0.37, max 0.75); within 6 cm of the goal: 3
+
+== sheet 02: 2670 test rows, 45 episodes
+   check against fold file at 0.5, one picture: right 24 early 2 never 18 | fold file shares right 0.5333 early 0.0444 never 0.4
+   inner-validation rule tuned_(0.3, 1 in a row): right 25 early 4 between 2 never 14 of 45
+   inner-validation rule tuned_two_(0.1, 2 in a row): right 19 early 8 between 5 never 13 of 45
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                  18/ 17/  4 |  21/ 10/  8 |  13/  8/ 21
+        0.10 |                  20/ 14/  7 |  19/  8/ 13 |  13/  5/ 25
+        0.15 |                  21/ 13/  8 |  20/  6/ 15 |  11/  4/ 28
+        0.20 |                  22/  9/ 12 |  21/  3/ 17 |  11/  3/ 29
+        0.30 |                  25/  4/ 14 |  23/  1/ 19 |  11/  2/ 29
+        0.40 |                  26/  3/ 14 |  20/  1/ 22 |  11/  2/ 29
+        0.50 |                  24/  2/ 18 |  19/  1/ 24 |   9/  2/ 33
+        0.60 |                  23/  2/ 19 |  17/  1/ 26 |   9/  1/ 33
+        0.70 |                  21/  2/ 21 |  16/  1/ 27 |   9/  1/ 33
+        0.80 |                  17/  2/ 25 |  10/  0/ 33 |   7/  1/ 36
+        0.90 |                   9/  0/ 34 |   9/  0/ 36 |   4/  0/ 41
+   early stops at 0.5, one picture: 2; goal distance median 4.0 cm (min 3.3, max 4.7); share of the episode done median 0.85 (min 0.82, max 0.88); within 6 cm of the goal: 2
+
+######## finetune_exact (exact, before cleaning)
+
+== sheet 03: 4059 test rows, 45 episodes
+   check against fold file at 0.5, one picture: right 31 early 7 never 5 | fold file shares right 0.6889 early 0.1556 never 0.1111
+   inner-validation rule tuned_(0.5, 1 in a row): right 31 early 7 between 2 never 5 of 45
+   inner-validation rule tuned_two_(0.15, 2 in a row): right 34 early 8 between 1 never 2 of 45
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                  21/ 17/  0 |  31/ 13/  0 |  24/  7/ 11
+        0.10 |                  26/ 15/  0 |  34/  9/  1 |  20/  6/ 16
+        0.15 |                  29/ 13/  0 |  34/  8/  2 |  18/  5/ 19
+        0.20 |                  30/ 13/  0 |  33/  6/  3 |  17/  5/ 21
+        0.30 |                  31/ 10/  1 |  32/  6/  5 |  15/  5/ 23
+        0.40 |                  33/  7/  2 |  27/  6/ 10 |  11/  4/ 28
+        0.50 |                  31/  7/  5 |  27/  5/ 12 |   9/  4/ 30
+        0.60 |                  32/  4/  7 |  24/  3/ 17 |   8/  3/ 32
+        0.70 |                  26/  3/ 14 |  21/  3/ 20 |   6/  3/ 34
+        0.80 |                  21/  3/ 20 |  12/  0/ 32 |   4/  0/ 40
+        0.90 |                   4/  0/ 41 |   1/  0/ 44 |   0/  0/ 45
+   early stops at 0.5, one picture: 7; goal distance median 5.3 cm (min 3.1, max 15.2); share of the episode done median 0.88 (min 0.09, max 0.94); within 6 cm of the goal: 4
+
+== sheet 05: 2669 test rows, 30 episodes
+   check against fold file at 0.5, one picture: right 6 early 17 never 7 | fold file shares right 0.2 early 0.5667 never 0.2333
+   inner-validation rule tuned_(0.4, 1 in a row): right 6 early 18 between 0 never 6 of 30
+   inner-validation rule tuned_two_(0.3, 2 in a row): right 5 early 19 between 0 never 6 of 30
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   2/ 24/  4 |   3/ 23/  4 |   1/ 23/  6
+        0.10 |                   2/ 24/  4 |   4/ 22/  4 |   1/ 22/  7
+        0.15 |                   3/ 23/  4 |   3/ 22/  5 |   1/ 21/  7
+        0.20 |                   3/ 23/  4 |   3/ 21/  6 |   1/ 20/  8
+        0.30 |                   3/ 21/  6 |   5/ 19/  6 |   2/ 17/ 10
+        0.40 |                   6/ 18/  6 |   6/ 17/  7 |   2/ 14/ 14
+        0.50 |                   6/ 17/  7 |   5/ 17/  8 |   2/ 11/ 17
+        0.60 |                   7/ 12/ 11 |   4/ 11/ 15 |   1/  8/ 21
+        0.70 |                   6/ 11/ 13 |   3/  8/ 19 |   0/  3/ 27
+        0.80 |                   2/  5/ 23 |   1/  2/ 27 |   0/  0/ 30
+        0.90 |                   1/  0/ 29 |   0/  0/ 30 |   0/  0/ 30
+   early stops at 0.5, one picture: 17; goal distance median 14.2 cm (min 4.9, max 19.8); share of the episode done median 0.34 (min 0.22, max 0.62); within 6 cm of the goal: 3
+
+== sheet 06: 1982 test rows, 25 episodes
+   check against fold file at 0.5, one picture: right 5 early 1 never 19 | fold file shares right 0.2 early 0.04 never 0.76
+   inner-validation rule tuned_(0.2, 1 in a row): right 6 early 8 between 0 never 11 of 25
+   inner-validation rule tuned_two_(0.15, 2 in a row): right 8 early 6 between 0 never 11 of 25
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   1/ 15/  9 |   3/ 12/ 10 |   2/ 11/ 12
+        0.10 |                   3/ 12/ 10 |   4/ 10/ 11 |   3/  6/ 16
+        0.15 |                   4/ 10/ 11 |   8/  6/ 11 |   3/  4/ 18
+        0.20 |                   6/  8/ 11 |   7/  6/ 12 |   3/  2/ 20
+        0.30 |                   8/  3/ 14 |   7/  2/ 16 |   1/  2/ 22
+        0.40 |                   7/  1/ 17 |   6/  1/ 18 |   1/  0/ 24
+        0.50 |                   5/  1/ 19 |   4/  1/ 20 |   1/  0/ 24
+        0.60 |                   4/  1/ 20 |   2/  1/ 22 |   0/  0/ 25
+        0.70 |                   2/  1/ 22 |   1/  1/ 23 |   0/  0/ 25
+        0.80 |                   0/  1/ 24 |   0/  1/ 24 |   0/  0/ 25
+        0.90 |                   0/  0/ 25 |   0/  0/ 25 |   0/  0/ 25
+   early stops at 0.5, one picture: 1; goal distance median 20.4 cm (min 20.4, max 20.4); share of the episode done median 0.25 (min 0.25, max 0.25); within 6 cm of the goal: 0
+
+######## finetune_classes (class head, square-root weights)
+
+== sheet 03: 4059 test rows, 45 episodes
+   check against fold file at 0.5, one picture: right 13 early 5 never 26 | fold file shares right 0.2889 early 0.1111 never 0.5778
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                  27/ 10/  5 |  21/  8/ 15 |   9/  4/ 30
+        0.10 |                  22/  9/ 12 |  18/  7/ 19 |   7/  3/ 34
+        0.15 |                  21/  9/ 13 |  15/  5/ 24 |   5/  3/ 36
+        0.20 |                  20/  9/ 15 |  13/  4/ 27 |   3/  2/ 39
+        0.30 |                  19/  6/ 19 |  11/  3/ 30 |   3/  2/ 39
+        0.40 |                  15/  5/ 24 |   9/  2/ 33 |   3/  2/ 39
+        0.50 |                  13/  5/ 26 |   7/  2/ 35 |   1/  2/ 41
+        0.60 |                  12/  4/ 28 |   6/  2/ 36 |   1/  0/ 43
+        0.70 |                   7/  3/ 34 |   3/  1/ 40 |   0/  0/ 44
+        0.80 |                   4/  0/ 40 |   3/  0/ 41 |   0/  0/ 44
+        0.90 |                   2/  0/ 42 |   0/  0/ 44 |   0/  0/ 45
+   early stops at 0.5, one picture: 5; goal distance median 14.4 cm (min 4.2, max 15.2); share of the episode done median 0.39 (min 0.09, max 0.90); within 6 cm of the goal: 1
+
+== sheet 05: 2669 test rows, 30 episodes
+   check against fold file at 0.5, one picture: right 4 early 5 never 21 | fold file shares right 0.1333 early 0.1667 never 0.7
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   5/ 21/  4 |   5/ 21/  4 |   2/ 18/ 10
+        0.10 |                   7/ 17/  6 |   6/ 15/  9 |   1/ 15/ 14
+        0.15 |                   7/ 16/  7 |   6/ 15/  9 |   1/ 15/ 14
+        0.20 |                   6/ 16/  8 |   6/ 15/  9 |   1/ 12/ 17
+        0.30 |                   5/ 12/ 13 |   3/  7/ 20 |   0/  4/ 26
+        0.40 |                   6/  7/ 17 |   3/  5/ 22 |   0/  2/ 28
+        0.50 |                   4/  5/ 21 |   2/  5/ 23 |   0/  2/ 28
+        0.60 |                   2/  3/ 25 |   1/  1/ 28 |   0/  0/ 30
+        0.70 |                   2/  3/ 25 |   0/  1/ 29 |   0/  0/ 30
+        0.80 |                   1/  2/ 27 |   0/  0/ 30 |   0/  0/ 30
+        0.90 |                   0/  0/ 30 |   0/  0/ 30 |   0/  0/ 30
+   early stops at 0.5, one picture: 5; goal distance median 17.8 cm (min 14.0, max 19.8); share of the episode done median 0.39 (min 0.33, max 0.51); within 6 cm of the goal: 0
+
+== sheet 06: 1982 test rows, 25 episodes
+   check against fold file at 0.5, one picture: right 1 early 1 never 23 | fold file shares right 0.04 early 0.04 never 0.92
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   5/  8/ 10 |   7/  6/ 12 |   5/  3/ 16
+        0.10 |                   7/  3/ 14 |   6/  1/ 17 |   3/  1/ 21
+        0.15 |                   7/  3/ 15 |   5/  1/ 18 |   2/  1/ 22
+        0.20 |                   6/  2/ 17 |   5/  1/ 19 |   0/  1/ 24
+        0.30 |                   6/  1/ 18 |   3/  1/ 21 |   0/  0/ 25
+        0.40 |                   4/  1/ 20 |   2/  1/ 22 |   0/  0/ 25
+        0.50 |                   1/  1/ 23 |   1/  1/ 23 |   0/  0/ 25
+        0.60 |                   0/  1/ 24 |   0/  1/ 24 |   0/  0/ 25
+        0.70 |                   0/  0/ 25 |   0/  0/ 25 |   0/  0/ 25
+        0.80 |                   0/  0/ 25 |   0/  0/ 25 |   0/  0/ 25
+        0.90 |                   0/  0/ 25 |   0/  0/ 25 |   0/  0/ 25
+   early stops at 0.5, one picture: 1; goal distance median 20.4 cm (min 20.4, max 20.4); share of the episode done median 0.25 (min 0.25, max 0.25); within 6 cm of the goal: 0
+
+######## finetune_mirror (class head, half mirrored)
+
+== sheet 03: 4059 test rows, 45 episodes
+   check against fold file at 0.5, one picture: right 26 early 3 never 14 | fold file shares right 0.5778 early 0.0667 never 0.3111
+   inner-validation rule tuned_(0.2, 1 in a row): right 24 early 9 between 2 never 10 of 45
+   inner-validation rule tuned_two_(0.15, 2 in a row): right 28 early 7 between 1 never 9 of 45
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                  28/ 13/  1 |  29/  9/  6 |  22/  5/ 17
+        0.10 |                  25/ 11/  6 |  27/  8/  9 |  19/  4/ 21
+        0.15 |                  26/ 10/  7 |  28/  7/  9 |  18/  3/ 23
+        0.20 |                  24/  9/ 10 |  28/  4/ 12 |  15/  2/ 27
+        0.30 |                  24/  6/ 12 |  26/  4/ 14 |  13/  1/ 30
+        0.40 |                  24/  5/ 14 |  24/  2/ 18 |  11/  1/ 32
+        0.50 |                  26/  3/ 14 |  24/  1/ 19 |  10/  0/ 34
+        0.60 |                  23/  2/ 19 |  20/  1/ 23 |   6/  0/ 38
+        0.70 |                  18/  0/ 26 |  14/  0/ 30 |   2/  0/ 42
+        0.80 |                  11/  0/ 34 |   4/  0/ 41 |   1/  0/ 44
+        0.90 |                   3/  0/ 42 |   2/  0/ 43 |   0/  0/ 45
+   early stops at 0.5, one picture: 3; goal distance median 14.6 cm (min 13.7, max 14.9); share of the episode done median 0.13 (min 0.08, max 0.44); within 6 cm of the goal: 0
+
+== sheet 05: 2669 test rows, 30 episodes
+   check against fold file at 0.5, one picture: right 9 early 8 never 13 | fold file shares right 0.3 early 0.2667 never 0.4333
+   inner-validation rule tuned_(0.3, 1 in a row): right 9 early 11 between 0 never 10 of 30
+   inner-validation rule tuned_two_(0.2, 2 in a row): right 8 early 12 between 0 never 10 of 30
+   threshold | 1 in a row: right/early/never | 2 in a row | 3 in a row
+        0.05 |                   3/ 23/  4 |   3/ 23/  4 |   2/ 20/  8
+        0.10 |                   6/ 18/  6 |   6/ 17/  7 |   4/ 13/ 13
+        0.15 |                   6/ 16/  8 |   6/ 14/ 10 |   4/ 12/ 14
+        0.20 |                   7/ 14/  9 |   8/ 12/ 10 |   4/ 11/ 15
+        0.30 |                   9/ 11/ 10 |   8/ 10/ 12 |   3/  5/ 22
+        0.40 |                  10/  9/ 11 |   8/  6/ 16 |   3/  3/ 24
+        0.50 |                   9/  8/ 13 |   7/  5/ 18 |   3/  3/ 24
+        0.60 |                   6/  5/ 19 |   5/  2/ 23 |   1/  0/ 29
+        0.70 |                   6/  1/ 23 |   3/  0/ 27 |   0/  0/ 30
+        0.80 |                   3/  1/ 26 |   2/  0/ 28 |   0/  0/ 30
+        0.90 |                   1/  0/ 29 |   0/  0/ 30 |   0/  0/ 30
+   early stops at 0.5, one picture: 8; goal distance median 15.5 cm (min 4.0, max 18.1); share of the episode done median 0.49 (min 0.34, max 0.92); within 6 cm of the goal: 2
+
+######## Pooled over the held-out sheets of each run
+   ('final_candidate (exact, audit cleaning, last weights)', 'tuned_'): right 38 early 6 between 4 never 17 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'tuned_two_'): right 35 early 11 between 5 never 14 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.3, 1): right 36 early 7 between 7 never 15 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.3, 2): right 38 early 4 between 3 never 20 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.3, 3): right 26 early 4 between 3 never 32 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.5, 1): right 36 early 6 between 4 never 19 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.5, 2): right 35 early 4 between 1 never 25 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.5, 3): right 22 early 4 between 1 never 38 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.7, 1): right 34 early 4 between 3 never 24 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.7, 2): right 30 early 2 between 2 never 31 of 65
+   ('final_candidate (exact, audit cleaning, last weights)', 'fixed', 0.7, 3): right 20 early 1 between 3 never 41 of 65
+   ('finetune_exact (exact, before cleaning)', 'tuned_'): right 43 early 33 between 2 never 22 of 100
+   ('finetune_exact (exact, before cleaning)', 'tuned_two_'): right 47 early 33 between 1 never 19 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.3, 1): right 42 early 34 between 3 never 21 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.3, 2): right 44 early 27 between 2 never 27 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.3, 3): right 18 early 24 between 3 never 55 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.5, 1): right 42 early 25 between 2 never 31 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.5, 2): right 36 early 23 between 1 never 40 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.5, 3): right 12 early 15 between 2 never 71 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.7, 1): right 34 early 15 between 2 never 49 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.7, 2): right 25 early 12 between 1 never 62 of 100
+   ('finetune_exact (exact, before cleaning)', 'fixed', 0.7, 3): right 6 early 6 between 2 never 86 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.3, 1): right 30 early 19 between 1 never 50 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.3, 2): right 17 early 11 between 1 never 71 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.3, 3): right 3 early 6 between 1 never 90 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.5, 1): right 18 early 11 between 1 never 70 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.5, 2): right 10 early 8 between 1 never 81 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.5, 3): right 1 early 4 between 1 never 94 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.7, 1): right 9 early 6 between 1 never 84 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.7, 2): right 3 early 2 between 1 never 94 of 100
+   ('finetune_classes (class head, square-root weights)', 'fixed', 0.7, 3): right 0 early 0 between 1 never 99 of 100
+   ('finetune_mirror (class head, half mirrored)', 'tuned_'): right 33 early 20 between 2 never 20 of 75
+   ('finetune_mirror (class head, half mirrored)', 'tuned_two_'): right 36 early 19 between 1 never 19 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.3, 1): right 33 early 17 between 3 never 22 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.3, 2): right 34 early 14 between 1 never 26 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.3, 3): right 16 early 6 between 1 never 52 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.5, 1): right 35 early 11 between 2 never 27 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.5, 2): right 31 early 6 between 1 never 37 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.5, 3): right 13 early 3 between 1 never 58 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.7, 1): right 24 early 1 between 1 never 49 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.7, 2): right 17 early 0 between 1 never 57 of 75
+   ('finetune_mirror (class head, half mirrored)', 'fixed', 0.7, 3): right 2 early 0 between 1 never 72 of 75
+
+######## Twist (forearm change per step, degrees), rows that are not the stop row
+   final_candidate (exact,  sheet 01: rows 624; slope of predicted on demonstrated 0.15; mean |predicted| / mean |demonstrated| 0.52; mean signed error +0.32 deg per step; open-loop sum over an episode, absolute difference median 11 deg, 90th percentile 54; demonstrated |forearm| max 104.6 deg, rows beyond 110 deg 0
+   final_candidate (exact,  sheet 02: rows 2625; slope of predicted on demonstrated 0.40; mean |predicted| / mean |demonstrated| 1.06; mean signed error +0.35 deg per step; open-loop sum over an episode, absolute difference median 49 deg, 90th percentile 136; demonstrated |forearm| max 118.9 deg, rows beyond 110 deg 52
+   finetune_exact (exact, b sheet 03: rows 4014; slope of predicted on demonstrated 0.45; mean |predicted| / mean |demonstrated| 0.68; mean signed error +0.21 deg per step; open-loop sum over an episode, absolute difference median 35 deg, 90th percentile 65; demonstrated |forearm| max 118.8 deg, rows beyond 110 deg 107
+   finetune_exact (exact, b sheet 05: rows 2639; slope of predicted on demonstrated 0.18; mean |predicted| / mean |demonstrated| 0.53; mean signed error -0.39 deg per step; open-loop sum over an episode, absolute difference median 75 deg, 90th percentile 165; demonstrated |forearm| max 118.8 deg, rows beyond 110 deg 16
+   finetune_exact (exact, b sheet 06: rows 1957; slope of predicted on demonstrated 0.27; mean |predicted| / mean |demonstrated| 0.50; mean signed error +0.22 deg per step; open-loop sum over an episode, absolute difference median 39 deg, 90th percentile 77; demonstrated |forearm| max 119.4 deg, rows beyond 110 deg 78

@@ -1,0 +1,133 @@
+cleaned rows: 18430 episodes: 208 stop rows: 208
+
+================ E recipe (2026-11-10_resnet18_chunk_stop_weight_25): 17964 scored rows, 207 episodes ================
+a) project's stop_metrics, 0.5 twice in a row: stopped right 103, early 27, never 69 of 207 episodes
+   my own rule (right: within 2 cm of the goal; early: more than 5 cm before it): {'right': 103, 'never': 69, 'between': 20, 'early': 15}
+   as recorded, by the wrist at the episode's end:
+outcome                between  early  never  right  episodes  right_share
+end_group                                                                 
+above (more than 5.7)        2      2     18     10        32        0.312
+below (more than 5.7)        5      1     26     51        83        0.614
+within 5.7 of 13.5          13     12     25     42        92        0.457
+   split by start kind (True: start mark):
+                                     episodes  right  right_share
+is_start_mark end_group                                          
+False         above (more than 5.7)         7      4        0.571
+              below (more than 5.7)        50     30        0.600
+              within 5.7 of 13.5            3      3        1.000
+True          above (more than 5.7)        25      6        0.240
+              below (more than 5.7)        33     21        0.636
+              within 5.7 of 13.5           89     39        0.438
+   start-mark episodes by sheet:
+sheet                   path_01                                  path_02                                                        path_03                                                        path_04                                                        path_05                                                        path_06                                         
+end_group below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5
+episodes                      6                  8                     1                     8                 26                     3                     6                 21                     3                     8                 19                     3                     4                 13                    15                     1                  2
+right                         5                  5                     1                     2                  5                     2                     6                 17                     0                     6                 10                     1                     1                  2                     2                     1                  0
+b) stop rows as recorded: share with a stop chance of 0.5 or more
+                    rows  would_stop  mean_chance
+group                                            
+above                 32       0.438        0.393
+below                 83       0.783        0.736
+within 5.7 of 13.5    92       0.793        0.717
+   without sheet 06:
+                    rows  would_stop
+group                               
+above                 11       0.545
+below                 82       0.780
+within 5.7 of 13.5    89       0.798
+c) lean output: 17757 steps; predicted mean 0.430 sd 0.602; label mean 0.489 sd 1.297; correlation 0.382; sign right on 81.8 % of the 11419 steps with a label of 0.5 degrees or more
+   share of those labels that are positive (a constant 'always forward' answer scores this): 73.5 %
+   steps in which the wrist moved by more than 1 degree: 582; predicted lean against the wrist's own change there: correlation -0.125
+   hand output: mean 0.014, 1st to 99th percentile -0.060 to 0.061 degrees per step
+d) wrist steps in place (tip under 2 mm, twist under 0.5 degrees): 9; lean label per degree of wrist there: nan
+   start-mark episodes (15590 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 11.3 degrees (median 8.7, 90th 24.5); constant 13.5: 3.4 (median 0.8, 90th 11.1)
+   taught-start episodes (2374 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 18.6 degrees (median 18.7, 90th 32.0); constant 13.5: 16.2 (median 18.6, 90th 24.5)
+   start-mark episodes, at the last row: followed wrist minus demonstrated: median +0.4, 5th -43.1, 95th +29.2 degrees
+
+================ E recipe seed 2 (2026-11-10_resnet18_chunk_stop_weight_25_seed_2): 17964 scored rows, 207 episodes ================
+a) project's stop_metrics, 0.5 twice in a row: stopped right 105, early 39, never 49 of 207 episodes
+   my own rule (right: within 2 cm of the goal; early: more than 5 cm before it): {'right': 105, 'never': 49, 'between': 28, 'early': 25}
+   as recorded, by the wrist at the episode's end:
+outcome                between  early  never  right  episodes  right_share
+end_group                                                                 
+above (more than 5.7)        2      7     14      9        32        0.281
+below (more than 5.7)        8      7     15     53        83        0.639
+within 5.7 of 13.5          18     11     20     43        92        0.467
+   split by start kind (True: start mark):
+                                     episodes  right  right_share
+is_start_mark end_group                                          
+False         above (more than 5.7)         7      2        0.286
+              below (more than 5.7)        50     33        0.660
+              within 5.7 of 13.5            3      1        0.333
+True          above (more than 5.7)        25      7        0.280
+              below (more than 5.7)        33     20        0.606
+              within 5.7 of 13.5           89     42        0.472
+   start-mark episodes by sheet:
+sheet                   path_01                                  path_02                                                        path_03                                                        path_04                                                        path_05                                                        path_06                                         
+end_group below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5
+episodes                      6                  8                     1                     8                 26                     3                     6                 21                     3                     8                 19                     3                     4                 13                    15                     1                  2
+right                         5                  7                     1                     2                  6                     1                     6                 16                     1                     5                 10                     1                     2                  3                     3                     0                  0
+b) stop rows as recorded: share with a stop chance of 0.5 or more
+                    rows  would_stop  mean_chance
+group                                            
+above                 32       0.594        0.469
+below                 83       0.843        0.823
+within 5.7 of 13.5    92       0.750        0.713
+   without sheet 06:
+                    rows  would_stop
+group                               
+above                 11       0.909
+below                 82       0.854
+within 5.7 of 13.5    89       0.764
+c) lean output: 17757 steps; predicted mean 0.412 sd 0.571; label mean 0.489 sd 1.297; correlation 0.372; sign right on 80.4 % of the 11419 steps with a label of 0.5 degrees or more
+   share of those labels that are positive (a constant 'always forward' answer scores this): 73.5 %
+   steps in which the wrist moved by more than 1 degree: 582; predicted lean against the wrist's own change there: correlation -0.107
+   hand output: mean 0.016, 1st to 99th percentile -0.031 to 0.073 degrees per step
+d) wrist steps in place (tip under 2 mm, twist under 0.5 degrees): 9; lean label per degree of wrist there: nan
+   start-mark episodes (15590 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 12.8 degrees (median 9.9, 90th 29.1); constant 13.5: 3.4 (median 0.8, 90th 11.1)
+   taught-start episodes (2374 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 17.3 degrees (median 17.2, 90th 30.3); constant 13.5: 16.2 (median 18.6, 90th 24.5)
+   start-mark episodes, at the last row: followed wrist minus demonstrated: median -7.3, 5th -40.5, 95th +38.6 degrees
+
+================ A recipe (2026-11-09_resnet18_final_candidate): 17964 scored rows, 207 episodes ================
+a) project's stop_metrics, 0.5 twice in a row: stopped right 92, early 30, never 80 of 207 episodes
+   my own rule (right: within 2 cm of the goal; early: more than 5 cm before it): {'right': 92, 'never': 80, 'between': 20, 'early': 15}
+   as recorded, by the wrist at the episode's end:
+outcome                between  early  never  right  episodes  right_share
+end_group                                                                 
+above (more than 5.7)        1      1     22      8        32        0.250
+below (more than 5.7)        5      5     26     47        83        0.566
+within 5.7 of 13.5          14      9     32     37        92        0.402
+   split by start kind (True: start mark):
+                                     episodes  right  right_share
+is_start_mark end_group                                          
+False         above (more than 5.7)         7      3        0.429
+              below (more than 5.7)        50     29        0.580
+              within 5.7 of 13.5            3      2        0.667
+True          above (more than 5.7)        25      5        0.200
+              below (more than 5.7)        33     18        0.545
+              within 5.7 of 13.5           89     35        0.393
+   start-mark episodes by sheet:
+sheet                   path_01                                  path_02                                                        path_03                                                        path_04                                                        path_05                                                        path_06                                         
+end_group below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5 above (more than 5.7) below (more than 5.7) within 5.7 of 13.5
+episodes                      6                  8                     1                     8                 26                     3                     6                 21                     3                     8                 19                     3                     4                 13                    15                     1                  2
+right                         6                  6                     1                     2                  7                     1                     6                 11                     0                     2                  8                     2                     2                  3                     1                     0                  0
+b) stop rows as recorded: share with a stop chance of 0.5 or more
+                    rows  would_stop  mean_chance
+group                                            
+above                 32       0.344        0.335
+below                 83       0.759        0.671
+within 5.7 of 13.5    92       0.652        0.579
+   without sheet 06:
+                    rows  would_stop
+group                               
+above                 11       0.545
+below                 82       0.768
+within 5.7 of 13.5    89       0.663
+c) lean output: 17757 steps; predicted mean 0.435 sd 0.566; label mean 0.489 sd 1.297; correlation 0.395; sign right on 81.1 % of the 11419 steps with a label of 0.5 degrees or more
+   share of those labels that are positive (a constant 'always forward' answer scores this): 73.5 %
+   steps in which the wrist moved by more than 1 degree: 582; predicted lean against the wrist's own change there: correlation -0.068
+   hand output: mean 0.015, 1st to 99th percentile -0.029 to 0.049 degrees per step
+d) wrist steps in place (tip under 2 mm, twist under 0.5 degrees): 9; lean label per degree of wrist there: nan
+   start-mark episodes (15590 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 9.7 degrees (median 7.4, 90th 21.6); constant 13.5: 3.4 (median 0.8, 90th 11.1)
+   taught-start episodes (2374 rows): mean distance to the demonstrated wrist: following the lean output from 13.5: 17.7 degrees (median 17.4, 90th 31.0); constant 13.5: 16.2 (median 18.6, 90th 24.5)
+   start-mark episodes, at the last row: followed wrist minus demonstrated: median -4.1, 5th -23.6, 95th +27.4 degrees

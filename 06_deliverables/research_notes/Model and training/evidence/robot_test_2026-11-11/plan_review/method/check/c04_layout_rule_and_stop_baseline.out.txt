@@ -1,0 +1,50 @@
+A. Line beyond the camera's reach by lay-out rule (calculated placements of the orientation analyst; cm of line)
+   the six course sheets
+   shape end  line_cm  as_recorded_110  as_recorded_140  gentlest_110  gentlest_140  rule_0_110  rule_0_140  rule_0_start_deg rule_0_family  any_start_110  any_start_deg
+sheet_01   A     23.0              0.0              0.0           0.0           0.0         0.0         0.0             -30.0          mark            0.0          -30.0
+sheet_01   B     23.0              0.0              0.0           0.0           0.0         0.0         0.0             -30.0          mark            0.0          -30.0
+sheet_02   A     31.0              0.0              0.0           0.0           0.0         0.0         0.0             -60.0          mark            0.0         -105.0
+sheet_02   B     31.0              0.0              0.0           5.0           0.0         0.0         0.0              -0.0          mark            0.0           -0.0
+sheet_03   A     51.0              NaN              NaN          15.0           0.0         9.0         6.0             -15.0          mark            9.0          -15.0
+sheet_03   B     51.0              8.0              0.0           9.0           0.0         6.0         0.0              45.0          mark            6.0           45.0
+sheet_04   A     72.0             13.0              7.0          17.0           0.0        10.0         4.0              22.0        centre           10.0           22.0
+sheet_04   B     72.0             16.0             11.0          21.0           8.0        14.0         9.0              15.0          mark           14.0           15.0
+sheet_05   A     57.0             15.0              7.0          15.0           6.0        14.0         7.0             -10.0        centre           14.0          -10.0
+sheet_05   B     57.0             15.0              9.0          13.0           4.0        11.0         4.0             -45.0        centre           10.0          -75.0
+sheet_06   A     47.0             17.0             11.0          10.0           3.0         9.0         4.0             -56.0        centre            8.0          -71.0
+sheet_06   B     47.0             18.0             17.0          11.0           3.0        15.0         8.0              60.0          mark           10.0           84.0
+   line leaves straight away on the start mark (as recorded): 11 of 12 shape ends possible; beyond 110 degrees 102 of 511 cm (20.0 %); beyond 140 degrees 62 cm (12.1 %)
+   the analyst's gentlest placement (fewest cm beyond 140): 12 of 12 shape ends possible; beyond 110 degrees 116 of 562 cm (20.6 %); beyond 140 degrees 24 cm (4.3 %)
+   the critic's rule 0 (start within 60 degrees, fewest cm beyond 110): 12 of 12 shape ends possible; beyond 110 degrees 88 of 562 cm (15.7 %); beyond 140 degrees 42 cm (7.5 %)
+   any start direction, fewest cm beyond 110: 81 of 562 cm (14.4 %)
+
+   the six practice tracks of 10.11
+      shape end  line_cm  as_recorded_110  as_recorded_140  gentlest_110  gentlest_140  rule_0_110  rule_0_140  rule_0_start_deg rule_0_family  any_start_110  any_start_deg
+practice_01   A     35.0              NaN              NaN          12.0           4.0        10.0         7.0             -53.0        centre           10.0          -53.0
+practice_01   B     35.0              NaN              NaN          14.0           3.0        12.0         7.0             -55.0        centre            9.0         -175.0
+practice_02   A     31.0              9.0              7.0          12.0           0.0         7.0         4.0              60.0          mark            5.0           91.0
+practice_02   B     31.0              NaN              NaN           7.0           0.0        10.0         6.0              47.0        centre            2.0         -133.0
+practice_03   A     25.0              0.0              0.0           0.0           0.0         0.0         0.0             -15.0          mark            0.0          -15.0
+practice_03   B     25.0              0.0              0.0           0.0           0.0         0.0         0.0             -30.0          mark            0.0          -30.0
+practice_04   A     41.0             11.0              6.0          11.0           6.0        11.0         6.0               0.0          mark           11.0            0.0
+practice_04   B     41.0              NaN              NaN          11.0           6.0        11.0         6.0             -11.0        centre           11.0          -11.0
+practice_05   A     42.0             14.0             11.0          18.0           3.0        13.0        10.0              11.0        centre           13.0           11.0
+practice_05   B     42.0              NaN              NaN          16.0           5.0        12.0         7.0              54.0        centre           12.0           54.0
+practice_06   A     36.0             15.0             11.0          13.0           0.0         7.0         0.0              52.0        centre            0.0           67.0
+practice_06   B     36.0             15.0             12.0          10.0           0.0         8.0         1.0             -58.0        centre            3.0          -88.0
+   line leaves straight away on the start mark (as recorded): 7 of 12 shape ends possible; beyond 110 degrees 64 of 236 cm (27.1 %); beyond 140 degrees 47 cm (19.9 %)
+   the analyst's gentlest placement (fewest cm beyond 140): 12 of 12 shape ends possible; beyond 110 degrees 124 of 420 cm (29.5 %); beyond 140 degrees 27 cm (6.4 %)
+   the critic's rule 0 (start within 60 degrees, fewest cm beyond 110): 12 of 12 shape ends possible; beyond 110 degrees 101 of 420 cm (24.0 %); beyond 140 degrees 54 cm (12.9 %)
+   any start direction, fewest cm beyond 110: 76 of 420 cm (18.1 %)
+
+B. The stop per sheet, recipe E on sheets never seen: the project's rule (0.5, two in a row) and the same with a stop-like last picture counted
+   01 (20 episodes): right / early / 2 to 3 cm before / never   15 /  2 /  2 /  1   |   last picture counted   15 /  2 /  2 /  1
+   02 (45 episodes): right / early / 2 to 3 cm before / never   12 /  1 /  3 / 29   |   last picture counted   23 /  1 /  3 / 18
+   03 (45 episodes): right / early / 2 to 3 cm before / never   33 /  3 /  1 /  8   |   last picture counted   38 /  3 /  1 /  3
+   04 (45 episodes): right / early / 2 to 3 cm before / never   29 /  8 /  2 /  6   |   last picture counted   31 /  8 /  2 /  4
+   05 (29 episodes): right / early / 2 to 3 cm before / never    6 / 11 /  0 / 12   |   last picture counted    9 / 11 /  0 /  9
+   06 (25 episodes): right / early / 2 to 3 cm before / never    8 /  2 /  0 / 15   |   last picture counted   11 /  2 /  0 / 12
+   all (209 episodes):                                     103 / 27 /  8 / 71   |   last picture counted  127 / 27 /  8 / 47
+
+   direction on the rows just BEFORE a hand correction (the replay had gone wrong there; their labels still say what the first guiding did)
+   the 5 rows before a hand correction: 1122 moving rows (7.0 % of all moving rows); direction within 45 degrees of the label 65.2 %; all moving rows 67.0 %

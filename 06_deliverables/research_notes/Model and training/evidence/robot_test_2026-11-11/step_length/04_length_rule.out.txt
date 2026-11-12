@@ -1,0 +1,147 @@
+THE RULE (LENGTH_RULE_PARAMETERS)
+   length_gain: 1.0
+   twist_gain: 1.0
+   step_most_cm: 1.2
+   smallest_direction_cm: 0.05
+   twist_step_most_deg: 10.0
+   stall_window: 6
+   stall_net_move_cm: 1.0
+   stall_net_turn_deg: 10.0
+   stall_stop_chance: 0.25
+   nudge_cm: 0.5
+   nudges_most: 3
+   step_budget: 400
+   replayed_runs: [5, 9, 10]
+   decisions_replayed: 15
+   sure_direction_cm: 0.7
+
+THE NUMBERS BEHIND THE CLAMP AND THE BUDGET [measured: frames.csv and the ten steps.csv]
+   demonstrated steps (frames.csv as recorded, without stop rows and the steps over 2 cm): 74.5 % are 1.2 cm or shorter; real moves (0.3 cm or more): median 1.09 cm, 75th percentile 1.23, 90th 1.37
+   asked on the robot (545 moves of the ten runs): over 1.2 cm on 1.10 %, under 0.05 cm on 0.55 %; largest 1.26 cm
+   longest demonstration: 209 cm of tip path in 222 rows (path_04); at the mean length the fold models predict on unseen sheets (0.65 to 0.67 cm, script 03) that path takes about 317 decisions, so the budget of 250 is too small: 400
+
+PACE: what the rule does to the number of decisions [calculated from the logged answers]
+ run sheet outcome  moves_done  path_done_cm  mean_rule_step_cm  decisions_for_the_same_path  twist_per_cm_done  twist_per_cm_rule
+   1    01    held          25         24.88               0.94                        26.49               1.05               1.11
+   2    01    held          24         24.22               1.07                        22.70               0.38               0.36
+   3    02  failed          38         37.08               0.61                        60.87               2.45               3.92
+   4    02    held          41         40.48               0.80                        50.41               2.01               2.47
+   5    03  failed          59         59.30               0.54                       109.84               3.16               5.88
+   6    04  failed          68         67.80               0.38                       177.29               1.38               3.59
+   7    05    held          88         87.75               0.78                       112.08               2.78               3.53
+   8    06  failed          40         39.97               0.80                        49.77               2.60               3.24
+   9    03  failed          89         89.19               0.50                       180.04               3.28               6.63
+  10    03  failed          73         72.42               0.51                       141.12               2.93               5.66
+
+WHICH DIRECTION WHEN THE PREDICTED STEP IS SHORT [measured offline: fold models on held-out sheets, against the demonstrated path over the next 5 rows]
+  recipe                     band  rows  current_direction_median_error_deg  current_direction_within_45  last_sure_direction_median_error_deg  last_sure_direction_within_45
+E_recipe  predicted under 0.15 cm   139                               56.91                         0.37                                 74.85                           0.36
+E_recipe   predicted under 0.3 cm   714                               45.07                         0.50                                 71.56                           0.34
+E_recipe  predicted 0.3 to 0.5 cm  2702                               29.91                         0.68                                 62.90                           0.36
+E_recipe  predicted 0.5 to 0.7 cm  5919                               24.52                         0.78                                 46.25                           0.49
+E_recipe predicted 0.7 cm or more  7953                               13.39                         0.90                                 17.98                           0.82
+  recipe                     band  rows  current_direction_median_error_deg  current_direction_within_45  last_sure_direction_median_error_deg  last_sure_direction_within_45
+A_recipe  predicted under 0.15 cm   162                               58.13                         0.40                                 86.45                           0.26
+A_recipe   predicted under 0.3 cm  1133                               44.22                         0.50                                 79.99                           0.29
+A_recipe  predicted 0.3 to 0.5 cm  3565                               30.29                         0.67                                 61.64                           0.38
+A_recipe  predicted 0.5 to 0.7 cm  5504                               23.81                         0.77                                 43.96                           0.51
+A_recipe predicted 0.7 cm or more  7086                               13.81                         0.88                                 18.25                           0.80
+   so a stale direction is worse than the model's current one: the nudge follows the model's current answers, and the driver's old rule 'a direction under 0.05 cm keeps the last direction' has no support
+
+THE FIRST 15 DECISIONS OF RUNS 5, 9 AND 10 UNDER THE RULE [calculated, open loop: later pictures would differ]
+--- run 5 (model E)
+ step  asked_cm  asked_angle_deg  twist_deg  rule_cm kind  done_cm  travel_cm  done_travel_cm  turn_deg  done_turn_deg
+    0      0.71             1.16       1.62     0.71 step     1.00       0.00            0.00      0.00           0.00
+    1      0.73            -0.24       0.87     0.73 step     0.97       0.71            1.00      1.62           1.58
+    2      0.58           -21.96      -1.62     0.58 step     1.02       1.44            1.97      2.49           2.46
+    3      0.47           -54.05      -5.73     0.47 step     1.00       2.03            2.99      0.87           0.88
+    4      0.45           -49.67      -5.93     0.45 step     0.99       2.50            3.99     -4.86          -4.92
+    5      0.44           -44.87      -6.19     0.44 step     1.00       2.95            4.99    -10.78         -10.99
+    6      0.43           -30.78      -5.45     0.43 step     1.00       3.39            5.99    -16.97         -17.23
+    7      0.42           -30.82      -5.40     0.42 step     0.99       3.81            6.99    -22.42         -22.76
+    8      0.43           -20.15      -5.03     0.43 step     1.02       4.24            7.98    -27.83         -28.30
+    9      0.44           -22.00      -5.35     0.44 step     1.02       4.67            9.01    -32.86         -33.40
+   10      0.35           -21.43      -5.45     0.35 step     1.00       5.11           10.03    -38.21         -38.85
+   11      0.18            20.12      -4.59     0.18 step     0.99       5.46           11.03    -43.66         -44.38
+   12      0.20             9.74      -4.57     0.20 step     0.98       5.64           12.01    -48.25         -49.04
+   13      0.36            75.68      -2.54     0.36 step     1.01       5.84           13.00    -52.81         -53.70
+   14      0.60           101.15      -1.26     0.60 step     0.99       6.20           14.01    -55.35         -56.51
+after 15 decisions: the rule has moved the tip 6.8 cm along its path (net 4.4 cm from the start) and turned the forearm -57 degrees; the driver of 11.11.26 moved it 15.0 cm (net 9.5 cm) with the same turn (-58 degrees measured); rule steps 0.18 to 0.73 cm, 0 decisions that were not plain steps; turn per cm: rule 8.3, done 3.8 degrees per cm
+
+--- run 9 (model E)
+ step  asked_cm  asked_angle_deg  twist_deg  rule_cm kind  done_cm  travel_cm  done_travel_cm  turn_deg  done_turn_deg
+    0      0.71           -15.43      -3.70     0.71 step     1.03       0.00            0.00      0.00           0.00
+    1      0.70           -13.05      -4.10     0.70 step     1.01       0.71            1.03     -3.70          -3.78
+    2      0.52           -31.46      -5.84     0.52 step     1.00       1.41            2.04     -7.80          -8.00
+    3      0.49           -30.62      -5.96     0.49 step     0.99       1.92            3.05    -13.64         -13.89
+    4      0.46           -37.92      -6.18     0.46 step     1.00       2.41            4.03    -19.61         -20.04
+    5      0.44           -43.50      -5.58     0.44 step     1.02       2.87            5.04    -25.78         -26.19
+    6      0.40           -36.32      -5.26     0.40 step     1.02       3.30            6.06    -31.37         -31.90
+    7      0.37           -24.36      -5.10     0.37 step     1.02       3.70            7.07    -36.63         -37.27
+    8      0.39           -19.20      -5.23     0.39 step     1.01       4.07            8.09    -41.73         -42.45
+    9      0.35            -7.97      -5.60     0.35 step     1.01       4.46            9.10    -46.95         -47.72
+   10      0.34            27.18      -5.92     0.34 step     1.00       4.82           10.11    -52.55         -53.35
+   11      0.39            43.72      -5.59     0.39 step     1.02       5.16           11.11    -58.47         -59.33
+   12      0.50            42.34      -4.64     0.50 step     0.98       5.55           12.13    -64.06         -65.13
+   13      0.51            48.34      -3.66     0.51 step     1.00       6.04           13.11    -68.71         -69.96
+   14      0.58            67.53      -1.66     0.58 step     0.98       6.55           14.11    -72.37         -73.74
+after 15 decisions: the rule has moved the tip 7.1 cm along its path (net 3.9 cm from the start) and turned the forearm -74 degrees; the driver of 11.11.26 moved it 15.1 cm (net 8.6 cm) with the same turn (-75 degrees measured); rule steps 0.34 to 0.71 cm, 0 decisions that were not plain steps; turn per cm: rule 10.4, done 5.0 degrees per cm
+
+--- run 10 (model B)
+ step  asked_cm  asked_angle_deg  twist_deg  rule_cm kind  done_cm  travel_cm  done_travel_cm  turn_deg  done_turn_deg
+    0      0.72           -11.74       1.92     0.72 step     1.00       0.00            0.00      0.00           0.00
+    1      0.73           -22.42      -1.35     0.73 step     0.97       0.72            1.00      1.92           1.93
+    2      0.61           -43.60      -4.65     0.61 step     1.00       1.45            1.97      0.57           0.62
+    3      0.50           -57.68      -6.70     0.50 step     0.99       2.06            2.97     -4.08          -4.13
+    4      0.43           -57.16      -7.46     0.43 step     0.98       2.56            3.96    -10.77         -10.99
+    5      0.38           -45.94      -7.17     0.38 step     0.99       2.99            4.95    -18.23         -18.63
+    6      0.34           -41.15      -6.66     0.34 step     0.99       3.37            5.93    -25.40         -25.84
+    7      0.22           -24.85      -5.67     0.22 step     1.00       3.71            6.92    -32.07         -32.61
+    8      0.13            15.41      -5.08     0.13 step     0.99       3.93            7.92    -37.73         -38.32
+    9      0.19            62.38      -4.18     0.19 step     0.98       4.06            8.91    -42.81         -43.51
+   10      0.24            -5.50      -4.99     0.24 step     0.97       4.25            9.89    -46.99         -47.81
+   11      0.26            19.32      -4.41     0.26 step     0.97       4.49           10.85    -51.98         -53.00
+   12      0.41            18.71      -3.17     0.41 step     0.97       4.75           11.82    -56.39         -57.39
+   13      0.55            31.08      -1.09     0.55 step     0.98       5.17           12.79    -59.56         -60.64
+   14      0.67            51.54       3.00     0.67 step     1.00       5.71           13.78    -60.64         -61.79
+after 15 decisions: the rule has moved the tip 6.4 cm along its path (net 3.4 cm from the start) and turned the forearm -58 degrees; the driver of 11.11.26 moved it 14.8 cm (net 8.2 cm) with the same turn (-59 degrees measured); rule steps 0.13 to 0.73 cm, 0 decisions that were not plain steps; turn per cm: rule 9.0, done 4.0 degrees per cm
+
+THE STALL GUARD ON THE TEN LOGGED RUNS [calculated, open loop]
+ run sheet outcome  pictures_logged  decisions_replayed              ends_as  nudges  first_nudge_at  twist_only_decisions  rule_travel_cm  done_travel_cm
+   1    01    held               26                  26                 stop       0             NaN                     0            23.5            24.9
+   2    01    held               25                  25                 stop       0             NaN                     0            25.6            24.2
+   3    02  failed               38                  38             log ends       0             NaN                     0            23.1            37.1
+   4    02    held               42                  42                 stop       0             NaN                     0            32.9            40.5
+   5    03  failed               60                  60                 stop       0             NaN                     0            31.9            59.3
+   6    04  failed               69                  42              stalled       3            23.0                     3            17.6            42.0
+   7    05    held               89                  89                 stop       0             NaN                     0            68.9            87.7
+   8    06  failed               41                  41                 stop       0             NaN                     0            32.1            40.0
+   9    03  failed               90                  90                 stop       1            87.0                     0            44.2            89.2
+  10    03  failed               74                  61 stalled near the end       0             NaN                     0            31.5            60.4
+run 6, decisions 19 to 50 (the hairpin): asked median 0.16 cm, largest 0.42; twist asked median size 0.85 degrees; the driver moved 32.0 cm back and forth, net 1.7 cm; under the rule the replay reaches decision 41 and ends as 'stalled'
+ step  asked_cm  rule_cm       kind  twist_deg  tip_x_cm  tip_y_cm  stop_chance
+   17      0.55     0.55       step      -3.24     29.17      1.12         0.00
+   18      0.35     0.35       step      -1.99     29.35      0.60         0.00
+   19      0.16     0.16       step       1.77     29.40      0.26         0.01
+   20      0.20     0.20       step      -1.00     29.36      0.41         0.00
+   21      0.03     0.00 twist only      -0.18     29.36      0.21         0.00
+   22      0.36     0.36       step       1.47     29.36      0.21         0.00
+   23      0.23     0.50      nudge       1.18     29.34      0.57         0.00
+   24      0.23     0.23       step      -1.07     29.24      1.06         0.00
+   25      0.05     0.05       step      -0.78     29.18      0.84         0.00
+   26      0.16     0.16       step      -0.54     29.18      0.79         0.00
+   27      0.19     0.19       step       0.22     29.26      0.93         0.00
+   28      0.03     0.00 twist only      -0.19     29.32      1.11         0.00
+   29      0.20     0.50      nudge      -0.93     29.32      1.11         0.00
+   30      0.07     0.07       step       0.38     29.54      0.66         0.01
+   31      0.13     0.13       step      -0.54     29.48      0.71         0.00
+   32      0.09     0.09       step       0.36     29.51      0.58         0.00
+   33      0.09     0.09       step      -0.76     29.48      0.67         0.00
+   34      0.07     0.07       step      -0.91     29.46      0.58         0.00
+   35      0.14     0.50      nudge       0.76     29.47      0.51         0.00
+   36      0.20     0.20       step      -1.40     28.98      0.44         0.00
+   37      0.06     0.06       step       0.65     29.02      0.24         0.00
+   38      0.23     0.23       step      -2.39     28.99      0.28         0.00
+   39      0.03     0.00 twist only       0.58     29.09      0.07         0.01
+   40      0.34     0.34       step       1.42     29.09      0.07         0.00
+   41      0.29     0.00    stalled       1.42     28.98      0.39         0.00

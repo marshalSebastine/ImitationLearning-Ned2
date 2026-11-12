@@ -1,0 +1,214 @@
+
+=== A recipe (2026-11-09_resnet18_final_candidate) ===
+Pictures scored 13766; path within 45 degrees: all pictures 0.776, mean of the six sheets 0.792 (always forward 0.609)
+By how many training pictures (of the other five sheets) the picture's travel cell held:
+                 cells  pictures  path_within_45  always_forward
+training_bin                                                    
+(-0.001, 50.0]      75       475           0.648           0.305
+(50.0, 150.0]       29       771           0.768           0.276
+(150.0, 400.0]     171      8399           0.749           0.495
+(400.0, 1000.0]     43      4121           0.847           0.867
+  rank correlation between a cell's training pictures and its score, over 187 sheet cells of 20 pictures or more: +0.17
+By travel direction from radial (all reaches):
+direction_bin    -150.0   -120.0   -90.0    -60.0     -30.0      0.0       30.0     60.0      90.0     120.0    150.0   180.0
+pictures        884.000  734.000  853.000  904.000  1299.000  2946.000  1637.000  894.000  1129.000  814.000  762.000  910.00
+path_within_45    0.705    0.657    0.742    0.791     0.815     0.854     0.859    0.757     0.741    0.700    0.714    0.68
+always_forward    0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.00
+By reach (cm):
+reach_bin       12 to 20  20 to 27.5  27.5 to 35  35 to 42.5  42.5 to 49.5
+pictures        1377.000    3660.000    4654.000    3754.000       321.000
+path_within_45     0.904       0.802       0.758       0.738         0.629
+always_forward     0.758       0.668       0.550       0.511         0.380
+By where the path lies in the picture (degrees off its top):
+path_in_picture  (-0.001, 30.0]  (30.0, 60.0]  (60.0, 120.0]  (120.0, 180.0]
+pictures               6645.000      2516.000       3452.000         1153.00
+path_within_45            0.867         0.759          0.711            0.48
+always_forward            1.000         0.574          0.000            0.00
+By forearm twist (degrees, either side):
+twist           (-0.001, 30.0]  (30.0, 60.0]  (60.0, 90.0]  (90.0, 120.0]
+pictures              4875.000      3730.000      3664.000       1497.000
+path_within_45           0.809         0.755         0.760          0.758
+always_forward           0.711         0.546         0.494          0.517
+By how many episodes share the picture's measured lay-out (the held-out sheet is unseen in every lay-out):
+                 pictures  episodes  path_within_45  always_forward
+layout_size                                                        
+1 to 2 episodes      2042        30           0.751           0.579
+3 to 5               1864        42           0.782           0.624
+6 to 10              2326        28           0.790           0.609
+over 10              7534       109           0.777           0.574
+Sheet 02 held out, by start kind (all rows, and the first 10 rows):
+                   pictures  episodes  path_within_45  always_forward  first_rows_pictures  first_rows_path_within_45  first_rows_always_forward
+kind                                                                                                                                            
+SQL                     516        10           0.756           0.595                   76                      0.921                      0.526
+SQP                     335         6           0.779           0.690                   39                      0.615                      0.744
+other start kinds      1255        29           0.755           0.681                  258                      0.922                      0.849
+All six held-out sheets, the first 10 rows of every episode, by kind of start:
+                              pictures  episodes  path_within_45  always_forward  path_off_picture_top_median
+start                                                                                                        
+puck beside the line               282        35           0.784           0.433                       49.690
+sheet turned 10 or 15              225        25           0.991           0.916                       13.910
+square, landscape (sheet 02)        76        10           0.921           0.526                       38.925
+square, portrait (sheet 02)         39         6           0.615           0.744                       28.748
+standard                           635        72           0.991           0.948                       12.955
+taught start                       510        61           0.782           0.790                       14.935
+
+=== A recipe, seed 2 (2026-11-09_resnet18_final_candidate_seed_2) ===
+Pictures scored 13766; path within 45 degrees: all pictures 0.767, mean of the six sheets 0.777 (always forward 0.609)
+By how many training pictures (of the other five sheets) the picture's travel cell held:
+                 cells  pictures  path_within_45  always_forward
+training_bin                                                    
+(-0.001, 50.0]      75       475           0.619           0.305
+(50.0, 150.0]       29       771           0.703           0.276
+(150.0, 400.0]     171      8399           0.737           0.495
+(400.0, 1000.0]     43      4121           0.858           0.867
+  rank correlation between a cell's training pictures and its score, over 187 sheet cells of 20 pictures or more: +0.25
+By travel direction from radial (all reaches):
+direction_bin    -150.0   -120.0   -90.0    -60.0     -30.0      0.0       30.0     60.0      90.0     120.0    150.0    180.0
+pictures        884.000  734.000  853.000  904.000  1299.000  2946.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45    0.661    0.634    0.701    0.758     0.813     0.866     0.868    0.777     0.711    0.697    0.723    0.647
+always_forward    0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+By reach (cm):
+reach_bin       12 to 20  20 to 27.5  27.5 to 35  35 to 42.5  42.5 to 49.5
+pictures        1377.000    3660.000    4654.000    3754.000       321.000
+path_within_45     0.906       0.779       0.765       0.726         0.564
+always_forward     0.758       0.668       0.550       0.511         0.380
+By where the path lies in the picture (degrees off its top):
+path_in_picture  (-0.001, 30.0]  (30.0, 60.0]  (60.0, 120.0]  (120.0, 180.0]
+pictures               6645.000      2516.000       3452.000        1153.000
+path_within_45            0.867         0.770          0.682           0.441
+always_forward            1.000         0.574          0.000           0.000
+By forearm twist (degrees, either side):
+twist           (-0.001, 30.0]  (30.0, 60.0]  (60.0, 90.0]  (90.0, 120.0]
+pictures              4875.000      3730.000      3664.000       1497.000
+path_within_45           0.799         0.743         0.758          0.749
+always_forward           0.711         0.546         0.494          0.517
+By how many episodes share the picture's measured lay-out (the held-out sheet is unseen in every lay-out):
+                 pictures  episodes  path_within_45  always_forward
+layout_size                                                        
+1 to 2 episodes      2042        30           0.746           0.579
+3 to 5               1864        42           0.776           0.624
+6 to 10              2326        28           0.791           0.609
+over 10              7534       109           0.764           0.574
+Sheet 02 held out, by start kind (all rows, and the first 10 rows):
+                   pictures  episodes  path_within_45  always_forward  first_rows_pictures  first_rows_path_within_45  first_rows_always_forward
+kind                                                                                                                                            
+SQL                     516        10           0.775           0.595                   76                      0.895                      0.526
+SQP                     335         6           0.731           0.690                   39                      0.718                      0.744
+other start kinds      1255        29           0.733           0.681                  258                      0.849                      0.849
+All six held-out sheets, the first 10 rows of every episode, by kind of start:
+                              pictures  episodes  path_within_45  always_forward  path_off_picture_top_median
+start                                                                                                        
+puck beside the line               282        35           0.830           0.433                       49.690
+sheet turned 10 or 15              225        25           0.964           0.916                       13.910
+square, landscape (sheet 02)        76        10           0.895           0.526                       38.925
+square, portrait (sheet 02)         39         6           0.718           0.744                       28.748
+standard                           635        72           0.989           0.948                       12.955
+taught start                       510        61           0.755           0.790                       14.935
+
+=== E recipe (2026-11-10_resnet18_chunk_stop_weight_25) ===
+Pictures scored 13766; path within 45 degrees: all pictures 0.805, mean of the six sheets 0.814 (always forward 0.609)
+By how many training pictures (of the other five sheets) the picture's travel cell held:
+                 cells  pictures  path_within_45  always_forward
+training_bin                                                    
+(-0.001, 50.0]      75       475           0.684           0.305
+(50.0, 150.0]       29       771           0.825           0.276
+(150.0, 400.0]     171      8399           0.774           0.495
+(400.0, 1000.0]     43      4121           0.878           0.867
+  rank correlation between a cell's training pictures and its score, over 187 sheet cells of 20 pictures or more: +0.14
+By travel direction from radial (all reaches):
+direction_bin    -150.0   -120.0   -90.0    -60.0     -30.0      0.0       30.0     60.0      90.0     120.0    150.0    180.0
+pictures        884.000  734.000  853.000  904.000  1299.000  2946.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45    0.766    0.736    0.749    0.796     0.849     0.888     0.878    0.772     0.738    0.716    0.751    0.737
+always_forward    0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+By reach (cm):
+reach_bin       12 to 20  20 to 27.5  27.5 to 35  35 to 42.5  42.5 to 49.5
+pictures        1377.000    3660.000    4654.000    3754.000        321.00
+path_within_45     0.938       0.833       0.793       0.760          0.62
+always_forward     0.758       0.668       0.550       0.511          0.38
+By where the path lies in the picture (degrees off its top):
+path_in_picture  (-0.001, 30.0]  (30.0, 60.0]  (60.0, 120.0]  (120.0, 180.0]
+pictures                6645.00      2516.000       3452.000        1153.000
+path_within_45             0.89         0.782          0.738           0.565
+always_forward             1.00         0.574          0.000           0.000
+By forearm twist (degrees, either side):
+twist           (-0.001, 30.0]  (30.0, 60.0]  (60.0, 90.0]  (90.0, 120.0]
+pictures              4875.000      3730.000      3664.000       1497.000
+path_within_45           0.826         0.799         0.792          0.782
+always_forward           0.711         0.546         0.494          0.517
+By how many episodes share the picture's measured lay-out (the held-out sheet is unseen in every lay-out):
+                 pictures  episodes  path_within_45  always_forward
+layout_size                                                        
+1 to 2 episodes      2042        30           0.782           0.579
+3 to 5               1864        42           0.830           0.624
+6 to 10              2326        28           0.810           0.609
+over 10              7534       109           0.803           0.574
+Sheet 02 held out, by start kind (all rows, and the first 10 rows):
+                   pictures  episodes  path_within_45  always_forward  first_rows_pictures  first_rows_path_within_45  first_rows_always_forward
+kind                                                                                                                                            
+SQL                     516        10           0.812           0.595                   76                      0.947                      0.526
+SQP                     335         6           0.794           0.690                   39                      0.718                      0.744
+other start kinds      1255        29           0.778           0.681                  258                      0.919                      0.849
+All six held-out sheets, the first 10 rows of every episode, by kind of start:
+                              pictures  episodes  path_within_45  always_forward  path_off_picture_top_median
+start                                                                                                        
+puck beside the line               282        35           0.837           0.433                       49.690
+sheet turned 10 or 15              225        25           1.000           0.916                       13.910
+square, landscape (sheet 02)        76        10           0.947           0.526                       38.925
+square, portrait (sheet 02)         39         6           0.718           0.744                       28.748
+standard                           635        72           0.994           0.948                       12.955
+taught start                       510        61           0.818           0.790                       14.935
+
+=== E recipe, seed 2 (2026-11-10_resnet18_chunk_stop_weight_25_seed_2) ===
+Pictures scored 13766; path within 45 degrees: all pictures 0.799, mean of the six sheets 0.806 (always forward 0.609)
+By how many training pictures (of the other five sheets) the picture's travel cell held:
+                 cells  pictures  path_within_45  always_forward
+training_bin                                                    
+(-0.001, 50.0]      75       475           0.672           0.305
+(50.0, 150.0]       29       771           0.782           0.276
+(150.0, 400.0]     171      8399           0.776           0.495
+(400.0, 1000.0]     43      4121           0.864           0.867
+  rank correlation between a cell's training pictures and its score, over 187 sheet cells of 20 pictures or more: +0.16
+By travel direction from radial (all reaches):
+direction_bin    -150.0   -120.0   -90.0    -60.0     -30.0      0.0       30.0     60.0      90.0     120.0    150.0    180.0
+pictures        884.000  734.000  853.000  904.000  1299.000  2946.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45    0.730    0.698    0.748    0.793     0.824     0.883     0.869    0.787     0.751    0.705    0.774    0.745
+always_forward    0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+By reach (cm):
+reach_bin       12 to 20  20 to 27.5  27.5 to 35  35 to 42.5  42.5 to 49.5
+pictures        1377.000    3660.000    4654.000    3754.000       321.000
+path_within_45     0.934       0.844       0.783       0.742         0.598
+always_forward     0.758       0.668       0.550       0.511         0.380
+By where the path lies in the picture (degrees off its top):
+path_in_picture  (-0.001, 30.0]  (30.0, 60.0]  (60.0, 120.0]  (120.0, 180.0]
+pictures               6645.000      2516.000       3452.000        1153.000
+path_within_45            0.881         0.770          0.742           0.563
+always_forward            1.000         0.574          0.000           0.000
+By forearm twist (degrees, either side):
+twist           (-0.001, 30.0]  (30.0, 60.0]  (60.0, 90.0]  (90.0, 120.0]
+pictures              4875.000      3730.000      3664.000       1497.000
+path_within_45           0.839         0.773         0.782          0.778
+always_forward           0.711         0.546         0.494          0.517
+By how many episodes share the picture's measured lay-out (the held-out sheet is unseen in every lay-out):
+                 pictures  episodes  path_within_45  always_forward
+layout_size                                                        
+1 to 2 episodes      2042        30           0.778           0.579
+3 to 5               1864        42           0.811           0.624
+6 to 10              2326        28           0.810           0.609
+over 10              7534       109           0.799           0.574
+Sheet 02 held out, by start kind (all rows, and the first 10 rows):
+                   pictures  episodes  path_within_45  always_forward  first_rows_pictures  first_rows_path_within_45  first_rows_always_forward
+kind                                                                                                                                            
+SQL                     516        10           0.820           0.595                   76                      0.908                      0.526
+SQP                     335         6           0.785           0.690                   39                      0.718                      0.744
+other start kinds      1255        29           0.771           0.681                  258                      0.930                      0.849
+All six held-out sheets, the first 10 rows of every episode, by kind of start:
+                              pictures  episodes  path_within_45  always_forward  path_off_picture_top_median
+start                                                                                                        
+puck beside the line               282        35           0.851           0.433                       49.690
+sheet turned 10 or 15              225        25           0.987           0.916                       13.910
+square, landscape (sheet 02)        76        10           0.908           0.526                       38.925
+square, portrait (sheet 02)         39         6           0.718           0.744                       28.748
+standard                           635        72           0.994           0.948                       12.955
+taught start                       510        61           0.751           0.790                       14.935
+
+Saved 07_score_by_cell.csv

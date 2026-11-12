@@ -1,0 +1,40 @@
+================ recipe E: 11419 step rows with a known direction of puck travel, each answered by the model that never saw the sheet
+1. By how far the puck's travel lies off the picture's top
+   off the top      rows   direction within 45 (shown move 0.3 cm or more)   twist: correlation   right sense (shown 2 deg or more)   asked / shown mean size   asked length median   shown
+     0 to  20      7304                                             78.4%                 0.62                               81.7%                      0.73                  0.75    1.08
+    20 to  45      1117                                             57.9%                 0.55                               74.7%                      0.69                  0.58    1.07
+    45 to  90      1446                                             59.0%                 0.22                               64.0%                      0.55                  0.64    1.12
+    90 to 180      1552                                             64.9%                 0.30                               66.0%                      0.45                  0.69    1.11
+   the same split inside each held-out sheet (direction within 45 / twist correlation), travel within 30 degrees of the picture's top against further off:
+      01: along   321 rows:  90.8 % / +0.50; off    17 rows:  58.8 % / +0.21
+      02: along  1359 rows:  70.9 % / +0.40; off   382 rows:  54.7 % / +0.17
+      03: along  1828 rows:  82.0 % / +0.76; off   729 rows:  63.0 % / +0.42
+      04: along  2872 rows:  70.3 % / +0.60; off   910 rows:  67.0 % / +0.19
+      05: along  1027 rows:  84.1 % / +0.40; off   694 rows:  65.5 % / +0.16
+      06: along   568 rows:  85.0 % / +0.79; off   712 rows:  51.8 % / +0.50
+2. Net turn over windows of 10 rows with a shown net turn of 30 degrees or more, by the window's median distance of the puck's travel from the picture's top
+     0 to  20:  412 windows; the model gives back 0.59 of the shown net turn, right sense in 89 %
+    20 to  45:   35 windows; the model gives back 0.41 of the shown net turn, right sense in 77 %
+    45 to  90:   50 windows; the model gives back 0.20 of the shown net turn, right sense in 70 %
+    90 to 180:   37 windows; the model gives back 0.28 of the shown net turn, right sense in 81 %
+
+================ recipe A: 11419 step rows with a known direction of puck travel, each answered by the model that never saw the sheet
+1. By how far the puck's travel lies off the picture's top
+   off the top      rows   direction within 45 (shown move 0.3 cm or more)   twist: correlation   right sense (shown 2 deg or more)   asked / shown mean size   asked length median   shown
+     0 to  20      7304                                             77.1%                 0.59                               81.7%                      0.74                  0.73    1.08
+    20 to  45      1117                                             57.8%                 0.55                               75.6%                      0.69                  0.55    1.07
+    45 to  90      1446                                             60.4%                 0.22                               62.2%                      0.54                  0.59    1.12
+    90 to 180      1552                                             66.6%                 0.33                               68.8%                      0.46                  0.66    1.11
+   the same split inside each held-out sheet (direction within 45 / twist correlation), travel within 30 degrees of the picture's top against further off:
+      01: along   321 rows:  90.8 % / +0.48; off    17 rows:  52.9 % / +0.12
+      02: along  1359 rows:  69.2 % / +0.43; off   382 rows:  50.7 % / +0.17
+      03: along  1828 rows:  80.4 % / +0.76; off   729 rows:  61.5 % / +0.44
+      04: along  2872 rows:  69.5 % / +0.55; off   910 rows:  67.0 % / +0.24
+      05: along  1027 rows:  82.9 % / +0.44; off   694 rows:  63.3 % / +0.38
+      06: along   568 rows:  80.9 % / +0.82; off   712 rows:  66.4 % / +0.36
+2. Net turn over windows of 10 rows with a shown net turn of 30 degrees or more, by the window's median distance of the puck's travel from the picture's top
+     0 to  20:  412 windows; the model gives back 0.58 of the shown net turn, right sense in 89 %
+    20 to  45:   35 windows; the model gives back 0.47 of the shown net turn, right sense in 86 %
+    45 to  90:   50 windows; the model gives back 0.20 of the shown net turn, right sense in 64 %
+    90 to 180:   37 windows; the model gives back 0.37 of the shown net turn, right sense in 81 %
+

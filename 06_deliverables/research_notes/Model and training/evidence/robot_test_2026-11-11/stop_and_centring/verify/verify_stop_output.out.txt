@@ -1,0 +1,38 @@
+A recipe (2026-11-09_resnet18_final_candidate): 209 held-out episodes with a stop row
+  first of the last 8 pictures with a stop chance of 0.5 or more: found in 143, never in 66
+    the tip is then this far from the demonstrator's stop place: median 9.4 mm, mean 12.4 mm, 10th to 90th percentile 0.0 to 31.8 mm; over 7 mm in 83
+    the next picture is also stop-like in 111: tip then median 0.0 mm from the stop place
+    a last straight push of  0.0 mm after that picture: within 7 mm of the demonstrator's stop place in 42 % of the 143 (29 % of all 209)
+    a last straight push of  5.0 mm after that picture: within 7 mm of the demonstrator's stop place in 59 % of the 143 (41 % of all 209)
+    a last straight push of  8.0 mm after that picture: within 7 mm of the demonstrator's stop place in 44 % of the 143 (30 % of all 209)
+    a last straight push of 10.0 mm after that picture: within 7 mm of the demonstrator's stop place in 41 % of the 143 (28 % of all 209)
+  first stop-like picture anywhere in the episode: 154 episodes, more than 3 cm before the stop place in 39
+A recipe, seed 2 (2026-11-09_resnet18_final_candidate_seed_2): 209 held-out episodes with a stop row
+  first of the last 8 pictures with a stop chance of 0.5 or more: found in 153, never in 56
+    the tip is then this far from the demonstrator's stop place: median 8.1 mm, mean 11.9 mm, 10th to 90th percentile 0.0 to 29.9 mm; over 7 mm in 83
+    the next picture is also stop-like in 119: tip then median 0.0 mm from the stop place
+    a last straight push of  0.0 mm after that picture: within 7 mm of the demonstrator's stop place in 46 % of the 153 (33 % of all 209)
+    a last straight push of  5.0 mm after that picture: within 7 mm of the demonstrator's stop place in 61 % of the 153 (45 % of all 209)
+    a last straight push of  8.0 mm after that picture: within 7 mm of the demonstrator's stop place in 44 % of the 153 (33 % of all 209)
+    a last straight push of 10.0 mm after that picture: within 7 mm of the demonstrator's stop place in 41 % of the 153 (30 % of all 209)
+  first stop-like picture anywhere in the episode: 162 episodes, more than 3 cm before the stop place in 42
+E recipe (2026-11-10_resnet18_chunk_stop_weight_25): 209 held-out episodes with a stop row
+  first of the last 8 pictures with a stop chance of 0.5 or more: found in 158, never in 51
+    the tip is then this far from the demonstrator's stop place: median 11.3 mm, mean 13.2 mm, 10th to 90th percentile 0.0 to 32.1 mm; over 7 mm in 95
+    the next picture is also stop-like in 120: tip then median 4.8 mm from the stop place
+    a last straight push of  0.0 mm after that picture: within 7 mm of the demonstrator's stop place in 40 % of the 158 (30 % of all 209)
+    a last straight push of  5.0 mm after that picture: within 7 mm of the demonstrator's stop place in 52 % of the 158 (39 % of all 209)
+    a last straight push of  8.0 mm after that picture: within 7 mm of the demonstrator's stop place in 36 % of the 158 (27 % of all 209)
+    a last straight push of 10.0 mm after that picture: within 7 mm of the demonstrator's stop place in 35 % of the 158 (26 % of all 209)
+  first stop-like picture anywhere in the episode: 169 episodes, more than 3 cm before the stop place in 49
+E recipe, seed 2 (2026-11-10_resnet18_chunk_stop_weight_25_seed_2): 209 held-out episodes with a stop row
+  first of the last 8 pictures with a stop chance of 0.5 or more: found in 167, never in 42
+    the tip is then this far from the demonstrator's stop place: median 12.4 mm, mean 14.7 mm, 10th to 90th percentile 0.0 to 32.2 mm; over 7 mm in 113
+    the next picture is also stop-like in 140: tip then median 3.0 mm from the stop place
+    a last straight push of  0.0 mm after that picture: within 7 mm of the demonstrator's stop place in 32 % of the 167 (26 % of all 209)
+    a last straight push of  5.0 mm after that picture: within 7 mm of the demonstrator's stop place in 49 % of the 167 (39 % of all 209)
+    a last straight push of  8.0 mm after that picture: within 7 mm of the demonstrator's stop place in 41 % of the 167 (33 % of all 209)
+    a last straight push of 10.0 mm after that picture: within 7 mm of the demonstrator's stop place in 42 % of the 167 (33 % of all 209)
+  first stop-like picture anywhere in the episode: 179 episodes, more than 3 cm before the stop place in 62
+
+NOTE (verifier): this check overstates early stops. In some demonstrations the puck already stands at the end while the magnet tip still moves round it for up to seven pictures (looked at path_04 episode 038, sheet_04_038_last.png), so the tip is 2 to 4.5 cm from its stop place although the picture rightly looks like a stop. The analyst counts from the puck, which is the better measure there; see verify_stop_output_same_episodes.out.txt and recount_stop_table.out.txt.

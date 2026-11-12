@@ -1,0 +1,25 @@
+period robot_test: 2026-11-11_173036_E_sheet02_run2 (14 pictures), 2026-11-11_174448_E_sheet05_run1 (30 pictures), 2026-11-11_174108_E_sheet04_run1 (23 pictures), 2026-11-11_173549_E_sheet03_run1 (20 pictures)
+sharpness without a shift, per run: [5.06, 10.82, 12.47, 10.21]
+
+gain in sharpness (mean natural logarithm of the ratio to no shift); rows: shift right, columns: shift down
+             -24     -16      -8       0       8
+     -16 -0.1043 -0.0987 -0.1260 -0.1753 -0.2341
+      -8 -0.0634 -0.0345 -0.0434 -0.0882 -0.1533
+       0 -0.0472  0.0101  0.0310  0.0000 -0.0670
+       8 -0.0697  0.0173  0.0688  0.0644  0.0070
+      16 -0.1231 -0.0241  0.0494  0.0754  0.0422
+      24 -0.1905 -0.0952 -0.0173  0.0268  0.0228
+
+finer search around (16, 0)
+              -4       0       4
+      12  0.0805  0.0789  0.0611
+      16  0.0698  0.0754  0.0660
+      20  0.0432  0.0562  0.0546
+
+best grid shift (12, -4) with gain 0.0805; refined shift [11.5, -2.4] px (right, down)
+gain by roll (degrees) at the refined shift: {-0.75: 0.0448, 0.0: 0.0809, 0.75: 0.1012, 1.5: 0.1049, 2.25: 0.0875}
+roll 1.26 degrees; shift refined with the roll held: [9.9, -2.7] px (right, down)
+sharpness with the shift and the roll, per run: [6.04, 12.35, 12.7, 11.31]
+mean gain against no shift: 11.4 %
+shifts within 0.005 of the best gain: [(12, -4), (12, 0)]
+written to camera_shift.json

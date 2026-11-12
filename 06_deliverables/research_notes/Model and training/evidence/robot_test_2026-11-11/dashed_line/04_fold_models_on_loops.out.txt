@@ -1,0 +1,176 @@
+cleaned training pictures: {'05': 2600, '06': 1936} | by part of the line:
+part   after the loop  before the crossing  loop  not placed
+sheet                                                       
+05                466                  342  1784           8
+06                310                  299  1270          57
+check, E recipe without 05: this script's direction against the direction saved when the fold was scored, largest difference 0.0002 deg on 2600 pictures
+check, E recipe without 05, seed 2: this script's direction against the direction saved when the fold was scored, largest difference 0.0003 deg on 2600 pictures
+check, A recipe without 05: this script's direction against the direction saved when the fold was scored, largest difference 0.0007 deg on 2600 pictures
+check, E recipe without 06: this script's direction against the direction saved when the fold was scored, largest difference 0.0004 deg on 1936 pictures
+check, E recipe without 06, seed 2: this script's direction against the direction saved when the fold was scored, largest difference 0.0005 deg on 1936 pictures
+check, A recipe without 06: this script's direction against the direction saved when the fold was scored, largest difference 0.0009 deg on 1936 pictures
+
+Direction (path within 45 degrees) by part of the line; the exact step is what the robot carries out
+sheet                       model                                part  pictures  path_pictures  path_within_45  path_error_median_deg  chunk_first_step_within_45  chunk_third_step_within_45
+   05         E recipe without 05                         whole sheet      2600           2324           0.813                 17.857                       0.811                       0.810
+   05         E recipe without 05                 before the crossing       342            330           0.979                  8.169                       0.979                       0.979
+   05         E recipe without 05                                loop      1784           1609           0.768                 22.364                       0.766                       0.761
+   05         E recipe without 05                      after the loop       466            377           0.875                 16.266                       0.867                       0.883
+   05         E recipe without 05 loop, bend tighter than 3 cm radius       250            233           0.876                 17.213                       0.876                       0.901
+   05         E recipe without 05   loop, bend wider than 3 cm radius      1534           1376           0.749                 23.095                       0.747                       0.737
+   05 E recipe without 05, seed 2                         whole sheet      2600           2324           0.787                 20.275                       0.794                       0.790
+   05 E recipe without 05, seed 2                 before the crossing       342            330           0.970                 10.587                       0.970                       0.967
+   05 E recipe without 05, seed 2                                loop      1784           1609           0.732                 24.420                       0.744                       0.735
+   05 E recipe without 05, seed 2                      after the loop       466            377           0.859                 18.223                       0.857                       0.867
+   05 E recipe without 05, seed 2 loop, bend tighter than 3 cm radius       250            233           0.824                 20.199                       0.833                       0.854
+   05 E recipe without 05, seed 2   loop, bend wider than 3 cm radius      1534           1376           0.717                 25.422                       0.729                       0.715
+   05         A recipe without 05                         whole sheet      2600           2324           0.773                 20.301                         NaN                         NaN
+   05         A recipe without 05                 before the crossing       342            330           0.942                 11.389                         NaN                         NaN
+   05         A recipe without 05                                loop      1784           1609           0.727                 24.753                         NaN                         NaN
+   05         A recipe without 05                      after the loop       466            377           0.830                 15.453                         NaN                         NaN
+   05         A recipe without 05 loop, bend tighter than 3 cm radius       250            233           0.824                 23.202                         NaN                         NaN
+   05         A recipe without 05   loop, bend wider than 3 cm radius      1534           1376           0.711                 25.047                         NaN                         NaN
+   06         E recipe without 06                         whole sheet      1936           1691           0.782                 21.827                       0.788                       0.787
+   06         E recipe without 06                 before the crossing       299            289           0.976                 13.810                       0.976                       0.983
+   06         E recipe without 06                                loop      1270           1124           0.797                 21.825                       0.802                       0.799
+   06         E recipe without 06                      after the loop       310            234           0.496                 45.303                       0.517                       0.509
+   06         E recipe without 06 loop, bend tighter than 3 cm radius       152            147           0.891                 21.610                       0.891                       0.789
+   06         E recipe without 06   loop, bend wider than 3 cm radius      1118            977           0.783                 21.871                       0.789                       0.800
+   06 E recipe without 06, seed 2                         whole sheet      1936           1691           0.787                 20.126                       0.789                       0.770
+   06 E recipe without 06, seed 2                 before the crossing       299            289           0.986                  7.178                       0.986                       0.990
+   06 E recipe without 06, seed 2                                loop      1270           1124           0.789                 22.082                       0.786                       0.754
+   06 E recipe without 06, seed 2                      after the loop       310            234           0.577                 39.000                       0.598                       0.611
+   06 E recipe without 06, seed 2 loop, bend tighter than 3 cm radius       152            147           0.850                 19.874                       0.857                       0.776
+   06 E recipe without 06, seed 2   loop, bend wider than 3 cm radius      1118            977           0.780                 22.208                       0.776                       0.750
+   06         A recipe without 06                         whole sheet      1936           1691           0.827                 17.387                         NaN                         NaN
+   06         A recipe without 06                 before the crossing       299            289           0.979                  7.208                         NaN                         NaN
+   06         A recipe without 06                                loop      1270           1124           0.779                 22.969                         NaN                         NaN
+   06         A recipe without 06                      after the loop       310            234           0.893                 15.206                         NaN                         NaN
+   06         A recipe without 06 loop, bend tighter than 3 cm radius       152            147           0.762                 27.888                         NaN                         NaN
+   06         A recipe without 06   loop, bend wider than 3 cm radius      1118            977           0.782                 21.710                         NaN                         NaN
+
+Twist, step length, backward steps and stop chance by part of the line
+sheet                       model                                part  twist_pictures  twist_sign_right  twist_asked_mean_deg  twist_demonstrated_mean_deg  length_asked_median_cm  length_demonstrated_median_cm  asked_under_0.3_cm  demonstrated_under_0.3_cm  backward_pictures  backward_also_asked  stop_chance_mean
+   05         E recipe without 05                         whole sheet            1713             0.653                 1.871                        5.423                   0.722                          1.109               0.022                      0.039                479                0.595             0.045
+   05         E recipe without 05                 before the crossing             222             0.694                 1.863                        4.700                   0.819                          1.180               0.009                      0.018                 12                0.667             0.000
+   05         E recipe without 05                                loop            1285             0.623                 1.882                        5.637                   0.685                          1.082               0.025                      0.047                428                0.624             0.058
+   05         E recipe without 05                      after the loop             200             0.795                 1.836                        4.829                   0.789                          1.163               0.007                      0.026                 39                0.256             0.018
+   05         E recipe without 05 loop, bend tighter than 3 cm radius             135             0.548                 2.188                        5.060                   0.711                          1.176               0.000                      0.032                 66                0.727             0.022
+   05         E recipe without 05   loop, bend wider than 3 cm radius            1150             0.632                 1.846                        5.705                   0.679                          1.069               0.029                      0.049                362                0.605             0.064
+   05 E recipe without 05, seed 2                         whole sheet            1713             0.695                 2.128                        5.423                   0.656                          1.109               0.036                      0.039                479                0.514             0.051
+   05 E recipe without 05, seed 2                 before the crossing             222             0.784                 2.205                        4.700                   0.760                          1.180               0.000                      0.018                 12                0.417             0.000
+   05 E recipe without 05, seed 2                                loop            1285             0.672                 2.158                        5.637                   0.629                          1.082               0.044                      0.047                428                0.544             0.057
+   05 E recipe without 05, seed 2                      after the loop             200             0.740                 1.883                        4.829                   0.733                          1.163               0.026                      0.026                 39                0.205             0.060
+   05 E recipe without 05, seed 2 loop, bend tighter than 3 cm radius             135             0.600                 2.565                        5.060                   0.644                          1.176               0.004                      0.032                 66                0.606             0.027
+   05 E recipe without 05, seed 2   loop, bend wider than 3 cm radius            1150             0.681                 2.110                        5.705                   0.623                          1.069               0.050                      0.049                362                0.533             0.062
+   05         A recipe without 05                         whole sheet            1713             0.729                 2.104                        5.423                   0.676                          1.109               0.071                      0.039                479                0.507             0.046
+   05         A recipe without 05                 before the crossing             222             0.712                 2.085                        4.700                   0.776                          1.180               0.009                      0.018                 12                0.417             0.000
+   05         A recipe without 05                                loop            1285             0.719                 2.125                        5.637                   0.617                          1.082               0.089                      0.047                428                0.547             0.055
+   05         A recipe without 05                      after the loop             200             0.825                 2.032                        4.829                   0.751                          1.163               0.040                      0.026                 39                0.103             0.043
+   05         A recipe without 05 loop, bend tighter than 3 cm radius             135             0.630                 2.200                        5.060                   0.698                          1.176               0.044                      0.032                 66                0.636             0.029
+   05         A recipe without 05   loop, bend wider than 3 cm radius            1150             0.730                 2.116                        5.705                   0.604                          1.069               0.096                      0.049                362                0.530             0.060
+   06         E recipe without 06                         whole sheet            1430             0.806                 2.392                        5.763                   0.681                          1.065               0.030                      0.050                329                0.860             0.018
+   06         E recipe without 06                 before the crossing             211             0.806                 2.584                        5.175                   0.878                          1.108               0.017                      0.047                 14                0.571             0.000
+   06         E recipe without 06                                loop             977             0.824                 2.524                        5.917                   0.665                          1.049               0.025                      0.055                277                0.859             0.017
+   06         E recipe without 06                      after the loop             202             0.752                 1.647                        5.665                   0.668                          1.078               0.035                      0.028                 35                1.000             0.036
+   06         E recipe without 06 loop, bend tighter than 3 cm radius              55             0.582                 1.866                        4.447                   0.665                          1.117               0.007                      0.026                  7                0.857             0.017
+   06         E recipe without 06   loop, bend wider than 3 cm radius             922             0.838                 2.563                        6.005                   0.665                          1.032               0.028                      0.059                270                0.859             0.017
+   06 E recipe without 06, seed 2                         whole sheet            1430             0.741                 1.597                        5.763                   0.641                          1.065               0.023                      0.050                329                0.854             0.036
+   06 E recipe without 06, seed 2                 before the crossing             211             0.900                 2.653                        5.175                   0.874                          1.108               0.003                      0.047                 14                0.643             0.001
+   06 E recipe without 06, seed 2                                loop             977             0.734                 1.556                        5.917                   0.635                          1.049               0.020                      0.055                277                0.848             0.039
+   06 E recipe without 06, seed 2                      after the loop             202             0.653                 0.782                        5.665                   0.488                          1.078               0.057                      0.028                 35                0.971             0.054
+   06 E recipe without 06, seed 2 loop, bend tighter than 3 cm radius              55             0.564                 0.939                        4.447                   0.667                          1.117               0.000                      0.026                  7                0.714             0.017
+   06 E recipe without 06, seed 2   loop, bend wider than 3 cm radius             922             0.744                 1.593                        6.005                   0.630                          1.032               0.022                      0.059                270                0.852             0.042
+   06         A recipe without 06                         whole sheet            1430             0.762                 2.261                        5.763                   0.626                          1.065               0.041                      0.050                329                0.644             0.009
+   06         A recipe without 06                 before the crossing             211             0.915                 2.858                        5.175                   0.917                          1.108               0.003                      0.047                 14                0.714             0.000
+   06         A recipe without 06                                loop             977             0.789                 2.254                        5.917                   0.601                          1.049               0.033                      0.055                277                0.617             0.006
+   06         A recipe without 06                      after the loop             202             0.500                 1.757                        5.665                   0.604                          1.078               0.067                      0.028                 35                0.829             0.026
+   06         A recipe without 06 loop, bend tighter than 3 cm radius              55             0.600                 0.867                        4.447                   0.628                          1.117               0.013                      0.026                  7                0.857             0.007
+   06         A recipe without 06   loop, bend wider than 3 cm radius             922             0.800                 2.337                        6.005                   0.594                          1.032               0.036                      0.059                270                0.611             0.006
+
+Sheet 06, models that never saw a dashed line: does a gap just ahead of the puck go with direction errors?
+                      model                part                                         what  path_pictures  path_within_45  error_median_deg
+        E recipe without 06          all placed                                   dash ahead            722           0.796            20.643
+        E recipe without 06          all placed                         edge of a dash ahead            632           0.771            23.826
+        E recipe without 06          all placed                                    gap ahead            288           0.792            21.859
+        E recipe without 06          all placed                             puck over a dash           1210           0.789            21.745
+        E recipe without 06          all placed                              puck over a gap            432           0.775            22.435
+        E recipe without 06          all placed least ink seen ahead (lowest third, picture)            538           0.641            34.150
+        E recipe without 06          all placed most ink seen ahead (highest third, picture)            545           0.917            16.105
+        E recipe without 06 before the crossing                                   dash ahead            115           0.991            13.281
+        E recipe without 06 before the crossing                         edge of a dash ahead            115           0.965            15.086
+        E recipe without 06 before the crossing                                    gap ahead             59           0.966            13.989
+        E recipe without 06 before the crossing                             puck over a dash            227           0.974            14.216
+        E recipe without 06 before the crossing                              puck over a gap             62           0.984            13.133
+        E recipe without 06 before the crossing least ink seen ahead (lowest third, picture)            100           0.960            12.714
+        E recipe without 06 before the crossing most ink seen ahead (highest third, picture)            101           0.970            16.915
+        E recipe without 06                loop                                   dash ahead            485           0.816            19.500
+        E recipe without 06                loop                         edge of a dash ahead            439           0.779            25.235
+        E recipe without 06                loop                                    gap ahead            200           0.790            22.771
+        E recipe without 06                loop                             puck over a dash            825           0.795            21.823
+        E recipe without 06                loop                              puck over a gap            299           0.803            21.871
+        E recipe without 06                loop least ink seen ahead (lowest third, picture)            379           0.707            27.277
+        E recipe without 06                loop most ink seen ahead (highest third, picture)            371           0.900            16.105
+        E recipe without 06      after the loop                                   dash ahead            122           0.533            43.246
+        E recipe without 06      after the loop                         edge of a dash ahead             78           0.436            47.019
+        E recipe without 06      after the loop                                    gap ahead             29           0.448            47.619
+        E recipe without 06      after the loop                             puck over a dash            158           0.494            45.453
+        E recipe without 06      after the loop                              puck over a gap             71           0.479            47.150
+        E recipe without 06      after the loop least ink seen ahead (lowest third, picture)             78           0.423            51.646
+        E recipe without 06      after the loop most ink seen ahead (highest third, picture)             76           0.579            40.183
+E recipe without 06, seed 2          all placed                                   dash ahead            722           0.814            19.141
+E recipe without 06, seed 2          all placed                         edge of a dash ahead            632           0.782            21.000
+E recipe without 06, seed 2          all placed                                    gap ahead            288           0.771            21.081
+E recipe without 06, seed 2          all placed                             puck over a dash           1210           0.789            19.812
+E recipe without 06, seed 2          all placed                              puck over a gap            432           0.808            20.147
+E recipe without 06, seed 2          all placed least ink seen ahead (lowest third, picture)            538           0.695            29.456
+E recipe without 06, seed 2          all placed most ink seen ahead (highest third, picture)            545           0.905            13.314
+E recipe without 06, seed 2 before the crossing                                   dash ahead            115           1.000             6.285
+E recipe without 06, seed 2 before the crossing                         edge of a dash ahead            115           0.974             8.176
+E recipe without 06, seed 2 before the crossing                                    gap ahead             59           0.983             6.904
+E recipe without 06, seed 2 before the crossing                             puck over a dash            227           0.982             7.613
+E recipe without 06, seed 2 before the crossing                              puck over a gap             62           1.000             5.613
+E recipe without 06, seed 2 before the crossing least ink seen ahead (lowest third, picture)            100           0.970             6.173
+E recipe without 06, seed 2 before the crossing most ink seen ahead (highest third, picture)            101           1.000             8.364
+E recipe without 06, seed 2                loop                                   dash ahead            485           0.823            20.293
+E recipe without 06, seed 2                loop                         edge of a dash ahead            439           0.768            23.490
+E recipe without 06, seed 2                loop                                    gap ahead            200           0.755            23.471
+E recipe without 06, seed 2                loop                             puck over a dash            825           0.777            22.208
+E recipe without 06, seed 2                loop                              puck over a gap            299           0.823            21.228
+E recipe without 06, seed 2                loop least ink seen ahead (lowest third, picture)            379           0.749            26.561
+E recipe without 06, seed 2                loop most ink seen ahead (highest third, picture)            371           0.873            16.068
+E recipe without 06, seed 2      after the loop                                   dash ahead            122           0.607            39.000
+E recipe without 06, seed 2      after the loop                         edge of a dash ahead             78           0.577            35.337
+E recipe without 06, seed 2      after the loop                                    gap ahead             29           0.448            47.709
+E recipe without 06, seed 2      after the loop                             puck over a dash            158           0.576            36.555
+E recipe without 06, seed 2      after the loop                              puck over a gap             71           0.577            41.552
+E recipe without 06, seed 2      after the loop least ink seen ahead (lowest third, picture)             78           0.577            40.571
+E recipe without 06, seed 2      after the loop most ink seen ahead (highest third, picture)             76           0.684            33.338
+        A recipe without 06          all placed                                   dash ahead            722           0.848            16.731
+        A recipe without 06          all placed                         edge of a dash ahead            632           0.818            17.960
+        A recipe without 06          all placed                                    gap ahead            288           0.816            19.529
+        A recipe without 06          all placed                             puck over a dash           1210           0.829            17.640
+        A recipe without 06          all placed                              puck over a gap            432           0.836            16.747
+        A recipe without 06          all placed least ink seen ahead (lowest third, picture)            538           0.762            23.714
+        A recipe without 06          all placed most ink seen ahead (highest third, picture)            545           0.868            14.897
+        A recipe without 06 before the crossing                                   dash ahead            115           1.000             6.526
+        A recipe without 06 before the crossing                         edge of a dash ahead            115           0.965             7.849
+        A recipe without 06 before the crossing                                    gap ahead             59           0.966             9.939
+        A recipe without 06 before the crossing                             puck over a dash            227           0.974             7.654
+        A recipe without 06 before the crossing                              puck over a gap             62           1.000             6.771
+        A recipe without 06 before the crossing least ink seen ahead (lowest third, picture)            100           0.980             5.882
+        A recipe without 06 before the crossing most ink seen ahead (highest third, picture)            101           0.970             9.939
+        A recipe without 06                loop                                   dash ahead            485           0.794            22.057
+        A recipe without 06                loop                         edge of a dash ahead            439           0.777            24.219
+        A recipe without 06                loop                                    gap ahead            200           0.750            23.627
+        A recipe without 06                loop                             puck over a dash            825           0.781            23.018
+        A recipe without 06                loop                              puck over a gap            299           0.776            22.484
+        A recipe without 06                loop least ink seen ahead (lowest third, picture)            379           0.707            27.199
+        A recipe without 06                loop most ink seen ahead (highest third, picture)            371           0.822            20.977
+        A recipe without 06      after the loop                                   dash ahead            122           0.918            14.162
+        A recipe without 06      after the loop                         edge of a dash ahead             78           0.833            16.889
+        A recipe without 06      after the loop                                    gap ahead             29           0.966            14.439
+        A recipe without 06      after the loop                             puck over a dash            158           0.873            16.245
+        A recipe without 06      after the loop                              puck over a gap             71           0.944            13.183
+        A recipe without 06      after the loop least ink seen ahead (lowest third, picture)             78           0.859            18.717
+        A recipe without 06      after the loop most ink seen ahead (highest third, picture)             76           0.921            12.199

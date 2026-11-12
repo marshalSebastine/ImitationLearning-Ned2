@@ -1,0 +1,113 @@
+=== part 1: the rod's lean (degrees from straight down) with the wrist held, by reach (cm, rows) and forearm twist (degrees, columns) ===
+
+wrist held at 13.5 degrees (blank: no joint angles within the arm model's limits reach the point)
+    -117.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    117.0
+12    22.2    19.9    15.2     9.0     4.5     9.0    15.2    19.9    22.2
+14    18.7    17.0    12.9     6.9     0.4     6.9    12.9    17.0    18.7
+16    15.9    14.9    11.8     7.0     3.4     7.0    11.8    14.9    15.9
+18    13.7    13.8    11.9     8.8     7.0     8.8    11.9    13.8    13.7
+20    12.4    13.5    12.9    11.3    10.4    11.3    12.9    13.5    12.4
+22    12.0    14.2    14.7    14.1    13.7    14.1    14.7    14.2    12.0
+24    12.5    15.4    16.8    16.9    16.8    16.9    16.8    15.4    12.5
+26    13.7    17.2    19.2    19.8    19.9    19.8    19.2    17.2    13.7
+28    15.5    19.3    21.7    22.8    23.0    22.8    21.7    19.3    15.5
+30    17.7    21.6    24.4    25.7    26.1    25.7    24.4    21.6    17.7
+32    20.1    24.1    27.2    28.7    29.1    28.7    27.2    24.1    20.1
+34    22.7    26.8    30.0    31.7    32.3    31.7    30.0    26.8    22.7
+36    25.5    29.6    33.0    34.9    35.4    34.9    33.0    29.6    25.5
+38    28.5    32.7    36.1    38.1    38.7    38.1    36.1    32.7    28.5
+40    31.8    35.9    39.4    41.5    42.1    41.5    39.4    35.9    31.8
+42    35.3    39.3    42.9    45.1    45.8    45.1    42.9    39.3    35.3
+44    39.1    43.1    46.7    49.0    49.7    49.0    46.7    43.1    39.1
+46    43.5    47.4    51.1    53.4    54.1    53.4    51.1    47.4    43.5
+48    48.8    52.6    56.3    58.6    59.3    58.6    56.3    52.6    48.8
+  reach (cm) within the 58-degree lean limit and the joint limits, by twist: -117: 12 to 49, -90: 12 to 49, -60: 12 to 48, -30: 12 to 47, +0: 12 to 47, +30: 12 to 47, +60: 12 to 48, +90: 12 to 49, +117: 12 to 49
+
+wrist held at 0.0 degrees (blank: no joint angles within the arm model's limits reach the point)
+    -117.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    117.0
+12    12.5    13.1    13.8    14.3    14.5    14.3    13.8    13.1    12.5
+14     8.3     9.0     9.7    10.2    10.4    10.2     9.7     9.0     8.3
+16     4.5     5.2     5.9     6.4     6.6     6.4     5.9     5.2     4.5
+18     0.9     1.6     2.3     2.9     3.1     2.9     2.3     1.6     0.9
+20     2.5     1.8     1.0     0.5     0.3     0.5     1.0     1.8     2.5
+22     5.8     5.1     4.3     3.8     3.6     3.8     4.3     5.1     5.8
+24     9.0     8.3     7.5     6.9     6.7     6.9     7.5     8.3     9.0
+26    12.1    11.4    10.6    10.0     9.8    10.0    10.6    11.4    12.1
+28    15.2    14.4    13.6    13.0    12.8    13.0    13.6    14.4    15.2
+30    18.2    17.5    16.7    16.1    15.9    16.1    16.7    17.5    18.2
+32    21.3    20.5    19.7    19.1    18.9    19.1    19.7    20.5    21.3
+34    24.4    23.7    22.8    22.2    22.0    22.2    22.8    23.7    24.4
+36    27.6    26.8    26.0    25.4    25.1    25.4    26.0    26.8    27.6
+38    30.9    30.1    29.2    28.6    28.4    28.6    29.2    30.1    30.9
+40    34.3    33.5    32.7    32.0    31.8    32.0    32.7    33.5    34.3
+42    38.0    37.2    36.3    35.6    35.4    35.6    36.3    37.2    38.0
+44    41.9    41.1    40.2    39.5    39.3    39.5    40.2    41.1    41.9
+46    46.3    45.5    44.6    43.9    43.6    43.9    44.6    45.5    46.3
+48    51.5    50.7    49.7    49.0    48.8    49.0    49.7    50.7    51.5
+  reach (cm) within the 58-degree lean limit and the joint limits, by twist: -117: 12 to 49, -90: 12 to 49, -60: 12 to 49, -30: 12 to 49, +0: 12 to 49, +30: 12 to 49, +60: 12 to 49, +90: 12 to 49, +117: 12 to 49
+
+wrist held at -10.0 degrees (blank: no joint angles within the arm model's limits reach the point)
+    -117.0  -90.0   -60.0   -30.0    0.0     30.0    60.0    90.0    117.0
+12    12.4    16.3    19.6    21.7    22.3    21.7    19.6    16.3    12.4
+14    10.0    13.3    16.1    17.7    18.2    17.7    16.1    13.3    10.0
+16     8.9    11.2    13.0    14.1    14.4    14.1    13.0    11.2     8.9
+18     9.3    10.1    10.6    10.8    10.8    10.8    10.6    10.1     9.3
+20    10.8    10.2     9.1     8.0     7.4     8.0     9.1    10.2    10.8
+22    13.0    11.2     8.7     5.8     4.2     5.8     8.7    11.2    13.0
+24    15.4    13.0     9.4     5.0     1.0     5.0     9.4    13.0    15.4
+26    18.0    15.1    10.9     6.0     2.1     6.0    10.9    15.1    18.0
+28    20.7    17.5    13.0     8.1     5.2     8.1    13.0    17.5    20.7
+30    23.5    20.1    15.4    10.7     8.2    10.7    15.4    20.1    23.5
+32    26.3    22.8    18.0    13.4    11.3    13.4    18.0    22.8    26.3
+34    29.2    25.6    20.8    16.4    14.4    16.4    20.8    25.6    29.2
+36    32.2    28.5    23.7    19.4    17.5    19.4    23.7    28.5    32.2
+38    35.4    31.6    26.8    22.6    20.8    22.6    26.8    31.6    35.4
+40    38.7    34.8    30.0    25.9    24.2    25.9    30.0    34.8    38.7
+42    42.2    38.3    33.5    29.5    27.9    29.5    33.5    38.3    42.2
+44    46.0    42.1    37.3    33.3    31.8    33.3    37.3    42.1    46.0
+46    50.3    46.3    41.5    37.7    36.2    37.7    41.5    46.3    50.3
+48    55.3    51.3    46.6    42.8    41.4    42.8    46.6    51.3    55.3
+  reach (cm) within the 58-degree lean limit and the joint limits, by twist: -117: 12 to 48, -90: 12 to 49, -60: 12 to 49, -30: 12 to 49, +0: 12 to 49, +30: 12 to 49, +60: 12 to 49, +90: 12 to 49, +117: 12 to 48
+
+demonstrated reach: 1st to 99th percentile 14.1 to 44.1 cm, largest 48.5 cm; rows beyond 44 cm: 201, beyond 46 cm: 77
+
+=== part 2: the rod's lean against the push direction ===
+                        who sheet  pushes  lean_median_deg  lean_p95_deg  along_p05_deg  along_median_deg  along_p95_deg  back_over_10_share  back_over_20_share  across_abs_median_deg  across_abs_p95_deg
+demonstrations (start mark)    01     469            20.32         41.16          -6.71             14.61          38.20                0.04                0.03                   3.24               34.47
+      robot run 1 (model A)    01      25            20.15         36.29           2.06             20.15          35.73                0.00                0.00                   1.26               12.05
+      robot run 2 (model E)    01      24            20.61         36.73           3.29             20.60          34.92                0.00                0.00                   1.29               12.96
+demonstrations (start mark)    02    2177            25.63         45.49         -32.22             11.03          35.29                0.15                0.10                  12.38               39.80
+      robot run 3 (model E)    02      38            27.38         36.89          -8.72             15.93          29.81                0.03                0.00                  17.41               35.69
+      robot run 4 (model E)    02      41            29.77         37.62          -1.99             16.94          31.60                0.00                0.00                   8.20               36.47
+demonstrations (start mark)    03    2757            23.34         38.04         -25.02              8.90          32.58                0.20                0.10                  10.39               33.44
+     robot run 10 (model B)    03      73            25.94         50.00         -39.94             12.79          40.61                0.14                0.12                  12.70               45.41
+      robot run 5 (model E)    03      59            12.58         26.02          -5.53              6.56          22.46                0.00                0.00                   5.86               15.42
+      robot run 9 (model E)    03      89            16.54         39.90         -20.50              8.52          30.79                0.15                0.06                  10.27               35.65
+demonstrations (start mark)    04    3934            25.91         42.68         -29.95              9.23          34.80                0.20                0.12                  13.54               36.24
+      robot run 6 (model E)    04      68            29.60         40.12         -13.63             11.80          37.99                0.16                0.01                  26.41               32.77
+demonstrations (start mark)    05    1967            25.35         45.40         -32.58              8.54          34.57                0.25                0.15                  11.87               40.95
+      robot run 7 (model E)    05      88            21.14         32.45         -19.94             13.96          29.38                0.26                0.06                   8.39               25.78
+demonstrations (start mark)    06    1391            27.31         43.31         -31.96              5.53          32.79                0.27                0.19                  14.75               39.44
+      robot run 8 (model E)    06      40            21.76         31.43         -19.33             12.62          27.87                0.28                0.05                   6.84               26.87
+
+demonstrated pushes (start mark) with the wrist within 2 degrees of 13.5, and more than 5.7 degrees away:
+           wrist  pushes  lean_median_deg  lean_p95_deg  along_p05_deg  along_median_deg  along_p95_deg  back_over_10_share  back_over_20_share  across_abs_median_deg  across_abs_p95_deg
+within 2 of 13.5    7337            21.95         40.16         -24.16             10.78          32.70                0.15                0.08                  10.27               34.25
+   over 5.7 away    2909            30.87         47.26         -36.26              2.71          36.91                0.32                0.22                  17.76               42.53
+
+=== part 3: the hand (joint 6) ===
+demonstrations: hand within 0.3 degrees of the held -6.1 in 82.2 % of rows, within 0.3 of 0 in 9.8 %, more than 10 from -6.1 in 3.6 % (663 rows)
+demonstrated steps in which the hand turned more than 1 degree: 65 of 18312
+arm model: turning the hand by 30 degrees moves the tip by at most 0.000000 mm and the camera by at most 0.000000 mm (501 poses)
+run  1: logged hand -6.15 to -6.06 degrees; the model's hand output -0.013 to +0.022 degrees per step, summed over the run +0.27; its lean output +0.23 to +1.65, summed +31.5; the lean the held wrist gave: 0.4 at the first step, 38.2 at most
+run  2: logged hand -6.15 to -6.15 degrees; the model's hand output -0.004 to +0.038 degrees per step, summed over the run +0.50; its lean output +0.23 to +1.54, summed +32.8; the lean the held wrist gave: 1.8 at the first step, 38.6 at most
+run  3: logged hand -6.23 to -6.15 degrees; the model's hand output -0.010 to +0.028 degrees per step, summed over the run +0.33; its lean output -0.53 to +1.00, summed +13.7; the lean the held wrist gave: 4.4 at the first step, 37.3 at most
+run  4: logged hand -6.23 to -6.15 degrees; the model's hand output -0.004 to +0.027 degrees per step, summed over the run +0.60; its lean output +0.37 to +1.34, summed +38.6; the lean the held wrist gave: 2.8 at the first step, 38.3 at most
+run  5: logged hand -6.15 to -6.06 degrees; the model's hand output -0.018 to +0.036 degrees per step, summed over the run +0.79; its lean output -0.58 to +1.26, summed +18.5; the lean the held wrist gave: 4.8 at the first step, 29.6 at most
+run  6: logged hand -6.15 to -6.15 degrees; the model's hand output -0.015 to +0.030 degrees per step, summed over the run +0.38; its lean output -0.33 to +1.33, summed +18.4; the lean the held wrist gave: 7.4 at the first step, 45.9 at most
+run  7: logged hand -6.23 to -6.15 degrees; the model's hand output -0.024 to +0.059 degrees per step, summed over the run +1.22; its lean output -1.43 to +1.51, summed +37.4; the lean the held wrist gave: 3.4 at the first step, 36.3 at most
+run  8: logged hand -6.15 to -6.15 degrees; the model's hand output -0.024 to +0.038 degrees per step, summed over the run +0.57; its lean output -0.14 to +1.61, summed +30.9; the lean the held wrist gave: 3.8 at the first step, 32.0 at most
+run  9: logged hand -6.15 to -6.15 degrees; the model's hand output -0.012 to +0.075 degrees per step, summed over the run +1.04; its lean output -0.71 to +1.24, summed +20.2; the lean the held wrist gave: 1.2 at the first step, 41.7 at most
+run 10: logged hand -6.15 to -6.06 degrees; the model's hand output -0.015 to +0.038 degrees per step, summed over the run +1.16; its lean output -0.48 to +1.17, summed +26.9; the lean the held wrist gave: 3.7 at the first step, 51.3 at most
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\lean_and_reach.png and lean_against_push.csv

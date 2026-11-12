@@ -1,0 +1,48 @@
+--- run 1: the last 8 pictures
+ step  asked_cm  model_twist_deg  model_stop_probability     action
+   18      0.82            -1.28                    0.00 model_step
+   19      0.94            -1.17                    0.00 model_step
+   20      0.83            -1.93                    0.00 model_step
+   21      0.70            -2.79                    0.00 model_step
+   22      0.75            -1.96                    0.00 model_step
+   23      0.55            -0.52                    0.22 model_step
+   24      0.21            -0.28                    0.86 model_step
+   25      0.16            -0.30                    0.92       stop
+   over the last 6 moves the asked lengths add up to 3.97 cm against 6.0 cm done: with the same answers the tip would be +2.03 cm short of where it stopped (open loop); the stop chance first reached 0.25 at decision 24, the run stopped at decision 25
+
+--- run 2: the last 8 pictures
+ step  asked_cm  model_twist_deg  model_stop_probability     action
+   17      1.12             1.01                    0.00 model_step
+   18      1.09             1.04                    0.00 model_step
+   19      1.05             0.91                    0.00 model_step
+   20      0.97             0.32                    0.00 model_step
+   21      0.89             0.12                    0.00 model_step
+   22      0.60            -0.59                    0.08 model_step
+   23      0.25            -0.35                    0.88 model_step
+   24      0.19            -0.41                    0.95       stop
+   over the last 6 moves the asked lengths add up to 4.84 cm against 6.0 cm done: with the same answers the tip would be +1.16 cm short of where it stopped (open loop); the stop chance first reached 0.25 at decision 23, the run stopped at decision 24
+
+--- run 4: the last 8 pictures
+ step  asked_cm  model_twist_deg  model_stop_probability     action
+   34      0.97             1.11                    0.00 model_step
+   35      0.99             1.10                    0.00 model_step
+   36      1.03             1.35                    0.00 model_step
+   37      0.98             1.44                    0.00 model_step
+   38      0.82             1.71                    0.00 model_step
+   39      0.51             2.55                    0.01 model_step
+   40      0.23             0.89                    0.90 model_step
+   41      0.25             0.93                    0.88       stop
+   over the last 6 moves the asked lengths add up to 4.57 cm against 6.0 cm done: with the same answers the tip would be +1.43 cm short of where it stopped (open loop); the stop chance first reached 0.25 at decision 40, the run stopped at decision 41
+
+--- run 7: the last 8 pictures
+ step  asked_cm  model_twist_deg  model_stop_probability     action
+   81      0.96             2.37                    0.00 model_step
+   82      0.96             2.12                    0.00 model_step
+   83      0.95             1.59                    0.00 model_step
+   84      0.85             1.74                    0.00 model_step
+   85      0.78             1.63                    0.00 model_step
+   86      0.51             2.35                    0.02 model_step
+   87      0.22             0.01                    0.93 model_step
+   88      0.15            -0.17                    0.97       stop
+   over the last 6 moves the asked lengths add up to 4.26 cm against 6.0 cm done: with the same answers the tip would be +1.74 cm short of where it stopped (open loop); the stop chance first reached 0.25 at decision 87, the run stopped at decision 88
+

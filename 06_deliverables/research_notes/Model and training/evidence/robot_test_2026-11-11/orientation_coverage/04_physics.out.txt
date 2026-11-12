@@ -1,0 +1,165 @@
+=== A. Picture's top from radial and rod lean, by reach and forearm twist (calculated: arm model, wrist held at 13.5 degrees as the driver holds it) ===
+Picture's top from radial (degrees); rows: reach in cm, columns: joint 4:
+joint_4_deg  -117.0  -100.0  -80.0   -60.0   -40.0   -20.0    0.0     20.0    40.0    60.0    80.0    100.0   117.0
+reach_cm                                                                                                           
+12.0          106.0    88.0    67.0    48.0    31.0    15.0    -0.0   -15.0   -31.0   -48.0   -67.0   -88.0  -106.0
+15.0          108.0    90.0    70.0    51.0    33.0    16.0    -0.0   -16.0   -33.0   -51.0   -70.0   -90.0  -108.0
+18.0          110.0    92.0    72.0    53.0    34.0    17.0    -0.0   -17.0   -34.0   -53.0   -72.0   -92.0  -110.0
+21.0          111.0    93.0    73.0    54.0    35.0    18.0    -0.0   -18.0   -35.0   -54.0   -73.0   -93.0  -111.0
+25.0          112.0    94.0    74.0    55.0    36.0    18.0    -0.0   -18.0   -36.0   -55.0   -74.0   -94.0  -112.0
+30.0          114.0    96.0    75.0    55.0    36.0    18.0    -0.0   -18.0   -36.0   -55.0   -75.0   -96.0  -114.0
+35.0          116.0    97.0    75.0    54.0    35.0    17.0    -0.0   -17.0   -35.0   -54.0   -75.0   -97.0  -116.0
+40.0          119.0    98.0    74.0    53.0    34.0    16.0    -0.0   -16.0   -34.0   -53.0   -74.0   -98.0  -119.0
+45.0          123.0   101.0    73.0    50.0    31.0    15.0    -0.0   -15.0   -31.0   -50.0   -73.0  -101.0  -123.0
+47.0          126.0   102.0    72.0    48.0    29.0    14.0    -0.0   -14.0   -29.0   -48.0   -72.0  -102.0  -126.0
+48.0          128.0   103.0    71.0    46.0    28.0    13.0    -0.0   -13.0   -28.0   -46.0   -71.0  -103.0  -128.0
+49.5          132.0   105.0    70.0    43.0    25.0    12.0    -0.0   -12.0   -25.0   -43.0   -70.0  -105.0  -132.0
+
+Rod lean from vertical (degrees); the driver refuses a step above 58:
+joint_4_deg  -117.0  -100.0  -80.0   -60.0   -40.0   -20.0    0.0     20.0    40.0    60.0    80.0    100.0   117.0
+reach_cm                                                                                                           
+12.0           22.0    21.0    19.0    15.0    11.0     7.0     4.0     7.0    11.0    15.0    19.0    21.0    22.0
+15.0           17.0    17.0    15.0    12.0     9.0     5.0     2.0     5.0     9.0    12.0    15.0    17.0    17.0
+18.0           14.0    14.0    13.0    12.0    10.0     8.0     7.0     8.0    10.0    12.0    13.0    14.0    14.0
+21.0           12.0    13.0    14.0    14.0    13.0    12.0    12.0    12.0    13.0    14.0    14.0    13.0    12.0
+25.0           13.0    15.0    17.0    18.0    18.0    18.0    18.0    18.0    18.0    18.0    17.0    15.0    13.0
+30.0           18.0    20.0    23.0    24.0    25.0    26.0    26.0    26.0    25.0    24.0    23.0    20.0    18.0
+35.0           24.0    27.0    30.0    32.0    33.0    34.0    34.0    34.0    33.0    32.0    30.0    27.0    24.0
+40.0           32.0    34.0    37.0    39.0    41.0    42.0    42.0    42.0    41.0    39.0    37.0    34.0    32.0
+45.0           41.0    44.0    46.0    49.0    50.0    52.0    52.0    52.0    50.0    49.0    46.0    44.0    41.0
+47.0           46.0    48.0    51.0    54.0    55.0    56.0    57.0    56.0    55.0    54.0    51.0    48.0    46.0
+48.0           49.0    51.0    54.0    56.0    58.0    59.0    59.0    59.0    58.0    56.0    54.0    51.0    49.0
+49.5           54.0    57.0    59.0    61.0    63.0    64.0    64.0    64.0    63.0    61.0    59.0    57.0    54.0
+
+Largest turn of the picture's top from radial (joint 4 at 117 degrees), by reach:
+  12 cm: 106, 15 cm: 108, 18 cm: 110, 21 cm: 111, 25 cm: 112, 30 cm: 114, 35 cm: 116, 40 cm: 119, 45 cm: 123, 47 cm: 126, 48 cm: 128, 49.5 cm: 132
+  With the forearm straight the rod's lean passes the driver's limit from reach 48 cm on (so the usable reach ends just before it).
+Measured in the demonstrations: slope -0.933 degrees of picture turn per degree of joint 4; with |joint 4| of 100 or more (966 pictures) the picture's top is a median 105.0 degrees from radial (largest 125.4).
+  the same by reach (median |picture top from radial|, pictures):
+reach_cm
+(12.0, 20.0]     95.5
+(20.0, 27.5]    102.9
+(27.5, 35.0]    106.4
+(35.0, 42.5]    104.8
+(42.5, 49.5]    107.6
+
+=== B. What the camera sees round the tip (calculated: fitted camera, forearm straight, mask of the robot's parts) ===
+Robot's own parts cover 8.5 % of the picture; rows 320 to 480 of 480: 25.6 %; nothing above row 340.
+Is the puck in view (1) or behind the robot's parts or outside the picture (0); rows: travel direction in the picture:
+reach_cm                  15.0  25.0  35.0  45.0
+direction_in_picture_deg                        
+-165.0                       0     0     0     0
+-150.0                       0     0     0     0
+-135.0                       0     0     0     0
+-120.0                       0     0     0     0
+-105.0                       0     0     0     1
+-90.0                        0     1     1     1
+-75.0                        0     1     1     1
+-60.0                        1     1     1     1
+-45.0                        0     1     1     1
+-30.0                        1     1     1     1
+-15.0                        1     1     1     1
+ 0.0                         1     1     1     1
+ 15.0                        1     1     1     1
+ 30.0                        1     1     1     1
+ 45.0                        1     1     1     1
+ 60.0                        1     1     1     1
+ 75.0                        1     1     1     1
+ 90.0                        1     1     1     1
+ 105.0                       1     1     1     1
+ 120.0                       0     1     1     1
+ 135.0                       0     0     0     1
+ 150.0                       0     0     0     0
+ 165.0                       0     0     0     0
+ 180.0                       0     0     0     0
+
+Centimetres of a straight line in view between 3 and 15 cm ahead of the tip (12 cm = all of it):
+reach_cm                  15.0  25.0  35.0  45.0
+direction_in_picture_deg                        
+-165.0                     0.0   0.0   0.0   0.0
+-150.0                     0.0   0.0   0.0   0.0
+-135.0                     0.0   0.0   0.0   0.0
+-120.0                     0.0   0.0   0.0   0.0
+-105.0                    12.0  11.5  11.0  11.0
+-90.0                     12.0  12.0  12.0  12.0
+-75.0                     12.5  12.5  12.5  12.5
+-60.0                     12.5  12.5  12.5  12.5
+-45.0                     12.5  12.5  12.5  12.5
+-30.0                     12.5  12.5  12.5  12.5
+-15.0                     12.5  12.5  12.5  12.5
+ 0.0                      12.5  12.5  12.5  12.5
+ 15.0                     12.5  12.5  12.5  12.5
+ 30.0                     12.5  12.5  12.5  12.5
+ 45.0                     12.5  12.5  12.5  12.5
+ 60.0                     12.5  12.5  12.5  12.5
+ 75.0                     11.0  12.0  12.5  12.5
+ 90.0                     11.0  11.0  11.0  11.0
+ 105.0                    12.0  11.0  10.5  10.0
+ 120.0                     7.5   4.5   4.0   4.0
+ 135.0                     0.0   0.0   0.0   0.0
+ 150.0                     0.0   0.0   0.0   0.0
+ 165.0                     0.0   0.0   0.0   0.0
+ 180.0                     0.0   0.0   0.0   0.0
+
+=== C. Measured on recorded pictures: the puck detector per travel direction in the picture ===
+ direction_in_picture_deg  pictures  found_share  whole_share  puck_from_tip_cm  puck_ahead_cm  puck_width_cm  width_pictures
+                   -150.0       300        0.993        0.293              3.96           1.98           2.61              41
+                   -120.0       300        0.990        0.280              3.75           2.71           2.60              27
+                    -90.0       300        1.000        0.283              3.80           3.21           2.44              27
+                    -60.0       300        0.993        0.327              3.45           2.28           2.44              58
+                    -30.0       300        0.993        0.193              2.79           2.21           2.46              37
+                     -0.0       300        0.993        0.213              2.56           2.35           2.45              31
+                     30.0       300        0.997        0.187              2.61           2.02           2.42              29
+                     60.0       300        0.990        0.237              2.84           1.29           2.46              41
+                     90.0       300        0.993        0.247              3.09           2.21           2.41              35
+                    120.0       300        0.997        0.177              3.29           2.50           2.46              22
+                    150.0       214        0.977        0.145              3.23           1.81           2.44              14
+                    180.0       160        0.975        0.294              4.10           1.02           2.44              13
+Puck width over the whole detections: median 2.45 cm (config.py PUCK_PARAMETERS: 2.4 cm; the brief says 4 cm).
+
+=== D. Which line directions can be followed how ===
+A line that runs at an angle b from radial at reach r can be met by the picture's top only if |b| is at most the largest turn above. Beyond it the line lies at least |b| minus that turn off the picture's top:
+  reach 15 cm: straight along the line up to 108 degrees from radial; within 30 degrees of the picture's top up to 138; straight back to the base (180) lies 72 degrees off the picture's top at best
+  reach 25 cm: straight along the line up to 112 degrees from radial; within 30 degrees of the picture's top up to 142; straight back to the base (180) lies 68 degrees off the picture's top at best
+  reach 35 cm: straight along the line up to 116 degrees from radial; within 30 degrees of the picture's top up to 146; straight back to the base (180) lies 64 degrees off the picture's top at best
+  reach 45 cm: straight along the line up to 123 degrees from radial; within 30 degrees of the picture's top up to 153; straight back to the base (180) lies 57 degrees off the picture's top at best
+
+What the demonstrators did, by line direction from radial (either side; three-step paths, measured):
+                 pictures  joint_4_median_abs  off_picture_top_median  looking_along_share  over_90_off_top_share  over_120_off_top_share
+from_radial_bin                                                                                                                          
+0                    2972                17.0                    15.0                 0.73                   0.01                    0.00
+30                   3056                32.0                    21.0                 0.64                   0.02                    0.00
+60                   1934                56.0                    20.0                 0.62                   0.04                    0.02
+90                   2188                64.0                    34.0                 0.47                   0.10                    0.03
+120                  1722                63.0                    71.0                 0.14                   0.31                    0.15
+150                  1740                69.0                    99.0                 0.01                   0.62                    0.29
+180                   939                73.0                   109.0                 0.00                   0.78                    0.37
+
+Forearm flips in the demonstrations (joint 4 from beyond 60 degrees on one side to beyond it on the other): 157 in 103 episodes
+       flips  episodes  rows_median  degrees_median  tip_travel_cm_median  rows_in_place_median  reach_cm_median
+sheet                                                                                                           
+02         3         3         51.0           126.0                 54.30                   4.0            31.90
+03        30        29         26.5           127.5                 22.80                   4.0            28.25
+04        87        34         22.0           128.0                 14.00                   5.0            28.40
+05        17        17         25.0           125.0                 28.40                   1.0            27.40
+06        20        20         30.0           126.5                 28.95                   2.0            28.50
+  all flips: median 24 rows, 127 degrees, 19.5 cm of tip travel, 4 rows in place; degrees per cm of travel: median 6.4
+  The driver turns at most 10 degrees per step and always moves 1 cm: a full flip of 234 degrees takes at least 24 steps, so at least 24 cm of travel.
+
+=== E. How fast the lines bend (measured on the traced course sheets; calculated from the practice tracks' drawings) ===
+      shape  line_cm  sharpest_bend_deg_per_cm  smallest_radius_cm  cm_bending_faster_than_the_driver_twists  cm_bending_over_20_deg_per_cm
+   sheet_01     23.3                       0.1               890.9                                       0.0                            0.0
+   sheet_02     31.3                       5.8                 9.9                                       0.0                            0.0
+   sheet_03     50.7                      52.8                 1.1                                      16.2                            8.0
+   sheet_04     72.4                      49.0                 1.2                                      29.8                           15.6
+   sheet_05     56.6                      24.7                 2.3                                      15.2                            2.6
+   sheet_06     46.5                      34.7                 1.7                                      15.4                            3.0
+practice_01     35.2                      12.3                 4.7                                      18.6                            0.0
+practice_02     30.8                      14.8                 3.9                                      14.6                            0.0
+practice_03     25.3                       8.1                 7.0                                       0.0                            0.0
+practice_04     40.8                      13.8                 4.1                                      23.6                            0.0
+practice_05     41.6                      12.9                 4.4                                      18.1                            0.0
+practice_06     35.8                      14.3                 4.0                                       7.0                            0.0
+The driver turns the forearm at most 10 degrees per 1-cm step. In the demonstrations the 5085 rows that twist by 6 degrees or more move the tip a median 0.65 cm; 36 % of them move it under 0.5 cm (the twist is made nearly in place).
+
+Saved 04_physics.png, 04_heading_and_lean.csv, 04_view_by_direction.csv, 04_line_bends.csv

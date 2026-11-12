@@ -1,0 +1,6 @@
+place,pictures,demonstrated median,demonstrated under 0.3,recipe E: median,recipe E: under 0.3,recipe A: median,recipe A: under 0.3,backup model: median,backup model: under 0.3,"model E itself, pictures it was trained on: median","model E itself, pictures it was trained on: under 0.3","chunk, 1 step ahead (recipe E: median","chunk, 1 step ahead (recipe E: under 0.3"
+straight,2186,1.13,0.056,0.85,0.038,0.84,0.031,0.81,0.027,0.98,0.016,0.85,0.039
+gentle bend,6772,1.09,0.056,0.7,0.024,0.67,0.052,0.67,0.042,0.8,0.014,0.71,0.027
+sharp bend,6305,1.01,0.129,0.63,0.05,0.59,0.08,0.6,0.063,0.69,0.035,0.63,0.058
+hairpin,1091,0.53,0.3,0.63,0.073,0.6,0.078,0.63,0.02,0.46,0.109,0.63,0.078
+line end,823,1.08,0.104,0.47,0.217,0.41,0.282,0.41,0.262,0.44,0.29,0.41,0.301

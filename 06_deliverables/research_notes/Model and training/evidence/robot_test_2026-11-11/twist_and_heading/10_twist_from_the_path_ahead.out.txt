@@ -1,0 +1,20 @@
+THE TWIST FROM THE PATH AHEAD: could a rule make the twist out of the direction of travel or the chunk? (measured on the demonstrations; fold E on held-out sheets)
+correlation with the demonstrated twist, and the least-squares twist per degree; a rule 'turn the camera TOWARDS that direction' needs a NEGATIVE sign
+(direction + = to the picture's left; twist + = the camera turns to the right)
+
+   what the rule would use                                rows             twist of this step   mean twist of the next 5 steps
+   true travel direction of this step                    12844          r +0.43, slope +0.049            r +0.43, slope +0.042
+   true chunk end direction (5 steps ahead)              14060          r +0.32, slope +0.043            r +0.46, slope +0.053
+   true chunk bend                                       12589          r -0.38, slope -0.045            r -0.30, slope -0.031
+   predicted travel direction (fold E)                   14235          r +0.33, slope +0.042            r +0.40, slope +0.044
+   predicted chunk end direction (fold E)                13994          r +0.24, slope +0.035            r +0.32, slope +0.041
+   predicted chunk bend (fold E)                         16102          r -0.48, slope -0.118            r -0.53, slope -0.111
+   predicted twist itself (fold E), for comparison       16937          r +0.58, slope +0.928            r +0.62, slope +0.860
+
+   per sheet: correlation of the demonstrated twist of this step with the true travel direction, the true chunk end direction and the true chunk bend
+   path_01: +0.59  +0.30  -0.44
+   path_02: +0.32  +0.15  -0.27
+   path_03: +0.57  +0.37  -0.44
+   path_04: +0.54  +0.44  -0.34
+   path_05: +0.21  +0.16  -0.44
+   path_06: +0.08  +0.14  -0.42

@@ -1,0 +1,20 @@
+﻿final candidate (exact) sheet 01: after correction: 82 moving, within 45 0.415 | other: 496 moving, within 45 0.839
+final candidate (exact) sheet 02: after correction: 1060 moving, within 45 0.499 | other: 1365 moving, within 45 0.735
+   always-forward on the same pictures (after correction): within 45 0.389
+   final candidate (exact) pooled, after correction: 1142 moving pictures, within 45 0.493; backward moves (any back component) recalled as backward 18 of 241
+   always-forward on the same pictures (other): within 45 0.729
+   final candidate (exact) pooled, other: 1861 moving pictures, within 45 0.762; backward moves (any back component) recalled as backward 6 of 76
+finetune_exact sheet 03: after correction: 1658 moving, within 45 0.631 | other: 1800 moving, within 45 0.762
+finetune_exact sheet 05: after correction: 919 moving, within 45 0.590 | other: 1552 moving, within 45 0.713
+finetune_exact sheet 06: after correction: 344 moving, within 45 0.515 | other: 1465 moving, within 45 0.713
+   always-forward on the same pictures (after correction): within 45 0.435
+   finetune_exact pooled, after correction: 2921 moving pictures, within 45 0.605; backward moves (any back component) recalled as backward 146 of 516
+   always-forward on the same pictures (other): within 45 0.523
+   finetune_exact pooled, other: 4817 moving pictures, within 45 0.731; backward moves (any back component) recalled as backward 182 of 538
+finetune_classes sheet 03: after correction: 1658 moving, within 45 0.616 | other: 1800 moving, within 45 0.707
+finetune_classes sheet 05: after correction: 919 moving, within 45 0.615 | other: 1552 moving, within 45 0.686
+finetune_classes sheet 06: after correction: 344 moving, within 45 0.523 | other: 1465 moving, within 45 0.668
+   always-forward on the same pictures (after correction): within 45 0.435
+   finetune_classes pooled, after correction: 2921 moving pictures, within 45 0.605; backward moves (any back component) recalled as backward 284 of 516
+   always-forward on the same pictures (other): within 45 0.523
+   finetune_classes pooled, other: 4817 moving pictures, within 45 0.688; backward moves (any back component) recalled as backward 370 of 538

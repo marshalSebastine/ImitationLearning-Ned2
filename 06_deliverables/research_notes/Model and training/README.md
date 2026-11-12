@@ -1,6 +1,6 @@
 # Model and training: what is in this folder
 
-Written 9.11.26 by the Model and training session for Emranul and Marshal.
+Written 9.11.26 by the Model and training session for Emranul and Marshal; updated 10.11.26 (GPU pool results).
 
 | File | What it is |
 |---|---|
@@ -11,6 +11,7 @@ Written 9.11.26 by the Model and training session for Emranul and Marshal.
 | `evidence/design_review/` | The design panel of 9.11.26: five drafted sections (targets, models, training settings, validation, improvement), two critics per section, three judges who ranked whole set-ups, with the scripts and printouts behind their numbers (the scripts still name the scratch folder they ran in). |
 | `evidence/report_parts/`, `evidence/report_check/` | The parts the report was built from, including every measured experiment number (`results_so_far.md`), and the three independent critiques of the report (evidence, beginner reader, completeness). |
 | `evidence/laptop_queue/` | The script that ran the end-to-end trainings one after another, and the logs of every run. |
+| `04_runs/gpu_ki014/` (in the repository root, not in this folder) | Added 10.11.26: the four runs trained on the OTH GPU pool computer ki-014 (the first set-up with two seeds, the backup, the old-rules no-augmentation run), copied back with their fold files, predictions and checkpoints, plus `comparison.md`/`.csv` and `augmentation_examples.png`; compare them only with each other, not with laptop runs (report, section 11.4). |
 
 The code that produced the numbers is in `02_code` (`training_dataset.py`, `training_targets.py`, `training_metrics.py`,
 `training_features.py`, `training_probes.py`, `train_policy.py`, `training_error_analysis.py`, `compare_runs.py`,

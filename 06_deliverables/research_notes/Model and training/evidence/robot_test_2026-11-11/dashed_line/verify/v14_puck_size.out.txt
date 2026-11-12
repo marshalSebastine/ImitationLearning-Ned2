@@ -1,0 +1,2 @@
+puck's widest row, 16 pictures: 60 px (median); that is 2.47 cm at half the puck's height (range 2.43 to 2.52) and 2.30 cm at its top; config says 2.4 cm wide, 2.9 cm tall; the brief says 4 cm
+line's width across a picture row 90 px above the puck, 16 pictures: median 1.10 cm (range 0.09 to 2.18); the row cuts the line at an angle in some pictures, which makes it wider than 1.0

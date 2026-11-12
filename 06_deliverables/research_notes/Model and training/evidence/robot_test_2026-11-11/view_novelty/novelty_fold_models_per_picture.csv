@@ -1,0 +1,555 @@
+run,step,sheet,fold_distance,model_e_distance,fold_percentile,model_e_percentile,phase
+1,0,path_01,0.07664,0.06075,72.51553,62.73292,whole run
+1,1,path_01,0.05482,0.04197,67.54658,55.2795,whole run
+1,2,path_01,0.06042,0.03984,68.9441,54.50311,whole run
+1,3,path_01,0.052,0.03801,66.30435,53.57143,whole run
+1,4,path_01,0.05227,0.0377,66.30435,53.41615,whole run
+1,5,path_01,0.04808,0.03513,64.75155,50.46584,whole run
+1,6,path_01,0.0434,0.0338,63.35404,49.68944,whole run
+1,7,path_01,0.04037,0.03379,61.02484,49.68944,whole run
+1,8,path_01,0.05114,0.03442,66.14907,50.31056,whole run
+1,9,path_01,0.04532,0.03772,64.28571,53.41615,whole run
+1,10,path_01,0.04214,0.03729,62.73292,52.63975,whole run
+1,11,path_01,0.04119,0.03049,61.49068,47.51553,whole run
+1,12,path_01,0.04456,0.02813,63.81988,46.11801,whole run
+1,13,path_01,0.0441,0.03039,63.81988,47.36025,whole run
+1,14,path_01,0.04877,0.03427,65.21739,50.15528,whole run
+1,15,path_01,0.05261,0.04147,66.45963,54.65839,whole run
+1,16,path_01,0.05874,0.04631,68.47826,57.76398,whole run
+1,17,path_01,0.06754,0.05484,70.96273,60.71429,whole run
+1,18,path_01,0.07209,0.05768,71.73913,61.95652,whole run
+1,19,path_01,0.08049,0.06234,73.60248,63.6646,whole run
+1,20,path_01,0.08738,0.06813,74.84472,64.90683,whole run
+1,21,path_01,0.10056,0.06374,77.95031,63.81988,whole run
+1,22,path_01,0.17593,0.08492,88.50932,69.25466,whole run
+1,23,path_01,0.09668,0.11502,77.17391,76.39752,whole run
+1,24,path_01,0.04576,0.20578,64.28571,91.14907,whole run
+1,25,path_01,0.02882,0.07671,54.03727,68.1677,whole run
+2,0,path_01,0.02955,0.02373,54.65839,42.08075,whole run
+2,1,path_01,0.02877,0.02283,53.88199,40.99379,whole run
+2,2,path_01,0.02762,0.02048,52.32919,36.18012,whole run
+2,3,path_01,0.02454,0.01948,48.13665,34.93789,whole run
+2,4,path_01,0.02299,0.02014,45.49689,35.40373,whole run
+2,5,path_01,0.02131,0.01937,42.54658,34.62733,whole run
+2,6,path_01,0.01939,0.01867,38.97516,34.00621,whole run
+2,7,path_01,0.01944,0.01948,39.13043,34.93789,whole run
+2,8,path_01,0.02103,0.01681,42.23602,29.65839,whole run
+2,9,path_01,0.02255,0.02025,44.56522,35.86957,whole run
+2,10,path_01,0.0265,0.01897,51.24224,34.62733,whole run
+2,11,path_01,0.02323,0.01859,46.11801,33.69565,whole run
+2,12,path_01,0.02468,0.02015,48.29193,35.40373,whole run
+2,13,path_01,0.02614,0.02305,50.46584,41.30435,whole run
+2,14,path_01,0.02807,0.02403,52.95031,42.3913,whole run
+2,15,path_01,0.03275,0.02675,57.29814,45.18634,whole run
+2,16,path_01,0.03023,0.03091,55.12422,47.82609,whole run
+2,17,path_01,0.03296,0.03423,57.45342,50.15528,whole run
+2,18,path_01,0.03864,0.03414,60.24845,50.15528,whole run
+2,19,path_01,0.04649,0.03047,64.44099,47.51553,whole run
+2,20,path_01,0.06214,0.03234,69.7205,48.13665,whole run
+2,21,path_01,0.0867,0.04461,74.68944,56.52174,whole run
+2,22,path_01,0.0667,0.11988,70.80745,77.63975,whole run
+2,23,path_01,0.0564,0.08995,68.32298,70.18634,whole run
+2,24,path_01,0.03402,0.04899,57.6087,58.85093,whole run
+3,0,path_02,0.11957,0.11481,71.72285,80.22472,seen before it went wrong
+3,1,path_02,0.10709,0.11258,65.61798,79.55056,between
+3,2,path_02,0.10448,0.09866,64.56929,74.60674,between
+3,3,path_02,0.11372,0.13439,69.02622,84.23221,between
+3,4,path_02,0.15856,0.14924,83.85768,87.26592,between
+3,5,path_02,0.17278,0.14341,87.30337,86.02996,after the puck left the line
+3,6,path_02,0.20658,0.1488,92.35955,87.07865,after the puck left the line
+3,7,path_02,0.22132,0.18271,94.0824,92.77154,after the puck left the line
+3,8,path_02,0.22601,0.21402,94.60674,96.02996,after the puck left the line
+3,9,path_02,0.21302,0.22537,93.18352,96.92884,after the puck left the line
+3,10,path_02,0.21861,0.20635,93.78277,95.31835,after the puck left the line
+3,11,path_02,0.22593,0.17432,94.56929,91.42322,after the puck left the line
+3,12,path_02,0.22973,0.18157,95.01873,92.50936,after the puck left the line
+3,13,path_02,0.21403,0.18585,93.37079,93.25843,after the puck left the line
+3,14,path_02,0.17556,0.19724,87.82772,94.41948,after the puck left the line
+3,15,path_02,0.1509,0.20618,81.91011,95.31835,after the puck left the line
+3,16,path_02,0.14408,0.21517,80.07491,96.10487,after the puck left the line
+3,17,path_02,0.15075,0.1974,81.91011,94.45693,after the puck left the line
+3,18,path_02,0.16607,0.18994,85.88015,93.89513,after the puck left the line
+3,19,path_02,0.13194,0.14945,76.40449,87.26592,after the puck left the line
+3,20,path_02,0.12254,0.15684,72.99625,88.35206,after the puck left the line
+3,21,path_02,0.12309,0.15148,73.10861,87.603,after the puck left the line
+3,22,path_02,0.18263,0.19186,89.02622,94.00749,after the puck left the line
+3,23,path_02,0.11858,0.10621,71.08614,77.30337,after the puck left the line
+3,24,path_02,0.10375,0.09845,64.0824,74.53184,after the puck left the line
+3,25,path_02,0.09373,0.10812,57.6779,77.90262,after the puck left the line
+3,26,path_02,0.10613,0.1523,65.2809,87.82772,after the puck left the line
+3,27,path_02,0.14166,0.22838,79.88764,97.07865,after the puck left the line
+3,28,path_02,0.14364,0.33057,80.0,99.4382,after the puck left the line
+3,29,path_02,0.14129,0.30036,79.77528,99.21348,after the puck left the line
+3,30,path_02,0.14468,0.25514,80.33708,98.53933,after the puck left the line
+3,31,path_02,0.16246,0.22794,84.79401,97.0412,after the puck left the line
+3,32,path_02,0.21704,0.20706,93.70787,95.43071,after the puck left the line
+3,33,path_02,0.22045,0.1973,93.93258,94.41948,after the puck left the line
+3,34,path_02,0.24713,0.18806,96.77903,93.55805,after the puck left the line
+3,35,path_02,0.26642,0.18746,97.90262,93.44569,after the puck left the line
+3,36,path_02,0.27477,0.21529,98.2397,96.14232,after the puck left the line
+3,37,path_02,0.24626,0.1848,96.62921,93.03371,after the puck left the line
+4,0,path_02,0.05668,0.07575,32.50936,62.65918,whole run
+4,1,path_02,0.06291,0.05441,37.45318,43.85768,whole run
+4,2,path_02,0.04433,0.04266,23.03371,34.60674,whole run
+4,3,path_02,0.03455,0.03155,14.98127,24.83146,whole run
+4,4,path_02,0.03152,0.02571,12.73408,17.86517,whole run
+4,5,path_02,0.03053,0.02997,12.20974,22.9588,whole run
+4,6,path_02,0.03414,0.02908,14.7191,21.68539,whole run
+4,7,path_02,0.03528,0.02604,15.39326,18.05243,whole run
+4,8,path_02,0.03759,0.0282,16.81648,20.67416,whole run
+4,9,path_02,0.04077,0.03222,19.58801,25.31835,whole run
+4,10,path_02,0.03815,0.03312,17.19101,26.25468,whole run
+4,11,path_02,0.04297,0.03416,21.72285,27.15356,whole run
+4,12,path_02,0.0479,0.0331,25.43071,26.25468,whole run
+4,13,path_02,0.0513,0.03086,28.16479,24.00749,whole run
+4,14,path_02,0.05642,0.03263,32.20974,25.73034,whole run
+4,15,path_02,0.05369,0.03533,30.11236,28.38951,whole run
+4,16,path_02,0.0524,0.03888,28.98876,31.38577,whole run
+4,17,path_02,0.04941,0.04654,26.85393,37.94007,whole run
+4,18,path_02,0.05589,0.05009,31.94757,40.82397,whole run
+4,19,path_02,0.06173,0.05124,36.62921,41.79775,whole run
+4,20,path_02,0.06393,0.05585,38.01498,45.35581,whole run
+4,21,path_02,0.07003,0.0729,42.397,60.86142,whole run
+4,22,path_02,0.08224,0.09379,50.41199,72.54682,whole run
+4,23,path_02,0.10407,0.12242,64.26966,81.98502,whole run
+4,24,path_02,0.10927,0.12014,66.4794,81.57303,whole run
+4,25,path_02,0.12685,0.15629,74.56929,88.2397,whole run
+4,26,path_02,0.11987,0.16115,71.83521,89.21348,whole run
+4,27,path_02,0.12825,0.18698,75.16854,93.37079,whole run
+4,28,path_02,0.13959,0.18855,79.47566,93.70787,whole run
+4,29,path_02,0.15688,0.20111,83.44569,94.86891,whole run
+4,30,path_02,0.16494,0.13255,85.50562,84.00749,whole run
+4,31,path_02,0.15244,0.10291,82.20974,76.40449,whole run
+4,32,path_02,0.12289,0.07993,73.10861,65.80524,whole run
+4,33,path_02,0.12518,0.06387,74.0824,52.47191,whole run
+4,34,path_02,0.12369,0.04827,73.5206,39.13858,whole run
+4,35,path_02,0.11926,0.04796,71.49813,38.95131,whole run
+4,36,path_02,0.11257,0.05172,68.12734,42.13483,whole run
+4,37,path_02,0.13059,0.06466,75.95506,53.18352,whole run
+4,38,path_02,0.15155,0.08644,82.02247,68.83895,whole run
+4,39,path_02,0.25434,0.18113,97.34082,92.47191,whole run
+4,40,path_02,0.34724,0.24674,99.85019,98.16479,whole run
+4,41,path_02,0.34922,0.26988,99.85019,98.68914,whole run
+5,0,path_03,0.11217,0.08174,82.12389,79.39317,seen before it went wrong
+5,1,path_03,0.09136,0.07936,74.6397,78.45765,seen before it went wrong
+5,2,path_03,0.07215,0.06964,65.33502,74.58913,seen before it went wrong
+5,3,path_03,0.06158,0.04665,58.10367,57.62326,between
+5,4,path_03,0.08417,0.06429,71.73198,71.95954,between
+5,5,path_03,0.10341,0.0816,79.31732,79.39317,after the puck left the line
+5,6,path_03,0.0899,0.09787,74.13401,84.70291,after the puck left the line
+5,7,path_03,0.10622,0.09769,80.40455,84.67762,after the puck left the line
+5,8,path_03,0.12323,0.12197,85.53729,90.82174,after the puck left the line
+5,9,path_03,0.17588,0.11982,95.1201,90.29077,after the puck left the line
+5,10,path_03,0.20623,0.14826,97.04172,94.56384,after the puck left the line
+5,11,path_03,0.2463,0.18578,98.65992,97.69912,after the puck left the line
+5,12,path_03,0.24833,0.18093,98.81163,97.26928,after the puck left the line
+5,13,path_03,0.25871,0.20906,99.08976,98.55879,after the puck left the line
+5,14,path_03,0.23657,0.20831,98.2048,98.50822,after the puck left the line
+5,15,path_03,0.22595,0.18878,97.92668,97.80025,after the puck left the line
+5,16,path_03,0.22635,0.21241,97.95196,98.65992,after the puck left the line
+5,17,path_03,0.23336,0.19945,98.10367,98.2048,after the puck left the line
+5,18,path_03,0.23919,0.18582,98.25537,97.69912,after the puck left the line
+5,19,path_03,0.20207,0.18809,96.89001,97.80025,after the puck left the line
+5,20,path_03,0.23506,0.18379,98.15424,97.54741,after the puck left the line
+5,21,path_03,0.20806,0.19656,97.11757,98.10367,after the puck left the line
+5,22,path_03,0.19808,0.20258,96.5866,98.33123,after the puck left the line
+5,23,path_03,0.15069,0.185,91.80784,97.57269,after the puck left the line
+5,24,path_03,0.18121,0.15869,95.54994,95.47408,after the puck left the line
+5,25,path_03,0.1819,0.17804,95.54994,96.96587,after the puck left the line
+5,26,path_03,0.19722,0.23455,96.56131,99.03919,after the puck left the line
+5,27,path_03,0.15691,0.21106,93.02149,98.60936,after the puck left the line
+5,28,path_03,0.17674,0.24426,95.14539,99.16561,after the puck left the line
+5,29,path_03,0.17094,0.2213,94.71555,98.81163,after the puck left the line
+5,30,path_03,0.14421,0.23424,90.44248,99.03919,after the puck left the line
+5,31,path_03,0.16399,0.25261,94.10872,99.1909,after the puck left the line
+5,32,path_03,0.16936,0.26521,94.53856,99.39317,after the puck left the line
+5,33,path_03,0.16793,0.24097,94.46271,99.14033,after the puck left the line
+5,34,path_03,0.13364,0.2206,88.31858,98.81163,after the puck left the line
+5,35,path_03,0.13197,0.18426,87.98989,97.54741,after the puck left the line
+5,36,path_03,0.14624,0.15116,90.94817,94.84197,after the puck left the line
+5,37,path_03,0.13416,0.14967,88.41972,94.76612,after the puck left the line
+5,38,path_03,0.14447,0.15915,90.54362,95.54994,after the puck left the line
+5,39,path_03,0.18345,0.16232,95.60051,95.95449,after the puck left the line
+5,40,path_03,0.19604,0.15489,96.48546,95.24652,after the puck left the line
+5,41,path_03,0.23786,0.15612,98.25537,95.27181,after the puck left the line
+5,42,path_03,0.2202,0.13837,97.59798,93.19848,after the puck left the line
+5,43,path_03,0.1773,0.1611,95.17067,95.75221,after the puck left the line
+5,44,path_03,0.13276,0.16386,88.19216,96.05563,after the puck left the line
+5,45,path_03,0.14106,0.17086,89.93679,96.61188,after the puck left the line
+5,46,path_03,0.12334,0.12113,85.53729,90.67004,after the puck left the line
+5,47,path_03,0.10399,0.12866,79.72187,91.95954,after the puck left the line
+5,48,path_03,0.10206,0.1229,78.93805,91.02402,after the puck left the line
+5,49,path_03,0.14601,0.11477,90.87231,89.25411,after the puck left the line
+5,50,path_03,0.13187,0.12997,87.93932,92.21239,after the puck left the line
+5,51,path_03,0.16585,0.14018,94.26043,93.55247,after the puck left the line
+5,52,path_03,0.18545,0.15771,95.70164,95.29709,after the puck left the line
+5,53,path_03,0.30597,0.20342,99.79772,98.33123,after the puck left the line
+5,54,path_03,0.28338,0.24212,99.62073,99.14033,after the puck left the line
+5,55,path_03,0.25735,0.2326,99.08976,98.98862,after the puck left the line
+5,56,path_03,0.26193,0.26459,99.11504,99.36789,after the puck left the line
+5,57,path_03,0.20281,0.30271,96.94058,99.57016,after the puck left the line
+5,58,path_03,0.15973,0.23836,93.5019,99.11504,after the puck left the line
+5,59,path_03,0.14902,0.14503,91.42857,94.18458,after the puck left the line
+6,0,path_04,0.14607,0.06447,91.68139,77.3085,seen before it went wrong
+6,1,path_04,0.14565,0.04526,91.64927,63.9955,seen before it went wrong
+6,2,path_04,0.12877,0.04159,88.71045,59.93255,seen before it went wrong
+6,3,path_04,0.10351,0.05528,82.01381,72.282,seen before it went wrong
+6,4,path_04,0.09325,0.0583,78.03115,74.17697,seen before it went wrong
+6,5,path_04,0.08763,0.07315,75.4617,80.95391,seen before it went wrong
+6,6,path_04,0.08237,0.0779,72.65136,82.38317,seen before it went wrong
+6,7,path_04,0.11047,0.10309,84.27814,88.00385,seen before it went wrong
+6,8,path_04,0.13086,0.12334,89.2404,91.27991,seen before it went wrong
+6,9,path_04,0.14049,0.1189,90.8142,90.55725,seen before it went wrong
+6,10,path_04,0.15553,0.13409,93.06247,92.75735,seen before it went wrong
+6,11,path_04,0.16383,0.14101,94.12237,93.44789,seen before it went wrong
+6,12,path_04,0.16735,0.15528,94.50779,94.78079,seen before it went wrong
+6,13,path_04,0.17068,0.18191,94.78079,96.70789,seen before it went wrong
+6,14,path_04,0.17261,0.19576,94.9735,97.7999,seen before it went wrong
+6,15,path_04,0.16529,0.19474,94.36326,97.71961,between
+6,16,path_04,0.17975,0.19801,95.72828,97.84808,after the puck left the line
+6,17,path_04,0.18122,0.13863,95.84069,93.207,after the puck left the line
+6,18,path_04,0.18413,0.16133,96.01734,95.18227,after the puck left the line
+6,19,path_04,0.15608,0.24746,93.09459,99.42187,after the puck left the line
+6,20,path_04,0.17764,0.19798,95.47133,97.84808,after the puck left the line
+6,21,path_04,0.1536,0.22966,92.77341,98.98828,after the puck left the line
+6,22,path_04,0.17273,0.23033,94.9735,98.98828,after the puck left the line
+6,23,path_04,0.14942,0.22832,92.16316,98.98828,after the puck left the line
+6,24,path_04,0.16507,0.20376,94.31508,98.18532,after the puck left the line
+6,25,path_04,0.15496,0.2242,92.99823,98.87586,after the puck left the line
+6,26,path_04,0.1708,0.23734,94.78079,99.19705,after the puck left the line
+6,27,path_04,0.16251,0.23113,93.92966,99.00434,after the puck left the line
+6,28,path_04,0.17178,0.23071,94.94138,98.98828,after the puck left the line
+6,29,path_04,0.18264,0.19654,95.90493,97.7999,after the puck left the line
+6,30,path_04,0.17277,0.22844,94.9735,98.98828,after the puck left the line
+6,31,path_04,0.17735,0.20527,95.45528,98.24956,after the puck left the line
+6,32,path_04,0.15674,0.2281,93.14277,98.97222,after the puck left the line
+6,33,path_04,0.17499,0.2156,95.27863,98.65104,after the puck left the line
+6,34,path_04,0.16488,0.21834,94.28296,98.71527,after the puck left the line
+6,35,path_04,0.15088,0.23821,92.42011,99.2131,after the puck left the line
+6,36,path_04,0.16738,0.20697,94.50779,98.36197,after the puck left the line
+6,37,path_04,0.15721,0.24386,93.15882,99.35764,after the puck left the line
+6,38,path_04,0.16859,0.18672,94.60414,97.07724,after the puck left the line
+6,39,path_04,0.15955,0.23347,93.44789,99.08463,after the puck left the line
+6,40,path_04,0.15858,0.19699,93.27124,97.7999,after the puck left the line
+6,41,path_04,0.14515,0.20361,91.60109,98.16926,after the puck left the line
+6,42,path_04,0.17183,0.20226,94.95744,98.05685,after the puck left the line
+6,43,path_04,0.15984,0.2281,93.49607,98.97222,after the puck left the line
+6,44,path_04,0.17377,0.20091,95.10198,97.99261,after the puck left the line
+6,45,path_04,0.14872,0.22107,92.08286,98.77951,after the puck left the line
+6,46,path_04,0.16343,0.22407,94.12237,98.87586,after the puck left the line
+6,47,path_04,0.16654,0.14324,94.45961,93.80119,after the puck left the line
+6,48,path_04,0.17353,0.17183,95.06986,95.96917,after the puck left the line
+6,49,path_04,0.14989,0.22003,92.29163,98.77951,after the puck left the line
+6,50,path_04,0.14526,0.21268,91.60109,98.5868,after the puck left the line
+6,51,path_04,0.1546,0.12468,92.95006,91.53686,after the puck left the line
+6,52,path_04,0.16065,0.20175,93.6406,98.04079,after the puck left the line
+6,53,path_04,0.18525,0.20215,96.08158,98.05685,after the puck left the line
+6,54,path_04,0.15977,0.21478,93.49607,98.65104,after the puck left the line
+6,55,path_04,0.16029,0.20824,93.59242,98.42621,after the puck left the line
+6,56,path_04,0.15723,0.2465,93.15882,99.38975,after the puck left the line
+6,57,path_04,0.17145,0.24926,94.86109,99.47005,after the puck left the line
+6,58,path_04,0.20248,0.24129,97.46266,99.2934,after the puck left the line
+6,59,path_04,0.2087,0.24776,97.92838,99.42187,after the puck left the line
+6,60,path_04,0.20148,0.21025,97.38237,98.53862,after the puck left the line
+6,61,path_04,0.20833,0.15829,97.8802,95.00562,after the puck left the line
+6,62,path_04,0.20051,0.17251,97.31813,96.04946,after the puck left the line
+6,63,path_04,0.17121,0.21021,94.84503,98.53862,after the puck left the line
+6,64,path_04,0.14951,0.14054,92.17922,93.39971,after the puck left the line
+6,65,path_04,0.17404,0.1718,95.18227,95.96917,after the puck left the line
+6,66,path_04,0.16343,0.20448,94.12237,98.2335,after the puck left the line
+6,67,path_04,0.20016,0.3078,97.28601,99.93576,after the puck left the line
+6,68,path_04,0.22812,0.27404,98.98828,99.80729,after the puck left the line
+7,0,path_05,0.05887,0.02083,46.80769,18.53846,whole run
+7,1,path_05,0.06671,0.01856,53.80769,13.88462,whole run
+7,2,path_05,0.05802,0.01298,46.15385,5.96154,whole run
+7,3,path_05,0.0484,0.01286,36.34615,5.76923,whole run
+7,4,path_05,0.04831,0.0139,36.23077,7.07692,whole run
+7,5,path_05,0.04241,0.01551,28.38462,9.34615,whole run
+7,6,path_05,0.03478,0.0164,17.80769,10.61538,whole run
+7,7,path_05,0.03113,0.01749,13.23077,12.53846,whole run
+7,8,path_05,0.02724,0.01962,9.0,15.76923,whole run
+7,9,path_05,0.0334,0.02238,16.30769,21.88462,whole run
+7,10,path_05,0.04243,0.02181,28.38462,20.65385,whole run
+7,11,path_05,0.02711,0.02079,8.84615,18.42308,whole run
+7,12,path_05,0.03814,0.02204,22.34615,21.15385,whole run
+7,13,path_05,0.04205,0.02461,27.76923,26.5,whole run
+7,14,path_05,0.03669,0.02309,20.5,23.38462,whole run
+7,15,path_05,0.04564,0.02503,32.46154,27.5,whole run
+7,16,path_05,0.05277,0.02439,41.30769,26.15385,whole run
+7,17,path_05,0.06235,0.03217,50.11538,39.34615,whole run
+7,18,path_05,0.08532,0.05529,67.38462,65.30769,whole run
+7,19,path_05,0.11229,0.08568,81.03846,81.69231,whole run
+7,20,path_05,0.12796,0.09948,86.53846,86.23077,whole run
+7,21,path_05,0.14506,0.10366,90.76923,87.07692,whole run
+7,22,path_05,0.15632,0.0783,93.03846,78.46154,whole run
+7,23,path_05,0.1103,0.06579,80.57692,72.23077,whole run
+7,24,path_05,0.10167,0.05932,76.84615,68.0,whole run
+7,25,path_05,0.11665,0.06838,82.53846,73.80769,whole run
+7,26,path_05,0.13091,0.06741,87.11538,73.11538,whole run
+7,27,path_05,0.11268,0.04994,81.11538,60.57692,whole run
+7,28,path_05,0.16928,0.07841,95.38462,78.5,whole run
+7,29,path_05,0.21086,0.09588,98.76923,85.07692,whole run
+7,30,path_05,0.19722,0.1323,98.11538,92.46154,whole run
+7,31,path_05,0.23297,0.13981,99.5,93.57692,whole run
+7,32,path_05,0.21067,0.08578,98.76923,81.73077,whole run
+7,33,path_05,0.20032,0.07875,98.23077,78.65385,whole run
+7,34,path_05,0.17193,0.08307,95.76923,80.38462,whole run
+7,35,path_05,0.15377,0.08129,92.38462,79.61538,whole run
+7,36,path_05,0.10617,0.07688,78.73077,77.69231,whole run
+7,37,path_05,0.08072,0.08923,64.61538,82.80769,whole run
+7,38,path_05,0.08599,0.10118,67.69231,86.46154,whole run
+7,39,path_05,0.07897,0.09774,63.15385,85.57692,whole run
+7,40,path_05,0.08653,0.10444,67.92308,87.38462,whole run
+7,41,path_05,0.12909,0.11257,86.69231,89.19231,whole run
+7,42,path_05,0.11757,0.08741,82.92308,82.23077,whole run
+7,43,path_05,0.10993,0.10574,80.38462,87.73077,whole run
+7,44,path_05,0.14821,0.12248,91.69231,91.11538,whole run
+7,45,path_05,0.17328,0.12714,96.0,91.73077,whole run
+7,46,path_05,0.17476,0.14442,96.11538,94.07692,whole run
+7,47,path_05,0.17692,0.22075,96.30769,98.42308,whole run
+7,48,path_05,0.15082,0.19516,92.07692,97.38462,whole run
+7,49,path_05,0.13726,0.17761,88.92308,96.61538,whole run
+7,50,path_05,0.13172,0.171,87.38462,96.26923,whole run
+7,51,path_05,0.09665,0.13059,73.84615,92.03846,whole run
+7,52,path_05,0.09329,0.11276,72.5,89.26923,whole run
+7,53,path_05,0.09417,0.1268,72.88462,91.73077,whole run
+7,54,path_05,0.11896,0.14705,83.11538,94.19231,whole run
+7,55,path_05,0.16595,0.19079,94.88462,97.19231,whole run
+7,56,path_05,0.09708,0.15569,74.07692,95.23077,whole run
+7,57,path_05,0.09019,0.07279,70.34615,75.92308,whole run
+7,58,path_05,0.09458,0.04788,73.19231,58.88462,whole run
+7,59,path_05,0.06973,0.03589,56.42308,44.11538,whole run
+7,60,path_05,0.07926,0.03396,63.30769,41.69231,whole run
+7,61,path_05,0.08198,0.03234,65.42308,39.42308,whole run
+7,62,path_05,0.07735,0.05269,62.34615,62.80769,whole run
+7,63,path_05,0.09066,0.06369,70.88462,71.0,whole run
+7,64,path_05,0.10784,0.09385,79.5,84.38462,whole run
+7,65,path_05,0.10603,0.10502,78.57692,87.46154,whole run
+7,66,path_05,0.11563,0.07386,82.19231,76.46154,whole run
+7,67,path_05,0.1006,0.05304,76.0,63.23077,whole run
+7,68,path_05,0.06828,0.03653,55.30769,45.15385,whole run
+7,69,path_05,0.06403,0.0361,51.30769,44.34615,whole run
+7,70,path_05,0.06706,0.0329,54.15385,40.15385,whole run
+7,71,path_05,0.08145,0.03995,65.07692,49.80769,whole run
+7,72,path_05,0.08731,0.06331,68.46154,70.80769,whole run
+7,73,path_05,0.07164,0.04572,57.92308,56.65385,whole run
+7,74,path_05,0.05363,0.03131,42.30769,38.26923,whole run
+7,75,path_05,0.05459,0.02455,43.11538,26.42308,whole run
+7,76,path_05,0.05107,0.02787,39.61538,32.57692,whole run
+7,77,path_05,0.05069,0.02974,39.26923,35.38462,whole run
+7,78,path_05,0.04418,0.0345,30.73077,42.5,whole run
+7,79,path_05,0.0388,0.02868,23.07692,33.92308,whole run
+7,80,path_05,0.03521,0.0263,18.73077,29.88462,whole run
+7,81,path_05,0.04248,0.02923,28.42308,34.73077,whole run
+7,82,path_05,0.03783,0.02851,21.96154,33.61538,whole run
+7,83,path_05,0.0489,0.03055,36.80769,36.73077,whole run
+7,84,path_05,0.05074,0.03883,39.26923,48.11538,whole run
+7,85,path_05,0.07625,0.05164,61.34615,62.03846,whole run
+7,86,path_05,0.1535,0.19489,92.34615,97.34615,whole run
+7,87,path_05,0.28335,0.10549,100.0,87.65385,whole run
+7,88,path_05,0.25131,0.04836,99.88462,59.30769,whole run
+8,0,path_06,0.05643,0.04976,70.86777,73.96694,seen before it went wrong
+8,1,path_06,0.04388,0.01935,57.1281,26.39463,seen before it went wrong
+8,2,path_06,0.02685,0.01495,24.74174,11.88017,seen before it went wrong
+8,3,path_06,0.03461,0.02002,42.35537,28.30579,seen before it went wrong
+8,4,path_06,0.04235,0.02675,55.42355,46.12603,seen before it went wrong
+8,5,path_06,0.04025,0.0232,52.58264,38.01653,seen before it went wrong
+8,6,path_06,0.04056,0.02456,53.25413,40.96074,seen before it went wrong
+8,7,path_06,0.04636,0.02945,59.8657,51.23967,seen before it went wrong
+8,8,path_06,0.03871,0.04447,49.89669,70.35124,between
+8,9,path_06,0.05889,0.0595,72.88223,78.82231,between
+8,10,path_06,0.07974,0.05769,83.67769,78.15083,between
+8,11,path_06,0.07217,0.04882,80.11364,73.45041,after the puck left the line
+8,12,path_06,0.0814,0.04644,84.14256,71.59091,after the puck left the line
+8,13,path_06,0.12205,0.07649,92.66529,84.91736,after the puck left the line
+8,14,path_06,0.10156,0.07225,89.51446,83.72934,after the puck left the line
+8,15,path_06,0.10082,0.06967,89.3595,83.0062,after the puck left the line
+8,16,path_06,0.08841,0.05799,86.31198,78.46074,after the puck left the line
+8,17,path_06,0.07405,0.0632,80.99174,80.47521,after the puck left the line
+8,18,path_06,0.0618,0.04726,74.94835,72.46901,after the puck left the line
+8,19,path_06,0.06857,0.05406,78.6157,76.13636,after the puck left the line
+8,20,path_06,0.06178,0.06683,74.94835,82.17975,after the puck left the line
+8,21,path_06,0.09872,0.0722,88.99793,83.72934,after the puck left the line
+8,22,path_06,0.16182,0.10401,95.91942,90.1343,after the puck left the line
+8,23,path_06,0.15369,0.08516,95.40289,86.98347,after the puck left the line
+8,24,path_06,0.15286,0.08365,95.29959,86.72521,after the puck left the line
+8,25,path_06,0.10006,0.04837,89.20455,73.34711,after the puck left the line
+8,26,path_06,0.06888,0.0503,78.71901,74.32851,after the puck left the line
+8,27,path_06,0.07469,0.06417,81.40496,80.88843,after the puck left the line
+8,28,path_06,0.08844,0.07977,86.31198,85.89876,after the puck left the line
+8,29,path_06,0.09653,0.07677,88.53306,85.02066,after the puck left the line
+8,30,path_06,0.12101,0.11264,92.45868,90.96074,after the puck left the line
+8,31,path_06,0.22279,0.24278,98.86364,99.32851,after the puck left the line
+8,32,path_06,0.23854,0.32048,99.17355,99.94835,after the puck left the line
+8,33,path_06,0.19202,0.32912,97.88223,99.94835,after the puck left the line
+8,34,path_06,0.28474,0.20518,99.69008,97.62397,after the puck left the line
+8,35,path_06,0.25553,0.22248,99.32851,98.70868,after the puck left the line
+8,36,path_06,0.49337,0.19758,100.0,97.15909,after the puck left the line
+8,37,path_06,0.39319,0.2371,100.0,99.1219,after the puck left the line
+8,38,path_06,0.35486,0.37617,99.94835,100.0,after the puck left the line
+8,39,path_06,0.07484,0.26529,81.55992,99.74174,after the puck left the line
+8,40,path_06,0.05849,0.25123,72.67562,99.43182,after the puck left the line
+9,0,path_03,0.08648,0.06629,72.86979,72.89507,seen before it went wrong
+9,1,path_03,0.07364,0.05877,66.04298,68.69785,seen before it went wrong
+9,2,path_03,0.05644,0.03842,53.29962,48.82427,seen before it went wrong
+9,3,path_03,0.07376,0.05505,66.11884,65.73957,between
+9,4,path_03,0.07165,0.06208,64.98104,71.12516,between
+9,5,path_03,0.07212,0.08229,65.30973,79.69659,after the puck left the line
+9,6,path_03,0.07298,0.09145,65.79014,82.75601,after the puck left the line
+9,7,path_03,0.10496,0.11608,79.87358,89.58281,after the puck left the line
+9,8,path_03,0.1331,0.12039,88.26802,90.41719,after the puck left the line
+9,9,path_03,0.17274,0.13208,94.86726,92.46523,after the puck left the line
+9,10,path_03,0.22197,0.16738,97.69912,96.33375,after the puck left the line
+9,11,path_03,0.22393,0.17941,97.82554,97.09229,after the puck left the line
+9,12,path_03,0.22174,0.17944,97.67383,97.09229,after the puck left the line
+9,13,path_03,0.20339,0.18626,96.94058,97.7244,after the puck left the line
+9,14,path_03,0.19895,0.2023,96.66245,98.30594,after the puck left the line
+9,15,path_03,0.20194,0.20803,96.86473,98.50822,after the puck left the line
+9,16,path_03,0.17853,0.16607,95.27181,96.20733,after the puck left the line
+9,17,path_03,0.1778,0.1767,95.17067,96.89001,after the puck left the line
+9,18,path_03,0.17366,0.18443,94.91783,97.54741,after the puck left the line
+9,19,path_03,0.17588,0.17584,95.1201,96.86473,after the puck left the line
+9,20,path_03,0.1641,0.17464,94.10872,96.78887,after the puck left the line
+9,21,path_03,0.11743,0.15914,83.61568,95.54994,after the puck left the line
+9,22,path_03,0.14685,0.15044,91.09987,94.7914,after the puck left the line
+9,23,path_03,0.14985,0.20654,91.60556,98.45765,after the puck left the line
+9,24,path_03,0.12953,0.20619,87.40834,98.45765,after the puck left the line
+9,25,path_03,0.17173,0.21658,94.84197,98.78635,after the puck left the line
+9,26,path_03,0.16321,0.20729,94.03287,98.45765,after the puck left the line
+9,27,path_03,0.14257,0.2085,90.13906,98.50822,after the puck left the line
+9,28,path_03,0.14964,0.23714,91.55499,99.11504,after the puck left the line
+9,29,path_03,0.16527,0.25675,94.18458,99.24147,after the puck left the line
+9,30,path_03,0.18485,0.23689,95.65107,99.11504,after the puck left the line
+9,31,path_03,0.17266,0.2292,94.86726,98.93805,after the puck left the line
+9,32,path_03,0.15069,0.19036,91.80784,97.85082,after the puck left the line
+9,33,path_03,0.14628,0.17311,90.94817,96.71302,after the puck left the line
+9,34,path_03,0.14017,0.14208,89.73451,93.78003,after the puck left the line
+9,35,path_03,0.14822,0.15021,91.32743,94.7914,after the puck left the line
+9,36,path_03,0.15704,0.16245,93.07206,95.95449,after the puck left the line
+9,37,path_03,0.18153,0.16604,95.54994,96.20733,after the puck left the line
+9,38,path_03,0.24358,0.15407,98.50822,95.1201,after the puck left the line
+9,39,path_03,0.23505,0.16135,98.15424,95.7775,after the puck left the line
+9,40,path_03,0.2178,0.14234,97.49684,93.78003,after the puck left the line
+9,41,path_03,0.19161,0.19445,96.18205,98.0531,after the puck left the line
+9,42,path_03,0.13593,0.15834,88.82427,95.39823,after the puck left the line
+9,43,path_03,0.13084,0.1528,87.73704,94.94311,after the puck left the line
+9,44,path_03,0.11297,0.12143,82.35145,90.72061,after the puck left the line
+9,45,path_03,0.10286,0.12213,79.26675,90.87231,after the puck left the line
+9,46,path_03,0.09341,0.12454,75.67636,91.40329,after the puck left the line
+9,47,path_03,0.10358,0.10713,79.44374,87.45891,after the puck left the line
+9,48,path_03,0.14281,0.115,90.18963,89.30468,after the puck left the line
+9,49,path_03,0.11014,0.1282,81.56764,91.85841,after the puck left the line
+9,50,path_03,0.13957,0.1304,89.58281,92.28824,after the puck left the line
+9,51,path_03,0.28115,0.15068,99.59545,94.84197,after the puck left the line
+9,52,path_03,0.34618,0.20466,99.94943,98.45765,after the puck left the line
+9,53,path_03,0.32752,0.16442,99.89886,96.10619,after the puck left the line
+9,54,path_03,0.30362,0.16923,99.74716,96.43489,after the puck left the line
+9,55,path_03,0.27754,0.17747,99.57016,96.96587,after the puck left the line
+9,56,path_03,0.2609,0.19169,99.11504,97.90139,after the puck left the line
+9,57,path_03,0.34106,0.28254,99.94943,99.49431,after the puck left the line
+9,58,path_03,0.27786,0.26094,99.57016,99.31732,after the puck left the line
+9,59,path_03,0.32503,0.2927,99.89886,99.54488,after the puck left the line
+9,60,path_03,0.40008,0.34155,100.0,99.6713,after the puck left the line
+9,61,path_03,0.32437,0.3591,99.89886,99.82301,after the puck left the line
+9,62,path_03,0.24145,0.28553,98.3818,99.49431,after the puck left the line
+9,63,path_03,0.22824,0.21508,98.00253,98.78635,after the puck left the line
+9,64,path_03,0.25092,0.21248,98.91277,98.65992,after the puck left the line
+9,65,path_03,0.23368,0.22491,98.10367,98.81163,after the puck left the line
+9,66,path_03,0.19965,0.23577,96.68774,99.03919,after the puck left the line
+9,67,path_03,0.18324,0.22928,95.60051,98.93805,after the puck left the line
+9,68,path_03,0.19034,0.21329,96.05563,98.68521,after the puck left the line
+9,69,path_03,0.16171,0.18172,93.88116,97.34513,after the puck left the line
+9,70,path_03,0.16733,0.17811,94.41214,96.96587,after the puck left the line
+9,71,path_03,0.18022,0.18232,95.39823,97.3957,after the puck left the line
+9,72,path_03,0.193,0.18241,96.2579,97.3957,after the puck left the line
+9,73,path_03,0.16425,0.18821,94.13401,97.80025,after the puck left the line
+9,74,path_03,0.1624,0.20734,93.9823,98.45765,after the puck left the line
+9,75,path_03,0.19391,0.23454,96.28319,99.03919,after the puck left the line
+9,76,path_03,0.19122,0.19968,96.18205,98.2048,after the puck left the line
+9,77,path_03,0.17002,0.20013,94.6397,98.23009,after the puck left the line
+9,78,path_03,0.27542,0.19983,99.46903,98.2048,after the puck left the line
+9,79,path_03,0.28914,0.20164,99.69659,98.28066,after the puck left the line
+9,80,path_03,0.26082,0.22989,99.11504,98.93805,after the puck left the line
+9,81,path_03,0.26653,0.20824,99.1909,98.50822,after the puck left the line
+9,82,path_03,0.29799,0.22213,99.74716,98.81163,after the puck left the line
+9,83,path_03,0.33888,0.26502,99.92415,99.39317,after the puck left the line
+9,84,path_03,0.35411,0.22115,100.0,98.81163,after the puck left the line
+9,85,path_03,0.2927,0.20805,99.74716,98.50822,after the puck left the line
+9,86,path_03,0.34283,0.26997,99.94943,99.44374,after the puck left the line
+9,87,path_03,0.36446,0.25647,100.0,99.24147,after the puck left the line
+9,88,path_03,0.33333,0.26074,99.92415,99.31732,after the puck left the line
+9,89,path_03,0.29964,0.2778,99.74716,99.44374,after the puck left the line
+10,0,path_03,0.14827,0.11619,91.32743,89.63338,seen before it went wrong
+10,1,path_03,0.11043,0.08603,81.64349,81.01138,seen before it went wrong
+10,2,path_03,0.06926,0.06634,63.36283,72.94564,seen before it went wrong
+10,3,path_03,0.05554,0.04335,52.59166,54.23515,between
+10,4,path_03,0.06284,0.04935,58.96334,60.98609,between
+10,5,path_03,0.04666,0.04827,43.03413,59.59545,after the puck left the line
+10,6,path_03,0.07586,0.05911,67.33249,68.97598,after the puck left the line
+10,7,path_03,0.13469,0.07999,88.57143,78.58407,after the puck left the line
+10,8,path_03,0.13923,0.07861,89.58281,78.30594,after the puck left the line
+10,9,path_03,0.17288,0.11357,94.86726,88.92541,after the puck left the line
+10,10,path_03,0.15081,0.09516,91.80784,83.91909,after the puck left the line
+10,11,path_03,0.17577,0.11084,95.1201,88.21745,after the puck left the line
+10,12,path_03,0.16598,0.08908,94.28571,81.89633,after the puck left the line
+10,13,path_03,0.15481,0.12224,92.71808,90.87231,after the puck left the line
+10,14,path_03,0.12999,0.13812,87.4842,93.12263,after the puck left the line
+10,15,path_03,0.09146,0.11148,74.74083,88.49558,after the puck left the line
+10,16,path_03,0.08016,0.10161,69.78508,85.76485,after the puck left the line
+10,17,path_03,0.05638,0.07177,53.24905,75.57522,after the puck left the line
+10,18,path_03,0.03773,0.0565,32.71808,67.00379,after the puck left the line
+10,19,path_03,0.0511,0.06569,48.41972,72.69279,after the puck left the line
+10,20,path_03,0.07414,0.08988,66.42225,82.12389,after the puck left the line
+10,21,path_03,0.07543,0.10515,67.00379,86.97851,after the puck left the line
+10,22,path_03,0.08899,0.14299,73.78003,93.93173,after the puck left the line
+10,23,path_03,0.11321,0.1599,82.45259,95.65107,after the puck left the line
+10,24,path_03,0.1441,0.15561,90.36662,95.27181,after the puck left the line
+10,25,path_03,0.18789,0.16083,95.85335,95.75221,after the puck left the line
+10,26,path_03,0.1936,0.17827,96.28319,96.96587,after the puck left the line
+10,27,path_03,0.17152,0.19156,94.76612,97.90139,after the puck left the line
+10,28,path_03,0.16031,0.1865,93.55247,97.7244,after the puck left the line
+10,29,path_03,0.1562,0.14475,92.86979,94.18458,after the puck left the line
+10,30,path_03,0.15414,0.11748,92.5158,90.01264,after the puck left the line
+10,31,path_03,0.15767,0.11616,93.1732,89.60809,after the puck left the line
+10,32,path_03,0.17791,0.12202,95.17067,90.82174,after the puck left the line
+10,33,path_03,0.17598,0.11702,95.1201,89.93679,after the puck left the line
+10,34,path_03,0.16296,0.13583,94.03287,92.92035,after the puck left the line
+10,35,path_03,0.16772,0.17992,94.43742,97.19343,after the puck left the line
+10,36,path_03,0.21097,0.23839,97.19343,99.11504,after the puck left the line
+10,37,path_03,0.23738,0.24581,98.23009,99.16561,after the puck left the line
+10,38,path_03,0.26367,0.23951,99.11504,99.11504,after the puck left the line
+10,39,path_03,0.26451,0.24211,99.14033,99.14033,after the puck left the line
+10,40,path_03,0.22712,0.22701,97.97724,98.8622,after the puck left the line
+10,41,path_03,0.19817,0.21595,96.5866,98.78635,after the puck left the line
+10,42,path_03,0.17876,0.24322,95.34766,99.16561,after the puck left the line
+10,43,path_03,0.18527,0.24626,95.70164,99.16561,after the puck left the line
+10,44,path_03,0.19456,0.26373,96.35904,99.3426,after the puck left the line
+10,45,path_03,0.23817,0.26739,98.25537,99.41846,after the puck left the line
+10,46,path_03,0.36677,0.27582,100.0,99.44374,after the puck left the line
+10,47,path_03,0.39352,0.37662,100.0,99.92415,after the puck left the line
+10,48,path_03,0.36286,0.28042,100.0,99.44374,after the puck left the line
+10,49,path_03,0.28459,0.26891,99.6713,99.44374,after the puck left the line
+10,50,path_03,0.26901,0.2411,99.29204,99.14033,after the puck left the line
+10,51,path_03,0.25036,0.23507,98.91277,99.03919,after the puck left the line
+10,52,path_03,0.2188,0.23701,97.49684,99.11504,after the puck left the line
+10,53,path_03,0.25198,0.23973,98.96334,99.11504,after the puck left the line
+10,54,path_03,0.27317,0.2706,99.39317,99.44374,after the puck left the line
+10,55,path_03,0.2895,0.41993,99.69659,99.97472,after the puck left the line
+10,56,path_03,0.34504,0.5212,99.94943,100.0,after the puck left the line
+10,57,path_03,0.26214,0.49973,99.11504,100.0,after the puck left the line
+10,58,path_03,0.24573,0.48721,98.60936,100.0,after the puck left the line
+10,59,path_03,0.1652,0.40113,94.15929,99.94943,after the puck left the line
+10,60,path_03,0.15871,0.25406,93.37547,99.1909,after the puck left the line
+10,61,path_03,0.20516,0.19482,96.99115,98.07838,after the puck left the line
+10,62,path_03,0.1822,0.24842,95.54994,99.1909,after the puck left the line
+10,63,path_03,0.19588,0.23475,96.46018,99.03919,after the puck left the line
+10,64,path_03,0.20458,0.1787,96.99115,96.99115,after the puck left the line
+10,65,path_03,0.23627,0.11527,98.2048,89.38053,after the puck left the line
+10,66,path_03,0.15554,0.12123,92.79393,90.72061,after the puck left the line
+10,67,path_03,0.19475,0.19804,96.40961,98.15424,after the puck left the line
+10,68,path_03,0.28581,0.24827,99.6713,99.1909,after the puck left the line
+10,69,path_03,0.36764,0.25453,100.0,99.1909,after the puck left the line
+10,70,path_03,0.19504,0.28597,96.40961,99.49431,after the puck left the line
+10,71,path_03,0.17519,0.2859,95.06953,99.49431,after the puck left the line
+10,72,path_03,0.14681,0.16233,91.07459,95.95449,after the puck left the line
+10,73,path_03,0.15899,0.17447,93.37547,96.76359,after the puck left the line

@@ -1,0 +1,92 @@
+THE END OF THE LINE
+demonstrations: 210; end found in 210; measured reliably (bare paper seen beyond the end, line 8 to 12.5 mm wide in the map, puck fitted well) in 175
+reliable ends by sheet: {'path_01': 18, 'path_02': 36, 'path_03': 38, 'path_04': 33, 'path_05': 29, 'path_06': 21} of {'path_01': 20, 'path_02': 45, 'path_03': 45, 'path_04': 45, 'path_05': 30, 'path_06': 25}
+
+where the demonstrations stop (puck's centre against the centre of the round end; short: before it along the line, aside: left of the line):
+                             episodes  short_mean_mm  short_sd_mm  aside_mean_mm  aside_sd_mm  aside_size_median_mm  gap_median_mm  gap_p90_mm  covered  covered_share  short_over_limit  beyond_over_limit  aside_over_limit
+all sheets                      175.0            2.0          4.2            0.2          6.0                   4.2            6.4        11.2    104.0           0.59              17.0                5.0              39.0
+path_01                          18.0            1.5          5.0            4.1          8.4                   8.1           10.4        13.4      5.0           0.28               2.0                1.0              11.0
+path_02                          36.0            1.7          4.9           -0.7          7.1                   4.7            6.6        14.6     20.0           0.56               3.0                2.0              12.0
+path_03                          38.0            0.7          4.5           -1.1          5.3                   4.6            6.8         9.7     21.0           0.55               2.0                1.0               6.0
+path_04                          33.0            1.8          3.4           -0.1          5.5                   3.5            5.9        10.0     23.0           0.70               3.0                1.0               7.0
+path_05                          29.0            3.9          3.1           -0.0          4.4                   3.6            5.2        10.4     20.0           0.69               4.0                0.0               2.0
+path_06                          21.0            2.7          3.5            1.3          4.3                   3.7            5.1         9.1     15.0           0.71               3.0                0.0               1.0
+score 1                          17.0            3.6          4.8            4.1          8.0                   6.9            9.4        16.2      8.0           0.47               3.0                0.0               8.0
+score 2                          38.0            1.5          4.3           -1.2          6.0                   4.6            6.4        10.5     22.0           0.58               3.0                1.0               8.0
+score 3                         118.0            1.8          4.1           -0.0          5.5                   4.1            6.3        10.5     73.0           0.62              10.0                4.0              23.0
+operator emranul                165.0            2.1          4.2            0.2          6.2                   4.3            6.4        11.4     97.0           0.59              17.0                3.0              39.0
+operator marshal                 10.0            0.2          5.0           -0.8          3.1                   1.9            5.7         7.7      7.0           0.70               0.0                2.0               0.0
+camera after_move                62.0            3.1          3.3            1.1          4.4                   3.5            5.2         9.6     43.0           0.69               8.0                0.0               6.0
+camera before_move              113.0            1.3          4.5           -0.4          6.7                   5.1            6.8        12.6     61.0           0.54               9.0                5.0              33.0
+start: standard                  61.0            1.1          4.5           -0.1          6.1                   5.2            6.6        11.3     34.0           0.56               5.0                4.0              14.0
+start: puck put to the side      31.0            1.6          2.7           -0.4          7.3                   4.5            5.6        12.1     22.0           0.71               0.0                0.0               8.0
+start: start turned              19.0            2.9          3.5           -0.6          6.1                   3.2            5.9        11.0     12.0           0.63               2.0                0.0               4.0
+start: near end or middle        51.0            2.8          4.3            1.2          4.8                   3.7            6.4         9.9     28.0           0.55               8.0                0.0              10.0
+start: square sheet              12.0            2.6          5.8           -1.2          5.4                   4.3            5.9        13.9      8.0           0.67               2.0                1.0               2.0
+
+'covered' means the two centres are at most 7 mm apart, so that the puck (12 mm radius) hides the round end (5 mm radius) completely.
+the stop picture itself shows ink ahead of the puck in 3 of 175 reliable demonstrations; seen from above, ink sticks out ahead of the puck (over 5 square mm) in 41
+the operators' own verdict was 'puck_in_goal' in 174 of 175; measured covered: 104
+how much of the line's last centimetre is not under the puck at the demonstrated stop, seen from above (calculated from the two distances): nothing in 97 of 175, up to a tenth in 21, a tenth to a third in 28, more than a third in 29; median 0 %, largest 100 %
+
+where the robot stopped, the four runs that reached the end:
+ run model  sheet  end_short_mm  end_aside_mm  end_centre_gap_mm  end_uncovered_mm  visible_share_of_last_cm  end_ink_seen_ahead_mm2  line_width_in_map_mm
+   1     A      1         -3.88        -21.34              21.70             14.63                      1.00                     0.0                  9.75
+   2     E      1         -1.88         13.06              13.20              6.16                      0.68                     0.0                 10.00
+   4     E      2         -7.48         -0.32               7.49             -2.82                      0.11                     0.0                 10.25
+   7     E      5         -1.34          1.90               2.32             -4.97                      0.00                     0.0                  9.95
+('end_uncovered_mm': how far the round end's rim sticks out from under the puck at its worst point; 'visible_share_of_last_cm': the share of the line's
+ last centimetre not under the puck, seen from above; 'end_ink_seen_ahead_mm2': the line the stop picture itself shows ahead of the puck)
+share of the demonstrations that end further from the end's centre than each robot run: {1: '0 %', 2: '6 %', 4: '37 %', 7: '90 %'}
+
+
+THE MIDDLE OF THE LINE
+demonstrations sampled: 36 episodes, 3590 pictures; puck fitted in 3574, offset measured in 3260
+size of the sideways offset between the puck's centre and the line's middle, per picture (mm; shares of pictures):
+                                                                               steps  median_mm  p75_mm  p90_mm  largest_mm  within_2_5  within_5  within_7  over_12  off_the_line
+demonstrations, all sampled                                                   3260.0        5.4    11.4    19.5       154.1        0.26      0.47      0.60     0.23          0.15
+demonstrations, path_01 (6 episodes)                                           229.0        4.8    10.6    13.6        23.8        0.31      0.52      0.66     0.19          0.03
+demonstrations, path_02 (6 episodes)                                           357.0        6.8    15.9    22.2        30.6        0.23      0.41      0.51     0.34          0.23
+demonstrations, path_03 (6 episodes)                                           596.0        5.9    12.4    19.8        46.3        0.23      0.43      0.56     0.27          0.18
+demonstrations, path_04 (6 episodes)                                           865.0        5.9    12.2    19.5        56.9        0.24      0.45      0.58     0.26          0.15
+demonstrations, path_05 (6 episodes)                                           670.0        5.2     9.5    18.5        59.4        0.25      0.48      0.63     0.18          0.13
+demonstrations, path_06 (6 episodes)                                           543.0        4.6     9.1    18.3       154.1        0.31      0.54      0.66     0.18          0.11
+demonstrations, start: standard (18)                                          1663.0        5.2    11.3    20.3        61.6        0.27      0.49      0.61     0.23          0.15
+demonstrations, start: puck put to the side (12)                              1207.0        5.8    11.9    18.5        59.3        0.24      0.45      0.58     0.25          0.14
+demonstrations, start: start turned (1)                                        119.0        6.4    10.7    25.6        59.4        0.15      0.35      0.54     0.24          0.22
+demonstrations, start: near end or middle (5)                                  271.0        5.5     9.1    19.5       154.1        0.30      0.46      0.63     0.20          0.13
+demonstrations, score 1 (3)                                                    237.0        6.4    16.3    22.8        34.4        0.26      0.41      0.55     0.33          0.24
+demonstrations, score 2 (7)                                                    769.0        7.1    13.4    20.3        56.9        0.18      0.37      0.50     0.31          0.19
+demonstrations, score 3 (26)                                                  2254.0        4.9     9.9    18.3       154.1        0.28      0.50      0.64     0.20          0.12
+robot run 1 (model A)                                                           25.0        5.3    13.6    20.3        22.2        0.28      0.48      0.56     0.32          0.16
+robot run 2 (model E)                                                           24.0        1.1     4.2     6.1        12.6        0.62      0.83      0.92     0.04          0.00
+robot run 4 (model E)                                                           41.0        6.5    12.3    16.3        20.9        0.34      0.41      0.59     0.27          0.10
+robot run 7 (model E)                                                           88.0        5.0    14.0    19.7        41.8        0.33      0.50      0.53     0.28          0.17
+robot, the six runs that lost the line                                         354.0       11.3    26.5    38.0        62.3        0.14      0.24      0.33     0.48          0.37
+demonstrations, only pictures with one clean stretch of line beside the puck  2635.0        5.2    10.8    19.0       154.1        0.26      0.48      0.62     0.22          0.13
+demonstrations, standard starts after the first 15 pictures                   1408.0        6.1    12.4    21.0        61.6        0.24      0.43      0.56     0.27          0.17
+('within_7': the puck hides the line's full width; 'over_12': the middle of the line is no longer under the puck; 'off_the_line': over 17 mm, the puck's foot does not touch the line.
+ How good the measure is: two pictures 12 steps apart put the same piece of line a median 1.8 to 3.3 mm apart, the worst tenth 2.7 to 6.8 mm
+ (measure_check.out.txt and the same check on three demonstrations), so the shares at 2.5, 5 and 7 mm are rough where the forearm turns,
+ while offsets over 12 mm are safely real.)
+
+per demonstration, the median offset: smallest 2.6, median 5.6, largest 10.0 mm; demonstrations whose largest offset stays within 7 mm: 0 of 36
+  robot run 1: median 5.3 mm; the sampled demonstrations of path_01: medians 3.5 to 5.9 mm (3 of 6 worse than the robot)
+  robot run 2: median 1.1 mm; the sampled demonstrations of path_01: medians 3.5 to 5.9 mm (6 of 6 worse than the robot)
+  robot run 4: median 6.5 mm; the sampled demonstrations of path_02: medians 5.3 to 7.9 mm (4 of 6 worse than the robot)
+  robot run 7: median 5.0 mm; the sampled demonstrations of path_05: medians 3.5 to 7.6 mm (3 of 6 worse than the robot)
+
+does an offset shrink again? steps with an offset of 7 mm or more, 5 steps later:
+  demonstrations: {'steps': 1166, 'start_median_mm': 13.6, 'change_median_mm': -2.9, 'share_smaller_by_2_mm': 0.55, 'share_larger_by_2_mm': 0.23}
+  robot, the four runs that reached the end: {'steps': 64, 'start_median_mm': 13.6, 'change_median_mm': 0.0, 'share_smaller_by_2_mm': 0.45, 'share_larger_by_2_mm': 0.42}
+
+the demonstrated recoveries (starts with the puck put 1 or 1.5 cm to the side): offset by picture
+  pictures  1 to  3: median 18.1 mm, 90th percentile 28.2 mm (36 pictures of 12 episodes)
+  pictures  4 to  6: median 17.8 mm, 90th percentile 23.5 mm (35 pictures of 12 episodes)
+  pictures  7 to 10: median 14.1 mm, 90th percentile 19.2 mm (42 pictures of 12 episodes)
+  pictures 11 to 15: median 4.6 mm, 90th percentile 16.5 mm (56 pictures of 12 episodes)
+  pictures 16 to 25: median 3.4 mm, 90th percentile 9.9 mm (114 pictures of 12 episodes)
+
+one picture alone against the votes of the last 12 pictures, on the demonstrations: of 2635 clean steps the one picture gives a clean offset in 1298; difference median size 3.1 mm, 90th percentile 33.4 mm, over 5 mm in 449
+
+written: ends_scatter.png, centring_distribution.png

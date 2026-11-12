@@ -1,0 +1,19 @@
+cleaned rows: 18032 episodes: 209
+columns used: ['tip_x_m', 'tip_y_m', 'joint_4', 'picture_heading_deg', 'action', 'sheet']
+0. recorded tip positions treated as a run: the rule fires in 0 of 209 demonstrations
+
+================ E_recipe (fold models, each demonstration seen as an unseen sheet): rows without a prediction 0
+  fixed 1.0 cm                            : the rule fires in   0 of 209 demonstrations ( 0.0 %), in   0 before the last tenth of the run ( 0.0 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 0 / 0; 03: 45 / 0 / 0; 04: 45 / 0 / 0; 05: 29 / 0 / 0; 06: 25 / 0 / 0
+  the model's own length, at most 1.0 cm  : the rule fires in  12 of 209 demonstrations ( 5.7 %), in   7 before the last tenth of the run ( 3.3 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 1 / 0; 03: 45 / 6 / 2; 04: 45 / 1 / 1; 05: 29 / 1 / 1; 06: 25 / 3 / 3
+  fixed 0.65 cm                           : the rule fires in   0 of 209 demonstrations ( 0.0 %), in   0 before the last tenth of the run ( 0.0 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 0 / 0; 03: 45 / 0 / 0; 04: 45 / 0 / 0; 05: 29 / 0 / 0; 06: 25 / 0 / 0
+
+================ A_recipe (fold models, each demonstration seen as an unseen sheet): rows without a prediction 0
+  fixed 1.0 cm                            : the rule fires in   0 of 209 demonstrations ( 0.0 %), in   0 before the last tenth of the run ( 0.0 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 0 / 0; 03: 45 / 0 / 0; 04: 45 / 0 / 0; 05: 29 / 0 / 0; 06: 25 / 0 / 0
+  the model's own length, at most 1.0 cm  : the rule fires in  20 of 209 demonstrations ( 9.6 %), in  17 before the last tenth of the run ( 8.1 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 0 / 0; 03: 45 / 5 / 4; 04: 45 / 7 / 7; 05: 29 / 5 / 3; 06: 25 / 3 / 3
+  fixed 0.65 cm                           : the rule fires in   1 of 209 demonstrations ( 0.5 %), in   1 before the last tenth of the run ( 0.5 %)
+      per sheet (demonstrations / fires / fires before the last tenth): 01: 20 / 0 / 0; 02: 45 / 0 / 0; 03: 45 / 0 / 0; 04: 45 / 1 / 1; 05: 29 / 0 / 0; 06: 25 / 0 / 0

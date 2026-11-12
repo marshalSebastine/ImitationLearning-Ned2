@@ -1,0 +1,5 @@
+steps: 2500 ; heading recomputed against the logged one: largest gap 0.005 degrees
+label against the lean change recomputed from the next row's joints: median |gap| 0.009, 99th 0.355 degrees
+target recomputed: sd 1.187; kinematic part sd 1.042; explains 75.6 % of the variance (1 - residual variance / variance); sign of the kinematic part right on 98.7 % of the 1579 steps of 0.5 degrees or more
+target label     : sd 1.199; kinematic part sd 1.042; explains 74.3 % of the variance (1 - residual variance / variance); sign of the kinematic part right on 98.7 % of the 1581 steps of 0.5 degrees or more
+the part that needs the wrist: correlation with the wrist's own change 0.994; slope 0.857 degrees of lean per degree of wrist (steps with a wrist change over 1 degree: 73)

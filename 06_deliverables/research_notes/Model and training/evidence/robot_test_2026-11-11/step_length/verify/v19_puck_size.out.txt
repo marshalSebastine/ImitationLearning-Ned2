@@ -1,0 +1,7 @@
+2026-11-11_172421_E_sheet01_run1: red blob 61 px wide, 60 px high, 2816 px; the line near it 23 px wide; puck width / line width = 2.63
+2026-11-11_173036_E_sheet02_run2: red blob 62 px wide, 62 px high, 2922 px; the line near it 24 px wide; puck width / line width = 2.59
+2026-11-11_173549_E_sheet03_run1: red blob 61 px wide, 74 px high, 2900 px; the line near it 24 px wide; puck width / line width = 2.54
+2026-11-11_174108_E_sheet04_run1: red blob 59 px wide, 59 px high, 2660 px; the line near it 22 px wide; puck width / line width = 2.68
+2026-11-11_174448_E_sheet05_run1: red blob 60 px wide, 61 px high, 2753 px; the line near it 24 px wide; puck width / line width = 2.55
+2026-11-11_175203_E_sheet03_run2_no_hoodie: red blob 57 px wide, 58 px high, 1806 px; the line near it 24 px wide; puck width / line width = 2.38
+median ratio 2.57: with the top 2.9 cm nearer to the camera a 2.4-cm puck looks roughly 2.6 to 3 line widths across, a 4-cm puck 4.4 to 5

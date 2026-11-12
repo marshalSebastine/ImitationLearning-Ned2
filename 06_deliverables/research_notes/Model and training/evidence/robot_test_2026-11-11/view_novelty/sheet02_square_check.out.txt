@@ -1,0 +1,127 @@
+SHEET 02 IN THE TRAINING DATA: kinds of start (the start end as corrected by the audit, as model E was trained)
+kind    end   episodes   plans
+NE      B            9   02-11 02-12 02-25 02-26 02-27 02-28 02-33 02-34 02-35
+OL1     B            1   02-07
+OL1.5   A            1   02-19
+OL1.5   B            1   02-22
+OR1     B            1   02-09
+OR1.5   A            1   02-20
+OR1.5   B            1   02-23
+SQL     A            5   02-36 02-37 02-38 02-39 02-40
+SQL     B            5   02-41 02-42 02-43 02-44 02-45
+SQP     B            6   02-13 02-14 02-15 02-16 02-17 02-18
+STD     A            4   02-02 02-03 02-29 02-30
+STD     B            6   02-01 02-04 02-05 02-06 02-31 02-32
+TL10    B            1   02-10
+TL15    A            1   02-21
+TR10    B            1   02-08
+TR15    B            1   02-24
+
+THE FIRST PICTURES AGAINST THE FIRST PICTURES OF EVERY SHEET-02 EPISODE (rows 1 to 5), descriptors of model E (trained on sheet 02)
+(per kind of start and end: the cosine distance from the robot's pictures of steps 0 to 2 to the episode's first pictures, the nearest episode and the median over the episodes)
+  run 3:
+    SQP    end B: nearest episode 0.166 (plan 02-14), median 0.202 over 6 episodes
+    SQL    end A: nearest episode 0.179 (plan 02-36), median 0.271 over 5 episodes
+    TL15   end A: nearest episode 0.180 (plan 02-21), median 0.180 over 1 episodes
+    OR1.5  end A: nearest episode 0.185 (plan 02-20), median 0.185 over 1 episodes
+    OR1    end B: nearest episode 0.212 (plan 02-09), median 0.212 over 1 episodes
+    STD    end B: nearest episode 0.237 (plan 02-06), median 0.428 over 6 episodes
+    TL10   end B: nearest episode 0.261 (plan 02-10), median 0.261 over 1 episodes
+    OR1.5  end B: nearest episode 0.282 (plan 02-23), median 0.282 over 1 episodes
+    STD    end A: nearest episode 0.321 (plan 02-30), median 0.383 over 4 episodes
+    TR10   end B: nearest episode 0.432 (plan 02-08), median 0.432 over 1 episodes
+    OL1.5  end A: nearest episode 0.493 (plan 02-19), median 0.493 over 1 episodes
+    NE     end B: nearest episode 0.506 (plan 02-12), median 0.634 over 9 episodes
+    OL1    end B: nearest episode 0.545 (plan 02-07), median 0.545 over 1 episodes
+    SQL    end B: nearest episode 0.558 (plan 02-41), median 0.653 over 5 episodes
+    OL1.5  end B: nearest episode 0.571 (plan 02-22), median 0.571 over 1 episodes
+    TR15   end B: nearest episode 0.574 (plan 02-24), median 0.574 over 1 episodes
+  run 4:
+    STD    end B: nearest episode 0.068 (plan 02-31), median 0.216 over 6 episodes
+    TR10   end B: nearest episode 0.097 (plan 02-08), median 0.097 over 1 episodes
+    STD    end A: nearest episode 0.116 (plan 02-30), median 0.199 over 4 episodes
+    TL10   end B: nearest episode 0.149 (plan 02-10), median 0.149 over 1 episodes
+    TL15   end A: nearest episode 0.235 (plan 02-21), median 0.235 over 1 episodes
+    SQL    end B: nearest episode 0.241 (plan 02-41), median 0.400 over 5 episodes
+    OL1.5  end B: nearest episode 0.251 (plan 02-22), median 0.251 over 1 episodes
+    OL1.5  end A: nearest episode 0.254 (plan 02-19), median 0.254 over 1 episodes
+    SQL    end A: nearest episode 0.255 (plan 02-36), median 0.369 over 5 episodes
+    NE     end B: nearest episode 0.274 (plan 02-12), median 0.390 over 9 episodes
+    SQP    end B: nearest episode 0.279 (plan 02-17), median 0.328 over 6 episodes
+    TR15   end B: nearest episode 0.281 (plan 02-24), median 0.281 over 1 episodes
+    OL1    end B: nearest episode 0.281 (plan 02-07), median 0.281 over 1 episodes
+    OR1.5  end A: nearest episode 0.294 (plan 02-20), median 0.294 over 1 episodes
+    OR1    end B: nearest episode 0.323 (plan 02-09), median 0.323 over 1 episodes
+    OR1.5  end B: nearest episode 0.357 (plan 02-23), median 0.357 over 1 episodes
+
+THE FIRST PICTURES AGAINST THE FIRST PICTURES OF EVERY SHEET-02 EPISODE (rows 1 to 5), descriptors of fold model without sheet 02 (never saw it)
+(per kind of start and end: the cosine distance from the robot's pictures of steps 0 to 2 to the episode's first pictures, the nearest episode and the median over the episodes)
+  run 3:
+    SQP    end B: nearest episode 0.090 (plan 02-14), median 0.200 over 6 episodes
+    OR1.5  end A: nearest episode 0.324 (plan 02-20), median 0.324 over 1 episodes
+    OR1.5  end B: nearest episode 0.338 (plan 02-23), median 0.338 over 1 episodes
+    SQL    end A: nearest episode 0.357 (plan 02-40), median 0.365 over 5 episodes
+    STD    end B: nearest episode 0.375 (plan 02-31), median 0.522 over 6 episodes
+    TL10   end B: nearest episode 0.406 (plan 02-10), median 0.406 over 1 episodes
+    OR1    end B: nearest episode 0.410 (plan 02-09), median 0.410 over 1 episodes
+    TL15   end A: nearest episode 0.436 (plan 02-21), median 0.436 over 1 episodes
+    STD    end A: nearest episode 0.474 (plan 02-30), median 0.548 over 4 episodes
+    SQL    end B: nearest episode 0.522 (plan 02-44), median 0.662 over 5 episodes
+    TR10   end B: nearest episode 0.581 (plan 02-08), median 0.581 over 1 episodes
+    OL1.5  end A: nearest episode 0.589 (plan 02-19), median 0.589 over 1 episodes
+    TR15   end B: nearest episode 0.612 (plan 02-24), median 0.612 over 1 episodes
+    OL1.5  end B: nearest episode 0.645 (plan 02-22), median 0.645 over 1 episodes
+    OL1    end B: nearest episode 0.652 (plan 02-07), median 0.652 over 1 episodes
+    NE     end B: nearest episode 0.659 (plan 02-12), median 0.733 over 9 episodes
+  run 4:
+    STD    end B: nearest episode 0.078 (plan 02-31), median 0.156 over 6 episodes
+    TR10   end B: nearest episode 0.102 (plan 02-08), median 0.102 over 1 episodes
+    STD    end A: nearest episode 0.108 (plan 02-30), median 0.220 over 4 episodes
+    TL10   end B: nearest episode 0.126 (plan 02-10), median 0.126 over 1 episodes
+    SQL    end B: nearest episode 0.153 (plan 02-41), median 0.336 over 5 episodes
+    TL15   end A: nearest episode 0.181 (plan 02-21), median 0.181 over 1 episodes
+    TR15   end B: nearest episode 0.197 (plan 02-24), median 0.197 over 1 episodes
+    SQL    end A: nearest episode 0.199 (plan 02-36), median 0.297 over 5 episodes
+    OL1.5  end B: nearest episode 0.203 (plan 02-22), median 0.203 over 1 episodes
+    OL1.5  end A: nearest episode 0.244 (plan 02-19), median 0.244 over 1 episodes
+    OR1    end B: nearest episode 0.250 (plan 02-09), median 0.250 over 1 episodes
+    OR1.5  end A: nearest episode 0.258 (plan 02-20), median 0.258 over 1 episodes
+    NE     end B: nearest episode 0.270 (plan 02-12), median 0.432 over 9 episodes
+    OR1.5  end B: nearest episode 0.304 (plan 02-23), median 0.304 over 1 episodes
+    OL1    end B: nearest episode 0.318 (plan 02-07), median 0.318 over 1 episodes
+    SQP    end B: nearest episode 0.384 (plan 02-17), median 0.459 over 6 episodes
+
+WHAT WAS DONE AT THE START: the forearm twist made while the tip travelled its first centimetres
+kind    end  plan    rows to travel 3 cm   twist over them, deg   twist per cm | rows to travel 5 cm   twist deg   twist per cm
+SQL     A    02-36                     3                   -4.5           -1.3 |                   6       -15.7           -2.6
+SQL     A    02-37                     4                  -25.1           -8.0 |                   6       -37.5           -7.4
+SQL     A    02-38                     7                  +30.8           +8.2 |                  10       +11.2           +2.0
+SQL     A    02-39                     5                  -29.4           -7.7 |                   8       -44.0           -7.9
+SQL     A    02-40                     3                  -14.8           -4.7 |                   6       -34.5           -6.8
+SQL     B    02-41                     5                  +32.1           +9.2 |                   7       +45.6           +8.8
+SQL     B    02-42                     4                  +23.1           +6.2 |                   6       +36.3           +6.1
+SQL     B    02-43                     4                  +20.7           +5.2 |                   5       +21.0           +4.1
+SQL     B    02-44                     3                  +21.4           +7.0 |                   6       +35.5           +5.8
+SQL     B    02-45                     4                  +26.3           +7.9 |                   9       +53.4           +9.1
+SQP     B    02-13                     4                  -20.4           -5.5 |                   9       -49.9           -9.5
+SQP     B    02-14                     3                  -10.8           -2.6 |                   5       -22.6           -3.9
+SQP     B    02-15                     3                   -0.2           -0.0 |                   5        -9.7           -1.6
+SQP     B    02-16                     5                  -19.5           -5.9 |                   7       -31.9           -6.2
+SQP     B    02-17                     3                   +6.6           +2.0 |                   8       +41.5           +8.0
+SQP     B    02-18                     3                   -2.4           -0.6 |                   7       -21.0           -3.5
+STD     A    02-02                     3                   +6.4           +1.8 |                   5       +13.0           +2.2
+STD     A    02-03                     3                   +5.2           +1.3 |                   4        +6.2           +1.2
+STD     A    02-29                     3                   -0.2           -0.1 |                   5        -2.6           -0.5
+STD     A    02-30                     3                   -9.1           -2.4 |                   5        -9.1           -1.5
+STD     B    02-01                     3                   +1.2           +0.3 |                   5        +4.8           +0.8
+STD     B    02-04                     3                   -2.6           -0.7 |                   5        -2.3           -0.4
+STD     B    02-05                     3                   -1.1           -0.3 |                   5        -1.5           -0.3
+STD     B    02-06                     3                   +2.0           +0.6 |                   5       -11.3           -2.1
+STD     B    02-31                     3                   +2.6           +0.7 |                   5        +4.6           +0.8
+STD     B    02-32                     3                   +4.1           +1.2 |                   5        +4.5           +0.8
+ROBOT   run 3                          3                  -14.3           -4.8 |                   5       -20.2           -4.0
+        run 3: the step length model E ASKED for in its first 5 steps: 0.36  0.41  0.49  0.42  0.38 cm (done: 1.00 cm each)
+ROBOT   run 4                          3                   -1.9           -0.6 |                   5        +1.3           +0.3
+        run 4: the step length model E ASKED for in its first 5 steps: 0.93  0.92  1.06  1.06  1.00 cm (done: 1.00 cm each)
+
+written: figures/sheet02_square_starts.png

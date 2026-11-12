@@ -1,0 +1,193 @@
+DRIVER RULES WALKED ALONG THE HELD-OUT DEMONSTRATIONS (calculated: a simulation with the fold models' real answers; not a robot test)
+gap = the simulated robot's joint 4 minus the demonstration's joint 4 at the same place on the path, degrees
+
+MODEL E (fold models, each sheet predicted by the model trained without it; 209 demonstrations)
+   asked step length: median 0.67 cm against demonstrated 1.06; on demonstrated short steps (< 0.7 cm) 0.61 against 0.40; on long steps 0.70 against 1.14
+   asked |twist|: mean 2.62 degrees against demonstrated 4.11; on short steps 3.30 against 6.65; on long steps 2.36 against 3.16
+   size of the asked step in the recording's measure (1 = 1 cm or 5 degrees): median 0.79, 10th percentile 0.49, share under 0.5: 0.11
+
+   rule                                     sheet    decisions / pictures twist per cm / demo turn per 5 cm: robot on demo correlation median |gap| share |gap|>20 share |gap|>45 median largest |gap|
+   now (1 cm, twist as predicted)           path_01                  1.04                0.52                         0.14        0.35          9.8           0.17           0.02                 18.4
+   now (1 cm, twist as predicted)           path_02                  1.02                0.96                         0.40        0.47         24.3           0.49           0.23                 61.1
+   now (1 cm, twist as predicted)           path_03                  0.93                0.60                         0.40        0.72         21.1           0.51           0.24                 73.1
+   now (1 cm, twist as predicted)           path_04                  0.87                0.51                         0.29        0.61         43.0           0.67           0.43                123.0
+   now (1 cm, twist as predicted)           path_05                  1.06                0.46                         0.16        0.36         46.1           0.59           0.41                120.1
+   now (1 cm, twist as predicted)           path_06                  0.99                0.47                         0.34        0.70         20.8           0.55           0.24                 79.1
+   now (1 cm, twist as predicted)           all                      0.95                0.56                         0.31        0.60         25.3           0.52           0.28                 76.8
+
+   gain 1.5                                 path_01                  1.04                0.79                         0.20        0.35         13.0           0.28           0.08                 27.9
+   gain 1.5                                 path_02                  1.02                1.43                         0.60        0.47         33.5           0.60           0.40                106.1
+   gain 1.5                                 path_03                  0.93                0.89                         0.59        0.72         33.7           0.59           0.34                 81.3
+   gain 1.5                                 path_04                  0.87                0.76                         0.43        0.61         65.1           0.72           0.55                152.8
+   gain 1.5                                 path_05                  1.06                0.69                         0.24        0.36         64.2           0.62           0.49                142.4
+   gain 1.5                                 path_06                  0.99                0.70                         0.51        0.70         26.2           0.53           0.25                 75.0
+   gain 1.5                                 all                      0.95                0.84                         0.47        0.60         37.1           0.59           0.38                 96.7
+
+   gain 2.0                                 path_01                  1.04                1.05                         0.27        0.35         16.1           0.38           0.14                 38.9
+   gain 2.0                                 path_02                  1.02                1.86                         0.77        0.47         57.1           0.71           0.50                163.7
+   gain 2.0                                 path_03                  0.93                1.14                         0.73        0.71         41.9           0.65           0.44                121.3
+   gain 2.0                                 path_04                  0.87                0.96                         0.53        0.60         97.5           0.75           0.60                189.7
+   gain 2.0                                 path_05                  1.06                0.92                         0.31        0.36         88.4           0.67           0.54                169.5
+   gain 2.0                                 path_06                  0.99                0.92                         0.66        0.70         29.2           0.64           0.37                 71.8
+   gain 2.0                                 all                      0.95                1.08                         0.58        0.59         50.0           0.66           0.46                125.8
+
+   per cm (twist x 1 cm / length)           path_01                  1.04                0.66                         0.20        0.36          9.3           0.24           0.06                 21.8
+   per cm (twist x 1 cm / length)           path_02                  1.02                1.45                         0.55        0.41         33.6           0.60           0.37                107.9
+   per cm (twist x 1 cm / length)           path_03                  0.93                0.93                         0.60        0.70         32.1           0.55           0.34                 94.8
+   per cm (twist x 1 cm / length)           path_04                  0.87                0.80                         0.47        0.63         65.1           0.69           0.51                148.4
+   per cm (twist x 1 cm / length)           path_05                  1.06                0.70                         0.24        0.34         69.2           0.64           0.52                150.7
+   per cm (twist x 1 cm / length)           path_06                  0.99                0.73                         0.53        0.67         34.8           0.56           0.31                 71.7
+   per cm (twist x 1 cm / length)           all                      0.95                0.87                         0.49        0.60         35.8           0.57           0.38                101.3
+
+   length (0.2 to 1.5 cm)                   path_01                  1.43                0.65                         0.19        0.35          7.3           0.23           0.05                 21.0
+   length (0.2 to 1.5 cm)                   path_02                  1.64                1.52                         0.58        0.39         39.1           0.62           0.41                115.0
+   length (0.2 to 1.5 cm)                   path_03                  1.59                1.02                         0.69        0.69         30.6           0.56           0.35                101.9
+   length (0.2 to 1.5 cm)                   path_04                  1.49                0.87                         0.54        0.62         50.3           0.69           0.48                137.5
+   length (0.2 to 1.5 cm)                   path_05                  1.57                0.69                         0.24        0.35         67.9           0.64           0.51                157.1
+   length (0.2 to 1.5 cm)                   path_06                  1.59                0.74                         0.53        0.64         30.3           0.56           0.31                 77.8
+   length (0.2 to 1.5 cm)                   all                      1.56                0.92                         0.55        0.59         36.9           0.58           0.38                108.0
+
+   length x 1.3                             path_01                  1.11                0.51                         0.15        0.37          7.3           0.18           0.02                 17.8
+   length x 1.3                             path_02                  1.27                1.18                         0.45        0.39         27.0           0.55           0.31                 79.9
+   length x 1.3                             path_03                  1.24                0.79                         0.54        0.69         25.4           0.52           0.28                 86.8
+   length x 1.3                             path_04                  1.16                0.68                         0.42        0.62         40.0           0.62           0.40                109.2
+   length x 1.3                             path_05                  1.22                0.54                         0.19        0.35         57.3           0.62           0.47                138.5
+   length x 1.3                             path_06                  1.23                0.57                         0.41        0.64         27.7           0.57           0.28                 77.0
+   length x 1.3                             all                      1.21                0.72                         0.43        0.58         27.4           0.54           0.31                 89.1
+
+   half step (0.5 cm, twist as predicted)   path_01                  2.05                1.04                         0.22        0.28         16.2           0.38           0.14                 39.7
+   half step (0.5 cm, twist as predicted)   path_02                  2.03                1.90                         0.76        0.45         49.9           0.73           0.51                163.6
+   half step (0.5 cm, twist as predicted)   path_03                  1.85                1.19                         0.78        0.71         43.8           0.66           0.44                111.9
+   half step (0.5 cm, twist as predicted)   path_04                  1.73                1.01                         0.57        0.61         97.7           0.76           0.62                199.2
+   half step (0.5 cm, twist as predicted)   path_05                  2.11                0.92                         0.32        0.36         84.1           0.67           0.54                167.1
+   half step (0.5 cm, twist as predicted)   path_06                  1.98                0.93                         0.68        0.70         32.1           0.67           0.39                 78.0
+   half step (0.5 cm, twist as predicted)   all                      1.89                1.12                         0.62        0.60         48.6           0.67           0.47                125.8
+
+   unit step (1 cm or 5 deg)                path_01                  1.14                0.65                         0.19        0.35         10.1           0.23           0.05                 21.7
+   unit step (1 cm or 5 deg)                path_02                  1.24                1.55                         0.59        0.38         38.2           0.61           0.40                117.4
+   unit step (1 cm or 5 deg)                path_03                  1.29                1.07                         0.71        0.64         31.4           0.58           0.39                106.8
+   unit step (1 cm or 5 deg)                path_04                  1.18                0.88                         0.56        0.61         51.2           0.69           0.48                135.5
+   unit step (1 cm or 5 deg)                path_05                  1.17                0.70                         0.25        0.35         67.3           0.64           0.51                148.0
+   unit step (1 cm or 5 deg)                path_06                  1.16                0.75                         0.53        0.63         33.4           0.57           0.32                 77.7
+   unit step (1 cm or 5 deg)                all                      1.21                0.95                         0.56        0.57         37.4           0.58           0.39                111.4
+
+   per picture (reference)                  path_01                  1.00                0.56                         0.15        0.29          8.8           0.22           0.06                 16.2
+   per picture (reference)                  path_02                  1.00                0.96                         0.49        0.55         24.0           0.47           0.26                 62.7
+   per picture (reference)                  path_03                  1.00                0.70                         0.59        0.82         22.6           0.46           0.18                 61.3
+   per picture (reference)                  path_04                  1.00                0.63                         0.50        0.75         59.8           0.65           0.49                123.3
+   per picture (reference)                  path_05                  1.00                0.45                         0.18        0.40         48.0           0.60           0.43                110.3
+   per picture (reference)                  path_06                  1.00                0.49                         0.42        0.76         20.3           0.52           0.19                 66.0
+   per picture (reference)                  all                      1.00                0.64                         0.48        0.72         24.0           0.51           0.29                 68.3
+
+   'decisions / pictures': how many decisions the robot would need, against the number of demonstration pictures (time).
+   'twist per cm / demo': all the twisting done (sum of |twist|) against the demonstration's.
+   'turn per 5 cm: robot on demo': the share of the demonstration's net joint-4 change over each 5 cm of path that the robot gives back (1 = the same).
+
+   The first big turn of each demonstration (the place within the first 20 cm of path where its joint 4 is furthest from the start; only turns of 30 degrees or more):
+   the share of that turn the simulated robot has made when it reaches the same place (median over the demonstrations; 1 = the same)
+   rule                                                       all sheets, all starts       path_03 standard starts from end A       path_04 standard starts from end A       path_06 standard starts from end A       path_05 standard starts from end B       path_02 standard starts from end B
+   now (1 cm, twist as predicted)             0.47 (152 demos; turn 74 deg at 16 cm)     0.48 (8 demos; turn 92 deg at 12 cm)    0.43 (9 demos; turn 111 deg at 15 cm)     0.51 (6 demos; turn 71 deg at 20 cm)     0.21 (6 demos; turn 75 deg at 19 cm)     0.42 (4 demos; turn 51 deg at 20 cm)
+   gain 1.5                                   0.71 (152 demos; turn 74 deg at 16 cm)     0.69 (8 demos; turn 92 deg at 12 cm)    0.65 (9 demos; turn 111 deg at 15 cm)     0.76 (6 demos; turn 71 deg at 20 cm)     0.31 (6 demos; turn 75 deg at 19 cm)     0.62 (4 demos; turn 51 deg at 20 cm)
+   gain 2.0                                   0.86 (152 demos; turn 74 deg at 16 cm)     0.81 (8 demos; turn 92 deg at 12 cm)    0.81 (9 demos; turn 111 deg at 15 cm)     0.94 (6 demos; turn 71 deg at 20 cm)     0.40 (6 demos; turn 75 deg at 19 cm)     0.83 (4 demos; turn 51 deg at 20 cm)
+   per cm (twist x 1 cm / length)             0.73 (152 demos; turn 74 deg at 16 cm)     0.74 (8 demos; turn 92 deg at 12 cm)    0.67 (9 demos; turn 111 deg at 15 cm)     0.89 (6 demos; turn 71 deg at 20 cm)     0.33 (6 demos; turn 75 deg at 19 cm)     0.42 (4 demos; turn 51 deg at 20 cm)
+   length (0.2 to 1.5 cm)                     0.79 (152 demos; turn 74 deg at 16 cm)     0.98 (8 demos; turn 92 deg at 12 cm)    0.67 (9 demos; turn 111 deg at 15 cm)     0.91 (6 demos; turn 71 deg at 20 cm)     0.38 (6 demos; turn 75 deg at 19 cm)     0.45 (4 demos; turn 51 deg at 20 cm)
+   length x 1.3                               0.61 (152 demos; turn 74 deg at 16 cm)     0.80 (8 demos; turn 92 deg at 12 cm)    0.51 (9 demos; turn 111 deg at 15 cm)     0.69 (6 demos; turn 71 deg at 20 cm)     0.26 (6 demos; turn 75 deg at 19 cm)     0.34 (4 demos; turn 51 deg at 20 cm)
+   half step (0.5 cm, twist as predicted)     0.92 (152 demos; turn 74 deg at 16 cm)     0.89 (8 demos; turn 92 deg at 12 cm)    0.80 (9 demos; turn 111 deg at 15 cm)     1.05 (6 demos; turn 71 deg at 20 cm)     0.47 (6 demos; turn 75 deg at 19 cm)     0.83 (4 demos; turn 51 deg at 20 cm)
+   unit step (1 cm or 5 deg)                  0.81 (152 demos; turn 74 deg at 16 cm)     0.95 (8 demos; turn 92 deg at 12 cm)    0.64 (9 demos; turn 111 deg at 15 cm)     0.90 (6 demos; turn 71 deg at 20 cm)     0.33 (6 demos; turn 75 deg at 19 cm)     0.46 (4 demos; turn 51 deg at 20 cm)
+   per picture (reference)                    0.61 (152 demos; turn 74 deg at 16 cm)     0.69 (8 demos; turn 92 deg at 12 cm)    0.59 (9 demos; turn 111 deg at 15 cm)     0.56 (6 demos; turn 71 deg at 20 cm)     0.28 (6 demos; turn 75 deg at 19 cm)     0.39 (4 demos; turn 51 deg at 20 cm)
+
+MODEL A (fold models, each sheet predicted by the model trained without it; 209 demonstrations)
+   asked step length: median 0.64 cm against demonstrated 1.06; on demonstrated short steps (< 0.7 cm) 0.56 against 0.40; on long steps 0.67 against 1.14
+   asked |twist|: mean 2.69 degrees against demonstrated 4.11; on short steps 3.42 against 6.65; on long steps 2.42 against 3.16
+   size of the asked step in the recording's measure (1 = 1 cm or 5 degrees): median 0.79, 10th percentile 0.43, share under 0.5: 0.15
+
+   rule                                     sheet    decisions / pictures twist per cm / demo turn per 5 cm: robot on demo correlation median |gap| share |gap|>20 share |gap|>45 median largest |gap|
+   now (1 cm, twist as predicted)           path_01                  1.04                0.56                         0.18        0.40          7.7           0.18           0.08                 17.5
+   now (1 cm, twist as predicted)           path_02                  1.02                1.04                         0.47        0.52         24.2           0.50           0.25                 67.2
+   now (1 cm, twist as predicted)           path_03                  0.93                0.65                         0.43        0.72         25.8           0.53           0.25                 72.5
+   now (1 cm, twist as predicted)           path_04                  0.87                0.49                         0.27        0.61         55.3           0.70           0.51                142.6
+   now (1 cm, twist as predicted)           path_05                  1.06                0.51                         0.25        0.48         39.1           0.58           0.37                 99.5
+   now (1 cm, twist as predicted)           path_06                  0.99                0.44                         0.28        0.66         27.4           0.59           0.29                 87.9
+   now (1 cm, twist as predicted)           all                      0.95                0.58                         0.32        0.60         27.0           0.54           0.31                 78.5
+
+   gain 1.5                                 path_01                  1.04                0.84                         0.27        0.39          8.6           0.28           0.13                 25.6
+   gain 1.5                                 path_02                  1.02                1.55                         0.69        0.51         38.0           0.65           0.42                134.3
+   gain 1.5                                 path_03                  0.93                0.98                         0.63        0.72         33.7           0.62           0.37                 85.5
+   gain 1.5                                 path_04                  0.87                0.73                         0.41        0.61        103.6           0.72           0.60                182.9
+   gain 1.5                                 path_05                  1.06                0.76                         0.37        0.48         40.2           0.64           0.45                116.6
+   gain 1.5                                 path_06                  0.99                0.66                         0.42        0.66         24.1           0.55           0.30                 98.4
+   gain 1.5                                 all                      0.95                0.86                         0.47        0.60         37.6           0.61           0.41                100.1
+
+   gain 2.0                                 path_01                  1.04                1.12                         0.34        0.39         11.0           0.37           0.17                 33.5
+   gain 2.0                                 path_02                  1.02                2.02                         0.89        0.51         68.4           0.73           0.54                184.1
+   gain 2.0                                 path_03                  0.93                1.24                         0.77        0.70         50.2           0.64           0.46                121.1
+   gain 2.0                                 path_04                  0.87                0.94                         0.50        0.60        145.8           0.73           0.64                245.9
+   gain 2.0                                 path_05                  1.06                1.00                         0.48        0.48         41.4           0.71           0.50                133.0
+   gain 2.0                                 path_06                  0.99                0.87                         0.55        0.66         38.4           0.64           0.36                109.0
+   gain 2.0                                 all                      0.95                1.11                         0.59        0.59         50.3           0.66           0.48                133.0
+
+   per cm (twist x 1 cm / length)           path_01                  1.04                0.72                         0.26        0.40          6.0           0.23           0.15                 19.5
+   per cm (twist x 1 cm / length)           path_02                  1.02                1.72                         0.69        0.45         40.1           0.65           0.44                148.5
+   per cm (twist x 1 cm / length)           path_03                  0.93                1.08                         0.70        0.71         44.3           0.58           0.39                 90.9
+   per cm (twist x 1 cm / length)           path_04                  0.87                0.79                         0.45        0.62         91.4           0.70           0.58                170.0
+   per cm (twist x 1 cm / length)           path_05                  1.06                0.83                         0.40        0.47         38.2           0.69           0.43                111.0
+   per cm (twist x 1 cm / length)           path_06                  0.99                0.72                         0.44        0.61         19.1           0.50           0.27                 95.4
+   per cm (twist x 1 cm / length)           all                      0.95                0.94                         0.52        0.59         38.6           0.59           0.41                107.7
+
+   length (0.2 to 1.5 cm)                   path_01                  1.41                0.74                         0.29        0.42          5.6           0.23           0.18                 18.9
+   length (0.2 to 1.5 cm)                   path_02                  1.84                1.83                         0.73        0.42         40.8           0.67           0.46                151.3
+   length (0.2 to 1.5 cm)                   path_03                  1.69                1.18                         0.82        0.72         41.3           0.63           0.40                107.4
+   length (0.2 to 1.5 cm)                   path_04                  1.53                0.84                         0.51        0.63         79.1           0.70           0.57                154.9
+   length (0.2 to 1.5 cm)                   path_05                  1.83                0.85                         0.42        0.47         40.3           0.66           0.44                105.4
+   length (0.2 to 1.5 cm)                   path_06                  1.70                0.74                         0.43        0.59         21.0           0.51           0.28                 99.7
+   length (0.2 to 1.5 cm)                   all                      1.67                1.00                         0.58        0.59         39.4           0.60           0.42                107.4
+
+   length x 1.3                             path_01                  1.10                0.57                         0.24        0.46          5.8           0.21           0.08                 14.7
+   length x 1.3                             path_02                  1.43                1.42                         0.57        0.42         32.1           0.58           0.35                102.8
+   length x 1.3                             path_03                  1.31                0.91                         0.64        0.72         25.5           0.54           0.32                 88.3
+   length x 1.3                             path_04                  1.19                0.65                         0.39        0.63         51.5           0.67           0.49                134.7
+   length x 1.3                             path_05                  1.43                0.65                         0.32        0.46         32.2           0.59           0.36                 99.2
+   length x 1.3                             path_06                  1.31                0.57                         0.33        0.58         24.4           0.55           0.28                 96.7
+   length x 1.3                             all                      1.29                0.77                         0.45        0.59         31.4           0.55           0.34                 95.1
+
+   half step (0.5 cm, twist as predicted)   path_01                  2.05                1.11                         0.31        0.35         11.6           0.39           0.17                 33.1
+   half step (0.5 cm, twist as predicted)   path_02                  2.03                2.06                         0.90        0.50         69.4           0.75           0.56                191.2
+   half step (0.5 cm, twist as predicted)   path_03                  1.85                1.30                         0.83        0.71         52.9           0.66           0.47                121.5
+   half step (0.5 cm, twist as predicted)   path_04                  1.73                0.97                         0.54        0.60        149.5           0.74           0.64                235.9
+   half step (0.5 cm, twist as predicted)   path_05                  2.11                1.01                         0.50        0.49         47.0           0.71           0.50                130.3
+   half step (0.5 cm, twist as predicted)   path_06                  1.98                0.87                         0.54        0.65         36.8           0.64           0.35                108.9
+   half step (0.5 cm, twist as predicted)   all                      1.89                1.15                         0.62        0.60         54.3           0.67           0.49                130.3
+
+   unit step (1 cm or 5 deg)                path_01                  1.18                0.74                         0.28        0.41          7.2           0.23           0.18                 19.0
+   unit step (1 cm or 5 deg)                path_02                  1.40                1.89                         0.74        0.39         39.1           0.66           0.46                155.9
+   unit step (1 cm or 5 deg)                path_03                  1.36                1.20                         0.82        0.71         44.0           0.64           0.42                108.0
+   unit step (1 cm or 5 deg)                path_04                  1.18                0.86                         0.52        0.61         72.2           0.69           0.56                157.1
+   unit step (1 cm or 5 deg)                path_05                  1.35                0.86                         0.42        0.45         37.0           0.69           0.45                113.3
+   unit step (1 cm or 5 deg)                path_06                  1.17                0.75                         0.43        0.56         22.6           0.52           0.30                104.6
+   unit step (1 cm or 5 deg)                all                      1.28                1.02                         0.59        0.57         38.6           0.61           0.42                112.5
+
+   per picture (reference)                  path_01                  1.00                0.62                         0.24        0.38          6.6           0.22           0.13                 14.7
+   per picture (reference)                  path_02                  1.00                1.04                         0.59        0.61         21.7           0.51           0.28                 64.0
+   per picture (reference)                  path_03                  1.00                0.76                         0.63        0.83         25.4           0.48           0.20                 59.8
+   per picture (reference)                  path_04                  1.00                0.62                         0.47        0.73         95.6           0.65           0.50                159.4
+   per picture (reference)                  path_05                  1.00                0.49                         0.29        0.55         38.0           0.57           0.36                100.3
+   per picture (reference)                  path_06                  1.00                0.46                         0.34        0.71         24.9           0.57           0.25                 89.4
+   per picture (reference)                  all                      1.00                0.65                         0.48        0.72         25.9           0.52           0.30                 74.3
+
+   'decisions / pictures': how many decisions the robot would need, against the number of demonstration pictures (time).
+   'twist per cm / demo': all the twisting done (sum of |twist|) against the demonstration's.
+   'turn per 5 cm: robot on demo': the share of the demonstration's net joint-4 change over each 5 cm of path that the robot gives back (1 = the same).
+
+   The first big turn of each demonstration (the place within the first 20 cm of path where its joint 4 is furthest from the start; only turns of 30 degrees or more):
+   the share of that turn the simulated robot has made when it reaches the same place (median over the demonstrations; 1 = the same)
+   rule                                                       all sheets, all starts       path_03 standard starts from end A       path_04 standard starts from end A       path_06 standard starts from end A       path_05 standard starts from end B       path_02 standard starts from end B
+   now (1 cm, twist as predicted)             0.55 (152 demos; turn 74 deg at 16 cm)     0.55 (8 demos; turn 92 deg at 12 cm)    0.44 (9 demos; turn 111 deg at 15 cm)     0.67 (6 demos; turn 71 deg at 20 cm)     0.33 (6 demos; turn 75 deg at 19 cm)     0.52 (4 demos; turn 51 deg at 20 cm)
+   gain 1.5                                   0.81 (152 demos; turn 74 deg at 16 cm)     0.81 (8 demos; turn 92 deg at 12 cm)    0.67 (9 demos; turn 111 deg at 15 cm)     0.99 (6 demos; turn 71 deg at 20 cm)     0.49 (6 demos; turn 75 deg at 19 cm)     0.78 (4 demos; turn 51 deg at 20 cm)
+   gain 2.0                                   0.98 (152 demos; turn 74 deg at 16 cm)     0.94 (8 demos; turn 92 deg at 12 cm)    0.86 (9 demos; turn 111 deg at 15 cm)     1.32 (6 demos; turn 71 deg at 20 cm)     0.62 (6 demos; turn 75 deg at 19 cm)     1.00 (4 demos; turn 51 deg at 20 cm)
+   per cm (twist x 1 cm / length)             0.84 (152 demos; turn 74 deg at 16 cm)     0.91 (8 demos; turn 92 deg at 12 cm)    0.62 (9 demos; turn 111 deg at 15 cm)     0.90 (6 demos; turn 71 deg at 20 cm)     0.45 (6 demos; turn 75 deg at 19 cm)     0.66 (4 demos; turn 51 deg at 20 cm)
+   length (0.2 to 1.5 cm)                     0.84 (152 demos; turn 74 deg at 16 cm)     1.23 (8 demos; turn 92 deg at 12 cm)    0.59 (9 demos; turn 111 deg at 15 cm)     0.89 (6 demos; turn 71 deg at 20 cm)     0.44 (6 demos; turn 75 deg at 19 cm)     0.69 (4 demos; turn 51 deg at 20 cm)
+   length x 1.3                               0.64 (152 demos; turn 74 deg at 16 cm)     0.98 (8 demos; turn 92 deg at 12 cm)    0.46 (9 demos; turn 111 deg at 15 cm)     0.67 (6 demos; turn 71 deg at 20 cm)     0.36 (6 demos; turn 75 deg at 19 cm)     0.57 (4 demos; turn 51 deg at 20 cm)
+   half step (0.5 cm, twist as predicted)     1.04 (152 demos; turn 74 deg at 16 cm)     1.00 (8 demos; turn 92 deg at 12 cm)    0.84 (9 demos; turn 111 deg at 15 cm)     1.33 (6 demos; turn 71 deg at 20 cm)     0.63 (6 demos; turn 75 deg at 19 cm)     1.03 (4 demos; turn 51 deg at 20 cm)
+   unit step (1 cm or 5 deg)                  0.85 (152 demos; turn 74 deg at 16 cm)     1.22 (8 demos; turn 92 deg at 12 cm)    0.59 (9 demos; turn 111 deg at 15 cm)     0.84 (6 demos; turn 71 deg at 20 cm)     0.42 (6 demos; turn 75 deg at 19 cm)     0.68 (4 demos; turn 51 deg at 20 cm)
+   per picture (reference)                    0.69 (152 demos; turn 74 deg at 16 cm)     0.78 (8 demos; turn 92 deg at 12 cm)    0.62 (9 demos; turn 111 deg at 15 cm)     0.63 (6 demos; turn 71 deg at 20 cm)     0.38 (6 demos; turn 75 deg at 19 cm)     0.48 (4 demos; turn 51 deg at 20 cm)
+

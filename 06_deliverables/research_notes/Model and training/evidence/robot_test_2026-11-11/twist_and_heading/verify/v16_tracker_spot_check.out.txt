@@ -1,0 +1,1 @@
+far share 0.177, near share 0.220

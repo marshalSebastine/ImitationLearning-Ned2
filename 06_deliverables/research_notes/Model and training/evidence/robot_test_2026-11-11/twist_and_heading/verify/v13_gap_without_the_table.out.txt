@@ -1,0 +1,15 @@
+forearm turn since the start when the tip is first d cm (straight line) from its start
+   d cm:                 2       3       4       5       6       7       8
+   demonstrations:     -21     -45     -55     -71     -86     -87     -92   (median of 8)
+      smallest turn:    -2     -16     -35     -54     -66     -73     -80
+      largest turn:    -52     -58     -66     -86     -90     -97     -98
+   run  5:              +1      -5     -11     -17     -23     -28     -33   behind the median by +22  +40  +44  +54  +64  +59  +59
+   run  9:              -8     -14     -20     -26     -32     -37     -48   behind the median by +13  +31  +35  +45  +54  +50  +45
+   run 10:              -4     -11     -19     -26     -33     -38     -57   behind the median by +17  +34  +36  +45  +54  +49  +35
+
+the rule 'turn the forearm towards the predicted direction of travel' on the logged answers of the first ten pictures
+(a twist of +1 degree turns the picture heading by -0.9 degrees, so turning towards a travel direction on the picture-right, angle < 0, needs a POSITIVE twist)
+   run  3: mean asked travel angle -11, mean asked twist -3.7; the rule's twist would have the opposite sign to the model's twist in 0.8 of the ten pictures
+   run  5: mean asked travel angle -27, mean asked twist -3.8; the rule's twist would have the opposite sign to the model's twist in 0.9 of the ten pictures
+   run  9: mean asked travel angle -26, mean asked twist -5.3; the rule's twist would have the opposite sign to the model's twist in 1.0 of the ten pictures
+   run 10: mean asked travel angle -23, mean asked twist -4.7; the rule's twist would have the opposite sign to the model's twist in 0.7 of the ten pictures

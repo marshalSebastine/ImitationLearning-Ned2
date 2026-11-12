@@ -1,0 +1,24 @@
+run | moves | reached minus planned tip, mm: median, 90th percentile, largest | length really moved for a commanded 10 mm: 5th to 95th percentile | joint 4: reached minus planned, degrees, largest
+check_no_puck                |  25 | 0.16, 0.25, 0.38 | 9.72 to 10.16 | 0.30
+E_sheet01_run1               |  24 | 0.15, 0.35, 0.41 | 9.85 to 10.34 | 0.13
+E_sheet02_run1               |  37 | 0.16, 0.25, 0.38 | 9.82 to 10.22 | 0.21
+E_sheet02_run2               |  41 | 0.23, 0.36, 0.60 | 9.66 to 10.15 | 0.22
+E_sheet03_run1               |  59 | 0.18, 0.30, 0.42 | 9.82 to 10.24 | 0.28
+E_sheet04_run1               |  68 | 0.18, 0.29, 0.35 | 9.74 to 10.20 | 0.21
+E_sheet05_run1               |  88 | 0.19, 0.29, 0.47 | 9.74 to 10.25 | 0.53
+E_sheet06_run1               |  40 | 0.19, 0.27, 0.30 | 9.78 to 10.17 | 0.31
+E_sheet03_run2_no_hoodie     |  89 | 0.21, 0.33, 0.40 | 9.77 to 10.29 | 0.32
+B_team5_sheet03              |  73 | 0.21, 0.33, 0.41 | 9.70 to 10.15 | 0.28
+
+all 544 moves [measured from the joint angles the robot reported, so the arm's own sensors, not a ruler]:
+   tip reached minus planned: median 0.19 mm, 90th percentile 0.31 mm, 99th 0.41 mm, largest 0.60 mm
+   along the commanded direction (too far +, too short -): median -0.01 mm, 5th to 95th percentile -0.27 to +0.24 mm
+   across it: median 0.10 mm, 95th percentile 0.26 mm
+   joint 4 reached minus planned: largest 0.53 degrees
+   if the same error held for a commanded 1.0 mm step [calculated]: the 90th-percentile miss is 31 % of the step, the median miss 19 %
+   if the same error held for a commanded 2.0 mm step [calculated]: the 90th-percentile miss is 16 % of the step, the median miss 10 %
+   if the same error held for a commanded 3.0 mm step [calculated]: the 90th-percentile miss is 10 % of the step, the median miss 6 %
+   if the same error held for a commanded 6.5 mm step [calculated]: the 90th-percentile miss is 5 % of the step, the median miss 3 %
+
+what the log cannot show: play in the joints, the arm sagging, the rod bending against the puck, or the puck sticking. The tip's place in the log is
+calculated from the reported joint angles; a ruler, a dial gauge or the camera's own pictures are needed for that.

@@ -1,0 +1,29 @@
+== 1. sheet 03 from end A: farthest advance in x before the tip is 2 cm left of its start ==
+demonstrations starting on the start mark: 15; advance median 6.4 cm, from 0.0 to 9.4; sorted: [0.0, 0.1, 2.4, 6.0, 6.1, 6.4, 6.4, 6.4, 6.5, 8.3, 8.6, 8.8, 8.9, 8.9, 9.4]
+   OL1   : 1 episodes, advance [0.0]
+   OL1.5 : 1 episodes, advance [0.1]
+   OR1   : 1 episodes, advance [6.4]
+   OR1.5 : 1 episodes, advance [8.9]
+   STD   : 8 episodes, advance [6.0, 6.1, 6.4, 6.4, 6.5, 8.3, 8.8, 8.9]
+   TL10  : 1 episodes, advance [2.4]
+   TL15  : 1 episodes, advance [8.6]
+   TR10  : 1 episodes, advance [9.4]
+173549_E_sheet03_run1           : driven: advance 11.1 cm (0 of 15 demonstrations advanced as far or farther); with the asked lengths along the same logged directions: 5.3 cm (calculated)
+175203_E_sheet03_run2_no_hoodie : driven: advance 9.8 cm (0 of 15 demonstrations advanced as far or farther); with the asked lengths along the same logged directions: 4.7 cm (calculated)
+175544_B_team5_sheet03          : driven: advance 8.2 cm (6 of 15 demonstrations advanced as far or farther); with the asked lengths along the same logged directions: 3.8 cm (calculated)
+
+== 2. model E (all sheets) on its own training pictures: predicted length per kind of place ==
+   straight    : predicted median 0.96 cm, demonstrated median 1.13, local pace median 1.00; predicted twist size over demonstrated (sums) 0.75
+   gentle bend : predicted median 0.80 cm, demonstrated median 1.09, local pace median 0.85; predicted twist size over demonstrated (sums) 0.76
+   sharp bend  : predicted median 0.69 cm, demonstrated median 1.01, local pace median 0.71; predicted twist size over demonstrated (sums) 0.85
+   hairpin     : predicted median 0.46 cm, demonstrated median 0.53, local pace median 0.47; predicted twist size over demonstrated (sums) 0.93
+   line end    : predicted median 0.44 cm, demonstrated median 1.08, local pace median 0.76; predicted twist size over demonstrated (sums) 0.49
+
+== 3. fold models (recipe E) on the sheet they never saw: asked length against the local pace, per sheet and kind of place ==
+   path_01: straight: asked 1.02 / pace 0.99 (sum asked over sum demonstrated 0.91)
+   path_02: straight: asked 0.76 / pace 0.78 (sum asked over sum demonstrated 0.83); gentle bend: asked 0.71 / pace 0.83 (sum asked over sum demonstrated 0.68)
+   path_03: straight: asked 0.81 / pace 1.02 (sum asked over sum demonstrated 0.68); gentle bend: asked 0.71 / pace 0.79 (sum asked over sum demonstrated 0.73); sharp bend: asked 0.60 / pace 0.66 (sum asked over sum demonstrated 0.74)
+   path_04: straight: asked 0.69 / pace 0.82 (sum asked over sum demonstrated 0.70); gentle bend: asked 0.70 / pace 0.87 (sum asked over sum demonstrated 0.68); sharp bend: asked 0.62 / pace 0.65 (sum asked over sum demonstrated 0.75); hairpin: asked 0.63 / pace 0.47 (sum asked over sum demonstrated 0.97)
+   path_05: straight: asked 0.86 / pace 1.13 (sum asked over sum demonstrated 0.70); gentle bend: asked 0.72 / pace 0.88 (sum asked over sum demonstrated 0.68); sharp bend: asked 0.66 / pace 0.83 (sum asked over sum demonstrated 0.66)
+   path_06: straight: asked 0.93 / pace 0.99 (sum asked over sum demonstrated 0.76); gentle bend: asked 0.64 / pace 0.89 (sum asked over sum demonstrated 0.65); sharp bend: asked 0.68 / pace 0.82 (sum asked over sum demonstrated 0.70)
+   all held-out pictures: sum of asked lengths over sum of demonstrated lengths 0.71; twist sizes 0.64; asked twist per asked cm 3.91 deg against demonstrated 4.39

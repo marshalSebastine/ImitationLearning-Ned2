@@ -1,0 +1,82 @@
+================ recipe E: 17773 step rows on held-out sheets
+size of a step in recorded steps (max of travel / 1 cm and |twist| / 5 degrees): shown median 1.21 (5th percentile 1.00); asked median 0.79 (5th 0.40, 25th 0.63, 75th 0.95); asked under 0.5 in 10.9 %, under 0.33 in 2.9 %; the asked size comes from the twist in 34.0 % of rows (shown: 42.9 %)
+1 and 2. Net turn per centimetre carried out as a share of the demonstrated, and the pace
+   demonstrated: 3.42 degrees per cm over all windows, 6.43 in sharp windows; rows per cm 1.06 (sharp windows 1.23)
+   rule                                             share of the turn per cm: all   sharp   | share of the net turn itself: all   sharp   | decisions per cm: all   sharp   | decisions against the demonstrations' rows
+   fixed 1.0 cm (11.11.26)                                                0.50    0.42   |                            0.53    0.51   |                 1.00    1.00   | 0.94 times
+   own length, at most 1.2 cm                                             0.74    0.63   |                            0.53    0.51   |                 1.47    1.52   | 1.39 times
+   fixed 0.65 cm                                                          0.77    0.64   |                            0.53    0.51   |                 1.54    1.54   | 1.45 times
+   unit step, size 1.0, enlarged at most x2                               0.64    0.55   |                            0.58    0.55   |                 1.17    1.24   | 1.10 times
+   unit step, size 1.0, enlarged at most x3                               0.63    0.55   |                            0.59    0.56   |                 1.15    1.22   | 1.08 times
+   unit step, size 1.0, enlarged at most x100                             0.63    0.55   |                            0.59    0.56   |                 1.14    1.21   | 1.08 times
+   unit step, size 1.22, enlarged at most x2                              0.65    0.56   |                            0.70    0.66   |                 0.98    1.04   | 0.92 times
+   unit step, size 1.22, enlarged at most x3                              0.64    0.55   |                            0.71    0.68   |                 0.95    1.00   | 0.89 times
+   unit step, size 1.22, enlarged at most x100                            0.63    0.55   |                            0.72    0.68   |                 0.94    0.99   | 0.88 times
+3. The end of the line
+   the last picture before the stop row (209 episodes; shown last move: median 0.65 cm): asked length median 0.37 cm, asked |twist| median 0.5 degrees
+      fixed 1.0 cm (11.11.26)                          carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      own length, at most 1.2 cm                       carries out a median 0.37 cm (10th to 90th percentile 0.18 to 0.67)
+      fixed 0.65 cm                                    carries out a median 0.65 cm (10th to 90th percentile 0.65 to 0.65)
+      unit step, size 1.0, enlarged at most x2         carries out a median 0.72 cm (10th to 90th percentile 0.35 to 1.00)
+      unit step, size 1.0, enlarged at most x3         carries out a median 1.00 cm (10th to 90th percentile 0.50 to 1.00)
+      unit step, size 1.0, enlarged at most x100       carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      unit step, size 1.22, enlarged at most x2        carries out a median 0.73 cm (10th to 90th percentile 0.36 to 1.22)
+      unit step, size 1.22, enlarged at most x3        carries out a median 1.07 cm (10th to 90th percentile 0.52 to 1.22)
+      unit step, size 1.22, enlarged at most x100      carries out a median 1.22 cm (10th to 90th percentile 1.22 to 1.22)
+   the first picture with a stop chance of 0.5 or more, the stop row itself left out (140 episodes): asked length median 0.38 cm, asked |twist| median 0.5 degrees
+      fixed 1.0 cm (11.11.26)                          carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      own length, at most 1.2 cm                       carries out a median 0.38 cm (10th to 90th percentile 0.23 to 0.55)
+      fixed 0.65 cm                                    carries out a median 0.65 cm (10th to 90th percentile 0.65 to 0.65)
+      unit step, size 1.0, enlarged at most x2         carries out a median 0.75 cm (10th to 90th percentile 0.46 to 1.00)
+      unit step, size 1.0, enlarged at most x3         carries out a median 1.00 cm (10th to 90th percentile 0.68 to 1.00)
+      unit step, size 1.0, enlarged at most x100       carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      unit step, size 1.22, enlarged at most x2        carries out a median 0.75 cm (10th to 90th percentile 0.46 to 1.10)
+      unit step, size 1.22, enlarged at most x3        carries out a median 1.13 cm (10th to 90th percentile 0.68 to 1.22)
+      unit step, size 1.22, enlarged at most x100      carries out a median 1.22 cm (10th to 90th percentile 1.22 to 1.22)
+4. Where the unit step enlarges a doubtful answer (direction scored on rows whose shown tip move is 0.3 cm or more)
+   asked size 0.00 to 0.33:   2.9 % of rows; direction within 45 degrees of the shown step in  41.4 %, more than 90 degrees off in  30.7 %; twist sense right (shown twist 2 degrees or more) in  64.5 %
+   asked size 0.33 to 0.50:   8.0 % of rows; direction within 45 degrees of the shown step in  45.9 %, more than 90 degrees off in  21.0 %; twist sense right (shown twist 2 degrees or more) in  64.0 %
+   asked size 0.50 to 0.80:  41.3 % of rows; direction within 45 degrees of the shown step in  59.0 %, more than 90 degrees off in  13.1 %; twist sense right (shown twist 2 degrees or more) in  69.8 %
+   asked size 0.80 to 10.00:  47.8 % of rows; direction within 45 degrees of the shown step in  79.1 %, more than 90 degrees off in   4.6 %; twist sense right (shown twist 2 degrees or more) in  86.7 %
+
+================ recipe A: 17773 step rows on held-out sheets
+size of a step in recorded steps (max of travel / 1 cm and |twist| / 5 degrees): shown median 1.21 (5th percentile 1.00); asked median 0.79 (5th 0.34, 25th 0.61, 75th 0.97); asked under 0.5 in 14.7 %, under 0.33 in 4.7 %; the asked size comes from the twist in 38.6 % of rows (shown: 42.9 %)
+1 and 2. Net turn per centimetre carried out as a share of the demonstrated, and the pace
+   demonstrated: 3.42 degrees per cm over all windows, 6.43 in sharp windows; rows per cm 1.06 (sharp windows 1.23)
+   rule                                             share of the turn per cm: all   sharp   | share of the net turn itself: all   sharp   | decisions per cm: all   sharp   | decisions against the demonstrations' rows
+   fixed 1.0 cm (11.11.26)                                                0.51    0.42   |                            0.54    0.52   |                 1.00    1.00   | 0.94 times
+   own length, at most 1.2 cm                                             0.79    0.68   |                            0.54    0.52   |                 1.53    1.60   | 1.44 times
+   fixed 0.65 cm                                                          0.79    0.65   |                            0.54    0.52   |                 1.54    1.54   | 1.45 times
+   unit step, size 1.0, enlarged at most x2                               0.69    0.60   |                            0.60    0.57   |                 1.22    1.32   | 1.15 times
+   unit step, size 1.0, enlarged at most x3                               0.68    0.59   |                            0.61    0.57   |                 1.19    1.28   | 1.12 times
+   unit step, size 1.0, enlarged at most x100                             0.68    0.59   |                            0.61    0.58   |                 1.18    1.27   | 1.11 times
+   unit step, size 1.22, enlarged at most x2                              0.70    0.61   |                            0.72    0.68   |                 1.03    1.11   | 0.97 times
+   unit step, size 1.22, enlarged at most x3                              0.69    0.60   |                            0.74    0.70   |                 0.98    1.06   | 0.93 times
+   unit step, size 1.22, enlarged at most x100                            0.68    0.59   |                            0.75    0.70   |                 0.96    1.04   | 0.91 times
+3. The end of the line
+   the last picture before the stop row (209 episodes; shown last move: median 0.65 cm): asked length median 0.34 cm, asked |twist| median 0.3 degrees
+      fixed 1.0 cm (11.11.26)                          carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      own length, at most 1.2 cm                       carries out a median 0.34 cm (10th to 90th percentile 0.17 to 0.55)
+      fixed 0.65 cm                                    carries out a median 0.65 cm (10th to 90th percentile 0.65 to 0.65)
+      unit step, size 1.0, enlarged at most x2         carries out a median 0.61 cm (10th to 90th percentile 0.32 to 1.00)
+      unit step, size 1.0, enlarged at most x3         carries out a median 0.87 cm (10th to 90th percentile 0.44 to 1.00)
+      unit step, size 1.0, enlarged at most x100       carries out a median 1.00 cm (10th to 90th percentile 0.72 to 1.00)
+      unit step, size 1.22, enlarged at most x2        carries out a median 0.63 cm (10th to 90th percentile 0.34 to 1.05)
+      unit step, size 1.22, enlarged at most x3        carries out a median 0.91 cm (10th to 90th percentile 0.48 to 1.22)
+      unit step, size 1.22, enlarged at most x100      carries out a median 1.22 cm (10th to 90th percentile 0.88 to 1.22)
+   the first picture with a stop chance of 0.5 or more, the stop row itself left out (128 episodes): asked length median 0.29 cm, asked |twist| median 0.2 degrees
+      fixed 1.0 cm (11.11.26)                          carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      own length, at most 1.2 cm                       carries out a median 0.29 cm (10th to 90th percentile 0.17 to 0.39)
+      fixed 0.65 cm                                    carries out a median 0.65 cm (10th to 90th percentile 0.65 to 0.65)
+      unit step, size 1.0, enlarged at most x2         carries out a median 0.58 cm (10th to 90th percentile 0.34 to 0.78)
+      unit step, size 1.0, enlarged at most x3         carries out a median 0.88 cm (10th to 90th percentile 0.51 to 1.00)
+      unit step, size 1.0, enlarged at most x100       carries out a median 1.00 cm (10th to 90th percentile 1.00 to 1.00)
+      unit step, size 1.22, enlarged at most x2        carries out a median 0.58 cm (10th to 90th percentile 0.34 to 0.78)
+      unit step, size 1.22, enlarged at most x3        carries out a median 0.88 cm (10th to 90th percentile 0.51 to 1.17)
+      unit step, size 1.22, enlarged at most x100      carries out a median 1.22 cm (10th to 90th percentile 1.22 to 1.22)
+4. Where the unit step enlarges a doubtful answer (direction scored on rows whose shown tip move is 0.3 cm or more)
+   asked size 0.00 to 0.33:   4.7 % of rows; direction within 45 degrees of the shown step in  43.3 %, more than 90 degrees off in  27.1 %; twist sense right (shown twist 2 degrees or more) in  64.5 %
+   asked size 0.33 to 0.50:  10.1 % of rows; direction within 45 degrees of the shown step in  48.7 %, more than 90 degrees off in  20.5 %; twist sense right (shown twist 2 degrees or more) in  63.8 %
+   asked size 0.50 to 0.80:  36.7 % of rows; direction within 45 degrees of the shown step in  60.8 %, more than 90 degrees off in  12.3 %; twist sense right (shown twist 2 degrees or more) in  73.5 %
+   asked size 0.80 to 10.00:  48.6 % of rows; direction within 45 degrees of the shown step in  76.6 %, more than 90 degrees off in   5.5 %; twist sense right (shown twist 2 degrees or more) in  85.6 %
+

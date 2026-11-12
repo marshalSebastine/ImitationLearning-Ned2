@@ -1,0 +1,25 @@
+THE SAME FOREARM TURN, HOW MUCH TIP TRAVEL? The first bend of sheet 03 (measured: frames.csv with the audit cleaning, steps.csv of runs 5, 9, 10)
+
+joint 4 reaches -50 degrees
+   demonstrations (standard starts from end A; 8 of 8 reach it): after a median of 8 pictures (range 3 to 10) and 5.7 cm of tip travel (range 3.5 to 7.5)
+   run 5 (model E): at picture 11, after 11.0 cm of tip travel; the lengths the model asked for up to there add up to 5.5 cm
+   run 9 (model E): at picture 9, after 9.1 cm of tip travel; the lengths the model asked for up to there add up to 4.5 cm
+   run 10 (model B): at picture 9, after 8.9 cm of tip travel; the lengths the model asked for up to there add up to 4.1 cm
+
+joint 4 reaches -70 degrees
+   demonstrations (standard starts from end A; 8 of 8 reach it): after a median of 12 pictures (range 6 to 13) and 7.8 cm of tip travel (range 5.3 to 10.2)
+   run 5 (model E): at picture 17, after 17.0 cm of tip travel; the lengths the model asked for up to there add up to 7.7 cm
+   run 9 (model E): at picture 12, after 12.1 cm of tip travel; the lengths the model asked for up to there add up to 5.5 cm
+   run 10 (model B): at picture 13, after 12.8 cm of tip travel; the lengths the model asked for up to there add up to 5.2 cm
+
+The first 10 decisions of every run: what the model asked for
+   run  1 (A, path_01): mean asked length 1.01 cm, mean |asked twist| 1.1 degrees, net asked twist +11.0 degrees; reached the end
+   run  2 (E, path_01): mean asked length 1.15 cm, mean |asked twist| 0.2 degrees, net asked twist +2.0 degrees; reached the end
+   run  3 (E, path_02): mean asked length 0.42 cm, mean |asked twist| 3.7 degrees, net asked twist -36.6 degrees; failed (lost the line, Esc)
+   run  4 (E, path_02): mean asked length 0.95 cm, mean |asked twist| 2.3 degrees, net asked twist +18.9 degrees; reached the end
+   run  5 (E, path_03): mean asked length 0.51 cm, mean |asked twist| 4.3 degrees, net asked twist -38.2 degrees; failed (overshot the first bend)
+   run  6 (E, path_04): mean asked length 0.84 cm, mean |asked twist| 1.9 degrees, net asked twist +13.1 degrees; failed (stuck at the hairpin)
+   run  7 (E, path_05): mean asked length 1.15 cm, mean |asked twist| 2.2 degrees, net asked twist -22.1 degrees; reached the end
+   run  8 (E, path_06): mean asked length 1.14 cm, mean |asked twist| 2.8 degrees, net asked twist +26.1 degrees; failed (left the dashed loop)
+   run  9 (E, path_03): mean asked length 0.48 cm, mean |asked twist| 5.3 degrees, net asked twist -52.6 degrees; failed (overshot the first bend)
+   run 10 (B, path_03): mean asked length 0.42 cm, mean |asked twist| 5.1 degrees, net asked twist -47.0 degrees; failed (overshot the first bend)

@@ -1,0 +1,54 @@
+MODEL E fold answers on held-out sheets: 209 demonstrations; asked length median 0.67 cm (demonstrated 1.06); on demonstrated steps of 0.7 cm or more: asked 0.70 against 1.14
+   smooth path / labelled path, median over demonstrations: 0.79
+   measure 'path': 152 first big turns, median 74 degrees at 16 cm
+   rule                                                                     share of the first big turn (median) sheet 03 STD end A decisions per picture walks finished
+   now (1 cm)                                                                                               0.47               0.46                  0.93           1.00
+   gain 1.5                                                                                                 0.70               0.68                  0.93           1.00
+   gain 2.0                                                                                                 0.87               0.79                  0.93           1.00
+   asked length x 1.0, 0.2 to 1.5 cm                                                                        0.79               0.99                  1.57           1.00
+   asked length x 1.3, 0.2 to 1.5 cm                                                                        0.60               0.78                  1.22           1.00
+   driver as coded today: predicted, gain 1.0, at most 1.0 cm, no floor                                     0.80               0.99                  1.67           1.00
+   unit step                                                                                                0.80               0.94                  1.22           1.00
+   half step 0.5 cm                                                                                         0.94               0.89                  1.86           1.00
+   one decision per demonstrated picture                                                                    0.61               0.69                  1.00           1.00
+   per sheet, share of the first big turn (median): now (1 cm): 01 -0.00 02 0.64 03 0.51 04 0.42 05 0.40 06 0.48; gain 1.5: 01 -0.01 02 0.96 03 0.73 04 0.64 05 0.60 06 0.71; asked length x 1.0: 01 -0.13 02 0.79 03 1.04 04 0.65 05 0.61 06 0.83; unit step: 01 -0.13 02 0.77 03 1.03 04 0.66 05 0.62 06 0.87
+   measure 'smooth': 163 first big turns, median 76 degrees at 14 cm
+   rule                                                                     share of the first big turn (median) sheet 03 STD end A decisions per picture walks finished
+   now (1 cm)                                                                                               0.42               0.39                  0.75           1.00
+   gain 1.5                                                                                                 0.63               0.57                  0.75           1.00
+   gain 2.0                                                                                                 0.77               0.65                  0.75           1.00
+   asked length x 1.0, 0.2 to 1.5 cm                                                                        0.72               0.80                  1.23           1.00
+   asked length x 1.3, 0.2 to 1.5 cm                                                                        0.54               0.63                  0.96           1.00
+   driver as coded today: predicted, gain 1.0, at most 1.0 cm, no floor                                     0.72               0.80                  1.30           1.00
+   unit step                                                                                                0.70               0.78                  0.96           1.00
+   half step 0.5 cm                                                                                         0.82               0.77                  1.49           1.00
+   one decision per demonstrated picture                                                                    0.63               0.69                  1.00           1.00
+   per sheet, share of the first big turn (median): now (1 cm): 01 0.02 02 0.53 03 0.46 04 0.36 05 0.40 06 0.42; gain 1.5: 01 0.02 02 0.78 03 0.65 04 0.54 05 0.59 06 0.63; asked length x 1.0: 01 -0.07 02 0.77 03 0.92 04 0.58 05 0.59 06 0.73; unit step: 01 -0.04 02 0.75 03 1.02 04 0.59 05 0.59 06 0.78
+
+MODEL A fold answers on held-out sheets: 209 demonstrations; asked length median 0.64 cm (demonstrated 1.06); on demonstrated steps of 0.7 cm or more: asked 0.67 against 1.14
+   smooth path / labelled path, median over demonstrations: 0.79
+   measure 'path': 152 first big turns, median 74 degrees at 16 cm
+   rule                                                                     share of the first big turn (median) sheet 03 STD end A decisions per picture walks finished
+   now (1 cm)                                                                                               0.55               0.55                  0.93           1.00
+   gain 1.5                                                                                                 0.81               0.80                  0.93           1.00
+   gain 2.0                                                                                                 1.00               0.94                  0.93           1.00
+   asked length x 1.0, 0.2 to 1.5 cm                                                                        0.86               1.29                  1.70           1.00
+   asked length x 1.3, 0.2 to 1.5 cm                                                                        0.67               1.02                  1.33           1.00
+   driver as coded today: predicted, gain 1.0, at most 1.0 cm, no floor                                     0.88               1.29                  1.79           1.00
+   unit step                                                                                                0.88               1.25                  1.30           1.00
+   half step 0.5 cm                                                                                         1.07               1.02                  1.86           1.00
+   one decision per demonstrated picture                                                                    0.69               0.78                  1.00           1.00
+   per sheet, share of the first big turn (median): now (1 cm): 01 0.01 02 0.80 03 0.56 04 0.46 05 0.51 06 0.59; gain 1.5: 01 0.02 02 1.16 03 0.81 04 0.68 05 0.77 06 0.89; asked length x 1.0: 01 -0.13 02 1.02 03 1.28 04 0.77 05 0.68 06 0.80; unit step: 01 -0.08 02 1.02 03 1.26 04 0.75 05 0.62 06 0.82
+   measure 'smooth': 163 first big turns, median 76 degrees at 14 cm
+   rule                                                                     share of the first big turn (median) sheet 03 STD end A decisions per picture walks finished
+   now (1 cm)                                                                                               0.48               0.44                  0.75           1.00
+   gain 1.5                                                                                                 0.70               0.64                  0.75           1.00
+   gain 2.0                                                                                                 0.85               0.73                  0.75           1.00
+   asked length x 1.0, 0.2 to 1.5 cm                                                                        0.74               1.10                  1.32           1.00
+   asked length x 1.3, 0.2 to 1.5 cm                                                                        0.57               0.82                  1.03           1.00
+   driver as coded today: predicted, gain 1.0, at most 1.0 cm, no floor                                     0.75               1.09                  1.39           1.00
+   unit step                                                                                                0.75               1.06                  1.02           1.00
+   half step 0.5 cm                                                                                         0.92               0.82                  1.49           1.00
+   one decision per demonstrated picture                                                                    0.72               0.78                  1.00           1.00
+   per sheet, share of the first big turn (median): now (1 cm): 01 0.01 02 0.62 03 0.47 04 0.39 05 0.47 06 0.49; gain 1.5: 01 0.02 02 0.93 03 0.67 04 0.58 05 0.71 06 0.73; asked length x 1.0: 01 -0.06 02 1.00 03 1.10 04 0.65 05 0.66 06 0.73; unit step: 01 -0.04 02 0.99 03 1.09 04 0.65 05 0.59 06 0.71
+

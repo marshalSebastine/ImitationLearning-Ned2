@@ -1,0 +1,27 @@
+RE-AIM OR PUSH ON: what the fold models answer on the two kinds of demonstrated step (held-out sheets; measured)
+re-aim = tip travel under 0.7 cm with a twist of 3 degrees or more; push = tip travel of 0.7 cm or more
+
+MODEL E: 4627 re-aim steps, 12929 push steps
+                          demonstrated cm  asked cm demonstrated |twist| asked |twist| demonstrated deg per cm asked deg per cm
+   re-aim steps                      0.40      0.61                 6.42          3.34                    17.9              5.6
+   push steps                        1.14      0.70                 2.37          2.07                     2.7              3.4
+   how well the answer tells the two apart (1.0 = always, 0.5 = not at all): by the asked length 0.62, by the asked |twist| 0.65, by the asked twist per cm 0.67
+      path_01: share of re-aim steps 0.12; told apart by the asked twist per cm 0.76; asked on re-aim steps 0.66 cm and 1.9 degrees, on push steps 1.00 cm and 1.0 degrees
+      path_02: share of re-aim steps 0.16; told apart by the asked twist per cm 0.58; asked on re-aim steps 0.68 cm and 3.0 degrees, on push steps 0.70 cm and 2.4 degrees
+      path_03: share of re-aim steps 0.29; told apart by the asked twist per cm 0.69; asked on re-aim steps 0.60 cm and 4.0 degrees, on push steps 0.67 cm and 2.5 degrees
+      path_04: share of re-aim steps 0.36; told apart by the asked twist per cm 0.68; asked on re-aim steps 0.59 cm and 3.7 degrees, on push steps 0.69 cm and 2.5 degrees
+      path_05: share of re-aim steps 0.17; told apart by the asked twist per cm 0.58; asked on re-aim steps 0.65 cm and 1.8 degrees, on push steps 0.74 cm and 1.3 degrees
+      path_06: share of re-aim steps 0.22; told apart by the asked twist per cm 0.58; asked on re-aim steps 0.67 cm and 2.4 degrees, on push steps 0.68 cm and 1.8 degrees
+
+MODEL A: 4627 re-aim steps, 12929 push steps
+                          demonstrated cm  asked cm demonstrated |twist| asked |twist| demonstrated deg per cm asked deg per cm
+   re-aim steps                      0.40      0.57                 6.42          3.60                    17.9              6.1
+   push steps                        1.14      0.67                 2.37          2.18                     2.7              3.6
+   how well the answer tells the two apart (1.0 = always, 0.5 = not at all): by the asked length 0.62, by the asked |twist| 0.66, by the asked twist per cm 0.69
+      path_01: share of re-aim steps 0.12; told apart by the asked twist per cm 0.80; asked on re-aim steps 0.62 cm and 2.7 degrees, on push steps 1.01 cm and 1.0 degrees
+      path_02: share of re-aim steps 0.16; told apart by the asked twist per cm 0.58; asked on re-aim steps 0.63 cm and 3.4 degrees, on push steps 0.64 cm and 2.6 degrees
+      path_03: share of re-aim steps 0.29; told apart by the asked twist per cm 0.70; asked on re-aim steps 0.54 cm and 4.5 degrees, on push steps 0.63 cm and 2.9 degrees
+      path_04: share of re-aim steps 0.36; told apart by the asked twist per cm 0.72; asked on re-aim steps 0.56 cm and 3.8 degrees, on push steps 0.69 cm and 2.4 degrees
+      path_05: share of re-aim steps 0.17; told apart by the asked twist per cm 0.61; asked on re-aim steps 0.59 cm and 1.7 degrees, on push steps 0.69 cm and 1.5 degrees
+      path_06: share of re-aim steps 0.22; told apart by the asked twist per cm 0.60; asked on re-aim steps 0.60 cm and 2.3 degrees, on push steps 0.64 cm and 1.7 degrees
+

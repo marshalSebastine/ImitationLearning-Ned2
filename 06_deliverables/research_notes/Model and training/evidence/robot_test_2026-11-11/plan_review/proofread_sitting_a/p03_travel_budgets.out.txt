@@ -1,0 +1,56 @@
+sheet 03, end A, standard-start demonstrations:
+   03-01: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (16.4, 0.8) cm = 3.2 cm from the tip (+2.3 ahead in x, +2.2 in y); line misfit 4.5 mm; whole episode 108 pictures, 97 cm of tip travel
+      puck past 119 mm of line at picture 28: tip travel 19.0 cm
+   03-02: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (16.6, 0.2) cm = 3.1 cm from the tip (+2.6 ahead in x, +1.7 in y); line misfit 7.9 mm; whole episode 130 pictures, 121 cm of tip travel
+      puck past 119 mm of line at picture 32: tip travel 21.3 cm
+   03-03: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (16.5, 0.1) cm = 2.9 cm from the tip (+2.4 ahead in x, +1.6 in y); line misfit 7.0 mm; whole episode 112 pictures, 100 cm of tip travel
+      puck past 119 mm of line at picture 22: tip travel 16.2 cm
+   03-04: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (16.3, 0.2) cm = 2.9 cm from the tip (+2.3 ahead in x, +1.7 in y); line misfit 4.7 mm; whole episode 125 pictures, 100 cm of tip travel
+      puck past 119 mm of line at picture 26: tip travel 17.3 cm
+   03-05: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (16.6, 0.3) cm = 3.1 cm from the tip (+2.6 ahead in x, +1.8 in y); line misfit 5.4 mm; whole episode 109 pictures, 97 cm of tip travel
+      puck past 119 mm of line at picture 22: tip travel 18.0 cm
+   03-25: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.6, -0.4) cm = 3.8 cm from the tip (+3.6 ahead in x, +1.1 in y); line misfit 6.7 mm; whole episode 106 pictures, 92 cm of tip travel
+      puck past 119 mm of line at picture 24: tip travel 18.4 cm
+   03-26: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.6, -0.4) cm = 3.8 cm from the tip (+3.6 ahead in x, +1.1 in y); line misfit 2.8 mm; whole episode 97 pictures, 88 cm of tip travel
+      puck past 119 mm of line at picture 26: tip travel 19.3 cm
+   03-27: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (18.2, -0.1) cm = 4.4 cm from the tip (+4.2 ahead in x, +1.4 in y); line misfit 3.9 mm; whole episode 102 pictures, 90 cm of tip travel
+      puck past 119 mm of line at picture 26: tip travel 20.8 cm
+   until the puck has passed 119 mm: tip travel median 18.7 cm, range 16.2 to 21.3 cm; pictures median 26, range 22 to 32 (8 demonstrations)
+
+sheet 04, end A, standard-start demonstrations:
+   04-01: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (19.4, 0.0) cm = 5.6 cm from the tip (+5.4 ahead in x, +1.5 in y); line misfit 3.4 mm; whole episode 196 pictures, 155 cm of tip travel
+      puck past 160 mm of line at picture 48: tip travel 36.2 cm
+      puck past 285 mm of line at picture 96: tip travel 66.9 cm
+   04-02: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (19.3, 0.2) cm = 5.5 cm from the tip (+5.3 ahead in x, +1.7 in y); line misfit 4.1 mm; whole episode 205 pictures, 174 cm of tip travel
+      puck past 160 mm of line at picture 40: tip travel 28.5 cm
+      puck past 285 mm of line at picture 82: tip travel 56.6 cm
+   04-03: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (19.5, 0.4) cm = 5.8 cm from the tip (+5.5 ahead in x, +1.9 in y); line misfit 4.0 mm; whole episode 182 pictures, 179 cm of tip travel
+      puck past 160 mm of line at picture 34: tip travel 35.8 cm
+      puck past 285 mm of line at picture 62: tip travel 64.3 cm
+   04-04: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (19.3, 0.1) cm = 5.5 cm from the tip (+5.3 ahead in x, +1.6 in y); line misfit 5.5 mm; whole episode 208 pictures, 166 cm of tip travel
+      puck past 160 mm of line at picture 52: tip travel 35.2 cm
+      puck past 285 mm of line at picture 96: tip travel 63.5 cm
+   04-05: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (19.4, 0.4) cm = 5.7 cm from the tip (+5.4 ahead in x, +1.9 in y); line misfit 4.6 mm; whole episode 192 pictures, 143 cm of tip travel
+      puck past 160 mm of line at picture 46: tip travel 30.8 cm
+      puck past 285 mm of line at picture 92: tip travel 60.3 cm
+   04-13: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (18.1, -1.8) cm = 4.1 cm from the tip (+4.1 ahead in x, -0.3 in y); line misfit 3.0 mm; whole episode 154 pictures, 121 cm of tip travel
+      puck past 160 mm of line at picture 42: tip travel 27.9 cm
+      puck past 285 mm of line at picture 80: tip travel 52.8 cm
+   04-14: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.8, -1.9) cm = 3.8 cm from the tip (+3.8 ahead in x, -0.4 in y); line misfit 2.4 mm; whole episode 138 pictures, 122 cm of tip travel
+      puck past 160 mm of line at picture 30: tip travel 31.4 cm
+      puck past 285 mm of line at picture 68: tip travel 55.9 cm
+   04-15: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (18.2, -2.0) cm = 4.2 cm from the tip (+4.2 ahead in x, -0.5 in y); line misfit 6.3 mm; whole episode 199 pictures, 203 cm of tip travel
+      puck past 160 mm of line at picture 30: tip travel 32.4 cm
+      puck past 285 mm of line at picture 62: tip travel 55.5 cm
+   04-16: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.7, -2.1) cm = 3.8 cm from the tip (+3.7 ahead in x, -0.6 in y); line misfit 4.0 mm; whole episode 172 pictures, 164 cm of tip travel
+      puck past 160 mm of line at picture 46: tip travel 32.9 cm
+      puck past 285 mm of line at picture 80: tip travel 59.9 cm
+   04-17: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.6, -2.2) cm = 3.7 cm from the tip (+3.6 ahead in x, -0.7 in y); line misfit 3.1 mm; whole episode 162 pictures, 128 cm of tip travel
+      puck past 160 mm of line at picture 46: tip travel 30.7 cm
+      puck past 285 mm of line at picture 86: tip travel 58.0 cm
+   04-18: tip starts at (14.0, -1.5) cm, forearm +0.0 deg; puck at (17.8, -2.0) cm = 3.8 cm from the tip (+3.8 ahead in x, -0.5 in y); line misfit 3.8 mm; whole episode 167 pictures, 133 cm of tip travel
+      puck past 160 mm of line at picture 46: tip travel 28.8 cm
+      puck past 285 mm of line at picture 86: tip travel 58.1 cm
+   until the puck has passed 160 mm: tip travel median 31.4 cm, range 27.9 to 36.2 cm; pictures median 46, range 30 to 52 (11 demonstrations)
+   until the puck has passed 285 mm: tip travel median 58.1 cm, range 52.8 to 66.9 cm; pictures median 82, range 62 to 96 (11 demonstrations)
+

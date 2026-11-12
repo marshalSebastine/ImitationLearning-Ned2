@@ -1,0 +1,10 @@
+pictures 672 of 12 demonstrations (sheets 01 and 02); my puck against the analyst's: median 1.6 mm apart, 90th percentile 3.4 mm
+pictures where my one-picture offset is usable (line beside the puck, or a nearly straight line followed back at most 35 mm): 273
+  size of mine minus size of the analyst's 12-picture offset: median -0.6 mm, median size 1.7 mm, 90th percentile of the size 4.5 mm; over 5 mm apart in 21
+  mine: 273 pictures, median 4.2 mm, within 7 mm 62 %, over 12 mm 26 %, over 17 mm 15 %
+  the analyst's 12-picture: 273 pictures, median 5.2 mm, within 7 mm 59 %, over 12 mm 29 %, over 17 mm 16 %
+  the analyst's one-picture: 209 pictures, median 3.6 mm, within 7 mm 69 %, over 12 mm 20 %, over 17 mm 11 %
+  path_01: 147 pictures; mine median 2.6 mm, the analyst's 3.5 mm; difference median size 1.7 mm
+  path_02: 126 pictures; mine median 9.8 mm, the analyst's 9.5 mm; difference median size 1.8 mm
+  of the 80 usable pictures the analyst puts over 12 mm, mine puts 67 over 12 mm and 76 over 9 mm
+  of the 162 usable pictures the analyst puts within 7 mm, mine puts 153 within 7 mm and 160 within 10 mm

@@ -1,0 +1,22 @@
+standard-start episodes of sheet 03 from end A: 8
+ plan  demonstrated twist  demonstrated travel cm  E (all sheets): twist  E (all sheets): travel cm  team of five (all sheets): twist  team of five (all sheets): travel cm  E recipe, never saw sheet 03: twist  E recipe, never saw sheet 03: travel cm  A recipe, never saw sheet 03: twist  A recipe, never saw sheet 03: travel cm
+03-04               -94.3                     9.5                  -82.6                        8.7                             -90.6                                   8.8                                -54.4                                      9.7                                -75.2                                      7.9
+03-05               -92.6                    11.2                  -76.9                        8.8                             -83.9                                   9.3                                -47.8                                      9.5                                -65.4                                      8.1
+03-25              -104.8                    10.6                 -104.6                        8.8                            -105.2                                   8.1                                -69.9                                      8.6                                -81.7                                      7.9
+03-26               -87.7                    11.0                 -100.1                        8.3                            -103.4                                   8.1                                -64.7                                      8.1                                -83.1                                      7.7
+03-27               -94.3                     9.8                  -87.3                        8.4                             -90.7                                   7.7                                -61.4                                      8.0                                -72.4                                      7.3
+03-01               -88.0                     9.4                  -82.8                        8.1                             -90.5                                   8.6                                -59.9                                      8.2                                -75.3                                      7.8
+03-02               -87.9                     9.7                  -97.3                        7.8                            -105.5                                   8.4                                -73.5                                      8.1                                -87.8                                      7.8
+03-03               -83.1                    14.0                  -37.8                       10.8                             -36.4                                  11.3                                -16.9                                     11.8                                -27.0                                     10.5
+
+medians over the 8 episodes, first 16 rows:
+  demonstrated: twist -90.3 deg, travel 10.2 cm
+  E (all sheets): twist -85.1 deg (share of the demonstrated: median 0.93, 0.45 to 1.14), asked travel 8.6 cm
+  team of five (all sheets): twist -90.6 deg (share of the demonstrated: median 0.98, 0.44 to 1.20), asked travel 8.5 cm
+  E recipe, never saw sheet 03: twist -60.6 deg (share of the demonstrated: median 0.66, 0.20 to 0.84), asked travel 8.4 cm
+  A recipe, never saw sheet 03: twist -75.2 deg (share of the demonstrated: median 0.79, 0.32 to 1.00), asked travel 7.8 cm
+
+for comparison, the robot runs on sheet 03 (steps.csv), first 16 pictures: asked twist summed, asked travel
+  run 5: -58.3 deg, 7.3 cm asked, joint 4 from -9.3 deg
+  run 9: -74.2 deg, 7.7 cm asked, joint 4 from -5.2 deg
+  run 10: -53.3 deg, 7.1 cm asked, joint 4 from -9.7 deg

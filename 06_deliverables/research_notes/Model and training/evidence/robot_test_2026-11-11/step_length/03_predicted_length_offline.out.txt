@@ -1,0 +1,244 @@
+==============================================================================================================
+E_recipe: six fold models on their held-out sheets, 18032 pictures, 17773 without the stop rows [measured: fold_outputs npz against the cleaned labels]
+==============================================================================================================
+demonstrated step (cleaned rows): median 1.06 cm, mean 0.94; under 0.5 cm 18.2 %, under 0.3 cm 9.9 %, under 0.2 cm 5.4 %; 90th, 95th and 99th percentile 1.36, 1.46, 1.69 cm; steps with a twist of 6 degrees or more: median 0.65 cm
+predicted length: median 0.67 cm, mean 0.67; under 0.3 cm 4.7 %, over 1.2 cm 0.68 %, largest 1.43 cm
+
+1. TWISTS IN PLACE AGAINST REAL MOVES
+kind     move  still  twist_in_place
+sheet                               
+path_01   578      7              38
+path_02  2426     15             173
+path_03  3465     10             424
+path_04  5269     24             878
+path_05  2461     11              89
+path_06  1809     10              86
+   move            rows  16008: predicted length 5th to 95th percentile 0.32 0.54 0.69 0.83 1.03 cm; demonstrated median 1.09 cm; twist size median predicted 2.24, demonstrated 3.52 degrees
+   still           rows     77: predicted length 5th to 95th percentile 0.14 0.25 0.44 0.68 0.92 cm; demonstrated median 0.22 cm; twist size median predicted 0.67, demonstrated 0.18 degrees
+   twist_in_place  rows   1688: predicted length 5th to 95th percentile 0.27 0.47 0.59 0.72 0.91 cm; demonstrated median 0.19 cm; twist size median predicted 3.54, demonstrated 6.06 degrees
+   area under the curve, predicted length as the score (1.0 = perfect, 0.5 = chance): 0.626; per held-out sheet: 01 0.712, 02 0.558, 03 0.606, 04 0.617, 05 0.673, 06 0.512
+   for comparison, predicted twist size divided by predicted length as the score: 0.672
+   threshold 0.15 cm: twists in place predicted at or above it (missed)  98.8 %; real moves predicted under it (would be frozen)   0.9 %; of the 165 rows under it, 12.7 % are twists in place
+   threshold 0.20 cm: twists in place predicted at or above it (missed)  97.6 %; real moves predicted under it (would be frozen)   1.6 %; of the 314 rows under it, 13.1 % are twists in place
+   threshold 0.25 cm: twists in place predicted at or above it (missed)  95.9 %; real moves predicted under it (would be frozen)   2.8 %; of the 539 rows under it, 12.8 % are twists in place
+   threshold 0.30 cm: twists in place predicted at or above it (missed)  93.2 %; real moves predicted under it (would be frozen)   4.3 %; of the 830 rows under it, 13.9 % are twists in place
+   threshold 0.35 cm: twists in place predicted at or above it (missed)  89.5 %; real moves predicted under it (would be frozen)   6.7 %; of the 1270 rows under it, 13.9 % are twists in place
+   threshold 0.40 cm: twists in place predicted at or above it (missed)  84.2 %; real moves predicted under it (would be frozen)   9.6 %; of the 1844 rows under it, 14.4 % are twists in place
+   threshold 0.50 cm: twists in place predicted at or above it (missed)  69.0 %; real moves predicted under it (would be frozen)  19.5 %; of the 3688 rows under it, 14.2 % are twists in place
+   the threshold with equal error rates is 0.64 cm: 40.9 % of the twists in place missed, 40.9 % of the real moves frozen
+
+2. THE GAIN FROM PREDICTED TO DEMONSTRATED LENGTH, moving rows (tip move of 0.3 cm or more)
+held_out_sheet  rows  median_of_ratios  ratio_of_medians  ratio_of_means  predicted_median_cm  demonstrated_median_cm
+            01   578             1.135             1.133           1.211                0.987                   1.119
+            02  2426             1.555             1.582           1.557                0.700                   1.107
+            03  3465             1.518             1.641           1.523                0.658                   1.079
+            04  5269             1.521             1.606           1.510                0.660                   1.060
+            05  2461             1.529             1.544           1.516                0.727                   1.122
+            06  1809             1.498             1.587           1.493                0.681                   1.080
+           all 16008             1.515             1.589           1.505                0.685                   1.089
+
+3. WHAT THE DEMONSTRATIONS DID WHERE THE MODEL PREDICTS A SHORT STEP (all rows but the stop rows, by predicted length)
+            rows  demonstrated_median_cm  demonstrated_mean_cm  twist_in_place_share  demonstrated_twist_size_median  predicted_twist_size_median  direction_error_median_deg  direction_within_45_share
+bin                                                                                                                                                                                                     
+(0.0, 0.1]    61                   0.882                 0.815                 0.115                           5.190                        1.693                      72.202                      0.326
+(0.1, 0.2]   253                   0.902                 0.817                 0.134                           4.480                        1.383                      65.587                      0.368
+(0.2, 0.3]   516                   0.833                 0.793                 0.143                           5.145                        1.954                      46.110                      0.489
+(0.3, 0.4]  1014                   0.907                 0.817                 0.149                           5.190                        2.545                      43.260                      0.523
+(0.4, 0.5]  1844                   0.989                 0.851                 0.139                           5.190                        2.469                      39.691                      0.542
+(0.5, 0.6]  2699                   1.024                 0.883                 0.127                           5.100                        2.561                      38.128                      0.565
+(0.6, 0.7]  3355                   1.043                 0.916                 0.106                           4.920                        2.580                      32.537                      0.644
+(0.7, 0.8]  3176                   1.078                 0.978                 0.074                           4.040                        2.653                      27.103                      0.711
+(0.8, 0.9]  2183                   1.098                 1.017                 0.062                           3.430                        2.448                      20.152                      0.795
+(0.9, 1.0]  1504                   1.126                 1.070                 0.043                           2.990                        2.060                      15.010                      0.872
+(1.0, 1.1]   765                   1.152                 1.123                 0.026                           2.290                        1.573                      10.854                      0.910
+(1.1, 1.2]   282                   1.121                 1.101                 0.032                           1.410                        1.000                       8.857                      0.955
+(1.2, 3.0]   121                   1.137                 1.145                 0.000                           0.970                        0.609                       7.333                      0.983
+   (direction error: between the predicted and the demonstrated step direction, rows whose demonstrated tip move is 0.5 cm or more)
+   why the predicted length is short: mean demonstrated length 0.94 cm, mean predicted length 0.67 cm; correlation of predicted with demonstrated length 0.22, of predicted length with the direction error (clear moves) -0.33
+
+4. FOREARM TURN PER CENTIMETRE OF TIP TRAVEL (sum of twist sizes over sum of step lengths), per held-out sheet
+held_out_sheet  demonstrated_deg_per_cm  demonstrated_step_mean_cm  predicted_step_mean_cm  demonstrated_twist_mean_deg  predicted_twist_mean_deg
+            01                    2.207                      1.017                   0.876                        2.246                     1.261
+            02                    2.678                      1.012                   0.688                        2.711                     2.600
+            03                    4.640                      0.921                   0.656                        4.271                     2.993
+            04                    5.515                      0.864                   0.638                        4.765                     3.013
+            05                    3.702                      1.050                   0.711                        3.887                     1.740
+            06                    4.581                      0.984                   0.685                        4.509                     2.201
+           all                    4.360                      0.943                   0.673                        4.112                     2.616
+   predicted twist per centimetre of each rule's travel, as a share of the demonstrated turn per centimetre (1.0 = as demonstrated):
+held_out_sheet  fixed 1.0 cm (driver of 11.11.26)  predicted length, gain 1.0, at most 1.2 cm  gain 1.5, at most 1.0 cm  report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm
+            01                              0.571                                       0.659                     0.638                                               0.462
+            02                              0.971                                       1.412                     1.087                                               0.889
+            03                              0.645                                       0.984                     0.756                                               0.621
+            04                              0.546                                       0.856                     0.639                                               0.535
+            05                              0.470                                       0.661                     0.509                                               0.414
+            06                              0.480                                       0.701                     0.534                                               0.442
+           all                              0.600                                       0.892                     0.685                                               0.563
+   shrink of the two outputs against the demonstrations (all sheets): step length 0.71, twist size 0.64
+
+5. ONE STEP AHEAD: distance between where each rule puts the tip and where the demonstration put it (cm)
+   all rows (17773 rows):
+                                              rule  mean_step_cm  all rows: mean  all rows: median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000           0.737             0.666
+        predicted length, gain 1.0, at most 1.2 cm         0.673           0.673             0.615
+                          gain 1.5, at most 1.0 cm         0.876           0.694             0.622
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.067           0.760             0.681
+   bend rows (demonstrated twist of 5 degrees or more) (7985 rows):
+                                              rule  mean_step_cm  bend rows (demonstrated twist of 5 degrees or more): mean  bend rows (demonstrated twist of 5 degrees or more): median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                                                      0.775                                                        0.765
+        predicted length, gain 1.0, at most 1.2 cm         0.673                                                      0.587                                                        0.536
+                          gain 1.5, at most 1.0 cm         0.876                                                      0.685                                                        0.651
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.067                                                      0.788                                                        0.752
+   straight rows (demonstrated twist under 2 degrees) (6032 rows):
+                                              rule  mean_step_cm  straight rows (demonstrated twist under 2 degrees): mean  straight rows (demonstrated twist under 2 degrees): median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                                                     0.708                                                       0.562
+        predicted length, gain 1.0, at most 1.2 cm         0.673                                                     0.746                                                       0.694
+                          gain 1.5, at most 1.0 cm         0.876                                                     0.705                                                       0.593
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.067                                                     0.739                                                       0.603
+   twists in place (1688 rows):
+                                              rule  mean_step_cm  twists in place: mean  twists in place: median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                  0.947                    0.944
+        predicted length, gain 1.0, at most 1.2 cm         0.673                  0.549                    0.541
+                          gain 1.5, at most 1.0 cm         0.876                  0.773                    0.801
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.067                  0.901                    0.893
+
+6. NUMBERS FOR THE STALL GUARD
+   rows where the model asks for under 0.15 cm and under 1.5 degrees ('no opinion'): 83 of 17773 (0.47 %); the demonstrations there moved a median 1.02 cm and twisted a median 1.41 degrees
+   windows of 4 steps (16937): demonstrated net tip move 1st, 5th, 50th percentile 0.57, 1.14, 3.28 cm; net forearm turn 50th, 95th percentile 14.9, 32.3 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.42 % of the windows, the model's own steps on the same pictures 1.64 % (model net move median 2.60 cm)
+   windows of 6 steps (16519): demonstrated net tip move 1st, 5th, 50th percentile 1.00, 1.76, 4.43 cm; net forearm turn 50th, 95th percentile 21.1, 46.4 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.24 % of the windows, the model's own steps on the same pictures 0.35 % (model net move median 3.78 cm)
+   windows of 8 steps (16101): demonstrated net tip move 1st, 5th, 50th percentile 1.21, 2.23, 5.45 cm; net forearm turn 50th, 95th percentile 26.4, 59.9 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.35 % of the windows, the model's own steps on the same pictures 0.14 % (model net move median 4.87 cm)
+
+7. THE FIRST BEND OF SHEET 03 AS AN UNSEEN SHEET (the fold model without sheet 03 on the demonstrations' pictures, until the forearm has turned 60 degrees)
+ plan  rows  demonstrated_travel_cm  demonstrated_turn_deg  predicted_travel_cm  predicted_turn_deg  demonstrated_deg_per_cm  own_length_deg_per_cm  fixed_1_cm_deg_per_cm  predicted_length_median_cm  predicted_twist_median_deg
+03-04     9                    5.05                 -64.87                 4.99          -30.370001                    12.85                   6.09                   3.37                        0.57                       -3.47
+03-05    12                    8.82                 -68.72                 6.23          -45.689999                     7.79                   7.33                   3.81                        0.50                       -4.60
+03-25     9                    6.17                 -64.42                 5.01          -25.520000                    10.44                   5.10                   2.84                        0.57                       -2.00
+03-26    10                    7.04                 -58.62                 5.33          -30.879999                     8.33                   5.80                   3.09                        0.55                       -3.19
+03-27    10                    6.58                 -59.32                 5.24          -26.230000                     9.02                   5.01                   2.62                        0.48                       -1.86
+03-01    11                    7.65                 -60.64                 5.70          -35.230000                     7.92                   6.18                   3.20                        0.50                       -4.32
+03-02    11                    7.09                 -64.23                 5.67          -46.669998                     9.06                   8.23                   4.24                        0.46                       -5.34
+03-03     4                    4.71                 -34.24                 2.37           -8.440000                     7.26                   3.56                   2.11                        0.59                       -1.80
+   medians: demonstrated 8.68 degrees per cm; the model's twist over its own length 5.95 (0.69 of the demonstrated); over a fixed 1 cm 3.15 (0.36); predicted length median 0.53 cm, predicted twist median -3.33 degrees
+
+==============================================================================================================
+A_recipe: six fold models on their held-out sheets, 18032 pictures, 17773 without the stop rows [measured: fold_outputs npz against the cleaned labels]
+==============================================================================================================
+demonstrated step (cleaned rows): median 1.06 cm, mean 0.94; under 0.5 cm 18.2 %, under 0.3 cm 9.9 %, under 0.2 cm 5.4 %; 90th, 95th and 99th percentile 1.36, 1.46, 1.69 cm; steps with a twist of 6 degrees or more: median 0.65 cm
+predicted length: median 0.64 cm, mean 0.65; under 0.3 cm 7.1 %, over 1.2 cm 0.70 %, largest 1.48 cm
+
+1. TWISTS IN PLACE AGAINST REAL MOVES
+kind     move  still  twist_in_place
+sheet                               
+path_01   578      7              38
+path_02  2426     15             173
+path_03  3465     10             424
+path_04  5269     24             878
+path_05  2461     11              89
+path_06  1809     10              86
+   move            rows  16008: predicted length 5th to 95th percentile 0.27 0.49 0.65 0.83 1.08 cm; demonstrated median 1.09 cm; twist size median predicted 2.37, demonstrated 3.52 degrees
+   still           rows     77: predicted length 5th to 95th percentile 0.11 0.26 0.39 0.60 0.99 cm; demonstrated median 0.22 cm; twist size median predicted 0.75, demonstrated 0.18 degrees
+   twist_in_place  rows   1688: predicted length 5th to 95th percentile 0.23 0.41 0.55 0.68 0.92 cm; demonstrated median 0.19 cm; twist size median predicted 3.82, demonstrated 6.06 degrees
+   area under the curve, predicted length as the score (1.0 = perfect, 0.5 = chance): 0.626; per held-out sheet: 01 0.741, 02 0.545, 03 0.629, 04 0.632, 05 0.647, 06 0.570
+   for comparison, predicted twist size divided by predicted length as the score: 0.694
+   threshold 0.15 cm: twists in place predicted at or above it (missed)  98.5 %; real moves predicted under it (would be frozen)   1.0 %; of the 188 rows under it, 13.3 % are twists in place
+   threshold 0.20 cm: twists in place predicted at or above it (missed)  96.7 %; real moves predicted under it (would be frozen)   2.2 %; of the 408 rows under it, 13.5 % are twists in place
+   threshold 0.25 cm: twists in place predicted at or above it (missed)  93.7 %; real moves predicted under it (would be frozen)   3.9 %; of the 755 rows under it, 14.2 % are twists in place
+   threshold 0.30 cm: twists in place predicted at or above it (missed)  89.7 %; real moves predicted under it (would be frozen)   6.6 %; of the 1263 rows under it, 13.8 % are twists in place
+   threshold 0.35 cm: twists in place predicted at or above it (missed)  83.9 %; real moves predicted under it (would be frozen)  10.4 %; of the 1971 rows under it, 13.8 % are twists in place
+   threshold 0.40 cm: twists in place predicted at or above it (missed)  77.5 %; real moves predicted under it (would be frozen)  15.2 %; of the 2858 rows under it, 13.3 % are twists in place
+   threshold 0.50 cm: twists in place predicted at or above it (missed)  60.9 %; real moves predicted under it (would be frozen)  26.8 %; of the 5002 rows under it, 13.2 % are twists in place
+   the threshold with equal error rates is 0.59 cm: 40.7 % of the twists in place missed, 40.9 % of the real moves frozen
+
+2. THE GAIN FROM PREDICTED TO DEMONSTRATED LENGTH, moving rows (tip move of 0.3 cm or more)
+held_out_sheet  rows  median_of_ratios  ratio_of_medians  ratio_of_means  predicted_median_cm  demonstrated_median_cm
+            01   578             1.148             1.122           1.223                0.997                   1.119
+            02  2426             1.675             1.724           1.656                0.642                   1.107
+            03  3465             1.600             1.777           1.597                0.607                   1.079
+            04  5269             1.484             1.615           1.495                0.656                   1.060
+            05  2461             1.642             1.652           1.646                0.679                   1.122
+            06  1809             1.582             1.720           1.574                0.628                   1.080
+           all 16008             1.561             1.676           1.559                0.650                   1.089
+
+3. WHAT THE DEMONSTRATIONS DID WHERE THE MODEL PREDICTS A SHORT STEP (all rows but the stop rows, by predicted length)
+            rows  demonstrated_median_cm  demonstrated_mean_cm  twist_in_place_share  demonstrated_twist_size_median  predicted_twist_size_median  direction_error_median_deg  direction_within_45_share
+bin                                                                                                                                                                                                     
+(0.0, 0.1]    82                   0.999                 0.834                 0.134                           5.185                        1.201                      61.556                      0.426
+(0.1, 0.2]   326                   0.995                 0.829                 0.135                           5.010                        1.585                      73.678                      0.315
+(0.2, 0.3]   855                   0.868                 0.823                 0.139                           5.100                        1.591                      51.231                      0.449
+(0.3, 0.4]  1595                   0.957                 0.839                 0.129                           5.190                        2.421                      43.299                      0.514
+(0.4, 0.5]  2144                   1.012                 0.870                 0.131                           5.100                        2.873                      38.265                      0.567
+(0.5, 0.6]  2800                   1.021                 0.879                 0.132                           5.100                        3.296                      33.154                      0.627
+(0.6, 0.7]  2826                   1.046                 0.926                 0.103                           4.920                        3.002                      30.518                      0.670
+(0.7, 0.8]  2457                   1.095                 0.998                 0.074                           3.780                        2.641                      25.993                      0.715
+(0.8, 0.9]  1761                   1.102                 1.035                 0.051                           3.250                        2.455                      21.480                      0.758
+(0.9, 1.0]  1361                   1.116                 1.056                 0.043                           2.900                        2.090                      17.002                      0.842
+(1.0, 1.1]   938                   1.145                 1.111                 0.020                           2.290                        1.700                      13.214                      0.886
+(1.1, 1.2]   504                   1.136                 1.109                 0.020                           1.930                        1.254                      11.068                      0.931
+(1.2, 3.0]   124                   1.083                 1.027                 0.056                           2.375                        1.311                      11.359                      0.858
+   (direction error: between the predicted and the demonstrated step direction, rows whose demonstrated tip move is 0.5 cm or more)
+   why the predicted length is short: mean demonstrated length 0.94 cm, mean predicted length 0.65 cm; correlation of predicted with demonstrated length 0.22, of predicted length with the direction error (clear moves) -0.32
+
+4. FOREARM TURN PER CENTIMETRE OF TIP TRAVEL (sum of twist sizes over sum of step lengths), per held-out sheet
+held_out_sheet  demonstrated_deg_per_cm  demonstrated_step_mean_cm  predicted_step_mean_cm  demonstrated_twist_mean_deg  predicted_twist_mean_deg
+            01                    2.207                      1.017                   0.867                        2.246                     1.395
+            02                    2.678                      1.012                   0.646                        2.711                     2.822
+            03                    4.640                      0.921                   0.622                        4.271                     3.238
+            04                    5.515                      0.864                   0.641                        4.765                     2.941
+            05                    3.702                      1.050                   0.653                        3.887                     1.916
+            06                    4.581                      0.984                   0.648                        4.509                     2.055
+           all                    4.360                      0.943                   0.648                        4.112                     2.692
+   predicted twist per centimetre of each rule's travel, as a share of the demonstrated turn per centimetre (1.0 = as demonstrated):
+held_out_sheet  fixed 1.0 cm (driver of 11.11.26)  predicted length, gain 1.0, at most 1.2 cm  gain 1.5, at most 1.0 cm  report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm
+            01                              0.632                                       0.730                     0.697                                               0.499
+            02                              1.054                                       1.631                     1.249                                               1.025
+            03                              0.698                                       1.123                     0.859                                               0.711
+            04                              0.533                                       0.832                     0.638                                               0.524
+            05                              0.518                                       0.792                     0.611                                               0.497
+            06                              0.449                                       0.692                     0.523                                               0.439
+           all                              0.617                                       0.953                     0.736                                               0.603
+   shrink of the two outputs against the demonstrations (all sheets): step length 0.69, twist size 0.65
+
+5. ONE STEP AHEAD: distance between where each rule puts the tip and where the demonstration put it (cm)
+   all rows (17773 rows):
+                                              rule  mean_step_cm  all rows: mean  all rows: median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000           0.745             0.675
+        predicted length, gain 1.0, at most 1.2 cm         0.648           0.679             0.625
+                          gain 1.5, at most 1.0 cm         0.839           0.693             0.622
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.024           0.756             0.672
+   bend rows (demonstrated twist of 5 degrees or more) (7985 rows):
+                                              rule  mean_step_cm  bend rows (demonstrated twist of 5 degrees or more): mean  bend rows (demonstrated twist of 5 degrees or more): median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                                                      0.781                                                        0.764
+        predicted length, gain 1.0, at most 1.2 cm         0.648                                                      0.587                                                        0.536
+                          gain 1.5, at most 1.0 cm         0.839                                                      0.669                                                        0.630
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.024                                                      0.764                                                        0.719
+   straight rows (demonstrated twist under 2 degrees) (6032 rows):
+                                              rule  mean_step_cm  straight rows (demonstrated twist under 2 degrees): mean  straight rows (demonstrated twist under 2 degrees): median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                                                     0.718                                                       0.570
+        predicted length, gain 1.0, at most 1.2 cm         0.648                                                     0.758                                                       0.720
+                          gain 1.5, at most 1.0 cm         0.839                                                     0.715                                                       0.622
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.024                                                     0.752                                                       0.626
+   twists in place (1688 rows):
+                                              rule  mean_step_cm  twists in place: mean  twists in place: median
+                 fixed 1.0 cm (driver of 11.11.26)         1.000                  0.950                    0.946
+        predicted length, gain 1.0, at most 1.2 cm         0.648                  0.518                    0.507
+                          gain 1.5, at most 1.0 cm         0.839                  0.730                    0.761
+report 4.4 backup: gain 1.6, clamped 0.5 to 1.5 cm         1.024                  0.850                    0.823
+
+6. NUMBERS FOR THE STALL GUARD
+   rows where the model asks for under 0.15 cm and under 1.5 degrees ('no opinion'): 109 of 17773 (0.61 %); the demonstrations there moved a median 0.95 cm and twisted a median 3.78 degrees
+   windows of 4 steps (16937): demonstrated net tip move 1st, 5th, 50th percentile 0.57, 1.14, 3.28 cm; net forearm turn 50th, 95th percentile 14.9, 32.3 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.42 % of the windows, the model's own steps on the same pictures 2.59 % (model net move median 2.48 cm)
+   windows of 6 steps (16519): demonstrated net tip move 1st, 5th, 50th percentile 1.00, 1.76, 4.43 cm; net forearm turn 50th, 95th percentile 21.1, 46.4 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.24 % of the windows, the model's own steps on the same pictures 0.57 % (model net move median 3.60 cm)
+   windows of 8 steps (16101): demonstrated net tip move 1st, 5th, 50th percentile 1.21, 2.23, 5.45 cm; net forearm turn 50th, 95th percentile 26.4, 59.9 degrees; under 1.0 cm AND under 10 degrees: demonstrated 0.35 % of the windows, the model's own steps on the same pictures 0.27 % (model net move median 4.66 cm)
+
+7. THE FIRST BEND OF SHEET 03 AS AN UNSEEN SHEET (the fold model without sheet 03 on the demonstrations' pictures, until the forearm has turned 60 degrees)
+ plan  rows  demonstrated_travel_cm  demonstrated_turn_deg  predicted_travel_cm  predicted_turn_deg  demonstrated_deg_per_cm  own_length_deg_per_cm  fixed_1_cm_deg_per_cm  predicted_length_median_cm  predicted_twist_median_deg
+03-04     9                    5.05                 -64.87                 4.25          -46.590000                    12.85                  10.96                   5.18                        0.45                       -4.57
+03-05    12                    8.82                 -68.72                 5.29          -61.639999                     7.79                  11.66                   5.14                        0.40                       -4.70
+03-25     9                    6.17                 -64.42                 5.16          -38.919998                    10.44                   7.55                   4.32                        0.61                       -4.21
+03-26    10                    7.04                 -58.62                 5.20          -44.349998                     8.33                   8.52                   4.44                        0.53                       -4.60
+03-27    10                    6.58                 -59.32                 5.25          -36.849998                     9.02                   7.02                   3.68                        0.48                       -3.35
+03-01    11                    7.65                 -60.64                 5.84          -47.070000                     7.92                   8.06                   4.28                        0.44                       -4.55
+03-02    11                    7.09                 -64.23                 5.97          -58.630001                     9.06                   9.82                   5.33                        0.52                       -5.54
+03-03     4                    4.71                 -34.24                 1.99          -18.879999                     7.26                   9.47                   4.72                        0.52                       -3.94
+   medians: demonstrated 8.68 degrees per cm; the model's twist over its own length 8.99 (1.04 of the demonstrated); over a fixed 1 cm 4.58 (0.53); predicted length median 0.50 cm, predicted twist median -4.56 degrees
+

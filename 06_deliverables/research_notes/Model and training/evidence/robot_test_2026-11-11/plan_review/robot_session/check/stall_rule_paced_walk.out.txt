@@ -1,0 +1,35 @@
+columns used: ['tip_x_m', 'tip_y_m', 'joint_4', 'tip_forward_m', 'tip_left_m', 'action', 'sheet', 'start_kind']
+
+================ E_recipe: 209 demonstrations walked at the pace of the model that never saw their sheet
+   own length: the walker needs a median 1.53 times the demonstration's pictures (largest run 395 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends 110 of 209 (52.6 %), 100 before the last tenth; per sheet {'01': 5, '02': 24, '03': 31, '04': 29, '05': 12, '06': 9}
+      critic: 25 pictures, 4 cm, 15 deg : ends  42 of 209 (20.1 %),  35 before the last tenth; per sheet {'01': 1, '02': 7, '03': 13, '04': 12, '05': 4, '06': 5}
+      today: 30 pictures, 3 cm, 15 deg  : ends  16 of 209 ( 7.7 %),  14 before the last tenth; per sheet {'01': 0, '02': 1, '03': 9, '04': 2, '05': 1, '06': 3}
+      40 pictures, 4 cm, 15 deg         : ends  11 of 209 ( 5.3 %),  11 before the last tenth; per sheet {'01': 0, '02': 1, '03': 7, '04': 1, '05': 0, '06': 2}
+   fixed 0.65 cm: the walker needs a median 1.49 times the demonstration's pictures (largest run 322 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends  16 of 209 ( 7.7 %),  14 before the last tenth; per sheet {'01': 2, '02': 5, '03': 3, '04': 6, '05': 0, '06': 0}
+      critic: 25 pictures, 4 cm, 15 deg : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      today: 30 pictures, 3 cm, 15 deg  : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      40 pictures, 4 cm, 15 deg         : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+   fixed 1.0 cm: the walker needs a median 0.97 times the demonstration's pictures (largest run 208 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      critic: 25 pictures, 4 cm, 15 deg : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      today: 30 pictures, 3 cm, 15 deg  : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      40 pictures, 4 cm, 15 deg         : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+
+================ A_recipe: 209 demonstrations walked at the pace of the model that never saw their sheet
+   own length: the walker needs a median 1.66 times the demonstration's pictures (largest run 446 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends 132 of 209 (63.2 %), 126 before the last tenth; per sheet {'01': 6, '02': 32, '03': 33, '04': 29, '05': 18, '06': 14}
+      critic: 25 pictures, 4 cm, 15 deg : ends  52 of 209 (24.9 %),  41 before the last tenth; per sheet {'01': 1, '02': 14, '03': 10, '04': 17, '05': 7, '06': 3}
+      today: 30 pictures, 3 cm, 15 deg  : ends  17 of 209 ( 8.1 %),  14 before the last tenth; per sheet {'01': 0, '02': 1, '03': 5, '04': 8, '05': 2, '06': 1}
+      40 pictures, 4 cm, 15 deg         : ends  15 of 209 ( 7.2 %),  12 before the last tenth; per sheet {'01': 0, '02': 2, '03': 4, '04': 6, '05': 2, '06': 1}
+   fixed 0.65 cm: the walker needs a median 1.49 times the demonstration's pictures (largest run 322 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends  16 of 209 ( 7.7 %),  14 before the last tenth; per sheet {'01': 2, '02': 5, '03': 3, '04': 6, '05': 0, '06': 0}
+      critic: 25 pictures, 4 cm, 15 deg : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      today: 30 pictures, 3 cm, 15 deg  : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      40 pictures, 4 cm, 15 deg         : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+   fixed 1.0 cm: the walker needs a median 0.97 times the demonstration's pictures (largest run 208 pictures)
+      plan: 15 pictures, 4 cm, 15 deg   : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      critic: 25 pictures, 4 cm, 15 deg : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      today: 30 pictures, 3 cm, 15 deg  : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}
+      40 pictures, 4 cm, 15 deg         : ends   0 of 209 ( 0.0 %),   0 before the last tenth; per sheet {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0}

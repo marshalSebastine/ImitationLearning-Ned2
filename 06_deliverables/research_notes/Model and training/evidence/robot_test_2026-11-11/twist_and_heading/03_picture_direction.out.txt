@@ -1,0 +1,68 @@
+THE DIRECTION OF TRAVEL IN THE PICTURE FRAME (degrees; 0 = picture top, + = picture left). Measured: frames.csv (audit cleaning), steps.csv of the runs
+
+1. Demonstrations: how far from 'straight up the picture' the tip travelled
+                               rows  median med |a| 90% |a|   <=15   <=30   <=45   <=90
+all steps with a direction    17670    +1.4    46.4   120.2   0.24   0.38   0.49   0.76
+pushing (>= 0.7 cm)           12929    +1.1    37.9   119.4   0.28   0.44   0.54   0.77
+re-aiming (< 0.7 cm, twist >= 3)   4531    +5.0    62.8   122.1   0.11   0.21   0.34   0.73
+other short steps               210    +0.0    32.8   157.3   0.28   0.49   0.57   0.75
+path_01 all                     621    +4.4    15.0    97.8   0.50   0.66   0.72   0.85
+path_01 pushing                 528    +3.6    12.3    94.4   0.56   0.72   0.78   0.88
+path_02 all                    2606    +3.8    39.2   119.9   0.25   0.42   0.55   0.80
+path_02 pushing                2172    +3.0    35.4   118.8   0.27   0.45   0.58   0.82
+path_03 all                    3870    -2.0    44.8   112.8   0.23   0.37   0.50   0.79
+path_03 pushing                2762    -1.5    38.3   112.8   0.27   0.42   0.55   0.81
+path_04 all                    6114    -2.6    51.6   115.7   0.22   0.36   0.46   0.77
+path_04 pushing                3911    -4.1    37.4   114.7   0.29   0.45   0.54   0.78
+path_05 all                    2556    +3.5    44.1   137.5   0.26   0.42   0.50   0.71
+path_05 pushing                2104    +4.4    38.5   134.3   0.29   0.45   0.53   0.71
+path_06 all                    1903   +18.4    65.3   138.3   0.17   0.31   0.40   0.67
+path_06 pushing                1452   +17.1    62.8   132.4   0.20   0.33   0.42   0.68
+   share of all non-stop rows: pushing 0.73, re-aiming 0.26; share of all the twisting (sum of |twist|) done in re-aiming rows: 0.44; median tip travel of a re-aiming row 0.40 cm, median |twist| 6.4 degrees
+
+2. Demonstrations: which way the forearm twists when the tip travels to the picture's left (+) or right (-)
+   (twist > 0 turns the camera to the RIGHT, clockwise seen from above: the picture heading changes by -1.01 x twist, fitted on frames.csv)
+   travel direction in the picture      rows mean twist median twist share twist>+2 share twist<-2 median step cm
+   -180 to -90                          2272      -1.67        -1.05           0.19           0.44           1.07
+   -90 to -45                           2347      -3.06        -3.87           0.14           0.57           1.00
+   -45 to -15                           2030      -2.49        -2.55           0.14           0.53           1.05
+   -15 to +15                           4199      -0.07        +0.00           0.25           0.26           1.13
+   +15 to +45                           2423      +2.68        +3.08           0.58           0.12           1.07
+   +45 to +90                           2478      +2.94        +4.83           0.62           0.18           0.90
+   +90 to +180                          1921      +1.54        +1.41           0.47           0.24           1.05
+   correlation of twist with the travel direction: +0.321 (all), +0.428 (within 90 degrees); least-squares twist per degree of travel direction (within 90): +0.0491
+   reading: a POSITIVE number means that the camera is turned to the right while the tip travels to the picture's LEFT,
+   that is AWAY from the direction of travel: at a bend the tip swings to the outside of the bend to get behind the puck,
+   and the camera turns to the inside. A rule 'turn the forearm towards the direction of travel' would need a NEGATIVE number.
+   path_01: correlation +0.582, twist per degree +0.0606
+   path_02: correlation +0.323, twist per degree +0.0292
+   path_03: correlation +0.569, twist per degree +0.0662
+   path_04: correlation +0.541, twist per degree +0.0665
+   path_05: correlation +0.205, twist per degree +0.0234
+   path_06: correlation +0.077, twist per degree +0.0030
+
+3. Robot runs: the model's direction of travel in the picture (the tip moved 1 cm that way)
+                               rows  median med |a| 90% |a|   <=15   <=30   <=45   <=90
+run 1 A path_01                  25    +3.2     5.6    11.9   0.92   1.00   1.00   1.00   reached the end
+run 2 E path_01                  24    +5.1     5.1    15.3   0.88   0.96   1.00   1.00   reached the end
+run 3 E path_02                  38   -13.0    28.6    97.7   0.26   0.53   0.61   0.84   failed (lost the line, Esc)
+run 4 E path_02                  41   +12.4    15.8    43.4   0.49   0.78   0.90   1.00   reached the end
+run 5 E path_03                  59    +1.2    34.7   108.5   0.27   0.44   0.56   0.78   failed (overshot the first bend)
+run 6 E path_04                  68    +8.4    60.0   115.0   0.16   0.31   0.38   0.75   failed (stuck at the hairpin)
+run 7 E path_05                  88    -0.8    21.3   130.2   0.47   0.55   0.60   0.75   reached the end
+run 8 E path_06                  40   +10.2    34.1    78.8   0.25   0.40   0.68   0.97   failed (left the dashed loop)
+run 9 E path_03                  89    -8.0    42.3   105.4   0.20   0.37   0.54   0.79   failed (overshot the first bend)
+run 10 B path_03                 73   -16.5    45.9   102.6   0.21   0.38   0.49   0.86   failed (overshot the first bend)
+   demonstrations for comparison: see part 1 ('all steps with a direction' and per sheet)
+
+   the same in blocks of 10 pictures: median |direction|, share beyond 45 degrees, mean asked step length (cm), sum of the twist done (degrees)
+   run  1 path_01 [  0-  9:   5.1 0.00 1.01  +11.7] [ 10- 19:   3.4 0.00 1.04   -6.5] [ 20- 24:  10.6 0.00 0.61   -7.8]
+   run  2 path_01 [  0-  9:   4.5 0.00 1.15   +1.8] [ 10- 19:   7.2 0.00 1.14   +5.3] [ 20- 23:  21.4 0.00 0.68   -0.4]
+   run  3 path_02 [  0-  9:   7.6 0.00 0.42  -37.5] [ 10- 19:  27.7 0.00 0.52  +23.9] [ 20- 29:  70.6 0.70 0.58  +13.2] [ 30- 37:  95.0 1.00 0.99  -14.3]
+   run  4 path_02 [  0-  9:  14.6 0.00 0.95  +19.2] [ 10- 19:  14.3 0.00 0.85  +29.6] [ 20- 29:  23.9 0.20 0.64  +14.9] [ 30- 39:  26.6 0.20 0.83  +12.3] [ 40- 40:  32.2 0.00 0.23   +0.9]
+   run  5 path_03 [  0-  9:  26.4 0.20 0.51  -38.8] [ 10- 19: 102.3 0.70 0.41  -22.5] [ 20- 29:  46.9 0.60 0.65  +38.7] [ 30- 39: 108.6 0.80 0.38   +9.2] [ 40- 49:  10.0 0.30 0.73   -3.5] [ 50- 58:  17.0 0.00 0.56  +21.4]
+   run  6 path_04 [  0-  9:   9.9 0.10 0.84  +13.6] [ 10- 19:  48.8 0.50 0.52  -11.4] [ 20- 29:  83.0 0.90 0.17   -2.3] [ 30- 39:  86.7 0.90 0.11   -3.5] [ 40- 49: 107.1 1.00 0.21   -5.0] [ 50- 59:  40.6 0.50 0.29   -5.2] [ 60- 67:  23.3 0.38 0.57  +11.8]
+   run  7 path_05 [  0-  9:   8.5 0.00 1.15  -22.9] [ 10- 19:  24.6 0.20 0.70  -45.5] [ 20- 29:  70.2 0.70 0.52  +17.5] [ 30- 39: 121.9 1.00 0.83  +26.0] [ 40- 49:  48.8 0.60 0.53  +42.1] [ 50- 59:  55.2 0.50 0.48  +39.6] [ 60- 69:  70.5 0.50 0.96  -12.6] [ 70- 79:   7.4 0.00 1.10   +0.2] [ 80- 87:   5.6 0.00 0.77  +14.7]
+   run  8 path_06 [  0-  9:  11.0 0.00 1.14  +27.0] [ 10- 19:  35.2 0.20 0.78  +51.1] [ 20- 29:  48.9 0.50 0.80  +14.3] [ 30- 39:  73.2 0.60 0.50   -6.1]
+   run  9 path_03 [  0-  9:  27.5 0.00 0.48  -53.3] [ 10- 19:  72.0 0.70 0.56  -13.4] [ 20- 29:  31.2 0.30 0.51  +43.0] [ 30- 39: 113.1 1.00 0.48  -15.3] [ 40- 49:   7.7 0.00 0.74  +15.9] [ 50- 59:  17.7 0.10 0.48  +43.0] [ 60- 69:  46.6 0.50 0.42  +32.3] [ 70- 79:  87.7 1.00 0.50   +6.5] [ 80- 88:  54.7 0.56 0.26  -11.1]
+   run 10 path_03 [  0-  9:  42.4 0.40 0.42  -47.8] [ 10- 19:  50.0 0.60 0.51  +19.4] [ 20- 29:  49.3 0.60 0.60  +45.9] [ 30- 39:  43.9 0.50 0.60   -5.6] [ 40- 49:  12.6 0.00 0.70  +15.9] [ 50- 59:  87.3 0.90 0.31  +17.6] [ 60- 69:  88.8 0.70 0.51  -19.0] [ 70- 72:  32.2 0.00 0.29   -1.0]

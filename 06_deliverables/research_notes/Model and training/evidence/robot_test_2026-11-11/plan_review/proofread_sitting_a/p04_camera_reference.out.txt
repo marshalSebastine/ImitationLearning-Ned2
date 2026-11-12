@@ -1,0 +1,30 @@
+reference: D:\AI_Project\03_data\model_runs\2026-11-11_172421_E_sheet01_run1\frames\000.jpg (run 2 of 11.11.26, first picture); region [0.8, 1.0, 0.25, 0.75]; the recording tool warns above 4.0 px
+
+the ten runs of 11.11.26 against it (first picture, picture 10, last picture), with joints 4, 5, 6 in degrees at the first picture:
+   2026-11-11_172021_check_no_puck             3.0 /  1.4 /  2.2 px   joints 4, 5, 6:   -1.8 +13.3  -6.1
+   2026-11-11_172421_E_sheet01_run1            0.0 /  2.0 /  5.4 px   joints 4, 5, 6:   +6.1 +13.5  -6.1
+   2026-11-11_172743_E_sheet02_run1            0.6 /  4.2 /  3.8 px   joints 4, 5, 6:   -1.0 +13.5  -6.1
+   2026-11-11_173036_E_sheet02_run2            1.0 /  5.0 / 23.0 px   joints 4, 5, 6:   +9.8 +13.4  -6.1
+   2026-11-11_173549_E_sheet03_run1            2.8 /  3.5 /  3.6 px   joints 4, 5, 6:   -9.3 +13.4  -6.1
+   2026-11-11_174108_E_sheet04_run1            2.8 /  3.9 /  5.6 px   joints 4, 5, 6:   +3.2 +13.4  -6.1
+   2026-11-11_174448_E_sheet05_run1            1.3 /  4.3 / 13.8 px   joints 4, 5, 6:   -1.7 +13.4  -6.1
+   2026-11-11_174936_E_sheet06_run1            4.0 /  9.0 / 20.0 px   joints 4, 5, 6:   +7.2 +13.5  -6.1
+   2026-11-11_175203_E_sheet03_run2_no_hoodie  6.3 /  4.0 /  9.1 px   joints 4, 5, 6:   -5.2 +13.5  -6.1
+   2026-11-11_175544_B_team5_sheet03           1.5 /  2.3 /  7.7 px   joints 4, 5, 6:   -9.7 +13.4  -6.1
+   all 30 readings: median 3.9 px, largest 23.0 px
+
+demonstrations against it (camera_check.jpg, taken at the recorded start pose):
+   plan 01-03 (2026-11-06T18:32:36, tool's own reading   4.6 px):  16.9 px (x -16.0, y  -5.5)
+   plan 01-04 (2026-11-06T18:37:38, tool's own reading   5.9 px):  17.8 px (x -16.5, y  -6.7)
+   plan 03-01 (2026-11-08T00:11:44, tool's own reading   2.7 px):  15.9 px (x -15.5, y  -3.2)
+   plan 03-04 (2026-11-08T00:42:21, tool's own reading   4.7 px):  19.2 px (x -18.7, y  -4.3)
+   plan 03-25 (2026-11-08T03:02:41, tool's own reading   5.4 px):  19.2 px (x -18.4, y  -5.4)
+   plan 04-01 (2026-11-08T14:08:53, tool's own reading   8.1 px):  17.6 px (x -15.1, y  -9.1)
+   plan 04-05 (2026-11-08T14:48:01, tool's own reading   6.8 px):  15.9 px (x -13.9, y  -7.6)
+   plan 04-13 (2026-11-08T15:32:17, tool's own reading   7.5 px):  17.9 px (x -15.4, y  -9.0)
+   plan 04-31 (2026-11-08T19:45:19, tool's own reading  16.8 px):   6.4 px (x  -0.3, y  -6.4)
+   plan 04-33 (2026-11-08T20:09:32, tool's own reading  16.4 px):   2.0 px (x  +0.2, y  -2.0)
+   plan 05-03 (2026-11-08T21:57:03, tool's own reading  15.4 px):   0.9 px (x  -0.9, y  -0.1)
+   plan 05-14 (2026-11-08T23:08:06, tool's own reading  15.3 px):   1.3 px (x  -1.0, y  -0.8)
+   plan 06-01 (2026-11-09T00:22:33, tool's own reading  14.8 px):   1.9 px (x  -1.5, y  -1.2)
+   plan 06-14 (2026-11-09T01:26:22, tool's own reading  14.2 px):   2.6 px (x  -2.0, y  -1.6)

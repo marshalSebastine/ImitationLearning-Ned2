@@ -1,0 +1,12 @@
+E recipe, 209 demonstrations, each answered by the model that never saw its sheet; forearm limit 15 degrees in every rule
+rule (pictures, cm) | A chained: own, 0.65, 0.5 | B paced walk: own (creeping + stuck), 0.65 (creeping + stuck), 0.5 (creeping + stuck) | C the ten runs as driven: run -> picture
+   15, 4 |  17,   0,  12 |  110 (104 + 6),  16 (16 + 0), 102 (102 + 0) | run 6 -> 31
+   20, 4 |   2,   0,   1 |    68 (63 + 5),    0 (0 + 0),    8 (8 + 0) | run 6 -> 36
+   25, 4 |   0,   0,   0 |    42 (40 + 2),    0 (0 + 0),    0 (0 + 0) | run 6 -> 41
+   30, 4 |   0,   0,   0 |    26 (24 + 2),    0 (0 + 0),    0 (0 + 0) | run 6 -> 46
+   40, 4 |   0,   0,   0 |    11 (10 + 1),    0 (0 + 0),    0 (0 + 0) | none
+   25, 3 |   0,   0,   0 |    24 (22 + 2),    0 (0 + 0),    0 (0 + 0) | none
+   30, 3 |   0,   0,   0 |    16 (14 + 2),    0 (0 + 0),    0 (0 + 0) | none
+   40, 3 |   0,   0,   0 |      7 (6 + 1),    0 (0 + 0),    0 (0 + 0) | none
+   30, 2 |   0,   0,   0 |      9 (7 + 2),    0 (0 + 0),    0 (0 + 0) | none
+   40, 2 |   0,   0,   0 |      6 (5 + 1),    0 (0 + 0),    0 (0 + 0) | none

@@ -1,0 +1,36 @@
+=== the ten robot runs of 11.11.26 (summary.json) ===
+  2026-11-11_172021_check_no_puck: started 17:20:21, 25 moves in 25.7 s = 1.03 s per move, ending stopped
+  2026-11-11_172421_E_sheet01_run1: started 17:24:21, 24 moves in 24.5 s = 1.02 s per move, ending stopped
+  2026-11-11_172743_E_sheet02_run1: started 17:27:43, 37 moves in 36.7 s = 0.99 s per move, ending quit
+  2026-11-11_173036_E_sheet02_run2: started 17:30:36, 41 moves in 40.0 s = 0.98 s per move, ending stopped
+  2026-11-11_173549_E_sheet03_run1: started 17:35:49, 59 moves in 64.9 s = 1.10 s per move, ending stopped
+  2026-11-11_174108_E_sheet04_run1: started 17:41:08, 68 moves in 63.1 s = 0.93 s per move, ending stopped
+  2026-11-11_174448_E_sheet05_run1: started 17:44:48, 88 moves in 87.6 s = 1.00 s per move, ending stopped
+  2026-11-11_174936_E_sheet06_run1: started 17:49:36, 40 moves in 43.2 s = 1.08 s per move, ending stopped
+  2026-11-11_175203_E_sheet03_run2_no_hoodie: started 17:52:03, 89 moves in 95.4 s = 1.07 s per move, ending stopped
+  2026-11-11_175544_B_team5_sheet03: started 17:55:44, 73 moves in 83.0 s = 1.14 s per move, ending stopped
+  start-to-start gaps (min): [4.0, 3.37, 2.88, 5.22, 5.32, 3.67, 4.8, 2.45, 3.68]
+  mean 3.93, median 3.68 minutes per run, start to start
+  whole test: 36.8 minutes for 10 runs
+  driving: 564 s for 544 moves = 1.04 s per move; driving is 26 % of the session
+
+=== demonstrations 6 to 9.11.26 (episode_timing_episodes.csv, written by the earlier analysis) ===
+  folders 239, kept 210; discarded or failed 29 = 12 % of folders
+  operators of kept episodes: {'emranul': 193, 'marshal': 17}
+  kept episodes per date: {'2026-11-06': 21, '2026-11-07': 44, '2026-11-08': 114, '2026-11-09': 31}
+  start to next start, kept episodes: median 5.78 min, mean 7.38 min, 75th percentile 7.93, 90th 10.83
+  sitting 1: 282 min, kept 21, 13.41 min per kept episode
+  sitting 2: 154 min, kept 9, 17.08 min per kept episode
+  sitting 3: 626 min, kept 80, 7.83 min per kept episode
+  sitting 4: 245 min, kept 29, 8.46 min per kept episode
+  sitting 5: 401 min, kept 71, 5.64 min per kept episode
+  all sittings: 28.5 h for 210 kept episodes = 8.13 min per kept episode (the number to plan hours with)
+  start-to-start gap when the plan number stays (a retry): n 22, median 3.27, mean 4.62 min
+  start-to-start gap when the plan number changes: n 212, median 5.77, mean 7.45 min
+  first five kept episodes of a sheet against the later ones (cycle, min):
+    path_01: first five mean 20.9 (median 8.8); later mean 10.7 (median 5.6); n 20
+    path_02: first five mean 11.5 (median 10.7); later mean 8.4 (median 6.3); n 45
+    path_03: first five mean 9.9 (median 10.0); later mean 6.2 (median 5.0); n 45
+    path_04: first five mean 9.5 (median 8.8); later mean 7.1 (median 6.8); n 45
+    path_05: first five mean 5.8 (median 5.1); later mean 4.9 (median 4.7); n 30
+    path_06: first five mean 5.8 (median 5.8); later mean 4.2 (median 4.0); n 25

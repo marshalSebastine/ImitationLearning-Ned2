@@ -1,0 +1,99 @@
+training pictures in frames.csv: 18522; model E trained on 18032 of them, from 209 episodes
+descriptor grid: 6144 numbers per picture
+descriptor mean: 512 numbers per picture
+descriptor hidden: 256 numbers per picture
+
+THE YARDSTICK (descriptor grid; mean cosine distance to the 5 nearest pictures)
+sheet     pictures   against OTHER EPISODES: median   95 %    99 %    largest |  against OTHER SHEETS: median   95 %    99 %
+path_01        644                        0.0340  0.1831  0.2281  0.2977  |                     0.0754  0.2044  0.2577
+path_02       2670                        0.0603  0.1795  0.2467  0.3592  |                     0.1287  0.2300  0.2916
+path_03       3955                        0.0388  0.1357  0.1846  0.3490  |                     0.1075  0.2151  0.2666
+path_04       6227                        0.0353  0.1443  0.2020  0.3054  |                     0.1286  0.2198  0.2590
+path_05       2600                        0.0397  0.1388  0.1976  0.3218  |                     0.1282  0.2228  0.2799
+path_06       1936                        0.0288  0.1485  0.2124  0.2845  |                     0.1612  0.2717  0.3549
+all          18032                        0.0381  0.1522  0.2106  0.3592  |                     0.1264  0.2278  0.2836
+
+The local ratio of the yardstick itself (a picture's distance over its neighbours' own distances): median 1.18, 95 % 2.35, 99 % 3.71
+
+The yardstick at the START of an episode (demonstration rows 1 to 3 of the standard kinds of start, against other episodes)
+sheet     pictures   median   95 %    largest
+path_01         35   0.0448  0.1307  0.1704
+path_02        108   0.0622  0.1621  0.1835
+path_03         90   0.0389  0.1162  0.2040
+path_04         90   0.0405  0.1617  0.1760
+path_05         60   0.0582  0.1084  0.1315
+path_06         54   0.0326  0.1496  0.1848
+
+THE START OF EVERY RUN: the first three robot pictures against the demonstrations' own start pictures of that sheet
+run  model  sheet     distance of steps 0, 1, 2            demonstrations' starts: median, largest   robot / median   percentile among the starts
+  1  A      path_01   0.0607  0.0420  0.0398                               0.0448  0.1704              0.9   54  49  46
+  2  E      path_01   0.0237  0.0228  0.0205                               0.0448  0.1704              0.5   37  34  26
+  3  E      path_02   0.0980  0.1096  0.0987                               0.0622  0.1835              1.6   86  91  88
+  4  E      path_02   0.0745  0.0544  0.0427                               0.0622  0.1835              0.9   67  34  18
+  5  E      path_03   0.0781  0.0773  0.0696                               0.0389  0.2040              2.0   78  78  72
+  6  E      path_04   0.0645  0.0453  0.0416                               0.0405  0.1760              1.1   57  52  51
+  7  E      path_05   0.0208  0.0186  0.0130                               0.0582  0.1315              0.3   13  10  7
+  8  E      path_06   0.0498  0.0194  0.0150                               0.0326  0.1848              0.6   61  39  17
+  9  E      path_03   0.0663  0.0588  0.0384                               0.0389  0.2040              1.5   72  69  49
+ 10  B      path_03   0.1106  0.0860  0.0663                               0.0389  0.2040              2.2   93  83  72
+
+EVERY RUN BY PHASE (percentile = place of the robot picture among the demonstration pictures of the same sheet, each against other episodes)
+run  model  sheet     phase                         pictures  distance median  percentile median  largest  share above 95 %  above 99 %  local ratio median  same-sheet neighbours
+  1  A      path_01   whole run                           26           0.0407                 55       97                4           0                2.13                    97 %
+  2  E      path_01   whole run                           25           0.0230                 41       83                0           0                1.93                    98 %
+  3  E      path_02   seen before it went wrong            1           0.0980                 76       76                0           0                4.56                     0 %
+  3  E      path_02   between                              4           0.1220                 83       89                0           0                1.75                    90 %
+  3  E      path_02   after the puck left the line        33           0.1743                 94       99               48           6                1.88                    53 %
+  4  E      path_02   whole run                           42           0.0531                 44       99               12           2                1.59                    94 %
+  5  E      path_03   seen before it went wrong            3           0.0773                 80       80                0           0                1.20                    87 %
+  5  E      path_03   between                              2           0.0555                 66       73                0           0                1.88                   100 %
+  5  E      path_03   after the puck left the line        55           0.1592                 98      100               69          31                3.09                    37 %
+  6  E      path_04   seen before it went wrong           15           0.1031                 89       99               20           0                1.94                   100 %
+  6  E      path_04   between                              1           0.1947                 99       99              100           0                2.67                   100 %
+  6  E      path_04   after the puck left the line        53           0.2127                 99      100               92          64                1.95                    93 %
+  7  E      path_05   whole run                           89           0.0593                 69      100               11           1                1.82                    97 %
+  8  E      path_06   seen before it went wrong            8           0.0239                 39       74                0           0                1.92                   100 %
+  8  E      path_06   between                              3           0.0577                 78       79                0           0                2.83                   100 %
+  8  E      path_06   after the puck left the line        30           0.0744                 84      100               27          17                2.83                    71 %
+  9  E      path_03   seen before it went wrong            3           0.0588                 70       74                0           0                1.80                   100 %
+  9  E      path_03   between                              2           0.0586                 70       72                0           0                2.75                   100 %
+  9  E      path_03   after the puck left the line        85           0.1721                 98      100               80          33                3.09                    47 %
+ 10  B      path_03   seen before it went wrong            3           0.0860                 83       90                0           0                1.61                    87 %
+ 10  B      path_03   between                              2           0.0464                 59       62                0           0                2.28                   100 %
+ 10  B      path_03   after the puck left the line        69           0.1556                 97      100               58          33                2.24                    53 %
+
+THE SAME QUESTION WITH THE OTHER TWO DESCRIPTORS (median percentile in the sheet's yardstick; share of pictures above 95 %)
+run  phase                                           grid                    mean                  hidden
+  1  whole run                             55 /     4 %            54 /     4 %            43 /     4 %  
+  2  whole run                             41 /     0 %            40 /     0 %            18 /     0 %  
+  3  seen before it went wrong             76 /     0 %            74 /     0 %            44 /     0 %  
+  3  between                               83 /     0 %            82 /     0 %            80 /     0 %  
+  3  after the puck left the line          94 /    48 %            95 /    39 %            83 /    18 %  
+  4  whole run                             44 /    12 %            44 /    14 %            31 /    10 %  
+  5  seen before it went wrong             80 /     0 %            77 /     0 %            88 /     0 %  
+  5  between                               66 /     0 %            66 /     0 %            38 /     0 %  
+  5  after the puck left the line          98 /    69 %            97 /    71 %            86 /    27 %  
+  6  seen before it went wrong             89 /    20 %            87 /    13 %            87 /    20 %  
+  6  between                               99 /   100 %            98 /   100 %            98 /   100 %  
+  6  after the puck left the line          99 /    92 %            99 /    91 %            99 /    81 %  
+  7  whole run                             69 /    11 %            65 /    16 %            55 /    20 %  
+  8  seen before it went wrong             39 /     0 %            31 /     0 %            24 /     0 %  
+  8  between                               78 /     0 %            78 /     0 %            53 /     0 %  
+  8  after the puck left the line          84 /    27 %            87 /    30 %            84 /    30 %  
+  9  seen before it went wrong             70 /     0 %            71 /     0 %            44 /     0 %  
+  9  between                               70 /     0 %            71 /     0 %            28 /     0 %  
+  9  after the puck left the line          98 /    80 %            99 /    78 %            92 /    36 %  
+ 10  seen before it went wrong             83 /     0 %            80 /     0 %            79 /     0 %  
+ 10  between                               59 /     0 %            61 /     0 %            35 /     0 %  
+ 10  after the puck left the line          97 /    58 %            97 /    61 %            91 /    35 %  
+
+THE SUCCESSFUL RUNS AS A SECOND YARDSTICK: the novelty model E coped with on the day (runs 2, 4, 7), against what it saw before each failure
+runs 2, 4, 7, all 156 pictures: distance median 0.0480, 95 % 0.1809, largest 0.2650; local ratio median 1.72, 95 % 4.59
+run  3, the 1 pictures seen before it went wrong: distance largest 0.0980 (= percentile 77 of the successful runs' pictures); local ratio largest 4.56
+run  5, the 3 pictures seen before it went wrong: distance largest 0.0781 (= percentile 66 of the successful runs' pictures); local ratio largest 1.87
+run  6, the 15 pictures seen before it went wrong: distance largest 0.1958 (= percentile 98 of the successful runs' pictures); local ratio largest 3.09
+run  8, the 8 pictures seen before it went wrong: distance largest 0.0498 (= percentile 51 of the successful runs' pictures); local ratio largest 3.34
+run  9, the 3 pictures seen before it went wrong: distance largest 0.0663 (= percentile 62 of the successful runs' pictures); local ratio largest 1.99
+run 10, the 3 pictures seen before it went wrong: distance largest 0.1106 (= percentile 81 of the successful runs' pictures); local ratio largest 2.04
+
+written: novelty_model_e_per_picture.csv, novelty_model_e_baseline.csv, figures/novelty_model_e_along_runs.png

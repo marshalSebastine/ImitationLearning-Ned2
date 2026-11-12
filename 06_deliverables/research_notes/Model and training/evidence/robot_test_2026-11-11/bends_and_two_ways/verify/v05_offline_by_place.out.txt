@@ -1,0 +1,43 @@
+run 2026-11-10_resnet18_chunk_stop_weight_25: 18032 held-out pictures; scored on the path direction (3 steps ahead, at least 1.5 cm): 14405
+all sheets: path within 45 deg: exact step 0.799, first chunk step 0.799, chunk 3 ahead 0.808, chunk 5 ahead 0.806, always forward 0.583
+
+== 1. per kind of place (held-out sheets) ==
+place                                    straight  gentle bend  sharp bend   hairpin  line end  all places
+pictures                                 2328.000     6664.000    6290.000  1091.000   804.000   17773.000
+predicted length median cm                  0.840        0.700       0.630     0.630     0.470       0.670
+predicted under 0.3 cm %                    3.600        2.400       5.000     7.300    22.300       4.700
+demonstrated length median cm               1.130        1.090       1.010     0.530     1.080       1.060
+local pace (mean of 5 steps) median cm      1.000        0.850       0.710     0.470     0.760       0.790
+scored pictures                          2080.000     5958.000    4819.000   544.000   489.000   14405.000
+within 45: exact step                       0.900        0.793       0.790     0.800     0.462       0.799
+within 45: first chunk step                 0.895        0.791       0.794     0.801     0.464       0.799
+within 45: chunk 3 ahead                    0.899        0.804       0.793     0.836     0.528       0.808
+within 45: chunk 5 ahead                    0.893        0.807       0.784     0.836     0.552       0.806
+within 45: always forward                   0.777        0.599       0.498     0.607     0.309       0.583
+predicted reversals over 90 % (table)       0.390        0.290       0.450     0.180     0.340       0.350
+predicted reversals over 90 % (picture)     0.300        0.310       0.420     0.090     0.340       0.330
+demonstrated reversals over 90 %            6.840        7.410       9.600    18.400    11.600       8.920
+twist: sum predicted / sum demonstrated     0.660        0.680       0.570     0.740     0.660       0.640
+
+== 2. hairpins: does the predicted twist go into the bend? ==
+hairpin pictures 1091: predicted twist into the bend (over 1 deg) on 95.5 %, out of it (under -1 deg) on 0.5 %; demonstrated 87.7 % and 3.3 %; mean size predicted 4.47 deg, demonstrated 6.07 deg
+
+== 3. what a short answer means (held-out, non-stop pictures) ==
+answers under 0.3 cm: 830 of 17773 (4.7 %)
+   the demonstration then made a real move of 0.7 cm or more on 59 %, a twist in place (under 0.3 cm, 3 deg or more) on 14 %; at hairpins 35 % (of 80)
+   for those real moves the predicted direction is more than 90 deg off the demonstrated step on 28.1 %
+   predicted length 0.0 to 0.3 cm:   483 scored pictures, path within 45 deg 0.453
+   predicted length 0.3 to 0.6 cm:  3954 scored pictures, path within 45 deg 0.675
+   predicted length 0.6 to 0.9 cm:  7417 scored pictures, path within 45 deg 0.831
+   predicted length 0.9 to 9.0 cm:  2551 scored pictures, path within 45 deg 0.964
+
+== 4. per held-out sheet: exact step against the chunk's point 3 steps ahead (path within 45 deg) ==
+   path_01:   529 pictures; exact 0.866, chunk 3 ahead 0.856, chunk 5 ahead 0.853; predicted length median 0.97 cm against demonstrated 1.11
+   path_02:  2243 pictures; exact 0.783, chunk 3 ahead 0.806, chunk 5 ahead 0.807; predicted length median 0.70 cm against demonstrated 1.09
+   path_03:  3116 pictures; exact 0.826, chunk 3 ahead 0.829, chunk 5 ahead 0.827; predicted length median 0.65 cm against demonstrated 1.05
+   path_04:  4502 pictures; exact 0.780, chunk 3 ahead 0.797, chunk 5 ahead 0.801; predicted length median 0.65 cm against demonstrated 1.01
+   path_05:  2324 pictures; exact 0.813, chunk 3 ahead 0.810, chunk 5 ahead 0.799; predicted length median 0.72 cm against demonstrated 1.11
+   path_06:  1691 pictures; exact 0.782, chunk 3 ahead 0.787, chunk 5 ahead 0.778; predicted length median 0.68 cm against demonstrated 1.06
+
+== 5. the first bend of sheet 03 from end A, held-out model (puck within the first 8 cm of line, standard starts) ==
+   pictures 145; predicted length median 0.56 cm (mean 0.63), demonstrated median 0.77 (mean 0.76); predicted twist mean -3.39 deg, demonstrated -5.09; sum of predicted lengths over sum of demonstrated 0.82; length of the summed predicted vectors over the summed demonstrated lengths is not comparable (different frames per picture)

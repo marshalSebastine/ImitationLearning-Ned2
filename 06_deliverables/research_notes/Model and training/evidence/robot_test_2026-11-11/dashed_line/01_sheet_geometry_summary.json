@@ -1,0 +1,34 @@
+{
+ "05": {
+  "length_cm": 53.79741993526088,
+  "start_to_crossing_cm": 10.9,
+  "loop_length_cm": 31.5,
+  "crossing_to_far_end_cm": 11.397419935260878,
+  "loop_turn_deg": 309.04836656539953,
+  "loop_along_cm": 10.07281041619339,
+  "loop_across_cm": 10.575687468499286,
+  "loop_smallest_radius_cm": 1.7714970369686005,
+  "loop_median_radius_cm": 6.861475225599518,
+  "loop_cm_tighter_than_3_cm_radius": 4.0,
+  "tightest_at_cm_after_crossing": 21.0,
+  "whole_line_smallest_radius_cm": 1.7714970369686005
+ },
+ "06": {
+  "length_cm": 45.59635558708282,
+  "start_to_crossing_cm": 6.800000000000001,
+  "loop_length_cm": 24.5,
+  "crossing_to_far_end_cm": 14.296355587082818,
+  "loop_turn_deg": -270.3545967634398,
+  "loop_along_cm": 8.840857737097078,
+  "loop_across_cm": 6.335673714741389,
+  "loop_smallest_radius_cm": 1.3923951300445132,
+  "loop_median_radius_cm": 6.6592208027830715,
+  "loop_cm_tighter_than_3_cm_radius": 2.7,
+  "tightest_at_cm_after_crossing": 10.700000000000001,
+  "whole_line_smallest_radius_cm": 1.3923951300445132,
+  "dash_median_cm": 2.0,
+  "gap_median_cm": 0.9,
+  "ink_share_of_length": 0.6936542669584245,
+  "dashes": 16
+ }
+}

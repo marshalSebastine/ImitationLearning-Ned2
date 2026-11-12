@@ -1,0 +1,37 @@
+1. Pushing rows whose puck does not travel up the picture: forced by the limit of joint 4, or chosen?
+   (forced: looking along the travel would need |joint 4| over 117; room: it would need at most 107; between the two: at the edge)
+   sheet     pushing rows   off by over 45: rows   forced   at the edge   room   |   off by over 60: rows   forced   at the edge   room
+   path_01           317                    12    33.3%          0.0%   66.7%   |                     8    50.0%          0.0%   50.0%
+   path_02          1533                   291    72.9%         10.7%   16.5%   |                   219    83.6%          5.0%   11.4%
+   path_03          1986                   459    90.0%          2.6%    7.4%   |                   375    92.0%          1.6%    6.4%
+   path_04          2791                   695    81.0%          5.5%   13.5%   |                   644    82.5%          5.7%   11.8%
+   path_05          1445                   534    89.1%          3.4%    7.5%   |                   508    92.3%          2.4%    5.3%
+   path_06          1012                   557    82.0%          9.2%    8.8%   |                   541    82.6%          9.4%    7.9%
+   all              9084                  2548    83.4%          5.9%   10.7%   |                  2295    86.2%          5.1%    8.7%
+   of all 9084 pushing rows: 23.4 % are pushes more than 45 degrees off the picture's top that the limit forces, 3.0 % are such pushes with room to turn
+   recorded |joint 4| in the forced rows: median 65 degrees, over 100 in 8 %, under 60 in 41 %
+   in the forced rows the forearm stood on the side the travel asks for in 100 % and on the other side in 0 % (other side: the camera would have to swing through its whole range to look along the travel)
+   recorded |joint 4| in the rows with room: median 17 degrees
+
+2. One picture situation, two recorded answers: travel more than 30 degrees off the picture's top WITH room to turn
+   rows: 571 of 11419 with a known travel direction (5.0 %); the demonstrator pushed on (0.7 cm or more) in 83.5 %, moved 0.3 to 0.7 cm in 10.7 %, turned nearly in place (under 0.3 cm) in 5.8 %
+   in these rows the forearm turned the camera towards the travel direction (2 degrees or more) in 19.8 %, away from it in 32.9 %, neither in 47.3 %
+      path_01:    12 rows; pushed on in 100.0 %, nearly in place in   0.0 %
+      path_02:    96 rows; pushed on in  97.9 %, nearly in place in   1.0 %
+      path_03:   137 rows; pushed on in  77.4 %, nearly in place in   8.8 %
+      path_04:   187 rows; pushed on in  80.2 %, nearly in place in   7.5 %
+      path_05:    72 rows; pushed on in  83.3 %, nearly in place in   6.9 %
+      path_06:    67 rows; pushed on in  82.1 %, nearly in place in   1.5 %
+
+3. How much of the recorded travel runs where the camera can never look along it
+   (travel direction more than 108 degrees from 'straight away from the base'; rows with a known direction)
+   sheet     rows   beyond the camera's reach   episodes with such a stretch (10 rows or more)
+   path_01    338                       1.5%      0 of 20
+   path_02   1741                      14.2%      9 of 45
+   path_03   2557                      25.2%     33 of 45
+   path_04   3782                      20.4%     33 of 45
+   path_05   1721                      35.6%     23 of 29
+   path_06   1280                      44.9%     22 of 25
+   all      11419                      25.0%    120 of 209
+   by sheet and start end (rows, share beyond the reach):
+   01A 250 rows 2 %; 01B 88 rows 0 %; 02A 515 rows 14 %; 02B 1226 rows 15 %; 03A 1406 rows 28 %; 03B 1151 rows 22 %; 04A 2742 rows 18 %; 04B 1040 rows 26 %; 05A 386 rows 33 %; 05B 1335 rows 36 %; 06A 757 rows 49 %; 06B 523 rows 39 %

@@ -1,0 +1,35 @@
+standard starts after picture 15 with an offset from the analyst: 1408 pictures; over 17 mm 244, 12 to 17 mm 132, under 3 mm 405
+  group  step  analyst_offset_mm  my_offset_mm  my_followed_back_mm  my_nearest_ink_mm                                  episode
+far_off    43          -21.10613     25.014452            17.600100          25.612536 path_02_arc_episode_008_plan_02-05_try_1
+far_off    55          -23.50731           NaN                  NaN                NaN path_02_arc_episode_041_plan_02-31_try_1
+far_off    97          -23.08532           NaN                  NaN                NaN 3_two_curve_episode_013_plan_03-13_try_1
+far_off    63          -38.49982           NaN                  NaN                NaN 3_two_curve_episode_026_plan_03-25_try_2
+far_off    64          -34.49017           NaN                  NaN                NaN 3_two_curve_episode_026_plan_03-25_try_2
+far_off   191          -19.78269           NaN                  NaN                NaN _04_meander_episode_011_plan_04-04_try_1
+far_off   139           20.14100     13.529528            10.250000          21.656526 _04_meander_episode_023_plan_04-16_try_1
+far_off   149          -31.18610      6.925211            17.595734          20.820538 _04_meander_episode_023_plan_04-16_try_1
+far_off   150          -28.88025      8.107100            16.340885          20.166082 _04_meander_episode_023_plan_04-16_try_1
+far_off    54           32.65384           NaN                  NaN                NaN _04_meander_episode_042_plan_04-34_try_1
+far_off    96          -18.75306     23.349141             2.750000          19.740273 _04_meander_episode_042_plan_04-34_try_1
+far_off   153           20.25500     16.369214             3.500000          12.572605 _04_meander_episode_042_plan_04-34_try_1
+far_off    36          -40.00629           NaN                  NaN                NaN loop_dashed_episode_002_plan_06-02_try_1
+far_off    67          -61.14728           NaN                  NaN                NaN loop_dashed_episode_002_plan_06-02_try_1
+far_off    94           22.25737     19.255692             0.000000          13.999395 loop_dashed_episode_002_plan_06-02_try_1
+    off    23           12.98237     16.002411            26.050080          25.827091 raight_line_episode_015_plan_01-13_try_1
+    off    24          -14.76475     12.807952            22.393972          23.076879 path_02_arc_episode_041_plan_02-31_try_1
+    off    56           12.05089     31.266531             0.000000          18.265214 3_two_curve_episode_002_plan_03-02_try_1
+    off    82           16.45191           NaN                  NaN                NaN 3_two_curve_episode_002_plan_03-02_try_1
+    off   115          -12.00764     46.060780             0.000000          14.124283 _04_meander_episode_011_plan_04-04_try_1
+    off    67           16.29661     12.641344            19.250000          20.474174 _04_meander_episode_023_plan_04-16_try_1
+    off    69          -16.49494           NaN                  NaN                NaN _04_meander_episode_042_plan_04-34_try_1
+    off   148           14.37477           NaN                  NaN                NaN _04_meander_episode_042_plan_04-34_try_1
+    off    84          -12.59217           NaN                  NaN                NaN _alpha_loop_episode_006_plan_05-03_try_1
+centred    54           -0.24994      1.062890            19.401426          16.352245 path_02_arc_episode_005_plan_02-02_try_3
+centred    34           -1.02385      2.871062            14.434263          13.578857 path_02_arc_episode_041_plan_02-31_try_1
+centred    35            0.59986     33.649274             0.000000          28.625817 3_two_curve_episode_013_plan_03-13_try_1
+centred    51           -0.34908     34.744943             0.000000          14.964911 _04_meander_episode_023_plan_04-16_try_1
+centred    64           -0.59843           NaN                  NaN                NaN _04_meander_episode_023_plan_04-16_try_1
+centred    91            0.15513     38.743906             0.000000          32.747442 _04_meander_episode_023_plan_04-16_try_1
+centred    18           -1.76247     11.496919             0.000000          11.801484 _alpha_loop_episode_005_plan_05-02_try_2
+centred    19            0.63541           NaN                  NaN                NaN _alpha_loop_episode_005_plan_05-02_try_2
+centred    57            0.74010           NaN                  NaN                NaN loop_dashed_episode_006_plan_06-06_try_1

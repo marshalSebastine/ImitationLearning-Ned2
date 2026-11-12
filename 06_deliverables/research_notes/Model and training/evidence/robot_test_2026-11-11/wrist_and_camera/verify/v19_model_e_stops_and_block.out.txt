@@ -1,0 +1,21 @@
+a) model E (all sheets), the last two rows of every episode: share with a stop chance of 0.5 or more
+   the stop row:
+            rows  recorded  replicate   null  chance_recorded  chance_replicate
+moved_bin                                                                      
+0             36     0.972      0.972  0.972            0.920             0.920
+1 to 4        60     0.983      0.967  0.967            0.909             0.919
+5 to 9        49     1.000      1.000  1.000            0.950             0.933
+10 or more    63     1.000      0.968  1.000            0.960             0.871
+   the row before:
+            rows  recorded  replicate   null  chance_recorded  chance_replicate
+moved_bin                                                                      
+0             36     0.944      0.944  0.944            0.846             0.846
+1 to 4        60     0.867      0.867  0.867            0.809             0.838
+5 to 9        48     0.875      0.875  0.875            0.836             0.818
+10 or more    64     0.922      0.797  0.922            0.871             0.732
+   episodes with 0.5 or more on BOTH last rows (recorded): 187 of 208
+   episodes with 0.5 or more on BOTH last rows (replicate): 178 of 208
+   episodes with 0.5 or more on BOTH last rows (null): 187 of 208
+
+b) only the wrist turns (forearm and camera still): move in the picture per degree of wrist, px at 640
+   magnet tip: median -2.71 (5th -3.05, 95th -2.57); rod's end: median -1.90 (5th -2.22, 95th -1.75); negative = up the picture when the wrist grows

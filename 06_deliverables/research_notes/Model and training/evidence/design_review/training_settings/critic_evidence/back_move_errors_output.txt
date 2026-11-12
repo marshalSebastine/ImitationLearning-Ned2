@@ -1,0 +1,19 @@
+﻿is_audit_cleaning in default parameters: False
+==========================================================================================
+exact | moving rows 7738 | within 45 overall 0.684
+   true back       rows   305  within 45 0.190  within 90 0.708  median error   69.3  predicted: forward 16, forward_left 33, forward_right 17, left 68, right 48, back 1, back_left 25, back_right 97
+   true back_left  rows   329  within 45 0.392  within 90 0.796  median error   56.3  predicted: forward 32, forward_left 93, forward_right 10, left 125, right 9, back_left 47, back_right 13
+   true back_right rows   420  within 45 0.538  within 90 0.757  median error   41.5  predicted: forward 42, forward_left 24, forward_right 67, left 11, right 131, back 1, back_left 10, back_right 134
+   any back class: rows 1054, predicted any back class for 0.311 of them, within 45 0.392, predicted share of any back 0.091 against true 0.136
+==========================================================================================
+classes | moving rows 7738 | within 45 overall 0.657
+   true back       rows   305  within 45 0.603  within 90 0.895  median error   36.1  predicted: forward 9, forward_left 1, forward_right 2, left 40, right 35, back 81, back_left 76, back_right 61
+   true back_left  rows   329  within 45 0.720  within 90 0.884  median error   23.4  predicted: forward 20, forward_left 11, forward_right 5, left 92, right 12, back 24, back_left 160, back_right 5
+   true back_right rows   420  within 45 0.660  within 90 0.886  median error   27.1  predicted: forward 13, forward_left 19, forward_right 31, left 12, right 98, back 47, back_left 16, back_right 184
+   any back class: rows 1054, predicted any back class for 0.620 of them, within 45 0.662, predicted share of any back 0.221 against true 0.136
+==========================================================================================
+mirror (03 and 05 only) | moving rows 5929 | within 45 overall 0.666
+   true back       rows   212  within 45 0.453  within 90 0.811  median error   55.3  predicted: forward 7, forward_left 4, forward_right 3, left 38, right 45, back 27, back_left 50, back_right 38
+   true back_left  rows   217  within 45 0.645  within 90 0.829  median error   26.8  predicted: forward 20, forward_left 18, forward_right 7, left 64, right 9, back 10, back_left 89
+   true back_right rows   327  within 45 0.599  within 90 0.817  median error   31.2  predicted: forward 28, forward_left 18, forward_right 24, left 12, right 111, back 12, back_left 5, back_right 117
+   any back class: rows 756, predicted any back class for 0.460 of them, within 45 0.571, predicted share of any back 0.122 against true 0.128

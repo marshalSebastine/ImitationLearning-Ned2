@@ -1,0 +1,13 @@
+run 6: 11197 ink points from 5 pictures
+   demonstration 04-01 (15627 ink points) onto run 6: turn +22.5 degrees (mean capped distance 3.9 mm); run 6 onto the demonstration: turn -24.5 degrees (0.9 mm)
+   demonstration 04-02 (15302 ink points) onto run 6: turn +22.0 degrees (mean capped distance 4.1 mm); run 6 onto the demonstration: turn -25.0 degrees (0.1 mm)
+   demonstration 04-05 (17694 ink points) onto run 6: turn +23.5 degrees (mean capped distance 5.9 mm); run 6 onto the demonstration: turn -25.0 degrees (0.6 mm)
+   demonstration 04-13 (11061 ink points) onto run 6: turn +17.5 degrees (mean capped distance 1.1 mm); run 6 onto the demonstration: turn -16.0 degrees (0.6 mm)
+   demonstration 04-16 (13088 ink points) onto run 6: turn +15.0 degrees (mean capped distance 1.4 mm); run 6 onto the demonstration: turn -15.0 degrees (0.9 mm)
+   demonstration 04-17 (12879 ink points) onto run 6: turn +15.0 degrees (mean capped distance 1.2 mm); run 6 onto the demonstration: turn -15.0 degrees (0.2 mm)
+   04-02 onto 04-01: turn +1.0 degrees, mean capped distance 0.3 mm
+   04-05 onto 04-01: turn +1.0 degrees, mean capped distance 0.7 mm
+   04-13 onto 04-01: turn -7.5 degrees, mean capped distance 0.7 mm
+   04-17 onto 04-01: turn -8.5 degrees, mean capped distance 0.5 mm
+   04-16 onto 04-13: turn +1.5 degrees, mean capped distance 2.0 mm
+   04-17 onto 04-13: turn +2.0 degrees, mean capped distance 1.6 mm

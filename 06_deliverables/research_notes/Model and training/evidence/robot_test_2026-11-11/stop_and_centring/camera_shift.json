@@ -1,0 +1,114 @@
+{
+ "robot_test": {
+  "shift_px": [
+   9.9,
+   -2.7
+  ],
+  "roll_deg": 1.26,
+  "best_grid_shift_px": [
+   12,
+   -4
+  ],
+  "gain": 0.08051303502485768,
+  "sharpness_without_shift": [
+   5.058,
+   10.818,
+   12.468,
+   10.215
+  ],
+  "sharpness_with_shift": [
+   6.038,
+   12.352,
+   12.701,
+   11.311
+  ],
+  "runs": [
+   "2026-11-11_173036_E_sheet02_run2",
+   "2026-11-11_174448_E_sheet05_run1",
+   "2026-11-11_174108_E_sheet04_run1",
+   "2026-11-11_173549_E_sheet03_run1"
+  ],
+  "near_best_shifts_px": [
+   [
+    12,
+    -4
+   ],
+   [
+    12,
+    0
+   ]
+  ]
+ },
+ "before_move": {
+  "shift_px": [
+   -3.1,
+   -4.0
+  ],
+  "roll_deg": 1.12,
+  "best_grid_shift_px": [
+   -4,
+   -4
+  ],
+  "gain": 0.04169173262288558,
+  "sharpness_without_shift": [
+   14.088,
+   11.872,
+   8.264,
+   6.166
+  ],
+  "sharpness_with_shift": [
+   14.653,
+   13.07,
+   9.554,
+   6.42
+  ],
+  "runs": [
+   "path_04_meander_episode_015_plan_04-08_try_1",
+   "path_03_two_curve_episode_007_plan_03-07_try_1",
+   "path_03_two_curve_episode_004_plan_03-04_try_1",
+   "path_02_arc_episode_022_plan_02-14_try_1"
+  ],
+  "near_best_shifts_px": [
+   [
+    -4,
+    -4
+   ]
+  ]
+ },
+ "after_move": {
+  "shift_px": [
+   12.6,
+   -1.5
+  ],
+  "roll_deg": 1.35,
+  "best_grid_shift_px": [
+   12,
+   0
+  ],
+  "gain": 0.16245396128265793,
+  "sharpness_without_shift": [
+   5.718,
+   6.002,
+   9.212,
+   5.866
+  ],
+  "sharpness_with_shift": [
+   7.448,
+   7.688,
+   10.995,
+   6.868
+  ],
+  "runs": [
+   "path_05_alpha_loop_episode_020_plan_05-15_try_1",
+   "path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1",
+   "path_04_meander_episode_039_plan_04-31_try_1",
+   "path_05_alpha_loop_episode_018_plan_05-13_try_1"
+  ],
+  "near_best_shifts_px": [
+   [
+    12,
+    0
+   ]
+  ]
+ }
+}

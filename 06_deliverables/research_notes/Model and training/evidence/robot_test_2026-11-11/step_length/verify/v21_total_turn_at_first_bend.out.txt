@@ -1,0 +1,12 @@
+demonstration 03-01: largest forearm turn -90 degrees after 10.7 cm of tip travel; picture heading from -6 to at most 92 degrees
+demonstration 03-02: largest forearm turn -91 degrees after 13.0 cm of tip travel; picture heading from -6 to at most 93 degrees
+demonstration 03-03: largest forearm turn -97 degrees after 8.5 cm of tip travel; picture heading from -6 to at most 97 degrees
+demonstration 03-04: largest forearm turn -96 degrees after 10.5 cm of tip travel; picture heading from -6 to at most 98 degrees
+demonstration 03-05: largest forearm turn -94 degrees after 11.3 cm of tip travel; picture heading from -6 to at most 93 degrees
+demonstration 03-25: largest forearm turn -110 degrees after 12.9 cm of tip travel; picture heading from -6 to at most 110 degrees
+demonstration 03-26: largest forearm turn -108 degrees after 13.4 cm of tip travel; picture heading from -6 to at most 110 degrees
+demonstration 03-27: largest forearm turn -105 degrees after 13.1 cm of tip travel; picture heading from -6 to at most 105 degrees
+demonstrations: median -96 degrees (-90 to -110)
+robot run 5: largest forearm turn -62 degrees after 18.0 cm of tip travel (decision 18); the asked twists add up to at most -61 degrees; picture heading from 12 to at most 73 degrees
+robot run 9: largest forearm turn -76 degrees after 16.1 cm of tip travel (decision 16); the asked twists add up to at most -74 degrees; picture heading from 3 to at most 84 degrees
+robot run 10: largest forearm turn -62 degrees after 13.8 cm of tip travel (decision 14); the asked twists add up to at most -61 degrees; picture heading from 12 to at most 75 degrees

@@ -1,0 +1,11 @@
+numpy copies against the project's functions on 300 random demonstration rows (largest differences):
+  tip_mm: 1.72533e-13
+  lean_deg: 1.18572e-13
+  forearm_origin_mm: 5.55112e-14
+  forearm_axes: 2.22045e-16
+  pixel_px: 1.79755e-13
+  solver_joints_deg: 0.000323435
+  solver_agreement_share: 1
+  tip_against_index_mm: 0.00819595
+  heading_deg: 2.54444e-14
+  forward_lean_deg: 1.59872e-14

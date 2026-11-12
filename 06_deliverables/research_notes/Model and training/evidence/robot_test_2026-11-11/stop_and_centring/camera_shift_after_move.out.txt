@@ -1,0 +1,25 @@
+period after_move: path_05_alpha_loop_episode_020_plan_05-15_try_1 (25 pictures), path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1 (26 pictures), path_04_meander_episode_039_plan_04-31_try_1 (31 pictures), path_05_alpha_loop_episode_018_plan_05-13_try_1 (19 pictures)
+sharpness without a shift, per run: [5.72, 6.0, 9.21, 5.87]
+
+gain in sharpness (mean natural logarithm of the ratio to no shift); rows: shift right, columns: shift down
+             -24     -16      -8       0       8
+     -16 -0.4118 -0.3397 -0.2991 -0.2942 -0.3237
+      -8 -0.3430 -0.2339 -0.1647 -0.1546 -0.2023
+       0 -0.2854 -0.1372 -0.0231  0.0000 -0.0637
+       8 -0.2527 -0.0711  0.0828  0.1340  0.0573
+      16 -0.2653 -0.0864  0.0812  0.1515  0.0839
+      24 -0.3152 -0.1750 -0.0398  0.0262 -0.0237
+
+finer search around (16, 0)
+              -4       0       4
+      12  0.1470  0.1625  0.1409
+      16  0.1330  0.1515  0.1359
+      20  0.0804  0.1026  0.0893
+
+best grid shift (12, 0) with gain 0.1625; refined shift [12.9, -0.3] px (right, down)
+gain by roll (degrees) at the refined shift: {-0.75: 0.1105, 0.0: 0.1649, 0.75: 0.1999, 1.5: 0.2081, 2.25: 0.1886}
+roll 1.35 degrees; shift refined with the roll held: [12.6, -1.5] px (right, down)
+sharpness with the shift and the roll, per run: [7.45, 7.69, 11.0, 6.87]
+mean gain against no shift: 23.6 %
+shifts within 0.005 of the best gain: [(12, 0)]
+written to camera_shift.json

@@ -1,0 +1,48 @@
+cache (18522, 120, 160, 3) uint8
+fork mask: 382 pixels (2.0 % of the picture), rows 103 to 119
+without_path_01: 633 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000001
+   moved rows: 364 (58 %); elapsed 9 s
+without_path_02: 2613 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000001
+   moved rows: 1198 (46 %); elapsed 39 s
+without_path_03: 3955 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000001
+   moved rows: 2128 (54 %); elapsed 93 s
+without_path_04: 6227 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000000
+   moved rows: 3853 (62 %); elapsed 189 s
+without_path_05: 2600 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000001
+   moved rows: 1459 (56 %); elapsed 230 s
+without_path_06: 1936 rows; my inference against the saved stop chances on 64 rows: largest gap 0.000000
+   moved rows: 1304 (67 %); elapsed 263 s
+
+=== episodes by the stop rule (0.5 on two pictures in a row; the project's stop_metrics) ===
+  recorded   all           right 103, early  27, never  69 of 207
+  recorded   start mark    right  66, early  25, never  49 of 147
+  recorded   taught start  right  37, early   2, never  20 of 60
+  replicate  all           right  93, early  29, never  79 of 207
+  replicate  start mark    right  62, early  26, never  53 of 147
+  replicate  taught start  right  31, early   3, never  26 of 60
+  reflect    all           right  94, early  29, never  78 of 207
+  reflect    start mark    right  63, early  27, never  51 of 147
+  reflect    taught start  right  31, early   2, never  27 of 60
+  null       all           right  95, early  32, never  72 of 207
+  null       start mark    right  62, early  29, never  49 of 147
+  null       taught start  right  33, early   3, never  23 of 60
+
+=== stop rows: share with a stop chance of 0.5 or more, by how far the picture is moved ===
+            rows  recorded  replicate  reflect   null
+moved_bin                                            
+0             35     0.743      0.743    0.743  0.743
+1 to 4        60     0.817      0.767    0.783  0.817
+5 to 9        49     0.694      0.714    0.714  0.673
+10 or more    63     0.683      0.508    0.492  0.635
+                                 rows  recorded  replicate  reflect   null
+direction                                                                 
+content down (wrist above 13.5)    52     0.558      0.500    0.500  0.538
+content up (wrist below 13.5)     120     0.808      0.725    0.725  0.783
+not moved                          35     0.743      0.743    0.743  0.743
+
+=== direction: exact step within 45 degrees of the demonstrated step (moved rows that move the tip 5 mm or more) ===
+  recorded   within 45 degrees: 64.7 % of 8206 moved rows; rows moved by more than 4 px: 62.6 % of 4281
+  replicate  within 45 degrees: 63.5 % of 8206 moved rows; rows moved by more than 4 px: 60.5 % of 4281
+  reflect    within 45 degrees: 63.2 % of 8206 moved rows; rows moved by more than 4 px: 59.8 % of 4281
+  null       within 45 degrees: 64.8 % of 8206 moved rows; rows moved by more than 4 px: 62.9 % of 4281
+total seconds: 263

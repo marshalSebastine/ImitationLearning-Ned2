@@ -1,0 +1,81 @@
+1. Sheet 06 (dashed) in the training data
+   episodes 25 (scores {1.0: 3, 2.0: 5, 3.0: 17}), recorded 2026-11-09T00:22:33 to 2026-11-09T02:14:14 by emranul, lighting ceiling
+   pictures: 1982 recorded, 1936 after cleaning = 10.7 % of the 18032 cleaned pictures of all sheets
+           episodes  pictures
+start_end                    
+A                15      1230
+B                10       706
+   cleaned pictures per sheet:
+         episodes  pictures
+sheet                      
+path_01        20       644
+path_02        45      2670
+path_03        45      3955
+path_04        45      6227
+path_05        29      2600
+path_06        25      1936
+   sheet 06: where the sheet lay (angle against the sheet's place in the robot run of 11.11.26, rounded to 1 degree and 1 cm)
+                                                 episodes                              plans
+start_end placement                                                                         
+A         +14 deg, line's middle at (25, -1) cm         1                              06-09
+          +4 deg, line's middle at (23, -1) cm          3                06-11, 06-12, 06-13
+          +5 deg, line's middle at (23, -1) cm          1                              06-10
+          -2 deg, line's middle at (26, -3) cm          1                              06-07
+          -3 deg, line's middle at (25, -3) cm          3                06-03, 06-06, 06-08
+          -3 deg, line's middle at (26, -3) cm          2                       06-02, 06-05
+          -4 deg, line's middle at (25, -3) cm          1                              06-04
+          -4 deg, line's middle at (26, -3) cm          1                              06-01
+          not found                                     2                       06-22, 06-23
+B         +0 deg, line's middle at (25, -13) cm         1                              06-14
+          +15 deg, line's middle at (30, -9) cm         1                              06-21
+          +8 deg, line's middle at (30, -10) cm         1                              06-25
+          +9 deg, line's middle at (30, -10) cm         1                              06-24
+          -0 deg, line's middle at (25, -13) cm         1                              06-20
+          -1 deg, line's middle at (25, -13) cm         5  06-15, 06-16, 06-17, 06-18, 06-19
+   the robot run on sheet 06: -0 deg, line's middle at (26, 0) cm
+   sheet 05: where the sheet lay (angle against the sheet's place in the robot run of 11.11.26, rounded to 1 degree and 1 cm)
+                                                  episodes                              plans
+start_end placement                                                                          
+A         -124 deg, line's middle at (32, 0) cm          2                       05-15, 05-16
+          -124 deg, line's middle at (33, 0) cm          2                       05-14, 05-17
+          -125 deg, line's middle at (32, 0) cm          1                              05-18
+          -125 deg, line's middle at (33, 0) cm          1                              05-19
+          -158 deg, line's middle at (32, -4) cm         2                       05-28, 05-29
+          -159 deg, line's middle at (32, -4) cm         1                              05-30
+B         +22 deg, line's middle at (29, 6) cm           2                       05-01, 05-02
+          -10 deg, line's middle at (27, -0) cm          1                              05-05
+          -10 deg, line's middle at (27, 0) cm           5  05-03, 05-04, 05-06, 05-07, 05-08
+          -22 deg, line's middle at (31, -3) cm          1                              05-09
+          -24 deg, line's middle at (30, -4) cm          4         05-10, 05-11, 05-12, 05-13
+          -28 deg, line's middle at (30, -0) cm          3                05-25, 05-26, 05-27
+          -29 deg, line's middle at (30, -0) cm          3                05-22, 05-23, 05-24
+          -7 deg, line's middle at (29, 3) cm            2                       05-20, 05-21
+   the robot run on sheet 05: +0 deg, line's middle at (27, 7) cm
+
+2. What the demonstrations do, per sheet (cleaned rows without the stop pictures)
+         pictures  steps_forward_within_30_deg  steps_sideways_60_to_120_deg  steps_backward_beyond_120_deg  forearm_twisted_beyond_60_deg  wrist_over_5_deg_from_held  wrist_median_deg  wrist_90th_percentile_deg
+sheet                                                                                                                                                                                                              
+path_01       623                        0.687                         0.156                          0.057                          0.034                       0.404            11.069                     13.706
+path_02      2614                        0.431                         0.242                          0.096                          0.411                       0.214            13.442                     13.706
+path_03      3899                        0.390                         0.298                          0.073                          0.355                       0.281            13.090                     13.793
+path_04      6171                        0.389                         0.331                          0.080                          0.411                       0.301            13.442                     17.749
+path_05      2561                        0.428                         0.288                          0.144                          0.291                       0.415            13.530                     25.746
+path_06      1905                        0.311                         0.385                          0.141                          0.386                       0.516            16.342                     30.756
+
+3. The practice tracks against the course sheets
+   dashes: practice tracks 35 mm with gaps of 15 mm; sheet 06 measured 20 mm with gaps of 9 mm (step 1, median of 16 dashes)
+   tightest bend allowed in a practice track: 3.5 cm radius; the course sheets (course-photo centre lines, smoothed over 1.5 cm, bend measured over 2 cm, so nothing under about 1 cm can show):
+      sheet 01: tightest bend 100.0 cm radius; 0.0 cm of its 23.3 cm are tighter than 3.5 cm, 0.0 cm tighter than 2.0 cm
+      sheet 02: tightest bend 8.7 cm radius; 0.0 cm of its 31.3 cm are tighter than 3.5 cm, 0.0 cm tighter than 2.0 cm
+      sheet 03: tightest bend 1.0 cm radius; 9.3 cm of its 50.7 cm are tighter than 3.5 cm, 3.7 cm tighter than 2.0 cm
+      sheet 04: tightest bend 1.0 cm radius; 18.8 cm of its 72.4 cm are tighter than 3.5 cm, 10.3 cm tighter than 2.0 cm
+      sheet 05: tightest bend 2.2 cm radius; 5.2 cm of its 56.6 cm are tighter than 3.5 cm, 0.0 cm tighter than 2.0 cm
+      sheet 06: tightest bend 1.5 cm radius; 3.2 cm of its 46.6 cm are tighter than 3.5 cm, 1.7 cm tighter than 2.0 cm
+      sheet 05 from the robot run's top view (step 1): tightest bend 1.8 cm radius
+      sheet 06 from the robot run's top view (step 1): tightest bend 1.4 cm radius
+
+4. The state in which the walk round the puck starts (the first backward step of 0.3 cm or more near the busy stretch of the loop)
+   sheet 06 from end A, 13 demonstrations: puck 11.5 to 18.1 cm after the crossing, beside the line -1.0 to 2.8 cm (median 0.0), forearm 59 to 96 deg (median 78), wrist 13 to 32 deg (median 25; 12 of 13 more than 5 deg from the held 13.5)
+      run_8 between 14 and 20 cm: steps 27 to 40, puck beside the line 1.3 to 7.3 cm, forearm 94 to 102 deg, wrist 13.4 deg; no backward step asked in the whole run
+   sheet 05 from end B, 18 demonstrations: puck 12.0 to 17.3 cm after the crossing, beside the line -2.2 to 1.1 cm (median -0.1), forearm -96 to -44 deg (median -66), wrist -6 to 28 deg (median 14; 7 of 18 more than 5 deg from the held 13.5)
+      run_7 between 15 and 19 cm: steps 32 to 58, puck beside the line 0.5 to 2.0 cm, forearm -54 to 56 deg, wrist 13.4 deg; first backward step asked at step 32 (15.8 cm, puck 0.9 cm beside the line, forearm -54 deg)

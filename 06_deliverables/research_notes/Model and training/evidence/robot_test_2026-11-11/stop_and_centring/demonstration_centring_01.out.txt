@@ -1,0 +1,7 @@
+path_01_straight_line_episode_015_plan_01-13_try_1: 43 pictures, offset measured in 42, median size 5.7 mm, 90th percentile 14.9 mm, largest 18.0 mm
+path_01_straight_line_episode_018_plan_01-15_try_1: 32 pictures, offset measured in 31, median size 3.6 mm, 90th percentile 8.5 mm, largest 11.2 mm
+path_01_straight_line_episode_005_plan_01-03_try_1: 45 pictures, offset measured in 38, median size 3.8 mm, 90th percentile 19.0 mm, largest 23.8 mm
+path_01_straight_line_episode_007_plan_01-05_try_1: 48 pictures, offset measured in 47, median size 5.6 mm, 90th percentile 13.3 mm, largest 13.8 mm
+path_01_straight_line_episode_008_plan_01-06_try_1: 52 pictures, offset measured in 51, median size 3.5 mm, 90th percentile 13.8 mm, largest 16.7 mm
+path_01_straight_line_episode_012_plan_01-10_try_1: 22 pictures, offset measured in 20, median size 5.9 mm, 90th percentile 8.6 mm, largest 11.3 mm
+written: demonstration_centring_01.csv (6 episodes, 242 pictures)

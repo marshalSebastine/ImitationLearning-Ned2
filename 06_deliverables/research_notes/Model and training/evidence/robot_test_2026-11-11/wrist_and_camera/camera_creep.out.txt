@@ -1,0 +1,46 @@
+=== the recording tool's own camera check at the start of each demonstration (episodes.csv, camera_shift_px) ===
+                      size  median  min   max
+session_date sheet                           
+2026-11-06   path_01    21     4.6  0.0   8.3
+             path_02     1     3.7  3.7   3.7
+2026-11-07   path_02    44     5.5  0.0   8.0
+2026-11-08   path_03    45     3.1  0.0   7.4
+             path_04    45     6.6  0.0  28.3
+             path_05    24    15.0  0.0  16.0
+2026-11-09   path_05     6     0.5  0.0   3.8
+             path_06    25    14.4  0.0  15.0
+
+=== measured here the same way on 858 demonstration pictures with the wrist and hand at the reference pose (149 episodes, up to 6 pictures each) ===
+scatter of the measure inside one episode (largest minus smallest of its pictures): x median 3.9 px, y median 8.9 px; 90th percentile x 81.2, y 24.6
+                      episodes  shift_x_median  shift_y_median  shift_median  shift_most
+session_date sheet                                                                      
+2026-11-06   path_01        14            -1.3           -10.1          10.3        13.2
+             path_02         1             0.2            -4.9           4.9         4.9
+2026-11-07   path_02        35            -0.4            -9.5          10.1        26.1
+2026-11-08   path_03        30            -0.8            -7.8           9.4        13.9
+             path_04        30             1.4            -7.8          11.2        19.6
+             path_05        21            15.2            -3.0          15.9        17.8
+2026-11-09   path_06        18            13.5            -4.5          14.6        17.3
+
+the fork's sideways shift steps once: last episode at the old place 2026-11-08T17:23:28 (plan 04-24, x +1.1 px), first at the new place 2026-11-08T19:33:39 (plan 04-30, x +16.9 px); episodes back at the old place afterwards: 0
+before the step: x median -0.2 px, y median -9.4; after it: x +14.4, y -3.4
+demonstrations recorded after the step (camera where it is now): 71 of 211 episodes, 6435 of 18522 rows (34.7 %); by sheet: 01: 0 of 671, 02: 0 of 2775, 03: 0 of 4072, 04: 1781 of 6350, 05: 2672 of 2672, 06: 1982 of 1982
+
+=== the robot runs of 11.11.26 (wrist and hand held at the reference pose in every picture) ===
+ run sheet  pictures  shift_x_median  shift_y_median  shift_median  shift_x_p10  shift_x_p90  shift_y_p10  shift_y_p90
+   1    01        26            17.7             1.9          17.8         17.4         18.7          0.2          5.8
+   2    01        25            16.8            -0.5          17.0         16.3         17.1         -3.3          1.1
+   3    02        38            16.8            -1.1          16.9         16.1         19.6         -4.1          1.7
+   4    02        42            16.0            -8.4          17.5          0.7         16.9        -19.3         -0.1
+   5    03        60            17.0            -1.2          17.4         16.0         19.5         -2.7          2.4
+   6    04        69            15.7            -4.2          16.3         15.4         16.6         -4.9         -2.2
+   7    05        89            15.6            -2.3          17.0         14.7         21.1         -9.6          2.0
+   8    06        41            15.2           -11.9          21.0         -6.6         17.1        -24.6         -4.3
+   9    03        90            16.5            -4.3          17.7         15.7         17.9        -11.3         -2.0
+  10    03        74            16.1            -5.2          16.9         15.3         17.1         -8.7          0.5
+
+all 554 robot-run pictures: median shift x +16.3, y -3.5 px against the reference; the last recording day (2026-11-09): x +13.5, y -4.5; all demonstrations: x +0.7, y -7.3
+robot test minus the last recording day: x +2.8, y +1.0 px at 640 (+0.7, +0.3 px at the model's 160)
+robot test minus all demonstrations (median): x +15.6, y +3.9 px at 640
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\camera_creep.png, camera_creep_demonstrations.csv and camera_creep_runs.csv

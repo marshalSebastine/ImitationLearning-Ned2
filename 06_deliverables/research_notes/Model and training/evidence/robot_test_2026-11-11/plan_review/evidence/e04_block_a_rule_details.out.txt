@@ -1,0 +1,323 @@
+===== demonstrations of sheet 03 (sampled six), first 40 pictures: offset_mm (12-picture measure), single_offset_mm, flags =====
+
+path_03_two_curve_episode_026_plan_03-25_try_2 | start kind STD | hand corrections 2 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean        action  forearm_change_deg
+    0        0.0        NaN     False       False               4.0             True  small_motion                 0.0
+    1        0.0       -1.8      True        True               2.0             True  forward_left                -5.0
+    2        0.4       -1.2      True        True               2.0             True       forward                -5.0
+    3        1.0       -1.4      True        True               3.4             True       forward                -6.6
+    4        1.6       -2.3      True        True               7.6             True       forward                -2.0
+    5        2.8       -1.4      True        True             -14.5             True forward_right                -8.8
+    6        3.2       -1.3      True        True             -16.1             True forward_right                -9.0
+    7        3.9       -1.5      True        True             -17.1             True forward_right                -7.9
+    8        4.6       -2.0      True        True             -17.6             True forward_right                -8.7
+    9        5.4       -3.0      True        True             -16.1             True forward_right               -11.3
+   10        6.2       -3.4      True        True               NaN            False forward_right                -8.6
+   11        7.3       -5.1      True        True               NaN            False forward_right                -6.7
+   12        7.7       -5.7      True        True               9.4             True       forward                -4.8
+   13        8.9       -3.7      True        True               5.9             True forward_right                -6.9
+   14       10.0       -5.1      True        True               2.8             True  small_motion                -8.4
+   15       10.1       -4.8      True        True               1.9             True       forward                -5.0
+   16       10.7       -4.1      True        True               1.7             True       forward                -1.0
+   17       11.9       -6.1      True        True              -0.8             True       forward                -2.0
+   18       12.9       -4.5      True        True              -1.3             True       forward                 2.4
+   19       14.1       -4.9      True        True              -1.2             True       forward                 5.6
+   20       15.1        NaN     False       False               NaN            False       forward                 4.8
+   21       16.2       -5.0      True        True              -5.9             True  forward_left                 5.4
+   22       17.0       -3.2      True        True              -6.5             True  forward_left                 5.8
+   23       17.7       -2.0      True        True               5.7             True  forward_left                 6.9
+   24       18.4       -0.5      True        True               NaN            False  forward_left                 9.4
+   25       19.1        0.5      True       False               NaN            False  forward_left                10.6
+   26       19.6        1.2      True        True              -2.6             True  small_motion                 6.3
+   27       19.7        0.3      True        True              -2.5             True  small_motion                 6.0
+   28       20.0        0.2      True        True              -3.5             True  forward_left                 5.9
+
+path_03_two_curve_episode_002_plan_03-02_try_1 | start kind STD | hand corrections 3 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean        action  forearm_change_deg
+    0        0.0        NaN     False       False              12.7             True  small_motion                 0.0
+    1        0.0       37.3      True        True              12.7             True     back_left                -0.3
+    2        1.0       19.5      True        True              11.6             True  forward_left                -0.3
+    3        2.2        2.7      True        True               9.3             True       forward                -5.4
+    4        3.0        1.1      True        True              15.9             True  small_motion               -10.1
+    5        3.3        0.5      True        True             -15.9             True       forward                -6.2
+    6        4.2        0.9      True        True               NaN            False forward_right                -5.0
+    7        4.6        0.0      True        True               NaN            False forward_right                -7.0
+    8        5.2       -1.2      True        True               NaN            False  small_motion                -6.2
+    9        5.5       -1.5      True        True               NaN            False forward_right                -9.4
+   10        6.0       -2.7      True        True               NaN            False forward_right                -7.0
+   11        6.7       -4.4      True        True             -59.2            False forward_right                -7.4
+   12        7.1       -5.9      True       False             -56.3            False  small_motion                -5.7
+   13        7.3       -5.9      True       False             -54.7            False  small_motion                -8.0
+   14        7.5       -7.0      True        True               2.1             True         right                -8.6
+   15        8.6       -7.9      True        True               0.5             True       forward                -1.3
+   16        9.7       -6.7      True        True               0.0             True       forward                 0.3
+   17       10.7       -7.9      True        True              -2.3             True       forward                 0.4
+   18       11.8       -9.2      True        True              -5.1             True forward_right                -1.5
+   19       13.0      -13.9      True        True              -8.1             True       forward                 2.6
+   20       14.1      -13.1      True        True             -13.2             True       forward                 5.6
+   21       15.3      -12.4      True        True             -15.4             True  forward_left                10.2
+   22       15.7      -11.7      True        True              15.0             True          left                 6.1
+   23       16.2      -10.9      True       False              15.3             True          left                 7.6
+   24       17.0      -10.3      True       False              15.2             True          left                 4.9
+   25       17.7       -9.7      True        True              14.9             True       forward                 8.1
+   26       18.2      -10.3      True        True             -15.1             True  forward_left                 7.3
+   27       19.0      -11.2      True        True             -15.9             True  forward_left                 5.4
+   28       19.6      -11.3      True        True             -16.1             True  forward_left                 6.8
+
+path_03_two_curve_episode_013_plan_03-13_try_1 | start kind STD | hand corrections 1 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean       action  forearm_change_deg
+    0        0.0        NaN     False       False               0.7             True small_motion                -0.2
+    1        0.0        0.6      True        True               0.8             True      forward                 1.8
+    2        1.4        2.8      True        True               1.5             True      forward                 3.9
+    3        2.5        NaN     False       False               NaN            False      forward                 0.4
+    4        4.0        1.9      True        True               0.4             True      forward                 1.8
+    5        6.0        2.7      True        True               0.7             True      forward                 1.3
+    6        7.4        2.7      True        True               2.0             True      forward                 0.9
+    7        8.4        3.6      True        True               3.0             True forward_left                 3.8
+    8        9.6        4.7      True        True               4.5             True      forward                 3.0
+    9       11.0        3.6      True        True               7.0             True      forward                 0.8
+   10       12.3        2.9      True        True               8.8             True      forward                 4.9
+   11       13.5        3.0      True        True               7.1             True forward_left                 7.9
+   12       14.6        5.3      True        True              16.5             True forward_left                 5.2
+   13       15.6        5.5      True        True              21.4             True      forward                 3.9
+   14       16.7        3.1      True        True              22.3             True      forward                 6.1
+   15       17.1        2.6      True        True              21.1             True forward_left                 6.2
+   16       17.7        2.2      True        True              18.0             True      forward                 5.4
+   17       18.9        2.2      True        True             -45.2             True         left                 7.6
+   18       19.5        2.6      True        True              43.2             True small_motion                 4.9
+   19       19.6        3.2      True        True              42.4            False forward_left                 4.5
+
+path_03_two_curve_episode_018_plan_03-18_try_1 | start kind OL1 | hand corrections 1 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean        action  forearm_change_deg
+    0        0.0        NaN     False       False               NaN            False  small_motion                 0.0
+    1        0.0       18.1      True       False               NaN            False          left                 4.0
+    2        1.2       20.4      True       False               NaN            False  forward_left                 6.5
+    3        2.6       20.3      True        True               NaN            False  forward_left                 4.6
+    4        3.7       18.3      True        True               NaN            False  forward_left                 5.4
+    5        5.3       18.3      True        True               NaN            False          left                 2.0
+    6        6.3       19.6      True        True               NaN            False  forward_left                 0.6
+    7        7.3       18.6      True        True              17.4             True forward_right                 0.8
+    8        8.4       15.0      True       False              17.1             True         right                -2.3
+    9        9.5       -4.6      True        True               NaN            False    back_right                -1.0
+   10       10.9        NaN     False       False               NaN            False          back                -3.0
+   11       12.0       -3.4      True        True               NaN            False         right                -4.4
+   12       13.5       -0.4      True       False               NaN            False         right                -5.7
+   13       14.4       -0.1      True        True               1.2             True       forward                -0.7
+   14       15.7        0.1      True        True               1.8             True       forward                -0.6
+   15       17.1       -0.8      True        True               0.3             True       forward                 0.3
+   16       18.3        1.0      True        True               0.2             True       forward                -0.2
+   17       19.3        1.3      True        True               1.1             True       forward                 0.5
+
+path_03_two_curve_episode_007_plan_03-07_try_1 | start kind OR1 | hand corrections 2 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean        action  forearm_change_deg
+    0        0.0        NaN     False       False               NaN            False  small_motion                -0.3
+    1        0.0      -34.3      True        True               NaN            False         right               -11.2
+    2        0.4      -29.9      True        True               NaN            False  small_motion                -7.0
+    3        0.6      -32.7      True        True               NaN            False  small_motion                -5.1
+    4        0.7      -30.2      True        True               NaN            False forward_right                -5.4
+    5        1.2      -28.1      True        True               NaN            False         right                -6.4
+    6        1.6      -15.8      True        True               NaN            False  small_motion                -7.3
+    7        1.8      -15.7      True        True               NaN            False  small_motion                -6.6
+    8        2.1      -15.3      True        True               NaN            False forward_right               -10.0
+    9        2.6      -15.1      True        True               9.8             True         right                -7.7
+   10        3.4      -14.9      True        True               NaN            False  small_motion               -10.0
+   11        3.7      -14.5      True        True               9.3             True  small_motion                -7.0
+   12        3.8      -14.8      True        True             -10.7             True         right               -10.1
+   13        4.7      -14.7      True        True             -10.7             True forward_right                -3.0
+   14        5.8       25.2      True        True             -11.2             True  forward_left                 1.2
+   15        7.0        4.9      True        True               NaN            False          left                 6.9
+   16        7.8        4.8      True        True               NaN            False          left                 8.9
+   17        8.8        5.1      True        True               NaN            False          left                 7.9
+   18        9.5        5.3      True        True               NaN            False          left                 9.4
+   19       10.2        4.9      True        True               NaN            False  small_motion                 6.1
+   20       10.4        4.7      True        True               NaN            False  small_motion                 8.2
+   21       10.7       35.3      True        True               4.5             True       forward                10.6
+   22       11.0       -4.7      True        True               4.4             True  small_motion                 7.4
+   23       11.2       -5.0      True        True               3.3             True  small_motion                 8.6
+   24       11.5       -3.4      True        True               4.4             True       forward                 3.4
+   25       12.8        1.0      True        True              14.3             True       forward                -0.3
+   26       13.9        2.5      True        True             -17.6             True  small_motion                -9.9
+   27       14.1        2.8      True        True               NaN            False    back_right                -7.6
+   28       14.6        1.7      True        True             -16.6             True forward_right                -8.2
+   29       15.2        1.3      True        True               NaN            False forward_right                -9.2
+   30       16.0        1.8      True        True               NaN            False  small_motion                -5.4
+   31       16.2        3.1      True        True             -16.1             True  small_motion                -4.8
+   32       16.2        2.6      True        True              16.0             True forward_right                -5.8
+   33       17.0        1.8      True        True              13.8             True       forward                -6.1
+   34       17.9        2.2      True        True             -58.8            False forward_right                -5.6
+   35       18.5        2.0      True       False             -57.2            False  small_motion                -5.3
+   36       18.6        4.4      True        True               9.7             True         right                -5.0
+   37       19.2        2.9      True        True               9.2             True       forward                -0.4
+
+path_03_two_curve_episode_024_plan_03-24_try_1 | start kind NE | hand corrections 0 | period before_move
+ step  travel_cm  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean        action  forearm_change_deg
+    0        0.0        NaN     False       False               NaN            False  small_motion                 0.0
+    1        0.0      -12.4      True        True               NaN            False         right                -5.1
+    2        1.3       -6.6      True        True               NaN            False         right                -4.8
+    3        2.6       10.7      True        True               NaN            False forward_right                -8.9
+    4        3.2        6.3      True       False               9.4             True       forward                -5.0
+    5        4.1        5.5      True        True               9.6             True       forward                 0.0
+    6        5.1        5.7      True        True               9.9             True       forward                -0.4
+    7        6.2        0.1      True        True               8.5             True       forward                -0.4
+    8        7.2        0.5      True        True              -4.4             True       forward                -1.9
+    9        8.4        2.1      True        True              12.0             True  forward_left                 6.7
+   10        8.8        1.7      True       False             -39.9             True          left                10.2
+   11        9.7       14.2      True        True             -37.5             True  small_motion                 5.4
+   12       10.0        0.5      True       False             -34.0             True          left                10.6
+   13       10.5        2.1      True        True              17.8             True  forward_left                 6.4
+   14       11.5        0.7      True        True               NaN            False  small_motion                 5.3
+   15       11.7        0.1      True        True               NaN            False          left                 6.7
+   16       12.6       -0.7      True        True               NaN            False  forward_left                 6.2
+   17       13.1       -1.4      True        True               NaN            False  forward_left                 9.0
+   18       13.9       -1.9      True        True              22.3             True  forward_left                10.2
+   19       14.6       -6.6      True        True              22.9             True       forward                 5.0
+   20       15.3       -6.8      True        True              36.1             True  forward_left                 7.5
+   21       16.2       -5.2      True        True               NaN            False       forward                 5.1
+   22       17.4       -6.5      True        True               NaN            False          left                 4.8
+   23       18.2       -5.0      True        True               NaN            False       forward                 2.2
+   24       19.3       -5.9      True        True               NaN            False       forward                -0.2
+   25       20.0       -8.4      True        True               NaN            False          stop                 NaN
+
+===== robot runs: offsets over the first 40 pictures =====
+run  5: pictures 60, measured 59, within 7 mm 31 %, first two in a row over 12 mm from the middle at picture 9, over 17 mm (lost by the plan's rule) at picture 9
+run  9: pictures 90, measured 83, within 7 mm 29 %, first two in a row over 12 mm from the middle at picture 16, over 17 mm (lost by the plan's rule) at picture 17
+run 10: pictures 74, measured 70, within 7 mm 27 %, first two in a row over 12 mm from the middle at picture 5, over 17 mm (lost by the plan's rule) at picture 31
+run  6: pictures 69, measured 68, within 7 mm 44 %, first two in a row over 12 mm from the middle at picture 10, over 17 mm (lost by the plan's rule) at picture 11
+run  3: pictures 38, measured 37, within 7 mm 14 %, first two in a row over 12 mm from the middle at picture 4, over 17 mm (lost by the plan's rule) at picture 4
+run  4: pictures 42, measured 41, within 7 mm 59 %, first two in a row over 12 mm from the middle at picture 21, over 17 mm (lost by the plan's rule) at picture 25
+run  7: pictures 89, measured 88, within 7 mm 53 %, first two in a row over 12 mm from the middle at picture 27, over 17 mm (lost by the plan's rule) at picture 49
+run  8: pictures 41, measured 37, within 7 mm 57 %, first two in a row over 12 mm from the middle at picture 26, over 17 mm (lost by the plan's rule) at picture 30
+run  1: pictures 26, measured 25, within 7 mm 56 %, first two in a row over 12 mm from the middle at picture 20, over 17 mm (lost by the plan's rule) at picture 23
+run  2: pictures 25, measured 24, within 7 mm 92 %, first two in a row over 12 mm from the middle at picture None, over 17 mm (lost by the plan's rule) at picture None
+
+run 5
+ step  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean
+    0        NaN     False       False               7.5             True
+    1       13.4      True        True               8.9             True
+    2        8.9      True        True             -19.7             True
+    3       -5.8      True        True               NaN            False
+    4      -15.9      True        True               NaN            False
+    5      -10.9      True        True               NaN            False
+    6       -6.3      True        True             -60.1            False
+    7       -7.8      True       False             -53.3            False
+    8      -49.4      True        True             -48.5            False
+    9      -44.2      True        True             -44.2            False
+   10      -16.2      True       False             -41.1            False
+   11      -17.0      True        True              40.5            False
+   12      -15.6      True        True              -9.9             True
+   13      -13.8      True        True              -9.3             True
+   14       -6.7      True        True              -3.7             True
+   15        6.7      True        True               NaN            False
+   16       10.0      True       False               NaN            False
+   17       19.4      True       False               NaN            False
+   18       28.5      True       False               NaN            False
+   19       35.1      True       False               NaN            False
+   20       37.5      True       False               NaN            False
+   21       39.1      True        True               NaN            False
+   22       41.1      True        True               NaN            False
+   23       38.4      True        True               NaN            False
+   24       37.8      True        True               NaN            False
+   25       36.5      True        True               NaN            False
+   26       35.7      True        True               NaN            False
+   27       32.5      True        True               NaN            False
+   28       30.1      True        True              30.6             True
+   29       27.0      True        True              28.4             True
+   30       26.0      True        True              27.5             True
+   31       25.5      True        True              26.0             True
+   32       22.4      True        True              21.3             True
+   33      -16.3      True       False              13.4             True
+   34      -16.1      True        True               NaN            False
+   35       -7.7      True        True             -58.5            False
+   36       -1.7      True        True             -49.6            False
+   37        1.1      True        True             -46.1            False
+   38        1.4      True        True               NaN            False
+   39        0.9      True        True               NaN            False
+   40      -33.1      True        True             -33.1            False
+
+run 9
+ step  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean
+    0        NaN     False       False               4.0             True
+    1       -0.1      True        True               7.5             True
+    2        0.7      True        True             -15.9             True
+    3       -0.3      True        True             -16.6             True
+    4       -1.1      True        True               NaN            False
+    5       -2.9      True       False               NaN            False
+    6       -6.7      True       False               NaN            False
+    7       -9.6      True       False             -57.3            False
+    8      -11.6      True       False             -53.5            False
+    9      -11.5      True        True             -49.8            False
+   10      -11.5      True        True              -3.4             True
+   11       -8.1      True        True              -1.1             True
+   12       -3.9      True        True               2.5             True
+   13        0.1      True        True               5.3             True
+   14        5.1      True        True               8.9             True
+   15       12.3      True        True              11.9             True
+   16       20.5      True       False               NaN            False
+   17       27.4      True       False               NaN            False
+   18       31.8      True       False               NaN            False
+   19       32.4      True       False               NaN            False
+   20       32.7      True        True               NaN            False
+   21       32.7      True        True               NaN            False
+   22       31.1      True        True               NaN            False
+   23       30.0      True        True               NaN            False
+   24       27.6      True        True               NaN            False
+   25       25.0      True        True              25.5             True
+   26       23.4      True        True              24.2             True
+   27       22.6      True        True              23.5             True
+   28       22.2      True        True              23.1             True
+   29       20.1      True        True              19.2             True
+   30       15.7      True       False              13.3             True
+   31      -16.0      True        True               NaN            False
+   32       -7.7      True        True             -60.3            False
+   33       -3.0      True        True             -52.5            False
+   34        1.0      True        True               NaN            False
+   35       -1.7      True        True               NaN            False
+   36       -2.9      True        True               NaN            False
+   37       -5.1      True        True               NaN            False
+   38      -32.9      True        True             -32.8            False
+   39      -28.7      True        True             -28.8            False
+   40        7.5      True        True             -27.4            False
+
+run 10
+ step  offset_mm  is_clean  is_aligned  single_offset_mm  is_single_clean
+    0        NaN     False       False               7.1             True
+    1        7.4      True        True              11.0             True
+    2        3.6      True        True             -19.1             True
+    3       -2.7      True        True               NaN            False
+    4      -19.0      True        True               NaN            False
+    5      -14.7      True        True               NaN            False
+    6        1.2      True       False             -62.1            False
+    7        0.2      True        True             -59.7            False
+    8       -1.8      True        True               6.2             True
+    9        1.2      True        True               8.6             True
+   10        3.0      True        True               8.8             True
+   11        1.2      True        True               6.6             True
+   12        1.5      True        True               6.2             True
+   13        2.0      True        True               5.8             True
+   14        3.1      True        True               5.4             True
+   15        5.9      True        True               5.7             True
+   16        7.9      True        True               NaN            False
+   17        8.4      True        True               NaN            False
+   18        9.3      True        True               NaN            False
+   19        9.7      True        True               NaN            False
+   20       10.1      True        True               NaN            False
+   21       12.5      True        True               NaN            False
+   22       15.6      True        True               NaN            False
+   23       14.8      True        True               NaN            False
+   24       13.2      True        True              11.4             True
+   25       10.8      True        True               9.6             True
+   26        8.1      True        True               6.0             True
+   27        4.3      True        True               0.0             True
+   28       -4.4      True       False              -7.1             True
+   29      -14.4      True       False             -37.6             True
+   30      -23.9      True       False              29.0             True
+   31       17.2      True       False             -24.2             True
+   32       -6.5      True       False              46.0             True
+   33        1.9      True       False              46.0             True
+   34        9.5      True       False              43.7             True
+   35      -15.6      True       False              42.1             True
+   36      -19.3      True        True              43.3             True
+   37      -23.3      True        True              45.0             True
+   38      -26.4      True        True               NaN            False
+   39      -30.0      True        True               NaN            False
+   40      -34.0      True        True               NaN            False

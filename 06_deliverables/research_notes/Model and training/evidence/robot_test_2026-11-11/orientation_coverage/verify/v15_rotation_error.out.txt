@@ -1,0 +1,4 @@
+reach 15 cm (tip pixel 313, 368):  10 degrees: median error within 5 cm 0.4 px, 3 to 12 cm 0.8 px, largest at about 12 cm 3.1 px;  30 degrees: median error within 5 cm 1.0 px, 3 to 12 cm 2.2 px, largest at about 12 cm 10.7 px;
+reach 25 cm (tip pixel 313, 371):  10 degrees: median error within 5 cm 0.2 px, 3 to 12 cm 0.9 px, largest at about 12 cm 5.0 px;  30 degrees: median error within 5 cm 0.7 px, 3 to 12 cm 2.6 px, largest at about 12 cm 16.0 px;
+reach 35 cm (tip pixel 313, 374):  10 degrees: median error within 5 cm 0.5 px, 3 to 12 cm 2.1 px, largest at about 12 cm 11.4 px;  30 degrees: median error within 5 cm 1.2 px, 3 to 12 cm 6.2 px, largest at about 12 cm 37.4 px;
+reach 45 cm (tip pixel 313, 378):  10 degrees: median error within 5 cm 1.9 px, 3 to 12 cm 5.6 px, largest at about 12 cm 19.4 px;  30 degrees: median error within 5 cm 5.1 px, 3 to 12 cm 15.6 px, largest at about 12 cm 62.1 px;

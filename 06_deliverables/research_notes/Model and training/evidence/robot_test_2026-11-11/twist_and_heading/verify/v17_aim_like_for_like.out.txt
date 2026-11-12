@@ -1,0 +1,12 @@
+demonstrations: 5 to 95 % of the aim, tip within 2.8 cm: -28.3 to +39.6 (7802 pictures); all pictures: -90.3 to +103.8 (17651)
+demonstrations, all pictures: more than 45 degrees from the median aim in 0.29; more than 30 in 0.42; tip further than 2.8 cm in 0.56
+   run  1: tip within 2.8 cm in 0.96 of the pictures; of those, aim outside the demonstrations' near range in 0.36; all pictures outside the range of all demonstration pictures in 0.00 (the analyst's mixed comparison: 0.35)
+   run  2: tip within 2.8 cm in 1.00 of the pictures; of those, aim outside the demonstrations' near range in 0.00; all pictures outside the range of all demonstration pictures in 0.00 (the analyst's mixed comparison: 0.00)
+   run  3: tip within 2.8 cm in 0.58 of the pictures; of those, aim outside the demonstrations' near range in 0.18; all pictures outside the range of all demonstration pictures in 0.11 (the analyst's mixed comparison: 0.53)
+   run  4: tip within 2.8 cm in 0.50 of the pictures; of those, aim outside the demonstrations' near range in 0.05; all pictures outside the range of all demonstration pictures in 0.00 (the analyst's mixed comparison: 0.45)
+   run  5: tip within 2.8 cm in 0.70 of the pictures; of those, aim outside the demonstrations' near range in 0.40; all pictures outside the range of all demonstration pictures in 0.10 (the analyst's mixed comparison: 0.55)
+   run  6: tip within 2.8 cm in 0.51 of the pictures; of those, aim outside the demonstrations' near range in 0.51; all pictures outside the range of all demonstration pictures in 0.00 (the analyst's mixed comparison: 0.71)
+   run  7: tip within 2.8 cm in 0.49 of the pictures; of those, aim outside the demonstrations' near range in 0.30; all pictures outside the range of all demonstration pictures in 0.21 (the analyst's mixed comparison: 0.61)
+   run  8: tip within 2.8 cm in 0.46 of the pictures; of those, aim outside the demonstrations' near range in 0.00; all pictures outside the range of all demonstration pictures in 0.00 (the analyst's mixed comparison: 0.41)
+   run  9: tip within 2.8 cm in 0.52 of the pictures; of those, aim outside the demonstrations' near range in 0.40; all pictures outside the range of all demonstration pictures in 0.16 (the analyst's mixed comparison: 0.67)
+   run 10: tip within 2.8 cm in 0.49 of the pictures; of those, aim outside the demonstrations' near range in 0.53; all pictures outside the range of all demonstration pictures in 0.16 (the analyst's mixed comparison: 0.77)

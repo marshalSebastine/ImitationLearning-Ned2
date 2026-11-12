@@ -1,0 +1,7 @@
+path_05_alpha_loop_episode_009_plan_05-06_try_1: 114 pictures, offset measured in 112, median size 4.3 mm, 90th percentile 20.6 mm, largest 32.0 mm
+path_05_alpha_loop_episode_005_plan_05-02_try_2: 124 pictures, offset measured in 121, median size 4.6 mm, 90th percentile 18.5 mm, largest 50.9 mm
+path_05_alpha_loop_episode_006_plan_05-03_try_1: 110 pictures, offset measured in 98, median size 3.5 mm, 90th percentile 9.7 mm, largest 31.2 mm
+path_05_alpha_loop_episode_025_plan_05-20_try_1: 122 pictures, offset measured in 121, median size 7.6 mm, 90th percentile 17.1 mm, largest 40.3 mm
+path_05_alpha_loop_episode_011_plan_05-08_try_1: 100 pictures, offset measured in 99, median size 5.3 mm, 90th percentile 18.1 mm, largest 42.0 mm
+path_05_alpha_loop_episode_027_plan_05-22_try_1: 120 pictures, offset measured in 119, median size 6.4 mm, 90th percentile 25.6 mm, largest 59.4 mm
+written: demonstration_centring_05.csv (6 episodes, 690 pictures)

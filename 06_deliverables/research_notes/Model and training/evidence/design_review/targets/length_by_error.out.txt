@@ -1,0 +1,10 @@
+exact run without_path_03: moving rows 3458, median predicted 0.57 cm, demonstrated 1.08 cm, median angle error 26.3 deg, median |twist| predicted 2.46 against 3.78
+exact run without_path_05: moving rows 2471, median predicted 0.61 cm, demonstrated 1.12 cm, median angle error 29.6 deg, median |twist| predicted 1.54 against 3.69
+exact run without_path_06: moving rows 1809, median predicted 0.65 cm, demonstrated 1.08 cm, median angle error 29.0 deg, median |twist| predicted 2.07 against 4.83
+final candidate without_path_01: moving rows 578, median predicted 1.00 cm, demonstrated 1.12 cm, median angle error 13.1 deg, median |twist| predicted 0.71 against 0.97
+exact run, sheets 03, 05, 06 pooled, moving rows by angle error: n, median predicted cm, share of the demonstrated median
+    0 to  15 deg:  2368, 0.70, 0.64
+   15 to  30 deg:  1718, 0.65, 0.59
+   30 to  45 deg:  1203, 0.58, 0.53
+   45 to  90 deg:  1737, 0.53, 0.49
+   90 to 181 deg:   712, 0.48, 0.44

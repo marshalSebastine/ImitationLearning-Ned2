@@ -1,0 +1,38 @@
+start-mark rows more than 5 cm from the goal: 13665
+
+false-stop share (%), mean over five model sets, by sheet and the row's wrist group (rows in the second table):
+group    above  below  near
+sheet                      
+path_01    NaN   0.00  0.40
+path_02   0.00   0.19  0.08
+path_03   0.98   0.06  0.05
+path_04   0.00   0.79  0.03
+path_05   3.61   0.00  3.83
+path_06   0.67   1.00  0.41
+group    above  below    near
+sheet                        
+path_01    NaN  126.0   299.0
+path_02    1.0  312.0  1752.0
+path_03   61.0  339.0  2554.0
+path_04  377.0  484.0  3933.0
+path_05  466.0  179.0  1393.0
+path_06  569.0   40.0   780.0
+
+same, split by the half of the episode:
+group                above  below  near
+sheet   half                           
+path_01 first half     NaN   0.00  0.57
+        second half    NaN   0.00  0.00
+path_02 first half     NaN   0.00  0.07
+        second half   0.00   0.31  0.09
+path_03 first half     NaN   0.18  0.03
+        second half   0.98   0.00  0.08
+path_04 first half    0.00   0.00  0.02
+        second half   0.00   1.11  0.04
+path_05 first half    6.74   0.00  5.31
+        second half   1.67   0.00  1.17
+path_06 first half    2.11   2.00  0.62
+        second half   0.00   0.00  0.00
+
+all sheets: {'above': 1.44, 'below': 0.34, 'near': 0.57}
+all sheets, second half only: {'above': 0.55, 'below': 0.43, 'near': 0.19}

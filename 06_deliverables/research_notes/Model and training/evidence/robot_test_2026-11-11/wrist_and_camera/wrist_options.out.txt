@@ -1,0 +1,72 @@
+steps (a row and its next row in the same episode): 18312
+lean change recomputed against the label column: median gap 0.009, 99th percentile 0.359 degrees
+demonstrated lean change: mean 0.496, standard deviation 1.263 degrees per step
+the part a held wrist gives anyway (kinematics): standard deviation 1.025; it explains 68.8 % of the variance of the demonstrated lean change
+the part that needs the wrist to move: standard deviation 0.706; its correlation with the wrist's own change: 0.995; slope 0.867 degrees of lean per degree of wrist
+steps in which the wrist moved more than 1 degree: 582 (3.2 %)
+
+check of the wrist search on single steps: with the reached lean as the target the demonstrated next wrist comes back within 0.0026 degrees (largest); with the label as the target the gap is 0.076 degrees per step on average (-0.024 with its sign)
+followed step after step along whole episodes (demonstrated lean labels, started at the demonstrated wrist): the wrist ends up within 1.729 degrees of the demonstrated one (median over rows), 11.858 (99th percentile), 20.985 (largest): the labels describe the commanded waypoints, the next rows the reached joints, and the small gap of every step adds up, so even perfect lean changes drift
+
+=== the lean output of the fold models, E recipe (chunk, stop weight 25) (17823 scored steps on sheets the model never saw) ===
+  predicted lean change: mean 0.431, standard deviation 0.602 degrees per step
+  correlation with the demonstrated lean change: 0.392; sign right on 82.5 % of the 11386 steps that lean by 0.5 degrees or more
+  correlation with the kinematic part: 0.514; the kinematic part alone has the right sign on 98.5 %
+  correlation of (predicted minus kinematic) with the part that needs the wrist: -0.065
+  on the 582 steps in which the wrist moved more than 1 degree: demonstrated wrist part mean |x| 3.33 degrees; predicted minus kinematic mean |x| 0.85; sign right on 37.6 %; correlation -0.372
+  followed along the demonstrated paths: wrist at the last row minus 13.5: median -6.2, 5th to 95th percentile -54.1 to 25.8 degrees; demonstrated: median -2.7, 5th to 95th -24.4 to 15.6
+  rod lean when followed: 99th percentile 61.0, largest 81.8 degrees; over the driver's 58 in 246 rows of 9 episodes (demonstrated: 7 rows)
+
+=== the lean output of the fold models, A recipe (exact step) (17823 scored steps on sheets the model never saw) ===
+  predicted lean change: mean 0.436, standard deviation 0.566 degrees per step
+  correlation with the demonstrated lean change: 0.404; sign right on 81.9 % of the 11386 steps that lean by 0.5 degrees or more
+  correlation with the kinematic part: 0.516; the kinematic part alone has the right sign on 98.5 %
+  correlation of (predicted minus kinematic) with the part that needs the wrist: -0.053
+  on the 582 steps in which the wrist moved more than 1 degree: demonstrated wrist part mean |x| 3.33 degrees; predicted minus kinematic mean |x| 0.84; sign right on 39.9 %; correlation -0.334
+  followed along the demonstrated paths: wrist at the last row minus 13.5: median -8.7, 5th to 95th percentile -40.2 to 19.9 degrees; demonstrated: median -2.7, 5th to 95th -24.4 to 15.6
+  rod lean when followed: 99th percentile 62.2, largest 86.4 degrees; over the driver's 58 in 245 rows of 8 episodes (demonstrated: 7 rows)
+
+=== each wrist rule against the demonstrated wrist (within range: within 5.7 degrees, the training shift augmentation) ===
+
+all rows
+                                                                      rule  count  mean_distance_deg  median_distance_deg  p90_distance_deg  within_range_share  mean_view_shift_640_px
+                                                             constant 13.5  18522              5.147                1.904            15.577               0.687                  14.428
+                                             the episode's first-row wrist  18522              4.273                0.967            13.535               0.736                  11.978
+                              fitted on reach and twist (table of medians)  18522              5.179                2.110            15.908               0.687                  14.516
+                                 fitted on reach and twist (least squares)  18522              5.572                2.640            16.688               0.686                  15.618
+                             follow the demonstrated lean labels from 13.5  18522              6.830                2.836            23.087               0.714                  19.146
+follow the model's lean output from 13.5, E recipe (chunk, stop weight 25)  18522             16.675               13.219            37.054               0.255                  46.740
+           follow the model's lean output from 13.5, A recipe (exact step)  18522             14.375               11.101            32.256               0.293                  40.292
+
+start-mark episodes
+                                                                      rule  count  mean_distance_deg  median_distance_deg  p90_distance_deg  within_range_share  mean_view_shift_640_px
+                                                             constant 13.5  16057              3.399                0.761            11.104               0.775                   9.528
+                                             the episode's first-row wrist  16057              3.405                0.791            11.074               0.774                   9.544
+                              fitted on reach and twist (table of medians)  16057              3.513                1.318            10.986               0.771                   9.846
+                                 fitted on reach and twist (least squares)  16057              4.139                2.123            11.586               0.763                  11.602
+                             follow the demonstrated lean labels from 13.5  16057              3.114                2.187             7.382               0.816                   8.729
+follow the model's lean output from 13.5, E recipe (chunk, stop weight 25)  16057             15.649               11.724            36.519               0.281                  43.865
+           follow the model's lean output from 13.5, A recipe (exact step)  16057             13.231                9.731            31.005               0.323                  37.085
+
+taught-start episodes
+                                                                      rule  count  mean_distance_deg  median_distance_deg  p90_distance_deg  within_range_share  mean_view_shift_640_px
+                                                             constant 13.5   2465             16.536               18.691            24.931               0.116                  46.350
+                                             the episode's first-row wrist   2465              9.928                7.910            23.731               0.482                  27.830
+                              fitted on reach and twist (table of medians)   2465             16.031               17.051            25.119               0.144                  44.935
+                                 fitted on reach and twist (least squares)   2465             14.905               15.839            24.949               0.184                  41.779
+                             follow the demonstrated lean labels from 13.5   2465             31.039               29.616            50.120               0.050                  87.002
+follow the model's lean output from 13.5, E recipe (chunk, stop weight 25)   2465             23.354               22.215            39.683               0.081                  65.462
+           follow the model's lean output from 13.5, A recipe (exact step)   2465             21.827               21.555            37.339               0.102                  61.181
+
+start-mark episodes by sheet: mean distance to the demonstrated wrist (degrees)
+rows                                                                        start-mark, path_01  start-mark, path_02  start-mark, path_03  start-mark, path_04  start-mark, path_05  start-mark, path_06
+rule                                                                                                                                                                                                    
+constant 13.5                                                                              3.54                 2.20                 2.58                 3.07                 4.54                 6.52
+fitted on reach and twist (least squares)                                                  3.83                 2.20                 2.80                 3.77                 6.12                 8.62
+fitted on reach and twist (table of medians)                                               3.51                 2.18                 2.55                 3.15                 5.01                 6.79
+follow the demonstrated lean labels from 13.5                                              0.03                 3.07                 3.39                 3.88                 2.60                 1.83
+follow the model's lean output from 13.5, A recipe (exact step)                            5.01                 9.28                14.98                12.39                17.57                15.31
+follow the model's lean output from 13.5, E recipe (chunk, stop weight 25)                 5.54                 9.09                16.44                15.09                20.52                22.82
+the episode's first-row wrist                                                              3.54                 2.22                 2.61                 3.07                 4.53                 6.47
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\wrist_options.png and wrist_options_scores.csv

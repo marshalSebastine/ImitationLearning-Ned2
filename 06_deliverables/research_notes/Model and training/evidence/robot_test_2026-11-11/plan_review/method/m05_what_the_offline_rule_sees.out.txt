@@ -1,0 +1,23 @@
+1. Recipe E, each sheet scored by the model that never saw it
+   sheet   path within 45 (this script / the run's metrics.json)   net turn given back (windows of 10 rows, 30 degrees or more)   stopped right / early / never (fixed 0.5, two in a row, metrics.json)
+   01      0.864 / 0.864                                              0.14                                                            0.75 / 0.10 / 0.05
+   02      0.780 / 0.780                                              0.57                                                            0.27 / 0.02 / 0.64
+   03      0.824 / 0.825                                              0.63                                                            0.73 / 0.07 / 0.18
+   04      0.781 / 0.781                                              0.53                                                            0.64 / 0.18 / 0.13
+   05      0.811 / 0.811                                              0.23                                                            0.21 / 0.38 / 0.41
+   06      0.788 / 0.788                                              0.48                                                            0.32 / 0.08 / 0.60
+   across the six sheets: path within 45 spans 8.4 points, the net turn given back 0.14 to 0.63, stopped right 0.21 to 0.75; rank correlation of path within 45 with the net turn -0.43, with stopped right +0.60 (six points only)
+
+2. The first bends of sheets 03 and 04 (standard starts from end A, rows until joint 4 has turned 60 degrees)
+   sheet 03: 8 episodes, 76 rows (50 scored for the path): path within 45 0.960; the model gives back 0.52 of the shown turn; asked travel 0.76 of the shown travel; turn per cm with a fixed 1 cm step 0.37 of the shown, with the model's own length 0.69
+   sheet 04: 11 episodes, 241 rows (198 scored for the path): path within 45 0.833; the model gives back 0.66 of the shown turn; asked travel 0.70 of the shown travel; turn per cm with a fixed 1 cm step 0.62 of the shown, with the model's own length 0.94
+
+3. How exact the measure is for a shape with 4 episodes (whole-line episodes: standard starts)
+   sheet   whole-line episodes   path within 45 per episode: mean   spread between episodes   mean of 4 episodes drawn at random: 5th to 95th percentile
+   01                        6                              0.912                     0.110   0.867 to 0.979
+   02                       10                              0.794                     0.087   0.736 to 0.848
+   03                       16                              0.837                     0.066   0.789 to 0.883
+   04                       16                              0.781                     0.082   0.722 to 0.840
+   05                       11                              0.814                     0.049   0.782 to 0.847
+   06                       11                              0.811                     0.083   0.757 to 0.866
+   so one new shape with four episodes is read to about plus or minus 5.1 points (90 % range), and the mean over 12 such shapes to about plus or minus 1.5 points from the episodes alone; the six sheets themselves differ by a spread of 3.3 points

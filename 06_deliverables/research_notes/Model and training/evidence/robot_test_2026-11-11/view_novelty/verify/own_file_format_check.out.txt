@@ -1,0 +1,3 @@
+robot pictures: 554 files, kinds (size, mode, luminance table sum): [(((640, 480), 'RGB', 3323), 554)]
+training pictures: 741 files, kinds: [(((640, 480), 'RGB', 3323), 741)]
+same kinds of file in both (tables compared entry by entry through their hash): True
