@@ -38,6 +38,7 @@ Order for the call: 4, 9, 1, 6, then 8 if time allows. Question 7 is moved to me
 | # | Need | Why | Status |
 | --- | --- | --- | --- |
 | 11 | Presentation on 11.01.27: 15-minute team presentation with a live robot demo; we assume yes, please confirm | Prepare the slides and the demo | assumed yes (team), to confirm |
+| 20 | The six track files on Moodle (`Tracks.zip`, Niryo1.svg to Niryo6.svg) draw the line in dark grey (#575757), 10 mm wide, with round ends; sheet 6 is dashed with 20 mm dashes and 10 mm gaps. Will the unseen exam tracks be drawn and printed in the same way: the same grey, the same width and ends, and on which printer and paper? | We print our own training tracks and they should look like the exam's. Our first prints of 12.11.26 were pure black; they are printed again in this grey | open; added 12.11.26 at Emranul's request, after he pointed to the files on Moodle |
 
 ## Meeting 4 (07.12.26): final logistics
 
