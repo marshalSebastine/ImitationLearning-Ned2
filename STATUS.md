@@ -145,11 +145,17 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   own printed tracks may be trained on; an unseen track can be anything; finishing first, then time, ranked; what the
   model lacks may be trained; the robot must stop by itself; the team lays every sheet; one try per track; unseen
   tracks only on the day. Not yet in `05_meetings/requests_to_professor.md` (for the orchestrator).
-- Next: Emranul's decisions, one at a time: (1) a safety copy and whether to commit, (2) the exam lay-out rule, with
-  Marshal, (3) go for the tools and checklist of sitting A. Then this session builds the tools of the plan's step 1.
-- Blocked on: Emranul's go to commit (Marshal sees none of this work; the repository is public, so a push is decided
-  with Marshal); changes of the recording tool (wrist held by the replay, take-over for corrections) need the
-  orchestrator and the Recording and data session.
+- 12.11.26: committed on Emranul's laptop with his yes (three commits on `emranul/training-analysis`, not pushed).
+  Two proofreaders found about fifty corrections to the plan (`.../plan_review/proofread_complete.md`), not yet worked
+  in. Emranul's dates: Thursday 12.11 at the robot (a first test visit with the driver as it is plus small switches,
+  checklist `.../Model and training/2026-11-12_test_visit_checklist.md`), Saturday 14.11 recording with Marshal (hand
+  trial of the demonstration rules, a pilot, a first batch on new shapes).
+- Next: the test visit of 12.11 and its scoring; for Saturday the new tracks as prints, their entries in the recording
+  program and the one-page rules; then the plan's corrections and the tools of the full test sittings.
+- Blocked on: the safety copy to a second disk and the push (the repository is public; decided with Marshal);
+  changes of the recording tool (wrist held by the replay, take-over for corrections) need the orchestrator and the
+  Recording and data session; the recording program runs from the main checkout, so this branch must be brought over
+  there before Saturday.
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`.
 

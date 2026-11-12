@@ -6,6 +6,18 @@ fell and about half were narrowed. This version takes the corrected fixes and th
 same evening. Nothing in it is decided: the decisions are in section 7 and go to Emranul one at a time. Nothing here
 runs on the robot without Emranul's go and a written checklist.
 
+**State on 12.11.26, read this first.** Two readers proofread this version in the night and found about fifty
+corrections; they are not yet worked into the text below (all of them, with the exact old and new wording, are in
+`evidence/robot_test_2026-11-11/plan_review/proofread_complete.md`). The three that matter most: the tools for the
+full sitting A take three to five days, not one to two; sitting A is too much for one visit and is cut in two; and
+"the puck ahead of the tip as in the recordings" differs by sheet (about 5.5 cm on sheets 01 and 04, about 3 cm on
+sheet 03). The dates also changed, on Emranul's word of 12.11.26: he is at the robot on Thursday 12.11 for half a day
+and records with Marshal on Saturday 14.11 for at least six hours. So Thursday is a first test visit with the driver
+as it is plus two small switches (its checklist: `2026-11-12_test_visit_checklist.md`), and Saturday is the hand
+trial, the pilot and a first batch of new shapes. Sittings B and C and the tools of the full sitting A follow in the
+week after; they do not block the recording. This session's work was committed on Emranul's laptop on 12.11.26
+(three commits on `emranul/training-analysis`, not pushed).
+
 Words in square brackets say how sure a statement is: [measured] from logs, pictures or data; [calculated] on paper
 from logged or recorded pictures; [guess]; [judgement].
 
