@@ -31,3 +31,7 @@ T04 hairpin and medium bend: length 40.8 cm, tightest radius 6.8 mm, dash 28.1 m
 Lay every sheet the same way: the centre of end A's round cap on the mark 19.5 cm in front of the robot's base axis and
 1.5 cm to its right, the first straight piece pointing straight away from the robot.
 Numbers: lengths and radii are measured from the drawn centre line; the reach is calculated with the arm model (not measured at the robot).
+The line is printed dark grey (#575757), as on the professor's original course-sheet files.
+
+The six course sheets are printed from course_sheets_original/course_sheets_original_from_moodle.pdf (the professor's own
+files); the traced copies in course_sheets/ and print_set_course_sheets.pdf are kept only for the record.

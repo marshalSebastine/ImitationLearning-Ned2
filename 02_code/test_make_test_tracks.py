@@ -18,7 +18,7 @@ import numpy
 
 from config import TEST_TRACK_PARAMETERS
 from make_test_tracks import (arc_lengths_mm, course_sheet_lines, dash_intervals, feature_names, ink_paths, layout_check,
-                              lengthened_curve, line_summary, placed_marks, resampled_curve, write_page_pdf)
+                              lengthened_curve, line_colour_rgb, line_summary, placed_marks, resampled_curve, write_page_pdf)
 
 
 FOLDER = Path(TEST_TRACK_PARAMETERS["new_output_folder"])
@@ -78,9 +78,11 @@ def drawn_paths(path: Path) -> List[Dict]:
 
 
 def ink_of(paths: List[Dict]) -> List[Dict]:
-    """The black paths: the line itself."""
+    """The paths in the line's colour ("line_colour_hex") and wider than 5 mm: the line itself."""
 
-    return [path for path in paths if path["colour"] == (0.0, 0.0, 0.0) and path["width_mm"] > 5.0]
+    colour = line_colour_rgb()
+    return [path for path in paths if len(path["colour"]) == 3 and max(abs(a - b) for a, b in zip(path["colour"], colour)) < 0.002
+            and path["width_mm"] > 5.0]
 
 
 
@@ -158,7 +160,7 @@ def face_pages() -> List[tuple]:
 
 def test_every_face_holds_the_line_only() -> None:
     """
-    Every track page: one A4 page whose face holds nothing but black strokes 10 mm wide (on the two circle pages also
+    Every track page: one A4 page whose face holds nothing but strokes 10 mm wide in the line colour (on the two circle pages also
     the listed grey circles of 24 mm): no text, no picture, no other drawing, nothing past the paper.
     """
 
@@ -241,6 +243,50 @@ def test_print_files_hold_the_listed_pages_in_order() -> None:
             expected += ["C05_solid_solid", "C05_dashed_dashed", "C06_solid_solid", "C06_dashed_dashed", "C01_solid_solid",
                          "C03_circles_page_1_solid", "C03_circles_page_2_solid"]
             assert names == expected, names
+
+
+
+def test_course_sheet_copies() -> None:
+    """
+    The six course-sheet copies: plain A4 faces (strokes 10 mm wide in the line colour, no text), each drawn centre line within 1 mm of
+    the traced one, sheet 06 dashed; the print file holds the printer page, one list page and the faces 01 to 06.
+    """
+
+    traced = course_sheet_lines()
+    order = json.loads((FOLDER / "print_set_course_sheets_order.json").read_text(encoding = "utf-8"))
+    merged = fitz.open(str(FOLDER / "print_set_course_sheets.pdf"))
+    assert merged.page_count == 8 == len(order), merged.page_count
+    assert [row["name"] for row in order] == ["printer check", "list"] + [f"C0{number}_course" for number in range(1, 7)]
+    for row, merged_page in zip(order, merged):
+        assert abs(merged_page.rect.width * MILLIMETRES_PER_POINT - 210.0) < PAGE_TOLERANCE_MM, row
+        assert abs(merged_page.rect.height * MILLIMETRES_PER_POINT - 297.0) < PAGE_TOLERANCE_MM, row
+        if row["name"] == "list":
+            source_page = fitz.open(str(FOLDER / "print_set_course_sheets_list.pdf"))[0]
+            assert "Write each page's name on its BACK." in source_page.get_text().replace("\n", " ")
+        else:
+            source_page = fitz.open(str(FOLDER / row["source"]))[0]
+        assert drawing_items(merged_page) == drawing_items(source_page), row
+    for row in order[2:]:
+        path = FOLDER / row["source"]
+        sheet = row["name"][1:3]
+        width, height = page_size_mm(path)
+        assert abs(width - 210.0) < PAGE_TOLERANCE_MM and abs(height - 297.0) < PAGE_TOLERANCE_MM, path.name
+        page = fitz.open(str(path))[0]
+        assert page.get_text().strip() == "" and not page.get_images(), path.name
+        paths = drawn_paths(path)
+        ink = ink_of(paths)
+        assert len(ink) == len(paths) and all(abs(drawn["width_mm"] - 10.0) < 0.01 for drawn in ink), path.name
+        line = traced[sheet]
+        if sheet == "06":
+            assert row["style"] == "dashed" and len(ink) > 10, path.name
+            lengthened = lengthened_curve(line, RULE["line_width_mm"] / 2.0)
+            for drawn in ink:
+                assert distance_to_polyline(drawn["points"][::3], resampled_curve(lengthened, 0.5)).max() < 1.0, path.name
+        else:
+            assert row["style"] == "solid" and len(ink) == 1, path.name
+            drawn = chained(ink)
+            assert distance_to_polyline(resampled_curve(line, 1.0), drawn).max() < 1.0, path.name
+            assert distance_to_polyline(drawn, resampled_curve(line, 0.5)).max() < 1.0, path.name
 
 
 
@@ -384,6 +430,7 @@ if __name__ == "__main__":
     test_printer_page_is_true_size()
     test_every_face_holds_the_line_only()
     test_print_files_hold_the_listed_pages_in_order()
+    test_course_sheet_copies()
     test_margins_self_distance_and_start()
     test_list_equals_what_is_drawn()
     test_dashes_have_the_listed_lengths()

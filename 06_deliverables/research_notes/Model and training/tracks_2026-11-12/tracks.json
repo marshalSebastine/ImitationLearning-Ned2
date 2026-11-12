@@ -7,6 +7,7 @@
    297.0
   ],
   "line_width_mm": 10.0,
+  "line_colour_hex": "#575757",
   "edge_margin_mm": 22.0,
   "smallest_gap_mm": 25.0,
   "gap_apart_along_mm": 50.0,

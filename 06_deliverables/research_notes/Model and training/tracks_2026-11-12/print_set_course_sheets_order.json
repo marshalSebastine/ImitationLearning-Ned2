@@ -1,0 +1,66 @@
+[
+ {
+  "page": 1,
+  "name": "printer check",
+  "source": "print_me_first_100mm_bar.pdf"
+ },
+ {
+  "page": 2,
+  "name": "list",
+  "source": "print_set_course_sheets_list.pdf page 1"
+ },
+ {
+  "page": 3,
+  "name": "C01_course",
+  "style": "solid",
+  "source": "course_sheets/C01_course.pdf",
+  "length_mm": 232.9,
+  "dash_count": null,
+  "nearest_ink_to_edge_mm": 25.0
+ },
+ {
+  "page": 4,
+  "name": "C02_course",
+  "style": "solid",
+  "source": "course_sheets/C02_course.pdf",
+  "length_mm": 312.6,
+  "dash_count": null,
+  "nearest_ink_to_edge_mm": 28.6
+ },
+ {
+  "page": 5,
+  "name": "C03_course",
+  "style": "solid",
+  "source": "course_sheets/C03_course.pdf",
+  "length_mm": 506.9,
+  "dash_count": null,
+  "nearest_ink_to_edge_mm": 19.5
+ },
+ {
+  "page": 6,
+  "name": "C04_course",
+  "style": "solid",
+  "source": "course_sheets/C04_course.pdf",
+  "length_mm": 723.7,
+  "dash_count": null,
+  "nearest_ink_to_edge_mm": 19.1
+ },
+ {
+  "page": 7,
+  "name": "C05_course",
+  "style": "solid",
+  "source": "course_sheets/C05_course.pdf",
+  "length_mm": 566.0,
+  "dash_count": null,
+  "nearest_ink_to_edge_mm": 26.2
+ },
+ {
+  "page": 8,
+  "name": "C06_course",
+  "style": "dashed",
+  "source": "course_sheets/C06_course.pdf",
+  "length_mm": 465.3,
+  "dash_count": 16,
+  "nearest_ink_to_edge_mm": 31.8
+ }
+]

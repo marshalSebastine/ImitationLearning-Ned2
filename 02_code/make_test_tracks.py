@@ -19,6 +19,7 @@ Run from 02_code:
     python make_test_tracks.py training       T01 to T16 and print_set_saturday.pdf
     python make_test_tracks.py development    D01 to D10
     python make_test_tracks.py diagnostic     the course-shape pages (print_set_tests.pdf comes with "all")
+    python make_test_tracks.py course         plain copies of the six course sheets and print_set_course_sheets.pdf
     python make_test_tracks.py old            the set of 11.11.26 (into test_tracks/)
 """
 
@@ -1287,6 +1288,16 @@ def placed_marks(
 
 
 
+def line_colour_rgb(rule: Optional[Dict] = None) -> Tuple[float, float, float]:
+    """The line's colour ("line_colour_hex", for example "#575757") as red, green and blue from 0 to 1."""
+
+    settings = dict(TEST_TRACK_PARAMETERS["drawing_rule"])
+    settings.update(rule or {})
+    value = settings["line_colour_hex"].lstrip("#")
+    return tuple(int(value[index:index + 2], 16) / 255.0 for index in (0, 2, 4))
+
+
+
 def write_page_pdf(
         path: Path,
         ink: List[numpy.ndarray],
@@ -1316,7 +1327,7 @@ def write_page_pdf(
     page.setTitle(header_lines[0])
     page.setAuthor("make_test_tracks.py")
 
-    page.setStrokeColorRGB(0, 0, 0)
+    page.setStrokeColorRGB(*line_colour_rgb(settings))
     page.setLineWidth(settings["line_width_mm"] * scale)
     page.setLineJoin(1)
     page.setLineCap(0 if is_dashed else 1)
@@ -1415,7 +1426,7 @@ def write_page_svg(
     cap = "butt" if is_dashed else "round"
     for polyline in ink:
         path_text = "M " + " L ".join(flipped(x, y) for x, y in polyline)
-        parts.append(f'  <path d="{path_text}" fill="none" stroke="black" stroke-width="{settings["line_width_mm"]:g}" stroke-linecap="{cap}" stroke-linejoin="round"/>')
+        parts.append(f'  <path d="{path_text}" fill="none" stroke="{settings["line_colour_hex"]}" stroke-width="{settings["line_width_mm"]:g}" stroke-linecap="{cap}" stroke-linejoin="round"/>')
     for circle in circles or []:
         shade = f"#{int(255 * circle['grey']):02x}" * 3
         x, y = circle["centre_mm"]
@@ -1995,6 +2006,107 @@ def write_print_set(
 
 
 
+def write_course_sheet_set(
+        folder: Path,
+        diagnostic: Optional[Dict] = None
+) -> List[Dict]:
+    """
+    Write plain copies of the six course sheets and print_set_course_sheets.pdf: the printer check page, one list page
+    (three lines to read, a table and thumbnails with end A and end B), then the six faces in the order 01 to 06.
+
+    Each face carries the traced centre line where the trace puts it on the sheet (course_sheet_lines), the line only:
+    nothing is moved or shrunk to keep the new tracks' margins. Sheet 06 is dashed by the dash rule.
+
+    Returns
+    -------
+    list of dict
+        Per face: "name", "sheet", "file", "is_dashed", "length_mm" and "nearest_ink_to_edge_mm" (the line's centre
+        distance to the nearest paper edge less half the line's width).
+    """
+
+    settings = dict(TEST_TRACK_PARAMETERS["diagnostic"])
+    settings.update(diagnostic or {})
+    rule = TEST_TRACK_PARAMETERS["drawing_rule"]
+    width, height = rule["page_mm"]
+    scale = POINTS_PER_MM
+    lines = course_sheet_lines(settings["sheet_measurements"])
+    page_folder = folder / "course_sheets"
+    page_folder.mkdir(parents = True, exist_ok = True)
+    faces = []
+    for page in settings["course_sheet_pages"]:
+        curve = numpy.round(lines[page["sheet"]], 2)
+        ink = ink_paths(curve, page["is_dashed"], page.get("dash_mm"), page.get("gap_mm"))
+        title = [f"{page['name']}: course sheet {page['sheet']}, redrawn from the photo trace", ""]
+        marks_placed = placed_marks(curve)
+        file = page_folder / f"{page['name']}.pdf"
+        write_page_pdf(file, ink, page["is_dashed"], title, marks_placed)
+        write_page_svg(page_folder / f"{page['name']}.svg", ink, page["is_dashed"], title, marks_placed)
+        nearest = float(min(curve[:, 0].min(), width - curve[:, 0].max(), curve[:, 1].min(), height - curve[:, 1].max()))
+        faces.append({"name": page["name"], "sheet": page["sheet"], "file": file, "is_dashed": page["is_dashed"], "curve": curve,
+                      "dash_mm": page.get("dash_mm"), "gap_mm": page.get("gap_mm"), "dash_count": len(ink) if page["is_dashed"] else None,
+                      "length_mm": round(float(arc_lengths_mm(curve)[-1]), 1),
+                      "nearest_ink_to_edge_mm": round(nearest - rule["line_width_mm"] / 2.0, 1)})
+
+    list_path = folder / "print_set_course_sheets_list.pdf"
+    page = canvas.Canvas(str(list_path), pagesize = (width * scale, height * scale), pageCompression = 0, invariant = 1)
+    page.setTitle("Course sheets, redrawn")
+    page.setFont("Helvetica-Bold", 13)
+    page.drawString(18 * scale, (height - 20) * scale, "Print set: the six course sheets, redrawn")
+    page.setFont("Helvetica", 10)
+    y = height - 28
+    for note in ["Print single-sided at 100 % (actual size).",
+                 "These are our own redrawings of the six course sheets, traced from photos: close copies (about 3 mm), not the professor's originals.",
+                 "Write each page's name on its BACK."]:
+        words, line = note.split(" "), ""
+        for word in words:
+            trial = (line + " " + word).strip()
+            if pdfmetrics.stringWidth(trial, "Helvetica", 10) > (width - 36) * scale and line:
+                page.drawString(18 * scale, y * scale, line)
+                y -= 5.0
+                line = word
+            else:
+                line = trial
+        page.drawString(18 * scale, y * scale, line)
+        y -= 5.0
+    y -= 3
+    page.setFont("Helvetica-Bold", 8)
+    for text_cell, x in (("no.", 18), ("page", 28), ("print", 56), ("length", 72), ("dash / gap", 90), ("nearest ink to an edge", 120)):
+        page.drawString(x * scale, y * scale, text_cell)
+    y -= 4.6
+    page.setFont("Helvetica", 8)
+    rows = [("1", "printer check", "-", "", "", "measure: bars 100 mm, line 10 mm"), ("2", "list", "-", "", "", "this page")]
+    rows += [(str(3 + index), face["name"], "dashed" if face["is_dashed"] else "solid", f"{face['length_mm'] / 10:.1f} cm",
+              f"{face['dash_mm']:g} / {face['gap_mm']:g} mm" if face["is_dashed"] else "", f"{face['nearest_ink_to_edge_mm']:.0f} mm")
+             for index, face in enumerate(faces)]
+    for row in rows:
+        for text_cell, x in zip(row, (18, 28, 56, 72, 90, 120)):
+            page.drawString(x * scale, y * scale, text_cell)
+        y -= 4.3
+    y -= 4
+    page.setFont("Helvetica", 8.5)
+    page.drawString(18 * scale, y * scale, "Red dot and A: end A (the traced first end); the arrow shows where the line leaves. B: end B. Bottom edge = robot side.")
+    box_width = 50.0
+    box_height = box_width * height / width
+    for index, face in enumerate(faces):
+        row_number, column = divmod(index, 3)
+        left = 18.0 + column * (box_width + 10.0)
+        bottom = y - 10.0 - (row_number + 1) * (box_height + 9.0)
+        thumbnail(page, face["curve"], left, bottom, box_width, f"{3 + index}: {face['name']}")
+    page.showPage()
+    page.save()
+
+    files = [folder / "print_me_first_100mm_bar.pdf", list_path] + [face["file"] for face in faces]
+    merged_pdf(folder / "print_set_course_sheets.pdf", files)
+    order = [{"page": 1, "name": "printer check", "source": "print_me_first_100mm_bar.pdf"},
+             {"page": 2, "name": "list", "source": f"{list_path.name} page 1"}]
+    order += [{"page": 3 + index, "name": face["name"], "style": "dashed" if face["is_dashed"] else "solid",
+               "source": f"course_sheets/{face['file'].name}", "length_mm": face["length_mm"], "dash_count": face["dash_count"],
+               "nearest_ink_to_edge_mm": face["nearest_ink_to_edge_mm"]} for index, face in enumerate(faces)]
+    (folder / "print_set_course_sheets_order.json").write_text(json.dumps(order, indent = 1), encoding = "utf-8")
+    return faces
+
+
+
 def write_course_measurements(
         rows: List[Dict],
         folder: Path
@@ -2080,6 +2192,10 @@ def pilot_note(
     lines.append("Lay every sheet the same way: the centre of end A's round cap on the mark 19.5 cm in front of the robot's base axis and")
     lines.append("1.5 cm to its right, the first straight piece pointing straight away from the robot.")
     lines.append("Numbers: lengths and radii are measured from the drawn centre line; the reach is calculated with the arm model (not measured at the robot).")
+    lines.append("The line is printed dark grey (#575757), as on the professor's original course-sheet files.")
+    lines.append("")
+    lines.append("The six course sheets are printed from course_sheets_original/course_sheets_original_from_moodle.pdf (the professor's own")
+    lines.append("files); the traced copies in course_sheets/ and print_set_course_sheets.pdf are kept only for the record.")
     (folder / "pilot_ready.txt").write_text("\n".join(lines) + "\n", encoding = "utf-8")
 
 
@@ -2094,6 +2210,13 @@ def main() -> None:
     folder = Path(TEST_TRACK_PARAMETERS["new_output_folder"])
     folder.mkdir(parents = True, exist_ok = True)
     write_printer_check_pdf(folder / "print_me_first_100mm_bar.pdf")
+    if stage in ("course", "all"):
+        for face in write_course_sheet_set(folder):
+            print(f"{face['name']}: {face['length_mm'] / 10:.1f} cm, nearest ink {face['nearest_ink_to_edge_mm']:.1f} mm from an edge"
+                  + (f", {face['dash_count']} dashes" if face["is_dashed"] else ""))
+        if stage == "course":
+            print(f"written to {folder}")
+            return
     course_rows = course_sheet_measurements()
     write_course_measurements(course_rows, folder)
 
