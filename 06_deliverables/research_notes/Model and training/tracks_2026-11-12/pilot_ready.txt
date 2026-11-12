@@ -1,0 +1,33 @@
+Pilot tracks T01 to T04 (12.11.26, second version: the pages carry the black line only).
+Pages printed earlier today with grey letters, an arrow, a bar or a title on them: do not record on them; print again.
+Print single-sided at 100 % ("actual size", no fit to page). First print print_me_first_100mm_bar.pdf and measure:
+both bars 100 mm, the line 10 mm. Then print these eight pages with the same setting:
+
+  training/T01_solid.pdf   (page 4 of print_set_saturday.pdf)
+  training/T01_dashed.pdf   (page 5 of print_set_saturday.pdf)
+  training/T02_solid.pdf   (page 6 of print_set_saturday.pdf)
+  training/T02_dashed.pdf   (page 7 of print_set_saturday.pdf)
+  training/T03_solid.pdf   (page 8 of print_set_saturday.pdf)
+  training/T03_dashed.pdf   (page 9 of print_set_saturday.pdf)
+  training/T04_solid.pdf   (page 10 of print_set_saturday.pdf)
+  training/T04_dashed.pdf   (page 11 of print_set_saturday.pdf)
+
+Nothing is printed on the face, so: write each page's name on its BACK, and an A on the back at the start end.
+Which end is A: see the small pictures on the list pages of print_set_saturday.pdf, or overview.png.
+
+T01 gentle S-curves: length 32.7 cm, tightest radius 36.1 mm, dash 25.3 mm and gap 11 mm (dashed page), largest reach 43.5 cm from the base axis, start at end A.
+    end A: 151 mm from the left edge and 27 mm from the bottom edge (bottom = robot side)
+    features: 4 gentle bends
+T02 two sharp bends: length 30.2 cm, tightest radius 8.4 mm, dash 34.8 mm and gap 14.2 mm (dashed page), largest reach 39.6 cm from the base axis, start at end A.
+    end A: 146 mm from the left edge and 28 mm from the bottom edge (bottom = robot side)
+    features: sharp 10 mm 62 deg left, sharp 8 mm 104 deg left
+T03 loop: length 39.7 cm, tightest radius 15.3 mm, dash 16.2 mm and gap 13.8 mm (dashed page), largest reach 40.0 cm from the base axis, start at end A.
+    end A: 41 mm from the left edge and 43 mm from the bottom edge (bottom = robot side)
+    features: medium 15 mm 66 deg right, medium 28 mm 292 deg left, 1 gentle bend, loop left 58 mm, crossing 68 deg
+T04 hairpin and medium bend: length 40.8 cm, tightest radius 6.8 mm, dash 28.1 mm and gap 13 mm (dashed page), largest reach 44.0 cm from the base axis, start at end A.
+    end A: 166 mm from the left edge and 29 mm from the bottom edge (bottom = robot side)
+    features: hairpin 7 mm 156 deg right, medium 31 mm 71 deg left, 2 gentle bends
+
+Lay every sheet the same way: the centre of end A's round cap on the mark 19.5 cm in front of the robot's base axis and
+1.5 cm to its right, the first straight piece pointing straight away from the robot.
+Numbers: lengths and radii are measured from the drawn centre line; the reach is calculated with the arm model (not measured at the robot).

@@ -2051,7 +2051,165 @@ TEST_TRACK_PARAMETERS = {
     "straight_share": 0.2,
     "side_change_share": 0.6,
     "sets": {"practice": 6, "validation": 4, "test": 10},
+    # 12.11.26: this seed is no longer sealed. Its "test" set was drawn and looked at during the check of the first robot
+    # test; a sealed set is drawn later by Marshal with a seed of his own (plan after the first robot test, step 4).
     "seed": 11_11_26,
     "attempts_per_track": 60_000,
-    "output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "test_tracks"
+    "output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "test_tracks",
+    # 12.11.26: the new tracks for the recording of 14.11.26 ("python make_test_tracks.py"; the set of 11.11.26 above is
+    # drawn with "python make_test_tracks.py old"). The rule is matched to the six course sheets as measured from their
+    # traced centre lines (course_sheets_measured.csv in "new_output_folder"): tightest bends 5.3 to 5.6 mm on sheets 03
+    # and 04, loops crossing once, dashes about 20 mm with 10 mm gaps on sheet 06. Lengths in millimetres on the paper,
+    # x from the paper's left edge and y from its bottom edge, the bottom edge on the robot's side.
+    "new_output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12",
+    "drawing_rule": {
+        "page_mm": [210.0, 297.0],
+        "line_width_mm": 10.0,
+        # the centre line keeps this far from every paper edge
+        "edge_margin_mm": 22.0,
+        # two parts of the line more than "gap_apart_along_mm" apart along it keep "smallest_gap_mm" between their
+        # centres, except near a crossing: there the parts within smallest_gap_mm / sin(crossing angle) +
+        # "crossing_clear_mm" of the crossing point are left out (the course sheets 03 to 05 keep 26 to 28 mm by this
+        # measure)
+        "smallest_gap_mm": 25.0,
+        "gap_apart_along_mm": 50.0,
+        "crossing_clear_mm": 10.0,
+        "smallest_crossing_deg": 60.0,
+        # end A: within "start_from_bottom_mm" of the bottom edge, at least "start_from_side_mm" from the side edges,
+        # leaving within "start_tilt_deg" of straight up the page, along a straight first piece
+        "start_straight_mm": [30.0, 60.0],
+        "start_from_bottom_mm": [24.0, 45.0],
+        "start_from_side_mm": 40.0,
+        "start_tilt_deg": 25.0,
+        "step_mm": 0.5,
+        # the pieces a track is built from: radius and turn of each arc. A hairpin turns "turn_deg" in all, as the
+        # hairpins of sheet 04 (164 and 170 degrees, tightest 8.8 and 9.0 mm): a shoulder of "shoulder_radius_mm"
+        # turning "shoulder_turn_deg" on each side and the tight arc of "radius_mm" between, so that its legs open. A
+        # loop is a straight lead in, an arc of "turn_deg" and a straight lead out that crosses the lead in (crossing
+        # angle 360 - turn: 65 to 115 degrees, read as 65 to 90)
+        "pieces": {
+            "straight": {"length_mm": [15.0, 60.0]},
+            "gentle": {"radius_mm": [35.0, 90.0], "turn_deg": [25.0, 80.0]},
+            "medium": {"radius_mm": [15.0, 35.0], "turn_deg": [40.0, 120.0]},
+            "sharp": {"radius_mm": [8.0, 15.0], "turn_deg": [60.0, 120.0]},
+            "corner": {"radius_mm": [6.0, 10.0], "turn_deg": [70.0, 140.0]},
+            "hairpin": {"radius_mm": [6.0, 10.0], "turn_deg": [150.0, 180.0], "shoulder_radius_mm": [15.0, 30.0], "shoulder_turn_deg": [15.0, 35.0]},
+            "loop": {"radius_mm": [25.0, 50.0], "turn_deg": [245.0, 295.0], "lead_extra_mm": [20.0, 40.0]}
+        },
+        # when the line, run straight on for "steer_look_ahead_mm", would leave the paper or the reach, the next filler
+        # bends towards "steer_towards_mm"; otherwise it bends to the other side than the last one "side_change_share"
+        # of the time
+        "steer_look_ahead_mm": 45.0,
+        "steer_towards_mm": [105.0, 150.0],
+        "side_change_share": 0.6,
+        # dashed prints: a dash and a gap drawn per track; square dash ends as on sheet 06 (photo); the dashes are laid
+        # along the line lengthened by half a line width at each end, so that the ink reaches as far as the solid print's
+        # round caps; the first and last dash are lengthened or shortened by the same amount so that both ends carry ink
+        "dash_mm": [15.0, 35.0],
+        "gap_mm": [8.0, 15.0],
+        # end B "near": within "near_end_mm" of an edge; "far": at least "far_end_mm" from every edge
+        "near_end_mm": 30.0,
+        "far_end_mm": 80.0,
+        # at most this share of a track's length may run back towards the robot (lay-out check)
+        "running_back_share_most": 0.34,
+        "attempts_per_track": 60_000,
+        # how bends are named when measured from a drawn centre line: a bend is a stretch bending one way with a radius
+        # below "bend_radius_below_mm" (circle through three points 5 mm apart); it is a corner below 8 mm, sharp
+        # below 15, medium below 35, else gentle; a hairpin when the radius goes to "hairpin_radius_most_mm" or less and
+        # the whole bend turns "hairpin_turn_deg" or more (the turn within the "hairpin_window_mm" of line around the
+        # tightest point is listed too: 117 to 135 degrees on the course sheets' tight bends)
+        "bend_radius_below_mm": 100.0,
+        "radius_classes_mm": {"corner": 8.0, "sharp": 15.0, "medium": 35.0},
+        "hairpin_radius_most_mm": 10.5,
+        "hairpin_turn_deg": 150.0,
+        "hairpin_window_mm": 30.0
+    },
+    # the lay-out at the recording: the centre of end A's cap on a mark 19.5 cm in front of the base axis and 1.5 cm to
+    # its right, the first straight piece along +x (straight away from the robot). The tip is "tip_behind_puck_m"
+    # behind the puck's centre along the line; wrist and hand held as MODEL_MODE_PARAMETERS holds them; the forearm
+    # turned so that the camera's picture points along the line (within joint_4_most_deg). The base is the square of
+    # SETUP_VISUALS_PARAMETERS["base_half_width_cm"] (calc, not measured). A line point counts as running back when the
+    # line's direction there is more than "running_back_deg" from straight away from the base.
+    "lay_out": {
+        "mark_m": [0.195, -0.015],
+        "start_tip_m": [0.140, -0.015],
+        "tip_behind_puck_m": 0.0185,
+        "reach_aim_m": 0.45,
+        "running_back_deg": 110.0,
+        "check_every_mm": 5.0,
+        "turns_tried_deg": [5.0, -5.0, 10.0, -10.0, 15.0, -15.0]
+    },
+    # small marks on a track page's face (light grey, outside the line): name and print note along the top edge, a
+    # 50 mm check bar, "A" at the start end, "B" at the other end, an arrow beside the first straight piece. OFF since
+    # 12.11.26 ("are_marks_printed" False): the forearm camera sees the paper round the puck, and the course and exam
+    # sheets carry nothing but the line, so a letter near the line's end could be learned as the stop. The face shows
+    # the line only (and on the two circle pages the grey circles, without numbers); names, ends and the print order
+    # are on the list pages of the merged print files, with thumbnails ("table_rows_per_page", "thumbnails_per_page").
+    "page_marks": {
+        "are_marks_printed": False,
+        "table_rows_per_page": 40,
+        "thumbnails_per_page": 16,
+        "grey": 0.55,
+        "check_bar_mm": 50.0,
+        "letter_size_pt": 13.0,
+        "text_size_pt": 7.5,
+        "mark_line_mm": 0.35,
+        "clearance_mm": 4.0,
+        "printable_inset_mm": 7.0
+    },
+    # the sets: per track a fixed seed, the planned pieces (in order), the fillers between them, the length range and
+    # where end B lies ("near", "far" or "any"). Training tracks are recorded on from 14.11.26; development tracks are
+    # never recorded on and are used to test models. No sealed set here (see "seed" above).
+    "training": [
+        {"name": "T01", "label": "gentle S-curves", "seed": 14_11_26_01, "plan": [{"kind": "gentle", "side": "left"}, {"kind": "gentle", "side": "right"}, {"kind": "gentle", "side": "left"}, {"kind": "gentle", "side": "right"}], "fillers": ["straight"], "length_mm": [300.0, 420.0], "end_b": "any"},
+        {"name": "T02", "label": "two sharp bends", "seed": 14_11_26_02, "plan": [{"kind": "sharp", "radius_mm": [8.0, 10.0]}, {"kind": "sharp", "radius_mm": [8.0, 10.0]}], "fillers": ["straight"], "length_mm": [250.0, 380.0], "end_b": "any"},
+        {"name": "T03", "label": "loop", "seed": 14_11_26_03, "plan": [{"kind": "loop", "side": "left"}], "fillers": ["straight", "gentle", "medium"], "length_mm": [380.0, 520.0], "end_b": "any"},
+        {"name": "T04", "label": "hairpin and medium bend", "seed": 14_11_26_04, "plan": ["hairpin", "medium"], "fillers": ["straight", "gentle"], "length_mm": [350.0, 500.0], "end_b": "any"},
+        {"name": "T05", "label": "loop and corner", "seed": 14_11_26_05, "plan": [{"kind": "loop", "side": "right"}, "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [450.0, 600.0], "end_b": "far"},
+        {"name": "T06", "label": "hairpin and sharp bend", "seed": 14_11_26_06, "plan": ["hairpin", "sharp"], "fillers": ["straight", "gentle", "medium"], "length_mm": [400.0, 550.0], "end_b": "near"},
+        {"name": "T07", "label": "two corners", "seed": 14_11_26_07, "plan": ["corner", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [300.0, 450.0], "end_b": "far"},
+        {"name": "T08", "label": "loop and hairpin", "seed": 14_11_26_08, "plan": [{"kind": "loop", "side": "left"}, "hairpin"], "fillers": ["straight", "gentle", "medium"], "length_mm": [500.0, 650.0], "end_b": "any"},
+        {"name": "T09", "label": "short gentle", "seed": 14_11_26_09, "plan": ["gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [250.0, 320.0], "end_b": "near"},
+        {"name": "T10", "label": "loop and medium bend", "seed": 14_11_26_10, "plan": [{"kind": "loop", "side": "right"}, "medium"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "far"},
+        {"name": "T11", "label": "three corners", "seed": 14_11_26_11, "plan": ["corner", "corner", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "near"},
+        {"name": "T12", "label": "long meander", "seed": 14_11_26_12, "plan": ["hairpin", "medium", "medium", "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [620.0, 750.0], "end_b": "any"},
+        {"name": "T13", "label": "gentle", "seed": 14_11_26_13, "plan": ["gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [330.0, 450.0], "end_b": "far"},
+        {"name": "T14", "label": "loop and corner", "seed": 14_11_26_14, "plan": [{"kind": "loop", "side": "left"}, "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [500.0, 650.0], "end_b": "near"},
+        {"name": "T15", "label": "mixed bends", "seed": 14_11_26_15, "plan": ["medium", "sharp", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [550.0, 700.0], "end_b": "far"},
+        {"name": "T16", "label": "long gentle", "seed": 14_11_26_16, "plan": ["gentle", "gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "near"}
+    ],
+    "development": [
+        {"name": "D01", "label": "gentle bends","seed": 26_11_12_01, "plan": ["gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [280.0, 400.0], "end_b": "far"},
+        {"name": "D02", "label": "two sharp bends", "seed": 26_11_12_02, "plan": ["sharp", "sharp"], "fillers": ["straight"], "length_mm": [250.0, 380.0], "end_b": "near"},
+        {"name": "D03", "label": "loop and medium bend", "seed": 26_11_12_03, "plan": [{"kind": "loop", "side": "right"}, "medium"], "fillers": ["straight", "gentle"], "length_mm": [420.0, 560.0], "end_b": "any"},
+        {"name": "D04", "label": "hairpin and corner", "seed": 26_11_12_04, "plan": ["hairpin", "corner"], "fillers": ["straight", "gentle"], "length_mm": [380.0, 520.0], "end_b": "far"},
+        {"name": "D05", "label": "loop and sharp bend", "seed": 26_11_12_05, "plan": [{"kind": "loop", "side": "left"}, "sharp"], "fillers": ["straight", "gentle", "medium"], "length_mm": [450.0, 600.0], "end_b": "near"},
+        {"name": "D06", "label": "three corners", "seed": 26_11_12_06, "plan": ["corner", "corner", "corner"], "fillers": ["straight", "gentle"], "length_mm": [350.0, 500.0], "end_b": "far"},
+        {"name": "D07", "label": "long gentle", "seed": 26_11_12_07, "plan": ["gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "any"},
+        {"name": "D08", "label": "long meander", "seed": 26_11_12_08, "plan": ["hairpin", "medium", "corner", "medium"], "fillers": ["straight", "gentle", "medium"], "length_mm": [560.0, 720.0], "end_b": "near"},
+        {"name": "D09", "label": "loop and hairpin", "seed": 26_11_12_09, "plan": [{"kind": "loop", "side": "right"}, "hairpin"], "fillers": ["straight", "gentle"], "length_mm": [500.0, 650.0], "end_b": "any"},
+        {"name": "D10", "label": "loop, corner and gentle", "seed": 26_11_12_10, "plan": [{"kind": "loop", "side": "left"}, "corner", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [500.0, 650.0], "end_b": "far"}
+    ],
+    # the diagnostic pages: course sheets' traced centre lines (turned half a turn so that end A lies at the bottom),
+    # solid or dashed, and two pages of sheet 03 with thin grey circles of the puck's size at the places of the plan's
+    # sitting A2 (proofreading facts, items 14 and 15)
+    "diagnostic": {
+        "sheet_measurements": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Recording tool" / "2026-11-06_sheet_measurements.json",
+        "pages": [
+            {"name": "C05_solid", "sheet": "05", "is_dashed": False},
+            {"name": "C05_dashed", "sheet": "05", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0},
+            {"name": "C06_solid", "sheet": "06", "is_dashed": False},
+            {"name": "C06_dashed", "sheet": "06", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0},
+            {"name": "C01_solid", "sheet": "01", "is_dashed": False}
+        ],
+        "circle_sheet": "03",
+        "circle_diameter_mm": 24.0,
+        "circle_grey": 0.75,
+        "circle_line_mm": 0.3,
+        "beside_mm": [7.0, 12.0, 17.0],
+        "end_short_mm": 5.0,
+        "end_aside_mm": 7.0,
+        "far_reach_m": 0.40,
+        "forearm_turned_deg": 60.0
+    }
 }
