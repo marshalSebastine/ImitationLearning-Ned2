@@ -1,0 +1,24 @@
+a stand-in link on this computer (127.0.0.1), the robot library's receiving code, a real Ctrl+C in a console that is not shown
+exit code of the hidden console's script: 0
+Ctrl+C switched on for this console: True
+== Ctrl+C while a move is under way, then the lift reads the state
+   Ctrl+C at 0.3 s; the answer to MOVE came after 0.8 s; KeyboardInterrupt was raised at 0.8 s
+   then GET_POSE was asked at 0.8 s: NO ANSWER in 4 s: the driver would wait here for ever
+   what the stand-in server received (seconds, command): [(0.0, 'MOVE'), (0.8, 'GET_POSE')]
+== Ctrl+C while the placing aid reads the state, then the motors are switched back on
+   Ctrl+C at 0.1 s; the answer to GET_POSE came after 0.4 s; KeyboardInterrupt was raised at 0.41 s
+   then SET_LEARNING_MODE FALSE was asked at 0.41 s: NO ANSWER in 4 s: the driver would wait here for ever
+   what the stand-in server received (seconds, command): [(0.0, 'GET_POSE'), (0.41, 'SET_LEARNING_MODE', 'FALSE')]
+== Ctrl+C between two calls (the program sleeps), then the lift reads the state
+   Ctrl+C at 0.3 s; the answer to GET_JOINTS came after 0.0 s; KeyboardInterrupt was raised at 0.33 s
+   then GET_POSE was asked at 0.33 s: answered, with the answer to GET_POSE
+   what the stand-in server received (seconds, command): [(0.0, 'GET_JOINTS'), (0.33, 'GET_POSE')]
+== WITH THE FIX: Ctrl+C while a move is under way, then the lift reads the state
+   Ctrl+C at 0.3 s; the answer to MOVE came after 0.8 s; KeyboardInterrupt was raised at 0.8 s
+   then GET_POSE was asked at 0.8 s: answered, with the answer to GET_POSE
+   what the stand-in server received (seconds, command): [(0.0, 'MOVE'), (0.8, 'GET_POSE')]
+== WITH THE FIX: Ctrl+C while the placing aid reads the state, then the motors are switched back on
+   Ctrl+C at 0.1 s; the answer to GET_POSE came after 0.4 s; KeyboardInterrupt was raised at 0.41 s
+   then SET_LEARNING_MODE FALSE was asked at 0.41 s: answered, with the answer to SET_LEARNING_MODE
+   what the stand-in server received (seconds, command): [(0.0, 'GET_POSE'), (0.41, 'SET_LEARNING_MODE', 'FALSE')]
+

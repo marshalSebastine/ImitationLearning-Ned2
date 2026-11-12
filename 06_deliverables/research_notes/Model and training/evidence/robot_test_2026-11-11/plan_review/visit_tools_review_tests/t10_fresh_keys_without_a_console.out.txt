@@ -1,0 +1,10 @@
+--- is_typed_ahead_discarded = True, placing aid wanted = False
+    RESULT is the terminal a console: False | asked (seconds after the first prompt could be shown): [(0.0, 'motors off'), (0.0, 'motors on')]
+--- is_typed_ahead_discarded = True, placing aid wanted = True
+    Put the puck at the line's start. Press Enter to switch the motors OFF (hold the arm: it will sag) ... the placing aid reads Enter from a console window (PowerShell, cmd or the terminal of VS Code) and this is not one; placing goes on without it
+    RESULT is the terminal a console: False | asked (seconds after the first prompt could be shown): [(0.0, 'motors off'), (0.0, 'motors on')]
+--- is_typed_ahead_discarded = False, placing aid wanted = False
+    RESULT is the terminal a console: False | asked (seconds after the first prompt could be shown): [(0.0, 'motors off'), (0.0, 'motors on')]
+--- is_typed_ahead_discarded = False, placing aid wanted = True
+    Put the puck at the line's start. Press Enter to switch the motors OFF (hold the arm: it will sag) ... the placing aid reads Enter from a console window (PowerShell, cmd or the terminal of VS Code) and this is not one; placing goes on without it
+    RESULT is the terminal a console: False | asked (seconds after the first prompt could be shown): [(0.0, 'motors off'), (0.0, 'motors on')]

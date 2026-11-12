@@ -1,0 +1,105 @@
+1. what visit_runs.py --dry says (exit code 0 = it would wait for Enter and then start the run):
+
+   -- a good robot line: exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- a robot line with no sheet, no lay-out and no model key: exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        not given
+        model        not given (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- the model key says E, the file and its sha256 are model 3's: exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_3_16_rounds_all_sheets\checkpoints\all_sheets.pt  (2081f74409b6)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- model 1's checkpoint with the metrics file of model 2 (another recipe): exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- the same checkpoint twice as a team of 2: exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), a team of 2 checkpoint files, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- a step budget of 100000: exit code 0
+      Run v1_check: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  100000 steps
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+   -- the right path, the sha256 of another file: exit code 1
+      not started: line v1_check: the checkpoint file D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt is not the one the list means
+
+   -- a label that a robot run of 11.11.26 already has (the real run folder is looked at): exit code 1
+      not started: the label E_sheet03_run1 already has a run folder (2026-11-11_173549_E_sheet03_run1). To run it once more, add --again (its log gets a new folder beside the old one); else take the next line of the
+
+   -- the same label in small letters: exit code 0
+      Run e_sheet03_run1: THE REAL ROBOT
+        sheet        sheet 03, lay-out STD
+        model        E (recipe resnet18_model_1_all_sheets), 1 checkpoint file, sha256 checked:
+                       D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt  (81cd3c3bbe93)
+        step         fixed, 0.65 cm
+        step budget  the default (250 steps)
+        stall rule   only logs, the run goes on
+        reference    none
+        placing aid  yes
+        note         none
+
+2. the metrics files of the all-sheets models (what a mixed-up metrics file would change):
+   2026-11-10_resnet18_model_1_all_sheets: name "resnet18_model_1_all_sheets", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_1_all_sheets_seed_2: name "resnet18_model_1_all_sheets_seed_2", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_1_all_sheets_seed_3: name "resnet18_model_1_all_sheets_seed_3", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_1_all_sheets_seed_4: name "resnet18_model_1_all_sheets_seed_4", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_1_all_sheets_seed_5: name "resnet18_model_1_all_sheets_seed_5", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_2_chunk_all_sheets: name "resnet18_model_2_chunk_all_sheets", design chunk, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_3_16_rounds_all_sheets: name "resnet18_model_3_16_rounds_all_sheets", design exact, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets: name "resnet18_model_4_chunk_stop_25_all_sheets", design chunk, backbone resnet18.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_5_chunk_resnet34_all_sheets: name "resnet18_model_5_chunk_resnet34_all_sheets", design chunk, backbone resnet34.tv_in1k, picture [160, 120]
+   2026-11-10_resnet18_model_6_chunk_resnet34_stop_25_all_sheets: name "resnet18_model_6_chunk_resnet34_stop_25_all_sheets", design chunk, backbone resnet34.tv_in1k, picture [160, 120]
+   what model_mode.py takes from a metrics file (the picture normalisation and the class names) has 1 form(s) over these files

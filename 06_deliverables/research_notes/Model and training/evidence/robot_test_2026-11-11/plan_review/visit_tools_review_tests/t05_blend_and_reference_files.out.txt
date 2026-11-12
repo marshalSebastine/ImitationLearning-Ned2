@@ -1,0 +1,45 @@
+--- ghost_blend
+same size, strength 0.35: shape (480, 640, 3), dtype uint8, corner [130, 130, 130]
+smaller ghost 240x320: shape (480, 640, 3), dtype uint8, corner [130, 130, 130]
+larger ghost 1080x1920: shape (480, 640, 3), dtype uint8, corner [130, 130, 130]
+other shape 100x900 (stretched): shape (480, 640, 3), dtype uint8, corner [130, 130, 130]
+1x1 ghost: shape (480, 640, 3), dtype uint8, corner [150, 150, 150]
+grey ghost as a 2-D array, same size: RAISED error: OpenCV(5.0.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:691: error: (-209:Sizes of input arguments do not match) The operati
+grey ghost as a 2-D array, other size: RAISED error: OpenCV(5.0.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:691: error: (-209:Sizes of input arguments do not match) The operati
+ghost with 4 channels: RAISED error: OpenCV(5.0.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:691: error: (-209:Sizes of input arguments do not match) The operati
+float ghost: RAISED error: OpenCV(5.0.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:715: error: (-5:Bad argument) When the input arrays in add/subtract/
+grey live as 2-D: RAISED error: OpenCV(5.0.0) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:691: error: (-209:Sizes of input arguments do not match) The operati
+strength -1.0: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+strength 0.0: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+strength 1.0: shape (480, 640, 3), dtype uint8, corner [0, 0, 0]
+strength 2.5: shape (480, 640, 3), dtype uint8, corner [0, 0, 0]
+strength nan: shape (480, 640, 3), dtype uint8, corner [0, 0, 0]
+strength '0.35': shape (480, 640, 3), dtype uint8, corner [130, 130, 130]
+strength None: RAISED TypeError: float() argument must be a string or a real number, not 'NoneType'
+live and ghost left untouched: True True | result shares memory with live: False
+strength 0 returns a copy, not the live picture itself: True
+--- reference_picture on files of every sort
+colour.jpg: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+grey.jpg: shape (480, 640, 3), dtype uint8, corner [128, 128, 128]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [175, 175, 175]
+alpha.png: shape (480, 640, 3), dtype uint8, corner [128, 128, 128]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [175, 175, 175]
+sixteen_bit.png: shape (480, 640, 3), dtype uint8, corner [156, 156, 156]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [185, 185, 185]
+tiny.jpg: shape (2, 2, 3), dtype uint8, corner [128, 128, 128]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [175, 175, 175]
+cut_short.jpg: None
+half.jpg: None
+text.jpg: None
+empty.jpg: None
+with space in name.jpg: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+   blended with the live picture: shape (480, 640, 3), dtype uint8, corner [200, 200, 200]
+a_folder.jpg: None
+missing.jpg: None
+None as the path: RAISED TypeError: expected str, bytes or os.PathLike object, not NoneType
+'' as the path: None
+a number as the path: RAISED TypeError: expected str, bytes or os.PathLike object, not int
+a path with a character Windows forbids: None
+a very long path: None
+NUL character in the path: RAISED ValueError: embedded null character

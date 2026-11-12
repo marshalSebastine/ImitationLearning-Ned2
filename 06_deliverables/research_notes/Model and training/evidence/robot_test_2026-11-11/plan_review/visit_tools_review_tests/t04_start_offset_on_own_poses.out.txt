@@ -1,0 +1,31 @@
+recorded tip from ned2_fk, cm: [14.006 -1.487  1.265]
+offset at the recorded start: {'tip_distance_cm': 0.0, 'tip_along_x_cm': 0.0, 'tip_along_y_cm': 0.0, 'forearm_deg': 0.0}
+
+--- hand-made tips: asked offset against returned offset (cm), with odd forearm turns, wrists and heights
+(1.0, 0.0, 0.0, 13.5, 0.0) -> {'tip_distance_cm': 1.0, 'tip_along_x_cm': 1.0, 'tip_along_y_cm': 0.0, 'forearm_deg': 0.0} | lines: start: tip 1.0 cm from the recorded start (1.0 cm further out, 0.0 cm to the left; left and rig | tip  1.0 cm off (1.0 out, 0.0 left), forearm   +0.0 deg: close
+(-1.0, 0.0, 0.0, 13.5, 0.0) -> {'tip_distance_cm': 1.0, 'tip_along_x_cm': -1.0, 'tip_along_y_cm': 0.0, 'forearm_deg': 0.0} | lines: start: tip 1.0 cm from the recorded start (1.0 cm closer to the base, 0.0 cm to the left; left  | tip  1.0 cm off (1.0 closer, 0.0 left), forearm   +0.0 deg: not close
+(0.0, 1.0, 0.0, 13.5, 0.0) -> {'tip_distance_cm': 1.0, 'tip_along_x_cm': -0.0, 'tip_along_y_cm': 1.0, 'forearm_deg': 0.0} | lines: start: tip 1.0 cm from the recorded start (0.0 cm further out, 1.0 cm to the left; left and rig | tip  1.0 cm off (0.0 out, 1.0 left), forearm   +0.0 deg: not close
+(0.0, -1.0, 0.0, 13.5, 0.0) -> {'tip_distance_cm': 1.0, 'tip_along_x_cm': -0.0, 'tip_along_y_cm': -1.0, 'forearm_deg': 0.0} | lines: start: tip 1.0 cm from the recorded start (0.0 cm further out, 1.0 cm to the right; left and ri | tip  1.0 cm off (0.0 out, 1.0 right), forearm   +0.0 deg: close
+(0.6, 0.5, 2.1, 13.5, 0.0) -> {'tip_distance_cm': 0.781, 'tip_along_x_cm': 0.6, 'tip_along_y_cm': 0.5, 'forearm_deg': 2.1} | lines: start: tip 0.8 cm from the recorded start (0.6 cm further out, 0.5 cm to the left; left and rig | tip  0.8 cm off (0.6 out, 0.5 left), forearm   +2.1 deg: close
+(3.0, -4.0, -35.0, 13.5, 0.0) -> {'tip_distance_cm': 5.0, 'tip_along_x_cm': 3.0, 'tip_along_y_cm': -4.0, 'forearm_deg': -35.0} | lines: start: tip 5.0 cm from the recorded start (3.0 cm further out, 4.0 cm to the right; left and ri | tip  5.0 cm off (3.0 out, 4.0 right), forearm  -35.0 deg: not close
+(10.0, 10.0, 80.0, 20.0, 0.0) -> {'tip_distance_cm': 14.142, 'tip_along_x_cm': 10.0, 'tip_along_y_cm': 10.0, 'forearm_deg': 80.0} | lines: start: tip 14.1 cm from the recorded start (10.0 cm further out, 10.0 cm to the left; left and  | tip 14.1 cm off (10.0 out, 10.0 left), forearm  +80.0 deg: not close
+(0.3, -0.2, 0.0, 13.5, 0.04) -> {'tip_distance_cm': 0.361, 'tip_along_x_cm': 0.3, 'tip_along_y_cm': -0.2, 'forearm_deg': 0.0} | lines: start: tip 0.4 cm from the recorded start (0.3 cm further out, 0.2 cm to the right; left and ri | tip  0.4 cm off (0.3 out, 0.2 right), forearm   +0.0 deg: close
+(20.0, -15.0, -110.0, 5.0, 0.01) -> {'tip_distance_cm': 25.0, 'tip_along_x_cm': 20.0, 'tip_along_y_cm': -15.0, 'forearm_deg': -110.0} | lines: start: tip 25.0 cm from the recorded start (20.0 cm further out, 15.0 cm to the right; left and | tip 25.0 cm off (20.0 out, 15.0 right), forearm -110.0 deg: not close
+(0.04, -0.04, 0.04, 13.5, 0.0) -> {'tip_distance_cm': 0.057, 'tip_along_x_cm': 0.04, 'tip_along_y_cm': -0.04, 'forearm_deg': 0.04} | lines: start: tip 0.1 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and rig | tip  0.1 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+(-0.9, 0.3, -3.0, 13.5, 0.0) -> {'tip_distance_cm': 0.949, 'tip_along_x_cm': -0.9, 'tip_along_y_cm': 0.3, 'forearm_deg': -3.0} | lines: start: tip 0.9 cm from the recorded start (0.9 cm closer to the base, 0.3 cm to the left; left  | tip  0.9 cm off (0.9 closer, 0.3 left), forearm   -3.0 deg: not close
+largest error against what was asked, cm or degrees: 0.0
+
+--- the words at the edges of the warning limits and at values that round to zero
+1 line(s): start: tip 1.0 cm from the recorded start (1.0 cm further out, 0.0 cm to the left), forearm +3.0 degrees || tip  1.0 cm off (1.0 out, 0.0 left), forearm   +3.0 deg: close
+2 line(s): start: tip 1.0 cm from the recorded start (1.0 cm further out, 0.0 cm to the left), forearm +0.0 degrees || tip  1.0 cm off (1.0 out, 0.0 left), forearm   +0.0 deg: not close
+2 line(s): start: tip 1.0 cm from the recorded start (1.0 cm further out, 0.0 cm to the left), forearm +3.0 degrees || tip  1.0 cm off (1.0 out, 0.0 left), forearm   +3.0 deg: not close
+1 line(s): start: tip 0.1 cm from the recorded start (0.0 cm further out, 0.0 cm to the left), forearm +0.0 degrees || tip  0.1 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+1 line(s): start: tip 0.1 cm from the recorded start (0.1 cm closer to the base, 0.1 cm to the right), forearm -0.1 degrees || tip  0.1 cm off (0.1 closer, 0.1 right), forearm   -0.1 deg: close
+2 line(s): start: tip 12.3 cm from the recorded start (10.0 cm closer to the base, 7.2 cm to the left), forearm -117.0 degrees || tip 12.3 cm off (10.0 closer, 7.2 left), forearm -117.0 deg: not close
+2 line(s): start: tip nan cm from the recorded start (nan cm closer to the base, nan cm to the right), forearm +nan degrees || tip  nan cm off (nan closer, nan right), forearm   +nan deg: not close
+
+--- the recorded data: the robot's own reported x, y against the offset, on the first rows of the 210 demonstrations
+first rows further than 1 cm from the recorded start: 61
+along x: model offset against the robot's reported rod-end shift, correlation 0.9979  along y: 0.9994
+same sign along y in 61 of 61 ; along x in 61
+largest difference between the two, cm: 1.22

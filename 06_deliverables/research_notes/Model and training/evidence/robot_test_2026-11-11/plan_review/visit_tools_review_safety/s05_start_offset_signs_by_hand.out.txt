@@ -1,0 +1,26 @@
+1. the recorded start [-6.06, -41.87, -61.93, 0.0, 13.53, -6.15]
+   by hand:   tip x 14.01 cm, y -1.49 cm, height 1.26 cm, 14.08 cm from the base's axis
+   arm model: tip x 14.01 cm, y -1.49 cm, height 1.26 cm; pushing height there 1.27 cm
+
+2. joint sets made by hand, the offset by hand and by the driver's function, and the driver's lines:
+   joint 1 turned 4 degrees counter-clockwise seen from above:
+      by hand along x +0.07 cm, along y +0.98 cm | the function +0.07, +0.98 | they agree
+      start: tip 1.0 cm from the recorded start (0.1 cm further out, 1.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      tip  1.0 cm off (0.1 out, 1.0 left), forearm   +0.0 deg: close
+   joint 1 turned 4 degrees clockwise:
+      by hand along x -0.14 cm, along y -0.97 cm | the function -0.14, -0.97 | they agree
+      start: tip 1.0 cm from the recorded start (0.1 cm closer to the base, 1.0 cm to the right; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      tip  1.0 cm off (0.1 closer, 1.0 right), forearm   +0.0 deg: close
+   joint 2 (shoulder) 3 degrees forward:
+      by hand along x +0.78 cm, along y -0.08 cm | the function +0.78, -0.08 | they agree
+      start: tip 0.8 cm from the recorded start (0.8 cm further out, 0.1 cm to the right; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      tip  0.8 cm off (0.8 out, 0.1 right), forearm   +0.0 deg: close
+   joint 2 (shoulder) 3 degrees back:
+      by hand along x -0.82 cm, along y +0.09 cm | the function -0.82, +0.09 | they agree
+      start: tip 0.8 cm from the recorded start (0.8 cm closer to the base, 0.1 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      tip  0.8 cm off (0.8 closer, 0.1 left), forearm   +0.0 deg: close
+
+3. the arm model against the robot's own reports in the recorded demonstrations (frames.csv):
+   demonstrations: 210; their first row within 0.5 degrees of the recorded start on all six joints: 149
+   3000 recorded rows: the robot's reported y against the model's tip y, correlation 0.9988; reported x against the model's tip x, 0.9993
+   (config.py, RECORDING_PARAMETERS "picture_left_sign": tested on the robot on 31.10.26 and 2.11.26, three "left" steps moved the tip towards +y)

@@ -6,6 +6,7 @@ in one place only. Later phases add the keys named in the work plan.
 """
 
 import math
+import tempfile
 from pathlib import Path
 from typing import Optional
 
@@ -1945,7 +1946,72 @@ MODEL_MODE_PARAMETERS = {
     # the solver's first guess for joints 2 and 3 (radians), and how far the hand-placed tip may be from pushing height
     # before a robot run refuses to start (the demonstrated tip heights spread from 0.9 to 2.3 cm, 5th to 95th percentile)
     "solver_start_joints_2_and_3_rad": [-0.8, -0.6],
-    "start_height_tolerance_m": 0.02
+    "start_height_tolerance_m": 0.02,
+    # 12.11.26, additions for the first test visit (plan after the first robot test, step 1). Each one is off, or has
+    # the old value, by default: a robot run started without a new flag does what the driver as committed on 12.11.26
+    # (b0a12df) does, step for step. The ten robot runs of 11.11.26 were driven before the stall rule and the step
+    # length rule existed (both came that evening and have run on the simulated robot only), so "stalled" is an ending
+    # the robot has not produced yet. None of the additions adds a move of the arm; --step-cm only changes how long
+    # the fixed step is.
+    # --step-cm sets the fixed step ("step_m") for one run, within "step_cm_allowed" [judgement: no longer than the
+    # 1 cm driven on 11.11.26, so that a typing mistake such as 6.5 for 0.65 cannot ask for a long step; and at least
+    # about three times "stall_extent_m" / ("stall_steps" - 1) = 0.103 cm, the length below which the stall rule ends
+    # a run that drives straight on (29 moves of 0.1 cm cover 2.9 cm, less than the rule's 3 cm)].
+    "step_cm_allowed": [0.3, 1.0],
+    # what the stall rule does when it fires (--stall): "end" ends the run as stalled, as the driver has done since
+    # the evening of 11.11.26 (simulated runs only so far); "log" prints one line the first time, writes that picture's
+    # step number into the summary ("stall_logged_at_picture": counted from 0, as the column "step" of steps.csv and
+    # the frame files are) and lets the run go on.
+    "stall_action": "end",
+    # the recorded start: the arm pose from which 149 of the 210 demonstrations begin (degrees; the first rows of
+    # frames.csv, within 0.5 degrees). The arm model puts its magnet tip at x 14.0 cm, y -1.5 cm in the robot's frame.
+    # A robot run prints how far the hand-placed start is from it (the tip's distance on the table, its parts along x
+    # and y, and the forearm's difference) and writes the four numbers into the summary. Beyond "start_offset_warn_m"
+    # or "start_forearm_warn_deg" (judged on the numbers as printed, with one decimal) a second line says how to place
+    # the start again [judgement]; no run is refused for it.
+    "recorded_start_joints_deg": [-6.06, -41.87, -61.93, 0.0, 13.53, -6.15],
+    "start_offset_warn_m": 0.01,
+    "start_forearm_warn_deg": 3.0,
+    # the placing aid (--place-help): while the arm is guided by hand with the motors off, that offset and the tip's
+    # height against pushing height are shown on one line of the terminal, a new reading every "place_help_refresh_s",
+    # until Enter; the keyboard is looked at every "place_help_key_poll_s". Enter counts from reading number
+    # "place_help_readings_before_enter" on, so that a long or double press of the Enter that switched the motors off
+    # cannot end the placing while the arm is still in the hand. It only reads the robot's state.
+    "is_place_help_shown": False,
+    "place_help_refresh_s": 0.5,
+    "place_help_key_poll_s": 0.05,
+    "place_help_readings_before_enter": 2,
+    # the faint reference picture (--ghost PATH): the picture at "ghost_path" (a JPEG of the same camera, for example
+    # the first picture of a demonstration) is laid over a live picture in the go-ahead window with "ghost_strength"
+    # (0 = only the live picture, 1 = only the reference), a fresh picture every "ghost_refresh_s", so that the sheet
+    # and the puck can be set onto their faint copies. It only reads pictures; the arm stands still. While no camera
+    # picture can be read the window shows the reference alone and says so, and Enter does not count.
+    "ghost_path": None,
+    "ghost_strength": 0.35,
+    "ghost_refresh_s": 0.33,
+    # visit_runs.py starts one run of a visit from a run list and checks every checkpoint file against the first
+    # "run_list_sha256_characters" characters of its sha256, which the list gives. It refuses a step budget above
+    # "run_list_step_budget_most" [judgement: twice the default; the longest demonstration had 226 steps, and a line
+    # of 77 cm in steps of 0.3 cm needs 257]. It starts a robot run with --fresh-keys ("is_typed_ahead_discarded"):
+    # keys pressed before the robot part's first prompt is on the screen are thrown away, so that an Enter pressed
+    # while the model was loading cannot switch the motors off by itself; the run then reads every key that waits in
+    # the terminal at each step, so that Esc ends it also when Esc was pressed twice or another key waits behind it
+    # (the committed key reader never comes back then; it is left as it is for a run without the flag); and Ctrl+C is
+    # held back until the robot has answered the question under way, so that it ends a run after the move, with the
+    # lift, instead of leaving the link to the robot out of step.
+    "run_list_sha256_characters": 12,
+    "run_list_step_budget_most": 500,
+    "is_typed_ahead_discarded": False,
+    # the rehearsal ("python model_mode.py rehearsal", 12.11.26): the robot part's own questions, placing aid and
+    # go-ahead window against the simulated robot, so that the keys and the picture window can be tried at the laptop
+    # before a visit; no robot is connected. Its runs are logged under "rehearsal_run_folder", outside 03_data. With
+    # the placing aid a simulated hand brings the tip to the recorded start in "rehearsal_hand_readings" readings,
+    # from "rehearsal_hand_start_m" (metres further out, to the left and higher than the recorded start) and with the
+    # forearm turned "rehearsal_hand_start_forearm_deg", so that the placing line changes as it will at the robot.
+    "rehearsal_run_folder": Path(tempfile.gettempdir()) / "model_mode_rehearsal",
+    "rehearsal_hand_start_m": [-0.01, 0.025, 0.03],
+    "rehearsal_hand_start_forearm_deg": 8.0,
+    "rehearsal_hand_readings": 12
 }
 
 # 10.11.26 (after the design review): every run is also scored with the stop rule the judges chose for all models, a

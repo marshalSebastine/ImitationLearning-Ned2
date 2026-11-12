@@ -1,0 +1,100 @@
+--- default run
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 3 | free motion at the end: False
+   printed: []
+--- aid: Enter at the third look
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'read state', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En"]
+   shown: 3 | free motion at the end: False
+   printed: []
+--- aid: a reading of the robot fails at the 2nd reading -> plain prompt
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'read state', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 3 | free motion at the end: False
+   printed: ['the placing aid stopped (TCP timeout); placing goes on without it']
+--- aid: Ctrl+C while guiding -> the motors question, then motors on
+   ended: None | raised: KeyboardInterrupt: 
+   asked: ['motors off', 'read state', 'read state', 'motors on', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'THE MOTORS ARE STILL OFF. Hold the arm, se']
+   shown: 0 | free motion at the end: False
+   printed: []
+--- aid: Ctrl+C while guiding, and Ctrl+C again at the motors question
+   ended: None | raised: KeyboardInterrupt: 
+   asked: ['motors off', 'read state']
+   prompts: ["Put the puck at the line's start. Press En", 'THE MOTORS ARE STILL OFF. Hold the arm, se']
+   shown: 0 | free motion at the end: True
+   printed: []
+--- aid wanted but the terminal is no console
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 3 | free motion at the end: False
+   printed: ['the placing aid reads Enter from a console window (PowerShell, cmd or the terminal of VS Code) and this is not one; placing goes on without it']
+--- ghost: Enter at the third look at the window
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 5 | free motion at the end: False
+   printed: []
+--- ghost: Esc -> lift, not started
+   ended: not_started | raised: None
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 2 | free motion at the end: False
+   printed: ['nothing moved by the model; ending']
+--- ghost: the camera read RAISES at the 3rd live picture
+   ended: None | raised: RuntimeError: camera stream lost
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'picture (fails)', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 2 | free motion at the end: False
+   printed: []
+--- no ghost: the one camera read of the still go-ahead RAISES (as on 11.11.26)
+   ended: None | raised: RuntimeError: camera stream lost
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'picture (fails)', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 0 | free motion at the end: False
+   printed: []
+--- ghost + aid + stall log + step 0.65: everything at once
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'read state', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En"]
+   shown: 4 | free motion at the end: False
+   printed: []
+--- ghost given as text, not a Path
+   ended: step_budget_reached | raised: None
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'read state', 'move', 'read state', 'move', 'read state', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 3 | free motion at the end: False
+   printed: []
+--- ghost strength None (a mistake in config.py)
+   ended: None | raised: TypeError: float() argument must be a string or a real number, not 'NoneType'
+   asked: ['motors off', 'read state', 'motors on', 'move', 'move', 'close']
+   prompts: ["Put the puck at the line's start. Press En", 'Guide the magnet tip just behind the puck,']
+   shown: 0 | free motion at the end: False
+   printed: []
+--- recorded start with five joints (a mistake in config.py)
+   ended: None | raised: IndexError: list index out of range
+   asked: []
+   prompts: []
+   shown: 0 | free motion at the end: False
+   printed: []
+--- warn limits None (a mistake in config.py)
+   ended: None | raised: TypeError: unsupported operand type(s) for *: 'float' and 'NoneType'
+   asked: []
+   prompts: []
+   shown: 0 | free motion at the end: False
+   printed: []
+--- placed too high, with the aid and the ghost
+   ended: not_started | raised: None
+   asked: ['motors off', 'read state', 'read state', 'read state', 'motors on', 'close']
+   prompts: ["Put the puck at the line's start. Press En"]
+   shown: 0 | free motion at the end: False
+   printed: ['the start is further off than 1 cm or 3 degrees: to place it again, press Esc in the picture window and start the same run again', 'not started: the tip is +3.2 cm from pushing height; place it again just above the sheet']
+
+=== a missing reference picture, with NO stand-in link and NO stand-in model: nothing may be loaded or connected
+result: {'label': 'review', 'ending': 'not_started', 'reason': 'the reference picture D:\\no\\such\\picture.jpg is missing or cannot be read as a picture (--ghost)'} | model loaded: [] | seconds: 0.0
+printed: not started: the reference picture D:\no\such\picture.jpg is missing or cannot be read as a picture (--ghost)

@@ -1,0 +1,15 @@
+columns: ['episode_id', 'episode_folder', 'session', 'session_date', 'operator', 'path_id', 'sheet', 'plan_number', 'start_kind', 'start_end', 'plan_end', 'sheet_orientation', 'start_index', 'offset_lateral_cm', 'offset_angle_deg', 'start_push_direction_deg', 'start_turn_deg', 'lighting_note', 'lighting', 'score', 'is_scored', 'review_issues', 'review_note', 'reviewer', 'mode', 'status', 'outcome', 'hand_corrections', 'camera_mount', 'camera_shift_px', 'code_commit', 'started', 'finished', 'step_count', 'flagged_picture_count', 'step', 'unix_time', 'move_return_time', 'capture_time', 'decision_time', 'frame', 'frame_md5', 'sharpness', 'action', 'source', 'is_mistake', 'is_lost', 'forearm_turn_deg', 'picture_heading_deg', 'waypoint', 'tip_forward_m', 'tip_left_m', 'forearm_change_deg', 'rod_lean_deg', 'lean_change_deg', 'lean_label', 'hand_change_deg', 'hand_label', 'forearm_label', 'goal_distance_cm']
+episodes: 210
+first rows within 0.1 degrees on all six joints: 124 of 210
+first rows within 0.25 degrees on all six joints: 144 of 210
+first rows within 0.5 degrees on all six joints: 149 of 210
+first rows within 1.0 degrees on all six joints: 149 of 210
+first rows within 2.0 degrees on all six joints: 149 of 210
+median of first rows, degrees: [-6.060e+00 -4.187e+01 -6.193e+01  1.000e-02  1.353e+01 -6.060e+00]
+mean of the close first rows, degrees: [-6.0580e+00 -4.1868e+01 -6.1933e+01  3.0000e-03  1.3583e+01 -6.1190e+00]
+recorded start tip (m): [ 0.1401 -0.0149  0.0126] lean 0.3
+pushing height there minus extension: 0.0127  tip z: 0.0126
+tool: [ 0.1402 -0.0149  0.0386] rod direction: [-4.7e-03  5.0e-04 -1.0e+00] tip: [ 0.1401 -0.0149  0.0126]
+pose columns in frames.csv: ['x', 'y', 'z'] ['tip_forward_m', 'tip_left_m', 'tip_height_above_push_m', 'x', 'y', 'z', 'tip_x_m', 'tip_y_m', 'tip_z_m']
+first-row tips: x cm 5/50/95 pct [14.   14.02 34.13]  y cm [-12.43  -1.49   4.56]
+first-row tip distance from the recorded start, cm: within 0.3: 149 within 1.0: 149 max: 24.5

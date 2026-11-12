@@ -1,0 +1,29 @@
+the committed driver: commit 164ee79, sha256 02cc5dd7c6a6; the edited driver: sha256 d5d666cb5859
+per scenario: the same or different; then what the edited driver did (the committed one did the same where it says so)
+
+THE SAME   step budget (6 steps): 39 calls to the link, 9 of them moves, 2 prompts, ending step_budget_reached, raised None, tip 6.4 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   stopped by the stop rule: 38 calls to the link, 8 of them moves, 2 prompts, ending stopped, raised None, tip 6.4 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   steering left with a twist of 14 degrees asked: 69 calls to the link, 15 of them moves, 2 prompts, ending step_budget_reached, raised None, tip 6.4 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   stalled (the model's own length, a hesitating model): 33 calls to the link, 7 of them moves, 2 prompts, ending stalled, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   40 fixed steps straight out (runs into a guard): 178 calls to the link, 36 of them moves, 2 prompts, ending refused, raised None, tip 6.8 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the model's own length: 49 calls to the link, 11 of them moves, 2 prompts, ending step_budget_reached, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the real model 1 on the simulated pictures: 48 calls to the link, 10 of them moves, 2 prompts, ending stopped, raised None, tip 6.4 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   Esc at the go-ahead window: 9 calls to the link, 3 of them moves, 2 prompts, ending not_started, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   Ctrl+C at the go-ahead window: 7 calls to the link, 2 of them moves, 2 prompts, ending None, raised KeyboardInterrupt, tip 1.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the camera fails for the go-ahead picture: 7 calls to the link, 2 of them moves, 2 prompts, ending None, raised RuntimeError: camera gone, tip 1.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   placed 5 cm too high: 4 calls to the link, 0 of them moves, 2 prompts, ending not_started, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   placed with the forearm beyond its limit: 4 calls to the link, 0 of them moves, 2 prompts, ending not_started, raised None, tip 1.5 cm high at the end, motors off at the end False, new printed lines 2
+THE SAME   Esc in the run: 28 calls to the link, 6 of them moves, 2 prompts, ending quit, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   Ctrl+C in the run (between two calls to the link): 33 calls to the link, 7 of them moves, 2 prompts, ending quit, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   a step refused at the workspace edge: 13 calls to the link, 3 of them moves, 2 prompts, ending refused, raised None, tip 6.8 cm high at the end, motors off at the end False, new printed lines 2
+THE SAME   the robot refuses the third step: 24 calls to the link, 6 of them moves, 2 prompts, ending refused, raised None, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the model fails at the third picture: 23 calls to the link, 5 of them moves, 2 prompts, ending None, raised ValueError: the model gave a number that is not finite, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the camera fails in the run: 21 calls to the link, 5 of them moves, 2 prompts, ending None, raised RuntimeError: camera gone, tip 6.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the lift after the run fails: 24 calls to the link, 6 of them moves, 2 prompts, ending step_budget_reached, raised None, tip 1.3 cm high at the end, motors off at the end False, new printed lines 1
+THE SAME   the state cannot be read after placing: 4 calls to the link, 0 of them moves, 3 prompts, ending None, raised RuntimeError: no answer, tip 1.3 cm high at the end, motors off at the end False, new printed lines 0
+THE SAME   the motors cannot be switched back on at first: 5 calls to the link, 0 of them moves, 3 prompts, ending None, raised RuntimeError: no answer, tip 1.3 cm high at the end, motors off at the end False, new printed lines 0
+THE SAME   Ctrl+C at the first prompt: 1 calls to the link, 0 of them moves, 1 prompts, ending None, raised KeyboardInterrupt, tip 1.3 cm high at the end, motors off at the end False, new printed lines 0
+THE SAME   Ctrl+C at the second prompt: 3 calls to the link, 0 of them moves, 3 prompts, ending None, raised KeyboardInterrupt, tip 1.3 cm high at the end, motors off at the end False, new printed lines 0
+
+ALL THE SAME except the new 'start:' lines and the new summary keys
+(the tip is 1.3 cm high at pushing height at the recorded start, 6.3 cm after the lift at the end, 4.3 cm after the 3 cm of the settling)

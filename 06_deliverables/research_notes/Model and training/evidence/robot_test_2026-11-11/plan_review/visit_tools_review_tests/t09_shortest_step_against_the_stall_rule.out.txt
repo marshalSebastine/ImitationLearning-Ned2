@@ -1,0 +1,7 @@
+stall rule of config.py: {'stall_steps': 30, 'stall_extent_m': 0.03, 'stall_twist_deg': 15.0, 'stall_action': 'end', 'step_cm_allowed': [0.1, 1.0]}
+--step-cm 0.1: a model that always drives straight on ends as 'stalled' after 30 pictures and 29 moves
+--step-cm 0.103: a model that always drives straight on ends as 'stalled' after 30 pictures and 29 moves
+--step-cm 0.104: a model that always drives straight on ends as 'step_budget_reached' after 45 pictures and 45 moves
+--step-cm 0.11: a model that always drives straight on ends as 'step_budget_reached' after 45 pictures and 45 moves
+--step-cm 0.2: a model that always drives straight on ends as 'step_budget_reached' after 45 pictures and 45 moves
+--step-cm 0.65: a model that always drives straight on ends as 'step_budget_reached' after 45 pictures and 45 moves

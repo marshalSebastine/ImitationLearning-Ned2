@@ -1,0 +1,51 @@
+1. the command line (model_mode.command_line; nothing is loaded or connected):
+   --step-cm 0: refused
+   --step-cm -0.65: refused
+   --step-cm 0.09: refused
+   --step-cm 1.01: refused
+   --step-cm 1.5: refused
+   --step-cm 6.5: refused
+   --step-cm 65: refused
+   --step-cm nan: refused
+   --step-cm inf: refused
+   --step-cm abc: refused
+   --step-cm 0.65 --step-length predicted: refused
+   --step-cm 0.1: taken, step_m = 0.001
+   --step-cm 0.65: taken, step_m = 0.0065
+   --step-cm 1.0: taken, step_m = 0.01
+
+2. the guards of one step with the 1 cm step and with 0.65 cm (model_step on paper):
+   the workspace's far edge                       1 cm   : refused, the tip would be 49.7 cm from the base, outside 12.0 to 49.5 c
+   the workspace's far edge                       0.65 cm: refused, the tip would go to (49.3, -0.0) cm, outside the workspace
+   the workspace's left edge                      1 cm   : refused, the tip would go to (29.4, 25.5) cm, outside the workspace
+   the workspace's left edge                      0.65 cm: refused, the tip would go to (29.6, 25.2) cm, outside the workspace
+   the workspace's right edge                     1 cm   : refused, the tip would go to (29.3, -30.4) cm, outside the workspace
+   the workspace's right edge                     0.65 cm: refused, the tip would go to (29.5, -30.2) cm, outside the workspace
+   the least reach, towards the base              1 cm   : refused, the tip would be 11.3 cm from the base, outside 12.0 to 49.5 c
+   the least reach, towards the base              0.65 cm: refused, the tip would be 11.6 cm from the base, outside 12.0 to 49.5 c
+   the lean limit (set to 5 degrees to trip it)   1 cm   : refused, the rod would lean 43.9 degrees, above the limit of 5.0
+   the lean limit (set to 5 degrees to trip it)   0.65 cm: refused, the rod would lean 43.3 degrees, above the limit of 5.0
+   a twist of 40 degrees asked in one step        1 cm   : allowed, the tip moves 1.00 cm, the forearm turns 10.0 degrees to 10.0
+   a twist of 40 degrees asked in one step        0.65 cm: allowed, the tip moves 0.65 cm, the forearm turns 10.0 degrees to 10.0
+   the same with joint 4 at 112 degrees           1 cm   : allowed, the tip moves 1.00 cm, the forearm turns 5.0 degrees to 117.0
+   the same with joint 4 at 112 degrees           0.65 cm: allowed, the tip moves 0.65 cm, the forearm turns 5.0 degrees to 117.0
+
+3. a straight push with the default stall rule (it ends a run), 45 steps asked, simulated:
+   fixed step 0.1 cm: ended stalled after 30 pictures and 29 moves
+   fixed step 0.11 cm: ended step_budget_reached after 45 pictures and 45 moves
+   fixed step 0.2 cm: ended step_budget_reached after 45 pictures and 45 moves
+   fixed step 0.65 cm: ended step_budget_reached after 45 pictures and 45 moves
+   fixed step 1.0 cm: ended refused after 34 pictures and 33 moves
+   (the rule: the tips of 30 pictures within 3 cm and the forearm turned less than 15 degrees; 29 steps of 0.1 cm are 2.9 cm)
+
+4. the stall rule and the robot runs of 11.11.26 (read from 03_data/model_runs):
+   check_no_puck               26 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet01_run1              25 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet02_run1              38 pictures, ended quit     | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet02_run2              42 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet03_run1              60 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet04_run1              69 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet05_run1              89 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet06_run1              41 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   E_sheet03_run2_no_hoodie    90 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
+   B_team5_sheet03             74 pictures, ended stopped  | stall settings in its summary: none | today's rule would have ended it at picture: None
