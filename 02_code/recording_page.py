@@ -38,11 +38,14 @@ import cv2
 import numpy
 
 from check_pictures import check_episode_pictures
-from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS
+from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS, main_checkout_folder
 
 
 CODE_FOLDER = Path(__file__).resolve().parent
 PROJECT_FOLDER = CODE_FOLDER.parent
+# The folder that holds 03_data: this checkout, or the main checkout when the page runs from a git worktree (which has
+# no 03_data). Code, set-up pictures and the code version come from PROJECT_FOLDER, recordings and logs from here.
+DATA_FOLDER = main_checkout_folder()
 PLAN_NUMBER_PATTERN = re.compile(r"^\d{2}-\d{1,3}$")
 PLAN_IN_NOTE_PATTERN = re.compile(r"\bplan (\d{2}-\d{1,3})\b")
 CALIBRATION_IN_LOG_PATTERN = re.compile(r"Calibration needed: (True|False)")
@@ -340,7 +343,7 @@ class ToolRunner:
     def __init__(
             self,
             log_folder: Optional[Path] = None,
-            data_folder: Path = PROJECT_FOLDER
+            data_folder: Path = DATA_FOLDER
     ):
         """
         Start one tool at a time and keep its output in a log file.
@@ -353,13 +356,22 @@ class ToolRunner:
             The folder that holds 03_data; replaced in tests.
         """
 
-        self.log_folder = log_folder or PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["log_folder"]
+        self.log_folder = log_folder or DATA_FOLDER / RECORDING_PAGE_PARAMETERS["log_folder"]
         self.data_folder = data_folder
         self.recording = None
         self.last_recording = None
         self.episode_to_score = None
         self.picture_check = None
         self.picture_check_thread = None
+        # 12.11.26 (Emranul: "make it fast"): saving a score no longer waits for the picture check. The folders whose
+        # check still runs, and the score each must be renamed with once its check has ended (see __rename_when_checked).
+        self.checking_folders = set()
+        self.renames_after_check = {}
+        self.picture_check_threads = []
+        # /status is asked every second by every open page, in threads: one lock for what it changes, and the plan
+        # numbers already done read again only when a session folder changed or a score was saved here.
+        self.state_lock = threading.RLock()
+        self.done_plan_cache = {"signature": None, "numbers": []}
         self.robot_check = None
         self.robot_check_seen = None
         self.process = None
@@ -523,8 +535,41 @@ class ToolRunner:
     def __look_for_finished_episode(self) -> None:
         """When a recording has ended, find its episode; only a finished one is scored (a discard already says why)."""
 
-        if self.recording is None or self.is_running():
-            return
+        with self.state_lock:
+            if self.recording is None:
+                return
+            if self.is_running() and self.__written_episode(self.recording) is None:
+                return
+            self.__take_finished_episode()
+
+
+    def __written_episode(self, recording: Dict) -> Optional[Path]:
+        """
+        The running tool's episode.json once the episode is completely written, else None (12.11.26, Emranul: "make it
+        fast"): the tool then only parks the arm and closes, which on the robot takes a few seconds, and the score form
+        need not wait for that. Complete means: the summary reads as JSON, its status is one that is scored, and the
+        episode's line is in the session notes (the tool writes it last, after steps.csv and episode.json; nothing in
+        the episode folder is written after it). Anything else waits for the tool to end, as before.
+        """
+
+        summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
+                     if path.stat().st_mtime >= recording["started"]]
+        if not summaries:
+            return None
+        summary_path = max(summaries, key = lambda path: path.stat().st_mtime)
+        summary = read_json(summary_path)
+        if not summary or summary.get("status") not in EPISODE_STATUSES_TO_SCORE:
+            return None
+        try:
+            notes = (summary_path.parent.parent / "session_notes.md").read_text(encoding = "utf-8", errors = "replace")
+        except OSError:
+            return None
+        return summary_path if f"- {summary_path.parent.name}: " in notes else None
+
+
+    def __take_finished_episode(self) -> None:
+        """Find the ended recording's episode; only a finished one is scored (a discard already says why)."""
+
         recording, self.recording = self.recording, None
         self.last_recording = recording
         summaries = [path for path in recording["raw_folder"].glob(f"*_session_*/{recording['path_id']}_episode_*/episode.json")
@@ -556,17 +601,56 @@ class ToolRunner:
         """
 
         self.picture_check = {"episode": episode_folder.name, "is_done": False}
+        with self.state_lock:
+            self.checking_folders.add(episode_folder)
 
         def run_check() -> None:
+            result = {"episode": episode_folder.name, "is_done": True, "error": "the check stopped"}
             try:
-                result = check_episode_pictures(episode_folder)
-                self.picture_check = {**result, "is_done": True}
+                result = {**check_episode_pictures(episode_folder), "is_done": True}
             except Exception as error:
                 # The check only advises; a fault in it must never stop scoring.
-                self.picture_check = {"episode": episode_folder.name, "is_done": True, "error": str(error).splitlines()[0]}
+                result = {"episode": episode_folder.name, "is_done": True, "error": str(error).splitlines()[0]}
+            finally:
+                with self.state_lock:
+                    # An older check that ends after a newer episode's has started must not hide the newer one.
+                    if self.picture_check and self.picture_check["episode"] == episode_folder.name:
+                        self.picture_check = result
+                    self.checking_folders.discard(episode_folder)
+                    score = self.renames_after_check.pop(episode_folder, None)
+                # check_episode_pictures has closed its files (picture_check.json and .jpg) when it returns.
+                if score is not None:
+                    add_score_to_name(episode_folder, score)
+                    self.done_plan_cache["signature"] = None
 
         self.picture_check_thread = threading.Thread(target = run_check, daemon = True)
+        self.picture_check_threads = [thread for thread in self.picture_check_threads if thread.is_alive()] + [self.picture_check_thread]
         self.picture_check_thread.start()
+
+
+    def __rename_when_checked(
+            self,
+            episode_folder: Path,
+            score: int
+    ) -> None:
+        """
+        Add the score to the folder's name now, or, while its picture check still writes into it (a rename then fails on
+        Windows), when the check ends: the check's thread renames it as its last act. The lock makes the two exclusive:
+        either the check has ended and the folder is renamed here, or it is still running and will find the score.
+        """
+
+        with self.state_lock:
+            if episode_folder in self.checking_folders:
+                self.renames_after_check[episode_folder] = score
+                return
+        add_score_to_name(episode_folder, score)
+
+
+    def finish_picture_checks(self, timeout_s: float = RECORDING_PAGE_PARAMETERS["picture_check_wait_s"]) -> None:
+        """Wait for running picture checks (and the renames they still owe) before the page closes."""
+
+        for thread in list(self.picture_check_threads):
+            thread.join(timeout = timeout_s)
 
 
     def picture_check_sheet(self) -> Optional[Path]:
@@ -588,6 +672,12 @@ class ToolRunner:
             When there is nothing to score, the form names another episode, or the form cannot be used.
         """
 
+        with self.state_lock:
+            self.__save_review(form)
+
+
+    def __save_review(self, form: Dict) -> None:
+
         episode = self.episode_to_score
         if episode is None:
             raise FormError("There is no episode waiting for a score.")
@@ -605,11 +695,29 @@ class ToolRunner:
         details = ", ".join(review["issues"] + ([review["note"]] if review["note"] else []))
         with open(episode["folder"].parent / "session_notes.md", "a", encoding = "utf-8") as notes_file:
             notes_file.write(f"- {episode['episode']}: score {review['score']}{f' ({details})' if details else ''}\n")
-        # The picture check writes into the folder; renaming it while a file is open there fails on Windows.
-        if self.picture_check_thread is not None:
-            self.picture_check_thread.join(timeout = RECORDING_PAGE_PARAMETERS["picture_check_wait_s"])
-        add_score_to_name(episode["folder"], int(review["score"]))
+        # The picture check writes into the folder; renaming it while a file is open there fails on Windows, so a
+        # folder still being checked is renamed when its check ends (12.11.26; until then this waited up to 60 s).
+        self.__rename_when_checked(episode["folder"], int(review["score"]))
         self.episode_to_score = None
+        self.done_plan_cache["signature"] = None
+
+
+    def __done_plan_numbers(self) -> List[str]:
+        """
+        done_plan_numbers() of the main data, read again only when a session folder was added, renamed or changed, or a
+        score was saved here (a new review.json changes no session folder, so saving clears the cache).
+        """
+
+        raw_folder = self.data_folder / RECORDING_PARAMETERS["raw_folder"]
+        try:
+            signature = (raw_folder.stat().st_mtime_ns,
+                         tuple(sorted((folder.name, folder.stat().st_mtime_ns) for folder in raw_folder.glob("*_session_*"))))
+        except OSError:
+            signature = None
+        cache = self.done_plan_cache
+        if signature is None or signature != cache["signature"]:
+            self.done_plan_cache = {"signature": signature, "numbers": done_plan_numbers(raw_folder)}
+        return self.done_plan_cache["numbers"]
 
 
     @staticmethod
@@ -622,10 +730,7 @@ class ToolRunner:
         """What the page shows: whether a tool runs, how it ended, the end of its log, and any episode to score."""
 
         self.__look_for_finished_episode()
-        log_text = ""
-        if self.log_path and self.log_path.exists():
-            with open(self.log_path, encoding = "utf-8", errors = "replace") as log_file:
-                log_text = "".join(log_file.readlines()[-log_lines:])
+        log_text = read_log_tail(self.log_path, log_lines) if self.log_path and self.log_path.exists() else ""
         self.__read_robot_check(log_text)
         return {
             "is_running": self.is_running(),
@@ -637,7 +742,7 @@ class ToolRunner:
             "log": log_text,
             "episode_to_score": ({name: value for name, value in self.episode_to_score.items() if name != "folder"}
                                  if self.episode_to_score else None),
-            "done_plan_numbers": done_plan_numbers(self.data_folder / RECORDING_PARAMETERS["raw_folder"]),
+            "done_plan_numbers": self.__done_plan_numbers(),
             "picture_check": (self.picture_check if self.episode_to_score and self.picture_check
                               and self.picture_check["episode"] == self.episode_to_score["episode"] else None),
             "robot_check": self.__robot_check_status()
@@ -661,32 +766,89 @@ def run_git(*arguments: str) -> str:
     return result.stdout.strip() if result.returncode == 0 else ""
 
 
-CODE_STATE_CACHE = {"read_at": None, "state": None}
+CODE_STATE_CACHE = {"read_at": None, "state": None, "thread": None}
+CODE_STATE_LOCK = threading.Lock()
+
+
+def read_code_state() -> Dict:
+    """The code version every episode will record, and whether it has uncommitted changes, from git."""
+
+    changed_files = run_git("status", "--porcelain", "--", "02_code")
+    return {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
+            "has_uncommitted_code": bool(changed_files)}
 
 
 def code_state() -> Dict:
-    """The code version every episode will record, and whether it has uncommitted changes (read again after a while)."""
+    """
+    The last answer of read_code_state(), without waiting for git (12.11.26: git took up to 11 s on the lab laptop and
+    held up that status request): when the answer is older than "code_state_cache_s", one background thread reads it
+    again. Before the first answer: no commit and "is_reading".
+    """
 
-    now = time.monotonic()
-    read_at = CODE_STATE_CACHE["read_at"]
-    if read_at is not None and now - read_at < RECORDING_PAGE_PARAMETERS["code_state_cache_s"]:
-        return CODE_STATE_CACHE["state"]
-    changed_files = run_git("status", "--porcelain", "--", "02_code")
-    state = {"branch": run_git("rev-parse", "--abbrev-ref", "HEAD"), "commit": run_git("rev-parse", "--short", "HEAD"),
-             "has_uncommitted_code": bool(changed_files)}
-    CODE_STATE_CACHE.update({"read_at": now, "state": state})
-    return state
+    with CODE_STATE_LOCK:
+        now = time.monotonic()
+        read_at = CODE_STATE_CACHE["read_at"]
+        thread = CODE_STATE_CACHE["thread"]
+        is_due = read_at is None or now - read_at >= RECORDING_PAGE_PARAMETERS["code_state_cache_s"]
+        if is_due and (thread is None or not thread.is_alive()):
+            CODE_STATE_CACHE["read_at"] = now
+
+            def refresh() -> None:
+                CODE_STATE_CACHE["state"] = read_code_state()
+
+            CODE_STATE_CACHE["thread"] = threading.Thread(target = refresh, daemon = True)
+            CODE_STATE_CACHE["thread"].start()
+        return CODE_STATE_CACHE["state"] or {"branch": None, "commit": None, "has_uncommitted_code": False, "is_reading": True}
+
+
+def read_log_tail(
+        path: Path,
+        line_count: int,
+        byte_count: int = 65_536
+) -> str:
+    """The last ``line_count`` lines of a log, reading only its last ``byte_count`` bytes (line ends as "\\n")."""
+
+    with open(path, "rb") as log_file:
+        log_file.seek(0, os.SEEK_END)
+        size = log_file.tell()
+        log_file.seek(max(0, size - byte_count))
+        lines = log_file.read().decode("utf-8", errors = "replace").replace("\r\n", "\n").splitlines(keepends = True)
+    if size > byte_count:
+        # The first line read may be cut.
+        lines = lines[1:]
+    return "".join(lines[-line_count:])
+
+
+SESSION_NOTES_CACHE = {"sessions_signature": None, "sessions": [], "notes_signature": None, "result": None}
 
 
 def latest_session_notes(line_count: int = 12) -> Dict:
     """The end of the newest real recording session's notes, so the page shows what was just recorded."""
 
-    sessions = sorted((PROJECT_FOLDER / RECORDING_PARAMETERS["raw_folder"]).glob("*_session_*/session_notes.md"),
-                      key = lambda path: path.stat().st_mtime)
-    if not sessions:
+    raw_folder = DATA_FOLDER / RECORDING_PARAMETERS["raw_folder"]
+    cache = SESSION_NOTES_CACHE
+    try:
+        # A new session folder changes the raw folder; the list of notes files is read again only then (12.11.26).
+        sessions_signature = raw_folder.stat().st_mtime_ns
+    except OSError:
+        sessions_signature = None
+    if sessions_signature is None or sessions_signature != cache["sessions_signature"]:
+        cache.update({"sessions_signature": sessions_signature, "sessions": list(raw_folder.glob("*_session_*/session_notes.md"))})
+    stamped = []
+    for path in cache["sessions"]:
+        try:
+            stamped.append((path.stat().st_mtime, path))
+        except OSError:
+            continue
+    if not stamped:
         return {"session": None, "lines": ""}
-    with open(sessions[-1], encoding = "utf-8", errors = "replace") as notes_file:
-        return {"session": sessions[-1].parent.name, "lines": "".join(notes_file.readlines()[-line_count:])}
+    newest = max(stamped, key = lambda pair: pair[0])[1]
+    notes_signature = (newest, newest.stat().st_mtime_ns, newest.stat().st_size)
+    if notes_signature != cache["notes_signature"]:
+        with open(newest, encoding = "utf-8", errors = "replace") as notes_file:
+            cache.update({"notes_signature": notes_signature,
+                          "result": {"session": newest.parent.name, "lines": "".join(notes_file.readlines()[-line_count:])}})
+    return cache["result"]
 
 
 
@@ -881,6 +1043,8 @@ def main() -> None:
     try:
         server.serve_forever()
     except KeyboardInterrupt:
+        # A score saved while its picture check still ran is added to the folder's name when the check ends.
+        server.RequestHandlerClass.runner.finish_picture_checks()
         print("\nPage closed.")
 
 

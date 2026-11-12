@@ -198,8 +198,10 @@ def test_exact_replay(raw_folder: Path) -> None:
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
     assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
-    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not.
-    assert 2 <= robot_link.fast_moves < len(rows), robot_link.fast_moves
+    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not. Since 12.11.26 the lifts
+    # and last moves down beside the puck carry a speed too ("near_puck_velocity_percent"), so only the lower bound
+    # stays here; test_only_moves_beside_the_puck_run_faster checks every step's speed.
+    assert robot_link.fast_moves >= 2, robot_link.fast_moves
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
@@ -234,6 +236,72 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     assert (episode_folder / "correction_01_reference.jpg").exists() and (episode_folder / "correction_01_guided_path.csv").exists()
     assert rows[-1]["action"] == "stop" and all(row["source"] == "replay_exact" for row in rows[:-1]), [row["source"] for row in rows]
     assert len(rows) >= 4, len(rows)
+
+
+class MoveLoggingLink(SimulatedRobotLink):
+    """The simulated link, logging every move it is asked for: kind, speed, and the rod end's height before and after."""
+
+    moves = []
+    is_inside_joint_move = False
+
+    def move_to(self, pose, is_linear = True, velocity_percent = None) -> None:
+
+        before = self.pose[2]
+        super().move_to(pose, is_linear = is_linear, velocity_percent = velocity_percent)
+        # The simulated move_joints moves through move_to; that inner call is the same move, logged once.
+        if not self.is_inside_joint_move:
+            MoveLoggingLink.moves.append({"kind": "move_to", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2]})
+
+
+    def move_joints(self, joints, velocity_percent = None) -> None:
+
+        before = self.pose[2]
+        self.is_inside_joint_move = True
+        try:
+            super().move_joints(joints, velocity_percent = velocity_percent)
+        finally:
+            self.is_inside_joint_move = False
+        MoveLoggingLink.moves.append({"kind": "move_joints", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2]})
+
+
+    def set_free_motion(self, is_enabled: bool) -> None:
+
+        super().set_free_motion(is_enabled)
+        MoveLoggingLink.moves.append({"kind": "free_motion" if is_enabled else "motors_on"})
+
+
+def test_only_moves_beside_the_puck_run_faster(raw_folder: Path) -> None:
+    """
+    12.11.26 (Emranul): with "near_puck_velocity_percent" at 90, the lifts off the puck and the last moves down run at
+    90 (or at the travel speed when they start high); every move that stays at pushing height (the steps, the replayed
+    waypoints, the replay of a correction) and the step-over keep the usual speed (None). Right after guiding by hand
+    the first move is the lift with joints 2 and 3. Run on a keyboard episode with a step-over, a hand-guided episode
+    and an exact replay with one hand correction.
+    """
+
+    global SimulatedRobotLink
+    original_link = SimulatedRobotLink
+    SimulatedRobotLink = MoveLoggingLink
+    MoveLoggingLink.moves = []
+    try:
+        for test in (test_step_over_reverses_without_touching_the_puck, test_hand_guided_episode, test_exact_replay_with_hand_correction):
+            with tempfile.TemporaryDirectory() as folder:
+                test(Path(folder))
+    finally:
+        SimulatedRobotLink = original_link
+    near = RECORDING_PARAMETERS["near_puck_velocity_percent"]
+    travel = RECORDING_PARAMETERS["travel_velocity_percent"]
+    moves = [move for move in MoveLoggingLink.moves if move["kind"] in ("move_to", "move_joints")]
+    flat = [move for move in moves if abs(move["z_after"] - move["z_before"]) < 0.003]
+    assert flat and all(move["speed"] is None for move in flat), [move for move in flat if move["speed"] is not None]
+    assert any(move["speed"] == near for move in moves), "no move ran at the near-puck speed"
+    for move in moves:
+        if move["speed"] == near:
+            assert abs(move["z_after"] - move["z_before"]) > 0.01, move
+        assert move["speed"] in (None, near, travel), move
+    after_guiding = [MoveLoggingLink.moves[index + 1] for index, move in enumerate(MoveLoggingLink.moves[:-1]) if move["kind"] == "motors_on"]
+    assert after_guiding and all(move["kind"] == "move_joints" and move["speed"] == near and move["z_after"] > move["z_before"] + 0.02
+                                 for move in after_guiding), after_guiding
 
 
 def scripted_pad(states: List[dict]) -> Callable[[], dict]:
@@ -623,7 +691,8 @@ if __name__ == "__main__":
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode,
                  test_gamepad_raises_and_lowers_the_tip,
-                 test_orientation_window_lists_the_gamepad_controls, test_folder_names_carry_the_plan_number):
+                 test_orientation_window_lists_the_gamepad_controls, test_folder_names_carry_the_plan_number,
+                 test_only_moves_beside_the_puck_run_faster):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

@@ -8,7 +8,7 @@ in one place only. Later phases add the keys named in the work plan.
 import math
 import tempfile
 from pathlib import Path
-from typing import Optional
+from typing import Dict, Optional
 
 ROBOT_PARAMETERS = {
     "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
@@ -242,7 +242,8 @@ RECORDING_PAGE_PARAMETERS = {
     # caught by the picture check only when it falls under 30.
     "sharpness_warning_below": 30.0,
     "sharpness_rows": 5,
-    # Saving a score waits at most this long for the picture check (check_pictures.py) to finish writing into the folder.
+    # Closing the page (Ctrl-C) waits at most this long for running picture checks (check_pictures.py), so that a score
+    # saved during a check is still added to the folder's name. Until 12.11.26 saving a score waited for the check.
     "picture_check_wait_s": 60,
     "operators": ["emranul", "marshal"],
     "modes": {
@@ -344,8 +345,11 @@ RECORDING_PAGE_PARAMETERS = {
     "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
     # One set-up picture per plan number, plan_<NN-NN>.png (setup_visuals.py, 6.11.26), shown in "Set up this episode".
     "setup_picture_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
-    # Round 1 of the plan: enough for the first model. The page offers these before anything else.
-    "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
+    # Round 1 of the plan: the page offers these before anything else. Until 12.11.26 the first 12 episodes of sheets 01,
+    # 02 and 04 (all 210 course-sheet episodes were done by then); since 12.11.26 (Emranul) the pilot of the new tracks,
+    # plans 1 and 2 of the solid prints of T01 to T04 (NEW_TRACK_RECORDING_PARAMETERS below). After the round the page
+    # stays on a sheet while it has episodes left, then goes to the next sheet in this dictionary's order.
+    "first_round": {"sheets": ["path_11_T01_solid", "path_12_T02_solid", "path_13_T03_solid", "path_14_T04_solid"], "episodes_per_sheet": 2},
     # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
     "episode_plan": {
         "path_01_straight_line": [
@@ -563,6 +567,19 @@ RECORDING_PARAMETERS = {
     # compare a start picture with an earlier one after the first episodes).
     "travel_velocity_percent": 90,
     "travel_minimum_height_m": 0.04,
+    # 12.11.26 (Emranul: "make sure to increase that thing from 20% to 90%, I will take care of the puck"): the moves
+    # beside the puck that push nothing run at this speed cap: the lift off the puck or the line (record_episodes
+    # __lift, its fall-back with joints 2 and 3, the low first stops of __turn_back_lifted, the lift at the start of
+    # __return_to_joints_from_above when the rod starts low) and the last move down (the end of __lower_to_start and of
+    # __return_to_joints_from_above). Every pushing move (the steps of all modes, the exact replay's waypoints, the
+    # replay of a correction), the step-over and the hand flick keep their speed. 20 (ROBOT_PARAMETERS
+    # "arm_max_velocity_percent", the arm's usual cap) gives back the behaviour before 12.11.26. Not tried on the robot.
+    "near_puck_velocity_percent": 90,
+    # 12.11.26 (Emranul): straight after hand guiding or a hand correction the straight lift was refused in every
+    # episode (the log shows "inverse kinematics refused the pose (attempt 1 of 3)", "(attempt 2 of 3)", then "straight
+    # lift refused ...; lifted with joints 2 and 3 instead"); True lifts with joints 2 and 3 at once there. False gives
+    # back the old order (straight lift first). The time saved is a guess until timed at the robot.
+    "is_lift_after_guiding_by_joints": True,
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
@@ -865,6 +882,131 @@ def step_budget_for(path_id: str) -> int:
     if length_cm is None:
         return RECORDING_PARAMETERS["step_budget"]
     return int(math.ceil(RECORDING_PARAMETERS["step_budget_per_cm"] * length_cm))
+
+
+# The 16 training tracks of 12.11.26 (make_test_tracks.py; tracks_2026-11-12/tracks.json), recorded on from 14.11.26.
+# Each track is printed twice, solid and dashed, and each print is a sheet of its own on the recording page: sheet
+# number 10 + n for the solid print of Tn and 30 + n for the dashed one (11 to 26 and 31 to 46, clear of the course
+# sheets' 01 to 06), sheet name path_<number>_<track>_<print>. Every print is laid by the rule of tracks.json
+# ("lay_out_rule", the same "mark_m" as TEST_TRACK_PARAMETERS["lay_out"]): the centre of end A's round cap on the
+# new-track mark, 19.5 cm in front of the base axis and 1.5 cm to its right, the first straight piece straight away from
+# the robot, not turned; all 16 pass the lay-out check from end A unturned (lay_outs.csv, calc with the arm model). The
+# recorder's own start (WORKSPACE_PARAMETERS["line_start_xy"]) is not changed: the arm comes down with its tip at
+# 14.0, -1.5 cm as for every course-sheet start, 5.5 cm behind the cap's centre, as in the 209 recordings (caps a median
+# 19.2 cm out). Lengths: the drawn centre line between the two cap centres (tracks.json "length_mm", calc from the
+# drawing). The plan (Emranul, 12.11.26): 58 episodes, 48 standard starts and 10 near-end starts; the pilot is plans 1
+# and 2 of the solid prints of T01 to T04, plan 1 by Emranul and plan 2 by Marshal; every print is taped once and all
+# its episodes follow each other, its near-end start last.
+NEW_TRACK_RECORDING_PARAMETERS = {
+    "tracks_file": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12" / "tracks.json",
+    "mark_m": [0.195, -0.015],
+    "solid_number_offset": 10,
+    "dashed_number_offset": 30,
+    "near_end_note": "Puck 6 cm before the end cap.",
+    "pilot_notes": ["Pilot: recorded by Emranul.", "Pilot: recorded by Marshal."],
+    "either_operator_note": "Either operator.",
+    # name, label, length in cm, standard starts on the solid print, standard starts on the dashed print, and the print
+    # that also gets a near-end start (solid for the even numbers T06 to T14, dashed for the odd numbers T05 to T13)
+    "tracks": [
+        ("T01", "gentle S-curves", 32.7, 2, 1, None),
+        ("T02", "two sharp bends", 30.2, 2, 1, None),
+        ("T03", "loop", 39.7, 2, 1, None),
+        ("T04", "hairpin and medium bend", 40.8, 2, 1, None),
+        ("T05", "loop and corner", 45.6, 1, 2, "dashed"),
+        ("T06", "hairpin and sharp bend", 42.4, 2, 1, "solid"),
+        ("T07", "two corners", 34.4, 1, 2, "dashed"),
+        ("T08", "loop and hairpin", 53.0, 2, 1, "solid"),
+        ("T09", "short gentle", 26.5, 1, 2, "dashed"),
+        ("T10", "loop and medium bend", 46.4, 2, 1, "solid"),
+        ("T11", "three corners", 45.5, 1, 2, "dashed"),
+        ("T12", "long meander", 67.3, 2, 1, "solid"),
+        ("T13", "gentle", 41.4, 1, 2, "dashed"),
+        ("T14", "loop and corner", 52.2, 2, 1, "solid"),
+        ("T15", "mixed bends", 57.2, 1, 2, None),
+        ("T16", "long gentle", 46.8, 2, 1, None)
+    ]
+}
+
+
+def new_track_sheet_id(
+        track_name: str,
+        print_kind: str,
+        parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS
+) -> str:
+    """
+    The sheet name of one print of a new track, for example "path_13_T03_solid" or "path_33_T03_dashed".
+
+    Parameters
+    ----------
+    track_name : str
+        The track's name, "T01" to "T16".
+    print_kind : str
+        "solid" or "dashed".
+    parameters : dict, optional
+        NEW_TRACK_RECORDING_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    str
+        The sheet name, which starts every episode folder's name.
+    """
+
+    offset = parameters["solid_number_offset"] if print_kind == "solid" else parameters["dashed_number_offset"]
+    return f"path_{offset + int(track_name[1:]):02d}_{track_name}_{print_kind}"
+
+
+def add_new_track_sheets(parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS) -> Dict[str, str]:
+    """
+    Add both prints of every new track to the recording page's sheets, set-up notes and episode plan, and their line
+    lengths to the step budgets, in track order (solid before dashed), so that the page offers them sheet by sheet.
+
+    Parameters
+    ----------
+    parameters : dict, optional
+        NEW_TRACK_RECORDING_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    dict
+        Sheet name -> the name of its shape ("T03" for both prints of track T03), for the training code that comes later.
+    """
+
+    shapes = {}
+    mark_x_cm, mark_y_cm = 100 * parameters["mark_m"][0], 100 * parameters["mark_m"][1]
+    for name, label, length_cm, solid_starts, dashed_starts, near_end_print in parameters["tracks"]:
+        is_pilot = name in ("T01", "T02", "T03", "T04")
+        for print_kind, standard_starts in (("solid", solid_starts), ("dashed", dashed_starts)):
+            sheet_id = new_track_sheet_id(name, print_kind, parameters)
+            number = sheet_id.split("_")[1]
+            has_near_end = near_end_print == print_kind
+            if is_pilot and print_kind == "solid":
+                blocks = [(index + 1, index + 1, "STD", "A", parameters["pilot_notes"][index]) for index in range(standard_starts)]
+            else:
+                blocks = [(1, standard_starts, "STD", "A", parameters["either_operator_note"])]
+            if has_near_end:
+                blocks.append((standard_starts + 1, standard_starts + 1, "NE", "A", parameters["near_end_note"]))
+            count = standard_starts + int(has_near_end)
+            plan_text = f"{count} episode{'s' if count > 1 else ''}, end A: {standard_starts} standard start{'s' if standard_starts > 1 else ''}"
+            plan_text += ", then 1 near-end start" if has_near_end else ""
+            plan_text += " (pilot: plan 1 Emranul, plan 2 Marshal)" if is_pilot and print_kind == "solid" else ""
+            setup_text = (f"New track {name} ({label}), {print_kind} print, end A written on its back. Lay it by the NEW-TRACK MARK, "
+                          f"not by a course sheet's place: the centre of end A's round cap on the mark ({mark_x_cm:.1f} cm in front of "
+                          f"the base axis, {abs(mark_y_cm):.1f} cm to its right, table_marks.pdf), the first straight piece along the "
+                          f"direction line, the sheet not turned. Tape it down once and record all its episodes before the next sheet.")
+            if print_kind == "dashed":
+                setup_text += " Keep the dashes' direction across the gaps."
+            RECORDING_PAGE_PARAMETERS["sheets"][sheet_id] = {"number": number, "label": f"{name} {label}, {print_kind}", "plan": plan_text}
+            RECORDING_PAGE_PARAMETERS["sheet_setups"][sheet_id] = setup_text
+            RECORDING_PAGE_PARAMETERS["episode_plan"][sheet_id] = blocks
+            RECORDING_PARAMETERS["line_length_cm"][sheet_id] = length_cm
+            shapes[sheet_id] = name
+    return shapes
+
+
+# Which sheets carry the same line (the shape): both prints of a new track share one; each course sheet is its own
+# (sheet 06 is the same kind of loop as 05, not the same line).
+SHAPE_OF_SHEET = {path_id: sheet["number"] for path_id, sheet in RECORDING_PAGE_PARAMETERS["sheets"].items()}
+SHAPE_OF_SHEET.update(add_new_track_sheets())
 
 
 def camera_heading_rad(
@@ -2065,6 +2207,10 @@ TEST_TRACK_PARAMETERS = {
     "drawing_rule": {
         "page_mm": [210.0, 297.0],
         "line_width_mm": 10.0,
+        # the line's colour on every new page: the professor's original SVG files of the six course sheets (Niryo1.svg to
+        # Niryo6.svg from Moodle, found 12.11.26, in tracks_2026-11-12/course_sheets_original/) draw it in #575757, a
+        # dark grey, not black
+        "line_colour_hex": "#575757",
         # the centre line keeps this far from every paper edge
         "edge_margin_mm": 22.0,
         # two parts of the line more than "gap_apart_along_mm" apart along it keep "smallest_gap_mm" between their
@@ -2210,6 +2356,18 @@ TEST_TRACK_PARAMETERS = {
         "end_short_mm": 5.0,
         "end_aside_mm": 7.0,
         "far_reach_m": 0.40,
-        "forearm_turned_deg": 60.0
+        "forearm_turned_deg": 60.0,
+        # 12.11.26: plain copies of the six course sheets ("python make_test_tracks.py course", print_set_course_sheets.pdf),
+        # drawn from the traced centre lines where the trace puts them on the sheet, the line only. Sheet 06 is dashed
+        # along its whole length (photo); the dash places along the line could not be read from the photo, so its dashes
+        # are laid by the dash rule with 20 mm and 10 mm, which gives the photo's count of 16 dashes.
+        "course_sheet_pages": [
+            {"name": "C01_course", "sheet": "01", "is_dashed": False},
+            {"name": "C02_course", "sheet": "02", "is_dashed": False},
+            {"name": "C03_course", "sheet": "03", "is_dashed": False},
+            {"name": "C04_course", "sheet": "04", "is_dashed": False},
+            {"name": "C05_course", "sheet": "05", "is_dashed": False},
+            {"name": "C06_course", "sheet": "06", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0}
+        ]
     }
 }

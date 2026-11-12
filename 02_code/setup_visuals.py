@@ -15,6 +15,7 @@ import html
 import json
 import math
 import re
+import textwrap
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -24,7 +25,8 @@ import numpy
 from matplotlib import patches, pyplot
 from matplotlib.path import Path as PolygonPath
 
-from config import RECORDING_PAGE_PARAMETERS, SETUP_VISUALS_PARAMETERS, WORKSPACE_PARAMETERS
+from config import (NEW_TRACK_RECORDING_PARAMETERS, RECORDING_PAGE_PARAMETERS, SETUP_VISUALS_PARAMETERS, SHAPE_OF_SHEET, WORKSPACE_PARAMETERS,
+                    start_pose)
 from recording_page import expand_episode_plan
 
 
@@ -325,6 +327,130 @@ def compute_setup(
 
 
 
+def is_new_track(path_id: str) -> bool:
+    """True for a print of one of the new tracks of 12.11.26 (NEW_TRACK_RECORDING_PARAMETERS), False for a course sheet."""
+
+    return SHAPE_OF_SHEET.get(path_id, "").startswith("T")
+
+
+
+def load_new_track_lines(parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS) -> Dict:
+    """
+    The drawn centre line and the lay-out of every new track, from tracks.json (cm, from the paper's left and bottom edges).
+
+    Returns
+    -------
+    dict
+        Track name ("T03") -> {"line": (N, 2) array resampled every RESAMPLE_STEP_CM, end A first, "lay_out": the
+        chosen lay-out (start end, turn), "mark_cm": the lay-out rule's mark in robot coordinates}.
+    """
+
+    with open(parameters["tracks_file"], encoding = "utf-8") as file:
+        listing = json.load(file)
+    mark_cm = numpy.array(listing["lay_out_rule"]["mark_m"]) * 100
+    return {track["name"]: {"line": resample_line(numpy.array(track["centre_line_mm"], dtype = float) / 10.0, step_cm = RESAMPLE_STEP_CM),
+                            "lay_out": track["lay_out"], "mark_cm": mark_cm}
+            for track in listing["tracks"] if track["role"] == "training"}
+
+
+
+def compute_new_track_setup(
+        path_id: str,
+        plan_number: str,
+        entry: Dict,
+        track_lines: Dict,
+        parameters: Dict = SETUP_VISUALS_PARAMETERS
+) -> Dict:
+    """
+    Where everything lies for one plan entry on a new track, in robot coordinates (cm), by the lay-out rule of tracks.json.
+
+    The centre of the start end's cap (the line's first point) lies on the mark and the line's first centimetre points
+    along +x, turned by the lay-out's turn about the mark: the same placing as make_test_tracks.layout_check, so the
+    picture shows the lay-out that was checked. The returned dictionary has the keys of compute_setup(), plus
+    "is_new_track", "mark_label", "corner_distances_cm" (each paper corner's distance from the mark) and "start_tip"
+    (where the arm's magnet tip comes down at the start).
+
+    Parameters
+    ----------
+    path_id : str
+        The print, as in RECORDING_PAGE_PARAMETERS["sheets"].
+    plan_number : str
+        For example "15-01".
+    entry : dict
+        The plan entry from recording_page.expand_episode_plan(): "start_code", "line_end", "note".
+    track_lines : dict
+        From load_new_track_lines().
+    parameters : dict, optional
+        SETUP_VISUALS_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    dict
+        As compute_setup(), for the new track.
+    """
+
+    settings = dict(SETUP_VISUALS_PARAMETERS)
+    settings.update(parameters)
+    start_code = entry["start_code"]
+    start = RECORDING_PAGE_PARAMETERS["start_codes"][start_code]
+    if start_code in ("MID", "X1", "X2") or start.get("lay_out"):
+        raise ValueError(f"{plan_number}: the new tracks' pictures know standard, offset, turned and near-end starts only, not {start_code}")
+    track = track_lines[SHAPE_OF_SHEET[path_id]]
+    if entry["line_end"] != track["lay_out"]["start_end"]:
+        raise ValueError(f"{plan_number}: the plan starts from end {entry['line_end']}, the lay-out table from end {track['lay_out']['start_end']}")
+    line = track["line"] if entry["line_end"] == "A" else track["line"][::-1]
+
+    # The lay-out rule: the start cap's centre on the mark, the first centimetre of line along +x, turned about the mark.
+    mark = track["mark_cm"]
+    direction = point_at(line, 1.0) - line[0]
+    direction = direction / numpy.linalg.norm(direction)
+    lay_out_turn = math.radians(track["lay_out"]["turn_deg"])
+
+    def place(points: numpy.ndarray) -> numpy.ndarray:
+        offsets = numpy.atleast_2d(points) - line[0]
+        forward = offsets @ direction
+        left = direction[0] * offsets[:, 1] - direction[1] * offsets[:, 0]
+        return numpy.column_stack([mark[0] + forward * math.cos(lay_out_turn) - left * math.sin(lay_out_turn),
+                                   mark[1] + forward * math.sin(lay_out_turn) + left * math.cos(lay_out_turn)])
+
+    width, height = settings["paper_size_cm"]
+    standard_paper = place(numpy.array([[0.0, 0.0], [width, 0.0], [width, height], [0.0, height]]))
+    placed_line = place(line)
+    start_cap = placed_line[0].copy()
+    offset_deg = start["offset_deg"]
+    turned_paper = rotate(standard_paper, math.radians(offset_deg), start_cap)
+    placed_line = rotate(placed_line, math.radians(offset_deg), start_cap)
+    end_cap = placed_line[-1].copy()
+
+    forward_angle = lay_out_turn
+    left_axis = numpy.array([-math.sin(forward_angle), math.cos(forward_angle)])
+    forward_axis = numpy.array([math.cos(forward_angle), math.sin(forward_angle)])
+    puck = start_cap + start["offset_cm"] * left_axis
+    puck_arc_cm = 0.0
+    total_cm = float(arc_lengths(placed_line)[-1])
+    spot = None
+    teach_point = None
+    if start_code == "NE":
+        puck_arc_cm = total_cm - near_end_distance_cm(entry["note"], settings)
+        spot = f"{near_end_distance_cm(entry['note'], settings):g} cm before the end cap"
+        puck = point_at(placed_line, puck_arc_cm)
+        teach_point = puck - 0.5 * puck / numpy.linalg.norm(puck)
+    ahead = point_at(placed_line, puck_arc_cm + 1.0) - point_at(placed_line, max(puck_arc_cm - 1.0, 0.0))
+
+    return {
+        "path_id": path_id, "plan_number": plan_number, "start_code": start_code, "line_end": entry["line_end"],
+        "note": entry["note"], "offset_cm": start["offset_cm"], "offset_deg": offset_deg,
+        "mark": mark, "forward": forward_axis, "left": left_axis, "standard_paper": standard_paper, "paper": turned_paper,
+        "line": placed_line, "start_cap": start_cap, "end_cap": end_cap, "puck": puck, "puck_arc_cm": puck_arc_cm,
+        "line_length_cm": total_cm, "travel": ahead / numpy.linalg.norm(ahead), "teach_point": teach_point, "spot": spot,
+        "warnings": reach_warnings(turned_paper, placed_line, settings),
+        "is_new_track": True, "mark_label": "NEW-TRACK\nMARK",
+        "corner_distances_cm": [float(numpy.linalg.norm(corner - mark)) for corner in turned_paper],
+        "start_tip": numpy.array(start_pose()[:2]) * 100
+    }
+
+
+
 def reach_warnings(
         paper: numpy.ndarray,
         line: numpy.ndarray,
@@ -365,12 +491,28 @@ def short_instruction(setup: Dict) -> str:
 
 
 
+def corner_name(
+        setup: Dict,
+        index: int
+) -> str:
+    """Where paper corner ``index`` lies, seen from behind the robot: "near left", "far right" and so on."""
+
+    corner = setup["paper"][index]
+    centre = setup["paper"].mean(axis = 0)
+    return f"{'near' if corner[0] < centre[0] else 'far'} {'left' if corner[1] > centre[1] else 'right'}"
+
+
+
 def caption_for(setup: Dict) -> str:
     """One or two plain sentences that say what to do for this plan number."""
 
     code = setup["start_code"]
     sheet_label = RECORDING_PAGE_PARAMETERS["sheets"][setup["path_id"]]["label"]
     lay = f"Sheet {sheet_label}, end {setup['line_end']} as the start: its ink begins on the START MARK, line pointing away from the robot."
+    if setup.get("is_new_track"):
+        corners = "; ".join(f"{corner_name(setup, index)} {distance:.1f} cm" for index, distance in enumerate(setup["corner_distances_cm"]))
+        lay = (f"Sheet {sheet_label}, end {setup['line_end']} as the start: the centre of its round cap on the NEW-TRACK MARK, the first "
+               f"straight piece along the direction line (table_marks.pdf), not turned. Paper corners from the mark: {corners}.")
     if code == "STD":
         what = "Puck centred on the start cap."
     elif code in ("OL1", "OR1", "OL1.5", "OR1.5"):
@@ -433,8 +575,9 @@ def draw_setup(
         axis.add_patch(patches.Polygon(setup["standard_paper"], closed = True, fill = False, linestyle = "--",
                                        edgecolor = "#999999", linewidth = 1.0))
     axis.add_patch(patches.Polygon(setup["paper"], closed = True, facecolor = "#f4f4f4", edgecolor = "#777777", linewidth = 1.2))
-    # Sheet 06's line is dashed on the paper; the dash pattern here only says so, it is not the printed one.
-    line_style = (0, (2.0, 0.8)) if setup["path_id"] == "path_06_alpha_loop_dashed" else "-"
+    # Sheet 06's line and the new tracks' dashed prints are dashed on the paper; the dash pattern here only says so, it is
+    # not the printed one.
+    line_style = (0, (2.0, 0.8)) if setup["path_id"].endswith("_dashed") else "-"
     axis.plot(setup["line"][:, 0], setup["line"][:, 1], color = "#222222", linewidth = 4.5, linestyle = line_style, zorder = 3)
 
     # The line's ends, named as on the sheets figure.
@@ -450,7 +593,22 @@ def draw_setup(
     # The start mark taped on the table.
     mark = setup["mark"]
     axis.plot(*mark, marker = "+", markersize = 16, markeredgewidth = 2.2, color = "black", zorder = 5)
-    axis.annotate("START\nMARK", mark, xytext = (-46, 10), textcoords = "offset points", fontsize = 8, fontweight = "bold", zorder = 6)
+    axis.annotate(setup.get("mark_label", "START\nMARK"), mark, xytext = (-46, 10), textcoords = "offset points", fontsize = 8,
+                  fontweight = "bold", zorder = 6)
+    if setup.get("corner_distances_cm"):
+        # A new track: the taped cross of table_marks.pdf (the direction line along +x and the cross line along y through
+        # the mark), where the arm's tip comes down, and every paper corner's distance from the mark.
+        axis.plot([settings["base_half_width_cm"], settings["view_x_cm"][1]], [mark[1], mark[1]], color = "black", linewidth = 0.9,
+                  linestyle = "-.", zorder = 2)
+        axis.plot([mark[0], mark[0]], settings["view_y_cm"], color = "black", linewidth = 0.9, linestyle = "-.", zorder = 2)
+        axis.plot(*setup["start_tip"], marker = "o", markersize = 4, markerfacecolor = "white", markeredgecolor = "black", zorder = 5)
+        axis.annotate("arm's tip\nat the start", setup["start_tip"], xytext = (-44, -26), textcoords = "offset points", fontsize = 7, zorder = 6)
+        for corner, distance in zip(setup["paper"], setup["corner_distances_cm"]):
+            outward = corner - setup["paper"].mean(axis = 0)
+            outward = outward / numpy.linalg.norm(outward)
+            axis.annotate(f"{distance:.1f} cm", corner, xytext = tuple(14 * outward), textcoords = "offset points", fontsize = 8,
+                          color = "#444444", ha = "center", va = "center", zorder = 8,
+                          bbox = {"boxstyle": "round,pad=0.1", "facecolor": "white", "edgecolor": "none", "alpha": 0.85})
 
     # The puck, and for an offset start the cap it is moved away from.
     radius = settings["puck_diameter_cm"] / 2
@@ -572,6 +730,10 @@ paper = where the sheet lies before a turn. Blue x = the point to touch with the
 dashed rings: 13 and 44 cm reach (calc); green dash-dot: the tool's workspace box. The lines come from the photo-traced
 sheets (about 0.3 cm); NE, MID and X positions are drawn from the plan's words, not taught; a red frame = a reach warning
 (calc). Click a picture to see it full size.</p>
+<p class="key">New tracks T01 to T16 (sheets 11 to 26 solid, 31 to 46 dashed): black + = the NEW-TRACK MARK, where the centre of
+end A's round cap goes; black dash-dot = the taped direction and cross lines (<a href="table_marks.pdf">table_marks.pdf</a>);
+white dot = the arm's magnet tip at the start; grey numbers = each paper corner's distance from the mark in cm. The lines
+come from the drawn tracks (tracks.json), laid by its lay-out rule.</p>
 {"".join(sections)}
 </body></html>
 """
@@ -582,14 +744,117 @@ sheets (about 0.3 cm); NE, MID and X positions are drawn from the plan's words, 
 
 
 def all_setups(parameters: Dict = SETUP_VISUALS_PARAMETERS) -> List[Dict]:
-    """compute_setup() for every plan number, in plan order."""
+    """compute_setup() for every plan number of a course sheet and compute_new_track_setup() for a new track, in plan order."""
 
     sheet_lines = load_sheet_lines(parameters)
+    track_lines = load_new_track_lines()
     setups = []
     for path_id, entries in expand_episode_plan().items():
         for plan_number, entry in entries.items():
-            setups.append(compute_setup(path_id, plan_number, entry, sheet_lines, parameters))
+            if is_new_track(path_id):
+                setups.append(compute_new_track_setup(path_id, plan_number, entry, track_lines, parameters))
+            else:
+                setups.append(compute_setup(path_id, plan_number, entry, sheet_lines, parameters))
     return setups
+
+
+
+def write_table_marks(
+        output_path: Path,
+        parameters: Dict = SETUP_VISUALS_PARAMETERS
+) -> Path:
+    """
+    Write table_marks.pdf: one A4 page on taping the new-track mark and its two lines onto the table once.
+
+    The mark is the lay-out rule's (tracks.json); the base is the pictures' square ("base_half_width_cm", calc, not
+    measured); the arm's tip at the start is the recorder's start pose (config start_pose()); the paper's reach comes
+    from the chosen lay-outs in tracks.json (calc).
+
+    Parameters
+    ----------
+    output_path : Path
+        The PDF to write.
+    parameters : dict, optional
+        SETUP_VISUALS_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    Path
+        The page written.
+    """
+
+    settings = dict(SETUP_VISUALS_PARAMETERS)
+    settings.update(parameters)
+    with open(NEW_TRACK_RECORDING_PARAMETERS["tracks_file"], encoding = "utf-8") as file:
+        lay_outs = [track["lay_out"] for track in json.load(file)["tracks"] if track["role"] == "training"]
+    track_lines = load_new_track_lines()
+    mark = next(iter(track_lines.values()))["mark_cm"]
+    half = settings["base_half_width_cm"]
+    tip = numpy.array(start_pose()[:2]) * 100
+    nearest_cm = min(lay_out["paper_near_cm"] for lay_out in lay_outs)
+    farthest_cm = max(lay_out["paper_front_cm"] for lay_out in lay_outs)
+    most_left_cm = max(lay_out["paper_left_cm"] for lay_out in lay_outs)
+    most_right_cm = max(lay_out["paper_right_cm"] for lay_out in lay_outs)
+
+    figure = pyplot.figure(figsize = (8.27, 11.69))
+    axis = figure.add_axes([0.08, 0.47, 0.84, 0.45])
+    axis.add_patch(patches.Rectangle((-half, -half), 2 * half, 2 * half, facecolor = "#b8b8b8", edgecolor = "#555555"))
+    axis.text(0, 0, "ROBOT\nbase", ha = "center", va = "center", fontsize = 10)
+    axis.plot([-half - 3, farthest_cm + 4], [0, 0], color = "#999999", linewidth = 0.8, linestyle = ":")
+    axis.text(farthest_cm + 4, 0.6, "base axis line", fontsize = 8, color = "#777777", ha = "right")
+    axis.plot([half, farthest_cm + 5], [mark[1], mark[1]], color = "black", linewidth = 2.2)
+    axis.text(farthest_cm + 5, mark[1] - 1.6, "DIRECTION LINE", fontsize = 9, fontweight = "bold", ha = "right", va = "top")
+    axis.plot([mark[0], mark[0]], [-most_right_cm - 3, most_left_cm + 3], color = "black", linewidth = 2.2)
+    axis.text(mark[0] + 0.6, most_left_cm + 3, "CROSS LINE", fontsize = 9, fontweight = "bold", va = "top")
+    axis.plot(*mark, marker = "+", markersize = 22, markeredgewidth = 2.5, color = "tab:red", zorder = 5)
+    axis.annotate("NEW-TRACK MARK\n(centre of end A's cap)", mark, xytext = (14, 18), textcoords = "offset points", fontsize = 9,
+                  color = "tab:red", fontweight = "bold")
+    axis.plot(*tip, marker = "o", markersize = 6, markerfacecolor = "white", markeredgecolor = "black", zorder = 5)
+    axis.annotate("arm's magnet tip\nat the start", tip, xytext = (-30, -36), textcoords = "offset points", fontsize = 8)
+    example = compute_new_track_setup(*next((path_id, number, entry) for path_id, entries in expand_episode_plan().items()
+                                            if is_new_track(path_id) for number, entry in entries.items()), track_lines)
+    axis.add_patch(patches.Polygon(example["paper"], closed = True, fill = False, linestyle = "--", edgecolor = "#888888"))
+    axis.plot(example["line"][:, 0], example["line"][:, 1], color = "#555555", linewidth = 3, alpha = 0.5)
+    axis.text(example["paper"][:, 0].max() - 1, example["paper"][:, 1].min() + 1, "example: T01 laid by the rule", fontsize = 8,
+              color = "#666666", ha = "right")
+    axis.annotate("", (mark[0], -most_right_cm - 1), (half, -most_right_cm - 1), arrowprops = {"arrowstyle": "<->", "color": "tab:blue"})
+    axis.text((mark[0] + half) / 2, -most_right_cm - 0.5, f"{mark[0] - half:.1f} cm", color = "tab:blue", ha = "center", fontsize = 9)
+    axis.annotate("", (mark[0], mark[1] - 9), (tip[0], mark[1] - 9), arrowprops = {"arrowstyle": "<->", "color": "tab:blue"})
+    axis.text((mark[0] + tip[0]) / 2, mark[1] - 11, f"about {round(2 * (mark[0] - tip[0])) / 2:g} cm", color = "tab:blue", ha = "center", fontsize = 9)
+    axis.set_xlim(-half - 4, farthest_cm + 8)
+    axis.set_ylim(-most_right_cm - 5, most_left_cm + 5)
+    axis.set_aspect("equal")
+    axis.grid(alpha = 0.25)
+    axis.set_xlabel("cm in front of the base axis (away from the robot)")
+    axis.set_ylabel("cm, left is up (seen from behind the robot)")
+    figure.suptitle("Table marks for the new tracks T01 to T16 (tape once, keep all day)", fontsize = 13, fontweight = "bold", y = 0.965)
+
+    steps = [
+        f"1. DIRECTION LINE: a straight tape line on the table, pointing straight away from the robot, {abs(mark[1]):.1f} cm to the RIGHT of "
+        f"the middle of the base's front edge (seen from behind the robot), from the base's front edge to about {farthest_cm + 5:.0f} cm out.",
+        f"2. CROSS LINE: a straight tape line square to the direction line, crossing it {mark[0]:.1f} cm in front of the base axis, which is "
+        f"{mark[0] - half:.1f} cm in front of the base's front edge (calc: the base drawn as a {2 * half:.1f} cm square around its axis; "
+        f"Niryo's sheet gives a footprint of 18.2 x 18.8 cm, so measure your base's front edge once). At least {max(most_left_cm, most_right_cm) + 3:.0f} cm to each side.",
+        "3. Where the two lines cross is the NEW-TRACK MARK. Use dark tape or a pen line on light tape, so it shows beside the paper. "
+        "It is not the course sheets' START MARK: lay the course sheets as before.",
+        f"4. Check, only with the robot running and Emranul's go: when the arm comes down at the start of an episode, its magnet tip "
+        f"stands on the direction line about {round(2 * (mark[0] - tip[0])) / 2:g} cm before the mark (calc from config.py: "
+        f"{tip[0]:.2f}, {tip[1]:.2f} cm; measured in the 148 start-mark recordings: 14.0, -1.5 cm). Do not touch the arm while its "
+        f"motors are on.",
+        "5. Every new sheet: the centre of end A's round cap (A is written on the back) over the mark, the first straight piece of the "
+        "line along the direction line (the tape shows at the paper's near and far edges, the cross line at both sides), the sheet not "
+        "turned. Check one or two corner distances of the set-up picture with a ruler, then tape the corners down.",
+        f"Sizes, calc from the lay-out check (tracks.json): the paper's near edge {nearest_cm:.1f} cm or more in front of the base axis, "
+        f"its far edge at most {farthest_cm:.1f} cm; it reaches at most {most_left_cm:.1f} cm to the left and {most_right_cm:.1f} cm to "
+        f"the right of the base axis line. Keep the table clear that far."
+    ]
+    text_axis = figure.add_axes([0.08, 0.03, 0.84, 0.40])
+    text_axis.axis("off")
+    wrapped = "\n\n".join(textwrap.fill(step, 105) for step in steps)
+    text_axis.text(0.0, 1.0, wrapped, va = "top", ha = "left", fontsize = 9.5, family = "sans-serif")
+    figure.savefig(output_path)
+    pyplot.close(figure)
+    return output_path
 
 
 
@@ -597,12 +862,17 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description = "Draw one set-up picture per plan number and a page that lists them.")
     parser.add_argument("--plan", help = "only this plan number, for example 02-07 (the page is not rewritten)")
+    parser.add_argument("--new-tracks", action = "store_true",
+                        help = "only the new tracks' pictures and table_marks.pdf; the course sheets' pictures stay as they are")
     arguments = parser.parse_args()
 
     output_folder = PROJECT_FOLDER / SETUP_VISUALS_PARAMETERS["output_folder"]
     output_folder.mkdir(parents = True, exist_ok = True)
     setups = all_setups()
-    chosen = [setup for setup in setups if arguments.plan in (None, setup["plan_number"])]
+    chosen = [setup for setup in setups if arguments.plan in (None, setup["plan_number"])
+              and (not arguments.new_tracks or setup.get("is_new_track"))]
+    if arguments.new_tracks:
+        print(f"Table marks: {write_table_marks(output_folder / 'table_marks.pdf')}")
     if not chosen:
         raise SystemExit(f"No plan number {arguments.plan} in the episode plan.")
     for setup in chosen:

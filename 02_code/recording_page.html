@@ -483,6 +483,12 @@ function explainEnd(status) {
   return `${status.title} ended with an error (code ${status.exit_code}). Read the messages below.`;
 }
 
+// One status request at a time (12.11.26): the next is asked a second after the last answer, so slow answers never pile up.
+async function pollStatus() {
+  await refreshStatus();
+  window.setTimeout(pollStatus, 1000);
+}
+
 async function refreshStatus() {
   let status;
   try {
@@ -493,7 +499,7 @@ async function refreshStatus() {
     return;
   }
   const code = status.code;
-  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : "Code version unknown";
+  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : code.is_reading ? "Reading the code version…" : "Code version unknown";
   const warning = element("warning");
   warning.textContent = code.has_uncommitted_code ? "02_code has uncommitted changes, so episodes would not match their recorded code version. Commit before real data." : "";
   warning.classList.toggle("shown", code.has_uncommitted_code);
@@ -625,7 +631,7 @@ async function initialise() {
     suggestNextPlanNumber(false);
   });
   await refreshStatus();
-  window.setInterval(refreshStatus, 1000);
+  window.setTimeout(pollStatus, 1000);
 }
 
 initialise().catch(() => showMessage("The page could not load its options. Is recording_page.py still running?"));

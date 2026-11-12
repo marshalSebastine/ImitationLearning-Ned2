@@ -44,11 +44,12 @@ import cv2
 import numpy
 
 
-from config import CHECK_PARAMETERS, RECORDING_PARAMETERS
+from config import CHECK_PARAMETERS, RECORDING_PARAMETERS, main_checkout_folder
 from puck_detector import PuckDetector
 from side_view_test import magnet_tip_and_lean, ned2_fk
 
-PROJECT_FOLDER = Path(__file__).resolve().parent.parent
+# Used only for 03_data: this checkout, or the main checkout when the checker runs from a git worktree.
+PROJECT_FOLDER = main_checkout_folder()
 
 # record_episodes.py is changed often (twice on the night of 5 to 6.11.26 alone); should a work-in-progress version not
 # import, the checker still runs and skips only what needs it: the camera-shift recomputation and the picture heading
