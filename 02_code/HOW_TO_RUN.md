@@ -146,6 +146,73 @@ Tests of the training code (under a minute):
 
     D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_training.py
 
+### Training on the OTH GPU pool (ki-014, since 10.11.26)
+
+The computer ki-014 in the OTH GPU pool trains about 10 times faster than this laptop: one held-out sheet in about 2
+minutes instead of about 19. Our code, the processed training data and a private Python environment are already there,
+in `~/ai_project` (Emranul's home folder). Why and what was set up: section 11.4 of
+`06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`.
+
+Before you start:
+
+- Connect the OTH VPN (FortiClient). Without it ki-014 cannot be reached.
+- Every login and every copy asks for your OTH password (the Moodle one). Type it yourself; nothing is shown while you
+  type. If you wait about two minutes, the login closes and you start again.
+- Lab rules: the pool's rules forbid copying software or data and installing programs. Adel allowed us an exception by
+  e-mail on 10.11.26: only our own code and data, only inside the home folder, and Python packages only in
+  `~/ai_project/.venv`. Install nothing else.
+- Compare a ki-014 result only with other ki-014 results: the same settings give somewhat different numbers on the
+  laptop (report, section 11.4).
+
+1. Log in (from the Terminal panel; the prompt then changes to ki-014):
+
+        ssh e.hoque@oth-aw.de@ki-014.oth-aw.de
+
+2. Start a run in the background, so it goes on after you log out. Replace `RUN_NAME` (twice) by a name from
+   `TRAINING_RUNS` in `config.py`, for example `resnet18_final_candidate`:
+
+        cd ~/ai_project/02_code && nohup sh -c '../.venv/bin/python -u train_policy.py RUN_NAME > ../logs/RUN_NAME.log 2>&1' > /dev/null 2>&1 &
+
+   What the parts do: `nohup` keeps the run going after you log out; `-u` makes Python write its messages at once;
+   `> ../logs/RUN_NAME.log 2>&1` sends all its messages and errors to that log file (read in step 3); the final `&` runs
+   it in the background and gives the prompt back.
+
+   It prints at most a job number and gives the prompt back at once; the run is going on. Six held-out sheets take about
+   11 minutes.
+
+3. Check the progress (still logged in to ki-014):
+
+        tail -n 20 ~/ai_project/logs/RUN_NAME.log
+
+   Each finished held-out sheet adds one line starting with the run name and the sheet, for example
+   `RUN_NAME | without_path_03 | {"within_45_deg": ...}`. An error shows as a "Traceback" at the end of the log.
+   `pgrep -af train_policy` lists the runs still going (no line: nothing is running), and `nvidia-smi` shows how busy
+   the graphics card is.
+
+4. Optional, on ki-014: one table of every ki-014 result, written to `~/ai_project/04_runs/comparison.md`:
+
+        cd ~/ai_project/02_code && ../.venv/bin/python compare_runs.py
+
+5. Log out with `exit`. The run goes on.
+
+6. Copy results back to the laptop. Run this on the laptop in PowerShell (as on 10.11; Git Bash reads the backslashes
+   differently), not inside the ki-014 login. The results of a run are in
+   `~/ai_project/04_runs/<date>_<run name>/` (list them with `ls ~/ai_project/04_runs` while logged in). Copy one run
+   folder at a time into the existing `gpu_ki014` folder; replace `RUN_FOLDER` by the folder's name (`scp` copies files
+   over the same login as `ssh`; `-r` copies a whole folder):
+
+        scp -r e.hoque@oth-aw.de@ki-014.oth-aw.de:~/ai_project/04_runs/RUN_FOLDER D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\
+
+   and the table of step 4:
+
+        scp e.hoque@oth-aw.de@ki-014.oth-aw.de:~/ai_project/04_runs/comparison.md D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\
+
+   On 10.11 the whole results folder was copied once with
+   `scp -r e.hoque@oth-aw.de@ki-014.oth-aw.de:~/ai_project/04_runs D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014`,
+   which made `gpu_ki014`. Now that the folder exists, the same line would put a second `04_runs` folder inside it, so
+   use the one-folder lines above. A run folder with its six checkpoints (51 MB each) is a few hundred MB; the copy runs
+   at about 11 MB/s.
+
 ## Stopping
 
 - Esc at the "Put the puck at the start" prompt ends the session; the robot goes home.

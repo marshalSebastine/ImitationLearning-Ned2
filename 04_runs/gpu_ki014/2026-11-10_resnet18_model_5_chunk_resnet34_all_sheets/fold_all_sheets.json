@@ -1,0 +1,58 @@
+{
+ "measures": {
+  "fold": "all_sheets",
+  "train_rows": 18032,
+  "epochs_run": 8,
+  "minutes": 3.2
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 1.75,
+   "validation_loss": null,
+   "seconds": 27.5
+  },
+  {
+   "epoch": 2,
+   "train_loss": 1.2475,
+   "validation_loss": null,
+   "seconds": 24.8
+  },
+  {
+   "epoch": 3,
+   "train_loss": 1.1022,
+   "validation_loss": null,
+   "seconds": 23.2
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.9917,
+   "validation_loss": null,
+   "seconds": 22.9
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.9244,
+   "validation_loss": null,
+   "seconds": 23.4
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.8366,
+   "validation_loss": null,
+   "seconds": 23.1
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.7788,
+   "validation_loss": null,
+   "seconds": 24.5
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.7554,
+   "validation_loss": null,
+   "seconds": 23.1
+  }
+ ]
+}

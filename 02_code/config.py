@@ -594,8 +594,10 @@ RECORDING_PARAMETERS = {
         "turn_left": 30,
         "turn_right": -30
     },
-    "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
-    "max_turn_deg": 90,
+    # both sides since 4.11.26 (Emranul): v turns towards +, b towards -; 11.11.26 (Emranul): no tighter than about 2 to 3
+    # degrees inside the hardware limit (the arm model's 119.75), so recordings can use the forearm's full swing
+    "min_turn_deg": -117,
+    "max_turn_deg": 117,
     # After a turn the tip stands at least this far back from the puck, opposite to the last push, instead of on its old
     # spot: the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by
     # about 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The tool keeps count of how far the block
@@ -1564,7 +1566,9 @@ TRAINING_PROBE_EXPERIMENTS = {
 # keeps a 3 x 4 grid of cells, so the head knows where the line runs relative to the puck. Augmentation strengths:
 # brightness, contrast and saturation as plus or minus shares, gamma as plus or minus its natural logarithm, blur
 # sigma in pixels, noise as a share of full scale, shift in pixels (the taped camera crept up to about 8 px between
-# episodes at 640 px, about 2 px at 160 px), and the share of mirrored pictures (0: off).
+# episodes at 640 px, about 2 px at 160 px), and the share of mirrored pictures (0: off). "device" "auto" trains on the
+# graphics card when PyTorch sees one (the OTH GPU pool, 10.11.26) and on the processor otherwise (the laptop); the
+# augmentation always runs on the processor, so "threads" still matters on the pool.
 TRAINING_RUN_PARAMETERS = {
     "backbone": "resnet18.tv_in1k",
     "is_pretrained": True,
@@ -1597,6 +1601,7 @@ TRAINING_RUN_PARAMETERS = {
     "stop_positive_weight": 10.0,
     "seed": 9_11_26,
     "threads": 6,
+    "device": "auto",
     "date": None,
     "output_root": Path(__file__).resolve().parent.parent / "04_runs"
 }
@@ -1813,9 +1818,174 @@ TRAINING_RUNS["resnet18_backup_names_plus_exact"] = {"design": "mixed", "is_stop
                                                      "is_last_checkpoint_kept": True}
 TRAINING_RUNS["resnet18_final_candidate_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = 10_11_26)
 
+# 10.11.26, on the GPU pool: the final candidate with only the augmentation switched off, with both seeds, so that the
+# effect of augmentation is measured alone ("resnet18_finetune_no_augmentation" differs from the final candidate in its
+# design, cleaning and epochs as well, so it cannot answer this).
+TRAINING_RUNS["resnet18_final_candidate_no_augmentation"] = dict(TRAINING_RUNS["resnet18_final_candidate"], augmentation = NO_AUGMENTATION)
+TRAINING_RUNS["resnet18_final_candidate_no_augmentation_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_seed_2"], augmentation = NO_AUGMENTATION)
+
+# 10.11.26 (Emranul): model 1 for the first robot tests, the final candidate's recipe (augmentation kept, as the fair
+# test above decided) trained on every sheet and episode with no check pictures ("split" "all"), with both seeds so
+# that a spare exists. It has no offline score of its own; the robot is its test.
+TRAINING_RUNS["resnet18_model_1_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate"], split = "all", date = "2026-11-10")
+TRAINING_RUNS["resnet18_model_1_all_sheets_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_seed_2"], split = "all", date = "2026-11-10")
+
+# 10.11.26 night queue on ki-014 (Emranul: "if you want to train or test more, do it"): three more seeds of the final
+# candidate, so that five seeds can be scored as one averaging team (an ensemble) on the six held-out sheets, and the
+# same three on all sheets; the chunk target (the report's backup candidate if the names-plus-exact backup is dropped)
+# on the final candidate's recipe, two seeds, and on all sheets; and the final candidate with 16 rounds instead of 8.
+# Each six-sheet run is scored before its all-sheets copy is used on the robot.
+for seed_number, seed in ((3, 11_11_26), (4, 12_11_26), (5, 13_11_26)):
+    TRAINING_RUNS[f"resnet18_final_candidate_seed_{seed_number}"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = seed, date = "2026-11-10")
+    TRAINING_RUNS[f"resnet18_model_1_all_sheets_seed_{seed_number}"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = seed, split = "all", date = "2026-11-10")
+TRAINING_RUNS["resnet18_final_candidate_chunk"] = dict(TRAINING_RUNS["resnet18_final_candidate"], design = "chunk", date = "2026-11-10")
+TRAINING_RUNS["resnet18_final_candidate_chunk_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_model_2_chunk_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], split = "all")
+TRAINING_RUNS["resnet18_final_candidate_16_rounds"] = dict(TRAINING_RUNS["resnet18_final_candidate"], epochs = 16, date = "2026-11-10")
+TRAINING_RUNS["resnet18_model_3_16_rounds_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate_16_rounds"], split = "all")
+
+# 11.11.26, round 1 of the search before the first robot test (Emranul: reach the ceiling of what the data allows). The
+# night showed the chunk target steering best (path within 45 0.817 and 0.802 against 0.772 to 0.793 for five seeds of
+# the final candidate) but stopping worse, and every model turning the forearm about half as much as the demonstrations.
+# Each idea changes one thing of the chunk recipe, with two seeds: the stop's weight, the twist's weight (a smaller
+# angle scale makes a twist error count more), a longer chunk, and two larger backbones. Decision rule, fixed before the
+# results: a change is kept only when both seeds beat the chunk's mean path within 45 (0.810) by 1.5 points or more and
+# stop right no less often, or stop right at least 8 episodes more often (of 209) without losing a point of path.
+CHUNK_IDEAS = {
+    "chunk_stop_weight_25": {"stop_positive_weight": 25.0},
+    "chunk_twist_focus": {"angle_scale_deg": 2.5},
+    "chunk_8_steps": {"chunk_steps": 8},
+    "chunk_resnet34": {"backbone": "resnet34.tv_in1k"},
+    "chunk_efficientnet_b0": {"backbone": "efficientnet_b0.ra_in1k"}
+}
+for idea_name, idea in CHUNK_IDEAS.items():
+    TRAINING_RUNS[f"resnet18_{idea_name}"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], **idea)
+    TRAINING_RUNS[f"resnet18_{idea_name}_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk_seed_2"], **idea)
+
+# 11.11.26, round 1 by the rule above: two ideas passed on the stop branch, both seeds stopping right more often without
+# losing a point of path within 45 (chunk 87 and 87 right stops, path 0.817 and 0.802): the stop weighted 25 (103 and 105,
+# never stopped 71 and 51; path 0.808 and 0.800) and ResNet-34 (95 and 101; path 0.813 and 0.807). The twist focus, the
+# 8-step chunk and EfficientNet-B0 did not pass. Both passing ideas are trained on all sheets for the robot (models 4 and
+# 5); their combination is scored by the same rule before its all-sheets copy is used.
+TRAINING_RUNS["resnet18_model_4_chunk_stop_25_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "all")
+TRAINING_RUNS["resnet18_model_5_chunk_resnet34_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34"], split = "all")
+TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34"], stop_positive_weight = 25.0)
+TRAINING_RUNS["resnet18_chunk_resnet34_stop_25_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_seed_2"], stop_positive_weight = 25.0)
+TRAINING_RUNS["resnet18_model_6_chunk_resnet34_stop_25_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"], split = "all")
+
+
+# The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
+# 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
+# turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
+# "twist_step_most_deg" per step and stays within "joint_4_most_deg" (the demonstrations reached 119.35 against the arm
+# model's 119.75). The wrist (joint 5) and the hand (joint 6) are held at the median of the demonstrations' first rows
+# (13.5 and -6.1 degrees, frames.csv on 10.11.26) and joints 1 to 3 put the tip on its target. A direction shorter than
+# "smallest_direction_cm" is too short to trust, so the last step's direction is kept. The run stops when the stop
+# chance reaches "stop_threshold" on "stop_pictures_in_a_row" pictures in a row (the rule fixed in 7.2), after
+# "step_budget" steps (the longest demonstration had 226), or at the first refused step. Guards [judgement, to be
+# checked in phase 0a of report 7.4]: the rod may lean at most "rod_lean_most_deg" (the demonstrations: 99th percentile
+# 49.1, 99.9th 55.8, largest 63.0; with the wrist held, 5 of 400 recorded steps needed 50.6 to 57.6), the tip stays
+# "tip_reach_m" from the base (demonstrated 13.0 to 48.5 cm), and the tip and the puck's centre ahead of it stay inside
+# "workspace_x_m" and "workspace_y_m", the demonstrated tips of 6 to 9.11.26 (x 12.5 to 48.1, y -28.7 to 23.7 cm) with
+# about 1 cm to spare, widened by "puck_margin_m" for the puck. WORKSPACE_PARAMETERS' box is the old table's and refused
+# 4 % of recorded steps. Runs are logged under "run_folder", never in 03_data/raw.
+MODEL_MODE_PARAMETERS = {
+    "run_name": "resnet18_model_1_all_sheets",
+    "checkpoint_path": Path(__file__).resolve().parent.parent / "04_runs" / "gpu_ki014" / "2026-11-10_resnet18_model_1_all_sheets" / "checkpoints" / "all_sheets.pt",
+    "metrics_path": Path(__file__).resolve().parent.parent / "04_runs" / "gpu_ki014" / "2026-11-10_resnet18_model_1_all_sheets" / "metrics.json",
+    "step_m": 0.01,
+    # 11.11.26, first robot test: with the fixed step the robot pushed on where the model asked for a short step (the
+    # demonstrations twist the forearm in place at sharp bends): the median asked length was 0.31 cm on sheet 04 and 0.49
+    # to 0.55 cm on sheet 03, where the runs failed, against 0.8 to 1.1 cm on sheets 01, 02 and 05, where they worked.
+    # With "step_length_rule" "predicted" the tip moves the predicted length times "step_length_gain", at most
+    # "step_most_m" (the backup of report 4.4, without its 0.5 cm floor, so that a twist in place stays in place). A run
+    # whose tips all stay within "stall_extent_m" (the diagonal of the box round them) while the forearm turns by less
+    # than "stall_twist_deg" over "stall_steps" pictures is ended as stalled [judgement; report 7.4 counts a stall or a
+    # back-and-forth as a failed run].
+    "step_length_rule": "fixed",
+    "step_length_gain": 1.0,
+    "step_most_m": 0.01,
+    "stall_steps": 30,
+    "stall_extent_m": 0.03,
+    "stall_twist_deg": 15.0,
+    "twist_step_most_deg": 10.0,
+    # the models turn the forearm about half as much as the demonstrations (11.11.26: on unseen sheets the mean predicted
+    # twist was 1.7 to 3.6 degrees against 4.1 to 5.8 demonstrated, right sign in 68 to 84 %), so the robot test can
+    # try the predicted twist times "twist_gain" (1.0 = as predicted) before the clamps
+    "twist_gain": 1.0,
+    # 11.11.26 (Emranul): limits only about 2 to 3 degrees inside the hardware's (joint 4: 119.75 in the arm model);
+    # the demonstrations reached 119.35, so 115 cut off part of the loops' forearm swing
+    "joint_4_most_deg": 117.0,
+    "wrist_held_deg": 13.5,
+    "hand_held_deg": -6.1,
+    "smallest_direction_cm": 0.05,
+    "stop_threshold": 0.5,
+    "stop_pictures_in_a_row": 2,
+    "step_budget": 250,
+    "rod_lean_most_deg": 58.0,
+    "tip_reach_m": [0.12, 0.495],
+    "workspace_x_m": [0.115, 0.49],
+    "workspace_y_m": [-0.30, 0.25],
+    "puck_margin_m": 0.03,
+    "lift_at_end_m": 0.05,
+    "settle_lift_m": 0.03,
+    "pictures_after_move": RECORDING_PARAMETERS["steps_until_fresh_picture"],
+    "fresh_picture_timeout_s": RECORDING_PARAMETERS["fresh_picture_timeout_s"],
+    "run_folder": main_checkout_folder() / "03_data" / "model_runs",
+    # the checks without the robot: the fold model and saved predictions of the laptop's first set-up for the replay,
+    # and how many recorded rows the executor check and the replay use
+    "replay_run_folder": Path(__file__).resolve().parent.parent / "04_runs" / "2026-11-09_resnet18_final_candidate",
+    "replay_run_name": "resnet18_final_candidate",
+    "replay_fold": "without_path_01",
+    "replay_rows": 200,
+    "executor_check_rows": 400,
+    "executor_check_smallest_step_m": 0.005,
+    "executor_check_seed": 10_11_26,
+    "simulated_step_budget": 30,
+    # the solver's first guess for joints 2 and 3 (radians), and how far the hand-placed tip may be from pushing height
+    # before a robot run refuses to start (the demonstrated tip heights spread from 0.9 to 2.3 cm, 5th to 95th percentile)
+    "solver_start_joints_2_and_3_rad": [-0.8, -0.6],
+    "start_height_tolerance_m": 0.02
+}
+
 # 10.11.26 (after the design review): every run is also scored with the stop rule the judges chose for all models, a
 # fixed threshold of 0.5 on two pictures in a row ("fixed_two_"); compare_runs.py rescores older runs from their saved
 # predictions.
 TRAINING_COMPARISON_PARAMETERS["columns"][-1:-1] = [("fixed_two_episodes_stopped_right_mean", "stopped right, fixed 0.5, 2 in a row"),
                                                     ("fixed_two_episodes_stopped_early_mean", "stopped early, fixed 0.5, 2 in a row"),
                                                     ("fixed_two_episodes_never_stopped_mean", "never stopped, fixed 0.5, 2 in a row")]
+
+
+# Printable test tracks (make_test_tracks.py, 11.11.26; report 7.4 "a written random rule"): A4 portrait like the six
+# course sheets, the line "line_width_mm" thick with round ends (dashed: square-ended dashes of "dash_mm" with "gap_mm"
+# between, as sheet 06), its centre at least "edge_margin_mm" from the paper's edge. A track is a smooth random curve, kept
+# only when its length lies within the six sheets' 24 to 77 cm (lengths in RECORDING
+# PARAMETERS), it bends no tighter than "smallest_radius_mm" (the loops of sheets 05 and 06 measure about 40 to 50 mm on
+# the photos, a guess), its parts that are not neighbours keep "smallest_gap_mm" between centres except at a planned
+# crossing (crossed at "smallest_crossing_deg" or more), and its far end lies near (< "near_end_mm") or far (>
+# "far_end_mm") from the edge as planned. It is driven like a car through straight pieces ("straight_share" of them) and
+# arcs, each "piece_mm" long, an arc bending to the other side than the last one "side_change_share" of the time (S-curves
+# and meanders against loops). The start is within "start_from_bottom_mm" of the bottom edge, the robot's
+# side when the sheet lies as in the recordings. Three sets: practice (may be trained on later), validation (only for
+# choosing between models) and test (sealed: printed and kept out of sight until used, as report 7.4 asks).
+TEST_TRACK_PARAMETERS = {
+    "page_mm": [210.0, 297.0],
+    "line_width_mm": 10.0,
+    "dash_mm": 35.0,
+    "gap_mm": 15.0,
+    "edge_margin_mm": 22.0,
+    "length_mm": [240.0, 770.0],
+    "smallest_radius_mm": 35.0,
+    "smallest_gap_mm": 25.0,
+    "smallest_crossing_deg": 45.0,
+    "near_end_mm": 45.0,
+    "far_end_mm": 90.0,
+    "start_from_bottom_mm": 70.0,
+    "piece_mm": [30.0, 140.0],
+    "straight_share": 0.2,
+    "side_change_share": 0.6,
+    "sets": {"practice": 6, "validation": 4, "test": 10},
+    "seed": 11_11_26,
+    "attempts_per_track": 60_000,
+    "output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "test_tracks"
+}

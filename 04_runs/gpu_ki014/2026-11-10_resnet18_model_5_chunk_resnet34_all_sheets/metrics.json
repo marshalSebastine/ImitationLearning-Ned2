@@ -1,0 +1,106 @@
+{
+ "name": "resnet18_model_5_chunk_resnet34_all_sheets",
+ "settings": {
+  "backbone": "resnet34.tv_in1k",
+  "is_pretrained": true,
+  "small_cnn_channels": [
+   32,
+   64,
+   96,
+   128,
+   192
+  ],
+  "pooling": "grid",
+  "pooling_grid": [
+   3,
+   4
+  ],
+  "hidden_size": 256,
+  "dropout": 0.2,
+  "design": "chunk",
+  "split": "all",
+  "picture_cache": "wide_160",
+  "picture_size": [
+   160,
+   120
+  ],
+  "normalisation": {
+   "mean": [
+    0.485,
+    0.456,
+    0.406
+   ],
+   "std": [
+    0.229,
+    0.224,
+    0.225
+   ]
+  },
+  "augmentation": {
+   "brightness": 0.35,
+   "contrast": 0.3,
+   "saturation": 0.25,
+   "gamma_log": 0.25,
+   "blur_probability": 0.15,
+   "blur_sigma_most": 0.8,
+   "noise_most": 0.03,
+   "shift_px": 4,
+   "mirror_probability": 0.0,
+   "channel_gain": 0.08
+  },
+  "learning_rate": 0.001,
+  "backbone_learning_rate_factor": 0.3,
+  "weight_decay": 0.05,
+  "batch_size": 64,
+  "epochs": 8,
+  "warm_up_epochs": 1,
+  "patience": 99,
+  "evaluation_batch_size": 256,
+  "class_weight_power": 0.5,
+  "score_weights": {
+   "1": 1.0,
+   "2": 1.0,
+   "3": 1.0
+  },
+  "label_smoothing": 0.0,
+  "twist_loss_weight": 0.5,
+  "angle_scale_deg": 5.0,
+  "huber_delta": 1.0,
+  "stop_positive_weight": 10.0,
+  "seed": 91126,
+  "threads": 6,
+  "device": "cuda",
+  "date": "2026-11-10",
+  "output_root": "/home/e7dc/ai_project/04_runs",
+  "is_stop_separate": false,
+  "stop_target": "stop_row",
+  "train_share_per_epoch": 0.5,
+  "input_channels": "rgb",
+  "goal_distance_cap_cm": 10.0,
+  "is_last_checkpoint_kept": true,
+  "is_audit_cleaning": true,
+  "name": "resnet18_model_5_chunk_resnet34_all_sheets",
+  "chunk_steps": 5
+ },
+ "class_names": [
+  "forward",
+  "forward_left",
+  "forward_right",
+  "left",
+  "right",
+  "back",
+  "back_left",
+  "back_right",
+  "stop"
+ ],
+ "milliseconds_per_picture": 21.2,
+ "folds": [
+  {
+   "fold": "all_sheets",
+   "train_rows": 18032,
+   "epochs_run": 8,
+   "minutes": 3.2
+  }
+ ],
+ "summary": {}
+}

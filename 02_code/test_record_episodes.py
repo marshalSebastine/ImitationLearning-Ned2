@@ -88,7 +88,7 @@ def test_picture_steps_point_the_right_way() -> None:
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
     Three "v" presses turn the forearm 30, 60 and 90 degrees, the first landing the tip back from the puck (away from
-    it), the others not again; a fourth is refused (-90 to 90 allowed); while turned, forward goes where the turned
+    it), the others not again; a fourth is refused (the test sets -90 to 90; the tool allows -117 to 117 since 11.11.26); while turned, forward goes where the turned
     picture's top points and left 90 degrees from it; three "b" turn back and forward is +x again; after five steps a
     further "b" turns to -30 and lands near the tip as it is then; every row logs the forearm angle.
     """
@@ -100,7 +100,7 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     turn_keys = dict(RECORDING_PARAMETERS["keys"], v = "turn_left", b = "turn_right")  # unbound by default since the camera left the hand
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point,
-        "keys": turn_keys}, key_reader = scripted_keys(keys))
+        "keys": turn_keys, "min_turn_deg": -90, "max_turn_deg": 90}, key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
     episode_folder, summary, rows = read_episode(raw_folder)

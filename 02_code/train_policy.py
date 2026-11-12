@@ -290,16 +290,26 @@ def model_outputs(
         rows: numpy.ndarray,
         settings: Dict
 ) -> Dict[str, torch.Tensor]:
-    """Return the model's outputs for the given rows, without augmentation, in batches."""
+    """Return the model's outputs for the given rows, without augmentation, in batches, on the processor."""
 
     model.eval()
+    device = next(model.parameters()).device
     parts = []
     with torch.inference_mode():
         for start in range(0, len(rows), settings["evaluation_batch_size"]):
             batch_rows = rows[start:start + settings["evaluation_batch_size"]]
             inputs, _ = augmented_pictures(pictures[batch_rows], settings, numpy.random.default_rng(0), is_training = False)
-            parts.append(model(inputs))
+            parts.append({name: value.cpu() for name, value in model(inputs.to(device)).items()})
     return {name: torch.cat([part[name] for part in parts]) for name in parts[0]}
+
+
+
+def training_device(settings: Dict) -> torch.device:
+    """Return the device to train on: with "device" "auto", the graphics card when PyTorch sees one, else the processor."""
+
+    if settings["device"] == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    return torch.device(settings["device"])
 
 
 
@@ -323,8 +333,9 @@ def train_fold(
 
     torch.manual_seed(seed)
     randomness_generator = numpy.random.default_rng(seed)
+    device = training_device(settings)
     output_sizes = design_outputs(settings["design"], len(class_names), settings["chunk_steps"], settings.get("is_stop_separate", False))
-    model = PictureToMoveModel(settings, output_sizes)
+    model = PictureToMoveModel(settings, output_sizes).to(device)
     backbone_parameters = list(model.backbone.parameters())
     head_parameters = list(model.head.parameters())
     backbone_rate = settings["learning_rate"] * (settings["backbone_learning_rate_factor"] if settings["is_pretrained"] else 1.0)
@@ -354,13 +365,19 @@ def train_fold(
         for start in range(0, len(order), settings["batch_size"]):
             rows = order[start:start + settings["batch_size"]]
             inputs, is_mirrored = augmented_pictures(pictures[rows], settings, randomness_generator, is_training = True)
-            targets = batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights)
-            loss = head_losses(model(inputs), targets, head_settings)
+            targets = {name: value.to(device) for name, value in batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights).items()}
+            loss = head_losses(model(inputs.to(device)), targets, head_settings)
             optimiser.zero_grad()
             loss.backward()
             optimiser.step()
             schedule.step()
             epoch_loss += float(loss) * len(rows)
+        # the exam model ("split" "all") keeps no check pictures, so it has no validation loss and keeps its last weights
+        if len(validation_rows) == 0:
+            history.append({"epoch": epoch + 1, "train_loss": round(epoch_loss / len(order), 4), "validation_loss": None,
+                            "seconds": round(time.perf_counter() - started, 1)})
+            print(f"{settings['name']} | epoch {epoch + 1} | train {history[-1]['train_loss']} | {history[-1]['seconds']} s", flush = True)
+            continue
         outputs = model_outputs(model, pictures, validation_rows, settings)
         validation_targets = batch_targets(arrays, validation_rows, numpy.zeros(len(validation_rows), dtype = bool), mirror_class_index, direction_class_weights)
         validation_loss = float(head_losses(outputs, validation_targets, head_settings))
@@ -377,7 +394,7 @@ def train_fold(
                 break
     # validation loss is a poor guide to robot success (robomimic, Mandlekar and others 2021), so a fixed number of
     # epochs with the last weights is the default for the final model; the best-validation weights stay an option
-    if not settings.get("is_last_checkpoint_kept"):
+    if not settings.get("is_last_checkpoint_kept") and best_state is not None:
         model.load_state_dict(best_state)
     return model, history
 
@@ -429,7 +446,11 @@ def run_training(
 
     settings = merged_run_settings(run_name)
     settings.update(overrides or {})
+    settings["device"] = str(training_device(settings))
     torch.set_num_threads(settings["threads"])
+    # the pictures always have one size, so the graphics card may pick its fastest convolution once (not bit-for-bit
+    # repeatable, unlike the processor runs)
+    torch.backends.cudnn.benchmark = settings["device"] == "cuda"
     target_parameters = dict(TRAINING_TARGET_PARAMETERS)
     target_parameters.update({key: value for key, value in settings.items() if key in TRAINING_TARGET_PARAMETERS})
     settings["chunk_steps"] = target_parameters["chunk_steps"]
@@ -441,8 +462,14 @@ def run_training(
         settings["normalisation"] = {"mean": list(data_configuration["mean"]), "std": list(data_configuration["std"])}
 
     arrays, class_names, is_moving = training_arrays(frames, settings, target_parameters)
-    folds = (leave_one_sheet_out_folds(frames) if settings["split"] == "sheets"
-             else episode_folds(frames, target_parameters["episode_fold_count"], target_parameters["seed"]))
+    is_exam_model = settings["split"] == "all"
+    if is_exam_model:
+        # the exam model learns from every sheet and every episode; its test is the robot, not a held-out sheet
+        folds = [{"name": "all_sheets", "train": numpy.ones(len(frames), dtype = bool), "test": numpy.zeros(len(frames), dtype = bool)}]
+    elif settings["split"] == "sheets":
+        folds = leave_one_sheet_out_folds(frames)
+    else:
+        folds = episode_folds(frames, target_parameters["episode_fold_count"], target_parameters["seed"])
     if fold_names:
         folds = [fold for fold in folds if fold["name"] in fold_names]
 
@@ -451,7 +478,8 @@ def run_training(
     (run_folder / "checkpoints").mkdir(parents = True, exist_ok = True)
     fold_results = []
     for fold_number, fold in enumerate(folds):
-        is_validation = inner_validation_mask(frames, fold["train"], target_parameters["inner_validation_share"], target_parameters["seed"] + fold_number)
+        is_validation = (numpy.zeros(len(frames), dtype = bool) if is_exam_model
+                         else inner_validation_mask(frames, fold["train"], target_parameters["inner_validation_share"], target_parameters["seed"] + fold_number))
         train_rows = numpy.flatnonzero(fold["train"] & ~is_validation)
         validation_rows = numpy.flatnonzero(is_validation)
         test_rows = numpy.flatnonzero(fold["test"])
@@ -462,6 +490,14 @@ def run_training(
             test_rows = test_rows[:settings["train_row_limit"]]
         started = time.perf_counter()
         model, history = train_fold(settings, pictures, arrays, train_rows, validation_rows, class_names, settings["seed"] + fold_number)
+        if is_exam_model:
+            measures = {"fold": fold["name"], "train_rows": len(train_rows), "epochs_run": len(history), "minutes": round((time.perf_counter() - started) / 60.0, 1)}
+            fold_results.append(measures)
+            (run_folder / f"fold_{fold['name']}.json").write_text(json.dumps({"measures": measures, "history": history}, indent = 1), encoding = "utf-8")
+            model = model.to("cpu")
+            torch.save(model.state_dict(), run_folder / "checkpoints" / f"{fold['name']}.pt")
+            print(f"{run_name} | {fold['name']} | trained on {len(train_rows)} pictures in {measures['minutes']} min", flush = True)
+            continue
         predictions = predictions_from_outputs(model_outputs(model, pictures, test_rows, settings), class_names, settings["stop_target"])
         validation_predictions = predictions_from_outputs(model_outputs(model, pictures, validation_rows, settings), class_names, settings["stop_target"])
         measures = fold_measures(predictions, frames, test_rows, arrays, is_moving, validation_predictions, validation_rows)
@@ -469,6 +505,8 @@ def run_training(
         fold_results.append(measures)
         (run_folder / f"fold_{fold['name']}.json").write_text(json.dumps({"measures": measures, "history": history}, indent = 1), encoding = "utf-8")
         numpy.savez_compressed(run_folder / f"predictions_{fold['name']}.npz", frame_index = frames["frame_index"].to_numpy()[test_rows], **predictions)
+        # saved and timed on the processor, as the robot loop on the laptop runs it
+        model = model.to("cpu")
         torch.save(model.state_dict(), run_folder / "checkpoints" / f"{fold['name']}.pt")
         print(f"{run_name} | {fold['name']} | {json.dumps({key: measures.get(key) for key in ('within_45_deg', 'class_accuracy', 'episodes_stopped_right', 'episodes_stopped_early', 'twist_sign_accuracy')})}", flush = True)
 
@@ -478,7 +516,7 @@ def run_training(
         "class_names": class_names,
         "milliseconds_per_picture": milliseconds_per_picture(model, settings),
         "folds": fold_results,
-        "summary": summarised_folds(fold_results)
+        "summary": {} if is_exam_model else summarised_folds(fold_results)
     }
     (run_folder / "metrics.json").write_text(json.dumps(result, indent = 1), encoding = "utf-8")
     return result

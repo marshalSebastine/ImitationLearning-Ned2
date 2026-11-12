@@ -241,7 +241,8 @@ def head_losses(
     its sample weight.
     """
 
-    total = torch.zeros(())
+    device = next(iter(outputs.values())).device
+    total = torch.zeros((), device = device)
     weight = batch["sample_weight"]
     if "direction" in outputs:
         is_used = batch["direction"] >= 0
@@ -254,7 +255,7 @@ def head_losses(
         loss = torch.nn.functional.cross_entropy(outputs["twist"], batch["twist"], reduction = "none")
         total = total + parameters["twist_loss_weight"] * (loss * weight).mean()
     if "exact" in outputs:
-        scale = torch.tensor([1.0, 1.0] + [parameters["angle_scale_deg"]] * 3)
+        scale = torch.tensor([1.0, 1.0] + [parameters["angle_scale_deg"]] * 3, device = device)
         loss = torch.nn.functional.huber_loss(outputs["exact"] / scale, batch["exact"] / scale, reduction = "none",
                                               delta = parameters["huber_delta"]).sum(dim = 1)
         total = total + (loss * weight).mean()
@@ -267,7 +268,7 @@ def head_losses(
             loss = torch.nn.functional.huber_loss(outputs["stop"][:, 0], batch["stop"], reduction = "none", delta = parameters["huber_delta"])
         else:
             loss = torch.nn.functional.binary_cross_entropy_with_logits(outputs["stop"][:, 0], batch["stop"], reduction = "none",
-                                                                        pos_weight = torch.tensor(parameters["stop_positive_weight"]))
+                                                                        pos_weight = torch.tensor(parameters["stop_positive_weight"], device = device))
         total = total + (loss * weight).mean()
     return total
 
