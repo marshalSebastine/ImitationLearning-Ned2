@@ -1393,3 +1393,85 @@ DATASET_PARAMETERS = {
         "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020": [["031"], "05-15: hand"]
     }
 }
+
+# Training (train_policy.py, tune_policy.py; Marshal, 13.11.26). Five policies, all from one forearm picture (plus the
+# last pictures for the history model); see claude_memory/project-training-data.md for why these five. Pictures are
+# shrunk once to "cache_size" (width, height) and kept in memory; training crops a random "crop_size" window and jitters
+# the colours (the data mixes ceiling light and daylight), evaluation takes the centre crop. The robot must later shrink
+# its live picture the same way (cv2.INTER_AREA, RGB), which the checkpoint records.
+# Moves: the eight directions and stop of the recording tool; the 13 rows labelled turn_left or turn_right are left out.
+# The best epoch is the one with the highest "hard_sheet_score" on the validation episodes: the mean, over the sheets
+# Emranul's models could not finish (03, 04, 06), of the move's balanced accuracy and the forearm label's accuracy.
+# The test episodes are scored once at the end of each run and never used to choose anything.
+TRAINING_PARAMETERS = {
+    "dataset_name": DATASET_PARAMETERS["dataset_name"],
+    "processed_folder": DATASET_PARAMETERS["processed_folder"],
+    "raw_folder": DATASET_PARAMETERS["raw_folder"],
+    "runs_folder": "04_runs",
+    "move_classes": ["forward", "forward_left", "forward_right", "left", "right", "back", "back_left", "back_right", "stop"],
+    "forearm_classes": ["turn_left", "none", "turn_right"],
+    "lean_classes": ["lean_forward", "none", "lean_back"],
+    "exact_columns": ["tip_forward_m", "tip_left_m", "forearm_change_deg", "lean_change_deg"],
+    "action_angles_deg": {action: angle for action, angle in RECORDING_PARAMETERS["actions"].items() if angle is not None},
+    "forearm_label_deg": RECORDING_PARAMETERS["forearm_label_deg"],
+    "cache_size": [160, 120],
+    "crop_size": [144, 108],
+    "colour_jitter": 0.2,
+    "imagenet_mean": [0.485, 0.456, 0.406],
+    "imagenet_std": [0.229, 0.224, 0.225],
+    "is_pretrained": True,
+    "is_pictures_on_device": True,
+    "batch_size": 128,
+    "evaluation_batch_size": 256,
+    "learning_rate": 3e-4,
+    "weight_decay": 1e-4,
+    "warmup_epochs": 1,
+    "epochs": 40,
+    "patience_epochs": 10,
+    "max_minutes_per_run": 90,
+    # Optuna trials set this False: their weights (about 45 MB each) are deleted once the trial is scored.
+    "is_checkpoint_kept": True,
+    # Mild class weights, (1 / share) ** power, with stop counted "stop_weight_multiplier" times more; every sheet as
+    # likely as any other in an epoch, so the long meander does not drown the straight line.
+    "class_weight_power": 0.5,
+    "stop_weight_multiplier": 2.0,
+    "is_sheet_balanced": True,
+    "score_weights": {"1": 1.0, "2": 1.0, "3": 1.0},
+    "loss_weights": {"move": 1.0, "forearm": 1.0, "lean": 0.5, "at_goal": 0.2, "exact": 1.0, "stop": 1.0},
+    "hard_sheets": ["path_03", "path_04", "path_06"],
+    # A sheet named here is left out of training and validation and scored on its own: the closest offline stand-in
+    # for an unseen exam track. None trains on all six.
+    "held_out_sheet": None,
+    "seeds": [1, 2, 3]
+}
+
+# Each policy's own settings; "training" overrides TRAINING_PARAMETERS for that policy only.
+POLICY_MODEL_PARAMETERS = {
+    "factorised_classifier": {"dropout": 0.2, "training": {}},
+    "exact_step_regressor": {"dropout": 0.2, "huber_delta": 1.0, "training": {}},
+    # The previous move is hidden at random in training, so the model cannot just repeat it (the copycat problem).
+    "history_classifier": {"dropout": 0.2, "history_length": 3, "previous_move_dropout": 0.5, "training": {}},
+    # ACT-style chunking without ACT's variational part (one demonstrator style per sheet, little data).
+    "chunk_transformer": {"dropout": 0.1, "chunk_length": 8, "model_width": 256, "decoder_layers": 4, "heads": 8,
+                          "training": {"epochs": 60, "learning_rate": 1e-4}},
+    "diffusion_policy": {"chunk_length": 8, "diffusion_steps": 100, "sampling_steps": 10, "hidden_width": 512,
+                         "residual_blocks": 3, "training": {"epochs": 150, "patience_epochs": 40, "learning_rate": 1e-4}}
+}
+
+# Optuna search over the factorised classifier only (Marshal and Claude, 13.11.26: tune one family; only robot runs
+# choose between families). Each trial trains "epochs" epochs and may be stopped early by the median pruner; the study
+# is kept in a SQLite file, so a stopped night carries on where it ended. The best settings are then trained in full.
+OPTUNA_PARAMETERS = {
+    "model_name": "factorised_classifier",
+    "trials": 30,
+    "hours": 3.0,
+    "epochs": 20,
+    "startup_trials": 5,
+    "learning_rate": [1e-5, 1e-3],
+    "weight_decay": [1e-6, 1e-2],
+    "class_weight_power": [0.0, 1.0],
+    "colour_jitter": [0.0, 0.35],
+    "dropout": [0.0, 0.5],
+    "score_1_weight": [0.25, 1.0],
+    "batch_size": [64, 128, 256]
+}

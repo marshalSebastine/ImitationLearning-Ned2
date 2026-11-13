@@ -1,5 +1,6 @@
 # Python environment and caches
 .venv/
+.venv_gpu/
 __pycache__/
 *.pyc
 

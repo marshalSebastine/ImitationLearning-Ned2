@@ -111,6 +111,13 @@ in `config.py`; after changing it, build under a new name (or add `--overwrite`)
 
 Its tests: `D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_build_dataset.py`
 
+## Train the policies (GPU pool, since 13.11.26)
+
+Five policies, three seeds each, then an Optuna search, in one night: every step, from the SSH set-up to reading the
+results, is in `02_code/GPU_TRAINING.md`. The training code: `train_policy.py`, `tune_policy.py`, `policy_data.py`,
+`policy_models.py`, `run_overnight.sh`; settings in `TRAINING_PARAMETERS`, `POLICY_MODEL_PARAMETERS` and
+`OPTUNA_PARAMETERS` in `config.py`.
+
 ## Gamepad checks (no robot)
 
 Live display, one line each time a stick, trigger or button changes:

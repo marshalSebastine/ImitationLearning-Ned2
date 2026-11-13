@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 13.11.26 by Marshal's session (data collection done; dataset builder written; five model candidates proposed).
+Last updated: 13.11.26 by Marshal's session (data collection done; dataset builder and training code for five policies written; first GPU night next).
 
 ## Dates that cannot move
 
@@ -122,8 +122,13 @@ Last updated: 13.11.26 by Marshal's session (data collection done; dataset build
   decided): (1) one picture, move name plus forearm-turn and lean outputs; (2) one picture, exact step as numbers;
   (3) model 1 with the last 2 to 3 pictures and the previous move; (4) small ACT, next 5 to 10 steps; (5) small diffusion
   policy (GPU). Optuna only to tune one family, scored on held-out episodes of sheets 03, 04 and 06.
-- Next: install PyTorch in `.venv`; write the training script for model 1; GPU-pool SSH still to be activated and tested
-  (pattern in `01_course/moodle_snapshot.md`, VPN needed).
+- Done 13.11 (Marshal): training code for all five candidates (`train_policy.py`, `tune_policy.py`, `policy_data.py`,
+  `policy_models.py`, `run_overnight.sh`; guide `02_code/GPU_TRAINING.md`). Tested on made-up pictures (every policy, a
+  held-out sheet, a 2-trial Optuna search) and checked on the real data (every policy trains one step and predicts);
+  NOT yet trained for real: Marshal's Mac (8 GB) runs out of memory, so the first real training is the GPU-pool night.
+- Next: Marshal sets up SSH to a DC 1.07 machine (needs the professor's activation and the VPN), copies the project, runs
+  `train_policy.py --check`, then `run_overnight.sh`; results in `04_runs/<batch>_summary.md`. Then a robot runner that
+  drives the arm with a trained policy (not written yet).
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`. GPU pool: VPN not connected on 3.11, GPUs still unknown.
 - Blocked on: nothing.
