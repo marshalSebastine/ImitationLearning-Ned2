@@ -22,6 +22,14 @@ first policy, then one results table. Each run stops by itself after 90 minutes 
 
    Then `ssh gpu` logs in. The first time it asks about the fingerprint: the question must name `ki-0XX.oth-aw.de`;
    if it names `oth-aw.de` alone, answer no (wrong computer, see the guide).
+
+   The pool machines accept only the password, not SSH keys (ki-014, 13.11.26). To type it only once per session, add
+   these three lines under `User` as well; then `ssh -fN gpu` asks for the password once and keeps the connection open
+   in the background for 8 hours, and every later `ssh gpu` and `rsync` uses it:
+
+           ControlMaster auto
+           ControlPath ~/.ssh/control-gpu-%C
+           ControlPersist 8h
 4. **Copy the project** (code, the main data and the dataset table; about 400 MB). From the project folder on the Mac:
 
        rsync -av --exclude '.venv/' --exclude '03_data/' --exclude '*.zip' ./ gpu:AI_Project/
@@ -53,14 +61,15 @@ first policy, then one results table. Each run stops by itself after 90 minutes 
 
    It must say `device cuda`, list the GPU, show `OK` for all five policies and end with `everything ready`.
    `device cpu` means the GPU is not used: stop and ask Claude.
-2. **Start the night** inside `tmux`, so it keeps running when you log out. Choose the batch name once and write it down:
+2. **Start the night** inside `screen`, so it keeps running when you log out (ki-014 has `screen`, not `tmux`; checked
+   13.11.26). Choose the batch name once and write it down:
 
-       tmux new -s night
+       screen -S night
        bash run_overnight.sh 2026-11-14_overnight
 
-   When the first epochs are printed, press **Ctrl-B, then D** to leave tmux running. Then `exit` to log out.
-   Without tmux: `nohup bash run_overnight.sh 2026-11-14_overnight > night.out 2>&1 &` instead.
-3. **To look in during the night:** `ssh gpu`, then `tmux attach -t night` (leave again with Ctrl-B, D), or
+   When the first epochs are printed, press **Ctrl-A, then D** to leave screen running. Then `exit` to log out.
+   Or start it already detached, in one line: `screen -dmS night bash run_overnight.sh 2026-11-14_overnight`.
+3. **To look in during the night:** `ssh gpu`, then `screen -r night` (leave again with Ctrl-A, D), or
    `tail -n 30 ~/AI_Project/04_runs/logs/2026-11-14_overnight.log`.
 4. **If the machine was switched off or the night stopped:** start the same command with the **same batch name**. Finished
    runs are skipped and the Optuna search carries on from its last trial.
