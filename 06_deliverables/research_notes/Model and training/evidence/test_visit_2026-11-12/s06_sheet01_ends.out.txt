@@ -1,0 +1,12 @@
+  label                           start  stop_picture  fit_quality  short_b_mm  left_b_mm  gap_b_mm  short_a_mm  left_a_mm  gap_a_mm  is_end_seen_a  line_width_a_mm  within_17_b  within_17_a  within_12_b  within_12_a  within_7_b  within_7_a
+0   R00  placing line and faint picture            28        0.950        -5.1       23.1      23.7        -8.7       23.0      24.6           True              9.6        False        False        False        False       False       False
+1   R02  placing line and faint picture            28        0.959         1.8       21.3      21.4        -9.9       20.4      22.7           True              9.6        False        False        False        False       False       False
+2   R03  placing line and faint picture            28        0.946        -9.1       24.6      26.2       -10.2       24.5      26.5           True              9.4        False        False        False        False       False       False
+3   R04  placing line and faint picture            27        0.947       -10.4       22.4      24.7       -12.8       22.0      25.4           True              9.4        False        False        False        False       False       False
+4   X01                     as on 11.11            25        0.944        -7.2       23.1      24.2       -14.2       21.0      25.4           True              9.4        False        False        False        False       False       False
+5   X02                     as on 11.11            25        0.945       -10.6       24.7      26.9       -11.7       23.7      26.4           True              9.5        False        False        False        False       False       False
+6   X03                     as on 11.11            25        0.958       -10.2       24.7      26.8       -11.4       24.0      26.6           True              9.6        False        False        False        False       False       False
+
+as on 11.11: left of the end's centre, method B 24.7 mm (median; 23.1 to 24.7), method A 23.7 mm; short, B -10.2 mm, A -11.7 mm
+
+placing line and faint picture: left of the end's centre, method B 22.8 mm (median; 21.3 to 24.6), method A 22.5 mm; short, B -7.1 mm, A -10.1 mm

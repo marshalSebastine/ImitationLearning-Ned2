@@ -1,0 +1,28 @@
+label,sheet,step,mark_reached,mark_picture,window,kept_c,kept_a,kept_b,status,disagreeing,kept_c_mark_minus_10,kept_c_mark_plus_10,longest_stretch_c_mm,stretch_c_pictures,largest_offset_c_mm,largest_offset_a_mm,largest_offset_b_mm,pictures_without_c,left_line_picture_c,left_line_arc_mm,ending
+R05,03,1.0,True,19.0,completed,False,True,True,doubtful,A; B; C shortest travel; C at 14 mm,False,False,20.0,5-6,16.9,12.9,15.0,0,5.0,24.0,step_budget_reached
+R06,03,0.65,True,27.0,completed,False,True,False,doubtful,A,False,False,19.7,9-11,18.4,12.4,14.7,0,9.0,27.0,step_budget_reached
+R07,03,1.0,True,18.0,completed,False,False,False,not kept,,False,False,40.2,15-18,-22.1,24.4,24.7,0,15.0,97.0,step_budget_reached
+R08,03,0.65,True,29.0,completed,True,True,True,kept,,True,True,0.0,,-6.7,9.2,9.3,0,,,step_budget_reached
+R09,03,0.65,True,27.0,completed,True,True,True,doubtful,C at 10 mm,True,True,0.0,,11.6,6.8,7.7,0,,,step_budget_reached
+R10,03,1.0,True,18.0,completed,True,True,True,kept,,True,True,0.0,,10.2,8.8,11.5,0,,,step_budget_reached
+R11,03,1.0,True,19.0,completed,False,False,False,not kept,,False,False,70.6,13-19,-26.7,23.6,29.6,0,13.0,69.0,step_budget_reached
+R12,03,0.65,True,26.0,completed,False,False,False,not kept,,False,False,20.0,8-10,17.2,13.2,14.7,0,8.0,23.0,step_budget_reached
+R13,03,1.0,True,21.0,completed,False,False,False,not kept,,False,False,60.3,11-16,25.7,27.4,26.4,0,11.0,29.0,step_budget_reached
+R14,03,0.65,True,29.0,completed,True,True,True,kept,,True,True,0.0,,-8.1,8.6,10.8,0,,,step_budget_reached
+R15,03,1.0,True,20.0,completed,False,False,False,not kept,,False,False,20.3,7-8,17.9,26.6,15.7,0,7.0,19.0,step_budget_reached
+R16,03,0.65,True,26.0,completed,True,True,True,kept,,True,True,0.0,,9.1,7.1,7.0,0,,,step_budget_reached
+R17,03,0.65,True,27.0,completed,True,True,True,kept,,True,True,0.0,,8.7,6.6,5.2,0,,,step_budget_reached
+R18,03,1.0,True,18.0,completed,False,True,True,doubtful,A; B; C shortest travel; C at 14 mm,False,False,10.1,6-6,12.4,12.5,12.7,0,6.0,33.0,step_budget_reached
+R19,03,0.65,True,29.0,completed,True,True,True,kept,,True,True,0.0,,-6.2,10.3,8.3,0,,,step_budget_reached
+R20,03,1.0,True,22.0,completed,False,False,False,not kept,,False,False,39.7,11-14,15.7,20.1,19.1,0,11.0,55.0,step_budget_reached
+R21,03,1.0,True,22.0,completed,False,False,False,not kept,,False,False,110.0,12-22,23.8,24.7,23.9,0,12.0,71.0,step_budget_reached
+R22,03,own,True,25.0,completed,True,True,True,kept,,True,True,0.0,,9.3,5.6,6.4,0,58.0,292.0,step_budget_reached
+R23,03,1.0,True,23.0,completed,False,False,False,not kept,,False,False,89.6,15-23,32.2,33.5,31.8,0,15.0,84.0,step_budget_reached
+R24,03,own,True,25.0,completed,True,True,True,kept,,True,True,0.0,,8.9,6.7,5.8,0,56.0,278.0,step_budget_reached
+R25,03,1.0,True,21.0,completed,False,False,False,not kept,,False,False,90.4,13-21,18.8,18.9,17.0,0,8.0,33.0,step_budget_reached
+R26,03,own,True,25.0,completed,True,True,True,kept,,True,True,0.0,,8.6,5.7,6.2,0,56.0,267.0,step_budget_reached
+R27,03,1.0,True,22.0,completed,False,False,False,not kept,,False,False,79.8,15-22,20.7,20.2,19.0,0,15.0,91.0,step_budget_reached
+R28,03,own,True,25.0,completed,True,True,True,kept,,True,True,0.0,,8.0,5.4,7.0,0,54.0,252.0,step_budget_reached
+R29,04,1.0,True,34.0,completed,False,False,False,not kept,,False,False,140.2,21-34,-53.9,32.8,52.0,0,13.0,72.0,step_budget_reached
+R30,04,1.0,True,29.0,completed,False,False,False,not kept,,False,False,181.4,12-29,-28.2,27.7,27.0,8,12.0,63.0,step_budget_reached
+R31,04,1.0,False,,window not completed,False,False,False,not kept,,False,False,285.9,13-41,-64.3,25.6,63.7,10,13.0,64.0,step_budget_reached

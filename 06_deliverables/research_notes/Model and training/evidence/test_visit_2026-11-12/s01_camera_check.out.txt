@@ -1,0 +1,16 @@
+runs: ['R02', 'R05', 'R22', 'R29'] pictures: [15, 14, 45, 21]
+sharpness without correction: [5.21, 7.257, 17.539, 8.718]
+
+best ten (gain = mean natural logarithm of sharpness over no correction):
+  shift (  9.9,  -2.7) px, roll 1.26 deg: gain 0.0995  per run [5.25, 8.42, 20.24, 9.61]
+  shift ( 12.0,  -2.7) px, roll 1.26 deg: gain 0.0983  per run [5.24, 8.5, 20.25, 9.49]
+  shift (  8.0,  -2.7) px, roll 1.26 deg: gain 0.0970  per run [5.26, 8.33, 20.17, 9.64]
+  shift (  8.0,   4.0) px, roll 2.50 deg: gain 0.0968  per run [4.85, 8.9, 20.29, 9.71]
+  shift (  9.9,   4.0) px, roll 1.26 deg: gain 0.0962  per run [5.28, 8.73, 19.48, 9.46]
+  shift (  8.0,   4.0) px, roll 1.26 deg: gain 0.0948  per run [5.29, 8.61, 19.39, 9.55]
+  shift (  9.9,   4.0) px, roll 2.50 deg: gain 0.0941  per run [4.83, 8.96, 20.33, 9.57]
+  shift ( 12.0,   4.0) px, roll 1.26 deg: gain 0.0941  per run [5.27, 8.84, 19.51, 9.27]
+  shift (  4.0,   4.0) px, roll 2.50 deg: gain 0.0897  per run [4.89, 8.7, 19.96, 9.75]
+  shift ( 12.0,   4.0) px, roll 2.50 deg: gain 0.0870  per run [4.82, 8.98, 20.26, 9.34]
+
+the correction of 11.11 (9.9, -2.7) px, roll 1.26 deg: gain 0.0995, rank 1 of 54
