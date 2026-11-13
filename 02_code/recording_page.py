@@ -877,6 +877,9 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                 "safety_checks_every_start": RECORDING_PAGE_PARAMETERS["safety_checks_every_start"]})
         elif path == "/sheet-placements.png":
             self.__send(HTTPStatus.OK, (PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["sheet_placement_figure"]).read_bytes(), "image/png")
+        elif path == "/table-marks.png":
+            # 13.11.26: the guide for laying a new track, shown in the page's corner
+            self.__send(HTTPStatus.OK, (PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["table_marks_figure"]).read_bytes(), "image/png")
         elif SETUP_PICTURE_PATH_PATTERN.fullmatch(path):
             picture = PROJECT_FOLDER / RECORDING_PAGE_PARAMETERS["setup_picture_folder"] / f"plan_{path.split('/')[-1]}"
             if picture.is_file():

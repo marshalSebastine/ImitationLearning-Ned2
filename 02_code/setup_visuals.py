@@ -835,13 +835,14 @@ def write_table_marks(
         f"2. CROSS LINE: a straight tape line square to the direction line, crossing it {mark[0]:.1f} cm in front of the base axis, which is "
         f"{mark[0] - half:.1f} cm in front of the base's front edge (calc: the base drawn as a {2 * half:.1f} cm square around its axis; "
         f"Niryo's sheet gives a footprint of 18.2 x 18.8 cm, so measure your base's front edge once). At least {max(most_left_cm, most_right_cm) + 3:.0f} cm to each side.",
-        "3. Where the two lines cross is the NEW-TRACK MARK. Use dark tape or a pen line on light tape, so it shows beside the paper. "
+        "3. Where the two lines cross is the NEW-TRACK MARK. Use LIGHT masking tape with a thin pen line, not dark tape: the camera sees "
+        "the table beside the paper, and a dark stripe could become a cue the model learns (judgement, 13.11.26, not tested). "
         "It is not the course sheets' START MARK: lay the course sheets as before.",
         f"4. Check, only with the robot running and Emranul's go: when the arm comes down at the start of an episode, its magnet tip "
         f"stands on the direction line about {round(2 * (mark[0] - tip[0])) / 2:g} cm before the mark (calc from config.py: "
         f"{tip[0]:.2f}, {tip[1]:.2f} cm; measured in the 148 start-mark recordings: 14.0, -1.5 cm). Do not touch the arm while its "
         f"motors are on.",
-        "5. Every new sheet: the centre of end A's round cap (A is written on the back) over the mark, the first straight piece of the "
+        "5. Every new sheet: the centre of end A's round cap (end A as the set-up picture shows it) over the mark, the first straight piece of the "
         "line along the direction line (the tape shows at the paper's near and far edges, the cross line at both sides), the sheet not "
         "turned. Check one or two corner distances of the set-up picture with a ruler, then tape the corners down.",
         f"Sizes, calc from the lay-out check (tracks.json): the paper's near edge {nearest_cm:.1f} cm or more in front of the base axis, "
@@ -853,6 +854,8 @@ def write_table_marks(
     wrapped = "\n\n".join(textwrap.fill(step, 105) for step in steps)
     text_axis.text(0.0, 1.0, wrapped, va = "top", ha = "left", fontsize = 9.5, family = "sans-serif")
     figure.savefig(output_path)
+    # 13.11.26 (Emranul): the recording page shows the same page as a picture in its corner
+    figure.savefig(Path(output_path).with_suffix(".png"), dpi = 110)
     pyplot.close(figure)
     return output_path
 

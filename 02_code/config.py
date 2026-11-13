@@ -343,6 +343,9 @@ RECORDING_PAGE_PARAMETERS = {
         "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
     ],
     "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # 13.11.26 (Emranul): how to tape the new-track mark and lay a new track, shown in the page's corner (drawn by
+    # setup_visuals.py --new-tracks beside table_marks.pdf)
+    "table_marks_figure": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode/table_marks.png",
     # One set-up picture per plan number, plan_<NN-NN>.png (setup_visuals.py, 6.11.26), shown in "Set up this episode".
     "setup_picture_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
     # Round 1 of the plan: the page offers these before anything else. Until 12.11.26 the first 12 episodes of sheets 01,
