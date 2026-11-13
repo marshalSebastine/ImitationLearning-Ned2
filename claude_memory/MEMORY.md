@@ -10,3 +10,4 @@
 - [Never stop a running tool](feedback-never-stop-running-tool.md) — read the terminal first; stopping a tool mid-episode lost an episode
 - [Paper publication](project-paper-publication.md) — 4.11.26: Emranul's teleop-vs-hand-guiding idea plus seven more (education paper at RiE 2027 cheapest); workshop paper after the course; nothing decided
 - [Synthetic pictures with Webots (cancelled)](project-synthetic-pictures.md) — cancelled 5.11.26 by Emranul; code only on branch emranul/synthetic-pictures, not merged; keep: URDF arm model to 0.01 mm, Niryo lens file, forearm camera fit and why other fits failed, chessboard proposal, tape moved once on 4.11
+- [Training data and models](project-training-data.md) — data collection done 9.11.26; v01_main_data built 13.11.26 (exclusions from operators' notes only); Marshal builds own models without looking at Emranul's five; candidate order and narrow Optuna use

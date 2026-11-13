@@ -1,0 +1,21 @@
+---
+name: project-training-data
+description: "Training data and models: data collection finished 9.11.26; dataset builder v01_main_data (13.11.26); what is left out and why; Emranul's five models vs Marshal's own; candidate model order and Optuna use"
+metadata:
+  type: project
+  modified: 2026-11-13T12:00:00.000Z
+---
+
+Data collection is finished (Marshal, 13.11.26): the main data of 6.11 to 9.11.26 lies in `03_data/raw/main_data` (242 episode folders, 210 completed and scored, all `hand_guided_exact`, 222 of 239 episodes by Emranul). On Marshal's Mac it was first at the project root and was moved there on 13.11.26.
+
+Emranul has trained and evaluated five models of his own; per Marshal (13.11.26) they completed sheets 01, 02 and 05 but not 03, 04 and 06. Marshal decided his session builds its own models **without looking at Emranul's**: do not open or reuse them unless Marshal says so.
+
+`02_code/build_dataset.py` (branch `marshal/dataset-builder`, 13.11.26) builds `03_data/processed/v01_main_data/`: 15,618 pictures from 205 episodes, split by whole episode within each sheet (seeded hash, 70/15/15). It leaves out unfinished episodes, `small_motion` rows (tip moved under 3 mm, 2,196 rows), rows marked mistake or lost, and what the operators' own review notes name: 16 hand pictures and 5 episodes (06-20 puck tipped; 04-25, 04-26, 04-38, 05-05 puck not visible). Marshal, 13.11.26: "trust the notes which were manually added", not the tool's automatic picture flags (which on inspection flag the robot's own block as a dark object and miss visible pucks). Scissors and cables are kept on purpose. Score 1 stays in, as Emranul decided on 6.11.
+
+Measured on the data: 63 % of steps turn the forearm by more than 2 degrees (43 % by more than 5), so the move name alone misses much of what the operators did; the hand joint is almost never used; sheet 04 has about 10 times the rows of sheet 01.
+
+Candidate models (Claude's proposal to Marshal, 13.11.26, not decided): (1) one picture, factorised class outputs (move name, forearm turn, lean, stop); (2) one picture, exact step as numbers; (3) model 1 with 2 to 3 past pictures and the previous move (randomly hidden against copycat); (4) small ACT with 5 to 10 step chunks; (5) small diffusion policy, GPU only. Class weighting mild (square root of inverse frequency), stop weighted up, sheets weighted equally per epoch. Optuna: yes, but only to tune one family, about 20 to 30 trials with pruning, scored on held-out episodes of sheets 03, 04 and 06; never to choose between families, since only robot runs decide.
+
+**Why:** offline accuracy and closed-loop success differ; the exam uses unseen tracks, so splits are by episode and a held-out sheet is the honest check.
+
+**How to apply:** build new datasets under a new `v<NN>_` name, never overwrite one a model was trained on; add exclusions to `DATASET_PARAMETERS` in `config.py`, never touch the raw folder. Marshal's Mac (M1, 8 GB) has no PyTorch yet. See [[project-recording-tool]].

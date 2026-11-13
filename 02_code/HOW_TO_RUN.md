@@ -99,6 +99,18 @@ Tests of the tool without the robot (run them after every change to the code or 
 `test_puck_tracking.py` also reads recorded episodes from `03_data/raw`; on a laptop without them those tests say SKIPPED
 and the last line counts them.
 
+## Build the training table (no robot, since 13.11.26)
+
+Reads every episode in `03_data/raw/main_data` and writes `03_data/processed/v01_main_data/`: `samples.csv` (one row per
+kept picture, with its sheet, score, lighting, split and move), `episodes.csv` (every episode folder, kept or not, and
+why) and `summary.json` (counts). Nothing in the raw folder is changed. What is left out is set in `DATASET_PARAMETERS`
+in `config.py`; after changing it, build under a new name (or add `--overwrite`):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/build_dataset.py
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/build_dataset.py --name v02_main_data
+
+Its tests: `D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_build_dataset.py`
+
 ## Gamepad checks (no robot)
 
 Live display, one line each time a stick, trigger or button changes:

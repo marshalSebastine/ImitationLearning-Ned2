@@ -1337,3 +1337,59 @@ CLAUDE_OPERATOR_STUDY_PARAMETERS = {
     "study_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Claude operator study",
     "answer_key_path": Path(__file__).resolve().parent.parent / "03_data" / "claude_operator_study_answer_key.csv"
 }
+
+# Dataset builder (build_dataset.py, Marshal, 13.11.26): one table of training pictures from the main data, with the
+# move names, the exact step and the episode's sheet, score and split. Nothing in the raw folder is changed or copied;
+# the table points at the pictures where the recording tool wrote them.
+# Episodes: only "completed" ones (finished and scored; Emranul, 6.11.26: scores 1, 2 and 3 all go into training, the
+# score is kept as a column). Rows: "small_motion" (the tip moved under 3 mm, which no picture can show) and rows the
+# operator marked as a mistake (u) or lost (l) are left out.
+# Exclusions come from the operators' own notes in review.json, read on 13.11.26 (the tool's automatic picture flags were
+# not used: Marshal, 13.11.26, "trust the notes which were manually added"). Keys are "<session>/<sheet>_episode_NNN",
+# which stay the same when a folder gains its score. The pictures of 02-02 and 02-45 were found by eye on 13.11.26.
+# Scissors and cables are kept on purpose: the label stays right, and the model should not mind clutter.
+# Splits are by whole episode within each sheet, never by picture, so neighbouring pictures of one push never sit on
+# both sides; the order within a sheet comes from a hash of the episode key and "split_seed".
+DATASET_PARAMETERS = {
+    "raw_folder": RECORDING_PARAMETERS["raw_folder"],
+    "processed_folder": "03_data/processed",
+    "dataset_name": "v01_main_data",
+    "kept_statuses": ["completed"],
+    "dropped_actions": ["small_motion"],
+    "is_mistake_dropped": True,
+    "is_lost_dropped": True,
+    "is_checksum_checked": True,
+    "validation_share": 0.15,
+    "test_share": 0.15,
+    "split_seed": 13_11_26,
+    # The lighting notes were typed by hand; the first group whose word appears (lower case) wins, so the note
+    # "ceiling lights (corrected ...: wrongly marked as natural light)" counts as ceiling.
+    "lighting_groups": [["ceiling", ["ceil", "ciel"]], ["natural", ["natural", "cloudy", "daylight"]]],
+    "copied_columns": [
+        "step", "frame_md5", "sharpness", "action", "source", "forearm_label", "lean_label", "hand_label",
+        "is_at_goal", "goal_distance_cm", "tip_forward_m", "tip_left_m", "forearm_change_deg", "lean_change_deg",
+        "hand_change_deg", "rod_lean_deg", "forearm_turn_deg", "picture_heading_deg",
+        "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"
+    ],
+    "excluded_episodes": {
+        "2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_021": "06-20: puck tipped over",
+        "2026-11-08_session_01_emranul/path_04_meander_episode_032": "04-25: puck hardly visible in many pictures",
+        "2026-11-08_session_01_emranul/path_04_meander_episode_033": "04-26: puck not visible in many pictures",
+        "2026-11-08_session_01_emranul/path_04_meander_episode_046": "04-38: puck always not visible",
+        "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_008": "05-05: puck not visible in all pictures"
+    },
+    "excluded_pictures": {
+        "2026-11-07_session_01_emranul/path_02_arc_episode_005": [["000"], "02-02: fingertips at the top left"],
+        "2026-11-07_session_01_marshal/path_02_arc_episode_055": [["041", "043"], "02-45: hand"],
+        "2026-11-08_session_01_emranul/path_03_two_curve_episode_017": [["094"], "03-17: hand"],
+        "2026-11-08_session_01_emranul/path_03_two_curve_episode_018": [["051", "053"], "03-18: fingers"],
+        "2026-11-08_session_01_emranul/path_03_two_curve_episode_024": [["000"], "03-24: hand and tape"],
+        "2026-11-08_session_01_emranul/path_03_two_curve_episode_031": [["106"], "03-30: hand"],
+        "2026-11-08_session_01_emranul/path_03_two_curve_episode_037": [["026"], "03-36: hand"],
+        "2026-11-08_session_01_emranul/path_04_meander_episode_019": [["000"], "04-12: tape and hand"],
+        "2026-11-08_session_01_emranul/path_04_meander_episode_040": [["074"], "04-32: hand"],
+        "2026-11-08_session_01_emranul/path_04_meander_episode_058": [["000"], "04-45: hand"],
+        "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_017": [["086"], "05-12: hand"],
+        "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020": [["031"], "05-15: hand"]
+    }
+}
