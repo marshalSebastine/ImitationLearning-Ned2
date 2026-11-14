@@ -2081,6 +2081,35 @@ TRAINING_RUNS["resnet18_round_2_part_new_shapes"] = dict(TRAINING_RUNS["resnet18
 TRAINING_RUNS["resnet18_round_1_to_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "round_1_to_new",
                                                        processed_folder = ROUND_2_INDEX_FOLDER, date = None)
 
+# 14.11.26 evening, after round 2 was recorded to the end (Emranul: "make sure you are giving the best effort and you
+# are reaching the ceiling"): the search for the final model on round 1 plus all of round 2 (55 episodes on the 16 new
+# tracks), from its own index ("v03_training_index"; the mid-way index stays as it is, because its saved predictions
+# point into it).
+# The yardstick: each of the 16 new tracks held out once ("new_shapes": trained on round 1 and the other 15 tracks,
+# tested on both prints of the held-out track, 55 test episodes on lines the model has not seen), because the exam
+# track is unseen. The reference is model E's recipe (chunk, stop weighted 25), unchanged, with two seeds.
+# Decision rule, fixed before the results: a change of one thing is kept when it stops right (fixed threshold, two
+# pictures in a row) on at least 5 more of the 55 episodes than the reference's mean without losing more than 1 point
+# of path within 45, or when it gains 1.5 points or more of path within 45 without stopping right less often than the
+# reference's worse seed. A difference smaller than the gap between the reference's two seeds counts as no difference.
+# The first queue changes one thing each, all without new code: the previous picture as well (two pictures), ResNet-34,
+# 16 rounds instead of 8, and the score-1 episodes given no weight in training (they are still tested). Model 9 is the
+# reference recipe on every episode, for the robot; it has no offline score of its own.
+FULL_INDEX_FOLDER = main_checkout_folder() / "03_data" / "processed" / "v03_training_index"
+FULL_DATA = {"processed_folder": FULL_INDEX_FOLDER, "date": "2026-11-14"}
+TRAINING_RUNS["resnet18_full_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "new_shapes", **FULL_DATA)
+TRAINING_RUNS["resnet18_full_new_shapes_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25_seed_2"], split = "new_shapes", **FULL_DATA)
+TRAINING_RUNS["resnet18_full_round_1_to_new"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "round_1_to_new", **FULL_DATA)
+TRAINING_RUNS["resnet18_model_9_full_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "all", **FULL_DATA)
+FULL_IDEAS = {
+    "two_pictures": {"picture_count": 2},
+    "resnet34": {"backbone": "resnet34.tv_in1k"},
+    "16_rounds": {"epochs": 16},
+    "score_1_off": {"score_weights": {1: 0.0, 2: 1.0, 3: 1.0}}
+}
+for idea_name, idea in FULL_IDEAS.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea)
+
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
