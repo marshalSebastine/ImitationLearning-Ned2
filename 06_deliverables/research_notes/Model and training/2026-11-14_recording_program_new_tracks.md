@@ -55,10 +55,9 @@ first on its dashed print. The set-up picture of 13-01 is `plan_13-01.png`.
 Nothing to pick in most cases: after each scored episode the page chooses the next episode by itself. It keeps the
 sheet on the table until all its episodes are done, so every print is taped down once. The order (58 episodes):
 
-1. The pilot: T01 solid (11-01 Emranul, 11-02 Marshal), T02 solid (12-01 Emranul, 12-02 Marshal), T03 solid
-   (13-01, 13-02), T04 solid (14-01, 14-02). The sheet stays taped while the two change places. The page does not
-   switch the Operator box by itself: set it to the person the plan names ("Pilot: recorded by Emranul" or "by Marshal"
-   under "Set up this episode").
+1. The pilot: T01 solid (11-01, 11-02), T02 solid (12-01, 12-02), T03 solid (13-01, 13-02), T04 solid (14-01,
+   14-02). Changed 14.11.26 (Emranul): he records every episode himself, Marshal none, so the Operator box stays on
+   Emranul for all 58 (until then plan 2 of each pilot print was Marshal's).
 2. T01 dashed (31-01), T02 dashed (32-01), T03 dashed (33-01), T04 dashed (34-01).
 3. T05 solid, T05 dashed, T06 solid, T06 dashed, and so on to T16 dashed, each with all its episodes; on a print with a
    near-end start (T06, T08, T10, T12, T14 solid; T05, T07, T09, T11, T13 dashed) that start comes last.

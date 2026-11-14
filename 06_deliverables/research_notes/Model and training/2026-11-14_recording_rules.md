@@ -1,8 +1,8 @@
 # Recording rules for round 2 (to try on Saturday 14.11.26)
 
-For Emranul and Marshal. One page. Both record by the same rules, so that the robot learns one way of pushing and
-not two. These rules are a first version: the first eight episodes on Saturday (T01 to T04, each recorded by both of
-you) show which rule is hard to keep, and then the rules are changed, not you.
+For Emranul, who records every episode himself (Emranul, 14.11.26; Marshal records none). One page. One person and
+one set of rules, so that the robot learns one way of pushing. These rules are a first version: the first eight
+episodes on Saturday (T01 to T04, two each) show which rule is hard to keep, and then the rules are changed, not you.
 
 Why these rules. On 11.11 and 12.11 the robot stopped 1 to 2 cm beside the end of the line and drifted to the edge
 of the line in bends [measured with the ruler on 12.11.26 by Emranul; seen in the camera pictures]. It copies what

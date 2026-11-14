@@ -186,7 +186,7 @@ def page_order(
 def test_new_tracks_are_offered_sheet_by_sheet() -> None:
     """
     The 58 episodes of the new tracks (Emranul, 12.11.26): every print taped once, its episodes in a row, the near-end
-    start last; the pilot (T01 to T04 solid, plans 1 Emranul and 2 Marshal) first, then the dashed pilot prints, then T05
+    start last; the pilot (T01 to T04 solid, plans 1 and 2) first, then the dashed pilot prints, then T05
     solid to T16 dashed. Sheet numbers stay two digits and unique, so plan numbers and set-up pictures cannot collide.
     """
 
@@ -212,7 +212,9 @@ def test_new_tracks_are_offered_sheet_by_sheet() -> None:
     for track in range(1, 5):
         sheet = f"path_{10 + track:02d}_T{track:02d}_solid"
         notes = [plan[sheet][number]["note"] for number in plan[sheet]]
-        assert len(notes) == 2 and "Emranul" in notes[0] and "Marshal" in notes[1], notes
+        # 14.11.26 (Emranul): he records every episode himself, so no plan names Marshal
+        assert len(notes) == 2 and all("Emranul" in note for note in notes), notes
+    assert not any("Marshal" in entry["note"] or "Either" in entry["note"] for sheet in taped for entry in plan[sheet].values()), "a plan still names another operator"
 
     numbers = [sheet["number"] for sheet in RECORDING_PAGE_PARAMETERS["sheets"].values()]
     assert len(set(numbers)) == len(numbers) and all(len(number) == 2 for number in numbers), numbers

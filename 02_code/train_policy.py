@@ -513,8 +513,13 @@ def run_training(
     target_parameters = dict(TRAINING_TARGET_PARAMETERS)
     target_parameters.update({key: value for key, value in settings.items() if key in TRAINING_TARGET_PARAMETERS})
     settings["chunk_steps"] = target_parameters["chunk_steps"]
-    frames = load_training_frames(target_parameters)
-    cache = numpy.load(Path(TRAINING_DATA_PARAMETERS["processed_folder"]) / f"images_{settings['picture_cache']}.npy", mmap_mode = "r")
+    # 14.11.26: a run may name its own training index ("processed_folder"), so a model on round 1 plus part of round 2
+    # can be trained while the round 1 index stays as it is
+    data_parameters = dict(TRAINING_DATA_PARAMETERS)
+    if settings.get("processed_folder"):
+        data_parameters["processed_folder"] = settings["processed_folder"]
+    frames = load_training_frames(target_parameters, data_parameters)
+    cache = numpy.load(Path(data_parameters["processed_folder"]) / f"images_{settings['picture_cache']}.npy", mmap_mode = "r")
     pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
     if settings.get("picture_count", 1) > 1:
         # 14.11.26: the picture before each one (the camera's previous picture in the same episode, also where the

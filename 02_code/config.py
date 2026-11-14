@@ -898,16 +898,17 @@ def step_budget_for(path_id: str) -> int:
 # 14.0, -1.5 cm as for every course-sheet start, 5.5 cm behind the cap's centre, as in the 209 recordings (caps a median
 # 19.2 cm out). Lengths: the drawn centre line between the two cap centres (tracks.json "length_mm", calc from the
 # drawing). The plan (Emranul, 12.11.26): 58 episodes, 48 standard starts and 10 near-end starts; the pilot is plans 1
-# and 2 of the solid prints of T01 to T04, plan 1 by Emranul and plan 2 by Marshal; every print is taped once and all
-# its episodes follow each other, its near-end start last.
+# and 2 of the solid prints of T01 to T04; every print is taped once and all its episodes follow each other, its
+# near-end start last. 14.11.26 (Emranul): he records every episode himself, Marshal none ("we do only me"), so the
+# pilot no longer splits its plans between the two and no plan says "either operator".
 NEW_TRACK_RECORDING_PARAMETERS = {
     "tracks_file": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12" / "tracks.json",
     "mark_m": [0.195, -0.015],
     "solid_number_offset": 10,
     "dashed_number_offset": 30,
     "near_end_note": "Puck 6 cm before the end cap.",
-    "pilot_notes": ["Pilot: recorded by Emranul.", "Pilot: recorded by Marshal."],
-    "either_operator_note": "Either operator.",
+    "pilot_notes": ["Pilot: recorded by Emranul.", "Pilot: recorded by Emranul."],
+    "either_operator_note": "Recorded by Emranul.",
     # name, label, length in cm, standard starts on the solid print, standard starts on the dashed print, and the print
     # that also gets a near-end start (solid for the even numbers T06 to T14, dashed for the odd numbers T05 to T13)
     "tracks": [
@@ -991,7 +992,7 @@ def add_new_track_sheets(parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS) -> D
             count = standard_starts + int(has_near_end)
             plan_text = f"{count} episode{'s' if count > 1 else ''}, end A: {standard_starts} standard start{'s' if standard_starts > 1 else ''}"
             plan_text += ", then 1 near-end start" if has_near_end else ""
-            plan_text += " (pilot: plan 1 Emranul, plan 2 Marshal)" if is_pilot and print_kind == "solid" else ""
+            plan_text += " (pilot)" if is_pilot and print_kind == "solid" else ""
             setup_text = (f"New track {name} ({label}), {print_kind} print, end A written on its back. Lay it by the NEW-TRACK MARK, "
                           f"not by a course sheet's place: the centre of end A's round cap on the mark ({mark_x_cm:.1f} cm in front of "
                           f"the base axis, {abs(mark_y_cm):.1f} cm to its right, table_marks.pdf), the first straight piece along the "
@@ -2032,6 +2033,15 @@ TRAINING_RUN_PARAMETERS.update({"picture_count": 1})
 TRAINING_RUNS["resnet18_two_pictures"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], picture_count = 2, date = "2026-11-14")
 TRAINING_RUNS["resnet18_two_pictures_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25_seed_2"], picture_count = 2, date = "2026-11-14")
 TRAINING_RUNS["resnet18_model_7_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_two_pictures"], split = "all")
+
+# 14.11.26 (Emranul: "can we pause halfway and train a model to see the difference"): model E's recipe, unchanged, on
+# round 1 plus the round 2 episodes recorded so far, from its own index (training_dataset.py into "v02_training_index",
+# so round 1's index stays as it is). Only the data differs from model E, so the robot shows what the new data adds:
+# both models on development tracks D01 to D10, which nobody records on, and on sheet 04.
+TRAINING_RUN_PARAMETERS.update({"processed_folder": None})
+ROUND_2_INDEX_FOLDER = main_checkout_folder() / "03_data" / "processed" / "v02_training_index"
+TRAINING_RUNS["resnet18_model_8_round_2_part_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_4_chunk_stop_25_all_sheets"],
+                                                                 processed_folder = ROUND_2_INDEX_FOLDER, date = None)
 
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
