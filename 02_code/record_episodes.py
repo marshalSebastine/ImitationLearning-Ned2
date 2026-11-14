@@ -52,6 +52,7 @@ from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, RO
 from forearm_camera_model import project_points
 from puck_detector import detect_puck
 from puck_tracking import PuckTracker
+from track_lay_out import expected_track_in_picture, track_of_sheet, with_expected_track
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
@@ -779,6 +780,8 @@ class EpisodeRecorder:
             self.__lift()
             return self.__finish_episode(episode_folder, summary, [])
 
+        summary["lay_out_line_shown"] = self.__check_sheet_lay_out()
+
         if mode in ("hand_guided", "hand_guided_exact"):
             # 7.11.26 (Marshal): the puck as it lies at the start, before guiding, so the replay's start can show a ring
             # where it has to go back to (the same help as after a hand correction).
@@ -1212,6 +1215,35 @@ class EpisodeRecorder:
         self.exact_index = 0
         self.is_auto_running = False
         self.__say(f"correction {number}: {len(self.exact_waypoints)} waypoints from {len(new_path)} guided points; Enter or g replays it")
+
+
+    def __check_sheet_lay_out(self) -> bool:
+        """
+        On a new track's sheet, show the live picture with the line drawn where it should lie (track_lay_out.py), until
+        Enter, so the sheet can be moved onto it while the arm stands at the start (14.11.26). Returns whether it was
+        shown.
+        """
+
+        when = self.recorder_parameters.get("lay_out_line_episodes", False)
+        if not when or track_of_sheet(self.path_id) is None:
+            return False
+        plan_number = self.recorder_parameters["plan_number"] or ""
+        if when == "first_of_sheet" and plan_number and not plan_number.endswith("-01"):
+            return False
+        joints = [float(value) for value in self.robot_link.read_state()["joints"]]
+        drawn = expected_track_in_picture(self.path_id, joints, self.puck_tracker.camera_parameters)
+        if drawn is None:
+            self.__say("the new track's line falls outside the camera's view here: lay the sheet by the tape mark only")
+            return False
+        self.__say("LAY-OUT CHECK: move only the SHEET (not the arm) until the printed line lies between the two GREEN lines, then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = with_expected_track(picture, drawn)
+            text = "move the SHEET until the printed line lies between the GREEN lines (tape mark first), then Enter"
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return True
 
 
     def __guide_puck_back(self, reference_bytes: bytes) -> None:

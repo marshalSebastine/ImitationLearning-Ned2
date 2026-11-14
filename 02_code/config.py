@@ -747,6 +747,14 @@ RECORDING_PARAMETERS = {
     # the reference picture is laid over the live one at this share: the old puck shows as a faint ghost in its true
     # size and place, and the live puck is moved until the two merge (chosen; 0 turns it off).
     "puck_back_ghost_share": 0.35,
+    # 14.11.26 (Emranul: "the faint start helped us position the paper; implement the same in the recording tool"): on
+    # a new track's sheet the arm, once down at the start, shows the live picture with the line drawn where it should
+    # lie (track_lay_out.py: tracks.json laid by the new-track mark, projected with the fitted camera), until Enter,
+    # so the sheet can be moved onto it. Only on the first episode of each print ("first_of_sheet", plan number ending
+    # in -01), when the sheet has just been taped; "every_episode" shows it every time; False turns it off. The drawing
+    # is as good as the camera model (about 2 mm on the table, median; the puck shape sat a little low beside the
+    # block on 8.11), so the tape mark comes first and the drawing checks the turn.
+    "lay_out_line_episodes": "first_of_sheet",
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least
