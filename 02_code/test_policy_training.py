@@ -159,22 +159,49 @@ def test_held_out_sheet_is_scored_alone() -> None:
 
 
 def test_optuna_search_runs_and_trains_the_best() -> None:
-    """Two short trials, then the best settings trained in full; trial weights are deleted, the tuned run's are kept."""
+    """
+    Two short trials, then the best settings trained with every final seed; trial weights are deleted, the final runs'
+    kept. The history policy's search also tunes its previous-move dropout.
+    """
 
     with tempfile.TemporaryDirectory() as folder:
         settings = prepared_folder(Path(folder))
-        result = tune("tune_test", {"trials": 2, "hours": 0.1, "epochs": 1, "startup_trials": 5}, settings, device_name = "cpu")
-        assert result["trials_finished"] >= 1 and result["tuned"]["status"] == "done", result
+        result = tune("tune_test", {"model_name": "factorised_classifier", "trials": 2, "hours": 0.1, "epochs": 1,
+                                    "startup_trials": 5, "final_seeds": [1, 2]}, settings, device_name = "cpu")
+        assert result["trials_finished"] >= 1 and [run["seed"] for run in result["final"]] == [1, 2], result
+        assert "sheet_balance_power" in result["best_settings"], result["best_settings"]
         runs = Path(folder) / "runs"
-        assert not (runs / "tune_test_optuna_trial_000_seed1" / "checkpoints" / "best.pt").exists()
-        assert (runs / "tune_test_factorised_classifier_tuned_seed1" / "checkpoints" / "best.pt").exists()
-        assert (runs / "tune_test_optuna.md").exists() and (runs / "tune_test_optuna.db").exists()
+        assert not (runs / "tune_test_factorised_classifier_optuna_trial_000_seed1" / "checkpoints" / "best.pt").exists()
+        for seed in (1, 2):
+            assert (runs / f"tune_test_factorised_classifier_optuna_best_seed{seed}" / "checkpoints" / "best.pt").exists()
+        assert (runs / "tune_test_factorised_classifier_optuna.md").exists() and (runs / "tune_test_factorised_classifier_optuna.db").exists()
+        history = tune("tune_test", {"model_name": "history_classifier", "trials": 1, "hours": 0.1, "epochs": 1,
+                                     "startup_trials": 5, "final_seeds": [1]}, settings, device_name = "cpu")
+        assert "previous_move_dropout" in history["best_settings"], history["best_settings"]
+        assert history["final"][0]["model_parameters"]["previous_move_dropout"] == history["best_settings"]["previous_move_dropout"]
+
+
+def test_sheet_balance_power() -> None:
+    """Power 1 gives every sheet the same total weight, power 0 every picture the same weight."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        settings = prepared_folder(Path(folder))
+        data = PolicyData(settings)
+        indices = numpy.concatenate([data.indices("train"), data.indices("unseen")])
+        sheets = numpy.array([data.sheets[index] for index in indices])
+        for power, expected_equal_sheets in ((1.0, True), (0.0, False)):
+            data.parameters = dict(data.parameters, sheet_balance_power = power)
+            weights = data.sampling_weights(indices)
+            totals = [weights[sheets == sheet].sum() for sheet in sorted(set(sheets.tolist()))]
+            assert numpy.allclose(totals, totals[0]) == expected_equal_sheets, (power, totals)
+            if power == 0.0:
+                assert numpy.allclose(weights, 1.0), weights
 
 
 if __name__ == "__main__":
     for test in (test_data_links_history_and_chunks, test_exact_steps_are_named_like_the_recording_tool,
                  test_every_policy_trains_and_writes_its_run, test_held_out_sheet_is_scored_alone,
-                 test_optuna_search_runs_and_trains_the_best):
+                 test_optuna_search_runs_and_trains_the_best, test_sheet_balance_power):
         test()
         print(f"{test.__name__}: passed", flush = True)
     print("all tests passed")

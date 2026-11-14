@@ -96,7 +96,7 @@ first policy, then one results table. Each run stops by itself after 90 minutes 
 
     ../.venv_gpu/bin/python train_policy.py --model history_classifier --seed 1 --batch 2026-11-14_extra
     ../.venv_gpu/bin/python train_policy.py --model factorised_classifier --held-out-sheet path_04 --batch 2026-11-14_held_out
-    ../.venv_gpu/bin/python tune_policy.py --batch 2026-11-14_overnight --trials 50 --hours 5
+    ../.venv_gpu/bin/python tune_policy.py --batch 2026-11-14_tuning --model history_classifier --trials 50 --hours 5
     ../.venv_gpu/bin/python train_policy.py --summary --batch 2026-11-14_overnight
 
 `--held-out-sheet` trains without one sheet and scores that sheet alone: the closest offline test of an unseen track.

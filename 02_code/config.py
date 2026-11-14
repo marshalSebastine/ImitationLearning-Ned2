@@ -1448,6 +1448,11 @@ TRAINING_PARAMETERS = {
     "class_weight_power": 0.5,
     "stop_weight_multiplier": 2.0,
     "is_sheet_balanced": True,
+    # How strongly sheets are balanced (14.11.26): a picture is drawn with weight (pictures of its sheet) ** -power. 1 makes
+    # every sheet equally likely (batches up to 2026-11-14_round2); with v02's 30 sheets that gives the six course sheets
+    # only a fifth of the training and repeats a 38-picture round-2 track as often as the 3,546-picture meander. 0 makes
+    # every picture equally likely; 0.5 lies between. Searched by Optuna since 14.11.26.
+    "sheet_balance_power": 1.0,
     "score_weights": {"1": 1.0, "2": 1.0, "3": 1.0},
     "loss_weights": {"move": 1.0, "forearm": 1.0, "lean": 0.5, "at_goal": 0.2, "exact": 1.0, "stop": 1.0},
     "hard_sheets": ["path_03", "path_04", "path_06"],
@@ -1479,9 +1484,13 @@ POLICY_MODEL_PARAMETERS = {
 # Optuna search over the factorised classifier only (Marshal and Claude, 13.11.26: tune one family; only robot runs
 # choose between families). Each trial trains "epochs" epochs and may be stopped early by the median pruner; the study
 # is kept in a SQLite file, so a stopped night carries on where it ended. The best settings are then trained in full.
+# Since 14.11.26 (Marshal: "try tuning as well"): the history classifier by default (the best model), the sheet balance
+# and the history model's previous-move dropout searched too, and the best settings retrained with "final_seeds", so a
+# gain can be told apart from the luck of picking the best of many trials (batch 1: best trial 0.632, its retrain 0.619).
+# The score stays the validation hard-sheet score of the course sheets; the unseen tracks are never used to choose.
 OPTUNA_PARAMETERS = {
-    "model_name": "factorised_classifier",
-    "trials": 30,
+    "model_name": "history_classifier",
+    "trials": 40,
     "hours": 3.0,
     "epochs": 20,
     "startup_trials": 5,
@@ -1491,7 +1500,10 @@ OPTUNA_PARAMETERS = {
     "colour_jitter": [0.0, 0.35],
     "dropout": [0.0, 0.5],
     "score_1_weight": [0.25, 1.0],
-    "batch_size": [64, 128, 256]
+    "batch_size": [64, 128, 256],
+    "sheet_balance_power": [0.0, 1.0],
+    "previous_move_dropout": [0.2, 0.8],
+    "final_seeds": [1, 2, 3]
 }
 
 # Driving the robot with a trained policy (record_episodes.py --mode policy --checkpoint ..., run_policy.py; Marshal,
