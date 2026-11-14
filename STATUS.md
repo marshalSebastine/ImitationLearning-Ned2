@@ -126,11 +126,15 @@ Last updated: 13.11.26 by Marshal's session (data collection done; dataset build
   `policy_models.py`, `run_overnight.sh`; guide `02_code/GPU_TRAINING.md`). Tested on made-up pictures (every policy, a
   held-out sheet, a 2-trial Optuna search) and checked on the real data (every policy trains one step and predicts);
   NOT yet trained for real: Marshal's Mac (8 GB) runs out of memory, so the first real training is the GPU-pool night.
-- Next: Marshal sets up SSH to a DC 1.07 machine (needs the professor's activation and the VPN), copies the project, runs
-  `train_policy.py --check`, then `run_overnight.sh`; results in `04_runs/<batch>_summary.md`. Then a robot runner that
-  drives the arm with a trained policy (not written yet).
-- Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
-  merged; findings in `claude_memory/project-synthetic-pictures.md`. GPU pool: VPN not connected on 3.11, GPUs still unknown.
+- Done 13 to 14.11 (Marshal, GPU pool ki-014, batch `2026-11-13_overnight`, 75 minutes): all five policies with three
+  seeds, 30 Optuna trials and the tuned classifier; results in `04_runs/2026-11-13_overnight_summary.md` and
+  `..._optuna.md` (weights on Marshal's Mac and ki-014 only). Validation hard-sheet score (sheets 03, 04, 06), mean of 3
+  seeds: history classifier 0.618, factorised classifier 0.609, exact-step regressor 0.598, chunk transformer 0.579,
+  diffusion policy 0.476. Optuna's best trial 0.632 (one seed), but the full retrain of its settings gave 0.619: no gain
+  beyond seed noise. Move balanced accuracy is only about 0.5 and every classifier is best after 5 to 13 epochs, so
+  the models overfit fast. Offline numbers only; nothing has run on the robot.
+- Next: a robot runner that drives the arm with a checkpoint (step-and-wait loop, the same picture preparation as
+  training), then robot trials with the history classifier and the tuned factorised classifier on sheets 03, 04, 06.
 - Blocked on: nothing.
 
 ## Evaluation and write-up
