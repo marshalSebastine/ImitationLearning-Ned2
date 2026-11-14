@@ -19,6 +19,7 @@ from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_t
 from record_episodes import (lean_and_hand_labels, ORIENTATION_LEGENDS, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad,
                              picture_heading_rad, status_bar_image)
 from robot_link import SimulatedRobotLink, simulated_hand_path
+from side_view_test import magnet_tip_and_lean
 
 
 def scripted_keys(keys: List[Optional[str]]) -> Callable[[int], Optional[str]]:
@@ -683,6 +684,25 @@ def test_puck_shape_sits_where_the_camera_places_the_puck() -> None:
     assert cv2.contourArea(shape["outline"]) > cv2.contourArea(shape["footprint"])
 
 
+def test_a_taught_start_may_lean_more_than_a_pushing_step(raw_folder: Path) -> None:
+    """
+    14.11.26: T05's near-end start was refused at a 32.4 degree lean (tip at 40.6, -2.4 cm, forearm -68 degrees) by
+    the 28 degree limit of pushing steps; the start now has its own limit, "max_start_lean_deg".
+    """
+
+    robot_link = SimulatedRobotLink({"line_xy": [[0.14, -0.015], [0.40, -0.015]], "puck_xy": [0.1585, -0.015]})
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = lambda wait_ms = 0: None)
+    solver = recorder._EpisodeRecorder__turned_joints
+    try:
+        solver([0.406, -0.024], -68.0, 0.0)
+        raise AssertionError("a pushing step at a 32 degree lean was allowed")
+    except RuntimeError as error:
+        assert "lean" in str(error), error
+    joints = solver([0.406, -0.024], -68.0, 0.0, lean_limit_deg = RECORDING_PARAMETERS["max_start_lean_deg"])
+    assert 28.0 < magnet_tip_and_lean(joints)[1] <= RECORDING_PARAMETERS["max_start_lean_deg"], magnet_tip_and_lean(joints)[1]
+
+
 def test_lift_after_guiding_reaches_the_travel_height(raw_folder: Path) -> None:
     """
     14.11.26 (Emranul: the way home after a discarded episode was slow): at the standard start one lift with joints 2
@@ -749,6 +769,9 @@ if __name__ == "__main__":
     print("test_camera_shift_is_measured: passed")
     test_status_bar_wraps_long_hints()
     print("test_status_bar_wraps_long_hints: passed")
+    with tempfile.TemporaryDirectory() as folder:
+        test_a_taught_start_may_lean_more_than_a_pushing_step(Path(folder))
+    print("test_a_taught_start_may_lean_more_than_a_pushing_step: passed")
     with tempfile.TemporaryDirectory() as folder:
         test_lift_after_guiding_reaches_the_travel_height(Path(folder))
     print("test_lift_after_guiding_reaches_the_travel_height: passed")

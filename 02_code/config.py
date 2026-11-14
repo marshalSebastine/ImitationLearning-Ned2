@@ -651,6 +651,13 @@ RECORDING_PARAMETERS = {
     # under the largest lean pushed. One run, one direction (outwards); a sideways push with the block's wide face
     # is not measured. Marshal's side_view_test.py keeps its own, more cautious 16.
     "max_turn_lean_deg": 28.0,
+    # 14.11.26 (Emranul: "raise the limits of the robot when reaching the taught position"): the rod's lean allowed at a
+    # taught start, where the robot only comes down behind the puck and the person then guides (it pushes nothing by
+    # itself). 28 refused T05's near-end start at 32 to 41 degrees and T06's first try at 28.2. The hand-guided
+    # demonstrations leaned far more (99th percentile 49.1 degrees, frames.csv 10.11.26) without the puck tipping, so
+    # 40 stays well inside what was pushed by hand. The robot's own joint limits are not touched. Not yet tried on the
+    # robot: watch the first start that needs more than 28.
+    "max_start_lean_deg": 40.0,
     # Lifted, the rod touches nothing, so only the arm's reach matters; 45 leaves room for the retreat at 38 cm (34.6).
     "max_turn_lifted_lean_deg": 45.0,
     "turn_model_tolerance_mm": SIDE_VIEW_TEST_PARAMETERS["model_tolerance_mm"],

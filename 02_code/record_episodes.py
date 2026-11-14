@@ -1733,7 +1733,8 @@ class EpisodeRecorder:
             turn_deg: float,
             lift: float,
             is_lean_limited: bool = True,
-            near_wrist_rad: Optional[float] = None
+            near_wrist_rad: Optional[float] = None,
+            lean_limit_deg: Optional[float] = None
     ) -> List[float]:
         """
         The joints that put the magnet tip at ``tip_xy``, ``lift`` metres above pushing height, with the forearm
@@ -1743,8 +1744,9 @@ class EpisodeRecorder:
         the time; the full search is the fallback). With the forearm untwisted, joint 6 is set equal to joint 1, the
         hand's usual orientation for a vertical rod, so the first step after turning back does not spin the block
         against the puck. Raises when no joint angles within the limits reach the point, or when the rod would lean
-        more than the limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted). The wrist
-        (joint 5) is kept below the bracket's limit.
+        more than the limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted), or than
+        ``lean_limit_deg`` when given (the start, "max_start_lean_deg", 14.11.26). The wrist (joint 5) is kept below the
+        bracket's limit.
         """
 
         height = pushing_height(tip_xy[0], tip_xy[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"] + lift
@@ -1762,6 +1764,8 @@ class EpisodeRecorder:
             joints[5] = joints[0]
         lean_deg = magnet_tip_and_lean(joints)[1]
         limit = self.recorder_parameters["max_turn_lifted_lean_deg" if lift > 0.0 else "max_turn_lean_deg"]
+        if lean_limit_deg is not None:
+            limit = lean_limit_deg
         if is_lean_limited and lean_deg > limit:
             raise RuntimeError(f"the rod would lean {lean_deg:.1f} degrees at ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm "
                                f"turned {turn_deg:.0f} degrees, above the limit of {limit}")
@@ -2618,7 +2622,8 @@ class EpisodeRecorder:
             tip_xy = self.__start_tip_xy()
             self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False),
                                         velocity_percent = self.__travel_velocity())
-            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0), velocity_percent = self.__near_puck_velocity())
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0, lean_limit_deg = self.recorder_parameters["max_start_lean_deg"]),
+                                        velocity_percent = self.__near_puck_velocity())
             return
         start = self.__start_pose()
         above = list(start)
