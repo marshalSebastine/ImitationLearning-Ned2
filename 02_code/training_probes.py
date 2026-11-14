@@ -229,6 +229,14 @@ def training_arrays(
         is_mid_paper_stop = (is_stop > 0.5) & numpy.isin(new_track_shapes(frames), parameters["mid_paper_end_tracks"])
         arrays["sample_weight"] = numpy.where(is_mid_paper_stop, arrays["sample_weight"] * parameters["mid_paper_stop_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("weightless_episode_patterns"):
+        # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
+        # tests, so that numbers stay comparable, but no picture of them counts in training
+        episode_ids = frames["episode_id"].astype(str)
+        is_weightless = numpy.zeros(len(frames), dtype = bool)
+        for pattern in parameters["weightless_episode_patterns"]:
+            is_weightless |= episode_ids.str.contains(pattern, regex = False).to_numpy()
+        arrays["sample_weight"] = numpy.where(is_weightless, 0.0, arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     is_moving = frames["action"].isin(DIRECTION_NAMES).to_numpy()
     return arrays, class_names, is_moving
 

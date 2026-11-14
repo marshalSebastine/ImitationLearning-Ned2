@@ -216,6 +216,10 @@ def test_mid_paper_stop_pictures_count_more() -> None:
     is_mid_paper = (frames["path_id"] == "path_13_T03_solid").to_numpy()
     assert numpy.allclose(heavier["sample_weight"][is_stop & is_mid_paper], 4.0 * usual["sample_weight"][is_stop & is_mid_paper])
     assert numpy.allclose(heavier["sample_weight"][~(is_stop & is_mid_paper)], usual["sample_weight"][~(is_stop & is_mid_paper)])
+    without, _, _ = training_arrays(frames, dict(settings, weightless_episode_patterns = ["episode_1"]), target_parameters)
+    is_left_out = (frames["episode_id"] == "episode_1").to_numpy()
+    assert float(numpy.abs(without["sample_weight"][is_left_out]).sum()) == 0.0, "a left-out episode still counts in training"
+    assert numpy.allclose(without["sample_weight"][~is_left_out], usual["sample_weight"][~is_left_out])
 
 
 def test_class_weights_favour_rare_classes() -> None:

@@ -2176,6 +2176,18 @@ TRAINING_RUNS["resnet18_full_wide_320_new_shapes"] = dict(
                         blur_sigma_most = 2 * TRAINING_RUN_PARAMETERS["augmentation"]["blur_sigma_most"]))
 
 
+# 14.11.26, 22:55 (Emranul: "remove episode 14-02 as it skipped the thing"; his score note says it skipped a hairpin).
+# The recording stays where it is (nothing in 03_data/raw is changed); "weightless_episode_patterns" gives every picture
+# of the named episodes no weight in training. It stays a test episode of track T04, so the 55 test episodes are the
+# same for every run. All runs of the second queue train without it; the reference and the other runs of the first
+# queue had already trained with it (one episode of 264, 77 of 22,646 pictures). Model 10 is model 9 without it.
+TRAINING_RUN_PARAMETERS.update({"weightless_episode_patterns": []})
+WITHOUT_14_02 = {"weightless_episode_patterns": ["_plan_14-02_"]}
+for run_name in ["table_as_paper", "mid_paper_stop_4", "table_and_mid_paper", "made_up_ends_4", "made_up_ends_10", "made_up_ends_and_table",
+                 "4_tracks", "8_tracks", "12_tracks", "wide_320"]:
+    TRAINING_RUNS[f"resnet18_full_{run_name}_new_shapes"].update(WITHOUT_14_02)
+TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_9_full_all_sheets"], **WITHOUT_14_02)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
