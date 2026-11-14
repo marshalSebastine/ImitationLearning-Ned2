@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 13.11.26 by Marshal's session (data collection done; dataset builder and training code for five policies written; first GPU night next).
+Last updated: 15.11.26 by Marshal's session (round 2 data in v02; batch on two GPUs; tuning running on ki-016).
 
 ## Dates that cannot move
 
@@ -138,6 +138,16 @@ Last updated: 13.11.26 by Marshal's session (data collection done; dataset build
   so the gamepad mode's joint solving and table-edge check apply; every step waits for Enter unless `g`; runs saved in
   `03_data/raw/policy_runs/`. Tested with the simulated robot and on raw validation JPEGs (same agreement as in
   training, 9 to 19 ms per decision on a CPU). Not yet run on the robot.
+- Done 14 to 15.11 (Marshal; round 2 recorded by Emranul 14.11, 55 episodes on 32 new tracks): dataset `v02_main_data`
+  (19,599 pictures, 257 episodes; three round-2 episodes left out from the review notes; track shapes T01, T08, T11, T15
+  held out as unseen tracks). Batch `2026-11-14_round2` on ki-015 and ki-016 (`04_runs/2026-11-14_round2_summary.md`).
+  Unseen-track score, first batch's models -> round 2: history classifier 0.473 -> 0.505 (1 seed so far), classifier
+  0.468 -> 0.476, tuned classifier 0.451 -> 0.483, regressor 0.417 -> 0.466, chunk transformer 0.392 -> 0.448, diffusion
+  0.332 -> 0.361: the new tracks help every model on unseen shapes. Course-sheet scores fell by 0.01 to 0.02, most likely
+  because every one of the 30 sheets weighed the same; `sheet_balance_power` is now a setting and is being tuned.
+- Running 15.11 on ki-016 (ki-015's GPU is taken by another student's job): the two missing history runs, then Optuna
+  over the history classifier, then over the classifier (`04_runs/2026-11-15_tuning_*`), each retraining its best
+  settings with three seeds.
 - Next (Emranul, Windows laptop with Ethernet; decided by Marshal 14.11): first robot runs with policies A (history
   classifier) and B (tuned factorised classifier), checklist `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md`.
   Needs: PyTorch in `.venv` and the two weight files from Marshal (not in git).
