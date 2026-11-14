@@ -922,24 +922,31 @@ NEW_TRACK_RECORDING_PARAMETERS = {
     "solid_number_offset": 10,
     "dashed_number_offset": 30,
     "near_end_note": "Puck 6 cm before the end cap.",
+    # 14.11.26: a near-end start that needs another distance than "near_end_note" (on T12 the push 6 cm before the end
+    # needs the forearm turned about 111 degrees, close to its 117; 8 cm before, about 92)
+    "near_end_notes": {"T12": "Puck 8 cm before the end cap."},
     "pilot_notes": ["Pilot: recorded by Emranul.", "Pilot: recorded by Emranul."],
     "either_operator_note": "Recorded by Emranul.",
     # name, label, length in cm, standard starts on the solid print, standard starts on the dashed print, and the print
-    # that also gets a near-end start (solid for the even numbers T06 to T14, dashed for the odd numbers T05 to T13)
+    # that also gets a near-end start (solid for the even numbers T06 to T14, dashed for the odd numbers T05 to T13).
+    # 14.11.26 (Emranul, after 35-03 was refused three times): the near-end starts of T05, T06, T10 and T13 are taken
+    # out (None): there the line's last centimetres run back towards the robot, and starting a push needs the forearm
+    # turned 120 to 180 degrees against its 117 (calc from the drawings; T05 refused on the robot). 54 episodes remain,
+    # 48 standard and 6 near-end starts (T07, T08, T09, T11, T12 at 8 cm, T14).
     "tracks": [
         ("T01", "gentle S-curves", 32.7, 2, 1, None),
         ("T02", "two sharp bends", 30.2, 2, 1, None),
         ("T03", "loop", 39.7, 2, 1, None),
         ("T04", "hairpin and medium bend", 40.8, 2, 1, None),
-        ("T05", "loop and corner", 45.6, 1, 2, "dashed"),
-        ("T06", "hairpin and sharp bend", 42.4, 2, 1, "solid"),
+        ("T05", "loop and corner", 45.6, 1, 2, None),
+        ("T06", "hairpin and sharp bend", 42.4, 2, 1, None),
         ("T07", "two corners", 34.4, 1, 2, "dashed"),
         ("T08", "loop and hairpin", 53.0, 2, 1, "solid"),
         ("T09", "short gentle", 26.5, 1, 2, "dashed"),
-        ("T10", "loop and medium bend", 46.4, 2, 1, "solid"),
+        ("T10", "loop and medium bend", 46.4, 2, 1, None),
         ("T11", "three corners", 45.5, 1, 2, "dashed"),
         ("T12", "long meander", 67.3, 2, 1, "solid"),
-        ("T13", "gentle", 41.4, 1, 2, "dashed"),
+        ("T13", "gentle", 41.4, 1, 2, None),
         ("T14", "loop and corner", 52.2, 2, 1, "solid"),
         ("T15", "mixed bends", 57.2, 1, 2, None),
         ("T16", "long gentle", 46.8, 2, 1, None)
@@ -1003,7 +1010,8 @@ def add_new_track_sheets(parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS) -> D
             else:
                 blocks = [(1, standard_starts, "STD", "A", parameters["either_operator_note"])]
             if has_near_end:
-                blocks.append((standard_starts + 1, standard_starts + 1, "NE", "A", parameters["near_end_note"]))
+                note = parameters.get("near_end_notes", {}).get(name, parameters["near_end_note"])
+                blocks.append((standard_starts + 1, standard_starts + 1, "NE", "A", note))
             count = standard_starts + int(has_near_end)
             plan_text = f"{count} episode{'s' if count > 1 else ''}, end A: {standard_starts} standard start{'s' if standard_starts > 1 else ''}"
             plan_text += ", then 1 near-end start" if has_near_end else ""

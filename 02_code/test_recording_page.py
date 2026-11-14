@@ -136,8 +136,8 @@ def test_plan_matches_the_episode_plan_file() -> None:
     assert course_counts == {"path_01_straight_line": 20, "path_02_arc": 45, "path_03_two_curve": 45, "path_04_meander": 45,
                              "path_05_alpha_loop": 30, "path_06_alpha_loop_dashed": 25}, counts
     # 210 since 7.11.26: sheet 02 gained 10 landscape episodes (square sheets as at the exam); 58 more on the new tracks
-    # since 12.11.26 (test_new_tracks_are_offered_sheet_by_sheet).
-    assert sum(course_counts.values()) == 210 and sum(counts.values()) == 268, counts
+    # since 12.11.26, 54 since 14.11.26 (test_new_tracks_are_offered_sheet_by_sheet).
+    assert sum(course_counts.values()) == 210 and sum(counts.values()) == 264, counts
     for entries in plan.values():
         for entry in entries.values():
             assert entry["start_code"] in RECORDING_PAGE_PARAMETERS["start_codes"] and entry["line_end"] in RECORDING_PAGE_PARAMETERS["line_ends"], entry
@@ -193,9 +193,10 @@ def test_new_tracks_are_offered_sheet_by_sheet() -> None:
     plan = expand_episode_plan()
     course_done = {number for path_id in COURSE_SHEETS for number in plan[path_id]}
     order = page_order(plan, course_done)
-    assert len(order) == 58 and len({number for _, number in order}) == 58, len(order)
+    # 14.11.26: 54, since the near-end starts of T05, T06, T10 and T13 were taken out (the arm cannot start there)
+    assert len(order) == 54 and len({number for _, number in order}) == 54, len(order)
     kinds = [plan[sheet][number]["start_code"] for sheet, number in order]
-    assert kinds.count("STD") == 48 and kinds.count("NE") == 10, kinds
+    assert kinds.count("STD") == 48 and kinds.count("NE") == 6, kinds
 
     taped = [sheet for index, (sheet, _) in enumerate(order) if index == 0 or order[index - 1][0] != sheet]
     expected = [f"path_{10 + track:02d}_T{track:02d}_solid" for track in range(1, 5)] + [f"path_{30 + track:02d}_T{track:02d}_dashed" for track in range(1, 5)]
@@ -207,8 +208,9 @@ def test_new_tracks_are_offered_sheet_by_sheet() -> None:
         assert "NE" not in codes[:-1], (sheet, codes)
         assert all(plan[sheet][number]["line_end"] == "A" for number in plan[sheet]), sheet
     near_end_sheets = {sheet for sheet in taped if "NE" in [plan[sheet][number]["start_code"] for number in plan[sheet]]}
-    assert near_end_sheets == {f"path_{10 + track:02d}_T{track:02d}_solid" for track in (6, 8, 10, 12, 14)} | \
-        {f"path_{30 + track:02d}_T{track:02d}_dashed" for track in (5, 7, 9, 11, 13)}, near_end_sheets
+    assert near_end_sheets == {f"path_{10 + track:02d}_T{track:02d}_solid" for track in (8, 12, 14)} | \
+        {f"path_{30 + track:02d}_T{track:02d}_dashed" for track in (7, 9, 11)}, near_end_sheets
+    assert "8 cm" in plan["path_22_T12_solid"]["22-03"]["note"], plan["path_22_T12_solid"]
     for track in range(1, 5):
         sheet = f"path_{10 + track:02d}_T{track:02d}_solid"
         notes = [plan[sheet][number]["note"] for number in plan[sheet]]

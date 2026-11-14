@@ -38,8 +38,9 @@ def test_every_plan_number_has_a_picture_and_a_card() -> None:
     planned = [number for entries in plan.values() for number in entries]
     drawn = [setup["plan_number"] for setup in all_setups()]
     assert drawn == planned, "the drawn plan numbers differ from the plan table"
-    # 20 + 45 + 45 + 45 + 30 + 25 on the course sheets, and since 12.11.26 58 on the new tracks
-    assert len(planned) == 268, len(planned)
+    # 20 + 45 + 45 + 45 + 30 + 25 on the course sheets, and since 12.11.26 58 on the new tracks (54 since 14.11.26,
+    # when the near-end starts of T05, T06, T10 and T13 were taken out)
+    assert len(planned) == 264, len(planned)
     page = (folder / "index.html").read_text(encoding = "utf-8")
     for number in planned:
         assert (folder / f"plan_{number}.png").is_file(), f"no picture for {number}"
@@ -147,8 +148,10 @@ def test_new_tracks_lie_by_the_lay_out_rule() -> None:
         if setup["start_code"] == "STD":
             assert numpy.linalg.norm(setup["puck"] - mark) < 1e-6 and setup["teach_point"] is None, number
         else:
-            assert abs(setup["line_length_cm"] - setup["puck_arc_cm"] - 6.0) < TOLERANCE_CM and setup["teach_point"] is not None, number
-    assert counts == {"STD": 48, "NE": 10}, counts
+            # 6 cm before the end cap, on T12 8 cm (14.11.26: 6 cm needs the forearm turned close to its limit)
+            before_end_cm = 8.0 if number.startswith("22-") else 6.0
+            assert abs(setup["line_length_cm"] - setup["puck_arc_cm"] - before_end_cm) < TOLERANCE_CM and setup["teach_point"] is not None, number
+    assert counts == {"STD": 48, "NE": 6}, counts
     assert (PROJECT_FOLDER / SETUP_VISUALS_PARAMETERS["output_folder"] / "table_marks.pdf").is_file()
 
 
