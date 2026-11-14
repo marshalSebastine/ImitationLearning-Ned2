@@ -2019,6 +2019,20 @@ TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"] = dict(TRAINING_RUNS["resnet18_
 TRAINING_RUNS["resnet18_chunk_resnet34_stop_25_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_seed_2"], stop_positive_weight = 25.0)
 TRAINING_RUNS["resnet18_model_6_chunk_resnet34_stop_25_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"], split = "all")
 
+# 14.11.26 (Emranul: one more model from the round 1 data before Marshal's model is tested): model E's recipe (chunk,
+# stop weighted 25) shown the camera's previous picture as well ("picture_count" 2, six colour channels), so that it can
+# see which way the puck came from in a loop or a bend, which one picture cannot show. Decision rule, fixed before the
+# results: kept only when BOTH seeds beat model E's recipe (path within 45 0.808 and 0.800, mean 0.804) by 1.5 points
+# or more, stop right no more than 8 episodes less often (103 and 105 of 209), AND lose no more than 1 point of path
+# within 45 on the turning pictures (where the demonstrated direction changes by 20 degrees or more from the step
+# before). The last part guards against a known trap of models with a history (de Haan and others 2019, "causal
+# confusion"): they score well offline by repeating the last move and then fail on the robot exactly where the move
+# must change.
+TRAINING_RUN_PARAMETERS.update({"picture_count": 1})
+TRAINING_RUNS["resnet18_two_pictures"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], picture_count = 2, date = "2026-11-14")
+TRAINING_RUNS["resnet18_two_pictures_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25_seed_2"], picture_count = 2, date = "2026-11-14")
+TRAINING_RUNS["resnet18_model_7_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_two_pictures"], split = "all")
+
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,

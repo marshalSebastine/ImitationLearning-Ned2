@@ -14,10 +14,11 @@ import pandas
 import torch
 
 from config import NO_AUGMENTATION, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS
-from train_policy import augmented_pictures, batch_targets
+from train_policy import PictureToMoveModel, augmented_pictures, batch_targets
 from training_metrics import angle_difference_deg, direction_metrics, nearest_direction, stop_metrics
 from training_targets import (DIRECTION_NAMES, MIRRORED_DIRECTION, chunk_targets, class_weights, direction_targets,
-                              episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, previous_rows)
+                              episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, previous_frame_indices,
+                              previous_rows)
 
 
 def toy_frames() -> pandas.DataFrame:
@@ -96,6 +97,36 @@ def test_previous_rows_stay_in_the_episode() -> None:
     assert previous_rows(frames, 2).tolist() == [0, 0, 0, 1, 2, 3, 6, 6, 6, 7]
 
 
+def test_previous_frame_indices_count_every_picture_and_stay_in_the_episode() -> None:
+
+    frames = pandas.DataFrame({"frame_index": [10, 12, 13, 20, 21], "row_in_episode": [0, 2, 3, 0, 1]})
+    assert previous_frame_indices(frames, 1).tolist() == [10, 11, 12, 20, 20]
+    assert previous_frame_indices(frames, 2).tolist() == [10, 10, 11, 20, 20]
+
+
+def test_two_pictures_of_a_row_get_the_same_augmentation() -> None:
+
+    settings = dict(TRAINING_RUN_PARAMETERS)
+    generator = numpy.random.default_rng(1)
+    picture = torch.from_numpy(generator.integers(0, 256, size = (4, 12, 16, 3), dtype = numpy.uint8))
+    two, _ = augmented_pictures(torch.cat([picture, picture], dim = -1), settings, numpy.random.default_rng(5), is_training = True)
+    one, _ = augmented_pictures(picture, settings, numpy.random.default_rng(5), is_training = True)
+    assert two.shape == (4, 6, 12, 16)
+    assert torch.allclose(two[:, :3], two[:, 3:]), "the two pictures were augmented differently"
+    assert torch.allclose(two[:, :3], one), "the first picture's augmentation changed when a second picture was added"
+
+
+def test_six_channel_model_takes_two_pictures() -> None:
+
+    settings = dict(TRAINING_RUN_PARAMETERS, backbone = "small_cnn", is_pretrained = False, picture_count = 2)
+    from training_probes import design_outputs
+    model = PictureToMoveModel(settings, design_outputs("chunk", len(DIRECTION_NAMES), 5))
+    model.eval()
+    with torch.inference_mode():
+        outputs = model(torch.zeros(2, 6, 120, 160))
+    assert outputs["exact"].shape[0] == 2
+
+
 def test_class_weights_favour_rare_classes() -> None:
 
     weights = class_weights(numpy.array([0, 0, 0, 1, -1]), 3, 1.0)
@@ -163,7 +194,9 @@ def test_labels_match_the_recording_tool_on_real_data() -> None:
 if __name__ == "__main__":
     for test in [test_small_motion_rules, test_next_move_never_crosses_episodes, test_mirror_swaps_left_and_right,
                  test_chunk_targets_follow_the_tip_in_the_picture_frame, test_folds_never_split_an_episode,
-                 test_previous_rows_stay_in_the_episode, test_class_weights_favour_rare_classes, test_angle_measures,
+                 test_previous_rows_stay_in_the_episode, test_previous_frame_indices_count_every_picture_and_stay_in_the_episode,
+                 test_two_pictures_of_a_row_get_the_same_augmentation, test_six_channel_model_takes_two_pictures,
+                 test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,
                  test_labels_match_the_recording_tool_on_real_data]:
         test()

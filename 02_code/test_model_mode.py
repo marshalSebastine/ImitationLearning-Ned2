@@ -193,6 +193,27 @@ def test_team_of_two_averages_its_members() -> None:
     assert abs(team["stop_probability"] - (single[0]["stop_probability"] + single[1]["stop_probability"]) / 2) < 1e-6
 
 
+def test_two_picture_model_gets_the_picture_before_and_forgets_it_between_runs() -> None:
+
+    import cv2
+    import numpy
+    from model_mode import ModelPolicy
+
+    policy = ModelPolicy.__new__(ModelPolicy)
+    policy.settings = dict(__import__("config").TRAINING_RUN_PARAMETERS, picture_count = 2)
+    policy.picture_count = 2
+    policy.earlier_pictures = []
+    jpegs = [cv2.imencode(".jpg", numpy.full((480, 640, 3), shade, dtype = numpy.uint8))[1].tobytes() for shade in (40, 200)]
+    first = policy.picture_input(jpegs[0])
+    second = policy.picture_input(jpegs[1])
+    assert first.shape == (1, 6, 120, 160)
+    assert __import__("torch").allclose(first[:, :3], first[:, 3:]), "the first picture of a run must stand in for its previous one"
+    assert __import__("torch").allclose(second[:, 3:], first[:, :3]), "the second picture must carry the first behind it"
+    policy.forget_earlier_pictures()
+    again = policy.picture_input(jpegs[1])
+    assert __import__("torch").allclose(again[:, :3], again[:, 3:]), "a new run must not see the last run's picture"
+
+
 class SteadyPolicy:
     """A stand-in for a model that always asks for 0.8 cm straight up the picture, no twist and no stop."""
 
@@ -1182,7 +1203,8 @@ if __name__ == "__main__":
                  test_predicted_length_rule_moves_what_the_model_asks, test_a_hesitating_model_ends_the_run_as_stalled,
                  test_lift_keeps_the_tip_above_its_point, test_executor_gives_back_recorded_steps,
                  test_replay_gives_back_saved_predictions, test_simulated_run_takes_one_centimetre_steps,
-                 test_team_of_two_averages_its_members, test_step_cm_flag_is_read_and_refused_where_it_does_not_fit,
+                 test_team_of_two_averages_its_members, test_two_picture_model_gets_the_picture_before_and_forgets_it_between_runs,
+                 test_step_cm_flag_is_read_and_refused_where_it_does_not_fit,
                  test_simulated_run_with_step_cm_logs_shorter_tip_moves, test_stall_rule_can_log_and_let_the_run_go_on,
                  test_start_offset_is_zero_at_the_recorded_start_and_its_signs_are_right, test_start_offset_lines_warn_only_beyond_the_limits,
                  test_placing_help_shows_each_reading_until_enter,

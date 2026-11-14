@@ -123,21 +123,50 @@ class ModelPolicy:
             model.eval()
             self.models.append(model)
         torch.set_num_threads(self.settings["threads"])
+        # 14.11.26: a model shown the previous picture too ("picture_count" 2) gets the picture of the step before
+        self.picture_count = self.settings.get("picture_count", 1)
+        self.earlier_pictures = []
 
 
-    def picture_input(self, picture_bytes: bytes) -> torch.Tensor:
+    def forget_earlier_pictures(self) -> None:
+        """Start a new run: its first picture is shown as its own previous picture, as an episode's first in training."""
+
+        self.earlier_pictures = []
+
+
+    def remember_picture(self, picture_bytes: bytes) -> None:
+        """Keep a camera JPEG as the picture before the next one (used by the replay check, which starts mid-episode)."""
+
+        self.earlier_pictures = ([self.small_picture(picture_bytes)] + self.earlier_pictures)[:max(0, self.picture_count - 1)]
+
+
+    def small_picture(self, picture_bytes: bytes) -> numpy.ndarray:
         """
-        Turn a camera JPEG into the network's input exactly as training_dataset.py made the training cache: decoded,
-        BGR to RGB, shrunk to the run's picture size with area averaging, then normalised as in training (no
-        augmentation).
+        Turn a camera JPEG into the cache's form exactly as training_dataset.py made it: decoded, BGR to RGB, shrunk to
+        the run's picture size with area averaging.
         """
 
         picture = cv2.imdecode(numpy.frombuffer(picture_bytes, dtype = numpy.uint8), cv2.IMREAD_COLOR)
         if picture is None:
             raise ValueError("the camera picture could not be decoded")
         width, height = self.settings["picture_size"]
-        small = cv2.resize(cv2.cvtColor(picture, cv2.COLOR_BGR2RGB), (width, height), interpolation = cv2.INTER_AREA)
-        inputs, _ = augmented_pictures(torch.from_numpy(small[None]), self.settings, numpy.random.default_rng(0), is_training = False)
+        return cv2.resize(cv2.cvtColor(picture, cv2.COLOR_BGR2RGB), (width, height), interpolation = cv2.INTER_AREA)
+
+
+    def picture_input(self, picture_bytes: bytes) -> torch.Tensor:
+        """
+        Turn a camera JPEG into the network's input as in training: the cache's form, then normalised (no
+        augmentation). For a model shown earlier pictures, they are stacked behind it (the run's first picture stands
+        in for the ones not yet taken) and this picture is kept as the next one's previous picture.
+        """
+
+        small = self.small_picture(picture_bytes)
+        stacked = small
+        if self.picture_count > 1:
+            earlier = (self.earlier_pictures + [self.earlier_pictures[-1] if self.earlier_pictures else small] * self.picture_count)[:self.picture_count - 1]
+            stacked = numpy.concatenate([small] + earlier, axis = -1)
+            self.earlier_pictures = ([small] + self.earlier_pictures)[:self.picture_count - 1]
+        inputs, _ = augmented_pictures(torch.from_numpy(numpy.ascontiguousarray(stacked[None])), self.settings, numpy.random.default_rng(0), is_training = False)
         return inputs
 
 
@@ -574,6 +603,8 @@ class ModelRun:
         folder = Path(self.parameters["run_folder"]) / f"{started:%Y-%m-%d_%H%M%S}_{label}"
         (folder / "frames").mkdir(parents = True, exist_ok = True)
         stop_rule = StopRule(self.parameters["stop_threshold"], self.parameters["stop_pictures_in_a_row"])
+        if hasattr(self.policy, "forget_earlier_pictures"):
+            self.policy.forget_earlier_pictures()
         rows = []
         tips_and_twists = []
         moves = 0
@@ -889,14 +920,19 @@ def replay_check(parameters: Optional[Dict] = None) -> pandas.DataFrame:
     fold = settings["replay_fold"]
     policy = ModelPolicy(settings["replay_run_name"], run_folder / "checkpoints" / f"{fold}.pt", run_folder / "metrics.json")
     saved = numpy.load(run_folder / f"predictions_{fold}.npz")
-    frames = pandas.read_csv(Path(TRAINING_DATA_PARAMETERS["processed_folder"]) / "frames.csv", usecols = ["frame_index", "frame_path"])
+    frames = pandas.read_csv(Path(TRAINING_DATA_PARAMETERS["processed_folder"]) / "frames.csv", usecols = ["frame_index", "frame_path", "row_in_episode"])
     frame_path = frames.set_index("frame_index")["frame_path"]
+    row_in_episode = frames.set_index("frame_index")["row_in_episode"]
     positions = numpy.linspace(0, len(saved["frame_index"]) - 1, min(len(saved["frame_index"]), settings["replay_rows"])).astype(int)
 
     results = []
     for position in positions:
         frame_index = int(saved["frame_index"][position])
         picture_bytes = (Path(TRAINING_DATA_PARAMETERS["raw_folder"]) / frame_path[frame_index]).read_bytes()
+        policy.forget_earlier_pictures()
+        # a model shown the previous picture gets the camera's picture before, as in training
+        for lag in range(min(policy.picture_count - 1, int(row_in_episode[frame_index])), 0, -1):
+            policy.remember_picture((Path(TRAINING_DATA_PARAMETERS["raw_folder"]) / frame_path[frame_index - lag]).read_bytes())
         decision = policy.decide(picture_bytes)
         results.append({"frame_index": frame_index,
                         "angle_difference_deg": abs((decision["angle_deg"] - float(saved["angle_deg"][position]) + 180.0) % 360.0 - 180.0),

@@ -421,6 +421,37 @@ def previous_rows(
 
 
 
+def previous_frame_indices(
+        frames: pandas.DataFrame,
+        lag: int
+) -> numpy.ndarray:
+    """
+    Return, for every row, the picture cache's index of the camera picture ``lag`` pictures earlier in the same episode.
+
+    Unlike ``previous_rows``, this counts every picture the camera took, also those the cleaning dropped, because on
+    the robot the picture before is always the one taken just before. The cache holds the pictures episode by episode
+    in their order (frames.csv, checked 14.11.26), so the earlier picture is ``lag`` places back; an episode's first
+    pictures repeat its first one.
+
+    Parameters
+    ----------
+    frames : pandas.DataFrame
+        With "frame_index" and "row_in_episode" (the picture's place in its episode, counting every picture).
+    lag : int
+        How many pictures back.
+
+    Returns
+    -------
+    numpy.ndarray
+        int64 indices into the picture caches.
+    """
+
+    frame_index = frames["frame_index"].to_numpy().astype(numpy.int64)
+    row_in_episode = frames["row_in_episode"].to_numpy().astype(numpy.int64)
+    return frame_index - numpy.minimum(row_in_episode, lag)
+
+
+
 def leave_one_sheet_out_folds(frames: pandas.DataFrame) -> List[Dict]:
     """
     Return one fold per sheet: train on the other five sheets, test on this one.

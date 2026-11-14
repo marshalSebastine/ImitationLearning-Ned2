@@ -23,6 +23,7 @@ Settings: TRAINING_RUN_PARAMETERS and TRAINING_RUNS in config.py.
 """
 
 import argparse
+import copy
 import datetime
 import json
 import math
@@ -38,13 +39,17 @@ from config import TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS, TRAINING_R
 from training_metrics import summarised_folds
 from training_probes import ProbeHead, design_outputs, fold_measures, head_losses, predictions_from_outputs, training_arrays
 from training_targets import (MIRRORED_DIRECTION, class_weights, episode_folds, inner_validation_mask, leave_one_sheet_out_folds,
-                              load_training_frames)
+                              load_training_frames, previous_frame_indices)
 
 
 
 class SmallConvolutionalBackbone(torch.nn.Module):
 
-    def __init__(self, channels: List[int]):
+    def __init__(
+            self,
+            channels: List[int],
+            input_channels: int = 3
+    ):
         """
         Initialise a small network trained from scratch: one block per entry of ``channels``.
 
@@ -55,11 +60,13 @@ class SmallConvolutionalBackbone(torch.nn.Module):
         ----------
         channels : list of int
             The width of each block, for example ``[32, 64, 96, 128, 192]``.
+        input_channels : int, optional
+            Three per picture shown at once.
         """
 
         super().__init__()
         layers = []
-        width = 3
+        width = input_channels
         for block_width in channels:
             layers += [
                 torch.nn.Conv2d(width, block_width, 3, stride = 2, padding = 1, bias = False),
@@ -95,16 +102,21 @@ class PictureToMoveModel(torch.nn.Module):
         run_settings : dict
             "backbone" ("small_cnn" or a timm model name), "is_pretrained", "small_cnn_channels", "pooling"
             ("average" for one summary, or "grid" for the cells of "pooling_grid", which keeps where things are),
-            "hidden_size" and "dropout".
+            "hidden_size", "dropout" and "picture_count" (1, or 2 for the picture and the one before it, stacked as six
+            colour channels).
         output_sizes : dict of str to int
             From ``design_outputs``.
         """
 
         super().__init__()
+        input_channels = 3 * run_settings.get("picture_count", 1)
         if run_settings["backbone"] == "small_cnn":
-            self.backbone = SmallConvolutionalBackbone(run_settings["small_cnn_channels"])
+            self.backbone = SmallConvolutionalBackbone(run_settings["small_cnn_channels"], input_channels)
         else:
-            self.backbone = timm.create_model(run_settings["backbone"], pretrained = run_settings["is_pretrained"], num_classes = 0)
+            # with six channels timm repeats the pretrained first layer's weights for the second picture and halves
+            # them, so at the start two equal pictures give exactly the pretrained network's answer
+            self.backbone = timm.create_model(run_settings["backbone"], pretrained = run_settings["is_pretrained"], num_classes = 0,
+                                              in_chans = input_channels)
         self.pooling = run_settings["pooling"]
         self.pooling_grid = tuple(run_settings["pooling_grid"])
         cells = self.pooling_grid[0] * self.pooling_grid[1] if self.pooling == "grid" else 1
@@ -149,7 +161,54 @@ def augmented_pictures(
         is_training: bool
 ) -> Tuple[torch.Tensor, numpy.ndarray]:
     """
-    Turn a batch of cached pictures into normalised network input, augmented when training.
+    Turn a batch of cached pictures, one or several per row, into normalised network input, augmented when training.
+
+    With several pictures per row (the picture and the one before it, 14.11.26), every picture of a row gets the same
+    augmentation (the same light, blur, noise level, shift and mirror), so the only change between them is the robot's
+    own move.
+
+    Parameters
+    ----------
+    pictures : torch.Tensor
+        (batch, height, width, 3 x pictures per row), uint8 RGB, the newest picture first.
+    settings : dict
+        The run settings: "augmentation" (the strength of each kind) and "normalisation".
+    randomness_generator : numpy.random.Generator
+        Source of every random choice, so a run can be repeated.
+    is_training : bool
+        Augment only when True.
+
+    Returns
+    -------
+    tuple of torch.Tensor and numpy.ndarray
+        (batch, 3 x pictures per row, height, width) float input, and which rows were mirrored.
+    """
+
+    picture_count = pictures.shape[-1] // 3
+    if picture_count == 1:
+        return augmented_single_pictures(pictures, settings, randomness_generator, is_training)
+    generator_before = copy.deepcopy(randomness_generator)
+    parts = []
+    is_mirrored = None
+    for picture_number in range(picture_count):
+        # the first picture draws from the run's own generator (so it moves on as with one picture); the others repeat
+        # exactly the same draws from a copy taken before
+        generator = randomness_generator if picture_number == 0 else copy.deepcopy(generator_before)
+        part, part_is_mirrored = augmented_single_pictures(pictures[..., 3 * picture_number:3 * picture_number + 3], settings, generator, is_training)
+        parts.append(part)
+        is_mirrored = part_is_mirrored if is_mirrored is None else is_mirrored
+    return torch.cat(parts, dim = 1), is_mirrored
+
+
+
+def augmented_single_pictures(
+        pictures: torch.Tensor,
+        settings: Dict,
+        randomness_generator: numpy.random.Generator,
+        is_training: bool
+) -> Tuple[torch.Tensor, numpy.ndarray]:
+    """
+    Turn a batch of cached pictures, one per row, into normalised network input, augmented when training.
 
     Parameters
     ----------
@@ -408,7 +467,7 @@ def milliseconds_per_picture(
 
     model.eval()
     height, width = settings["picture_size"][1], settings["picture_size"][0]
-    picture = torch.rand(1, 3, height, width)
+    picture = torch.rand(1, 3 * settings.get("picture_count", 1), height, width)
     timings = []
     with torch.inference_mode():
         for repeat in range(23):
@@ -457,6 +516,12 @@ def run_training(
     frames = load_training_frames(target_parameters)
     cache = numpy.load(Path(TRAINING_DATA_PARAMETERS["processed_folder"]) / f"images_{settings['picture_cache']}.npy", mmap_mode = "r")
     pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
+    if settings.get("picture_count", 1) > 1:
+        # 14.11.26: the picture before each one (the camera's previous picture in the same episode, also where the
+        # cleaning dropped that row; an episode's first picture is repeated), stacked behind it as three more channels
+        earlier_pictures = [torch.from_numpy(numpy.array(cache[previous_frame_indices(frames, lag)]))
+                            for lag in range(1, settings["picture_count"])]
+        pictures = torch.cat([pictures] + earlier_pictures, dim = -1)
     if settings["backbone"] != "small_cnn":
         data_configuration = timm.data.resolve_data_config({}, model = timm.create_model(settings["backbone"], pretrained = False, num_classes = 0))
         settings["normalisation"] = {"mean": list(data_configuration["mean"]), "std": list(data_configuration["std"])}
