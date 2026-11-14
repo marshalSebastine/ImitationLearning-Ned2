@@ -726,6 +726,10 @@ RECORDING_PARAMETERS = {
     # correction of sheet 01, so the arm went to the parking pose and back). Calculated with the arm model at the three
     # correction poses of 6.11.26: these changes raise the magnet tip 38 mm and move it at most 2 mm sideways.
     "joint_lift_change_rad": {"joint_2": 0.12, "joint_3": -0.05},
+    # 14.11.26 (Emranul: the way home after a discarded episode was slow): at the standard start these changes raise the
+    # tip only about 1.7 cm (arm model), under "travel_minimum_height_m", so after guiding the lift is repeated until
+    # the rod's end is that high, at most this many more times; then the travel moves run at "travel_velocity_percent".
+    "joint_lift_repeats_most": 3,
     # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
     # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
     "puck_back_good_px": 5,

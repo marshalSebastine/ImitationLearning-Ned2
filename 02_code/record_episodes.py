@@ -2664,6 +2664,7 @@ class EpisodeRecorder:
             try:
                 self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])), velocity_percent = lift_velocity)
                 print("lifted with joints 2 and 3 (after guiding by hand)")
+                self.__lift_on_to_travel_height(lift_velocity)
                 return
             except Exception as error:
                 print(f"lift with joints 2 and 3 refused ({str(error).splitlines()[0]}); trying the straight lift")
@@ -2682,6 +2683,38 @@ class EpisodeRecorder:
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
             self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
+
+
+    def __lift_on_to_travel_height(self, lift_velocity: Optional[int]) -> None:
+        """
+        Repeat the lift with joints 2 and 3 until the rod's end is "travel_minimum_height_m" above the sheet, at most
+        "joint_lift_repeats_most" more times (14.11.26, Emranul: the way home after a discarded episode was slow). At
+        the standard start one such lift raises the tip only about 1.7 cm (arm model), under the 4 cm the fast travel
+        speed needs, so the move home and the move back to the start after guiding ran at the usual 20 %. A refused
+        lift ends the repeats where the arm is.
+        """
+
+        for repeat in range(int(self.recorder_parameters["joint_lift_repeats_most"]) + 1):
+            state = self.robot_link.read_state()
+            pose = state["pose"]
+            height = float(pose[2]) - pushing_height(float(pose[0]), float(pose[1]))
+            if height >= self.recorder_parameters["travel_minimum_height_m"]:
+                if repeat:
+                    print(f"lifted on to {100 * height:.1f} cm above the pushing height ({repeat} more lift{'s' if repeat > 1 else ''}), so the next moves run fast")
+                return
+            if repeat == int(self.recorder_parameters["joint_lift_repeats_most"]):
+                print(f"still only {100 * height:.1f} cm up after {repeat} more lifts; the next move keeps the usual speed")
+                return
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])), velocity_percent = lift_velocity)
+            except Exception as error:
+                print(f"a further lift with joints 2 and 3 was refused ({str(error).splitlines()[0]}); the next move keeps the usual speed")
+                return
+            pose = self.robot_link.read_state()["pose"]
+            if float(pose[2]) - pushing_height(float(pose[0]), float(pose[1])) - height < 0.005:
+                # at this pose the joint lift hardly lifts: repeating it would only move the arm sideways
+                print("a further lift with joints 2 and 3 rose under 5 mm; the next move keeps the usual speed")
+                return
 
 
     def __near_puck_velocity(self) -> Optional[int]:

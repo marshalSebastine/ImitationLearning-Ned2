@@ -247,21 +247,25 @@ class MoveLoggingLink(SimulatedRobotLink):
     def move_to(self, pose, is_linear = True, velocity_percent = None) -> None:
 
         before = self.pose[2]
+        height_before = before - pushing_height(self.pose[0], self.pose[1])
         super().move_to(pose, is_linear = is_linear, velocity_percent = velocity_percent)
         # The simulated move_joints moves through move_to; that inner call is the same move, logged once.
         if not self.is_inside_joint_move:
-            MoveLoggingLink.moves.append({"kind": "move_to", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2]})
+            MoveLoggingLink.moves.append({"kind": "move_to", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2],
+                                          "height_before": height_before})
 
 
     def move_joints(self, joints, velocity_percent = None) -> None:
 
         before = self.pose[2]
+        height_before = before - pushing_height(self.pose[0], self.pose[1])
         self.is_inside_joint_move = True
         try:
             super().move_joints(joints, velocity_percent = velocity_percent)
         finally:
             self.is_inside_joint_move = False
-        MoveLoggingLink.moves.append({"kind": "move_joints", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2]})
+        MoveLoggingLink.moves.append({"kind": "move_joints", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2],
+                                      "height_before": height_before})
 
 
     def set_free_motion(self, is_enabled: bool) -> None:
@@ -292,12 +296,15 @@ def test_only_moves_beside_the_puck_run_faster(raw_folder: Path) -> None:
     near = RECORDING_PARAMETERS["near_puck_velocity_percent"]
     travel = RECORDING_PARAMETERS["travel_velocity_percent"]
     moves = [move for move in MoveLoggingLink.moves if move["kind"] in ("move_to", "move_joints")]
-    flat = [move for move in moves if abs(move["z_after"] - move["z_before"]) < 0.003]
+    # 14.11.26: a level move that starts at the travel height (above the puck, after the repeated lift after guiding)
+    # may run at the travel speed; every level move lower down keeps the usual speed
+    travel_height = RECORDING_PARAMETERS["travel_minimum_height_m"]
+    flat = [move for move in moves if abs(move["z_after"] - move["z_before"]) < 0.003 and move["height_before"] < travel_height]
     assert flat and all(move["speed"] is None for move in flat), [move for move in flat if move["speed"] is not None]
     assert any(move["speed"] == near for move in moves), "no move ran at the near-puck speed"
     for move in moves:
-        if move["speed"] == near:
-            assert abs(move["z_after"] - move["z_before"]) > 0.01, move
+        if move["speed"] == near and move["height_before"] < travel_height:
+            assert abs(move["z_after"] - move["z_before"]) > 0.005, move
         assert move["speed"] in (None, near, travel), move
     after_guiding = [MoveLoggingLink.moves[index + 1] for index, move in enumerate(MoveLoggingLink.moves[:-1]) if move["kind"] == "motors_on"]
     assert after_guiding and all(move["kind"] == "move_joints" and move["speed"] == near and move["z_after"] > move["z_before"] + 0.02
@@ -676,6 +683,29 @@ def test_puck_shape_sits_where_the_camera_places_the_puck() -> None:
     assert cv2.contourArea(shape["outline"]) > cv2.contourArea(shape["footprint"])
 
 
+def test_lift_after_guiding_reaches_the_travel_height(raw_folder: Path) -> None:
+    """
+    14.11.26 (Emranul: the way home after a discarded episode was slow): at the standard start one lift with joints 2
+    and 3 raises the tip only about 1.7 cm, so it is repeated until the rod's end is "travel_minimum_height_m" up, and
+    the move home then runs at the travel speed.
+    """
+
+    from config import pushing_height
+
+    start_joints = [-0.10574, -0.73073, -1.08094, 0.00163, 0.23614, -0.10575]
+    robot_link = SimulatedRobotLink({"line_xy": [[0.14, -0.015], [0.40, -0.015]], "puck_xy": [0.1585, -0.015]})
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = lambda wait_ms = 0: None)
+    robot_link.move_joints(start_joints)
+    pose = robot_link.read_state()["pose"]
+    assert pose[2] - pushing_height(pose[0], pose[1]) < 0.01, pose
+    recorder._EpisodeRecorder__lift(is_after_guiding = True)
+    pose = robot_link.read_state()["pose"]
+    height = pose[2] - pushing_height(pose[0], pose[1])
+    assert height >= RECORDING_PARAMETERS["travel_minimum_height_m"], height
+    assert recorder._EpisodeRecorder__travel_velocity() == RECORDING_PARAMETERS["travel_velocity_percent"]
+
+
 def test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print(raw_folder: Path) -> None:
     """
     14.11.26: on a new track's sheet the arm, once at the start, shows the line drawn where it should lie until Enter,
@@ -719,6 +749,9 @@ if __name__ == "__main__":
     print("test_camera_shift_is_measured: passed")
     test_status_bar_wraps_long_hints()
     print("test_status_bar_wraps_long_hints: passed")
+    with tempfile.TemporaryDirectory() as folder:
+        test_lift_after_guiding_reaches_the_travel_height(Path(folder))
+    print("test_lift_after_guiding_reaches_the_travel_height: passed")
     with tempfile.TemporaryDirectory() as folder:
         test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print(Path(folder))
     print("test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print: passed")
