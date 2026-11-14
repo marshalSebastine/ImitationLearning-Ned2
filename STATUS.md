@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), 9.11.26 by the Model and training session (its section only), and 10 and 11.11.26 by the Model and training session (its section only: GPU pool; first robot test, its check and the plan after it).
+Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), 9.11.26 by the Model and training session (its section only), and 10 and 11.11.26 by the Model and training session (its section only: GPU pool; first robot test, its check and the plan after it). 14.11.26 by the Model and training session (its section only: round 2 recorded, the search for the final model started).
 
 ## Dates that cannot move
 
@@ -150,12 +150,26 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   in. Emranul's dates: Thursday 12.11 at the robot (a first test visit with the driver as it is plus small switches,
   checklist `.../Model and training/2026-11-12_test_visit_checklist.md`), Saturday 14.11 recording with Marshal (hand
   trial of the demonstration rules, a pilot, a first batch on new shapes).
-- Next: the test visit of 12.11 and its scoring; for Saturday the new tracks as prints, their entries in the recording
-  program and the one-page rules; then the plan's corrections and the tools of the full test sittings.
-- Blocked on: the safety copy to a second disk and the push (the repository is public; decided with Marshal);
-  changes of the recording tool (wrist held by the replay, take-over for corrections) need the orchestrator and the
-  Recording and data session; the recording program runs from the main checkout, so this branch must be brought over
-  there before Saturday.
+- Done 12 to 13.11.26: the test visit (36 runs) and its scoring (`claude_memory/project-test-visit-2026-11-12.md`).
+- Done 14.11.26 (Emranul at the robot alone; branch pushed once in the afternoon, later commits local): round 2
+  recorded to the end, 55 scored episodes on the 16 new tracks T01 to T16 (4,748 pictures), with a lay-out line in the
+  recording tool, quicker lifts and a looser lean limit at the taught start. A two-picture model (steers better, stops
+  worse, not kept; `.../2026-11-14_two_picture_model.md`). A mid-way check (`.../2026-11-14_midway_check.md`) and the
+  stop check (`.../2026-11-14_stop_check.md`): the model stops near the paper's edge, not at the line's end (every
+  round 1 line ends 2.4 to 4.3 cm from the edge).
+- Running since 14.11.26, 22:21, on ki-014: the search for the final model on round 1 plus all of round 2 (index
+  `03_data/processed/v03_training_index`, 264 episodes, 22,646 pictures). Yardstick and rule fixed before the results:
+  each of the 16 new tracks held out once (55 test episodes). First numbers: steering 0.83 path within 45 (round 1
+  only: 0.81); the stop right on about 1 episode in 4 and on none of the mid-paper ends. Under test: three changes
+  against the edge cue (table repainted as paper, made-up line ends, heavier mid-paper stops), two pictures, ResNet-34,
+  16 rounds, score 1 without weight, fewer tracks (would more help?), 320-px pictures. Model 9 (reference recipe on all
+  episodes) is on the laptop, not yet driven. All in `.../Model and training/2026-11-14_final_model_search.md`.
+- Next: read the search's results by its rule, choose the recipe, train it on every episode and test it on the robot
+  with the comparison run list (`.../2026-11-14_comparison_runs.csv`); Marshal's model into the same list.
+- Open for Emranul: leave episode 14-02 out (skipped hairpin)? May made-up line ends be used (not demonstrated stops)?
+  Make today's camera view the camera check's reference? Pilot feedback on the recording rules.
+- Blocked on: the safety copy to a second disk; a pull request of `emranul/training-analysis` into `main` (the
+  recording tool ran from this branch's worktree on 14.11.26).
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`.
 

@@ -1,0 +1,216 @@
+{
+ "2026-11-14_resnet18_full_new_shapes": {
+  "stop output, fixed 0.5": {
+   "all": {
+    "right": 11,
+    "short": 3,
+    "early": 16,
+    "never": 25
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 6,
+    "never": 13
+   },
+   "remark": ""
+  },
+  "stop output, limits chosen without the track": {
+   "all": {
+    "right": 15,
+    "short": 2,
+    "early": 27,
+    "never": 11
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 11,
+    "never": 8
+   },
+   "remark": "mostly stop 0.3, reach 0.0 cm"
+  },
+  "reach, limits chosen without the track": {
+   "all": {
+    "right": 13,
+    "short": 4,
+    "early": 10,
+    "never": 28
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 1,
+    "early": 3,
+    "never": 15
+   },
+   "remark": "mostly stop 0.5, reach 1.25 cm"
+  },
+  "either, limits chosen without the track": {
+   "all": {
+    "right": 14,
+    "short": 2,
+    "early": 28,
+    "never": 11
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 11,
+    "never": 8
+   },
+   "remark": "mostly stop 0.3, reach 1.25 cm"
+  },
+  "both, limits chosen without the track": {
+   "all": {
+    "right": 13,
+    "short": 2,
+    "early": 27,
+    "never": 13
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 11,
+    "never": 8
+   },
+   "remark": "mostly stop 0.3, reach 3.0 cm"
+  }
+ },
+ "2026-11-14_resnet18_full_new_shapes_seed_2": {
+  "stop output, fixed 0.5": {
+   "all": {
+    "right": 5,
+    "short": 1,
+    "early": 3,
+    "never": 7
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 1,
+    "never": 5
+   },
+   "remark": ""
+  },
+  "stop output, limits chosen without the track": {
+   "all": {
+    "right": 3,
+    "short": 1,
+    "early": 5,
+    "never": 7
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 1,
+    "never": 5
+   },
+   "remark": "mostly stop 0.5, reach 0.0 cm"
+  },
+  "stop output, the first seed's limits unchanged": {
+   "all": {
+    "right": 3,
+    "short": 3,
+    "early": 4,
+    "never": 6
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 2,
+    "never": 4
+   },
+   "remark": "stop 0.3, reach 0.0 cm"
+  },
+  "reach, limits chosen without the track": {
+   "all": {
+    "right": 4,
+    "short": 1,
+    "early": 3,
+    "never": 8
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 1,
+    "early": 2,
+    "never": 3
+   },
+   "remark": "mostly stop 0.5, reach 1.5 cm"
+  },
+  "reach, the first seed's limits unchanged": {
+   "all": {
+    "right": 3,
+    "short": 2,
+    "early": 2,
+    "never": 9
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 1,
+    "never": 5
+   },
+   "remark": "stop 0.5, reach 1.25 cm"
+  },
+  "either, limits chosen without the track": {
+   "all": {
+    "right": 3,
+    "short": 1,
+    "early": 5,
+    "never": 7
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 1,
+    "never": 5
+   },
+   "remark": "mostly stop 0.5, reach 0.75 cm"
+  },
+  "either, the first seed's limits unchanged": {
+   "all": {
+    "right": 3,
+    "short": 3,
+    "early": 4,
+    "never": 6
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 2,
+    "never": 4
+   },
+   "remark": "stop 0.3, reach 1.25 cm"
+  },
+  "both, limits chosen without the track": {
+   "all": {
+    "right": 3,
+    "short": 1,
+    "early": 2,
+    "never": 10
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 1,
+    "never": 5
+   },
+   "remark": "mostly stop 0.5, reach 2.5 cm"
+  },
+  "both, the first seed's limits unchanged": {
+   "all": {
+    "right": 3,
+    "short": 3,
+    "early": 4,
+    "never": 6
+   },
+   "mid_paper": {
+    "right": 0,
+    "short": 0,
+    "early": 2,
+    "never": 4
+   },
+   "remark": "stop 0.3, reach 3.0 cm"
+  }
+ }
+}
