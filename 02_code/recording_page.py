@@ -1,8 +1,8 @@
 """
 A local web page that starts the recording tool: fill in the form, tick the safety checks, press Start.
 
-The page only builds the command line and starts record_episodes.py, which then moves the robot and opens its picture and
-orientation windows as it always does. It has no stop button on purpose: a running tool is stopped from its own windows or
+The page only builds the command line and starts record_episodes.py, which then moves the robot and opens its picture
+window (the orientation window is off since 14.11.26) as it always does. It has no stop button on purpose: a running tool is stopped from its own windows or
 with the robot's Stop button, so an episode is never killed by accident. Only one tool can be started at a time.
 
 The page records one episode per Start, so that each carries its own plan number, and asks for a score after it. The score

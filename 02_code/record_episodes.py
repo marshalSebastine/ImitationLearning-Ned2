@@ -1957,10 +1957,11 @@ class EpisodeRecorder:
         A second window, "orientation" (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious
         from the picture alone), drawn by __orientation_canvas for ``view`` (a key of ORIENTATION_LEGENDS). It stays
         on top, and the first time it opens it is placed beside the picture window on the same monitor so that it
-        does not hide behind it (Emranul, 5.11.26); after that it stays where the person puts it.
+        does not hide behind it (Emranul, 5.11.26); after that it stays where the person puts it. Off since 14.11.26
+        ("is_orientation_window_shown", Emranul: not needed); it only draws, so nothing else changes.
         """
 
-        if not self.recorder_parameters["is_window_shown"]:
+        if not self.recorder_parameters["is_window_shown"] or not self.recorder_parameters.get("is_orientation_window_shown", True):
             return
 
         try:

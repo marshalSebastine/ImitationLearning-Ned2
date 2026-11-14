@@ -730,6 +730,9 @@ RECORDING_PARAMETERS = {
     # tip only about 1.7 cm (arm model), under "travel_minimum_height_m", so after guiding the lift is repeated until
     # the rod's end is that high, at most this many more times; then the travel moves run at "travel_velocity_percent".
     "joint_lift_repeats_most": 3,
+    # 14.11.26 (Emranul: "remove the orientation thing, it's not needed"): the second window, the map of the arm and
+    # the keys beside the picture (4.11.26), is not opened; True brings it back. It only draws.
+    "is_orientation_window_shown": False,
     # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
     # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
     "puck_back_good_px": 5,
