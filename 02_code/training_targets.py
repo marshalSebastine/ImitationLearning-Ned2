@@ -24,7 +24,7 @@ from typing import Dict, List, Optional, Tuple
 import numpy
 import pandas
 
-from config import RECORDING_PARAMETERS, TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
+from config import RECORDING_PARAMETERS, SHAPE_OF_SHEET, TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
 
 DIRECTION_ANGLES_DEG = {name: angle for name, angle in RECORDING_PARAMETERS["actions"].items() if angle is not None}
 DIRECTION_NAMES = list(DIRECTION_ANGLES_DEG)
@@ -449,6 +449,37 @@ def previous_frame_indices(
     frame_index = frames["frame_index"].to_numpy().astype(numpy.int64)
     row_in_episode = frames["row_in_episode"].to_numpy().astype(numpy.int64)
     return frame_index - numpy.minimum(row_in_episode, lag)
+
+
+
+def new_track_shapes(frames: pandas.DataFrame) -> numpy.ndarray:
+    """The new track each row's sheet carries ("T03" for both prints of T03), or "" for a course sheet (14.11.26)."""
+
+    shapes = frames["path_id"].map(lambda path_id: str(SHAPE_OF_SHEET.get(path_id, ""))).to_numpy().astype(str)
+    return numpy.where(numpy.char.startswith(shapes, "T"), shapes, "")
+
+
+
+def new_shape_folds(frames: pandas.DataFrame) -> List[Dict]:
+    """
+    One fold per new track recorded so far: trained on everything else (round 1 and the other new tracks), tested on
+    both prints of that track, a line the model has not seen (14.11.26, the mid-way check of round 2).
+    """
+
+    shapes = new_track_shapes(frames)
+    return [{"name": f"without_{shape}", "train": shapes != shape, "test": shapes == shape}
+            for shape in sorted(set(shapes) - {""})]
+
+
+
+def round_1_to_new_folds(frames: pandas.DataFrame) -> List[Dict]:
+    """
+    One fold: trained on round 1 only (the course sheets), tested on every new track, the comparison for
+    ``new_shape_folds`` (14.11.26): the same recipe without any round 2 data.
+    """
+
+    shapes = new_track_shapes(frames)
+    return [{"name": "round_1_only", "train": shapes == "", "test": shapes != ""}]
 
 
 

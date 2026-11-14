@@ -39,7 +39,7 @@ from config import TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS, TRAINING_R
 from training_metrics import summarised_folds
 from training_probes import ProbeHead, design_outputs, fold_measures, head_losses, predictions_from_outputs, training_arrays
 from training_targets import (MIRRORED_DIRECTION, class_weights, episode_folds, inner_validation_mask, leave_one_sheet_out_folds,
-                              load_training_frames, previous_frame_indices)
+                              load_training_frames, new_shape_folds, previous_frame_indices, round_1_to_new_folds)
 
 
 
@@ -538,6 +538,10 @@ def run_training(
         folds = [{"name": "all_sheets", "train": numpy.ones(len(frames), dtype = bool), "test": numpy.zeros(len(frames), dtype = bool)}]
     elif settings["split"] == "sheets":
         folds = leave_one_sheet_out_folds(frames)
+    elif settings["split"] == "new_shapes":
+        folds = new_shape_folds(frames)
+    elif settings["split"] == "round_1_to_new":
+        folds = round_1_to_new_folds(frames)
     else:
         folds = episode_folds(frames, target_parameters["episode_fold_count"], target_parameters["seed"])
     if fold_names:

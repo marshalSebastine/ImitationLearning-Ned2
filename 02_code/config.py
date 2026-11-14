@@ -2072,6 +2072,14 @@ TRAINING_RUN_PARAMETERS.update({"processed_folder": None})
 ROUND_2_INDEX_FOLDER = main_checkout_folder() / "03_data" / "processed" / "v02_training_index"
 TRAINING_RUNS["resnet18_model_8_round_2_part_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_4_chunk_stop_25_all_sheets"],
                                                                  processed_folder = ROUND_2_INDEX_FOLDER, date = None)
+# The offline half of the same check, on lines no model has seen: model E's recipe with each new track held out once
+# (trained on round 1 and the other new tracks), against the same recipe trained on round 1 only, both tested on the
+# new tracks. Rule, fixed before the results (14.11.26): the round 2 data helps when path within 45 on the held-out
+# new tracks rises by 2 points or more on average, without fewer episodes stopped right.
+TRAINING_RUNS["resnet18_round_2_part_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "new_shapes",
+                                                         processed_folder = ROUND_2_INDEX_FOLDER, date = None)
+TRAINING_RUNS["resnet18_round_1_to_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "round_1_to_new",
+                                                       processed_folder = ROUND_2_INDEX_FOLDER, date = None)
 
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
