@@ -21,7 +21,7 @@ from config import TRAINING_PARAMETERS
 
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
-SPLIT_NAMES = ["train", "validation", "test", "held_out"]
+SPLIT_NAMES = ["train", "validation", "test", "held_out", "unseen"]
 
 
 def merged_training_parameters(training_parameters: Optional[Dict] = None) -> Dict:

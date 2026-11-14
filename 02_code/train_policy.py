@@ -141,7 +141,7 @@ def model_inputs(
 ) -> Dict[str, torch.Tensor]:
     """The pictures (and, for the history policy, the earlier pictures and the previous move) of one batch."""
 
-    if model_name == "history_classifier":
+    if hasattr(model, "history_length"):
         history = tensors["history"][indices][:, :model.history_length]
         return {"pictures": picture_batch(tensors["pictures"], history, is_training, parameters, device),
                 "previous_move": tensors["previous_move"][indices]}
@@ -497,7 +497,7 @@ def train_one_run(
                "minutes": round((time.time() - started) / 60.0, 2), "device": str(device),
                "gpu": torch.cuda.get_device_name(0) if device.type == "cuda" else None,
                "train_pictures": int(len(train_indices)), "validation": checkpoint["validation"]}
-    for split in ("test", "held_out"):
+    for split in ("test", "held_out", "unseen"):
         split_indices = data.indices(split)
         if len(split_indices):
             results[split] = scores_of(predict(model, model_name, data, tensors, split_indices, parameters, device, seed), data,
@@ -525,7 +525,7 @@ def check_setup(
     if device.type == "cuda":
         properties = torch.cuda.get_device_properties(0)
         print(f"GPU {properties.name}, {properties.total_memory / 1e9:.1f} GB", flush = True)
-    for model_name in POLICY_CLASSES:
+    for model_name in POLICY_MODEL_PARAMETERS:
         model_parameters, parameters = merged_model_parameters(model_name, training_overrides = training_overrides)
         data = load_data(parameters, model_parameters)
         tensors = data.tensors(device)
@@ -536,7 +536,7 @@ def check_setup(
         loss.backward()
         predictions = predict(model, model_name, data, tensors, data.indices("validation")[:8], parameters, device)
         print(f"  {model_name}: loss {float(loss.detach()):.3f}, {len(predictions['move'])} predictions: OK", flush = True)
-    counts = {split: len(data.indices(split)) for split in ("train", "validation", "test", "held_out")}
+    counts = {split: len(data.indices(split)) for split in ("train", "validation", "test", "held_out", "unseen")}
     print(f"dataset {parameters['dataset_name']}: {counts}; everything ready", flush = True)
 
 
@@ -573,14 +573,17 @@ def write_summary(
     lines = [f"# Training batch {batch_name}", "",
              "Validation scores of the best epoch, mean ± spread over seeds. Hard-sheet score: mean over sheets 03, 04 and 06 "
              "of (move balanced accuracy + forearm accuracy) / 2. Test scores are for the report only; nothing is chosen by them.",
-             "", "| Policy | Seeds | Hard-sheet score | Move balanced accuracy | Forearm accuracy | Stop recall | Test hard-sheet score |",
-             "|---|---|---|---|---|---|---|"]
+             "Unseen-track score: the same mean of (move balanced accuracy + forearm accuracy) / 2 over the episodes of the "
+             "track shapes never trained on (round 2: T01, T08, T11, T15), when the dataset has them.",
+             "", "| Policy | Seeds | Hard-sheet score | Move balanced accuracy | Forearm accuracy | Stop recall | Test hard-sheet score | Unseen-track score |",
+             "|---|---|---|---|---|---|---|---|"]
     for label, label_runs in sorted(by_label.items(), key = lambda item: -numpy.mean([run["validation"]["hard_sheet_score"] for run in item[1]])):
         lines.append(f"| {label} | {len(label_runs)} | {mean_and_spread([run['validation']['hard_sheet_score'] for run in label_runs])} | "
                      f"{mean_and_spread([run['validation']['all']['move_balanced_accuracy'] for run in label_runs])} | "
                      f"{mean_and_spread([run['validation']['all']['forearm_accuracy'] for run in label_runs])} | "
                      f"{mean_and_spread([run['validation']['all']['stop_recall'] for run in label_runs])} | "
-                     f"{mean_and_spread([run.get('test', {}).get('hard_sheet_score') for run in label_runs])} |")
+                     f"{mean_and_spread([run.get('test', {}).get('hard_sheet_score') for run in label_runs])} | "
+                     f"{mean_and_spread([run.get('unseen', {}).get('hard_sheet_score') for run in label_runs])} |")
     lines += ["", "Move balanced accuracy per sheet (validation):", "", "| Policy | " + " | ".join(sheets) + " |",
               "|---|" + "---|" * len(sheets)]
     for label, label_runs in sorted(by_label.items()):
@@ -601,7 +604,8 @@ def main() -> None:
     """Command line: check the set-up, train one run, or summarise a batch."""
 
     parser = argparse.ArgumentParser(description = "Train and score the policies.")
-    parser.add_argument("--model", choices = sorted(POLICY_CLASSES), help = "the policy to train")
+    parser.add_argument("--model", choices = sorted(POLICY_MODEL_PARAMETERS), help = "the policy (or named variant) to train")
+    parser.add_argument("--dataset", help = "dataset name in 03_data/processed (default: the one in config)")
     parser.add_argument("--seed", type = int, default = 1)
     parser.add_argument("--batch", default = f"{date.today().isoformat()}_trial", help = "name shared by the runs of one night")
     parser.add_argument("--device", help = "cuda, mps or cpu (default: the best available)")
@@ -618,6 +622,8 @@ def main() -> None:
         overrides["epochs"] = arguments.epochs
     if arguments.held_out_sheet:
         overrides["held_out_sheet"] = arguments.held_out_sheet
+    if arguments.dataset:
+        overrides["dataset_name"] = arguments.dataset
     if arguments.no_pretrained:
         overrides["is_pretrained"] = False
     if arguments.check:

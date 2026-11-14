@@ -35,7 +35,7 @@ from config import DATASET_PARAMETERS
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 EPISODE_NAME_PATTERN = re.compile(r"^(?P<sheet>path_\d\d)_.*?_episode_(?P<number>\d+)")
-SPLIT_NAMES = ["train", "validation", "test"]
+SPLIT_NAMES = ["train", "validation", "test", "unseen"]
 
 
 def merged_dataset_parameters(dataset_parameters: Optional[Dict] = None) -> Dict:
@@ -289,8 +289,13 @@ def build_dataset(
         if episode["is_kept"]:
             kept_by_sheet[episode["sheet"]].append(episode["episode_key"])
     splits = {}
-    for sheet_keys in kept_by_sheet.values():
-        splits.update(split_of_episodes(sheet_keys, parameters))
+    for sheet, sheet_keys in kept_by_sheet.items():
+        if sheet in parameters["unseen_sheets"]:
+            splits.update({key: "unseen" for key in sheet_keys})
+        elif len(sheet_keys) < parameters["minimum_episodes_for_split"]:
+            splits.update({key: "train" for key in sheet_keys})
+        else:
+            splits.update(split_of_episodes(sheet_keys, parameters))
     for episode in episodes:
         episode["split"] = splits.get(episode["episode_key"], "")
     for sample in samples:

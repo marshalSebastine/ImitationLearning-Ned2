@@ -117,7 +117,7 @@ class PolicyDriver:
         parameters = self.training_parameters
         move_classes, forearm_classes = parameters["move_classes"], parameters["forearm_classes"]
 
-        if self.model_name == "history_classifier":
+        if hasattr(self.model, "history_length"):
             # The first picture of an episode stands in for the earlier ones it does not have, as in training.
             stack = [prepared] + self.past_pictures
             stack += [stack[-1]] * (self.history_length - len(stack))
