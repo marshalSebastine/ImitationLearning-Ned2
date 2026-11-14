@@ -29,7 +29,8 @@ the table in part 5 says how many of the 16 folds each number rests on.
 - The rod tip's path was drawn over the planned line for every episode. The tip runs 1 to 2 cm beside the line (median
   1.3 cm) and swings wide at bends and when it is moved round the puck; that is how the pushing works, not an error.
   A skipped stretch cannot be read from the tip's path at a hairpin (two automatic measures were tried and dropped).
-- Open, Emranul's decision: episode 14-02 (his note: "skipped a hairpin", score 2) is still in the training data. One
+- Decided by Emranul on 14.11.26, 22:55 ("remove episode 14-02 as it skipped the thing"): 14-02 gets no weight in the
+  training of every run from the second queue on, and of model 10; the recording stays on disk. Before that: one
   episode of 264 cannot be judged by the yardstick; leaving it out is a decision of principle.
 - Score-1 episodes (10 in round 2) are tested as a question of their own ("score_1_off", part 4).
 
@@ -67,23 +68,27 @@ A made-up end is not a demonstrated stop: if it is kept, the report has to say s
 
 ## 5. Results (measured; `evidence/final_2026-11-14/score_final.py`, numbers in `final_scores.json`)
 
-State of 14.11.26, 22:49 (the first queue is still running):
+State of 14.11.26, 23:10 (both seeds of the reference complete; everything else still running):
 
 | Run | Folds | Path within 45 | Stopped right | Too early | Never | Right on mid-paper ends |
 |---|---|---|---|---|---|---|
-| reference (round 1 plus all of round 2) | 16 of 16 | 0.832 | 11 of 55 | 16 | 25 | 0 of 19 |
-| the same recipe on round 1 only | all tracks | 0.809 | 14 of 55 | 20 | 19 | 1 of 19 |
-| reference, second seed | 5 of 16 | 0.831 (reference on the same 5: 0.808) | 5 of 16 (3 of 16) | 3 | 7 | 0 of 6 |
+| reference, seed 1 (round 1 plus all of round 2) | 16 of 16 | 0.832 | 11 of 55 | 16 | 25 | 0 of 19 |
+| reference, seed 2 | 16 of 16 | 0.844 | 17 of 55 | 13 | 22 | 1 of 19 |
+| the same recipe on round 1 only (seed 1) | all tracks | 0.809 | 14 of 55 | 20 | 19 | 1 of 19 |
 
-(3 more of the reference's 55 episodes stopped 2 to 3 cm short of the end, neither right nor early.)
+(3 more of seed 1's 55 episodes stopped 2 to 3 cm short of the end, neither right nor early.)
+
+The reference's mean, against which every change is judged: path within 45 0.838, 14 of 55 stopped right. The gap
+between its two seeds: 1.2 points of path and 6 right stops. By the rule a difference under that gap is no difference,
+so a change has to stop right on 20 or more of the 55 (5 above the mean and outside the gap), or gain 1.5 points of
+path without stopping right on fewer than 11.
 
 Read so far:
 
-- Steering: round 2 adds 2.3 points of path within 45 on unseen tracks (0.809 to 0.832). The second seed's first five
-  tracks lie 2.3 points above the first seed's on the same tracks, so one seed alone moves the number by about as much
-  as round 2 did; the full second seed is needed before more is said.
-- The stop is the weak point and round 2 did not move it: right on 11 of 55 unseen-line episodes with round 2, 14 of 55
-  without. On the six tracks that end in the middle of the paper it is right on 0 of 19, with 15 other new tracks in
+- Steering: round 2 adds about 3 points of path within 45 on unseen tracks (0.809 to a mean of 0.838; both seeds lie
+  above the round 1 model, by 2.3 and 3.5 points). The round 1 model has one seed only.
+- The stop is the weak point and round 2 did not move it: right on 11 and 17 of 55 unseen-line episodes with round 2
+  (two seeds), 14 of 55 without. On the six tracks that end in the middle of the paper it is right on 0 and 1 of 19, with 15 other new tracks in
   training (5 of them ending mid-paper).
 - The model's own look-ahead does not know the end either (`evidence/final_2026-11-14/chunk_stop_check.py`, no new
   training): stopping when the predicted reach of the next five steps falls under a limit gives 13 right of 55 and 0 of
@@ -97,3 +102,10 @@ One login per queue (Emranul types his OTH password; VPN on): the laptop sends t
 `tar | ssh`, the queue runs on ki-014 under `nohup` (it goes on when the connection ends), and a small script on ki-014
 sends every finished result file back through the same connection once a minute (`final_stream.sh`; read with
 `tar -x -i`). Results land in `04_runs/gpu_ki014/2026-11-14_resnet18_full_*` (not in git).
+
+Second login at 22:58 (5.4 GB uploaded in 10 minutes): the first queue's runner was stopped at 23:08 with three jobs
+running and 13 not started; the new list has 50 jobs (model 10; the six runs against the edge cue; what was left of the
+first queue; 12, 8 and 4 tracks) and then four jobs at 320 px, two at a time (62 GB of memory, 43 free). Expected to
+finish at about 05:00 on 15.11.26 (calculated from 14 minutes per four-fold job). The scripts of both logins and a
+fetch-only login are kept in `evidence/final_2026-11-14/ki014_scripts/` (their paths point into the session's
+scratchpad, which may be gone; the fetch-only login needs nothing but ki-014's own files).
