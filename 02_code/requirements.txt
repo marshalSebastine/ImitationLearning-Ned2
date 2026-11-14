@@ -4,3 +4,7 @@ numpy
 # Gamepad teleop (record_episodes.py --mode gamepad, gamepad_check.py); installed 5.11.26.
 pygame==2.6.1
 # pyniryo's own image decoder (uncompress_image) fails with numpy 2; the scripts decode the JPEG with cv2.imdecode instead.
+# Driving the robot with a trained policy (record_episodes.py --mode policy; added 14.11.26). The plain CPU build is
+# enough: one decision takes about 10 to 20 ms on a laptop CPU. Training itself runs on the GPU pool (requirements_training.txt).
+torch
+torchvision

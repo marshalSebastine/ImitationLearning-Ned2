@@ -118,6 +118,14 @@ results, is in `02_code/GPU_TRAINING.md`. The training code: `train_policy.py`, 
 `policy_models.py`, `run_overnight.sh`; settings in `TRAINING_PARAMETERS`, `POLICY_MODEL_PARAMETERS` and
 `OPTUNA_PARAMETERS` in `config.py`.
 
+## Drive the robot with a trained policy (since 14.11.26)
+
+The policy proposes every step; Enter carries it out, `g` lets it run on, any key pauses, Space stops, Esc quits.
+First time: follow `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md` (PyTorch, weight files,
+tests, a simulated dry run). Add `--start-x ... --start-y ...` as for recording:
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/record_episodes.py --operator emranul --mode policy --checkpoint D:/AI_Project/04_runs/<run>/checkpoints/best.pt --path-id path_03_two_curve
+
 ## Gamepad checks (no robot)
 
 Live display, one line each time a stick, trigger or button changes:

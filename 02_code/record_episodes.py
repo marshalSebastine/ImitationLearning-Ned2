@@ -105,6 +105,15 @@ ORIENTATION_LEGENDS = {
         ("x", "discard the episode", LEGEND_TEXT_COLOUR),
         ("Esc", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
     ],
+    "policy": [
+        ("Enter", "do the step the policy proposes", LEGEND_TEXT_COLOUR),
+        ("g", "let the policy run on by itself", LEGEND_TEXT_COLOUR),
+        ("any key", "pause that run", LEGEND_TEXT_COLOUR),
+        ("Space", "stop now: the episode is done", LEGEND_TEXT_COLOUR),
+        ("l", "line lost", LEGEND_TEXT_COLOUR),
+        ("x", "discard the episode", LEGEND_TEXT_COLOUR),
+        ("Esc", "quit: the robot goes home", LEGEND_TEXT_COLOUR),
+    ],
     "guiding": [
         ("Motors off", "push the puck by hand along the line", LEGEND_TEXT_COLOUR),
         ("Space", "puck at the goal: guiding done", LEGEND_TEXT_COLOUR),
@@ -114,7 +123,7 @@ ORIENTATION_LEGENDS = {
     ],
 }
 ORIENTATION_TITLES = {"keyboard": "KEYBOARD", "gamepad": "GAMEPAD", "replay": "HAND-GUIDED REPLAY",
-                      "exact_replay": "EXACT REPLAY", "guiding": "HAND GUIDING, MOTORS OFF"}
+                      "exact_replay": "EXACT REPLAY", "guiding": "HAND GUIDING, MOTORS OFF", "policy": "TRAINED POLICY"}
 # Three times per step: when the move returned, when the logged picture was read, when the action was chosen.
 # is_mistake is set afterwards by the "u" key on the step it refers to; is_lost by the "l" key on the step whose
 # picture shows no line. Training drops flagged steps (and the steps that undo a mistake); the episode survives.
@@ -612,7 +621,8 @@ class EpisodeRecorder:
             recorder_parameters: Optional[dict] = None,
             key_reader: Callable[[int], Optional[str]] = read_window_key,
             key_drainer: Optional[Callable[[], int]] = None,
-            pad_reader: Optional[Callable[[], Dict]] = None
+            pad_reader: Optional[Callable[[], Dict]] = None,
+            policy_driver = None
     ):
         """
         Prepare a recording session on an open robot link.
@@ -637,6 +647,8 @@ class EpisodeRecorder:
             window, and to nothing otherwise (a scripted sequence must not be eaten).
         pad_reader : callable, optional
             Returns the gamepad's state (GamepadReader.read) for the gamepad mode; replaced in tests by a script.
+        policy_driver : run_policy.PolicyDriver, optional
+            The trained policy that proposes every step in the policy mode (14.11.26).
         """
 
         self.robot_link = robot_link
@@ -647,6 +659,7 @@ class EpisodeRecorder:
             key_drainer = drain_window_keys if key_reader is read_window_key else (lambda: 0)
         self.key_drainer = key_drainer
         self.pad_reader = pad_reader
+        self.policy_driver = policy_driver
 
         self.__initialize_variables()
         self.update_recorder_parameters(recorder_parameters)
@@ -812,6 +825,17 @@ class EpisodeRecorder:
             self.pad_height_m = 0.0
             self.pad_buttons_before = set(self.pad_reader()["buttons"])
             decider = self.__gamepad_decider
+        elif mode == "policy":
+            # A trained policy proposes each step as a gamepad command (14.11.26); see __policy_decider.
+            if self.policy_driver is None:
+                raise ValueError("the policy mode needs a policy_driver (record_episodes.py --checkpoint)")
+            self.policy_driver.start_episode()
+            summary["policy"] = self.policy_driver.description()
+            self.pad_wrist_offset_rad = 0.0
+            self.pad_height_m = 0.0
+            self.is_auto_running = False
+            self.policy_asked_step = -1
+            decider = self.__policy_decider
         else:
             decider = self.__keyboard_decider
 
@@ -1523,6 +1547,62 @@ class EpisodeRecorder:
             self.pad_wrist_offset_rad -= math.radians(command["pad_lean"] * settings["pad_lean_deg"])
             raise RuntimeError(f"the rod would lean {lean_deg:.0f} degrees, above the gamepad limit of {settings['pad_max_lean_deg']:.0f}")
         return joints, tip_next, step_xy
+
+
+    def __policy_decider(
+            self,
+            picture_bytes: bytes,
+            state: Dict,
+            step: int
+    ) -> Tuple[str, str]:
+        """
+        The trained policy proposes the step (14.11.26, run_policy.PolicyDriver); the person lets it happen.
+
+        Enter carries out the proposal; g lets the policy run on without waiting (any key pauses it); Space stops the
+        episode by hand; l flags the line as lost; x discards; Esc quits. A move is carried out as a gamepad command,
+        so the gamepad mode's joint solving and table-edge check apply. Running on pauses by itself when the same step
+        is asked again (the robot refused the last proposal) and before the policy's own stop, which the person confirms.
+        """
+
+        proposal = self.policy_driver.decide(picture_bytes, step)
+        if step == self.policy_asked_step and self.is_auto_running:
+            self.is_auto_running = False
+            self.__say("the policy's last step was refused; running on is paused")
+        self.policy_asked_step = step
+        self.__show_orientation(state, view = "policy")
+        if self.is_auto_running:
+            if proposal["action"] == "stop":
+                self.is_auto_running = False
+            else:
+                self.__show_picture(picture_bytes, f"policy running on, step {step}: {proposal['text']}. Any key = pause")
+                if self.key_reader(1) is None:
+                    self.pad_command = proposal["pad_command"]
+                    return "pad", "policy"
+                self.is_auto_running = False
+                self.key_drainer()
+        self.__show_picture(picture_bytes, f"step {step}: {proposal['text']}. Enter = do it, g = run on, Space = stop, "
+                                           f"l = lost, x = discard, Esc = quit")
+        self.__drain_keys(step)
+        while True:
+            key = self.key_reader(0)
+            if key == "escape":
+                return "quit", "human"
+            if key == "g" and proposal["action"] == "pad":
+                self.is_auto_running = True
+                self.pad_command = proposal["pad_command"]
+                return "pad", "policy"
+            action = self.recorder_parameters["keys"].get(key)
+            if self.__handle_flag_key(action, picture_bytes, step):
+                continue
+            if action == "accept":
+                if proposal["action"] == "stop":
+                    return "stop", "policy"
+                self.pad_command = proposal["pad_command"]
+                return "pad", "policy"
+            if action == "stop":
+                return "stop", "human"
+            if action == "discard":
+                return "discard", "human"
 
 
     def __exact_replay_decider(
@@ -2803,9 +2883,11 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description = "Record demonstration episodes, one fresh picture and one 1 cm step at a time.")
     parser.add_argument("--operator", required = True, help = "who records, e.g. marshal or emranul")
-    parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact", "gamepad"], default = "keyboard",
+    parser.add_argument("--mode", choices = ["keyboard", "hand_guided", "hand_guided_exact", "gamepad", "policy"], default = "keyboard",
                         help = "hand_guided replays the guided path in 1 cm steps of the fixed moves; hand_guided_exact replays every joint; "
-                               "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand; L2 R2: height)")
+                               "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand; L2 R2: height); "
+                               "policy lets a trained policy (--checkpoint) propose every step")
+    parser.add_argument("--checkpoint", help = "the policy mode's trained policy: a best.pt from train_policy.py")
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
@@ -2858,8 +2940,23 @@ def main() -> None:
         from robot_link import RobotLink
         robot_link = RobotLink(ROBOT_PARAMETERS["ip_address"])
 
+    policy_driver = None
+    if arguments.mode == "policy":
+        if not arguments.checkpoint:
+            parser.error("--mode policy needs --checkpoint <best.pt>")
+        # Imported here so the other modes run without torch installed.
+        from config import POLICY_RUN_PARAMETERS
+        from run_policy import PolicyDriver
+        policy_driver = PolicyDriver(arguments.checkpoint)
+        print(f"policy {policy_driver.model_name} from {arguments.checkpoint} on {policy_driver.device}")
+        # Policy runs are kept apart from the main data, so they never enter a training set by accident.
+        if not arguments.simulated:
+            recorder_parameters["raw_folder"] = POLICY_RUN_PARAMETERS["raw_folder"]
+        recorder_parameters["is_step_budget_enforced"] = True
+        recorder_parameters["step_budget"] = int(math.ceil(step_budget_for(arguments.path_id) * POLICY_RUN_PARAMETERS["step_budget_factor"]))
+
     recorder = EpisodeRecorder(robot_link, operator = arguments.operator, path_id = arguments.path_id,
-                               recorder_parameters = recorder_parameters)
+                               recorder_parameters = recorder_parameters, policy_driver = policy_driver)
     recorder.record_session(arguments.mode)
 
 

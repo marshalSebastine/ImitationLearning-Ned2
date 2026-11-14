@@ -1475,3 +1475,20 @@ OPTUNA_PARAMETERS = {
     "score_1_weight": [0.25, 1.0],
     "batch_size": [64, 128, 256]
 }
+
+# Driving the robot with a trained policy (record_episodes.py --mode policy --checkpoint ..., run_policy.py; Marshal,
+# 14.11.26). The policy acts like a gamepad: its move becomes a stick push of one "step_m" step in the picture's frame,
+# and its forearm label a forearm turn of "turn_deg" (6 degrees: the median turn of the steps labelled turn_left or
+# turn_right in v01_main_data, measured 14.11.26). The gamepad mode's joint solving, table-edge check and logging do
+# the rest. The lean label is not acted on yet (the rod keeps the least lean, as in the gamepad mode). A number-
+# predicting policy's step is used as predicted, at least "minimum_step_fraction" of a full step. Runs are saved in
+# "raw_folder", apart from the main data, so they never enter a training set by accident. Every step waits for Enter
+# unless the operator pressed g; "step_budget_factor" times the sheet's own step budget ends a run that wanders.
+POLICY_RUN_PARAMETERS = {
+    "raw_folder": "03_data/raw/policy_runs",
+    "step_m": 0.01,
+    "turn_deg": 6.0,
+    "minimum_step_fraction": 0.3,
+    "step_budget_factor": 1.0,
+    "device": None
+}

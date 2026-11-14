@@ -133,8 +133,14 @@ Last updated: 13.11.26 by Marshal's session (data collection done; dataset build
   diffusion policy 0.476. Optuna's best trial 0.632 (one seed), but the full retrain of its settings gave 0.619: no gain
   beyond seed noise. Move balanced accuracy is only about 0.5 and every classifier is best after 5 to 13 epochs, so
   the models overfit fast. Offline numbers only; nothing has run on the robot.
-- Next: a robot runner that drives the arm with a checkpoint (step-and-wait loop, the same picture preparation as
-  training), then robot trials with the history classifier and the tuned factorised classifier on sheets 03, 04, 06.
+- Done 14.11 (Marshal): the robot runner, as the recording tool's `--mode policy --checkpoint <best.pt>`
+  (`02_code/run_policy.py`): the policy's move and forearm label become a gamepad command (1 cm step, 6 degree turn),
+  so the gamepad mode's joint solving and table-edge check apply; every step waits for Enter unless `g`; runs saved in
+  `03_data/raw/policy_runs/`. Tested with the simulated robot and on raw validation JPEGs (same agreement as in
+  training, 9 to 19 ms per decision on a CPU). Not yet run on the robot.
+- Next (Emranul, Windows laptop with Ethernet; decided by Marshal 14.11): first robot runs with policies A (history
+  classifier) and B (tuned factorised classifier), checklist `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md`.
+  Needs: PyTorch in `.venv` and the two weight files from Marshal (not in git).
 - Blocked on: nothing.
 
 ## Evaluation and write-up
