@@ -11,7 +11,7 @@ episodes on lines the model has not seen. Per run, over the folds that are finis
 The run trained on round 1 only is one training tested on every new track; its pictures are scored per track here.
 
 Run from 02_code, after the result files are copied into 04_runs/gpu_ki014:
-    ..\.venv\Scripts\python.exe "../06_deliverables/research_notes/Model and training/evidence/final_2026-11-14/score_final.py"
+    ../.venv/Scripts/python.exe "../06_deliverables/research_notes/Model and training/evidence/final_2026-11-14/score_final.py"
 """
 
 import json
