@@ -251,6 +251,164 @@ def table_as_paper(
 
 
 
+def grown(
+        mask: torch.Tensor,
+        size: int
+) -> torch.Tensor:
+    """Return a (height, width) boolean mask grown by a square of ``size`` pixels (an odd number)."""
+
+    return torch.nn.functional.max_pool2d(mask.float().view(1, 1, *mask.shape), size, stride = 1, padding = size // 2).view(*mask.shape) > 0
+
+
+
+def made_up_end(
+        picture: torch.Tensor,
+        reach_forward_left_cm: numpy.ndarray,
+        parameters: Dict
+) -> Optional[torch.Tensor]:
+    """
+    Erase the line that leads on from the puck in one picture, so that it shows a line ending under the puck (14.11.26).
+
+    The model had 19 demonstrated stops on lines that end in the middle of the paper and read the paper's edge as its
+    stop cue (2026-11-14_stop_check.md). Any picture of the way gives one more end: the puck is found by its red, the
+    line by its dark blue; the ink within "seed_radius_px" of the puck on the side the demonstration goes on to
+    (``reach_forward_left_cm``) and all ink that hangs together with it (dashes are joined first) is painted over with
+    the paper's colour nearby. The line behind the puck, and other parts of the track that do not hang together with
+    it, stay.
+
+    Parameters
+    ----------
+    picture : torch.Tensor
+        (3, height, width) float RGB between 0 and 1, as cached.
+    reach_forward_left_cm : numpy.ndarray
+        Where the demonstration's tip is five steps later, forward and left in the picture's frame.
+    parameters : dict
+        The colour and size limits ("made_up_end" of the run settings); sizes are in pixels of a 160-pixel-wide picture.
+
+    Returns
+    -------
+    torch.Tensor or None
+        The picture with its made-up end, or None when no puck is seen, the demonstration hardly moves on, or no ink
+        lies ahead of the puck.
+    """
+
+    red, green, blue = picture[0], picture[1], picture[2]
+    brightness = picture.mean(dim = 0)
+    height, width = brightness.shape
+    scale = width / 160.0
+    is_puck = (((red - green) > parameters["puck_red_over_green_least"]) & ((red - blue) > parameters["puck_red_over_blue_least"])
+               & (red > parameters["puck_red_least"]))
+    reach = float(numpy.linalg.norm(reach_forward_left_cm))
+    if int(is_puck.sum()) < parameters["puck_pixels_least"] * scale ** 2 or reach < parameters["reach_least_cm"]:
+        return None
+    rows, columns = torch.meshgrid(torch.arange(height, dtype = torch.float32), torch.arange(width, dtype = torch.float32), indexing = "ij")
+    puck_row, puck_column = rows[is_puck].mean(), columns[is_puck].mean()
+    # forward is up in the picture (smaller rows), left is to its left (smaller columns)
+    ahead_row, ahead_column = -float(reach_forward_left_cm[0]) / reach, -float(reach_forward_left_cm[1]) / reach
+    along = (rows - puck_row) * ahead_row + (columns - puck_column) * ahead_column
+    distance = torch.sqrt((rows - puck_row) ** 2 + (columns - puck_column) ** 2)
+
+    def odd(pixels: float) -> int:
+        return 2 * int(round(pixels * scale / 2)) + 1
+
+    blue_over_red = blue - red
+    # the line is thin, so its ink is darker than what lies around it; a broad shadow is as dark as its surroundings
+    window = odd(parameters["ink_contrast_window_px"] - 1)
+    brightness_nearby = torch.nn.functional.avg_pool2d(brightness.view(1, 1, height, width), window, stride = 1, padding = window // 2,
+                                                       count_include_pad = False)[0, 0]
+    is_ink = ((brightness > parameters["ink_brightness_least"]) & (brightness < parameters["ink_brightness_most"])
+              & (blue_over_red > parameters["ink_blue_over_red_least"]) & (blue_over_red < parameters["ink_blue_over_red_most"])
+              & ((brightness_nearby - brightness) > parameters["ink_darker_than_nearby_least"]) & ~grown(is_puck, odd(2)))
+    left, top, right, bottom = [int(round(value * scale)) for value in parameters["robot_area_px"]]
+    is_ink[top:bottom, left:right] = False
+    # dashes are joined into one line; then everything that hangs together with the ink just ahead of the puck goes
+    is_joined = grown(is_ink, odd(parameters["joining_px"] - 1))
+    is_flooded = is_joined & (along > -parameters["behind_margin_px"] * scale) & (distance < parameters["seed_radius_px"] * scale)
+    if not bool((is_flooded & is_ink).any()):
+        return None
+    for _ in range(int(parameters["flood_steps"] * scale)):
+        larger = grown(is_flooded, 3) & is_joined
+        if bool((larger == is_flooded).all()):
+            break
+        is_flooded = larger
+    is_erased = grown(is_ink & is_flooded, odd(parameters["erase_margin_px"] - 1)) & ~is_puck
+    is_paper = ((blue_over_red > -parameters["paper_red_over_blue_most"]) & (brightness > parameters["paper_brightness_least"]) & ~is_erased)
+    window = odd(parameters["fill_window_px"] - 1)
+    paper_sum = torch.nn.functional.avg_pool2d((picture * is_paper).unsqueeze(0), window, stride = 1, padding = window // 2,
+                                               count_include_pad = False)[0]
+    paper_share = torch.nn.functional.avg_pool2d(is_paper.float().view(1, 1, height, width), window, stride = 1, padding = window // 2,
+                                                 count_include_pad = False)[0, 0]
+    usual_colour = torch.tensor(parameters["paper_colour"], dtype = picture.dtype).view(3, 1, 1).expand_as(picture)
+    paper_nearby = torch.where(paper_share > 0.05, paper_sum / paper_share.clamp(min = 0.05), usual_colour)
+    return torch.where(is_erased.unsqueeze(0), paper_nearby, picture)
+
+
+
+def made_up_ends(
+        pictures: torch.Tensor,
+        arrays: Dict[str, numpy.ndarray],
+        rows: numpy.ndarray,
+        settings: Dict,
+        randomness_generator: numpy.random.Generator
+) -> Tuple[torch.Tensor, numpy.ndarray]:
+    """
+    Give a random share of a training batch's pictures a made-up line end.
+
+    Parameters
+    ----------
+    pictures : torch.Tensor
+        (batch, height, width, 3), uint8 RGB, the batch's cached pictures.
+    arrays : dict
+        The targets of all rows; "chunk" gives where the demonstration goes on to, "stop" which rows are stops already.
+    rows : numpy.ndarray
+        The batch's rows.
+    settings : dict
+        The run settings: "made_up_end_probability" and "made_up_end".
+    randomness_generator : numpy.random.Generator
+        Source of the draw.
+
+    Returns
+    -------
+    tuple of torch.Tensor and numpy.ndarray
+        The batch's pictures, and which of them now show a made-up end (their targets become a stop).
+    """
+
+    if pictures.shape[-1] != 3:
+        raise ValueError("made-up ends are written for one picture per row")
+    is_drawn = randomness_generator.random(len(rows)) < settings["made_up_end_probability"]
+    is_ended = numpy.zeros(len(rows), dtype = bool)
+    reach = arrays["chunk"][rows].reshape(len(rows), -1, 2)[:, -1, :]
+    pictures = pictures.clone()
+    for position in numpy.flatnonzero(is_drawn & (arrays["stop"][rows] < 0.5)):
+        ended = made_up_end(pictures[position].permute(2, 0, 1).float().div(255.0), reach[position], settings["made_up_end"])
+        if ended is not None:
+            pictures[position] = (ended.permute(1, 2, 0) * 255.0).round().clamp(0, 255).to(torch.uint8)
+            is_ended[position] = True
+    return pictures, is_ended
+
+
+
+def ended_targets(
+        targets: Dict[str, torch.Tensor],
+        is_ended: numpy.ndarray
+) -> Dict[str, torch.Tensor]:
+    """Return a batch's targets with the rows of made-up ends turned into stops: no move, no turn, stop."""
+
+    ended = torch.from_numpy(is_ended)
+    targets = dict(targets)
+    for name in ("exact", "chunk"):
+        targets[name] = targets[name].clone()
+        targets[name][ended] = 0.0
+    targets["stop"] = targets["stop"].clone()
+    targets["stop"][ended] = 1.0
+    targets["twist"] = targets["twist"].clone()
+    targets["twist"][ended] = 1
+    targets["direction"] = targets["direction"].clone()
+    targets["direction"][ended] = -1
+    return targets
+
+
+
 def augmented_single_pictures(
         pictures: torch.Tensor,
         settings: Dict,
@@ -477,8 +635,16 @@ def train_fold(
         epoch_loss = 0.0
         for start in range(0, len(order), settings["batch_size"]):
             rows = order[start:start + settings["batch_size"]]
-            inputs, is_mirrored = augmented_pictures(pictures[rows], settings, randomness_generator, is_training = True)
-            targets = {name: value.to(device) for name, value in batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights).items()}
+            batch_pictures = pictures[rows]
+            is_ended = None
+            if settings.get("made_up_end_probability", 0.0) > 0:
+                # drawn only when switched on, so that every other run keeps its random numbers
+                batch_pictures, is_ended = made_up_ends(batch_pictures, arrays, rows, settings, randomness_generator)
+            inputs, is_mirrored = augmented_pictures(batch_pictures, settings, randomness_generator, is_training = True)
+            batch = batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights)
+            if is_ended is not None and is_ended.any():
+                batch = ended_targets(batch, is_ended)
+            targets = {name: value.to(device) for name, value in batch.items()}
             loss = head_losses(model(inputs.to(device)), targets, head_settings)
             optimiser.zero_grad()
             loss.backward()

@@ -14,7 +14,8 @@ import pandas
 import torch
 
 from config import NO_AUGMENTATION, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, batch_targets, table_as_paper
+from train_policy import (PictureToMoveModel, augmented_pictures, batch_targets, ended_targets, made_up_end, made_up_ends,
+                          table_as_paper)
 from training_metrics import angle_difference_deg, direction_metrics, nearest_direction, stop_metrics
 from training_targets import (DIRECTION_NAMES, MIRRORED_DIRECTION, chunk_targets, class_weights, direction_targets,
                               episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, new_shape_folds,
@@ -151,6 +152,39 @@ def test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures() -> None
     assert torch.allclose(before, after), "switched off, the repaint must not change any random number"
 
 
+def test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop() -> None:
+
+    parameters = TRAINING_RUN_PARAMETERS["made_up_end"]
+    paper, ink, puck = [0.62, 0.76, 0.84], [0.25, 0.35, 0.50], [0.80, 0.15, 0.15]
+    picture = torch.tensor(paper).view(3, 1, 1).repeat(1, 120, 160)
+    picture[:, 5:85, 78:83] = torch.tensor(ink).view(3, 1, 1)            # a line straight up, through the puck
+    picture[:, 20:25, 10:40] = torch.tensor(ink).view(3, 1, 1)           # another part of the track, far to the left
+    picture[:, 53:67, 73:88] = torch.tensor(puck).view(3, 1, 1)          # the puck on the line
+    ended = made_up_end(picture, numpy.array([5.0, 0.0]), parameters)    # the demonstration goes on forward (up)
+    assert ended is not None
+    assert torch.allclose(ended[:, 10:50, 78:83], torch.tensor(paper).view(3, 1, 1), atol = 0.02), "the line ahead of the puck is still there"
+    assert torch.allclose(ended[:, 72:85, 78:83], picture[:, 72:85, 78:83]), "the line behind the puck was erased"
+    assert torch.allclose(ended[:, 20:25, 10:40], picture[:, 20:25, 10:40]), "another part of the track was erased"
+    assert torch.allclose(ended[:, 53:67, 73:88], picture[:, 53:67, 73:88]), "the puck changed"
+    assert made_up_end(picture, numpy.array([0.3, 0.0]), parameters) is None, "a picture where the demonstration hardly moves on was changed"
+    blank = torch.tensor(paper).view(3, 1, 1).repeat(1, 120, 160)
+    assert made_up_end(blank, numpy.array([5.0, 0.0]), parameters) is None, "a picture without a puck was changed"
+
+    pictures = (picture.permute(1, 2, 0) * 255).round().to(torch.uint8).unsqueeze(0).repeat(3, 1, 1, 1)
+    arrays = {"chunk": numpy.tile(numpy.array([1.0, 0.0, 2.0, 0.0, 3.0, 0.0, 4.0, 0.0, 5.0, 0.0], dtype = numpy.float32), (3, 1)),
+              "stop": numpy.array([0.0, 1.0, 0.0], dtype = numpy.float32)}
+    settings = dict(TRAINING_RUN_PARAMETERS, made_up_end_probability = 1.0)
+    changed, is_ended = made_up_ends(pictures, arrays, numpy.arange(3), settings, numpy.random.default_rng(3))
+    assert is_ended.tolist() == [True, False, True], "a real stop picture must stay as it is"
+    assert (changed[1] == pictures[1]).all() and not (changed[0] == pictures[0]).all()
+    targets = {"exact": torch.ones(3, 5), "chunk": torch.ones(3, 10), "stop": torch.zeros(3), "twist": torch.tensor([0, 2, 2]),
+               "direction": torch.tensor([3, 4, 5])}
+    stops = ended_targets(targets, is_ended)
+    assert stops["stop"].tolist() == [1.0, 0.0, 1.0] and stops["twist"].tolist() == [1, 2, 1] and stops["direction"].tolist() == [-1, 4, -1]
+    assert float(stops["chunk"][0].abs().sum()) == 0.0 and float(stops["chunk"][1].sum()) == 10.0 and float(stops["exact"][2].abs().sum()) == 0.0
+    assert float(targets["stop"].sum()) == 0.0, "the batch's own targets must not change"
+
+
 def test_new_shape_folds_with_fewer_tracks() -> None:
 
     sheets = ["path_01_straight_line"] * 2 + [f"path_{number}_T{number - 10:02d}_solid" for number in range(11, 17) for _ in range(2)]
@@ -253,7 +287,8 @@ if __name__ == "__main__":
                  test_chunk_targets_follow_the_tip_in_the_picture_frame, test_folds_never_split_an_episode,
                  test_previous_rows_stay_in_the_episode, test_previous_frame_indices_count_every_picture_and_stay_in_the_episode,
                  test_two_pictures_of_a_row_get_the_same_augmentation, test_six_channel_model_takes_two_pictures,
-                 test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures, test_new_shape_folds_with_fewer_tracks,
+                 test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures,
+                 test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop, test_new_shape_folds_with_fewer_tracks,
                  test_mid_paper_stop_pictures_count_more,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,

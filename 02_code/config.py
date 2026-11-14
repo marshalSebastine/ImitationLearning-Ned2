@@ -2142,6 +2142,29 @@ TRAINING_RUNS["resnet18_full_table_and_mid_paper_new_shapes"] = dict(TRAINING_RU
 for track_count in (4, 8, 12):
     TRAINING_RUNS[f"resnet18_full_{track_count}_tracks_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"],
                                                                            new_track_train_count = track_count)
+# A third change against the paper-edge stop cue, added when the first folds of the reference were in (14.11.26, 22:35:
+# with all 16 tracks the model still stopped right on none of the first 10 mid-paper-end episodes): made-up ends
+# (train_policy.made_up_end). In "made_up_end_probability" of the training pictures the line that leads on from the
+# puck is painted over with the paper's colour and the picture's targets become a stop (no move, no turn, stop), so
+# every stretch of every track gives examples of a line ending under the puck, near an edge or not. 0.04 is about three
+# times the share of real stop pictures (1.4 %); 0.10 is tried as well, and 0.04 together with the table repaint.
+# Colour limits at 160 px, from the cached pictures: the line's ink is dark blue (brightness 0.2 to 0.45, blue over
+# red 0.10 to 0.42; the robot's black parts are darker, its blue gripper more blue), the puck red over green by 0.25.
+# Judged by the same rule. A made-up end is not a demonstrated one: if this is kept, the report has to say so.
+TRAINING_RUN_PARAMETERS.update({
+    "made_up_end_probability": 0.0,
+    "made_up_end": {"puck_red_over_green_least": 0.25, "puck_red_over_blue_least": 0.15, "puck_red_least": 0.35, "puck_pixels_least": 15,
+                    "ink_brightness_least": 0.20, "ink_brightness_most": 0.45, "ink_blue_over_red_least": 0.10,
+                    "ink_blue_over_red_most": 0.42, "ink_contrast_window_px": 21, "ink_darker_than_nearby_least": 0.10,
+                    "robot_area_px": [50, 92, 130, 120], "seed_radius_px": 24, "behind_margin_px": 2,
+                    "joining_px": 9, "flood_steps": 120, "erase_margin_px": 5, "reach_least_cm": 1.5,
+                    "paper_red_over_blue_most": -0.10, "paper_brightness_least": 0.50, "fill_window_px": 15,
+                    "paper_colour": [0.62, 0.76, 0.84]}
+})
+TRAINING_RUNS["resnet18_full_made_up_ends_4_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], made_up_end_probability = 0.04)
+TRAINING_RUNS["resnet18_full_made_up_ends_10_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], made_up_end_probability = 0.10)
+TRAINING_RUNS["resnet18_full_made_up_ends_and_table_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"],
+                                                                        made_up_end_probability = 0.04, **TABLE_AS_PAPER)
 # One more thing changed alone, judged by the same rule: pictures of twice the width and height (320 x 240 instead of
 # 160 x 120, from the cache "wide_320" that training_dataset.add_image_cache adds to the index), to see whether small
 # things (a dash, a gap, the line's end beside the puck) are lost at 160 px. Four times the pixels, so about four
