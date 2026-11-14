@@ -409,6 +409,117 @@ def ended_targets(
 
 
 
+def turned_pictures(
+        pictures: torch.Tensor,
+        settings: Dict,
+        randomness_generator: numpy.random.Generator
+) -> Tuple[torch.Tensor, numpy.ndarray]:
+    """
+    Turn every picture of a training batch by its own small random angle about the place of the rod's tip (15.11.26,
+    Emranul's idea: use the same pictures turned, so that the model meets more line directions without new recordings).
+
+    A positive angle turns what the picture shows counter-clockwise as seen on the screen: a line that pointed up now
+    points up and to the left. The step that belongs to the picture has to be turned the same way
+    (``turned_targets``). The robot's own parts turn with the picture, which never happens at the robot, so the angles
+    are kept small ("turn_most_deg" of "augmentation").
+
+    Parameters
+    ----------
+    pictures : torch.Tensor
+        (batch, height, width, 3 x pictures per row), uint8 RGB.
+    settings : dict
+        The run settings: "augmentation" with "turn_most_deg" and "turn_centre_px" (column and row of the rod's tip in
+        a 160-pixel-wide picture).
+    randomness_generator : numpy.random.Generator
+        Source of the angles.
+
+    Returns
+    -------
+    tuple of torch.Tensor and numpy.ndarray
+        The turned pictures (uint8, the same shape) and each picture's angle in degrees.
+    """
+
+    augmentation = settings["augmentation"]
+    count, height, width = pictures.shape[0], pictures.shape[1], pictures.shape[2]
+    angles_deg = randomness_generator.uniform(-augmentation["turn_most_deg"], augmentation["turn_most_deg"], count)
+    angles = torch.from_numpy(numpy.radians(angles_deg)).float()
+    cosine, sine = torch.cos(angles), torch.sin(angles)
+    scale = width / 160.0
+    # the centre in the grid's own units (-1 to 1 across the picture, columns first)
+    centre_x = 2.0 * augmentation["turn_centre_px"][0] * scale / width - 1.0
+    centre_y = 2.0 * augmentation["turn_centre_px"][1] * scale / height - 1.0
+    # where each pixel of the turned picture comes from: the inverse turn about the centre, with the picture's
+    # width-to-height ratio, because the grid's units are not square
+    matrix = torch.zeros(count, 2, 3)
+    matrix[:, 0, 0] = cosine
+    matrix[:, 0, 1] = -sine * height / width
+    matrix[:, 1, 0] = sine * width / height
+    matrix[:, 1, 1] = cosine
+    matrix[:, 0, 2] = centre_x - (matrix[:, 0, 0] * centre_x + matrix[:, 0, 1] * centre_y)
+    matrix[:, 1, 2] = centre_y - (matrix[:, 1, 0] * centre_x + matrix[:, 1, 1] * centre_y)
+    batch = pictures.permute(0, 3, 1, 2).float()
+    grid = torch.nn.functional.affine_grid(matrix, list(batch.shape), align_corners = False)
+    turned = torch.nn.functional.grid_sample(batch, grid, mode = "bilinear", padding_mode = "border", align_corners = False)
+    return turned.round().clamp(0, 255).to(torch.uint8).permute(0, 2, 3, 1), angles_deg
+
+
+
+def turned_targets(
+        targets: Dict[str, torch.Tensor],
+        angles_deg: numpy.ndarray
+) -> Dict[str, torch.Tensor]:
+    """
+    Return a batch's targets with every step turned by its picture's angle (see ``turned_pictures``).
+
+    Forward and left of the exact step and of every step of the chunk turn together (positive angle: towards the
+    left); the forearm, lean and hand changes are the arm's own and stay. The move's name is not used for a turned
+    picture (the eight names are 45 degrees apart).
+    """
+
+    angles = torch.from_numpy(numpy.radians(angles_deg)).float()
+    cosine, sine = torch.cos(angles), torch.sin(angles)
+    targets = dict(targets)
+    exact = targets["exact"].clone()
+    exact[:, 0] = targets["exact"][:, 0] * cosine - targets["exact"][:, 1] * sine
+    exact[:, 1] = targets["exact"][:, 0] * sine + targets["exact"][:, 1] * cosine
+    targets["exact"] = exact
+    chunk = targets["chunk"].clone().view(len(angles), -1, 2)
+    forward, left = chunk[:, :, 0].clone(), chunk[:, :, 1].clone()
+    chunk[:, :, 0] = forward * cosine.view(-1, 1) - left * sine.view(-1, 1)
+    chunk[:, :, 1] = forward * sine.view(-1, 1) + left * cosine.view(-1, 1)
+    targets["chunk"] = chunk.view(len(angles), -1)
+    targets["direction"] = torch.full_like(targets["direction"], -1)
+    return targets
+
+
+
+def mirrored_batch(
+        targets: Dict[str, torch.Tensor],
+        is_mirrored: numpy.ndarray
+) -> Dict[str, torch.Tensor]:
+    """
+    Return a batch's turned targets with left and right swapped where the picture was mirrored after its turn: the
+    same swaps as ``batch_targets`` makes, on targets whose move names are not used.
+    """
+
+    if not is_mirrored.any():
+        return targets
+    mirrored = torch.from_numpy(is_mirrored)
+    targets = dict(targets)
+    twist = targets["twist"].clone()
+    twist[mirrored] = 2 - twist[mirrored]
+    targets["twist"] = twist
+    exact = targets["exact"].clone()
+    for column in (1, 2, 4):
+        exact[mirrored, column] = -exact[mirrored, column]
+    targets["exact"] = exact
+    chunk = targets["chunk"].clone()
+    chunk[mirrored, 1::2] = -chunk[mirrored, 1::2]
+    targets["chunk"] = chunk
+    return targets
+
+
+
 def augmented_single_pictures(
         pictures: torch.Tensor,
         settings: Dict,
@@ -640,8 +751,16 @@ def train_fold(
             if settings.get("made_up_end_probability", 0.0) > 0:
                 # drawn only when switched on, so that every other run keeps its random numbers
                 batch_pictures, is_ended = made_up_ends(batch_pictures, arrays, rows, settings, randomness_generator)
+            turn_angles_deg = None
+            if settings["augmentation"].get("turn_most_deg", 0.0) > 0:
+                # also drawn only when switched on; the turn comes before the mirror, the targets follow in that order
+                batch_pictures, turn_angles_deg = turned_pictures(batch_pictures, settings, randomness_generator)
             inputs, is_mirrored = augmented_pictures(batch_pictures, settings, randomness_generator, is_training = True)
-            batch = batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights)
+            if turn_angles_deg is None:
+                batch = batch_targets(arrays, rows, is_mirrored, mirror_class_index, direction_class_weights)
+            else:
+                unmirrored = batch_targets(arrays, rows, numpy.zeros(len(rows), dtype = bool), mirror_class_index, direction_class_weights)
+                batch = mirrored_batch(turned_targets(unmirrored, turn_angles_deg), is_mirrored)
             if is_ended is not None and is_ended.any():
                 batch = ended_targets(batch, is_ended)
             targets = {name: value.to(device) for name, value in batch.items()}

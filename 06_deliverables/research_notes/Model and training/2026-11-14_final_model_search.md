@@ -109,3 +109,37 @@ first queue; 12, 8 and 4 tracks) and then four jobs at 320 px, two at a time (62
 finish at about 05:00 on 15.11.26 (calculated from 14 minutes per four-fold job). The scripts of both logins and a
 fetch-only login are kept in `evidence/final_2026-11-14/ki014_scripts/` (their paths point into the session's
 scratchpad, which may be gone; the fetch-only login needs nothing but ki-014's own files).
+
+## 7. First look at the robot, night of 14 to 15.11.26 (run list `2026-11-14_night_look_runs.csv`, logs in `03_data/model_runs/`)
+
+Model 10 is the reference recipe on all 264 episodes without 14-02's weight (sha256 a47982c26cdf). Whole lines, fixed
+0.65 cm steps. What the operator saw is marked (Emranul); the rest is read from the run logs.
+
+| Run | Sheet, lay-out | Model | Result |
+|---|---|---|---|
+| S01 | 01, standard | 10 | stopped by itself after 44 steps; the puck 1 cm left of the end's centre (Emranul). On 12.11 the round 1 model stopped 2.1 to 2.7 cm left |
+| S02, twice | 02, standard (plan 02-03's faint picture) | 10 | on the line until about step 51, then to the right of it (Emranul); ended at the rod's lean limit (59.7 against 58 degrees). The second time with nothing else in the camera's view |
+| SE2 | 02, standard | round 1 model E | the same failure at the same place |
+| S2L | 02, landscape (plan 02-37's faint picture) | 10 | "differed a lot", better, not finished (Emranul); stopped by itself after 51 steps, the rod at 42 degrees |
+
+Measured from the logs and the recordings: in the three failed runs the rod's tip was on the line until 43 cm from
+the base and then went out to 48 cm. Of the 22,646 recorded pictures 90 % have the tip within 40.3 cm, 4.9 % beyond
+42 cm and 2.0 % beyond 44 cm. The recordings on sheet 02 in the standard lay-out stop at a median 40 cm (after 41 to
+43 cm at the arc's far point); lying landscape they stop at 26 to 30 cm. Two guesses were checked and dropped: the
+laptop and an arm in the camera's view (the repeat failed with a clear view), and the wrist held by the driver (the
+recordings keep joint 5 near the same 13 degrees). Why the model steers right at that place is not known; the reach
+is what the failed and the working lay-out differ in. An earlier reading of S01 from the log ("5 cm past the end") was
+wrong: the log knows the rod's tip and the planned sheet place, not the puck on the real sheet.
+
+Consequence for the exam, where the team lays every sheet (Emranul: there will be no time to try lay-outs): one rule
+(start cap on the mark, then turn the sheet until the whole line is as near the robot as it can be, no part more than
+about 43 cm from the base's centre; the 43 is calculated, not tried) and an aid on the table (tape or a string of that
+length). The six known sheets can be decided beforehand on a card.
+
+## 8. Third queue (15.11.26, behind the second; Emranul: "you are not utilising the data to its full potential")
+
+One thing changed each, all without 14-02: the zoomed-in view (a 320 x 240 cut-out of the camera picture round the
+puck, shrunk to 160 x 120), pictures turned within 12 degrees and mirrored pictures (Emranul's ideas), far-reach
+pictures counted three times, ConvNeXt-Tiny and ResNet-50, a third seed of the reference; then three combinations fixed
+before any single result was known (zoom with a second seed; zoom with turned and mirrored pictures; ConvNeXt-Tiny on
+the zoomed-in view). Same rule as before. Every run type was trial-run for one round on the laptop.

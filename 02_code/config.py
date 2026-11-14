@@ -2188,6 +2188,46 @@ for run_name in ["table_as_paper", "mid_paper_stop_4", "table_and_mid_paper", "m
     TRAINING_RUNS[f"resnet18_full_{run_name}_new_shapes"].update(WITHOUT_14_02)
 TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_9_full_all_sheets"], **WITHOUT_14_02)
 
+# 15.11.26, 00:30, third queue (Emranul: "you are not utilising the data to its full potential ... try taking a superior
+# model ... take six more hours"). It starts by itself when the second queue has finished. One thing changed each
+# against the reference, judged by the same rule on the same 55 test episodes; all train without 14-02:
+#   "mirror": half the training pictures mirrored left to right, the step with them (Emranul's idea; the mirror of
+#       9.11.26 was tried on the old names model only and was not a clean comparison);
+#   "turned_12": every training picture turned by its own angle within 12 degrees about the rod's tip, the step with it
+#       (Emranul's idea; train_policy.turned_pictures; the robot's own parts turn too, so the angle is small);
+#   "far_reach_3": pictures with the rod's tip more than 40 cm from the base count three times. On the robot, in the
+#       night of 14 to 15.11.26, model 10 (twice) and the round 1 model (once) left sheet 02's arc at the same place,
+#       the tip 43 cm out and going to 48 cm; 4.9 % of the recorded pictures lie beyond 42 cm, 2.0 % beyond 44 cm;
+#   "zoom": a 320 x 240 cut-out of the camera picture round the puck ("ZOOM_CROP_BOX", in camera pixels), shrunk to
+#       160 x 120: twice the detail at the puck and the line just ahead, less table, paper edge and room;
+#   "convnext_tiny", "resnet50": larger networks (28 and 26 million weights against 11 million), the backbone's
+#       learning rate lowered for ConvNeXt as its makers fine-tune it;
+#   a third seed of the reference (with 14-02, like seeds 1 and 2), so that the seed gap rests on three runs.
+TRAINING_RUN_PARAMETERS["augmentation"].update({"turn_most_deg": 0.0, "turn_centre_px": [80, 82]})
+TRAINING_RUN_PARAMETERS.update({"far_reach_weight": 1.0, "far_reach_from_cm": 40.0})
+ZOOM_CROP_BOX = [160, 160, 480, 400]
+THIRD_QUEUE = {
+    "mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)},
+    "turned_12": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0)},
+    "far_reach_3": {"far_reach_weight": 3.0},
+    "zoom": {"picture_cache": "zoom_160", "picture_crop_box": ZOOM_CROP_BOX},
+    "convnext_tiny": {"backbone": "convnext_tiny.fb_in22k_ft_in1k", "backbone_learning_rate_factor": 0.1},
+    "resnet50": {"backbone": "resnet50.a1_in1k"}
+}
+for idea_name, idea in THIRD_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+TRAINING_RUNS["resnet18_full_new_shapes_seed_3"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], seed = 11_11_26)
+# Behind them, so that the card is not idle until the results are read in the morning, three combinations chosen
+# before any of the single results is known (so they cannot be picked to fit): the zoomed-in view with a second seed;
+# the zoomed-in view with turned and mirrored pictures; ConvNeXt-Tiny on the zoomed-in view. They are read by the same
+# rule, and count as kept only when the single changes they are made of pass as well.
+TRAINING_RUNS["resnet18_full_zoom_new_shapes_seed_2"] = dict(TRAINING_RUNS["resnet18_full_zoom_new_shapes"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_full_zoom_turned_mirror_new_shapes"] = dict(
+    TRAINING_RUNS["resnet18_full_zoom_new_shapes"],
+    augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0, mirror_probability = 0.5))
+TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_convnext_tiny_new_shapes"],
+                                                                    **THIRD_QUEUE["zoom"])
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

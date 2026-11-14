@@ -15,7 +15,7 @@ import torch
 
 from config import NO_AUGMENTATION, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS
 from train_policy import (PictureToMoveModel, augmented_pictures, batch_targets, ended_targets, made_up_end, made_up_ends,
-                          table_as_paper)
+                          mirrored_batch, table_as_paper, turned_pictures, turned_targets)
 from training_metrics import angle_difference_deg, direction_metrics, nearest_direction, stop_metrics
 from training_targets import (DIRECTION_NAMES, MIRRORED_DIRECTION, chunk_targets, class_weights, direction_targets,
                               episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, new_shape_folds,
@@ -185,6 +185,52 @@ def test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop() -> Non
     assert float(targets["stop"].sum()) == 0.0, "the batch's own targets must not change"
 
 
+def test_turned_pictures_and_their_steps_turn_the_same_way() -> None:
+
+    settings = dict(TRAINING_RUN_PARAMETERS, augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0))
+    centre_column, centre_row = settings["augmentation"]["turn_centre_px"]
+    pictures = torch.zeros(2, 120, 160, 3, dtype = torch.uint8)
+    pictures[:, centre_row - 41:centre_row - 38, centre_column - 1:centre_column + 2] = 255     # a dot 40 px straight ahead of the centre
+
+    class FixedAngles:
+        """Gives the angles the test wants in place of random ones."""
+
+        def uniform(self, low, high, count):
+            assert (low, high, count) == (-12.0, 12.0, 2)
+            return numpy.array([10.0, -10.0])
+
+    turned, angles = turned_pictures(pictures, settings, FixedAngles())
+    assert turned.shape == pictures.shape and turned.dtype == torch.uint8 and angles.tolist() == [10.0, -10.0]
+    for picture, angle in zip(turned, angles):
+        rows, columns = torch.nonzero(picture[:, :, 0] > 127, as_tuple = True)
+        forward, left = centre_row - rows.float().mean(), centre_column - columns.float().mean()
+        # ahead of the centre by 39.5 px (the dot's middle), turned by the angle: positive goes to the left
+        assert abs(float(forward) - 39.5 * numpy.cos(numpy.radians(angle))) < 1.0, "the dot is not where a turn about the centre puts it"
+        assert abs(float(left) - 39.5 * numpy.sin(numpy.radians(angle))) < 1.0, "a positive angle must turn the picture to the left"
+
+    targets = {"exact": torch.tensor([[1.0, 0.0, 3.0, 4.0, 5.0], [1.0, 0.0, 3.0, 4.0, 5.0]]),
+               "chunk": torch.tensor([[1.0, 0.0, 2.0, 0.0], [0.0, 1.0, 0.0, 2.0]]), "twist": torch.tensor([0, 2]),
+               "direction": torch.tensor([3, 4]), "stop": torch.zeros(2)}
+    steps = turned_targets(targets, angles)
+    sine, cosine = float(numpy.sin(numpy.radians(10.0))), float(numpy.cos(numpy.radians(10.0)))
+    assert torch.allclose(steps["exact"][0], torch.tensor([cosine, sine, 3.0, 4.0, 5.0]), atol = 1e-5), "forward must turn towards the left"
+    assert torch.allclose(steps["exact"][1], torch.tensor([cosine, -sine, 3.0, 4.0, 5.0]), atol = 1e-5)
+    assert torch.allclose(steps["chunk"][0], torch.tensor([cosine, sine, 2 * cosine, 2 * sine]), atol = 1e-5)
+    assert torch.allclose(steps["chunk"][1], torch.tensor([sine, cosine, 2 * sine, 2 * cosine]), atol = 1e-5), "left turned by -10 degrees leans forward"
+    assert steps["direction"].tolist() == [-1, -1] and steps["twist"].tolist() == [0, 2]
+    assert float(targets["exact"][0, 1]) == 0.0, "the batch's own targets must not change"
+
+    mirrored = mirrored_batch(steps, numpy.array([True, False]))
+    assert torch.allclose(mirrored["exact"][0], torch.tensor([cosine, -sine, -3.0, 4.0, -5.0]), atol = 1e-5)
+    assert torch.allclose(mirrored["chunk"][0], torch.tensor([cosine, -sine, 2 * cosine, -2 * sine]), atol = 1e-5)
+    assert mirrored["twist"].tolist() == [2, 2] and torch.allclose(mirrored["exact"][1], steps["exact"][1])
+
+    usual = dict(TRAINING_RUN_PARAMETERS)
+    noise = torch.from_numpy(numpy.random.default_rng(1).integers(0, 256, size = (4, 12, 16, 3), dtype = numpy.uint8))
+    before, _ = augmented_pictures(noise, usual, numpy.random.default_rng(5), is_training = True)
+    assert usual["augmentation"]["turn_most_deg"] == 0.0 and before.shape == (4, 3, 12, 16)
+
+
 def test_new_shape_folds_with_fewer_tracks() -> None:
 
     sheets = ["path_01_straight_line"] * 2 + [f"path_{number}_T{number - 10:02d}_solid" for number in range(11, 17) for _ in range(2)]
@@ -216,6 +262,11 @@ def test_mid_paper_stop_pictures_count_more() -> None:
     is_mid_paper = (frames["path_id"] == "path_13_T03_solid").to_numpy()
     assert numpy.allclose(heavier["sample_weight"][is_stop & is_mid_paper], 4.0 * usual["sample_weight"][is_stop & is_mid_paper])
     assert numpy.allclose(heavier["sample_weight"][~(is_stop & is_mid_paper)], usual["sample_weight"][~(is_stop & is_mid_paper)])
+    frames["tip_x_m"] = numpy.where(frames["row_in_episode"] >= 4, 0.45, 0.30)
+    farther, _, _ = training_arrays(frames, dict(settings, far_reach_weight = 3.0), target_parameters)
+    is_far = (frames["tip_x_m"] > 0.40).to_numpy()
+    assert is_far.any() and numpy.allclose(farther["sample_weight"][is_far], 3.0 * usual["sample_weight"][is_far]), "far pictures must count more"
+    assert numpy.allclose(farther["sample_weight"][~is_far], usual["sample_weight"][~is_far])
     without, _, _ = training_arrays(frames, dict(settings, weightless_episode_patterns = ["episode_1"]), target_parameters)
     is_left_out = (frames["episode_id"] == "episode_1").to_numpy()
     assert float(numpy.abs(without["sample_weight"][is_left_out]).sum()) == 0.0, "a left-out episode still counts in training"
@@ -292,7 +343,8 @@ if __name__ == "__main__":
                  test_previous_rows_stay_in_the_episode, test_previous_frame_indices_count_every_picture_and_stay_in_the_episode,
                  test_two_pictures_of_a_row_get_the_same_augmentation, test_six_channel_model_takes_two_pictures,
                  test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures,
-                 test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop, test_new_shape_folds_with_fewer_tracks,
+                 test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop,
+                 test_turned_pictures_and_their_steps_turn_the_same_way, test_new_shape_folds_with_fewer_tracks,
                  test_mid_paper_stop_pictures_count_more,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,

@@ -542,7 +542,7 @@ def build_index(parameters: Optional[Dict] = None) -> Dict:
 def cache_picture_chunk(arguments: Tuple) -> int:
     """Write one chunk of pictures into an added cache, in a worker process; return how many could not be read."""
 
-    chunk, cache_path, width, height = arguments
+    chunk, cache_path, width, height, crop_box = arguments
     cache = numpy.lib.format.open_memmap(cache_path, mode = "r+")
     unreadable = 0
     for index, picture_path in chunk:
@@ -550,6 +550,9 @@ def cache_picture_chunk(arguments: Tuple) -> int:
         if picture is None:
             unreadable += 1
             continue
+        if crop_box is not None:
+            left, top, right, bottom = crop_box
+            picture = picture[top:bottom, left:right]
         cache[index] = cv2.resize(cv2.cvtColor(picture, cv2.COLOR_BGR2RGB), (width, height), interpolation = cv2.INTER_AREA)
     cache.flush()
     return unreadable
@@ -559,7 +562,8 @@ def cache_picture_chunk(arguments: Tuple) -> int:
 def add_image_cache(
         name: str,
         size: Tuple[int, int],
-        parameters: Optional[Dict] = None
+        parameters: Optional[Dict] = None,
+        crop_box: Optional[Tuple[int, int, int, int]] = None
 ) -> Path:
     """
     Add one more picture cache to an index that is already built, in the order of its frames.csv (14.11.26, for the
@@ -573,6 +577,9 @@ def add_image_cache(
         Width and height in pixels.
     parameters : dict, optional
         Overrides for ``TRAINING_DATA_PARAMETERS`` ("processed_folder" names the index).
+    crop_box : tuple of int, optional
+        Left, top, right and bottom of a cut-out of the camera picture in its own pixels (640 x 480), taken before the
+        resize (15.11.26, for the zoomed-in view round the puck); the whole picture when not given.
 
     Returns
     -------
@@ -591,7 +598,7 @@ def add_image_cache(
     raw_folder = Path(parameters["raw_folder"])
     jobs = [(index, str(raw_folder / frame_path)) for index, frame_path in frame_paths]
     chunk_size = max(1, math.ceil(len(jobs) / (parameters["worker_count"] * 8)))
-    worker_arguments = [(jobs[start:start + chunk_size], str(cache_path), width, height) for start in range(0, len(jobs), chunk_size)]
+    worker_arguments = [(jobs[start:start + chunk_size], str(cache_path), width, height, crop_box) for start in range(0, len(jobs), chunk_size)]
     with multiprocessing.Pool(processes = parameters["worker_count"]) as pool:
         unreadable = sum(pool.imap_unordered(cache_picture_chunk, worker_arguments))
     if unreadable:

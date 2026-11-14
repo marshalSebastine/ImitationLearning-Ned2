@@ -229,6 +229,13 @@ def training_arrays(
         is_mid_paper_stop = (is_stop > 0.5) & numpy.isin(new_track_shapes(frames), parameters["mid_paper_end_tracks"])
         arrays["sample_weight"] = numpy.where(is_mid_paper_stop, arrays["sample_weight"] * parameters["mid_paper_stop_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("far_reach_weight", 1.0) != 1.0:
+        # 15.11.26: on the robot both models left sheet 02's arc where the rod's tip was 43 cm and more from the base;
+        # only 5 % of the recorded pictures lie beyond 42 cm. Pictures taken with the tip beyond "far_reach_from_cm"
+        # count this many times.
+        reach_cm = 100.0 * numpy.hypot(frames["tip_x_m"].to_numpy(), frames["tip_y_m"].to_numpy())
+        arrays["sample_weight"] = numpy.where(reach_cm > parameters["far_reach_from_cm"], arrays["sample_weight"] * parameters["far_reach_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training
