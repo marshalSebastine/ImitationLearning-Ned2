@@ -99,6 +99,33 @@ Tests of the tool without the robot (run them after every change to the code or 
 `test_puck_tracking.py` also reads recorded episodes from `03_data/raw`; on a laptop without them those tests say SKIPPED
 and the last line counts them.
 
+## Build the training table (no robot, since 13.11.26)
+
+Reads every episode in `03_data/raw/main_data` and writes `03_data/processed/v01_main_data/`: `samples.csv` (one row per
+kept picture, with its sheet, score, lighting, split and move), `episodes.csv` (every episode folder, kept or not, and
+why) and `summary.json` (counts). Nothing in the raw folder is changed. What is left out is set in `DATASET_PARAMETERS`
+in `config.py`; after changing it, build under a new name (or add `--overwrite`):
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/build_dataset.py
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/build_dataset.py --name v02_main_data
+
+Its tests: `D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/test_build_dataset.py`
+
+## Train the policies (GPU pool, since 13.11.26)
+
+Five policies, three seeds each, then an Optuna search, in one night: every step, from the SSH set-up to reading the
+results, is in `02_code/GPU_TRAINING.md`. The training code: `train_policy.py`, `tune_policy.py`, `policy_data.py`,
+`policy_models.py`, `run_overnight.sh`; settings in `TRAINING_PARAMETERS`, `POLICY_MODEL_PARAMETERS` and
+`OPTUNA_PARAMETERS` in `config.py`.
+
+## Drive the robot with a trained policy (since 14.11.26)
+
+The policy proposes every step; Enter carries it out, `g` lets it run on, any key pauses, Space stops, Esc quits.
+First time: follow `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md` (PyTorch, weight files,
+tests, a simulated dry run). Add `--start-x ... --start-y ...` as for recording:
+
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/record_episodes.py --operator emranul --mode policy --checkpoint D:/AI_Project/04_runs/<run>/checkpoints/best.pt --path-id path_03_two_curve
+
 ## Gamepad checks (no robot)
 
 Live display, one line each time a stick, trigger or button changes:

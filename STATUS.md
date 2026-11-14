@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open).
+Last updated: 13.11.26 by Marshal's session (data collection done; dataset builder and training code for five policies written; first GPU night next).
 
 ## Dates that cannot move
 
@@ -111,11 +111,37 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
 
 - Done: method chosen (SOTA report section 1): single-picture classifier over 1 cm steps plus stop, ResNet-18 or a 5-layer
   CNN, random-crop augmentation, trained on the laptop; ACT only as an optional comparison on a GPU.
-- Next: ask the professor to activate GPU-pool SSH for both accounts and test the login (pattern in
-  `01_course/moodle_snapshot.md`, VPN needed); write the dataset builder and the training script once the first 20 episodes exist.
-- Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
-  merged; findings in `claude_memory/project-synthetic-pictures.md`. GPU pool: VPN not connected on 3.11, GPUs still unknown.
-- Blocked on: data.
+- Done 13.11 (Marshal): data collection finished (main data of 6.11 to 9.11 in `03_data/raw/main_data`, also on
+  Marshal's Mac). `02_code/build_dataset.py` writes `03_data/processed/v01_main_data/`: 15,618 pictures from 205
+  episodes, split by whole episode within each sheet (train 10,964, validation 2,188, test 2,466). Left out: unfinished
+  episodes, `small_motion` rows (2,196), rows marked a mistake (21), and the hand pictures and five episodes named in the
+  operators' own review notes (list in `config.py` `DATASET_PARAMETERS`; the tool's automatic picture flags were not used,
+  Marshal 13.11: mostly false alarms). Score 1 episodes stay in, the score is a column.
+- Emranul trained five models of his own (results reported by Marshal 13.11: sheets 01, 02 and 05 completed, 03, 04 and
+  06 not). Marshal's session builds its own models without looking at them. Candidate order (Claude's proposal 13.11, not
+  decided): (1) one picture, move name plus forearm-turn and lean outputs; (2) one picture, exact step as numbers;
+  (3) model 1 with the last 2 to 3 pictures and the previous move; (4) small ACT, next 5 to 10 steps; (5) small diffusion
+  policy (GPU). Optuna only to tune one family, scored on held-out episodes of sheets 03, 04 and 06.
+- Done 13.11 (Marshal): training code for all five candidates (`train_policy.py`, `tune_policy.py`, `policy_data.py`,
+  `policy_models.py`, `run_overnight.sh`; guide `02_code/GPU_TRAINING.md`). Tested on made-up pictures (every policy, a
+  held-out sheet, a 2-trial Optuna search) and checked on the real data (every policy trains one step and predicts);
+  NOT yet trained for real: Marshal's Mac (8 GB) runs out of memory, so the first real training is the GPU-pool night.
+- Done 13 to 14.11 (Marshal, GPU pool ki-014, batch `2026-11-13_overnight`, 75 minutes): all five policies with three
+  seeds, 30 Optuna trials and the tuned classifier; results in `04_runs/2026-11-13_overnight_summary.md` and
+  `..._optuna.md` (weights on Marshal's Mac and ki-014 only). Validation hard-sheet score (sheets 03, 04, 06), mean of 3
+  seeds: history classifier 0.618, factorised classifier 0.609, exact-step regressor 0.598, chunk transformer 0.579,
+  diffusion policy 0.476. Optuna's best trial 0.632 (one seed), but the full retrain of its settings gave 0.619: no gain
+  beyond seed noise. Move balanced accuracy is only about 0.5 and every classifier is best after 5 to 13 epochs, so
+  the models overfit fast. Offline numbers only; nothing has run on the robot.
+- Done 14.11 (Marshal): the robot runner, as the recording tool's `--mode policy --checkpoint <best.pt>`
+  (`02_code/run_policy.py`): the policy's move and forearm label become a gamepad command (1 cm step, 6 degree turn),
+  so the gamepad mode's joint solving and table-edge check apply; every step waits for Enter unless `g`; runs saved in
+  `03_data/raw/policy_runs/`. Tested with the simulated robot and on raw validation JPEGs (same agreement as in
+  training, 9 to 19 ms per decision on a CPU). Not yet run on the robot.
+- Next (Emranul, Windows laptop with Ethernet; decided by Marshal 14.11): first robot runs with policies A (history
+  classifier) and B (tuned factorised classifier), checklist `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md`.
+  Needs: PyTorch in `.venv` and the two weight files from Marshal (not in git).
+- Blocked on: nothing.
 
 ## Evaluation and write-up
 

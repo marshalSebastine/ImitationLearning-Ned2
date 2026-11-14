@@ -146,7 +146,7 @@ def test_plan_matches_the_episode_plan_file() -> None:
     assert entry("path_02_arc", "02-08") == ("TR10", "A") and entry("path_02_arc", "02-10") == ("TL10", "B")
     assert entry("path_02_arc", "02-24") == ("TR15", "B") and entry("path_02_arc", "02-31") == ("STD", "B")
     assert entry("path_03_two_curve", "03-36") == ("TR15", "B") and entry("path_04_meander", "04-24") == ("OR1", "A")
-    assert entry("path_05_alpha_loop", "05-26") == ("X2", "B") and entry("path_06_alpha_loop_dashed", "06-21") == ("TL15", "A")
+    assert entry("path_05_alpha_loop", "05-26") == ("X2", "B") and entry("path_06_alpha_loop_dashed", "06-21") == ("TL15", "B")
 
 
 def test_every_episode_has_its_setup_steps() -> None:
