@@ -2228,6 +2228,14 @@ TRAINING_RUNS["resnet18_full_zoom_turned_mirror_new_shapes"] = dict(
 TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_convnext_tiny_new_shapes"],
                                                                     **THIRD_QUEUE["zoom"])
 
+# 15.11.26, 00:55, a robot candidate from the night's runs, not a comparison run: model 11 is model 10 with the two
+# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 pictures in which a
+# demonstration brings the puck back onto the line five times). The held-out pictures cannot score a recovery (every
+# test episode stays on its line), so its test is the robot, against model 10 on the same sheets.
+TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
+TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], recovery_weight = 5.0, far_reach_weight = 3.0)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

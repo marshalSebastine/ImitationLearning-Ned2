@@ -236,6 +236,13 @@ def training_arrays(
         reach_cm = 100.0 * numpy.hypot(frames["tip_x_m"].to_numpy(), frames["tip_y_m"].to_numpy())
         arrays["sample_weight"] = numpy.where(reach_cm > parameters["far_reach_from_cm"], arrays["sample_weight"] * parameters["far_reach_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("recovery_weight", 1.0) != 1.0:
+        # 15.11.26: on the robot the model, once beside the line, stayed beside it for a long stretch (Emranul, sheet 03).
+        # The only recordings that show the puck being brought back are the starts beside the line (OL and OR, 35
+        # episodes of round 1, none of round 2); their first "recovery_rows" pictures, 1.2 % of all, count more.
+        is_recovery = (frames["start_kind"].astype(str).str.startswith(("OL", "OR")) & (frames["row_in_episode"] < parameters["recovery_rows"])).to_numpy()
+        arrays["sample_weight"] = numpy.where(is_recovery, arrays["sample_weight"] * parameters["recovery_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training

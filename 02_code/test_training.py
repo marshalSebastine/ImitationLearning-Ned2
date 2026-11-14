@@ -267,6 +267,11 @@ def test_mid_paper_stop_pictures_count_more() -> None:
     is_far = (frames["tip_x_m"] > 0.40).to_numpy()
     assert is_far.any() and numpy.allclose(farther["sample_weight"][is_far], 3.0 * usual["sample_weight"][is_far]), "far pictures must count more"
     assert numpy.allclose(farther["sample_weight"][~is_far], usual["sample_weight"][~is_far])
+    frames["start_kind"] = numpy.where(frames["episode_id"] == "episode_0", "OL1.5", "STD")
+    recovering, _, _ = training_arrays(frames, dict(settings, recovery_weight = 5.0, recovery_rows = 2), target_parameters)
+    is_recovery = ((frames["episode_id"] == "episode_0") & (frames["row_in_episode"] < 2)).to_numpy()
+    assert numpy.allclose(recovering["sample_weight"][is_recovery], 5.0 * usual["sample_weight"][is_recovery]), "recovery pictures must count more"
+    assert numpy.allclose(recovering["sample_weight"][~is_recovery], usual["sample_weight"][~is_recovery])
     without, _, _ = training_arrays(frames, dict(settings, weightless_episode_patterns = ["episode_1"]), target_parameters)
     is_left_out = (frames["episode_id"] == "episode_1").to_numpy()
     assert float(numpy.abs(without["sample_weight"][is_left_out]).sum()) == 0.0, "a left-out episode still counts in training"
