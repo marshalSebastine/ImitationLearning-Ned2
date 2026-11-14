@@ -2110,6 +2110,48 @@ FULL_IDEAS = {
 for idea_name, idea in FULL_IDEAS.items():
     TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea)
 
+# 14.11.26 night, second queue: the stop. The stop check of the mid-way model (2026-11-14_stop_check.md) showed that
+# the model stops near the paper's edge, not at the line's end: every round 1 line ends 2.4 to 4.3 cm from the edge,
+# and of the 16 new tracks only six end in the middle of the paper ("mid_paper_end_tracks": end cap 7.7 to 9.9 cm from
+# the nearest edge, measured from the set-up geometry). Two changes against that, alone and together:
+#   "table_as_paper_probability" (in "augmentation"): in this share of the training pictures the table is repainted in
+#       the picture's own paper colour (train_policy.table_as_paper), so an end near the edge looks like an end in the
+#       middle of a sheet. Colour limits measured on 400 cached pictures at 160 px: the table's red minus blue lies
+#       between -0.04 and +0.10 (median colour 0.51, 0.52, 0.46), the paper's below -0.10 (0.62, 0.76, 0.84); the
+#       robot's silver gripper is left alone ("robot_area_px", at 160 px);
+#   "mid_paper_stop_weight": the stop pictures of the six tracks count this many times.
+# Judged by the rule above; reported as well: the right stops on the mid-paper-end episodes alone (19 of the 55).
+# And whether more tracks would still help: the reference trained on round 1 and only 4, 8 or 12 of the other new
+# tracks, drawn at random per fold ("new_track_train_count"; no new track is "resnet18_full_round_1_to_new", all 15
+# the reference). Reading rule, fixed before the results: more tracks are worth recording when from 12 to 15 tracks
+# path within 45 still rises by 1 point or more, or the right stops by 3 or more of 55; otherwise the curve is flat.
+TRAINING_RUN_PARAMETERS.update({
+    "mid_paper_stop_weight": 1.0,
+    "mid_paper_end_tracks": ["T03", "T05", "T07", "T10", "T13", "T15"],
+    "new_track_train_count": None,
+    "table_as_paper": {"table_red_over_blue_least": -0.07, "table_red_over_green_most": 0.20, "table_brightness_least": 0.30,
+                       "robot_area_px": [72, 84, 100, 120], "paper_red_over_blue_most": -0.10, "paper_brightness_least": 0.50,
+                       "paper_pixels_least": 150, "paper_colour": [0.62, 0.76, 0.84], "shade_least": 0.6, "shade_most": 1.25,
+                       "shade_power": 0.5}
+})
+TABLE_AS_PAPER = {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], table_as_paper_probability = 0.5)}
+TRAINING_RUNS["resnet18_full_table_as_paper_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **TABLE_AS_PAPER)
+TRAINING_RUNS["resnet18_full_mid_paper_stop_4_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], mid_paper_stop_weight = 4.0)
+TRAINING_RUNS["resnet18_full_table_and_mid_paper_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], mid_paper_stop_weight = 4.0,
+                                                                     **TABLE_AS_PAPER)
+for track_count in (4, 8, 12):
+    TRAINING_RUNS[f"resnet18_full_{track_count}_tracks_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"],
+                                                                           new_track_train_count = track_count)
+# One more thing changed alone, judged by the same rule: pictures of twice the width and height (320 x 240 instead of
+# 160 x 120, from the cache "wide_320" that training_dataset.add_image_cache adds to the index), to see whether small
+# things (a dash, a gap, the line's end beside the puck) are lost at 160 px. Four times the pixels, so about four
+# times the training time; two jobs at a time on the 8 GB card. The robot driver takes the picture size from the run.
+# The shift and the blur of the augmentation are doubled with the picture, so that they stay the same on the table.
+TRAINING_RUNS["resnet18_full_wide_320_new_shapes"] = dict(
+    TRAINING_RUNS["resnet18_full_new_shapes"], picture_cache = "wide_320", picture_size = [320, 240],
+    augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], shift_px = 2 * TRAINING_RUN_PARAMETERS["augmentation"]["shift_px"],
+                        blur_sigma_most = 2 * TRAINING_RUN_PARAMETERS["augmentation"]["blur_sigma_most"]))
+
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,

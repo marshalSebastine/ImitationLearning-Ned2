@@ -201,6 +201,56 @@ def augmented_pictures(
 
 
 
+def table_as_paper(
+        batch: torch.Tensor,
+        is_repainted: numpy.ndarray,
+        parameters: Dict
+) -> torch.Tensor:
+    """
+    Repaint the table in the chosen pictures in the picture's own paper colour (14.11.26).
+
+    In round 1 every line ends 2 to 4 cm from the paper's edge, and the model learned the edge as its stop cue
+    (2026-11-14_stop_check.md). With the table painted like paper, an end near the edge looks like an end in the middle
+    of a sheet, so the stop has to be read from the line itself. A pixel is table when it is not bluish like the paper
+    (red minus blue above a limit), not red like the puck, not dark, and outside the robot's own area; it takes the
+    mean colour of the picture's paper pixels, shaded by its own brightness against the table's mean, so the table's
+    light and shadow stay.
+
+    Parameters
+    ----------
+    batch : torch.Tensor
+        (batch, 3, height, width) float RGB between 0 and 1, before any other augmentation.
+    is_repainted : numpy.ndarray
+        Which pictures of the batch are repainted.
+    parameters : dict
+        The colour limits ("table_as_paper" of the run settings).
+
+    Returns
+    -------
+    torch.Tensor
+        The batch with the table of the chosen pictures repainted.
+    """
+
+    red, green, blue = batch[:, 0], batch[:, 1], batch[:, 2]
+    brightness = batch.mean(dim = 1)
+    is_table = (((red - blue) > parameters["table_red_over_blue_least"]) & ((red - green) < parameters["table_red_over_green_most"])
+                & (brightness > parameters["table_brightness_least"]))
+    left, top, right, bottom = parameters["robot_area_px"]
+    is_table[:, top:bottom, left:right] = False
+    is_table = is_table & torch.from_numpy(is_repainted).view(-1, 1, 1)
+    is_paper = ((red - blue) < parameters["paper_red_over_blue_most"]) & (brightness > parameters["paper_brightness_least"])
+
+    paper_count = is_paper.sum(dim = (1, 2)).float()
+    paper_colour = (batch * is_paper.unsqueeze(1)).sum(dim = (2, 3)) / paper_count.clamp(min = 1.0).view(-1, 1)
+    usual_colour = torch.tensor(parameters["paper_colour"], dtype = batch.dtype).view(1, 3)
+    paper_colour = torch.where((paper_count >= parameters["paper_pixels_least"]).view(-1, 1), paper_colour, usual_colour)
+    table_brightness = (brightness * is_table).sum(dim = (1, 2)) / is_table.sum(dim = (1, 2)).float().clamp(min = 1.0)
+    shade = (brightness / table_brightness.clamp(min = 0.05).view(-1, 1, 1)).clamp(parameters["shade_least"], parameters["shade_most"]) ** parameters["shade_power"]
+    repainted = (paper_colour.view(-1, 3, 1, 1) * shade.unsqueeze(1)).clamp(0.0, 1.0)
+    return torch.where(is_table.unsqueeze(1), repainted, batch)
+
+
+
 def augmented_single_pictures(
         pictures: torch.Tensor,
         settings: Dict,
@@ -232,6 +282,10 @@ def augmented_single_pictures(
     is_mirrored = numpy.zeros(count, dtype = bool)
     augmentation = settings["augmentation"]
     if is_training:
+        if augmentation.get("table_as_paper_probability", 0.0) > 0:
+            # drawn only when switched on, so that every other run keeps its random numbers
+            is_repainted = randomness_generator.random(count) < augmentation["table_as_paper_probability"]
+            batch = table_as_paper(batch, is_repainted, settings["table_as_paper"])
         brightness = torch.from_numpy(randomness_generator.uniform(1 - augmentation["brightness"], 1 + augmentation["brightness"], count)).float().view(-1, 1, 1, 1)
         contrast = torch.from_numpy(randomness_generator.uniform(1 - augmentation["contrast"], 1 + augmentation["contrast"], count)).float().view(-1, 1, 1, 1)
         saturation = torch.from_numpy(randomness_generator.uniform(1 - augmentation["saturation"], 1 + augmentation["saturation"], count)).float().view(-1, 1, 1, 1)
@@ -539,7 +593,7 @@ def run_training(
     elif settings["split"] == "sheets":
         folds = leave_one_sheet_out_folds(frames)
     elif settings["split"] == "new_shapes":
-        folds = new_shape_folds(frames)
+        folds = new_shape_folds(frames, settings.get("new_track_train_count"), settings["seed"])
     elif settings["split"] == "round_1_to_new":
         folds = round_1_to_new_folds(frames)
     else:

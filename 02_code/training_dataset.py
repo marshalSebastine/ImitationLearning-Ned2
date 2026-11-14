@@ -539,6 +539,67 @@ def build_index(parameters: Optional[Dict] = None) -> Dict:
 
 
 
+def cache_picture_chunk(arguments: Tuple) -> int:
+    """Write one chunk of pictures into an added cache, in a worker process; return how many could not be read."""
+
+    chunk, cache_path, width, height = arguments
+    cache = numpy.lib.format.open_memmap(cache_path, mode = "r+")
+    unreadable = 0
+    for index, picture_path in chunk:
+        picture = cv2.imdecode(numpy.frombuffer(Path(picture_path).read_bytes(), dtype = numpy.uint8), cv2.IMREAD_COLOR)
+        if picture is None:
+            unreadable += 1
+            continue
+        cache[index] = cv2.resize(cv2.cvtColor(picture, cv2.COLOR_BGR2RGB), (width, height), interpolation = cv2.INTER_AREA)
+    cache.flush()
+    return unreadable
+
+
+
+def add_image_cache(
+        name: str,
+        size: Tuple[int, int],
+        parameters: Optional[Dict] = None
+) -> Path:
+    """
+    Add one more picture cache to an index that is already built, in the order of its frames.csv (14.11.26, for the
+    test with pictures of twice the width and height).
+
+    Parameters
+    ----------
+    name : str
+        The cache's name; the file is images_<name>.npy in the processed folder.
+    size : tuple of int
+        Width and height in pixels.
+    parameters : dict, optional
+        Overrides for ``TRAINING_DATA_PARAMETERS`` ("processed_folder" names the index).
+
+    Returns
+    -------
+    pathlib.Path
+        The cache file.
+    """
+
+    parameters = merged_parameters(parameters)
+    processed_folder = Path(parameters["processed_folder"])
+    with open(processed_folder / "frames.csv", newline = "", encoding = "utf-8") as file:
+        frame_paths = [(int(row["frame_index"]), row["frame_path"]) for row in csv.DictReader(file)]
+    assert [index for index, _ in frame_paths] == list(range(len(frame_paths))), "frames.csv is not in frame order"
+    width, height = size
+    cache_path = processed_folder / f"images_{name}.npy"
+    numpy.lib.format.open_memmap(str(cache_path), mode = "w+", dtype = numpy.uint8, shape = (len(frame_paths), height, width, 3)).flush()
+    raw_folder = Path(parameters["raw_folder"])
+    jobs = [(index, str(raw_folder / frame_path)) for index, frame_path in frame_paths]
+    chunk_size = max(1, math.ceil(len(jobs) / (parameters["worker_count"] * 8)))
+    worker_arguments = [(jobs[start:start + chunk_size], str(cache_path), width, height) for start in range(0, len(jobs), chunk_size)]
+    with multiprocessing.Pool(processes = parameters["worker_count"]) as pool:
+        unreadable = sum(pool.imap_unordered(cache_picture_chunk, worker_arguments))
+    if unreadable:
+        raise ValueError(f"{unreadable} pictures could not be read")
+    return cache_path
+
+
+
 def main() -> None:
 
     summary = build_index()

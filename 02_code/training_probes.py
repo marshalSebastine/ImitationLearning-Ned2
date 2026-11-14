@@ -38,7 +38,7 @@ from training_metrics import (change_metrics, chunk_metrics, direction_metrics, 
                               twist_metrics)
 from training_targets import (DIRECTION_ANGLES_DEG, DIRECTION_NAMES, chunk_targets, class_weights, direction_targets,
                               episode_folds, exact_step_targets, inner_validation_mask, leave_one_sheet_out_folds,
-                              load_training_frames, previous_rows, score_weights, stop_targets, twist_targets)
+                              load_training_frames, new_track_shapes, previous_rows, score_weights, stop_targets, twist_targets)
 
 TWIST_SIGNS = numpy.array([-1.0, 0.0, 1.0])
 
@@ -223,6 +223,12 @@ def training_arrays(
         "is_stop_row": is_stop,
         "sample_weight": score_weights(frames, {int(score): weight for score, weight in parameters["score_weights"].items()})
     }
+    if parameters.get("mid_paper_stop_weight", 1.0) != 1.0:
+        # 14.11.26: the stop pictures of tracks whose line ends in the middle of the paper are few (19 of about 260
+        # episodes), and the model learned the paper's edge as its stop cue; here they count more
+        is_mid_paper_stop = (is_stop > 0.5) & numpy.isin(new_track_shapes(frames), parameters["mid_paper_end_tracks"])
+        arrays["sample_weight"] = numpy.where(is_mid_paper_stop, arrays["sample_weight"] * parameters["mid_paper_stop_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     is_moving = frames["action"].isin(DIRECTION_NAMES).to_numpy()
     return arrays, class_names, is_moving
 

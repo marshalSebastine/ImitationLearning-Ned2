@@ -14,11 +14,11 @@ import pandas
 import torch
 
 from config import NO_AUGMENTATION, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, batch_targets
+from train_policy import PictureToMoveModel, augmented_pictures, batch_targets, table_as_paper
 from training_metrics import angle_difference_deg, direction_metrics, nearest_direction, stop_metrics
 from training_targets import (DIRECTION_NAMES, MIRRORED_DIRECTION, chunk_targets, class_weights, direction_targets,
-                              episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, previous_frame_indices,
-                              previous_rows)
+                              episode_folds, exact_step_targets, leave_one_sheet_out_folds, mirrored_targets, new_shape_folds,
+                              previous_frame_indices, previous_rows)
 
 
 def toy_frames() -> pandas.DataFrame:
@@ -127,6 +127,63 @@ def test_six_channel_model_takes_two_pictures() -> None:
     assert outputs["exact"].shape[0] == 2
 
 
+def test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures() -> None:
+
+    parameters = TRAINING_RUN_PARAMETERS["table_as_paper"]
+    table, paper, puck, dark = [0.51, 0.52, 0.46], [0.62, 0.76, 0.84], [0.80, 0.15, 0.15], [0.10, 0.10, 0.12]
+    picture = torch.zeros(2, 3, 120, 160)
+    for colour, (top, bottom, left, right) in [(table, (0, 120, 0, 160)), (paper, (40, 120, 0, 60)), (puck, (50, 60, 120, 130)),
+                                               (dark, (100, 120, 130, 160))]:
+        picture[:, :, top:bottom, left:right] = torch.tensor(colour).view(1, 3, 1, 1)
+    repainted = table_as_paper(picture.clone(), numpy.array([True, False]), parameters)
+    assert torch.allclose(repainted[1], picture[1]), "a picture that was not chosen changed"
+    assert torch.allclose(repainted[0, :, 10, 100], torch.tensor(paper), atol = 0.02), "the table did not take the paper's colour"
+    for name, (row, column) in {"paper": (80, 30), "puck": (55, 125), "dark": (110, 150)}.items():
+        assert torch.allclose(repainted[0, :, row, column], picture[0, :, row, column]), f"the {name} changed"
+    left, top, right, bottom = parameters["robot_area_px"]
+    assert torch.allclose(repainted[0, :, top:bottom, left:right], picture[0, :, top:bottom, left:right]), "the robot's area changed"
+
+    settings = dict(TRAINING_RUN_PARAMETERS)
+    pictures = torch.from_numpy(numpy.random.default_rng(1).integers(0, 256, size = (4, 12, 16, 3), dtype = numpy.uint8))
+    before, _ = augmented_pictures(pictures, settings, numpy.random.default_rng(5), is_training = True)
+    off = dict(settings, augmentation = dict(settings["augmentation"], table_as_paper_probability = 0.0))
+    after, _ = augmented_pictures(pictures, off, numpy.random.default_rng(5), is_training = True)
+    assert torch.allclose(before, after), "switched off, the repaint must not change any random number"
+
+
+def test_new_shape_folds_with_fewer_tracks() -> None:
+
+    sheets = ["path_01_straight_line"] * 2 + [f"path_{number}_T{number - 10:02d}_solid" for number in range(11, 17) for _ in range(2)]
+    frames = pandas.DataFrame({"path_id": sheets})
+    folds = new_shape_folds(frames)
+    assert [fold["name"] for fold in folds] == [f"without_T{number:02d}" for number in range(1, 7)]
+    assert all(fold["train"].sum() == len(frames) - 2 and fold["test"].sum() == 2 for fold in folds)
+    fewer = new_shape_folds(frames, train_track_count = 3, seed = 7)
+    for fold, full in zip(fewer, folds):
+        assert (fold["test"] == full["test"]).all() and not (fold["train"] & fold["test"]).any()
+        assert fold["train"].sum() == 2 + 3 * 2, "round 1 and three other tracks train"
+    again = new_shape_folds(frames, train_track_count = 3, seed = 7)
+    assert all((first["train"] == second["train"]).all() for first, second in zip(fewer, again)), "the draw must repeat"
+
+
+def test_mid_paper_stop_pictures_count_more() -> None:
+
+    from training_probes import training_arrays
+    frames = toy_frames()
+    frames["path_id"] = numpy.where(frames["sheet"] == "path_01", "path_13_T03_solid", "path_11_T01_solid")
+    frames["score"] = 2
+    frames["goal_distance_cm"] = 0.0
+    frames["is_at_goal"] = 0
+    target_parameters = {"small_motion_rule": "next_move", "twist_threshold_deg": 2.0, "chunk_steps": 5}
+    settings = dict(TRAINING_RUN_PARAMETERS, design = "chunk")
+    usual, _, _ = training_arrays(frames, settings, target_parameters)
+    heavier, _, _ = training_arrays(frames, dict(settings, mid_paper_stop_weight = 4.0), target_parameters)
+    is_stop = (frames["action"] == "stop").to_numpy()
+    is_mid_paper = (frames["path_id"] == "path_13_T03_solid").to_numpy()
+    assert numpy.allclose(heavier["sample_weight"][is_stop & is_mid_paper], 4.0 * usual["sample_weight"][is_stop & is_mid_paper])
+    assert numpy.allclose(heavier["sample_weight"][~(is_stop & is_mid_paper)], usual["sample_weight"][~(is_stop & is_mid_paper)])
+
+
 def test_class_weights_favour_rare_classes() -> None:
 
     weights = class_weights(numpy.array([0, 0, 0, 1, -1]), 3, 1.0)
@@ -196,6 +253,8 @@ if __name__ == "__main__":
                  test_chunk_targets_follow_the_tip_in_the_picture_frame, test_folds_never_split_an_episode,
                  test_previous_rows_stay_in_the_episode, test_previous_frame_indices_count_every_picture_and_stay_in_the_episode,
                  test_two_pictures_of_a_row_get_the_same_augmentation, test_six_channel_model_takes_two_pictures,
+                 test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures, test_new_shape_folds_with_fewer_tracks,
+                 test_mid_paper_stop_pictures_count_more,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,
                  test_labels_match_the_recording_tool_on_real_data]:

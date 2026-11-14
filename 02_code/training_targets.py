@@ -460,15 +460,43 @@ def new_track_shapes(frames: pandas.DataFrame) -> numpy.ndarray:
 
 
 
-def new_shape_folds(frames: pandas.DataFrame) -> List[Dict]:
+def new_shape_folds(
+        frames: pandas.DataFrame,
+        train_track_count: Optional[int] = None,
+        seed: int = 0
+) -> List[Dict]:
     """
     One fold per new track recorded so far: trained on everything else (round 1 and the other new tracks), tested on
     both prints of that track, a line the model has not seen (14.11.26, the mid-way check of round 2).
+
+    Parameters
+    ----------
+    frames : pandas.DataFrame
+        From ``load_training_frames``.
+    train_track_count : int, optional
+        Train on round 1 and only this many of the other new tracks, drawn at random per fold (14.11.26, to see whether
+        the result still rises with the number of tracks); all the other new tracks when not given.
+    seed : int, optional
+        Seed of that draw.
+
+    Returns
+    -------
+    list of dict
+        "name", "train" and "test" masks over ``frames``.
     """
 
     shapes = new_track_shapes(frames)
-    return [{"name": f"without_{shape}", "train": shapes != shape, "test": shapes == shape}
-            for shape in sorted(set(shapes) - {""})]
+    names = sorted(set(shapes) - {""})
+    folds = []
+    for fold_number, shape in enumerate(names):
+        is_train = shapes != shape
+        if train_track_count is not None:
+            others = [name for name in names if name != shape]
+            randomness_generator = numpy.random.default_rng([seed, fold_number])
+            kept = randomness_generator.choice(others, size = min(train_track_count, len(others)), replace = False)
+            is_train = (shapes == "") | numpy.isin(shapes, kept)
+        folds.append({"name": f"without_{shape}", "train": is_train, "test": shapes == shape})
+    return folds
 
 
 
