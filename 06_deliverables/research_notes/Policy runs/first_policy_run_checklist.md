@@ -30,9 +30,14 @@ Calculated: a forearm turn label becomes a 6 degree turn (the median of the labe
 - [ ] `git pull` on main.
 - [ ] Install PyTorch into the robot laptop's environment (once, about 10 minutes):
       `D:/AI_Project/.venv/Scripts/python.exe -m pip install torch torchvision`
-- [ ] The two weight files (not in git, about 45 MB each) at exactly these places:
-      `D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints/best.pt`
-      `D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints/best.pt`
+- [ ] The two weight files (not in git, about 45 MB each), from the GitHub release
+      https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/tag/policies-2026-11-13-overnight
+      (SHA-256 sums in the release notes). In PowerShell, these four lines put them at exactly the right places:
+
+      New-Item -ItemType Directory -Force D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints
+      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/history_classifier_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints/best.pt
+      New-Item -ItemType Directory -Force D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints
+      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/factorised_classifier_tuned_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints/best.pt
 - [ ] Tests, in `D:/AI_Project/02_code`: `..\.venv\Scripts\python.exe test_run_policy.py` says "all tests passed"
       (about a minute), and `..\.venv\Scripts\python.exe test_record_episodes.py` too.
 - [ ] A dry run with the simulated robot, to see the windows and keys (nothing moves):
