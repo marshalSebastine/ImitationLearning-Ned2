@@ -191,6 +191,16 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   the open login window, or later with `.../evidence/final_2026-11-14/ki014_scripts/final5_fetch.cmd` (one password).
   New measure on recorded pictures (`score_hand_corrections.py`): the reference agrees with the demonstration on 83 %
   of all pictures but on 58 % of the pictures after an h press. Section 12 of the search notes has the rule.
+- 15.11.26 evening (Emranul and Marshal at the robot, 38 runs; `.../Model and training/2026-11-15_robot_test_results.md`,
+  marks given on the recording page's new test part): model 15 (mirror, after-h weight, 16 rounds) keeps new printed
+  lines far better than model E, but every new model fails the revolving move: in loops the forearm must swing back
+  from about -70 to +60 degrees, model E does it on sheet 05, the others wind on to the joint limit of -117
+  (`2026-11-15_revolving_move.md`). Built and tested on the laptop: the direction memory (models 19 and 20; its layer
+  was not trained in the first try, fixed), the recurrent model (12 camera pictures through a GRU, models 21 and 22),
+  swing weighting (model 23). Queued on ki-016 (free; ki-014 was filled by another person's training): queues 11 and
+  13. To read: one fetch login to ki-016 with a NEW sent list (model 19 was retrained under the same name). No-mirror
+  scored worse than mirror on recorded pictures (0.828 against 0.856). Emranul keeps the memory runs although the
+  memory reads the arm's joints, not the camera (the course rule question is open).
 - State on 15.11.26, 02:30: second and third queue on ki-014 (the third ends about 11:30); results come back with a
   fetch-only login (`.../evidence/final_2026-11-14/ki014_scripts/final_fetch.cmd`). Stop fixes scored: none passes.
   Next: score both queues on both yardsticks, build the look-ahead steering into the driver and rehearse it, drive

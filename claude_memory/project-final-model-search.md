@@ -80,6 +80,18 @@ back (right on 60 of 530 backwards pictures); first check whether the driver car
 results: combine only the changes that pass their rule into one recipe and score and drive the mix as its own run; try
 after-h weight 5 if 3 helps. No negative weights (Emranul asked; weight 0 is the honest choice, explained to him).
 
+**15.11.26 evening: the revolving move (Emranul's name).** In loops the forearm (joint 4) must swing back from one side
+(about -70) through the middle to the other (+60), because a loop needs a full turn and joint 4 stops at 117. Model E
+does it on sheet 05 (asks +6 to +7 degrees a step); models 13, 15, 17, 18 ask +2 to +4 and wind on to -117. 153 of 265
+episodes contain such a swing; on held-out pictures the models ask 0.3 to 0.65 of the recorded turn (regression to the
+mean). Built: recurrent model (`SequencePictureModel`, 12 pictures 4 steps apart, robot 6 apart; models 21, 22),
+`swing_weight` (model 23), direction memory with its layer now trained (models 19, 20; the first model 19 had an
+untrained memory layer and is set aside as `2026-11-15_model_19_UNTRAINED_MEMORY_LAYER_do_not_use`). All on ki-016
+(found free; Marshal had said so); fetch with a fresh sent list. Emranul keeps the memory runs although the memory
+comes from joint angles (course rule "camera only" not settled). Next if recurrent fails: a mode-choosing head
+(forearm-turn classes with a fixed turn) and committing to a chunk during a swing; diffusion policy is the strongest
+known fix but more work. The recording page has a test part (/tests) with marks.
+
 **Model 9** (reference recipe on all 264 episodes, for the robot): 
 `04_runs/gpu_ki014/2026-11-14_resnet18_model_9_full_all_sheets/checkpoints/all_sheets.pt`, sha256 3eca52154e5a; loads
 in the robot driver (`ModelPolicy`), not yet driven on the robot.
