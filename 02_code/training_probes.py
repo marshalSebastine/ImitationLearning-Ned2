@@ -238,8 +238,10 @@ def training_arrays(
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("recovery_weight", 1.0) != 1.0:
         # 15.11.26: on the robot the model, once beside the line, stayed beside it for a long stretch (Emranul, sheet 03).
-        # The only recordings that show the puck being brought back are the starts beside the line (OL and OR, 35
-        # episodes of round 1, none of round 2); their first "recovery_rows" pictures, 1.2 % of all, count more.
+        # The starts beside the line (OL and OR, 35 episodes of round 1, none of round 2): their first
+        # "recovery_rows" pictures, 1.2 % of all, count more. Corrected 15.11.26 (Emranul): these are NOT the only
+        # recordings of a puck brought back; the 304 corrections by hand (h key) give about 2,100 more pictures, which
+        # this option does not weight (evidence/night_look_2026-11-14/hand_corrections_check.py).
         is_recovery = (frames["start_kind"].astype(str).str.startswith(("OL", "OR")) & (frames["row_in_episode"] < parameters["recovery_rows"])).to_numpy()
         arrays["sample_weight"] = numpy.where(is_recovery, arrays["sample_weight"] * parameters["recovery_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)

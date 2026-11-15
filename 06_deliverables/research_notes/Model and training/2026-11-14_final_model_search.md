@@ -194,3 +194,46 @@ are 0.808 and 0.800 path within 45 and 103 and 105 of 209 right stops). Model 12
 and model 11 are robot candidates. Until a model holds on both yardsticks and on the robot, the round 1 model E stays
 the model for the six known sheets. Every new robot model is first driven on the six course sheets in their good
 lay-outs before anything else is concluded from it.
+
+## 11. Corrections by hand (h key): a wrong count put right (15.11.26, 02:50; `evidence/night_look_2026-11-14/hand_corrections_check.py`)
+
+Emranul: "in more than 80 % of the episodes we had to press h and bring the puck back on the line; why is it 280
+pictures only?" He is right that the 280 was wrong. It counted the first eight pictures of the 35 episodes that start
+beside the line (OL and OR) and nothing else; the corrections by hand were never counted. What the h key does
+(`record_episodes.py`, `__reguide`): the replay stops, the arm is guided again by hand from where it stands, the puck is
+put back where it had drifted to, and the robot then replays the new path, so the pictures after an h press show the
+robot itself bringing the drifted puck back.
+
+Measured on the training index v03, with the reference model's own cleaning (22,646 pictures):
+
+| | Pictures | In the training set |
+|---|---|---|
+| h presses, by the episodes' own count | 309, in 170 of 266 episodes (64 %; round 1: 62 %, round 2: 71 %) | |
+| h presses found in the step tables (the waypoint counter starts again) | 304, in 169 episodes | |
+| the 8 steps before an h press | 2,410 | 2,369 (34 marked as a mistake with u) |
+| the first row after an h press (the robot stands; the cleaning drops it) | 304 | 0 |
+| steps 2 to 8 after an h press | 2,105 | 2,094 |
+| old count: first 8 pictures of the starts beside the line | 280 | |
+
+The steps after a correction really are different moves: in the first three, 92 % are not "forward" and the move
+points a median 106 degrees away from forward (the rod goes back and round the puck); in ordinary steps 58 % and 41
+degrees. Corrections lie late in an episode (half of them after 68 % of its steps) and mostly on sheets 02, 03 and 04
+(58, 59 and 68 of 304).
+
+Seen on eight corrections chosen evenly (`hand_corrections_strips_1.jpg`, `_2.jpg`; a look, not a measurement): in
+about half of them the puck is clearly beside the line in the pictures before the h press while the recorded move is
+"forward"; after the press the moves go back and sideways and the puck comes back over several steps. One strip
+(plan 04-35) shows a hand in the first two pictures after the press.
+
+What follows, and what does not:
+
+- Withdrawn: "the model does not come back to the line because there are almost no examples of it". There are about
+  2,100, a tenth of the training pictures.
+- A new guess, not tested: the pictures before an h press teach the opposite. They show a puck drifting off the line
+  with the robot carrying on, and nearly all of them (2,369) are trained on as good examples. On the robot the model,
+  once beside the line, stayed beside it for a long stretch (sheet 03). How many steps before each press the puck was
+  already off the line is not measured.
+- Model 11's "recovery" weighting covers only the 280 pictures, so it is narrower than it was meant to be.
+- A test that would decide it: the same recipe with the last steps before every h press left out of the training
+  (weight 0), with and without more weight on the steps after it. The yardstick must then leave those steps out of the
+  scoring too, because on them the recorded move is the drift, not the right move. Not built, not queued.

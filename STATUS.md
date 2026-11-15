@@ -174,8 +174,11 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   end; sheet 02 fails in the standard lay-out where the rod tip is 43 cm and more from the base and goes better lying
   landscape; sheet 04 better in the standard lay-out; on sheet 05 (laid as on 11.11) the round 1 model E works and
   model 10 does not, so E stays the model for the six course sheets. Both models follow the puck and use the line
-  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); only 280 of 23,270 pictures show a puck
-  being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
+  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); the claim written here that only 280 of
+  23,270 pictures show a puck being brought back was wrong (it counted only the 35 starts beside the line): 304
+  corrections by hand (h key) in 169 episodes give 2,094 training pictures in the steps after a correction, and 2,369
+  in the 8 steps before one, where the replay goes on while the puck drifts (Emranul's objection, checked 15.11.26,
+  section 11 of the search notes). A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
   second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
 - 15.11.26, 02:00 to 02:30 (Emranul at the robot, Marshal's handoff): first robot runs of Marshal's three round 2
   policies, sheet 01 only (`06_deliverables/research_notes/Policy runs/2026-11-15_robot_test_round2_results.md`): rank

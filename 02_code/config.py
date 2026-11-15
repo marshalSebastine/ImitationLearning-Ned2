@@ -2229,8 +2229,8 @@ TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUN
                                                                     **THIRD_QUEUE["zoom"])
 
 # 15.11.26, 00:55, a robot candidate from the night's runs, not a comparison run: model 11 is model 10 with the two
-# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 pictures in which a
-# demonstration brings the puck back onto the line five times). The held-out pictures cannot score a recovery (every
+# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 first pictures of the starts
+# beside the line five times; the about 2,100 pictures after a correction by hand are not weighted, found 15.11.26). The held-out pictures cannot score a recovery (every
 # test episode stays on its line), so its test is the robot, against model 10 on the same sheets.
 TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
 TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(

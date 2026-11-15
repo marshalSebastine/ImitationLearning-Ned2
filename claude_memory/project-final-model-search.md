@@ -52,7 +52,12 @@ it). Third queue uploaded at 01:44 (52 jobs behind the second, ends about 11:30)
 (password). Stop fixes scored on all 16 tracks: none reaches 20 right stops of 55 (made-up ends stop 5 to 20 cm early;
 mid-paper weighting 19 right but 1.5 points less steering). Robot, same night: model 10 is worse than model E on sheet
 05's loop (laid as on 11.11, both step sizes); the two-picture round 1 model drove the loop well and stopped 4.6 cm
-early; both models follow the puck and use the line about half as much; only 280 pictures show a puck brought back.
+early; both models follow the puck and use the line about half as much; the claim "only 280 pictures show a puck brought
+back" was wrong (Emranul objected, 15.11.26: most episodes had h corrections): it counted only the 35 starts beside the
+line. Measured: 304 corrections by hand in 169 of 266 episodes (64 %); 2,094 training pictures in steps 2 to 8 after an
+h press (the robot brings the drifted puck back) and 2,369 in the 8 steps before one (the replay goes on while the puck
+drifts; trained on as good examples, only 34 marked as mistakes). Untested guess: those before-pictures teach the model
+to carry on beside the line; the test is to leave them out of training and of the scoring.
 Free gain found: steering by the look-ahead output scores +1 point within 45 and +2 to 2.5 within 30 degrees (both
 seeds), not yet in the driver. Emranul (15.11.26): no more recording, "make it better yourself"; he was disappointed
 by the loop. Marshal's three round 2 policies were driven on sheet 01 (results file in `Policy runs/`).
