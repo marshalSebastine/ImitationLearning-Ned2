@@ -60,3 +60,23 @@ Asked for by Emranul ("let's try idea 1 and 2"); both checked first, neither bui
    3 ahead 0.686, 5 ahead 0.662; on bends of 25 to 45 degrees 0.690, 0.687, 0.654, 0.620. The gain of looking 2 steps
    ahead is under 1 point and looking further costs on bends, where the loop needs sharper steering, not smoother. The
    earlier "+1 to 2.5 points" was measured against the path direction 3 steps ahead, which favours a look-ahead.
+
+## Ninth queue complete (finished 17:42, 24 of 24 jobs with exit 0, fetched 18:18)
+
+New tracks, 16 folds each (path within 45 / right stops of 55 / never stopped / after an h press):
+
+| Run on model 15's recipe | Path 45 | Right | Never | After h |
+|---|---|---|---|---|
+| the recipe, seed 1 (model 15's) | 0.856 | 17 | 20 | 0.693 |
+| the recipe, seed 2 | 0.855 | 16 | 21 | 0.695 |
+| the recipe, seed 3 | 0.842 | 20 | 16 | 0.662 |
+| approach to the goal x2 | 0.847 | 20 | 23 | 0.671 |
+| after h x5 | 0.835 | 16 | 21 | 0.680 |
+| 24 rounds | 0.858 | 14 | 23 | 0.700 |
+| two pictures | 0.863 | 14 | 31 | 0.689 |
+
+The recipe's gain holds over three seeds (mean 0.851 against the reference seeds' 0.832 to 0.844; after an h press 0.66
+to 0.70 against 0.575 to 0.59). None of the additions is clearly better than the recipe: their differences are within
+its own seed spread (1.4 points, 16 to 20 right stops). The approach weight's 20 right stops equal seed 3's. Two
+pictures steers best (0.863) and never stops in 31 of 55 episodes. The knobs on this recipe look used up; the next
+change has to be of another kind (the robot test points to a memory of direction).
