@@ -358,3 +358,25 @@ first rule nothing passes clearly: mirror gains 1.2 points and 5 stops, which is
 the new tracks; zoom gains 1 point and 10 stops on the course sheets. The strongest number, zoom with turned and
 mirrored pictures (+3.6 points, after h +9), rests on 8 of 16 folds and has to be completed before it counts. Two
 pictures steer best on both yardsticks and stop worst. Robot candidates trained: models 11, 12, 13 and 14.
+
+## 15. Combined recipes and the 3-step weighting read (15.11.26, 13:30; seventh queue ended 12:00, eighth 12:37, all fetched)
+
+New tracks (16 folds; reference 0.832 path within 45, 11 of 55 right stops, after an h press 0.575):
+
+| Run | Path 45 | Right stops | Without before-h | After h |
+|---|---|---|---|---|
+| mirror + after h x3 + 16 rounds (model 15's recipe) | 0.856 | 17 | 0.865 | 0.693 |
+| the same on the zoomed, turned view (model 16's recipe) | 0.846 | 12 | 0.856 | 0.700 |
+| last 3 steps before h at a third | 0.837 | 14 | 0.844 | 0.603 |
+| last 3 before h at a third + after h x3 | 0.823 | 9 | 0.830 | 0.612 |
+
+Course sheets (6 folds, 209 episodes; reference 0.818, 106 right, after h 0.576): model 15's recipe 0.834, 111 right
+(40 early, 50 never), after h 0.684; model 16's recipe 0.839, 107 right (32 early, 63 never), after h 0.670.
+
+By the search's first rule, model 15's recipe passes on the new tracks (+2.4 points path and +6 right stops; the seed
+gap is 1.2 points and 6 stops; against the best reference seed it is +1.2 points and equal stops) and holds on the
+course sheets (+1.6 points, +5 stops). It is the first recipe that gains on both yardsticks and on the steps after an h
+press. The zoomed version adds nothing on the new tracks and never stops more often on the course sheets; model 16
+cannot be driven anyway (the driver does not cut the zoomed picture). Emranul's 3-step weighting alone is a small
+plus within chance (+0.5 points, +3 stops); together with the after-h weight it is worse, so it is not combined.
+Model 15 (this recipe on all sheets) is the main robot candidate in the checklist of 15.11.26.
