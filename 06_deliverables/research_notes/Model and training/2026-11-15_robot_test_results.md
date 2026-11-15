@@ -43,3 +43,20 @@ On model 15's recipe (0.856 path within 45, 17 of 55 right stops, after an h pre
 counted twice 0.847, 20 of 55 right stops (the most so far, 10 early), after an h press 0.671; after h five times
 0.835, 16 of 55, 0.680 (worse than three times). Two pictures, 24 rounds and the two seeds were still running; the
 rest needs a fetch login.
+
+## Two driver fixes checked on the logs and the recorded pictures before building them (15.11.26, 18:00)
+
+Asked for by Emranul ("let's try idea 1 and 2"); both checked first, neither built.
+
+1. Stop when the tip goes back over old ground. On today's 28 runs the longest stretch on old ground (tip within 1.0
+   to 1.5 cm of a place passed more than 10 steps before) was 4 to 6 steps in model E's two good loop runs (the crossing)
+   and also only 4 to 6 steps in model 15's runs that turned back near the end (D02, D06): no limit tells them apart.
+   A limit of 8 steps would end the long circling (U9, U7, A6), but only after the puck had been pushed back about
+   5 cm, so no run would have finished. The model's own stop chance stayed near 0 at the true line end of D02, D04 and
+   D06 and rose only one or two steps before its stop, so a lower stop threshold would not help either: the model does
+   not see these line ends (the paper-edge cue of section 1 of the search notes).
+2. Steer towards a point 2, 3 or 5 steps ahead instead of the next step. Measured on the held-out pictures of model 15's
+   recipe against where the recorded tip went over the next 2 steps (within 30 degrees): next step 0.689, 2 ahead 0.695,
+   3 ahead 0.686, 5 ahead 0.662; on bends of 25 to 45 degrees 0.690, 0.687, 0.654, 0.620. The gain of looking 2 steps
+   ahead is under 1 point and looking further costs on bends, where the loop needs sharper steering, not smoother. The
+   earlier "+1 to 2.5 points" was measured against the path direction 3 steps ahead, which favours a look-ahead.
