@@ -1,0 +1,7 @@
+# Packages for training on the GPU pool (.venv_gpu); the robot laptop does not need them.
+# pip's torch wheels bring their own CUDA libraries; the machine only needs an NVIDIA driver (nvidia-smi works).
+torch
+torchvision
+optuna
+numpy
+opencv-python-headless

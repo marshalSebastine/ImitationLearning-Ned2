@@ -1,0 +1,4 @@
+epoch,train_loss,hard_sheet_score,move_accuracy,move_balanced_accuracy,forearm_accuracy,stop_recall,learning_rate,minutes
+1,4.16248,0.39185,0.29355,0.25152,0.50434,0.70968,0.00002,0.05046
+2,3.45231,0.45943,0.42250,0.29568,0.61043,0.87097,0.00002,0.10201
+3,2.99607,0.50700,0.45953,0.34297,0.64563,0.87097,0.00002,0.15662
