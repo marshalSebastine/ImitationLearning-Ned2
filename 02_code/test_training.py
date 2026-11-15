@@ -320,6 +320,28 @@ def test_steps_round_a_correction_by_hand() -> None:
     assert numpy.allclose(approach["sample_weight"][~is_approach], usual["sample_weight"][~is_approach]), "only score-3 approaches, not the stop row"
 
 
+def test_direction_memory_points_back_along_the_path() -> None:
+
+    from training_targets import memory_from_path
+    from train_policy_emranul import memory_batch
+    straight = numpy.array([[0.10 + 0.01 * index, 0.0] for index in range(13)])
+    forward, left = numpy.array([1.0, 0.0]), numpy.array([0.0, 1.0])
+    assert numpy.allclose(memory_from_path(straight, forward, left, [2, 5, 10]), [-2, 0, -5, 0, -10, 0, 1, 1, 1], atol = 1e-4)
+    assert numpy.allclose(memory_from_path(straight[:4], forward, left, [2, 5, 10]), [-2, 0, 0, 0, 0, 0, 1, 0, 0], atol = 1e-4), "a path too short must say unknown"
+    # a quarter circle from heading +x to heading +y (a turn to the left): seen from its end, facing +y with -x on the
+    # left, the place 10 cm back lies behind (forward 100 * (0.0159 - 0.1) = -8.4 cm) and on the left (4.6 cm)
+    turn = numpy.array([[0.1 * numpy.sin(angle), 0.1 - 0.1 * numpy.cos(angle)] for angle in numpy.linspace(0.0, numpy.pi / 2, 300)])
+    memory = memory_from_path(turn, numpy.array([0.0, 1.0]), numpy.array([-1.0, 0.0]), [10])
+    assert numpy.allclose(memory, [-8.41, 4.60, 1.0], atol = 0.05), memory
+    arrays = {"memory": numpy.array([[-2, 1, -5, 2, -10, 3, 1, 1, 1], [-2, 1, 0, 0, 0, 0, 1, 0, 0]], dtype = numpy.float32)}
+    settings = {"memory_noise_cm": 0.0, "memory_hide_probability": 0.0}
+    mirrored = memory_batch(arrays, numpy.array([0, 1]), numpy.array([True, False]), settings).numpy()
+    assert numpy.allclose(mirrored[0], [-2, -1, -5, -2, -10, -3, 1, 1, 1]) and numpy.allclose(mirrored[1], arrays["memory"][1])
+    hidden = memory_batch(arrays, numpy.array([0, 1] * 500), numpy.zeros(1000, dtype = bool), dict(settings, memory_hide_probability = 0.3),
+                          numpy.random.default_rng(1)).numpy()
+    assert 0.25 < (numpy.abs(hidden).sum(axis = 1) == 0).mean() < 0.35, "about 30 % must be hidden"
+
+
 def test_class_weights_favour_rare_classes() -> None:
 
     weights = class_weights(numpy.array([0, 0, 0, 1, -1]), 3, 1.0)
@@ -392,7 +414,7 @@ if __name__ == "__main__":
                  test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures,
                  test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop,
                  test_turned_pictures_and_their_steps_turn_the_same_way, test_new_shape_folds_with_fewer_tracks,
-                 test_mid_paper_stop_pictures_count_more, test_steps_round_a_correction_by_hand,
+                 test_mid_paper_stop_pictures_count_more, test_steps_round_a_correction_by_hand, test_direction_memory_points_back_along_the_path,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,
                  test_labels_match_the_recording_tool_on_real_data]:

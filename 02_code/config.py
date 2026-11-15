@@ -2370,6 +2370,22 @@ TRAINING_RUNS["resnet18_model_18_full_mirror_after_h_16_final_steps_all_sheets"]
 # the loop of sheet 05 is a course sheet, so the no-mirror recipe is also held out sheet by sheet
 TRAINING_RUNS["resnet18_full_after_h_16_no_mirror_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **TENTH_QUEUE["no_mirror"])
 
+# 15.11.26, 19:00, the direction memory (Emranul: "give model 15 a sense of direction, so it is not confused on loops
+# or after a recovery, which takes 5 to 15 steps"). On the robot model 15 went round the new loops again and again and
+# turned back near line ends: one picture looks the same on the first and the second pass. Beside the picture the
+# model gets where the tip was 2, 5 and 10 cm of path ago (arrows in the picture's frame, with a known-flag each,
+# training_targets.memory_from_path), measured along the path so that recordings (about 1 cm a step) and robot (0.65
+# cm) agree. Against copying its own past (the copycat problem of imitation learning) the memory is hidden for 30 % of
+# the training pictures and shaken by 0.3 cm, and every test is also scored with the memory hidden ("memory_hidden_").
+TRAINING_RUN_PARAMETERS.update({"memory_distances_cm": [], "memory_hidden_size": 32, "memory_scale_cm": 10.0,
+                                "memory_hide_probability": 0.3, "memory_noise_cm": 0.3})
+DIRECTION_MEMORY = {"memory_distances_cm": [2.0, 5.0, 10.0]}
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_seed_2_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_new_shapes"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_model_19_full_mirror_after_h_16_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_model_20_full_after_h_16_no_mirror_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_17_full_after_h_16_no_mirror_all_sheets"], **DIRECTION_MEMORY)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

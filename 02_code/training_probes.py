@@ -36,9 +36,7 @@ from config import (TRAINING_DATA_PARAMETERS, TRAINING_METRIC_PARAMETERS, TRAINI
                     TRAINING_TARGET_PARAMETERS)
 from training_metrics import (change_metrics, chunk_metrics, direction_metrics, stop_metrics, summarised_folds, tuned_stop_threshold,
                               twist_metrics)
-from training_targets import (DIRECTION_ANGLES_DEG, DIRECTION_NAMES, chunk_targets, class_weights, direction_targets,
-                              episode_folds, exact_step_targets, inner_validation_mask, leave_one_sheet_out_folds,
-                              load_training_frames, new_track_shapes, previous_rows, score_weights, stop_targets, twist_targets)
+from training_targets import (DIRECTION_ANGLES_DEG, DIRECTION_NAMES, chunk_targets, class_weights, direction_targets, episode_folds, exact_step_targets, inner_validation_mask, leave_one_sheet_out_folds, load_training_frames, memory_arrows, new_track_shapes, previous_rows, score_weights, stop_targets, twist_targets)
 
 TWIST_SIGNS = numpy.array([-1.0, 0.0, 1.0])
 
@@ -292,6 +290,9 @@ def training_arrays(
                        & frames["score"].isin(parameters["approach_scores"]).to_numpy())
         arrays["sample_weight"] = numpy.where(is_approach, arrays["sample_weight"] * parameters["approach_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("memory_distances_cm"):
+        # 15.11.26: the direction memory (where the tip was 2, 5 and 10 cm of path ago), an input beside the picture
+        arrays["memory"] = memory_arrows(frames, parameters["memory_distances_cm"])
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training

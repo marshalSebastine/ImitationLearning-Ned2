@@ -74,6 +74,7 @@ from record_episodes import forearm_camera_heading_rad, read_window_key, show_in
 from side_view_test import magnet_tip_and_lean, solve_with_wrist_fixed
 from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs, predictions_from_outputs
+from training_targets import memory_from_path
 
 
 class ModelPolicy:
@@ -126,6 +127,7 @@ class ModelPolicy:
         # 14.11.26: a model shown the previous picture too ("picture_count" 2) gets the picture of the step before
         self.picture_count = self.settings.get("picture_count", 1)
         self.earlier_pictures = []
+        self.memory_distances_cm = list(self.settings.get("memory_distances_cm") or [])
 
 
     def forget_earlier_pictures(self) -> None:
@@ -170,7 +172,11 @@ class ModelPolicy:
         return inputs
 
 
-    def decide(self, picture_bytes: bytes) -> Dict[str, float]:
+    def decide(
+            self,
+            picture_bytes: bytes,
+            memory: Optional[numpy.ndarray] = None
+    ) -> Dict[str, float]:
         """
         The model's answer to one picture.
 
@@ -188,10 +194,12 @@ class ModelPolicy:
         """
 
         inputs = self.picture_input(picture_bytes)
+        # 15.11.26: a model with a direction memory gets where the tip has been (see memory_now); None = unknown
+        memory_input = None if memory is None or not self.memory_distances_cm else torch.from_numpy(numpy.asarray(memory, dtype = numpy.float32)[None])
         exact_steps, stop_probabilities = [], []
         with torch.inference_mode():
             for model in self.models:
-                outputs = model(inputs)
+                outputs = model(inputs, memory_input)
                 predictions = predictions_from_outputs(outputs, self.class_names, self.settings["stop_target"])
                 exact_steps.append(outputs["exact"][0].numpy())
                 stop_probabilities.append(float(predictions["stop_probability"][0]))
@@ -586,6 +594,26 @@ class ModelRun:
         self.start_offset = start_offset
 
 
+    def memory_now(
+            self,
+            joints: List[float],
+            tips_and_twists: List[tuple]
+    ) -> Optional[numpy.ndarray]:
+        """
+        The direction memory for the next decision (15.11.26), for a model trained with one: the tip's places so far in
+        this run and the tip now, turned into the frame of the picture just taken (the same axes that turn the model's
+        step onto the table). None for a model without a memory.
+        """
+
+        distances_cm = getattr(self.policy, "memory_distances_cm", None)
+        if not distances_cm:
+            return None
+        up_xy, left_xy = picture_axes(joints)
+        tip_now = magnet_tip_and_lean(list(joints))[0][:2]
+        places = numpy.array([[x, y] for x, y, _ in tips_and_twists] + [list(tip_now)], dtype = float)
+        return memory_from_path(places, numpy.asarray(up_xy, dtype = float), numpy.asarray(left_xy, dtype = float), distances_cm)
+
+
     def run(self, label: str) -> Dict:
         """
         Push until the stop rule, the step budget, a refused step or Esc ends the run, then lift the tip. Every
@@ -617,7 +645,8 @@ class ModelRun:
                 picture_bytes = self.fresh_picture()
                 state = self.robot_link.read_state()
                 decision_started = time.perf_counter()
-                decision = self.policy.decide(picture_bytes)
+                memory = self.memory_now(state["joints"], tips_and_twists)
+                decision = self.policy.decide(picture_bytes, memory) if memory is not None else self.policy.decide(picture_bytes)
                 is_stopping = stop_rule.update(decision["stop_probability"])
                 planned = None if is_stopping else model_step(state["joints"], decision, last_direction_xy, self.parameters)
                 row = self.logged_row(folder, step, picture_bytes, state, decision, planned, time.perf_counter() - decision_started)

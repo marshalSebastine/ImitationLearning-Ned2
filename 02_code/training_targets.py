@@ -282,6 +282,91 @@ def exact_step_targets(frames: pandas.DataFrame) -> numpy.ndarray:
 
 
 
+def memory_from_path(
+        positions_m: numpy.ndarray,
+        forward_axis: numpy.ndarray,
+        left_axis: numpy.ndarray,
+        distances_cm: List[float]
+) -> numpy.ndarray:
+    """
+    The direction memory of the last place of a path (15.11.26): for each distance, where the tip was that far back
+    along the path it travelled, as an arrow from the tip now, in the current picture's frame, and whether the path is
+    that long yet.
+
+    The distance is measured along the path, not in steps, so that the hand-guided recordings (about 1 cm a step) and
+    the robot (0.65 cm a step) mean the same; between two logged places the point is interpolated.
+
+    Parameters
+    ----------
+    positions_m : numpy.ndarray
+        (places, 2) tip positions on the table in metres, oldest first; the last one is the tip now.
+    forward_axis, left_axis : numpy.ndarray
+        The picture's forward and left directions on the table, unit vectors.
+    distances_cm : list of float
+        How far back along the path, for example [2, 5, 10].
+
+    Returns
+    -------
+    numpy.ndarray
+        2 * len(distances_cm) arrow components in cm (forward, left for each distance), then one 1/0 flag per distance;
+        an arrow whose distance is longer than the path so far is 0 with flag 0. float32.
+    """
+
+    count = len(distances_cm)
+    memory = numpy.zeros(3 * count, dtype = numpy.float32)
+    positions_m = numpy.asarray(positions_m, dtype = float)
+    if len(positions_m) < 2:
+        return memory
+    backwards = positions_m[::-1]
+    lengths = numpy.linalg.norm(numpy.diff(backwards, axis = 0), axis = 1)
+    walked = numpy.r_[0.0, numpy.cumsum(lengths)]
+    now = backwards[0]
+    for index, distance_cm in enumerate(distances_cm):
+        distance_m = distance_cm / 100.0
+        if walked[-1] < distance_m:
+            continue
+        segment = int(numpy.searchsorted(walked, distance_m, side = "right")) - 1
+        segment = min(segment, len(lengths) - 1)
+        share = (distance_m - walked[segment]) / max(lengths[segment], 1e-12)
+        place = backwards[segment] + share * (backwards[segment + 1] - backwards[segment])
+        arrow = place - now
+        memory[2 * index] = 100.0 * float(arrow @ forward_axis)
+        memory[2 * index + 1] = 100.0 * float(arrow @ left_axis)
+        memory[2 * count + index] = 1.0
+    return memory
+
+
+
+def memory_arrows(
+        frames: pandas.DataFrame,
+        distances_cm: List[float]
+) -> numpy.ndarray:
+    """
+    The direction memory of every row (``memory_from_path`` on the episode's tip positions up to that row, in the row's
+    picture frame as ``chunk_targets`` turns it).
+
+    Returns
+    -------
+    numpy.ndarray
+        (rows, 3 * len(distances_cm)) float32.
+    """
+
+    tip = frames[["tip_x_m", "tip_y_m"]].to_numpy(dtype = float)
+    heading = numpy.radians(frames["picture_heading_deg"].to_numpy(dtype = float))
+    episode_ids = frames["episode_id"].to_numpy()
+    sign = RECORDING_PARAMETERS["picture_left_sign"]
+    memory = numpy.zeros((len(frames), 3 * len(distances_cm)), dtype = numpy.float32)
+    episode_starts = numpy.flatnonzero(numpy.r_[True, episode_ids[1:] != episode_ids[:-1]])
+    episode_ends = numpy.r_[episode_starts[1:], len(frames)]
+    for start, end in zip(episode_starts, episode_ends):
+        for position in range(start, end):
+            forward_axis = numpy.array([math.cos(heading[position]), math.sin(heading[position])])
+            left_axis = numpy.array([math.cos(heading[position] + sign * math.pi / 2), math.sin(heading[position] + sign * math.pi / 2)])
+            memory[position] = memory_from_path(tip[start:position + 1], forward_axis, left_axis, distances_cm)
+    return memory
+
+
+
 def chunk_targets(
         frames: pandas.DataFrame,
         steps_ahead: int
