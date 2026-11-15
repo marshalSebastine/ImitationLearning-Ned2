@@ -182,7 +182,7 @@
   function update() {
     const status = document.getElementById("status");
     if (state.is_running) {
-      status.textContent = (state.title || "A tool") + " is running. Use its own window.";
+      status.textContent = (state.title || "A tool") + " is still open. When the run has ended, press any key in its black window to close it (it also closes by itself after 30 seconds); then the marks form appears here.";
       status.className = "status running";
     } else if (state.test_to_mark) {
       status.textContent = "Test " + state.test_to_mark + " has ended: give its marks.";

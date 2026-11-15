@@ -656,7 +656,7 @@ def test_robot_tests_are_listed_checked_and_marked() -> None:
     assert runs and runs[0]["number"] == 1, "the test run list must be offered in its order"
     assert test_picture(runs[0]["label"]), "a test must show the picture to lay its sheet by"
     command = build_test_command({"label": runs[0]["label"], "is_again": True})
-    assert "visit_runs.py" in command and "--again" in command and "pause" in command
+    assert "visit_runs.py" in command and "--again" in command and "timeout /t 30" in command
     try:
         build_test_command({"label": "no such label"})
         raise AssertionError("an unknown test was started")

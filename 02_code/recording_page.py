@@ -422,7 +422,9 @@ def build_test_command(
     if runs_with_label(label, Path(MODEL_MODE_PARAMETERS["run_folder"])) and not is_again:
         raise FormError(f"Test {label} has been run already. Tick 'Run it again' to run it once more.")
     command = [sys.executable, "-u", str(CODE_FOLDER / "visit_runs.py"), str(page_parameters["test_run_list"]), label] + (["--again"] if is_again else [])
-    return 'cmd /s /c "' + subprocess.list2cmdline(command) + ' & echo. & pause"'
+    # 15.11.26: the window waits up to 30 seconds (or a key) so that its last lines can be read, then closes by itself;
+    # with "pause" it stayed open, the page counted the test as running and the marks form never came (test A1)
+    return 'cmd /s /c "' + subprocess.list2cmdline(command) + ' & echo. & timeout /t 30"'
 
 
 def save_test_marks(
