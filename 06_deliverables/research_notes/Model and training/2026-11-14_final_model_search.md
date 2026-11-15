@@ -238,7 +238,7 @@ What follows, and what does not:
   (weight 0), with and without more weight on the steps after it. The yardstick must then leave those steps out of the
   scoring too, because on them the recorded move is the drift, not the right move. Not built, not queued.
 
-## 12. Hand-correction runs, built and ready to queue (15.11.26, 03:40; Emranul: "yes build it", "put more weight on the frames after h is pressed")
+## 12. Hand-correction runs, built and queued (15.11.26, built by 03:05, queued 03:09; Emranul: "yes build it", "put more weight on the frames after h is pressed")
 
 **A measure of coming back, on recorded pictures** (`evidence/final_2026-11-14/score_hand_corrections.py`, from the
 saved predictions of every run; numbers in `hand_correction_scores.json`). The path measure (within 45 degrees) on
@@ -271,7 +271,14 @@ before, checked against the code of the last commit):
   own folder `02_code_5` on ki-014, so the third queue's jobs are not touched, queues 20 jobs behind the third queue
   and fetches all results so far), `final5_fetch.cmd` (fetch only). About 2.5 hours of card time, calculated from the
   third queue's pace. Rehearsed on the laptop: the scripts' syntax, the upload with only the five code files, and one
-  very short training of a new run. Not rehearsed: anything on ki-014.
+  very short training of a new run. Not rehearsed beforehand: anything on ki-014.
+
+Queued on 15.11.26 at 03:09 (Emranul typed the password): "upload done", the check on ki-014 found the same counts as
+the laptop (22,646 pictures, 1,471 left out, 2,321 counted more), "20 jobs in the fifth queue; it starts when the
+third has finished". At that moment the second queue had ended 42 jobs and the third had not begun. The same login
+brought back the second queue's newer results: 16 rounds 0.839 and 16 of 55 right stops, ResNet-34 0.836 and 18 of
+55, score 1 left out (all 16 folds now) 0.838 and 14 of 55, 12 tracks (15 folds) 0.830 and 15 of 52; none passes the
+rule of section 3. On the pictures after an h press, 16 rounds reaches 0.627 against the reference's 0.575.
 
 **Rule for reading them, fixed before any result.** Against the reference on the same folds: a run is kept when the
 pictures after an h press gain at least 5 points (pooled; two seeds of the reference differ by 1.7 points, and 456
