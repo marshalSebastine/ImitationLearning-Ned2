@@ -1,0 +1,5 @@
+@echo off
+echo Set-up of ki-016: copies our working set-up from ki-014 (code, training pictures, Python environment), stops the waiting queue on ki-014, starts it on ki-016.
+echo Type the password TWICE: first for ki-016, then once more when ki-016 asks for ki-014. Then type nothing more.
+ssh -t -o StrictHostKeyChecking=accept-new e.hoque@oth-aw.de@ki-016.oth-aw.de "mkdir -p ai_project/logs && ssh -o StrictHostKeyChecking=accept-new e.hoque@oth-aw.de@ki-014.oth-aw.de 'pkill -u $(id -un) -f final11_queu[e]; echo waiting queue on ki-014 stopped 1>&2; cd ai_project && tar -cf - --exclude=./04_runs --exclude=./logs --exclude=*wide_320* --exclude=*square_224* .' | tar -xf - -C ai_project && echo COPY DONE && du -sh ai_project && ai_project/.venv/bin/python -c 'import torch, timm, pandas; print(torch.__version__, torch.cuda.is_available())' && cd ai_project/02_code_5 && sh final11_start.sh && sleep 120 && cat ../logs/final11_queue.log && nvidia-smi --query-gpu=memory.used,utilization.gpu --format=csv,noheader"
+echo CONNECTION ENDED, error level %ERRORLEVEL%.
