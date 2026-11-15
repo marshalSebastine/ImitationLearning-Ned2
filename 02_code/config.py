@@ -2330,6 +2330,15 @@ for idea_name, idea in HAND_CORRECTIONS_3.items():
 #   two pictures (best after-h numbers so far, worst stops);
 #   two more seeds of the recipe itself, to see whether its 0.856 was luck.
 TRAINING_RUN_PARAMETERS.update({"approach_weight": 1.0, "approach_rows": 15, "approach_scores": [3]})
+# 15.11.26 (Emranul at the robot: "integrate the whole thing in the recording tool: we click test 1, press the green
+# button, it selects which model to run, and we give marks afterwards"): the recording page's test part (/tests) offers
+# the lines of this run list, starts each through visit_runs.py in a window of its own, and writes the marks beside it.
+RECORDING_PAGE_PARAMETERS.update({
+    "test_run_list": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "2026-11-15_robot_test_runs.csv",
+    "test_marks": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "2026-11-15_robot_test_marks.csv",
+    "test_track_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12" / "development",
+    "test_mark_choices": {"line_kept": ["yes", "no"], "stop": ["on the end", "early", "past the end", "none"], "finished": ["yes", "no"]},
+})
 NINTH_QUEUE = {
     "after_h_5": {"after_correction_weight": 5.0},
     "approach_2": {"approach_weight": 2.0},
