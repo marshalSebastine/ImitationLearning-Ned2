@@ -16,7 +16,7 @@ import torch
 from vcommon import demos, run_log, RUNS, RUNS_FOLDER, TRAINED, ROOT
 
 from config import TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs
 
 torch.set_num_threads(2)

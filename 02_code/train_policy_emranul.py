@@ -16,8 +16,8 @@ Augmentation, and why each kind keeps the label right:
                 a view the camera can never have (tested as its own run).
 
 Run from 02_code, after training_dataset.py:
-    ..\\.venv\\Scripts\\python.exe train_policy.py resnet18_finetune_classes
-    ..\\.venv\\Scripts\\python.exe train_policy.py resnet18_finetune_classes --folds without_path_04 without_path_05
+    ..\\.venv\\Scripts\\python.exe train_policy_emranul.py resnet18_finetune_classes
+    ..\\.venv\\Scripts\\python.exe train_policy_emranul.py resnet18_finetune_classes --folds without_path_04 without_path_05
 Results: 04_runs/<date>_<run name>/metrics.json and fold_<name>.json; weights in checkpoints/ (not in git).
 Settings: TRAINING_RUN_PARAMETERS and TRAINING_RUNS in config.py.
 """

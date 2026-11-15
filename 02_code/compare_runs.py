@@ -2,7 +2,7 @@
 One table of every model compared so far (9.11.26, Model and training session).
 
 Collects the frozen-feature probes (04_runs/<date>_frozen_feature_probes/<experiment>.json, from training_probes.py)
-and the end-to-end runs (04_runs/<date>_<run name>/metrics.json, from train_policy.py) into 04_runs/comparison.md
+and the end-to-end runs (04_runs/<date>_<run name>/metrics.json, from train_policy_emranul.py) into 04_runs/comparison.md
 and 04_runs/comparison.csv, with the same measures side by side. Every number is the mean over the folds, and the
 worst fold is shown beside the most important measures, because a model must work on every unseen track, not on
 average.

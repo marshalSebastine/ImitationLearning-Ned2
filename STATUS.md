@@ -113,11 +113,11 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   `06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`; one table of all main-data
   pictures (211 episodes, 18,522 pictures), a twice-checked data audit (drop 469 null rows, relabel 50 as stop, 30 start
   ends corrected, keep score 1), the literature checked against its sources, and runs scored by holding out whole sheets.
-  Installed 9.11 into `.venv`: `02_code/requirements_training.txt` (torch 2.15, processor build); Marshal needs it too.
+  Installed 9.11 into `.venv`: `02_code/requirements_training_emranul.txt` (torch 2.15, processor build); Marshal needs it too.
 - Done 10.11.26 (same session; nothing committed, as Emranul said): training moved to the OTH GPU pool computer ki-014
   (OTH VPN; `ssh e.hoque@oth-aw.de@ki-014.oth-aw.de` with Emranul's own OTH password; Adel allowed our code, data and
   Python packages in the home folder): about 10 times faster (one held-out sheet in about 2 minutes, laptop about 19).
-  `train_policy.py` got a `device` setting (not committed). How to: `02_code/HOW_TO_RUN.md`; report section 11.4;
+  `train_policy_emranul.py` got a `device` setting (not committed). How to: `02_code/HOW_TO_RUN.md`; report section 11.4;
   results in `04_runs/gpu_ki014/`. Laptop queue stopped at about 11:05 on Emranul's request.
 - Found 9 to 10.11 (to be confirmed by Emranul and Marshal): first set-up `TRAINING_RUNS["resnet18_final_candidate"]`
   (ImageNet ResNet-18 fine-tuned on one 160 x 120 picture; exact step, forearm twist, its own stop; 8 epochs): on
@@ -176,10 +176,10 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
   second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
 - Blocked on: the merge into `main`. Tried on 15.11.26 at Emranul's request and stopped: `main` (Marshal's pull request
-  24 of 13.11) and this branch each bring a different program called `02_code/train_policy.py` and a different
-  `requirements_training.txt`; `config.py`, `test_recording_page.py` and `STATUS.md` conflict as well. One of the two
+  24 of 13.11) and this branch each bring a different program called `02_code/train_policy_emranul.py` and a different
+  `requirements_training_emranul.txt`; `config.py`, `test_recording_page.py` and `STATUS.md` conflict as well. One of the two
   training programs has to be renamed, with Marshal, after the queues on ki-014 (which call this branch's
-  `train_policy.py`) have finished. The branch itself is pushed. Also: the safety copy to a second disk.
+  `train_policy_emranul.py`) have finished. The branch itself is pushed. Also: the safety copy to a second disk.
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`.
 

@@ -125,7 +125,7 @@ def trained_rows() -> pandas.DataFrame:
     """Return the rows model E trained on (the audit's cleaning as its recipe set it)."""
 
     from config import TRAINING_TARGET_PARAMETERS
-    from train_policy import merged_run_settings
+    from train_policy_emranul import merged_run_settings
     from training_targets import load_training_frames
 
     settings = merged_run_settings("resnet18_model_4_chunk_stop_25_all_sheets")

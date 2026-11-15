@@ -1,7 +1,7 @@
 """
 Count the parameters and the multiply-adds per picture of the end-to-end models compared on 9.11.26.
 
-The small network and the head are re-built here from their definitions in train_policy.py and training_probes.py
+The small network and the head are re-built here from their definitions in train_policy_emranul.py and training_probes.py
 (read, not imported, so nothing is written into the project); the ResNet-18 comes from timm without weights.
 Nothing is trained and nothing is timed.
 """

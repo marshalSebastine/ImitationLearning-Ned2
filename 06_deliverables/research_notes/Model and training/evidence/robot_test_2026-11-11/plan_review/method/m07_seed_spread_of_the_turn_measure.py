@@ -3,7 +3,7 @@ How steady is "the share of the demonstrated net turn the model gives back" from
 
 A measure can only carry a rule fixed in advance if two trainings of the same recipe give nearly the same value. This
 script reads the saved predictions of every fold run of 9 to 11.11.26 (04_runs/gpu_ki014/<run>/predictions_<fold>.npz,
-written by train_policy.py on ki-014; twist per picture, each sheet answered by the model that never saw it) and
+written by train_policy_emranul.py on ki-014; twist per picture, each sheet answered by the model that never saw it) and
 computes, per run, the net turn given back over windows of 10 rows with a demonstrated net turn of 30 degrees or more
 (the verifier's measure, as in m04 and m05), next to the run's own path within 45 degrees and stop counts.
 

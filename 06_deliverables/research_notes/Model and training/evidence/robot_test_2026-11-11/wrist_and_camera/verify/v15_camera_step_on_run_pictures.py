@@ -19,7 +19,7 @@ import torch
 
 sys.path.insert(0, "D:/AI_Project/.claude/worktrees/training-analysis/02_code")
 import model_mode
-from train_policy import augmented_pictures
+from train_policy_emranul import augmented_pictures
 
 RUNS = "D:/AI_Project/03_data/model_runs"
 MODEL = "D:/AI_Project/.claude/worktrees/training-analysis/04_runs/gpu_ki014/2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets"

@@ -25,7 +25,7 @@ import torch
 import step_length_common as common
 
 from config import TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs
 from training_targets import leave_one_sheet_out_folds, load_training_frames
 

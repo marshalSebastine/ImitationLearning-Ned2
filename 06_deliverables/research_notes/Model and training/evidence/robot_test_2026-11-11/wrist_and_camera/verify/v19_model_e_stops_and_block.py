@@ -23,7 +23,7 @@ import forearm_camera_model
 import model_mode
 import ned2_fk
 from side_view_test import magnet_tip_and_lean
-from train_policy import augmented_pictures
+from train_policy_emranul import augmented_pictures
 from training_targets import load_training_frames
 
 MODEL = "D:/AI_Project/.claude/worktrees/training-analysis/04_runs/gpu_ki014/2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets"

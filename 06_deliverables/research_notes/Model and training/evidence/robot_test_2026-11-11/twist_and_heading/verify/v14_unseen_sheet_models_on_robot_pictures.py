@@ -12,7 +12,7 @@ import torch
 from vcommon import run_log, RUNS, RUNS_FOLDER, TRAINED, wrap
 
 from config import TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs
 
 torch.set_num_threads(2)

@@ -1,5 +1,5 @@
 """
-Tests of the training code (training_targets.py, training_metrics.py, train_policy.py's augmentation) on small drawn
+Tests of the training code (training_targets.py, training_metrics.py, train_policy_emranul.py's augmentation) on small drawn
 tables and pictures, plus one consistency check against the real frames table when it has been built. No robot is used
 and nothing in 03_data is changed.
 
@@ -14,7 +14,7 @@ import pandas
 import torch
 
 from config import NO_AUGMENTATION, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS
-from train_policy import (PictureToMoveModel, augmented_pictures, batch_targets, ended_targets, made_up_end, made_up_ends,
+from train_policy_emranul import (PictureToMoveModel, augmented_pictures, batch_targets, ended_targets, made_up_end, made_up_ends,
                           mirrored_batch, table_as_paper, turned_pictures, turned_targets)
 from training_metrics import angle_difference_deg, direction_metrics, nearest_direction, stop_metrics
 from training_targets import (DIRECTION_NAMES, MIRRORED_DIRECTION, chunk_targets, class_weights, direction_targets,

@@ -35,7 +35,7 @@ CODE_FOLDER = ROOT_FOLDER / "02_code"
 sys.path.insert(0, str(CODE_FOLDER))
 
 from config import MODEL_MODE_PARAMETERS, TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs
 from training_targets import chunk_targets, load_training_frames
 

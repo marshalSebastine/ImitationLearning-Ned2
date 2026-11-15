@@ -20,7 +20,7 @@ import pandas
 ROOT = Path("D:/AI_Project/.claude/worktrees/training-analysis")
 sys.path.insert(0, str(ROOT / "02_code"))
 from config import TRAINING_TARGET_PARAMETERS
-from train_policy import merged_run_settings
+from train_policy_emranul import merged_run_settings
 from training_targets import load_training_frames
 
 STEP_LENGTH = ROOT / "06_deliverables/research_notes/Model and training/evidence/robot_test_2026-11-11/step_length"

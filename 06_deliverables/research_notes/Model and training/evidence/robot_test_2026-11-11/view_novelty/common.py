@@ -273,7 +273,7 @@ def picture_descriptors(
         model has one) and "stop_probability".
     """
 
-    from train_policy import augmented_pictures
+    from train_policy_emranul import augmented_pictures
 
     model = policy.models[0]
     batch_size = VIEW_NOVELTY_PARAMETERS["batch_size"]
@@ -324,7 +324,7 @@ def trained_frames(run_name: str) -> pandas.DataFrame:
     """
 
     from config import TRAINING_TARGET_PARAMETERS
-    from train_policy import merged_run_settings
+    from train_policy_emranul import merged_run_settings
     from training_targets import load_training_frames
 
     settings = merged_run_settings(run_name)

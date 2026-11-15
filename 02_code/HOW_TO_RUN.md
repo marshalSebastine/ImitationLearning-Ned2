@@ -113,7 +113,7 @@ Guided check, which asks for each stick, trigger and button and compares the num
 
 These never connect to the robot and never change `03_data/raw`. They work the processor hard: a training run takes
 20 to 30 minutes per held-out sheet on this laptop, so keep it plugged in with the lid open. The packages are listed in
-`02_code/requirements_training.txt`. What each result means: `06_deliverables/research_notes/Model and training/`.
+`02_code/requirements_training_emranul.txt`. What each result means: `06_deliverables/research_notes/Model and training/`.
 
 Build the training table and the picture caches (about a minute; run it again after new recordings):
 
@@ -121,12 +121,12 @@ Build the training table and the picture caches (about a minute; run it again af
 
 Train one named model and score it on held-out sheets (the names are the entries of `TRAINING_RUNS` in `config.py`):
 
-    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy_emranul.py resnet18_final_candidate
 
 Only one held-out sheet, or a one-minute check that everything works (its results go to a folder ending in `_check`):
 
-    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate --folds without_path_04
-    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy.py resnet18_final_candidate --folds without_path_04 --epochs 1 --train-row-limit 512
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy_emranul.py resnet18_final_candidate --folds without_path_04
+    D:/AI_Project/.venv/Scripts/python.exe D:/AI_Project/02_code/train_policy_emranul.py resnet18_final_candidate --folds without_path_04 --epochs 1 --train-row-limit 512
 
 One table of every result so far, written to `04_runs/comparison.md`:
 
@@ -171,7 +171,7 @@ Before you start:
 2. Start a run in the background, so it goes on after you log out. Replace `RUN_NAME` (twice) by a name from
    `TRAINING_RUNS` in `config.py`, for example `resnet18_final_candidate`:
 
-        cd ~/ai_project/02_code && nohup sh -c '../.venv/bin/python -u train_policy.py RUN_NAME > ../logs/RUN_NAME.log 2>&1' > /dev/null 2>&1 &
+        cd ~/ai_project/02_code && nohup sh -c '../.venv/bin/python -u train_policy_emranul.py RUN_NAME > ../logs/RUN_NAME.log 2>&1' > /dev/null 2>&1 &
 
    What the parts do: `nohup` keeps the run going after you log out; `-u` makes Python write its messages at once;
    `> ../logs/RUN_NAME.log 2>&1` sends all its messages and errors to that log file (read in step 3); the final `&` runs
@@ -186,7 +186,7 @@ Before you start:
 
    Each finished held-out sheet adds one line starting with the run name and the sheet, for example
    `RUN_NAME | without_path_03 | {"within_45_deg": ...}`. An error shows as a "Traceback" at the end of the log.
-   `pgrep -af train_policy` lists the runs still going (no line: nothing is running), and `nvidia-smi` shows how busy
+   `pgrep -af train_policy_emranul` lists the runs still going (no line: nothing is running), and `nvidia-smi` shows how busy
    the graphics card is.
 
 4. Optional, on ki-014: one table of every ki-014 result, written to `~/ai_project/04_runs/comparison.md`:

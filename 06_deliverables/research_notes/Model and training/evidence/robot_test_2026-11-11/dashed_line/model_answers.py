@@ -16,7 +16,7 @@ import torch
 
 from dashed_common import ANALYSIS_PARAMETERS
 from model_mode import ModelPolicy
-from train_policy import augmented_pictures
+from train_policy_emranul import augmented_pictures
 
 MODEL_PARAMETERS = {
     "threads": 2,

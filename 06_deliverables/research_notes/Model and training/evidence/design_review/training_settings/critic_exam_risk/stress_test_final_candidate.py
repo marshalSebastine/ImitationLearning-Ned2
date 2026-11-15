@@ -25,7 +25,7 @@ import pandas
 import torch
 
 from config import TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, merged_run_settings
 from training_metrics import angle_difference_deg
 from training_probes import design_outputs, predictions_from_outputs
 from training_targets import DIRECTION_NAMES

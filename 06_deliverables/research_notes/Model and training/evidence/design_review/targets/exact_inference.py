@@ -1,7 +1,7 @@
 """
 Re-run the saved end-to-end exact-step models (2026-11-09_resnet18_finetune_exact, held-out sheets 03, 05, 06) on their
 own test pictures, read only, to get the outputs the saved predictions leave out: the predicted tip move (forward and
-left, cm) and twist, lean and hand changes. The network is re-built here exactly as train_policy.PictureToMoveModel
+left, cm) and twist, lean and hand changes. The network is re-built here exactly as train_policy_emranul.PictureToMoveModel
 builds it (ResNet-18 from timm, a 3 x 4 grid of the last feature map, one hidden layer of 256), so no project module
 is imported. The stop probability and the move angle are checked against the saved predictions.
 Writes exact_outputs_<fold>.csv next to this script.

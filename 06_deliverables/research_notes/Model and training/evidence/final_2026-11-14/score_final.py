@@ -24,7 +24,7 @@ import numpy
 sys.path.insert(0, str(Path(__file__).resolve().parents[5] / "02_code"))
 
 from config import FULL_INDEX_FOLDER, TRAINING_DATA_PARAMETERS, TRAINING_RUN_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import merged_run_settings
+from train_policy_emranul import merged_run_settings
 from training_probes import fold_measures, training_arrays
 from training_targets import load_training_frames, new_track_shapes
 

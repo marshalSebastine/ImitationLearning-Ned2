@@ -2,7 +2,7 @@
 Where a model goes wrong, situation by situation (9.11.26, Model and training session).
 
 Reads the predictions a probe variant (training_probes.py, saved under 04_runs/<date>_frozen_feature_probes/predictions/)
-or an end-to-end run (train_policy.py, saved as predictions_<fold>.npz in its run folder) made on its held-out pictures,
+or an end-to-end run (train_policy_emranul.py, saved as predictions_<fold>.npz in its run folder) made on its held-out pictures,
 and scores them per situation: sheet, place in the episode (start, middle, near the goal), bends against straight
 stretches, how far the forearm is turned, light, camera view (the taped camera moved once, on the evening of 8.11.26)
 and score. The result says which situations to record more of, and which a model handles already.

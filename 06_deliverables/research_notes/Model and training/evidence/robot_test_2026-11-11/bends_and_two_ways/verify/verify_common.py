@@ -22,7 +22,7 @@ ROOT_FOLDER = VERIFY_FOLDER.parents[6]
 sys.path.insert(0, str(ROOT_FOLDER / "02_code"))
 
 from config import RECORDING_PARAMETERS, TRAINING_DATA_PARAMETERS, TRAINING_TARGET_PARAMETERS
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs
 from training_targets import load_training_frames
 

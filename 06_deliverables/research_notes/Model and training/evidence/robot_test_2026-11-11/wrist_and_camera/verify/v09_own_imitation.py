@@ -27,7 +27,7 @@ import torch
 
 sys.path.insert(0, "D:/AI_Project/.claude/worktrees/training-analysis/02_code")
 import model_mode
-from train_policy import augmented_pictures
+from train_policy_emranul import augmented_pictures
 from training_metrics import stop_metrics
 from training_probes import predictions_from_outputs
 from training_targets import load_training_frames

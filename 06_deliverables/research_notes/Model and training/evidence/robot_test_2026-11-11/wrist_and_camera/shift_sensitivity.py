@@ -34,7 +34,7 @@ from matplotlib import pyplot
 
 import wrist_geometry
 import model_mode
-from train_policy import augmented_pictures
+from train_policy_emranul import augmented_pictures
 from training_probes import predictions_from_outputs
 
 

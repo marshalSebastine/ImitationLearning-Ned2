@@ -119,7 +119,7 @@ def robot_answers(hooked: HookedModel, run_numbers: list) -> dict:
 def cache_answers(hooked: HookedModel, frame_indexes: numpy.ndarray, report: Report) -> dict:
     """Run the hooked model on pictures of the 160 x 120 training cache, in batches."""
 
-    from train_policy import augmented_pictures
+    from train_policy_emranul import augmented_pictures
 
     pictures = numpy.load(VERIFY_PARAMETERS["processed_folder"] / "images_wide_160.npy", mmap_mode = "r")
     parts = []

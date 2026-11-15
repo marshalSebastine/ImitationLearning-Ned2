@@ -1737,7 +1737,7 @@ TRAINING_PROBE_EXPERIMENTS = {
     }
 }
 
-# End-to-end training (train_policy.py). Defaults for every named run in TRAINING_RUNS; a run lists only what differs.
+# End-to-end training (train_policy_emranul.py). Defaults for every named run in TRAINING_RUNS; a run lists only what differs.
 # Pictures come from the 160 x 120 cache (the camera's 4:3 shape kept). A pretrained backbone learns at
 # "backbone_learning_rate_factor" times the head's rate, so its ImageNet knowledge is changed gently. "pooling" grid
 # keeps a 3 x 4 grid of cells, so the head knows where the line runs relative to the puck. Augmentation strengths:
@@ -1875,7 +1875,7 @@ TRAINING_COMPARISON_PARAMETERS["columns"][3:3] = [("path_within_45_deg_mean", "p
 
 # 9.11.26: "input_channels" "rgb" feeds the colour picture; "line_and_puck" feeds three maps instead (how much darker than
 # the picture's median a pixel is, how red it is, and the grey picture less its median), so light and table texture
-# matter less (train_policy.line_and_puck_maps). Tested with the small network from scratch.
+# matter less (train_policy_emranul.line_and_puck_maps). Tested with the small network from scratch.
 TRAINING_RUN_PARAMETERS.update({"input_channels": "rgb"})
 TRAINING_RUNS["small_cnn_line_and_puck_classes"] = dict(TRAINING_RUNS["small_cnn_scratch_classes"], input_channels = "line_and_puck")
 TRAINING_RUNS["resnet18_finetune_chunk"] = {"design": "chunk", "train_share_per_epoch": 0.5, "epochs": 8, "patience": 3}
@@ -2115,7 +2115,7 @@ for idea_name, idea in FULL_IDEAS.items():
 # and of the 16 new tracks only six end in the middle of the paper ("mid_paper_end_tracks": end cap 7.7 to 9.9 cm from
 # the nearest edge, measured from the set-up geometry). Two changes against that, alone and together:
 #   "table_as_paper_probability" (in "augmentation"): in this share of the training pictures the table is repainted in
-#       the picture's own paper colour (train_policy.table_as_paper), so an end near the edge looks like an end in the
+#       the picture's own paper colour (train_policy_emranul.table_as_paper), so an end near the edge looks like an end in the
 #       middle of a sheet. Colour limits measured on 400 cached pictures at 160 px: the table's red minus blue lies
 #       between -0.04 and +0.10 (median colour 0.51, 0.52, 0.46), the paper's below -0.10 (0.62, 0.76, 0.84); the
 #       robot's silver gripper is left alone ("robot_area_px", at 160 px);
@@ -2144,7 +2144,7 @@ for track_count in (4, 8, 12):
                                                                            new_track_train_count = track_count)
 # A third change against the paper-edge stop cue, added when the first folds of the reference were in (14.11.26, 22:35:
 # with all 16 tracks the model still stopped right on none of the first 10 mid-paper-end episodes): made-up ends
-# (train_policy.made_up_end). In "made_up_end_probability" of the training pictures the line that leads on from the
+# (train_policy_emranul.made_up_end). In "made_up_end_probability" of the training pictures the line that leads on from the
 # puck is painted over with the paper's colour and the picture's targets become a stop (no move, no turn, stop), so
 # every stretch of every track gives examples of a line ending under the puck, near an edge or not. 0.04 is about three
 # times the share of real stop pictures (1.4 %); 0.10 is tried as well, and 0.04 together with the table repaint.
@@ -2194,7 +2194,7 @@ TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"] = dict(TRAINING
 #   "mirror": half the training pictures mirrored left to right, the step with them (Emranul's idea; the mirror of
 #       9.11.26 was tried on the old names model only and was not a clean comparison);
 #   "turned_12": every training picture turned by its own angle within 12 degrees about the rod's tip, the step with it
-#       (Emranul's idea; train_policy.turned_pictures; the robot's own parts turn too, so the angle is small);
+#       (Emranul's idea; train_policy_emranul.turned_pictures; the robot's own parts turn too, so the angle is small);
 #   "far_reach_3": pictures with the rod's tip more than 40 cm from the base count three times. On the robot, in the
 #       night of 14 to 15.11.26, model 10 (twice) and the round 1 model (once) left sheet 02's arc at the same place,
 #       the tip 43 cm out and going to 48 cm; 4.9 % of the recorded pictures lie beyond 42 cm, 2.0 % beyond 44 cm;

@@ -72,7 +72,7 @@ from config import (MODEL_MODE_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, R
                     TRAINING_TARGET_PARAMETERS, pushing_height, start_pose)
 from record_episodes import forearm_camera_heading_rad, read_window_key, show_in_window
 from side_view_test import magnet_tip_and_lean, solve_with_wrist_fixed
-from train_policy import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs, predictions_from_outputs
 
 
