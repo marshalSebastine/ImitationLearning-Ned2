@@ -145,9 +145,13 @@ Last updated: 15.11.26 by Marshal's session (round 2 data in v02; batch on two G
   0.468 -> 0.476, tuned classifier 0.451 -> 0.483, regressor 0.417 -> 0.466, chunk transformer 0.392 -> 0.448, diffusion
   0.332 -> 0.361: the new tracks help every model on unseen shapes. Course-sheet scores fell by 0.01 to 0.02, most likely
   because every one of the 30 sheets weighed the same; `sheet_balance_power` is now a setting and is being tuned.
-- Running 15.11 on ki-016 (ki-015's GPU is taken by another student's job): the two missing history runs, then Optuna
-  over the history classifier, then over the classifier (`04_runs/2026-11-15_tuning_*`), each retraining its best
-  settings with three seeds.
+- Stopped 15.11 (Marshal: "we don't need that job anymore, make it free for Emranul"): the Optuna searches on ki-016
+  were ended before their three-seed retrains, and ki-016's GPU handed to Emranul. Partial results stay on ki-016
+  (`~/AI_Project/04_runs/2026-11-15_tuning_*`): best history trial 0.640 on the course sheets (trial 21, sheet balance
+  0.55), single seed, not retrained. Not used for any decision.
+- Done 15.11 (Marshal): `02_code/robot_test_session.py`, a robot test of the three round-2 policies from one command,
+  without internet (robot's own hotspot, `record_episodes.py --robot-ip`); results go to
+  `06_deliverables/research_notes/Policy runs/2026-11-15_robot_test_marshal_results.md`.
 - Next (Emranul, Windows laptop with Ethernet; decided by Marshal 14.11): first robot runs with policies A (history
   classifier) and B (tuned factorised classifier), checklist `06_deliverables/research_notes/Policy runs/first_policy_run_checklist.md`.
   Needs: PyTorch in `.venv` and the two weight files from Marshal (not in git).
