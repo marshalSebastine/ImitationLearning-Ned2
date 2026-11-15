@@ -2888,6 +2888,8 @@ def main() -> None:
                                "gamepad steers with a gamepad (sticks: move, twist, wrist; L1 R1: hand; L2 R2: height); "
                                "policy lets a trained policy (--checkpoint) propose every step")
     parser.add_argument("--checkpoint", help = "the policy mode's trained policy: a best.pt from train_policy.py")
+    parser.add_argument("--robot-ip", default = ROBOT_PARAMETERS["ip_address"],
+                        help = "the robot's address (default config: Ethernet); 10.10.10.10 over the robot's own Wi-Fi hotspot")
     parser.add_argument("--path-id", default = SHEET_PARAMETERS["path_id"], help = "the sheet, e.g. path_01_straight_line")
     parser.add_argument("--start-x", type = float, help = "the puck's start x in metres (default: the taught line start)")
     parser.add_argument("--start-y", type = float, help = "the puck's start y in metres")
@@ -2938,7 +2940,7 @@ def main() -> None:
         if arguments.trial:
             recorder_parameters["raw_folder"] = RECORDING_PARAMETERS["tool_test_folder"]
         from robot_link import RobotLink
-        robot_link = RobotLink(ROBOT_PARAMETERS["ip_address"])
+        robot_link = RobotLink(arguments.robot_ip)
 
     policy_driver = None
     if arguments.mode == "policy":

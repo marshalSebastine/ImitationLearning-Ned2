@@ -1522,3 +1522,33 @@ POLICY_RUN_PARAMETERS = {
     "step_budget_factor": 1.0,
     "device": None
 }
+
+# A robot test session without Claude (robot_test_session.py; Marshal, 15.11.26: on the robot's own Wi-Fi hotspot the
+# laptop has no internet). One command checks the connection and the calibration, goes through the safety list, then
+# runs policy episodes one by one (record_episodes.py --mode policy) and writes each run with the operator's notes into
+# "results_file". "policies" are Marshal's three best round-2 runs (release policies-2026-11-14-round2), by the
+# validation hard-sheet score; their folders are in 04_runs. "sheets" are the choices offered; the start is the taught
+# start mark (WORKSPACE_PARAMETERS["line_start_xy"]) unless other numbers are typed.
+ROBOT_TEST_SESSION_PARAMETERS = {
+    "hotspot_ip_address": "10.10.10.10",
+    "robot_port": 40001,
+    "operator": "marshal",
+    "results_file": "06_deliverables/research_notes/Policy runs/2026-11-15_robot_test_marshal_results.md",
+    "policy_runs_folder": POLICY_RUN_PARAMETERS["raw_folder"],
+    "policies": [
+        {"rank": 1, "name": "history classifier, round 2 seed 2", "validation": 0.608, "unseen": 0.508,
+         "checkpoint": "04_runs/2026-11-14_round2_history_classifier_seed2/checkpoints/best.pt"},
+        {"rank": 2, "name": "tuned classifier, round 2 seed 1", "validation": 0.607, "unseen": 0.483,
+         "checkpoint": "04_runs/2026-11-14_round2_factorised_classifier_tuned_seed1/checkpoints/best.pt"},
+        {"rank": 3, "name": "classifier, round 2 seed 1", "validation": 0.607, "unseen": 0.473,
+         "checkpoint": "04_runs/2026-11-14_round2_factorised_classifier_seed1/checkpoints/best.pt"}
+    ],
+    "sheets": [
+        ["path_01_straight_line", "01 straight line (sanity check)"],
+        ["path_03_two_curve", "03 two curves"],
+        ["path_04_meander", "04 meander"],
+        ["path_06_alpha_loop_dashed", "06 dashed loop"],
+        ["path_11_T01_solid", "T01 solid (UNSEEN track, never trained on)"],
+        ["path_18_T08_solid", "T08 solid (UNSEEN track, never trained on)"]
+    ]
+}
