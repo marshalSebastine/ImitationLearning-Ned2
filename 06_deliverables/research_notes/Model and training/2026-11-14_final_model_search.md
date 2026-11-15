@@ -143,3 +143,25 @@ puck, shrunk to 160 x 120), pictures turned within 12 degrees and mirrored pictu
 pictures counted three times, ConvNeXt-Tiny and ResNet-50, a third seed of the reference; then three combinations fixed
 before any single result was known (zoom with a second seed; zoom with turned and mirrored pictures; ConvNeXt-Tiny on
 the zoomed-in view). Same rule as before. Every run type was trial-run for one round on the laptop.
+
+## 9. Does the model look at the puck? (15.11.26, 01:30; `evidence/night_look_2026-11-14/puck_test.py`)
+
+Emranul at the robot, after the loop (sheet 05) went worse with model 10 and 0.65 cm steps than with the round 1 model
+and 1 cm steps on 11.11: "the model is taking decisions on what is ahead, not considering the position of the red puck".
+Tested on the camera pictures of both loop runs (tonight's S05, 112 pictures; the run of 11.11, 81 pictures): the puck
+is painted over, moved 40 pixels left or right, or the line is painted over, and each model is asked again
+(`puck_test_examples.jpg` shows the changed pictures). Measured, median change of the predicted direction:
+
+| Pictures | Model | Puck hidden | Puck 40 px left (mean shift) | Puck 40 px right (mean shift) | Line hidden |
+|---|---|---|---|---|---|
+| S05 (15.11) | 10 | 28.5 | 25.6 (+6.2, to the left) | 34.3 (-40.8, to the right) | 12.0 |
+| S05 (15.11) | E | 42.0 | 19.3 (+15.9) | 25.8 (-34.1) | 16.6 |
+| run of 11.11 | 10 | 75.6 | 22.2 (+9.0) | 34.1 (-39.7) | 22.4 |
+| run of 11.11 | E | 91.7 | 34.2 (+25.5) | 29.7 (-32.8) | 22.9 |
+
+Both models follow the puck: move it and the direction goes after it. Hiding the line changes the direction about half
+as much or less. So the model does consider the puck; what it uses weakly is the line. That fits what was seen on the
+robot: once the puck is beside the line, the model keeps pushing it where it is and is only weakly drawn back to the
+line. The two models do not differ clearly in this. Whether model 10 is worse on the loop than the round 1 model is
+not settled by one run each with two things changed (model and step); run lines SE5F, S05F and SE5 separate them.
+A first version of this test had masks that left the puck and the line half visible; its numbers were thrown away.
