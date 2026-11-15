@@ -139,7 +139,7 @@ class ModelPolicy:
         """Start a new run: its first picture is shown as its own previous picture, as an episode's first in training."""
 
         self.earlier_pictures = []
-        self.feature_history = [[] for _ in self.models]
+        self.feature_history = [[] for _ in getattr(self, "models", [])]
 
 
     def sequence_answer(
@@ -221,11 +221,11 @@ class ModelPolicy:
 
         inputs = self.picture_input(picture_bytes)
         # 15.11.26: a model with a direction memory gets where the tip has been (see memory_now); None = unknown
-        memory_input = None if memory is None or not self.memory_distances_cm else torch.from_numpy(numpy.asarray(memory, dtype = numpy.float32)[None])
+        memory_input = None if memory is None or not getattr(self, "memory_distances_cm", None) else torch.from_numpy(numpy.asarray(memory, dtype = numpy.float32)[None])
         exact_steps, stop_probabilities = [], []
         with torch.inference_mode():
             for model_number, model in enumerate(self.models):
-                outputs = self.sequence_answer(model_number, inputs) if self.sequence_frames else model(inputs, memory_input)
+                outputs = self.sequence_answer(model_number, inputs) if getattr(self, "sequence_frames", 0) else model(inputs, memory_input)
                 predictions = predictions_from_outputs(outputs, self.class_names, self.settings["stop_target"])
                 exact_steps.append(outputs["exact"][0].numpy())
                 stop_probabilities.append(float(predictions["stop_probability"][0]))
