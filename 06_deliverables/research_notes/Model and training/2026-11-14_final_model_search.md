@@ -289,3 +289,35 @@ first on sheet 03, where the model stayed beside the line, with the puck also se
 
 Why five steps: in eight picture strips the puck is visibly off the line from 3 to 5 steps before the press. That is
 a look, not a measurement, so the 8-step run shows how much the number matters.
+
+## 13. Where the reference model is wrong: an audit by situation (15.11.26, 03:55; `evidence/final_2026-11-14/error_audit.py`, `error_audit.csv`)
+
+Emranul, after finding the corrections by hand himself: "there are a lot of hidden things like this; you should find
+them". All 7,712 held-out path pictures of the reference (two seeds, 16 new tracks, round 2 episodes only) were put
+into groups by what the recording knows, and the path measure (within 45 degrees; 0.834 overall) read per group.
+The groups overlap, so a low group is a candidate, not a cause; two overlaps were taken apart.
+
+| Situation | Within 45 | Share of pictures |
+|---|---|---|
+| first 8 steps of an episode / after step 21 | 0.98 / 0.795 | 11 % / 76 % |
+| no h press before / 1 to 3 steps after one / 9 and more after one | 0.895 / 0.497 / 0.75 to 0.83 | 66 % / 5 % / 22 % |
+| rod tip under 25 cm from the base / 38 to 42 cm / over 42 cm | 0.956 / 0.773 / 0.757 | 16 % / 20 % / 12 % |
+| the demonstration moves backwards (135 to 180 degrees) | 0.472 | 6.9 % |
+| the path turns by more than 45 degrees at this step | 0.665 | 5.1 % |
+| rod lean under 20 degrees / over 40 | 0.938 / 0.773 | 22 % / 21 % |
+| episode score 3 / 2 / 1 | 0.888 / 0.834 / 0.785 | 21 % / 57 % / 22 % |
+
+Taken apart: (a) reach counts by itself: with no h press before, 0.973 under 25 cm falls to 0.808 over 42 cm;
+(b) an h press counts by itself: at the same reach, pictures 9 and more steps after one are still 6 to 13 points
+below pictures with none before; (c) the model almost never steps back: the demonstration goes backwards on 530
+pictures, the model answers backwards on 131 and is right on 60, also where no h press came before (0.538).
+
+No sign of a problem (differences within a few points): solid against dashed lines, step length, forearm twist,
+picture brightness. Not taken apart yet: picture sharpness (the two less sharp halves 0.79, the sharper 0.87 to
+0.89), which may only be reach again; path to the right (0.774) against to the left (0.824).
+
+Candidates this gives, and where they stand: far reach (weighting in the third queue; the lay-out rule costs no
+training); pictures after an h press (fifth queue); stepping back (new: nothing built; first to check is whether the
+driver would even carry out a backwards step); score 1 episodes (the run without them: +0.6 points, within chance).
+Limits: recorded pictures of round 2 tracks only, no course sheet, and agreeing with the demonstration is not the
+same as pushing well.
