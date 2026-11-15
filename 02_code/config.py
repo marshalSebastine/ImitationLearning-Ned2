@@ -2284,6 +2284,31 @@ TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"] = dict(
 TRAINING_RUNS["resnet18_model_14_full_hand_corrections_two_pictures_all_sheets"] = dict(
     TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"], picture_count = 2)
 
+# 15.11.26, 10:10, combined recipes before the robot time (Emranul: "combine all this info and tune the model"). Only
+# parts that helped on recorded pictures go in, and each mix is scored as its own run, because gains need not add up:
+#   mirrored pictures (best single change: +1.2 points path, 16 right stops against 11, after an h press 0.616);
+#   the steps after an h press three times (0.575 to 0.610 alone; leaving out the steps before a press did not help
+#       by itself and cost path, so it is not in);
+#   16 rounds (0.839, 16 right stops, after an h press 0.627);
+#   and, in the second mix, the zoomed-in view with turned pictures (with mirror: 0.873 against 0.837 on 8 of 16
+#       folds, the other folds failed on ki-014).
+# "zoom_turned_mirror" is run again in full, so that the second mix can be compared with its own base. Models 15 and
+# 16 are the two mixes trained on all sheets, for the robot.
+COMBINED = {
+    "mirror_after_h_16": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5),
+                          "after_correction_weight": 3.0, "epochs": 16},
+    "zoom_turned_mirror_after_h_16": dict(THIRD_QUEUE["zoom"],
+                                          augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0, mirror_probability = 0.5),
+                                          after_correction_weight = 3.0, epochs = 16)
+}
+for idea_name, idea in COMBINED.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **idea)
+TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **COMBINED["mirror_after_h_16"])
+TRAINING_RUNS["resnet18_model_16_full_zoom_turned_mirror_after_h_16_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **COMBINED["zoom_turned_mirror_after_h_16"])
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
