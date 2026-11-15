@@ -1,0 +1,36 @@
+--- 1. log: goes on to the budget; fired at picture ...
+step_budget_reached 20 20 stall_logged_at_picture = 4 | printed lines with 'stall': ['[step 4] the stall rule fired: the tip stayed within 3 cm and the forearm turned less than 15 degrees over 5 pictures; it is only logged and the run goes on (Esc ends it)']
+fixed_step_cm under predicted: None step_length_rule: predicted
+summary.json keys: ['checkpoints', 'ending', 'fixed_step_cm', 'is_lifted', 'label', 'moves', 'parameters', 'pictures', 'run_name', 'seconds', 'seconds_first_to_last_picture', 'stall_action', 'stall_logged_at_picture', 'start_offset', 'started', 'step_length_rule']
+--- 2. end (default): stalled at ...
+stalled 5 4 None end
+--- 3. a value that is neither end nor log, given as a setting (a typing mistake in config.py)
+'Log' -> stalled 5 summary stall_action: 'Log'
+'LOG' -> stalled 5 summary stall_action: 'LOG'
+'logs' -> stalled 5 summary stall_action: 'logs'
+'' -> stalled 5 summary stall_action: ''
+None -> stalled 5 summary stall_action: None
+'off' -> stalled 5 summary stall_action: 'off'
+True -> stalled 5 summary stall_action: True
+--- 4. log, then the model stalls, moves on, stalls again: named once, the first picture
+step_budget_reached 40 stall_logged_at_picture = 4 | count of printed stall lines: 1
+rows: 40 frames: 40
+--- 5. log, and the stop rule still ends the run after the stall fired
+stopped 11 4
+--- 6. log with the FIXED rule and a twist-in-place model: the tip marches on (1 cm steps); with log nothing ends it but the budget or a refusal
+refused 34 33 None ['[step 33] refused: the rod would lean 59.7 degrees, above the limit of 58.0; the run ends here', 'run x ended: refused after 34 pictures and 33 moves; logged in C:\\Users\\e7dc\\AppData\\Local\\Temp\\tmpws_n_fsf\\2026-11-12_122303_x']
+--- 7. step lengths at the allowed ends and the default against --step-cm 1.0
+[] step_budget_reached fixed_step_cm 1.0 tip moves mm [10.002 10.     9.993 10.003 10.002] step_cm column [1.0]
+['--step-cm', '1.0'] step_budget_reached fixed_step_cm 1.0 tip moves mm [10.002 10.     9.993 10.003 10.002] step_cm column [1.0]
+['--step-cm', '0.1'] step_budget_reached fixed_step_cm 0.1 tip moves mm [1.    1.    1.001 1.002 0.994] step_cm column [0.1]
+['--step-cm', '0.65'] step_budget_reached fixed_step_cm 0.65 tip moves mm [6.501 6.5   6.502 6.5   6.492] step_cm column [0.65]
+['--step-cm', '0.33'] step_budget_reached fixed_step_cm 0.33 tip moves mm [3.301 3.3   3.302 3.296 3.302] step_cm column [0.33]
+default and --step-cm 1.0 give the same rows: True
+--- 8. the window text for odd step lengths
+fixed 1.0 -> 1.0
+fixed 0.65 -> 0.65
+fixed 0.5 -> 0.5
+fixed 0.1 -> 0.1
+fixed 0.333 -> 0.33
+predicted 0.649 -> 0.6
+predicted 0.0 -> 0.0

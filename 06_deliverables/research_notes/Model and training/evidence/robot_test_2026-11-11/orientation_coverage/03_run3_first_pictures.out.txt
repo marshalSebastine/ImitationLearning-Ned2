@@ -1,0 +1,126 @@
+=== A. Nearest demonstration pictures to the first pictures of runs 3 and 4 (measured: grey 40 x 30 correlation) ===
+ run  picture  joint_4_deg best_plan  best_row best_kind best_layout  best_correlation  tenth_correlation  neighbours_on_sheet_02                                      neighbour_kinds
+   3        0         -1.0     02-38        34       SQL       02A-2             0.746              0.726                       5                                         SQL 5, STD 5
+   3        1         -6.3     06-01        88       STD       06A-1             0.750              0.721                       4                                         STD 6, SQL 4
+   3        2        -11.2     06-01        88       STD       06A-1             0.755              0.711                       4                                  STD 6, SQL 2, SQP 2
+   3        3        -15.6     02-17        30       SQP       02B-2             0.752              0.713                       5                                         SQP 5, STD 5
+   3        4        -18.6     02-17        30       SQP       02B-2             0.772              0.704                       4                                SQP 4, OR1.5 3, STD 3
+   3        5        -21.7     02-17        30       SQP       02B-2             0.744              0.710                       5                                  SQP 5, STD 4, OL1 1
+   3        6        -25.1     02-18        17       SQP       02B-2             0.781              0.720                       3                                 STD 4, SQP 3, TL15 3
+   3        7        -29.1     02-18        17       SQP       02B-2             0.711              0.696                       6                                 SQP 6, TL15 3, STD 1
+   3        8        -32.7     02-18        22       SQP       02B-2             0.755              0.674                       5                                 SQP 5, STD 4, TL10 1
+   3        9        -36.0     02-18        22       SQP       02B-2             0.779              0.676                       3                  SQP 3, STD 3, TR10 2, OL1 1, TL10 1
+   3       10        -38.5     05-09        11      TL10       05B-2             0.709              0.673                       2 TL10 2, SQP 2, TR10 2, STD 1, OL1.5 1, OL1 1, TL15 1
+   3       11        -39.4     05-01        17       STD       05B-3             0.715              0.680                       0              STD 4, TL10 3, TR10 1, OR1.5 1, OL1.5 1
+   3       12        -39.4     05-01        18       STD       05B-3             0.751              0.693                       0                      STD 7, TR10 1, OR1.5 1, OL1.5 1
+   4        0          9.8     02-07        18       OL1       02B-1             0.843              0.796                       8                        OL1 4, OR1 2, TR10 2, OR1.5 2
+   4        1          9.0     02-07        20       OL1       02B-1             0.843              0.800                       7                        OL1 4, TR10 3, OR1.5 2, OR1 1
+   4        2          8.1     02-07        20       OL1       02B-1             0.876              0.805                       9                 TR10 4, OL1 2, OR1 2, STD 1, OR1.5 1
+   4        3          7.6     02-08         7      TR10       02B-1             0.864              0.808                      10                          TR10 4, OR1 3, SQP 2, STD 1
+   4        4          8.3     02-09        35       OR1       02B-1             0.865              0.784                       9                          SQP 4, OR1 3, TR10 2, STD 1
+   4        5         10.7     02-14        22       SQP       02B-2             0.840              0.790                      10                                  SQP 5, OR1 3, STD 2
+   4        6         14.0     02-14        21       SQP       02B-2             0.839              0.795                      10                          SQP 6, OR1 2, STD 1, TR10 1
+   4        7         17.1     02-14        21       SQP       02B-2             0.848              0.788                       9                          SQP 7, TR10 1, OL1 1, STD 1
+   4        8         21.0     02-14        21       SQP       02B-2             0.805              0.769                       7                  SQP 6, TR10 1, TL10 1, OL1 1, STD 1
+   4        9         25.1     02-14        20       SQP       02B-2             0.805              0.766                       7                          SQP 6, STD 2, TL10 1, OL1 1
+   4       10         29.0     02-14        20       SQP       02B-2             0.793              0.758                       9                           OR1 3, STD 3, SQP 2, OL1 2
+   4       11         32.5     02-04        19       STD       02B-4             0.807              0.761                      10                                  STD 5, OR1 4, OL1 1
+   4       12         35.8     02-04        19       STD       02B-4             0.819              0.760                      10                           STD 4, OR1 2, OL1 2, SQP 2
+Run 3: best match from a square lay-out (SQP or SQL) in 8 of 13 pictures; best matches by kind: {'SQP': 7, 'STD': 4, 'SQL': 1, 'TL10': 1}; by lay-out: {'02B-2': 7, '06A-1': 2, '05B-3': 2, '02A-2': 1, '05B-2': 1}; median best correlation 0.751
+Run 4: best match from a square lay-out (SQP or SQL) in 6 of 13 pictures; best matches by kind: {'SQP': 6, 'OL1': 3, 'STD': 2, 'TR10': 1, 'OR1': 1}; by lay-out: {'02B-2': 6, '02B-1': 5, '02B-4': 2}; median best correlation 0.840
+For scale: the first 8 rows of the six SQP demonstrations (48 pictures) match their best picture in another episode at a median correlation of 0.964 (10th percentile 0.902).
+
+=== B. The line's direction where it leaves the puck, on the table (measured in the first picture of each run, fitted camera) ===
+Run 3: tip starts at (16.5, -1.4) cm, puck at (18.8, -1.6) cm; the line leaves the puck at +53 degrees on the table (0 = straight away, + = to the left; spread 4, 1666 pixels), +57 degrees from the picture's top; joint 4 -1.0
+Run 4: tip starts at (15.0, 2.2) cm, puck at (18.6, 2.0) cm; the line leaves the puck at +50 degrees on the table (0 = straight away, + = to the left; spread 58, 2105 pixels), +49 degrees from the picture's top; joint 4 +9.8
+
+Fitted line start direction of the sheet-02 demonstrations (calculated in 01_placements.py; degrees on the table):
+                episodes  line_start_direction_deg  least  most  turn_deg
+end start_kind                                                           
+A   OL1.5              1                     -12.6  -12.6 -12.6     148.1
+    OR1.5              1                      -4.2   -4.2  -4.2     156.5
+    SQL                5                      14.6   10.9  18.5     175.3
+    STD                4                      -9.6  -12.3  -5.7     151.2
+    TL15               1                      12.6   12.6  12.6     173.3
+B   OL1                1                       9.4    9.4   9.4    -147.4
+    OL1.5              1                       1.1    1.1   1.1    -155.8
+    OR1                1                       7.9    7.9   7.9    -149.0
+    OR1.5              1                      20.2   20.2  20.2    -136.7
+    SQL                5                     -19.9  -31.0 -16.1    -173.0
+    SQP                6                      68.2   65.7  72.1     -88.6
+    STD                6                      17.0   10.4  22.7    -139.8
+    TL10               1                      36.9   36.9  36.9    -119.9
+    TR10               1                      -3.5   -3.5  -3.5    -160.4
+    TR15               1                      -0.1   -0.1  -0.1    -156.9
+
+=== C. What the model asked for at the start of run 3 against the demonstrations ===
+Nearest demonstration pictures of run 3's first pictures: their labels against what the model asked (measured):
+ picture  joint_4_deg  asked_cm  asked_twist_deg  label_step_cm_median  label_twist_deg_median  neighbour_joint_4_deg_median                                    neighbour_layouts
+       0         -1.0      0.36             -5.3                  1.11                     0.6                         -93.4                                     02A-2 5, 06A-1 5
+       1         -6.3      0.41             -4.9                  1.16                     0.7                         -94.0                            06A-1 5, 02A-2 4, 06B-1 1
+       2        -11.2      0.49             -4.1                  1.16                     0.7                         -94.0                            06A-1 6, 02A-2 2, 02B-2 2
+       3        -15.6      0.42             -3.0                  1.13                     1.2                         -53.8                                     02B-2 5, 06A-1 5
+       4        -18.6      0.38             -3.0                  1.09                     0.7                          13.3                            02B-2 4, 01A-2 3, 01B-1 3
+       5        -21.7      0.42             -3.3                  1.09                     0.2                          -1.8                            02B-2 5, 01B-1 4, 01A-1 1
+       6        -25.1      0.41             -3.8                  1.08                     0.0                          -5.4                            01B-1 4, 02B-2 3, 01A-1 3
+       7        -29.1      0.40             -3.6                  1.08                     0.0                         -11.6                            02B-2 6, 01A-1 3, 04B-1 1
+       8        -32.7      0.46             -3.3                  1.10                    -4.0                         -12.2                   02B-2 5, 04B-1 2, 05B-3 2, 05B-2 1
+       9        -36.0      0.49             -2.3                  1.06                    -4.4                         -26.3 02B-2 3, 05B-3 2, 04B-2 2, 05B-1 1, 04B-1 1, 05B-2 1
+      10        -38.5      0.46             -0.8                  1.04                    -5.2                         -10.4 05B-2 3, 02B-2 2, 05B-1 2, 05B-3 1, 05B-5 1, 04B-2 1
+      11        -39.4      0.50              0.2                  1.07                    -4.7                         -19.5          05B-2 4, 05B-3 3, 05B-6 1, 05B-5 1, 03A-1 1
+      12        -39.4      0.52              1.6                  0.92                    -0.3                         -31.2          05B-3 4, 04B-1 3, 05B-2 1, 05B-6 1, 05B-5 1
+
+How the forearm was turned at the start (rows and tip travel until joint 4 had turned 30 degrees; measured):
+                     rows_to_reference  travel_to_reference_cm  travel_before_twist_cm  travel_while_twisting_cm  largest_twist_deg  median_step_while_twisting_cm  median_asked_step_first_10_cm  median_asked_twist_first_10_deg
+what                                                                                                                                                                                                                              
+demonstration 02-13                  6                    4.62                    1.20                      3.42              65.13                           0.64                            NaN                              NaN
+demonstration 02-14                  6                    6.49                    2.74                      3.74              91.93                           0.96                            NaN                              NaN
+demonstration 02-15                 11                   11.75                    4.79                      6.96              54.84                           1.06                            NaN                              NaN
+demonstration 02-16                  7                    5.19                    2.88                      2.31              75.85                           0.57                            NaN                              NaN
+demonstration 02-17                  7                    4.85                    3.31                      1.54              90.35                           0.42                            NaN                              NaN
+demonstration 02-18                 36                   37.20                    4.14                     33.06              58.80                           1.10                            NaN                              NaN
+robot run 3                          8                    8.00                    1.00                      7.00              38.41                           1.00                           0.41                            -3.47
+robot run 4                         14                   13.66                    6.84                      6.82              76.90                           1.00                           0.93                             2.74
+
+In the first 16 rows of the six SQP demonstrations, the rows that twist the forearm by 3 degrees or more (66 rows) move the tip a median 0.61 cm (75th percentile 1.01); 42 % of them move it under 0.5 cm. The driver moved 1.0 cm on every step.
+
+=== D. How far the puck lay ahead of the tip at the start (measured: puck detector and fitted camera, first kept picture) ===
+A puck that the block touches lies about 2.5 cm from the tip (04_physics.py, part C). Start-mark demonstrations: puck found in 147 of 148 first pictures; distance median 5.2 cm, 10th to 90th percentile 3.7 to 8.4; within 1 cm of touching (under 3.5 cm): 11 episodes; more than 3 cm of free travel (over 5.5 cm): 63
+       count  min  50%   max
+sheet                       
+01      14.0  5.5  6.6  10.3
+02      36.0  2.4  7.2  14.1
+03      30.0  2.6  4.7   6.6
+04      30.0  3.4  5.1   7.6
+05      20.0  3.7  5.6   8.8
+06      17.0  3.7  4.5   5.4
+Sheet 02 by start kind:
+            count  min  50%   max
+start_kind                       
+OL1           1.0  9.3  9.3   9.3
+OL1.5         2.0  6.1  7.3   8.4
+OR1           1.0  7.9  7.9   7.9
+OR1.5         2.0  6.2  7.2   8.1
+SQL          10.0  2.4  4.0   7.3
+SQP           6.0  5.6  7.0   7.6
+STD          10.0  5.9  8.9  14.1
+TL10          1.0  7.2  7.2   7.2
+TL15          1.0  7.5  7.5   7.5
+TR10          1.0  8.1  8.1   8.1
+TR15          1.0  9.3  9.3   9.3
+Taught starts (NE, MID, X): median 5.2 cm, 10th to 90th percentile 3.9 to 6.9 (61 episodes)
+A check of the lay-out fits of 01_placements.py: in the 112 start-mark episodes whose puck was laid on the start cap (no offset start), the puck seen in the first picture lies a median 1.3 cm from the fitted start cap (90th percentile 2.5 cm).
+The ten robot runs:
+  name sheet                       start_kind  puck_from_tip_cm
+ run 1    01                  reached the end               3.1
+ run 2    01                  reached the end               2.5
+ run 3    02      failed (lost the line, Esc)               2.3
+ run 4    02                  reached the end               3.6
+ run 5    03 failed (overshot the first bend)               3.3
+ run 6    04    failed (stuck at the hairpin)               2.8
+ run 7    05                  reached the end               2.6
+ run 8    06    failed (left the dashed loop)               3.1
+ run 9    03 failed (overshot the first bend)               3.1
+run 10    03 failed (overshot the first bend)               3.1
+
+Saved 03_run3_nearest.csv, 03_run3_nearest.png, 03_sqp_start_sequences.png, 03_start_gaps.csv

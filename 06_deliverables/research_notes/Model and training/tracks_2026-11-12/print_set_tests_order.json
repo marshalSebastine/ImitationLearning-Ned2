@@ -1,0 +1,179 @@
+[
+ {
+  "page": 1,
+  "name": "printer check",
+  "source": "print_me_first_100mm_bar.pdf"
+ },
+ {
+  "page": 2,
+  "name": "list",
+  "source": "print_set_tests_list.pdf page 1"
+ },
+ {
+  "page": 3,
+  "name": "list",
+  "source": "print_set_tests_list.pdf page 2"
+ },
+ {
+  "page": 4,
+  "name": "D01",
+  "style": "solid",
+  "source": "development/D01_solid.pdf"
+ },
+ {
+  "page": 5,
+  "name": "D01",
+  "style": "dashed",
+  "source": "development/D01_dashed.pdf"
+ },
+ {
+  "page": 6,
+  "name": "D02",
+  "style": "solid",
+  "source": "development/D02_solid.pdf"
+ },
+ {
+  "page": 7,
+  "name": "D02",
+  "style": "dashed",
+  "source": "development/D02_dashed.pdf"
+ },
+ {
+  "page": 8,
+  "name": "D03",
+  "style": "solid",
+  "source": "development/D03_solid.pdf"
+ },
+ {
+  "page": 9,
+  "name": "D03",
+  "style": "dashed",
+  "source": "development/D03_dashed.pdf"
+ },
+ {
+  "page": 10,
+  "name": "D04",
+  "style": "solid",
+  "source": "development/D04_solid.pdf"
+ },
+ {
+  "page": 11,
+  "name": "D04",
+  "style": "dashed",
+  "source": "development/D04_dashed.pdf"
+ },
+ {
+  "page": 12,
+  "name": "D05",
+  "style": "solid",
+  "source": "development/D05_solid.pdf"
+ },
+ {
+  "page": 13,
+  "name": "D05",
+  "style": "dashed",
+  "source": "development/D05_dashed.pdf"
+ },
+ {
+  "page": 14,
+  "name": "D06",
+  "style": "solid",
+  "source": "development/D06_solid.pdf"
+ },
+ {
+  "page": 15,
+  "name": "D06",
+  "style": "dashed",
+  "source": "development/D06_dashed.pdf"
+ },
+ {
+  "page": 16,
+  "name": "D07",
+  "style": "solid",
+  "source": "development/D07_solid.pdf"
+ },
+ {
+  "page": 17,
+  "name": "D07",
+  "style": "dashed",
+  "source": "development/D07_dashed.pdf"
+ },
+ {
+  "page": 18,
+  "name": "D08",
+  "style": "solid",
+  "source": "development/D08_solid.pdf"
+ },
+ {
+  "page": 19,
+  "name": "D08",
+  "style": "dashed",
+  "source": "development/D08_dashed.pdf"
+ },
+ {
+  "page": 20,
+  "name": "D09",
+  "style": "solid",
+  "source": "development/D09_solid.pdf"
+ },
+ {
+  "page": 21,
+  "name": "D09",
+  "style": "dashed",
+  "source": "development/D09_dashed.pdf"
+ },
+ {
+  "page": 22,
+  "name": "D10",
+  "style": "solid",
+  "source": "development/D10_solid.pdf"
+ },
+ {
+  "page": 23,
+  "name": "D10",
+  "style": "dashed",
+  "source": "development/D10_dashed.pdf"
+ },
+ {
+  "page": 24,
+  "name": "C05_solid",
+  "style": "solid",
+  "source": "diagnostic/C05_solid.pdf"
+ },
+ {
+  "page": 25,
+  "name": "C05_dashed",
+  "style": "dashed",
+  "source": "diagnostic/C05_dashed.pdf"
+ },
+ {
+  "page": 26,
+  "name": "C06_solid",
+  "style": "solid",
+  "source": "diagnostic/C06_solid.pdf"
+ },
+ {
+  "page": 27,
+  "name": "C06_dashed",
+  "style": "dashed",
+  "source": "diagnostic/C06_dashed.pdf"
+ },
+ {
+  "page": 28,
+  "name": "C01_solid",
+  "style": "solid",
+  "source": "diagnostic/C01_solid.pdf"
+ },
+ {
+  "page": 29,
+  "name": "C03_circles_page_1",
+  "style": "solid",
+  "source": "diagnostic/C03_circles_page_1.pdf"
+ },
+ {
+  "page": 30,
+  "name": "C03_circles_page_2",
+  "style": "solid",
+  "source": "diagnostic/C03_circles_page_2.pdf"
+ }
+]

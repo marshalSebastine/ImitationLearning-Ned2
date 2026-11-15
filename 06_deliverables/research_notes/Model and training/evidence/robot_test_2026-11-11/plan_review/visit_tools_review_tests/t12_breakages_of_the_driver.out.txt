@@ -1,0 +1,19 @@
+unbroken copy, failing tests: []
+caught: forearm difference with the wrong sign -> ['start_offset_is_zero_at_the_recorded_sta', 'robot_run_with_the_placing_aid_and_the_g']
+caught: further out and closer swapped -> ['start_offset_is_zero_at_the_recorded_sta', 'placing_help_shows_each_reading_until_en', 'robot_run_with_the_placing_aid_and_the_g']
+caught: distance is not the straight-line distance -> ['placing_help_shows_each_reading_until_en']
+caught: a forearm turned the negative way never warns -> ['start_offset_lines_warn_only_beyond_the_']
+NOT CAUGHT: fixed_step_cm is a number under the predicted rule
+NOT CAUGHT: first-to-last-picture time is the whole run's time
+caught: stall picture counted from 1 -> ['stall_rule_can_log_and_let_the_run_go_on']
+caught: keys typed before the aid count as its Enter -> ['robot_run_with_the_placing_aid_and_the_g']
+caught: the aid runs although the terminal is no console -> ['robot_run_with_the_placing_aid_and_the_g']
+caught: the live window refreshes a thousand times a second -> ['go_ahead_with_ghost_shows_live_pictures_']
+caught: start offset taken from the recorded joints (always zero) -> ['robot_run_with_the_placing_aid_and_the_g']
+NOT CAUGHT: the window still says 0.7 cm for a 0.65 cm step
+caught: the aid reads the state with the motors switched on first -> ['robot_run_with_the_placing_aid_and_the_g']
+caught: the ghost go-ahead never asks the camera again (one still picture, blended) -> ['go_ahead_with_ghost_shows_live_pictures_']
+caught: --fresh-keys throws the keys away after the first prompt, not before -> ['keys_pressed_too_early_do_not_answer_the']
+NOT CAUGHT: the ghost is read only after the robot is connected
+caught: the placing line says close when the tip is far but the forearm is right -> ['placing_help_shows_each_reading_until_en']
+caught: Ctrl+C in the placing aid is swallowed and placing ends as if Enter was pressed -> ['placing_help_shows_each_reading_until_en']

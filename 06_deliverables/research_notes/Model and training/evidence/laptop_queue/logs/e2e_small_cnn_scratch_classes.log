@@ -1,0 +1,215 @@
+D:\AI_Project\.claude\worktrees\training-analysis\02_code\train_policy.py:363: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  epoch_loss += float(loss) * len(rows)
+small_cnn_scratch_classes | epoch 1 | train 2.5776 | validation 2.9882 | 53.7 s
+small_cnn_scratch_classes | epoch 2 | train 2.3369 | validation 2.1327 | 67.5 s
+small_cnn_scratch_classes | epoch 3 | train 2.1633 | validation 2.1704 | 78.1 s
+small_cnn_scratch_classes | epoch 4 | train 2.1343 | validation 2.0074 | 75.5 s
+small_cnn_scratch_classes | epoch 5 | train 2.0596 | validation 1.9117 | 81.4 s
+small_cnn_scratch_classes | epoch 6 | train 1.9971 | validation 1.8326 | 83.0 s
+small_cnn_scratch_classes | epoch 7 | train 1.961 | validation 1.8567 | 84.1 s
+small_cnn_scratch_classes | epoch 8 | train 1.8946 | validation 1.7948 | 79.3 s
+small_cnn_scratch_classes | epoch 9 | train 1.844 | validation 1.7538 | 78.1 s
+small_cnn_scratch_classes | epoch 10 | train 1.8158 | validation 1.7382 | 82.0 s
+small_cnn_scratch_classes | epoch 11 | train 1.7479 | validation 1.6949 | 84.5 s
+small_cnn_scratch_classes | epoch 12 | train 1.7235 | validation 1.6837 | 83.0 s
+small_cnn_scratch_classes | epoch 13 | train 1.6448 | validation 1.6846 | 83.6 s
+small_cnn_scratch_classes | epoch 14 | train 1.655 | validation 1.652 | 84.0 s
+small_cnn_scratch_classes | epoch 15 | train 1.6232 | validation 1.651 | 85.3 s
+small_cnn_scratch_classes | epoch 16 | train 1.6291 | validation 1.6518 | 82.4 s
+small_cnn_scratch_classes | without_path_03 | {"within_45_deg": 0.6345, "class_accuracy": 0.4303, "episodes_stopped_right": 0.3778, "episodes_stopped_early": 0.1333, "twist_sign_accuracy": 0.7183}
+small_cnn_scratch_classes | epoch 1 | train 2.5634 | validation 2.6549 | 92.5 s
+small_cnn_scratch_classes | epoch 2 | train 2.3353 | validation 2.2436 | 86.8 s
+small_cnn_scratch_classes | epoch 3 | train 2.2002 | validation 2.213 | 75.8 s
+small_cnn_scratch_classes | epoch 4 | train 2.1349 | validation 2.1442 | 60.9 s
+small_cnn_scratch_classes | epoch 5 | train 2.0714 | validation 2.0435 | 79.7 s
+small_cnn_scratch_classes | epoch 6 | train 2.0101 | validation 2.0038 | 83.6 s
+small_cnn_scratch_classes | epoch 7 | train 1.9431 | validation 2.024 | 87.7 s
+small_cnn_scratch_classes | epoch 8 | train 1.9117 | validation 1.9267 | 85.4 s
+small_cnn_scratch_classes | epoch 9 | train 1.8357 | validation 1.9323 | 82.5 s
+small_cnn_scratch_classes | epoch 10 | train 1.8052 | validation 1.9093 | 84.6 s
+small_cnn_scratch_classes | epoch 11 | train 1.7507 | validation 1.8774 | 79.5 s
+small_cnn_scratch_classes | epoch 12 | train 1.7171 | validation 1.8506 | 87.2 s
+small_cnn_scratch_classes | epoch 13 | train 1.6894 | validation 1.8248 | 88.2 s
+small_cnn_scratch_classes | epoch 14 | train 1.673 | validation 1.829 | 86.2 s
+small_cnn_scratch_classes | epoch 15 | train 1.6328 | validation 1.8193 | 62.1 s
+small_cnn_scratch_classes | epoch 16 | train 1.5876 | validation 1.8184 | 69.1 s
+small_cnn_scratch_classes | without_path_05 | {"within_45_deg": 0.6346, "class_accuracy": 0.4553, "episodes_stopped_right": 0.0333, "episodes_stopped_early": 0.0667, "twist_sign_accuracy": 0.405}
+small_cnn_scratch_classes | epoch 1 | train 2.5123 | validation 2.5585 | 93.4 s
+small_cnn_scratch_classes | epoch 2 | train 2.2906 | validation 2.3412 | 88.1 s
+small_cnn_scratch_classes | epoch 3 | train 2.1933 | validation 2.3156 | 92.4 s
+small_cnn_scratch_classes | epoch 4 | train 2.1044 | validation 2.1472 | 85.2 s
+small_cnn_scratch_classes | epoch 5 | train 2.0407 | validation 2.2119 | 90.9 s
+small_cnn_scratch_classes | epoch 6 | train 1.9594 | validation 2.1318 | 87.1 s
+small_cnn_scratch_classes | epoch 7 | train 1.9047 | validation 2.0553 | 86.1 s
+small_cnn_scratch_classes | epoch 8 | train 1.8686 | validation 2.0872 | 74.5 s
+small_cnn_scratch_classes | epoch 9 | train 1.7949 | validation 2.0534 | 78.0 s
+small_cnn_scratch_classes | epoch 10 | train 1.7645 | validation 1.9377 | 85.1 s
+small_cnn_scratch_classes | epoch 11 | train 1.7096 | validation 1.9327 | 84.1 s
+small_cnn_scratch_classes | epoch 12 | train 1.6752 | validation 1.9197 | 83.5 s
+small_cnn_scratch_classes | epoch 13 | train 1.6173 | validation 1.9253 | 113.7 s
+small_cnn_scratch_classes | epoch 14 | train 1.6094 | validation 1.9171 | 111.3 s
+small_cnn_scratch_classes | epoch 15 | train 1.5551 | validation 1.9041 | 115.5 s
+small_cnn_scratch_classes | epoch 16 | train 1.5544 | validation 1.9017 | 104.5 s
+small_cnn_scratch_classes | without_path_06 | {"within_45_deg": 0.623, "class_accuracy": 0.3881, "episodes_stopped_right": 0.04, "episodes_stopped_early": 0.0, "twist_sign_accuracy": 0.3713}
+{
+ "test_rows_mean": 2903.3333,
+ "test_rows_minimum": 1982.0,
+ "test_rows_maximum": 4059.0,
+ "test_episodes_mean": 33.3333,
+ "test_episodes_minimum": 25.0,
+ "test_episodes_maximum": 45.0,
+ "direction_rows_mean": 2579.3333,
+ "direction_rows_minimum": 1809.0,
+ "direction_rows_maximum": 3458.0,
+ "angle_error_median_deg_mean": 31.2533,
+ "angle_error_median_deg_minimum": 28.51,
+ "angle_error_median_deg_maximum": 33.53,
+ "angle_error_mean_deg_mean": 44.73,
+ "angle_error_mean_deg_minimum": 43.43,
+ "angle_error_mean_deg_maximum": 46.12,
+ "class_accuracy_mean": 0.4246,
+ "class_accuracy_minimum": 0.3881,
+ "class_accuracy_maximum": 0.4553,
+ "class_balanced_accuracy_mean": 0.3513,
+ "class_balanced_accuracy_minimum": 0.3167,
+ "class_balanced_accuracy_maximum": 0.369,
+ "within_30_deg_mean": 0.4861,
+ "within_30_deg_minimum": 0.4605,
+ "within_30_deg_maximum": 0.516,
+ "within_45_deg_mean": 0.6307,
+ "within_45_deg_minimum": 0.623,
+ "within_45_deg_maximum": 0.6346,
+ "within_60_deg_mean": 0.7285,
+ "within_60_deg_minimum": 0.7181,
+ "within_60_deg_maximum": 0.7386,
+ "path_direction_rows_mean": 2425.0,
+ "path_direction_rows_minimum": 1708.0,
+ "path_direction_rows_maximum": 3186.0,
+ "path_angle_error_median_deg_mean": 27.2867,
+ "path_angle_error_median_deg_minimum": 24.34,
+ "path_angle_error_median_deg_maximum": 28.81,
+ "path_angle_error_mean_deg_mean": 38.07,
+ "path_angle_error_mean_deg_minimum": 36.92,
+ "path_angle_error_mean_deg_maximum": 39.12,
+ "path_class_accuracy_mean": 0.4702,
+ "path_class_accuracy_minimum": 0.4444,
+ "path_class_accuracy_maximum": 0.5023,
+ "path_class_balanced_accuracy_mean": 0.3868,
+ "path_class_balanced_accuracy_minimum": 0.3436,
+ "path_class_balanced_accuracy_maximum": 0.4121,
+ "path_within_30_deg_mean": 0.53,
+ "path_within_30_deg_minimum": 0.5144,
+ "path_within_30_deg_maximum": 0.5586,
+ "path_within_45_deg_mean": 0.6831,
+ "path_within_45_deg_minimum": 0.6689,
+ "path_within_45_deg_maximum": 0.6979,
+ "path_within_60_deg_mean": 0.7919,
+ "path_within_60_deg_minimum": 0.775,
+ "path_within_60_deg_maximum": 0.8068,
+ "expected_direction_rows_mean": 2579.3333,
+ "expected_direction_rows_minimum": 1809.0,
+ "expected_direction_rows_maximum": 3458.0,
+ "expected_angle_error_median_deg_mean": 29.3,
+ "expected_angle_error_median_deg_minimum": 28.66,
+ "expected_angle_error_median_deg_maximum": 30.05,
+ "expected_angle_error_mean_deg_mean": 41.6,
+ "expected_angle_error_mean_deg_minimum": 40.63,
+ "expected_angle_error_mean_deg_maximum": 42.13,
+ "expected_class_accuracy_mean": 0.3994,
+ "expected_class_accuracy_minimum": 0.3787,
+ "expected_class_accuracy_maximum": 0.416,
+ "expected_class_balanced_accuracy_mean": 0.3349,
+ "expected_class_balanced_accuracy_minimum": 0.2987,
+ "expected_class_balanced_accuracy_maximum": 0.3764,
+ "expected_within_30_deg_mean": 0.5067,
+ "expected_within_30_deg_minimum": 0.4981,
+ "expected_within_30_deg_maximum": 0.5133,
+ "expected_within_45_deg_mean": 0.6663,
+ "expected_within_45_deg_minimum": 0.6606,
+ "expected_within_45_deg_maximum": 0.6709,
+ "expected_within_60_deg_mean": 0.7648,
+ "expected_within_60_deg_minimum": 0.7592,
+ "expected_within_60_deg_maximum": 0.7739,
+ "path_expected_direction_rows_mean": 2425.0,
+ "path_expected_direction_rows_minimum": 1708.0,
+ "path_expected_direction_rows_maximum": 3186.0,
+ "path_expected_angle_error_median_deg_mean": 24.8033,
+ "path_expected_angle_error_median_deg_minimum": 24.3,
+ "path_expected_angle_error_median_deg_maximum": 25.52,
+ "path_expected_angle_error_mean_deg_mean": 33.8467,
+ "path_expected_angle_error_mean_deg_minimum": 32.9,
+ "path_expected_angle_error_mean_deg_maximum": 34.64,
+ "path_expected_class_accuracy_mean": 0.4588,
+ "path_expected_class_accuracy_minimum": 0.4448,
+ "path_expected_class_accuracy_maximum": 0.475,
+ "path_expected_class_balanced_accuracy_mean": 0.4033,
+ "path_expected_class_balanced_accuracy_minimum": 0.3651,
+ "path_expected_class_balanced_accuracy_maximum": 0.4606,
+ "path_expected_within_30_deg_mean": 0.5818,
+ "path_expected_within_30_deg_minimum": 0.5703,
+ "path_expected_within_30_deg_maximum": 0.6007,
+ "path_expected_within_45_deg_mean": 0.7463,
+ "path_expected_within_45_deg_minimum": 0.732,
+ "path_expected_within_45_deg_maximum": 0.7722,
+ "path_expected_within_60_deg_mean": 0.841,
+ "path_expected_within_60_deg_minimum": 0.8277,
+ "path_expected_within_60_deg_maximum": 0.8577,
+ "stop_precision_mean": 0.3319,
+ "stop_precision_minimum": 0.2,
+ "stop_precision_maximum": 0.5,
+ "stop_recall_mean": 0.18,
+ "stop_recall_minimum": 0.0333,
+ "stop_recall_maximum": 0.4667,
+ "stop_average_precision_mean": 0.2268,
+ "stop_average_precision_minimum": 0.1318,
+ "stop_average_precision_maximum": 0.3069,
+ "episodes_stopped_right_mean": 0.1504,
+ "episodes_stopped_right_minimum": 0.0333,
+ "episodes_stopped_right_maximum": 0.3778,
+ "episodes_stopped_early_mean": 0.0667,
+ "episodes_stopped_early_minimum": 0.0,
+ "episodes_stopped_early_maximum": 0.1333,
+ "episodes_never_stopped_mean": 0.7681,
+ "episodes_never_stopped_minimum": 0.4444,
+ "episodes_never_stopped_maximum": 0.96,
+ "tuned_episodes_stopped_right_mean": 0.2608,
+ "tuned_episodes_stopped_right_minimum": 0.0667,
+ "tuned_episodes_stopped_right_maximum": 0.5556,
+ "tuned_episodes_stopped_early_mean": 0.1333,
+ "tuned_episodes_stopped_early_minimum": 0.0,
+ "tuned_episodes_stopped_early_maximum": 0.2,
+ "tuned_episodes_never_stopped_mean": 0.563,
+ "tuned_episodes_never_stopped_minimum": 0.1556,
+ "tuned_episodes_never_stopped_maximum": 0.8,
+ "tuned_stop_threshold_mean": 0.3,
+ "tuned_stop_threshold_minimum": 0.2,
+ "tuned_stop_threshold_maximum": 0.4,
+ "tuned_two_episodes_stopped_right_mean": 0.3785,
+ "tuned_two_episodes_stopped_right_minimum": 0.1,
+ "tuned_two_episodes_stopped_right_maximum": 0.7556,
+ "tuned_two_episodes_stopped_early_mean": 0.2193,
+ "tuned_two_episodes_stopped_early_minimum": 0.08,
+ "tuned_two_episodes_stopped_early_maximum": 0.4,
+ "tuned_two_episodes_never_stopped_mean": 0.3815,
+ "tuned_two_episodes_never_stopped_minimum": 0.0444,
+ "tuned_two_episodes_never_stopped_maximum": 0.6,
+ "tuned_two_stop_threshold_mean": 0.1667,
+ "tuned_two_stop_threshold_minimum": 0.1,
+ "tuned_two_stop_threshold_maximum": 0.2,
+ "twist_rows_mean": 1927.0,
+ "twist_rows_minimum": 1430.0,
+ "twist_rows_maximum": 2630.0,
+ "twist_sign_accuracy_mean": 0.4982,
+ "twist_sign_accuracy_minimum": 0.3713,
+ "twist_sign_accuracy_maximum": 0.7183,
+ "twist_error_mean_deg_mean": 3.6353,
+ "twist_error_mean_deg_minimum": 3.148,
+ "twist_error_mean_deg_maximum": 4.014,
+ "epochs_run_mean": 16.0,
+ "epochs_run_minimum": 16.0,
+ "epochs_run_maximum": 16.0,
+ "minutes_mean": 22.5667,
+ "minutes_minimum": 21.3,
+ "minutes_maximum": 24.7
+}

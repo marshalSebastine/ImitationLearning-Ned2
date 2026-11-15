@@ -1,0 +1,15 @@
+(a) the ten runs as driven (fixed 1 cm): picture at which the rule would have ended the run
+   window 15: 172021: None, 172421: None, 172743: None, 173036: None, 173549: None, 174108: 31, 174448: None, 174936: None, 175203: None, 175544: None
+   window 20: 172021: None, 172421: None, 172743: None, 173036: None, 173549: None, 174108: 36, 174448: None, 174936: None, 175203: None, 175544: None
+   window 25: 172021: None, 172421: None, 172743: None, 173036: None, 173549: None, 174108: 41, 174448: None, 174936: None, 175203: None, 175544: None
+   window 30: 172021: None, 172421: None, 172743: None, 173036: None, 173549: None, 174108: 46, 174448: None, 174936: None, 175203: None, 175544: None
+
+(b) the fold models' own asked pace along the held-out demonstrations (own length, at most 1.0 cm)
+   E_recipe, window 15: fires in 12 of 209 demonstrations, 7 of them before the last tenth of the run
+   E_recipe, window 20: fires in 2 of 209 demonstrations, 2 of them before the last tenth of the run
+   E_recipe, window 25: fires in 0 of 209 demonstrations, 0 of them before the last tenth of the run
+   E_recipe, window 30: fires in 0 of 209 demonstrations, 0 of them before the last tenth of the run
+   A_recipe, window 15: fires in 20 of 209 demonstrations, 17 of them before the last tenth of the run
+   A_recipe, window 20: fires in 2 of 209 demonstrations, 2 of them before the last tenth of the run
+   A_recipe, window 25: fires in 2 of 209 demonstrations, 2 of them before the last tenth of the run
+   A_recipe, window 30: fires in 0 of 209 demonstrations, 0 of them before the last tenth of the run

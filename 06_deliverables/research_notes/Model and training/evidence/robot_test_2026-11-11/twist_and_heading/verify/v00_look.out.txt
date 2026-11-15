@@ -1,0 +1,23 @@
+2026-11-11_172021_check_no_puck 26 {'model_step': 25, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first -1.8 min -4.4 max 9.9 joint 5 13.3..13.4 joint 6 -6.1..-6.1
+2026-11-11_172421_E_sheet01_run1 25 {'model_step': 24, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first 6.1 min 6.1 max 13.7 joint 5 13.5..13.5 joint 6 -6.1..-6.1
+2026-11-11_172743_E_sheet02_run1 38 {'model_step': 38} refusals 0 clamped 0 kept 0 joint 4 first -1.0 min -39.4 max -1.0 joint 5 13.5..13.5 joint 6 -6.2..-6.1
+2026-11-11_173036_E_sheet02_run2 42 {'model_step': 41, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first 9.8 min 7.6 max 86.7 joint 5 13.3..13.4 joint 6 -6.2..-6.1
+2026-11-11_173549_E_sheet03_run1 60 {'model_step': 59, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first -9.3 min -71.3 max -4.9 joint 5 13.4..13.5 joint 6 -6.1..-6.1
+2026-11-11_174108_E_sheet04_run1 69 {'model_step': 68, 'stop': 1} refusals 0 clamped 0 kept 3 joint 4 first 3.2 min -12.1 max 16.8 joint 5 13.4..13.5 joint 6 -6.1..-6.1
+2026-11-11_174448_E_sheet05_run1 89 {'model_step': 88, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first -1.7 min -73.3 max 57.3 joint 5 13.4..13.5 joint 6 -6.2..-6.1
+2026-11-11_174936_E_sheet06_run1 41 {'model_step': 40, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first 7.2 min 6.3 max 101.5 joint 5 13.4..13.5 joint 6 -6.1..-6.1
+2026-11-11_175203_E_sheet03_run2_no_hoodie 90 {'model_step': 89, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first -5.2 min -80.9 max 60.6 joint 5 13.4..13.5 joint 6 -6.1..-6.1
+2026-11-11_175544_B_team5_sheet03 74 {'model_step': 73, 'stop': 1} refusals 0 clamped 0 kept 0 joint 4 first -9.7 min -71.4 max 36.2 joint 5 13.4..13.5 joint 6 -6.1..-6.1
+(18522, 110) 210
+{'forward': 6466, 'forward_left': 2373, 'small_motion': 2265, 'forward_right': 2146, 'left': 1576, 'right': 1574, 'back_right': 789, 'back_left': 564, 'back': 546, 'stop': 210, 'turn_left': 9, 'turn_right': 4}
+{'path_01': 20, 'path_02': 45, 'path_03': 45, 'path_04': 45, 'path_05': 30, 'path_06': 25}
+                       count      mean  ...       75%         max
+tip_forward_m        18312.0  0.004307  ...   0.01015    0.077820
+tip_left_m           18312.0  0.000036  ...   0.00402    0.021830
+forearm_change_deg   18312.0  0.020286  ...   4.04000   31.110000
+move_length_m        18522.0  0.009082  ...   0.01202    0.078360
+move_angle_deg       18522.0 -0.858053  ...  44.76500  180.000000
+picture_heading_deg  18522.0 -7.576271  ...  30.57000  154.360000
+forearm_turn_deg     18522.0  4.918841  ...  52.21234  118.833434
+
+[7 rows x 8 columns]

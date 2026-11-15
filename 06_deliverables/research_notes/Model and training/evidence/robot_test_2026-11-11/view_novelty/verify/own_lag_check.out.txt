@@ -1,0 +1,19 @@
+THE SCENE'S TURN BETWEEN CONSECUTIVE PICTURES against the forearm twist carried out (degrees)
+run  pairs measured  correlation with the twist: in step  one step late  one step early   slope in step (scene degrees per degree of twist)
+  1   25 of  25                               0.26           0.08            0.27   +0.26
+  2   24 of  24                              -0.14           0.09           -0.42   -0.49
+  3   37 of  37                               0.86           0.89            0.75   +0.80
+  4   41 of  41                               0.77           0.74            0.57   +0.96
+  5   59 of  59                               0.65           0.73            0.47   +0.50
+  6   68 of  68                               0.66           0.61            0.45   +0.47
+  7   81 of  88                               0.90           0.86            0.87   +0.87
+  8   40 of  40                               0.76           0.74            0.65   +0.91
+  9   85 of  89                               0.67           0.67            0.60   +0.65
+ 10   73 of  73                               0.58           0.61            0.50   +0.69
+all runs together (533 pairs): in step 0.70, one step late 0.70, one step early 0.62
+pairs where the twist changed by 3 degrees or more from the step before (17): the measured turn is nearer to the in-step twist in 8 of them (median misfit 1.38 degrees in step, 1.39 one step late)
+
+THE SCENE'S SHIFT UNDER THE TIP against the direction of the tip's move, in the pairs where the move's direction changed by 60 degrees or more from the step before
+pairs: 37 (runs [3, 5, 6, 7, 9, 10]); measured shift length median 15.5 px
+direction error if the pictures are in step: median 11 degrees; if one step late: median 114 degrees
+the in-step reading fits better in 35 of 37 pairs

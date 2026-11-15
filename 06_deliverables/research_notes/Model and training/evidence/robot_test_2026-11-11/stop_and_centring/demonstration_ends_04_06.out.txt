@@ -1,0 +1,11 @@
+10 of 100 episodes measured
+20 of 100 episodes measured
+30 of 100 episodes measured
+40 of 100 episodes measured
+50 of 100 episodes measured
+60 of 100 episodes measured
+70 of 100 episodes measured
+80 of 100 episodes measured
+90 of 100 episodes measured
+100 of 100 episodes measured
+written: demonstration_ends_04_06.csv (100 episodes; end found in 100)

@@ -1,0 +1,4 @@
+sheet 05: traced from the course photo 566 mm long, measured from the robot's pictures 538 mm long (laid on from 10 mm of the traced line, reversed True, mirrored False)
+   distance between the two centre lines after the best turn and shift: median 0.9 mm, 90th percentile 1.9 mm, largest 3.4 mm; share of the line within 2 mm 92 %, within 3 mm 98 %
+sheet 06: traced from the course photo 466 mm long, measured from the robot's pictures 456 mm long (laid on from 0 mm of the traced line, reversed False, mirrored False)
+   distance between the two centre lines after the best turn and shift: median 1.3 mm, 90th percentile 2.9 mm, largest 7.4 mm; share of the line within 2 mm 72 %, within 3 mm 90 %

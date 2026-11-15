@@ -1,0 +1,46 @@
+﻿
+=== worktree default (before the audit cleaning): 18430 rows in 208 episodes
+actions: forward 6433, forward_left 2355, small_motion 2259, forward_right 2134, left 1569, right 1567, back_right 785, back_left 563, back 544, stop 208, turn_left 9, turn_right 4
+stop rows 208 = 1.13 % of rows; negatives per stop row 87.6
+         rows  episodes  share_of_rows  share_of_episodes
+sheet                                                    
+path_01   658        19            3.6                9.1
+path_02  2714        44           14.7               21.2
+path_03  4059        45           22.0               21.6
+path_04  6348        45           34.4               21.6
+path_05  2669        30           14.5               14.4
+path_06  1982        25           10.8               12.0
+scores:         size  nunique | score                 | 1.0     2344       24 | 2.0     5207       50 | 3.0    10879      134
+moving rows 15950; forward 40.3 %, any back class 11.9 % of moving rows
+square-root class weights (next_move rule): forward 0.59, forward_left 0.96, forward_right 0.99, left 1.18, right 1.18, back 2.01, back_left 1.91, back_right 1.66, stop 2.88
+lighting note:            size  nunique | lighting                 | ceiling   15423      183 | natural    3007       25
+small_motion and turn rows 2272
+forearm change: median 4.04 deg, p90 8.17, max 40.52
+step length over moving rows: median 1.09 cm, p99 1.71, max 7.84
+
+=== audit cleaning (the final candidate's rows): 18032 rows in 209 episodes
+actions: forward 6449, forward_left 2367, forward_right 2142, small_motion 1765, left 1573, right 1570, back_right 788, back_left 562, back 544, stop 259, turn_left 9, turn_right 4
+stop rows 259 = 1.44 % of rows; negatives per stop row 68.6
+         rows  episodes  share_of_rows  share_of_episodes
+sheet                                                    
+path_01   644        20            3.6                9.6
+path_02  2670        45           14.8               21.5
+path_03  3955        45           21.9               21.5
+path_04  6227        45           34.5               21.5
+path_05  2600        29           14.4               13.9
+path_06  1936        25           10.7               12.0
+scores:         size  nunique | score                 | 1.0     2269       23 | 2.0     5128       52 | 3.0    10635      134
+moving rows 15995; forward 40.3 %, any back class 11.8 % of moving rows
+square-root class weights (next_move rule): forward 0.59, forward_left 0.95, forward_right 0.99, left 1.19, right 1.18, back 2.06, back_left 2.00, back_right 1.69, stop 2.86
+lighting note:            size  nunique | lighting                 | ceiling   15094      184 | natural    2938       25
+small_motion and turn rows 1778
+forearm change: median 4.22 deg, p90 8.17, max 15.00
+step length over moving rows: median 1.09 cm, p99 1.71, max 2.00
+
+relabelled stop rows: 50
+held out path_01: training rows per sheet path_02 15.4 %, path_03 22.7 %, path_04 35.8 %, path_05 15.0 %, path_06 11.1 %
+held out path_02: training rows per sheet path_01 4.2 %, path_03 25.7 %, path_04 40.5 %, path_05 16.9 %, path_06 12.6 %
+held out path_03: training rows per sheet path_01 4.6 %, path_02 19.0 %, path_04 44.2 %, path_05 18.5 %, path_06 13.8 %
+held out path_04: training rows per sheet path_01 5.5 %, path_02 22.6 %, path_03 33.5 %, path_05 22.0 %, path_06 16.4 %
+held out path_05: training rows per sheet path_01 4.2 %, path_02 17.3 %, path_03 25.6 %, path_04 40.4 %, path_06 12.5 %
+held out path_06: training rows per sheet path_01 4.0 %, path_02 16.6 %, path_03 24.6 %, path_04 38.7 %, path_05 16.2 %

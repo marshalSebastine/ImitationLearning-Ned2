@@ -1,0 +1,10 @@
+run  1 (2026-11-11_172021_check_no_puck): 26 pictures -> contact_run_01.png, 1920 x 720
+run  2 (2026-11-11_172421_E_sheet01_run1): 25 pictures -> contact_run_02.png, 1920 x 720
+run  3 (2026-11-11_172743_E_sheet02_run1): 38 pictures -> contact_run_03.png, 1920 x 900
+run  4 (2026-11-11_173036_E_sheet02_run2): 42 pictures -> contact_run_04.png, 1920 x 1080
+run  5 (2026-11-11_173549_E_sheet03_run1): 60 pictures -> contact_run_05.png, 1920 x 1440
+run  6 (2026-11-11_174108_E_sheet04_run1): 69 pictures -> contact_run_06.png, 1920 x 1620
+run  7 (2026-11-11_174448_E_sheet05_run1): 89 pictures -> contact_run_07.png, 1920 x 2160
+run  8 (2026-11-11_174936_E_sheet06_run1): 41 pictures -> contact_run_08.png, 1920 x 1080
+run  9 (2026-11-11_175203_E_sheet03_run2_no_hoodie): 90 pictures -> contact_run_09.png, 1920 x 2160
+run 10 (2026-11-11_175544_B_team5_sheet03): 74 pictures -> contact_run_10.png, 1920 x 1800

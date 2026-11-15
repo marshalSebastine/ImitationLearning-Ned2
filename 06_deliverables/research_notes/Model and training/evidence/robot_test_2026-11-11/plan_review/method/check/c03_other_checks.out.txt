@@ -1,0 +1,57 @@
+A. Travel beyond the camera's reach, rows with a known direction of puck travel
+   rows 11419; reach of the tip from the base: median 31.3 cm (10th to 90th percentile 21.5 to 39.3)
+   flat limit of 108 degrees (the critic's): 25.0 %; limit by reach (106 to 123, the check's table): 22.3 %; beyond 123 degrees everywhere: 19.7 %; beyond 140 (the orientation analyst's 'back sector'): 14.9 %
+   episodes with 10 rows or more beyond the limit by reach: 115 of 209
+      01: flat 108:   1.5 %; by reach:   0.9 %
+      02: flat 108:  14.2 %; by reach:  10.9 %
+      03: flat 108:  25.2 %; by reach:  22.1 %
+      04: flat 108:  20.4 %; by reach:  17.8 %
+      05: flat 108:  35.6 %; by reach:  33.4 %
+      06: flat 108:  44.9 %; by reach:  42.3 %
+
+B. The windows of m06 (10 rows, shown net turn of 30 degrees or more), recipe E on sheets it never saw
+   travel within 20 degrees of the picture's top (along)          windows  825 (sharp 412); correlation asked with shown +0.75; share given back in sharp windows 0.59; spread of the shown net turn  38.7 degrees
+      along, tip within 30 cm of the base                         windows  451 (sharp 263); correlation asked with shown +0.77; share given back in sharp windows 0.57; spread of the shown net turn  41.8 degrees
+      along, tip 30 to 37 cm from the base                        windows  245 (sharp 113); correlation asked with shown +0.73; share given back in sharp windows 0.64; spread of the shown net turn  36.2 degrees
+      along, tip 37 cm or more from the base                      windows  129 (sharp  36); correlation asked with shown +0.62; share given back in sharp windows 0.59; spread of the shown net turn  29.9 degrees
+      along, |joint 4| under 60                                   windows  531 (sharp 298); correlation asked with shown +0.78; share given back in sharp windows 0.60; spread of the shown net turn  40.4 degrees
+      along, |joint 4| 60 or more                                 windows  294 (sharp 114); correlation asked with shown +0.68; share given back in sharp windows 0.57; spread of the shown net turn  35.4 degrees
+   travel 45 degrees or more off the picture's top (off)          windows  326 (sharp  87); correlation asked with shown +0.37; share given back in sharp windows 0.23; spread of the shown net turn  26.0 degrees
+      off, forced (looking along would need |joint 4| over 117)   windows  277 (sharp  77); correlation asked with shown +0.38; share given back in sharp windows 0.22; spread of the shown net turn  26.5 degrees
+      off, free (it would need 107 or less)                       windows   30 (sharp   5); correlation asked with shown +0.31; share given back in sharp windows 0.43; spread of the shown net turn  19.7 degrees
+      off, tip within 30 cm of the base                           windows   98 (sharp  26); correlation asked with shown +0.53; share given back in sharp windows 0.35; spread of the shown net turn  28.5 degrees
+      off, tip 37 cm or more from the base                        windows   83 (sharp  23); correlation asked with shown +0.41; share given back in sharp windows 0.35; spread of the shown net turn  24.6 degrees
+   inside each held-out sheet (along / off): windows, correlation, share given back in sharp windows
+      01:  31 (  1 sharp), +0.80, 0.49   |     2 (  0 sharp), +nan, nan
+      02: 139 ( 39 sharp), +0.64, 0.62   |    32 (  2 sharp), +0.28, 0.28
+      03: 180 (111 sharp), +0.91, 0.77   |    55 ( 15 sharp), +0.58, 0.32
+      04: 308 (186 sharp), +0.67, 0.50   |    88 ( 18 sharp), +0.35, 0.41
+      05: 106 ( 41 sharp), +0.57, 0.42   |    76 ( 29 sharp), +0.28, 0.01
+      06:  61 ( 34 sharp), +0.91, 0.67   |    73 ( 23 sharp), +0.60, 0.29
+
+C. The stop over whole episodes, recipe E, sheets never seen (stop chance of 0.5 or more)
+   never two in a row: 71 of 209; of these, no picture at all reaches 0.5: 40; the LAST picture (the stop row) reaches 0.5: 24 (the recording ends there, so there is no second picture to confirm; first stop-like picture a median 0.0 cm from the stop place)
+   the remaining 7 have single stop-like pictures earlier in the episode and none at the end
+   stop rows in the cleaned data: 259 in 209 episodes; relabelled by the cleaning: 50
+
+D. Rows just after a hand correction (the replay starts again from waypoint 1), recipe E, sheets never seen
+   hand corrections found: 238 in 130 of 209 episodes (per-episode column 'hand_corrections' sums to 240)
+   the first 5 rows after a hand correction: 1127 rows; direction within 45 degrees of the shown step 33.5 %; more than 90 degrees off 28.3 %; always forward would be within 45 in 26.1 %
+   all other moving rows: 14881 rows; direction within 45 degrees of the shown step 69.5 %; more than 90 degrees off 8.8 %; always forward would be within 45 in 52.8 %
+   hand corrections per episode by sheet: 01 0.25, 02 1.29, 03 1.31, 04 1.51, 05 0.93, 06 0.84
+
+E. The row tags of P3 on the old rows (step rows)
+   step rows 17773; travel direction known in 64.2 %; of the known: within 30 degrees of the picture's top 69.8 %, further off but forced by the limit 23.3 %, further off with the limit not in the way 6.9 %
+   wrist within 3 degrees of 13.5: 56.9 % of step rows; wrist and hand both within 3 degrees of the driver's values: 55.2 %
+   rows that can be shown to follow rules 3 and 6 (travel known, along or forced, wrist and hand as the driver holds them): 34.9 % of step rows (6205); without the wrist rule: 59.8 %
+   kept rows would lie in a median of 3 separate pieces per episode (90th percentile 8)
+      01:  31.0 % of step rows would be kept
+      02:  43.9 % of step rows would be kept
+      03:  41.0 % of step rows would be kept
+      04:  29.5 % of step rows would be kept
+      05:  35.6 % of step rows would be kept
+      06:  28.1 % of step rows would be kept
+
+F. P7's pilot rule: the share given back and the window correlation on 8 episodes (2 from each of 4 sheets), drawn from the recordings
+   whole-line episodes (standard starts) of sheets 02 to 06; 2000 draws; sharp windows per draw: median 42
+   share given back: median 0.50, 5th to 95th percentile 0.40 to 0.62; draws at 0.59 or more: 9 %

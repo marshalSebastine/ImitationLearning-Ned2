@@ -1,0 +1,21 @@
+1. what the command line of model_mode.py offers today (read from its source):
+    ['part', '--label', '--run-name', '--checkpoint', '--metrics', '--twist-gain', '--step-length', '--length-gain', '--step-budget']
+   a flag for the fixed step's length: NO (config.py or new code)
+   a flag for the stall rule's numbers: NO (config.py or new code)
+   a flag for a start pose to drive to: NO (config.py or new code)
+   a flag for a travel budget for short runs: NO (config.py or new code)
+   settings in config.py today: step_m 0.01, step_length_rule fixed, step_most_m 0.01, stall 30 pictures / 0.03 m / 15.0 deg, step budget 250, executor check from 0.005 m
+   robot_run's start: hand-placed only (set_free_motion, the person guides the tip); a function that drives the real arm to a start pose: NO
+   summary.json records the code version: NO; the sheet or the start: NO (only the free-text label)
+
+2. the model trained without sheet 03 through the whole loop on the simulated robot, the plan's numbers as overrides:
+run simulated ended: stopped after 8 pictures and 7 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\robot_session\simulated_logs\2026-11-11_223249_simulated
+   fixed 1.0 cm (the control)  : ending stopped              pictures  8; commanded step 10.0 to 10.0 mm; tip moved (simulated arm) 10.0 to 10.0 mm; checkpoint logged: without_path_03.pt
+run simulated ended: stopped after 10 pictures and 9 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\robot_session\simulated_logs\2026-11-11_223251_simulated
+   fixed 0.65 cm               : ending stopped              pictures 10; commanded step 6.5 to 6.5 mm; tip moved (simulated arm) 6.5 to 6.5 mm; checkpoint logged: without_path_03.pt
+run simulated ended: step_budget_reached after 14 pictures and 14 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\robot_session\simulated_logs\2026-11-11_223253_simulated
+   fixed 0.2 cm (block 0)      : ending step_budget_reached  pictures 14; commanded step 2.0 to 2.0 mm; tip moved (simulated arm) 2.0 to 2.0 mm; checkpoint logged: without_path_03.pt
+run simulated ended: step_budget_reached after 14 pictures and 14 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\robot_session\simulated_logs\2026-11-11_223257_simulated
+   the model's own length      : ending step_budget_reached  pictures 14; commanded step 1.6 to 5.2 mm; tip moved (simulated arm) 1.6 to 5.2 mm; checkpoint logged: without_path_03.pt
+
+   so: step_m, the stall numbers and the budget are numbers the loop already takes (as overrides or in config.py); only the command-line flag is missing.

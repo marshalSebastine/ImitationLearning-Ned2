@@ -1,0 +1,14 @@
+================ E_recipe: 17288 rows with a demonstrated path of 1 cm or more over the next 5 rows
+   predicted under 0.15 cm     139 rows: within 45 degrees of the demonstrated path: current direction 37 % (median error 57); last sure direction 36 % (75); sum of the last six predicted steps 45 % (53)
+   predicted under 0.3 cm      714 rows: within 45 degrees of the demonstrated path: current direction 50 % (median error 45); last sure direction 34 % (72); sum of the last six predicted steps 46 % (49)
+   predicted 0.3 to 0.7 cm    8621 rows: within 45 degrees of the demonstrated path: current direction 75 % (median error 26); last sure direction 45 % (51); sum of the last six predicted steps 63 % (34)
+   predicted 0.7 cm or more   7953 rows: within 45 degrees of the demonstrated path: current direction 90 % (median error 13); last sure direction 82 % (18); sum of the last six predicted steps 80 % (22)
+   rows where the last six predicted steps add up to under 1.0 cm (the guard's own situation): 334; the sum's direction is within 45 degrees of the demonstrated path on 70 % (median error 24 degrees), within 90 degrees on 86 %
+
+================ A_recipe: 17288 rows with a demonstrated path of 1 cm or more over the next 5 rows
+   predicted under 0.15 cm     162 rows: within 45 degrees of the demonstrated path: current direction 40 % (median error 58); last sure direction 26 % (86); sum of the last six predicted steps 38 % (62)
+   predicted under 0.3 cm     1133 rows: within 45 degrees of the demonstrated path: current direction 50 % (median error 44); last sure direction 29 % (80); sum of the last six predicted steps 51 % (44)
+   predicted 0.3 to 0.7 cm    9069 rows: within 45 degrees of the demonstrated path: current direction 73 % (median error 26); last sure direction 46 % (51); sum of the last six predicted steps 63 % (34)
+   predicted 0.7 cm or more   7086 rows: within 45 degrees of the demonstrated path: current direction 88 % (median error 14); last sure direction 80 % (18); sum of the last six predicted steps 81 % (21)
+   rows where the last six predicted steps add up to under 1.0 cm (the guard's own situation): 384; the sum's direction is within 45 degrees of the demonstrated path on 59 % (median error 34 degrees), within 90 degrees on 83 %
+

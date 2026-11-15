@@ -1,0 +1,215 @@
+usage: t08_visit_runs_lists_of_every_sort.py [-h] [--dry] [--again]
+                                             [--run-folder PATH]
+                                             run_list label
+t08_visit_runs_lists_of_every_sort.py: error: the following arguments are required: label
+usage: t08_visit_runs_lists_of_every_sort.py [-h] [--dry] [--again]
+                                             [--run-folder PATH]
+                                             run_list label
+t08_visit_runs_lists_of_every_sort.py: error: the following arguments are required: label
+=== the list file itself
+--- a good line, dry
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- column label missing
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\short.csv lacks the column(s) label; its first line must name these columns: label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note
+--- column checkpoint_sha256 missing
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\short.csv lacks the column(s) checkpoint_sha256; its first line must name these columns: label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note
+--- column note missing
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\short.csv lacks the column(s) note; its first line must name these columns: label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note
+--- column ghost missing
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\short.csv lacks the column(s) ghost; its first line must name these columns: label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note
+--- column step_cm missing
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\short.csv lacks the column(s) step_cm; its first line must name these columns: label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note
+--- unknown label
+   exit 1: not started: the run list has no line with the label "check_9"; its labels are: check_1
+--- label in other letters (Check_1)
+   exit 1: not started: the run list has no line with the label "Check_1"; its labels are: check_1
+--- label with a space after it in the list
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- empty file
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\empty.csv lacks the column(s) label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note; its first line must name these columns: label, part, sheet, lay_out, mode
+--- only the header
+   exit 1: not started: the run list has no line with the label "check_1"; its labels are: none
+--- a folder given as the list
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m cannot be read ([Errno 13] Permission denied: 'C:\\Users\\e7dc\\AppData\\Local\\Temp\\tmp05t0as9m')
+--- header in capitals
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\caps.csv lacks the column(s) label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note; its first line must name these columns: label, part, sheet, lay_out, model
+--- with a byte order mark and CRLF (as Excel saves 'CSV UTF-8')
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- saved as ANSI by Excel with an umlaut in the note
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\ansi.csv cannot be read ('utf-8' codec can't decode byte 0xfc in position 425: invalid start byte)
+--- saved as UTF-16 (Excel 'Unicode Text')
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\utf16.csv cannot be read ('utf-8' codec can't decode byte 0xff in position 0: invalid start byte)
+--- tab separated
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\tab.csv lacks the column(s) label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note; its first line must name these columns: label, part, sheet, lay_out, model_
+--- semicolon separated with a team (quoted cell)
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- semicolon list typed by hand, team cell not quoted
+   exit 1: not started: line check_1: step_rule is "27dc390c52e7"; it must be fixed or predicted
+--- comma list typed by hand, comma in the note (not quoted)
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   note shown: ['  note         sheet 03']
+--- comma list typed by hand, comma in the sheet cell (not quoted)
+   exit 1: not started: line check_1: step_rule is "..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\metrics.json"; it must be fixed or predicted
+--- a blank first line
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\blank_first.csv lacks the column(s) label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note; its first line must name these columns: label, part, sheet, lay_out
+--- a comment line above the header
+   exit 1: not started: the run list C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\comment.csv lacks the column(s) label, part, sheet, lay_out, model_key, run_name, checkpoints, checkpoint_sha256, metrics, step_rule, step_cm, step_budget, stall, ghost, place_help, note; its first line must name these columns: label, part, sheet, lay_out, mo
+--- spaces after the commas
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- two lines with the same label
+   exit 1: not started: the label "check_1" stands on 2 lines of the run list; every run needs a label of its own
+
+=== labels
+--- label '-start'
+   exit RAISED SystemExit: 2: 
+--- label '--dry'
+   exit RAISED SystemExit: 2: 
+--- label '.'
+   exit 0: Run .: the simulated robot, nothing real moves
+--- label '..'
+   exit 0: Run ..: the simulated robot, nothing real moves
+--- label 'run.'
+   exit 0: Run run.: the simulated robot, nothing real moves
+--- label 'a.b'
+   exit 0: Run a.b: the simulated robot, nothing real moves
+--- label 'CON'
+   exit 0: Run CON: the simulated robot, nothing real moves
+--- label 'nul'
+   exit 0: Run nul: the simulated robot, nothing real moves
+--- label 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+   exit 0: Run xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx: the simulated robot, nothing real moves
+--- label 'a b'
+   exit 1: not started: the label "a b" names a folder, so it may hold letters, digits, "_", "-" and "." only
+--- label 'a/b'
+   exit 1: not started: the label "a/b" names a folder, so it may hold letters, digits, "_", "-" and "." only
+--- label 'a\\b'
+   exit 1: not started: the label "a\b" names a folder, so it may hold letters, digits, "_", "-" and "." only
+--- label ''
+   exit 1: not started: the label "" names a folder, so it may hold letters, digits, "_", "-" and "." only
+--- label 'check_1\n'
+   exit 1: not started: the run list has no line with the label "check_1
+
+=== checksums
+--- the whole sha256
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- in capitals
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- 13 characters
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- 11 characters
+   exit 1: not started: line check_1: "81cd3c3bbe9" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- 65 characters
+   exit 1: not started: line check_1: "81cd3c3bbe935cc287b8798c76f4b17828cfe9ca38994d92120dbf3bbcc4a3b40" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- wrong last character
+   exit 1: not started: line check_1: the checkpoint file D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt is not the one the list means: its sha256 begins with 81cd3c3bbe93, the list says 81cd3c3bbe90
+--- with 0x in front
+   exit 1: not started: line check_1: "0x81cd3c3bbe93" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- with a space inside
+   exit 1: not started: line check_1: "81cd3c 3bbe93" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- with an apostrophe in front (spreadsheet text mark)
+   exit 1: not started: line check_1: "'81cd3c3bbe93" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- two given for one file
+   exit 1: not started: line check_1: 1 checkpoint file(s) but 2 sha256 given; every file needs its own
+--- ending in ';'
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- team: second checksum wrong
+   exit 1: not started: line check_1: the checkpoint file D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_2\checkpoints\all_sheets.pt is not the one the list means: its sha256 begins with 27dc390c52e7, the list says 81cd3c3bbe93
+--- team: checksums in the wrong order
+   exit 1: not started: line check_1: the checkpoint file D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt is not the one the list means: its sha256 begins with 81cd3c3bbe93, the list says 27dc390c52e7
+--- team: separated by ' ; ' with spaces
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- team: separated by ',' instead of ';'
+   exit 1: not started: line check_1: "81cd3c3bbe93,27dc390c52e7" is not the first 12 characters of a sha256 (digits and the letters a to f) for all_sheets.pt; a spreadsheet may have changed the cell
+--- the same file twice as a team
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- checkpoint is a folder
+   exit 1: not started: line check_1: the checkpoint file D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints is missing (trained models are not in git: copy it there first)
+--- metrics is the checkpoint file (not a json)
+   exit 0: Run check_1: the simulated robot, nothing real moves
+--- metrics of another run (not checked against the checkpoint)
+   exit 0: Run check_1: the simulated robot, nothing real moves
+
+=== cells
+--- step_cm 1.0
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: 1_all_sheets\metrics.json --step-length fixed --step-cm 1.0 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- step_cm 1,0
+   exit 1: not started: line check_1: step_cm is "1,0"; it must be a number of centimetres between 0.1 and 1, written with a point, for example 0.65
+--- step_cm 0.05
+   exit 1: not started: line check_1: step_cm is "0.05"; it must be a number of centimetres between 0.1 and 1, written with a point, for example 0.65
+--- step_cm nan
+   exit 1: not started: line check_1: step_cm is "nan"; it must be a number of centimetres between 0.1 and 1, written with a point, for example 0.65
+--- step_cm '0.65 cm'
+   exit 1: not started: line check_1: step_cm is "0.65 cm"; it must be a number of centimetres between 0.1 and 1, written with a point, for example 0.65
+--- step_cm 6.5e-1
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: ll_sheets\metrics.json --step-length fixed --step-cm 6.5e-1 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- step_budget 0
+   exit 1: not started: line check_1: step_budget is "0"; it must be a whole number of steps above 0, or empty
+--- step_budget 250.0
+   exit 1: not started: line check_1: step_budget is "250.0"; it must be a whole number of steps above 0, or empty
+--- step_budget -5
+   exit 1: not started: line check_1: step_budget is "-5"; it must be a whole number of steps above 0, or empty
+--- step_budget 1e2
+   exit 1: not started: line check_1: step_budget is "1e2"; it must be a whole number of steps above 0, or empty
+--- step_budget 9999999
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: heets\metrics.json --step-length fixed --step-cm 0.65 --step-budget 9999999 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- step_rule empty
+   exit 1: not started: line check_1: step_rule is ""; it must be fixed or predicted
+--- step_rule Fixed
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: _all_sheets\metrics.json --step-length fixed --step-cm 0.65 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- part Robot (dry)
+   exit 0: Run check_1: THE REAL ROBOT
+   command: etrics.json --step-length fixed --step-cm 0.65 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs --fresh-keys
+--- part empty
+   exit 1: not started: line check_1: part is ""; it must be robot or simulated
+--- stall LOG
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: _all_sheets\metrics.json --step-length fixed --step-cm 0.65 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- place_help Yes
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: etrics.json --step-length fixed --step-cm 0.65 --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs --place-help
+--- place_help ja
+   exit 1: not started: line check_1: place_help is "ja"; it must be empty or yes or no
+--- place_help TRUE (spreadsheet)
+   exit 1: not started: line check_1: place_help is "TRUE"; it must be empty or yes or no
+--- place_help 1
+   exit 1: not started: line check_1: place_help is "1"; it must be empty or yes or no
+--- run_name empty
+   exit 1: not started: line check_1: run_name "" is not a recipe of TRAINING_RUNS in config.py
+--- metrics empty
+   exit 1: not started: line check_1: the metrics file (none given) is missing
+--- ghost is a folder
+   exit 1: not started: line check_1: the reference picture D:\AI_Project\.claude\worktrees\training-analysis\02_code (ghost) is missing
+--- predicted with an empty step_cm
+   exit 0: Run check_1: the simulated robot, nothing real moves
+   command: t18_model_1_all_sheets\metrics.json --step-length predicted --step-budget 4 --stall log --run-folder C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs
+--- predicted with step_cm
+   exit 1: not started: line check_1: step_cm is the length of the fixed step and does not go together with the step rule "predicted"; leave step_cm empty
+
+=== paths with spaces, run for real on the simulated robot
+--- dry
+   exit 0: Run spaces_1: the simulated robot, nothing real moves
+   command: D:\AI_Project\.venv\Scripts\python.exe D:\AI_Project\.claude\worktrees\training-analysis\02_code\model_mode.py simulated --label spaces_1 --run-name resnet18_model_1_all_sheets --checkpoint "C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\a folder with spaces\model one\all sheets.pt" --metrics "C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\a folder with spaces\model one\metrics of it.json" --step-length fixed --step-cm 0.65 --step-budget 4 --stall log --ghost "C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\a folder with spaces\model one\first picture.jpg" --run-folder "C:\Users\e7dc\AppData\Local\Temp\tmp05t0as9m\runs with spaces" --place-help
+--- for real (simulated)
+   exit 0: Run spaces_1: the simulated robot, nothing real moves
+   run folders: ['2026-11-12_122410_spaces_1']
+   the run said: []
+   summary: {'label': 'spaces_1', 'ending': 'step_budget_reached', 'pictures': 4, 'fixed_step_cm': 0.65, 'stall_action': 'log', 'checkpoints': ['C:\\Users\\e7dc\\AppData\\Local\\Temp\\tmp05t0as9m\\a folder with spaces\\model one\\all sheets.pt']}
+--- the same label again
+   exit 1: not started: the label spaces_1 already has a run folder (2026-11-12_122410_spaces_1). To run it once more, add --again (its log gets a new folder beside the old one); else take the next line of the list
+--- the same label again with --again, dry
+   exit 0: Run spaces_1: the simulated robot, nothing real moves
+
+=== the label check against run folders
+--- label check_1 with a run folder
+   exit 1: not started: the label check_1 already has a run folder (2026-11-12_101500_check_1). To run it once more, add --again (its log gets a new folder beside the old one); else take the next line of the list
+   folder '2026-11-12_101500_check_10' (on disk ['2026-11-12_101500_check_10']) counts as a run of check_1: False
+   folder '2026-11-12_101500_xcheck_1' (on disk ['2026-11-12_101500_xcheck_1']) counts as a run of check_1: False
+   folder '2026-11-12_1015_check_1' (on disk ['2026-11-12_1015_check_1']) counts as a run of check_1: False
+   folder '2026-11-12_101500_check_1 ' (on disk ['2026-11-12_101500_check_1']) counts as a run of check_1: True
+   a run of the label 'run.' is stored as ['2026-11-12_101500_run'] and found again: False
+   a FILE named like a run folder counts: False
+   run folder that is missing: []

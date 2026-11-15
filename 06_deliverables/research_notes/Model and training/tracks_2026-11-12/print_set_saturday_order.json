@@ -1,0 +1,209 @@
+[
+ {
+  "page": 1,
+  "name": "printer check",
+  "source": "print_me_first_100mm_bar.pdf"
+ },
+ {
+  "page": 2,
+  "name": "list",
+  "source": "print_set_saturday_list.pdf page 1"
+ },
+ {
+  "page": 3,
+  "name": "list",
+  "source": "print_set_saturday_list.pdf page 2"
+ },
+ {
+  "page": 4,
+  "name": "T01",
+  "style": "solid",
+  "source": "training/T01_solid.pdf"
+ },
+ {
+  "page": 5,
+  "name": "T01",
+  "style": "dashed",
+  "source": "training/T01_dashed.pdf"
+ },
+ {
+  "page": 6,
+  "name": "T02",
+  "style": "solid",
+  "source": "training/T02_solid.pdf"
+ },
+ {
+  "page": 7,
+  "name": "T02",
+  "style": "dashed",
+  "source": "training/T02_dashed.pdf"
+ },
+ {
+  "page": 8,
+  "name": "T03",
+  "style": "solid",
+  "source": "training/T03_solid.pdf"
+ },
+ {
+  "page": 9,
+  "name": "T03",
+  "style": "dashed",
+  "source": "training/T03_dashed.pdf"
+ },
+ {
+  "page": 10,
+  "name": "T04",
+  "style": "solid",
+  "source": "training/T04_solid.pdf"
+ },
+ {
+  "page": 11,
+  "name": "T04",
+  "style": "dashed",
+  "source": "training/T04_dashed.pdf"
+ },
+ {
+  "page": 12,
+  "name": "T05",
+  "style": "solid",
+  "source": "training/T05_solid.pdf"
+ },
+ {
+  "page": 13,
+  "name": "T05",
+  "style": "dashed",
+  "source": "training/T05_dashed.pdf"
+ },
+ {
+  "page": 14,
+  "name": "T06",
+  "style": "solid",
+  "source": "training/T06_solid.pdf"
+ },
+ {
+  "page": 15,
+  "name": "T06",
+  "style": "dashed",
+  "source": "training/T06_dashed.pdf"
+ },
+ {
+  "page": 16,
+  "name": "T07",
+  "style": "solid",
+  "source": "training/T07_solid.pdf"
+ },
+ {
+  "page": 17,
+  "name": "T07",
+  "style": "dashed",
+  "source": "training/T07_dashed.pdf"
+ },
+ {
+  "page": 18,
+  "name": "T08",
+  "style": "solid",
+  "source": "training/T08_solid.pdf"
+ },
+ {
+  "page": 19,
+  "name": "T08",
+  "style": "dashed",
+  "source": "training/T08_dashed.pdf"
+ },
+ {
+  "page": 20,
+  "name": "T09",
+  "style": "solid",
+  "source": "training/T09_solid.pdf"
+ },
+ {
+  "page": 21,
+  "name": "T09",
+  "style": "dashed",
+  "source": "training/T09_dashed.pdf"
+ },
+ {
+  "page": 22,
+  "name": "T10",
+  "style": "solid",
+  "source": "training/T10_solid.pdf"
+ },
+ {
+  "page": 23,
+  "name": "T10",
+  "style": "dashed",
+  "source": "training/T10_dashed.pdf"
+ },
+ {
+  "page": 24,
+  "name": "T11",
+  "style": "solid",
+  "source": "training/T11_solid.pdf"
+ },
+ {
+  "page": 25,
+  "name": "T11",
+  "style": "dashed",
+  "source": "training/T11_dashed.pdf"
+ },
+ {
+  "page": 26,
+  "name": "T12",
+  "style": "solid",
+  "source": "training/T12_solid.pdf"
+ },
+ {
+  "page": 27,
+  "name": "T12",
+  "style": "dashed",
+  "source": "training/T12_dashed.pdf"
+ },
+ {
+  "page": 28,
+  "name": "T13",
+  "style": "solid",
+  "source": "training/T13_solid.pdf"
+ },
+ {
+  "page": 29,
+  "name": "T13",
+  "style": "dashed",
+  "source": "training/T13_dashed.pdf"
+ },
+ {
+  "page": 30,
+  "name": "T14",
+  "style": "solid",
+  "source": "training/T14_solid.pdf"
+ },
+ {
+  "page": 31,
+  "name": "T14",
+  "style": "dashed",
+  "source": "training/T14_dashed.pdf"
+ },
+ {
+  "page": 32,
+  "name": "T15",
+  "style": "solid",
+  "source": "training/T15_solid.pdf"
+ },
+ {
+  "page": 33,
+  "name": "T15",
+  "style": "dashed",
+  "source": "training/T15_dashed.pdf"
+ },
+ {
+  "page": 34,
+  "name": "T16",
+  "style": "solid",
+  "source": "training/T16_solid.pdf"
+ },
+ {
+  "page": 35,
+  "name": "T16",
+  "style": "dashed",
+  "source": "training/T16_dashed.pdf"
+ }
+]

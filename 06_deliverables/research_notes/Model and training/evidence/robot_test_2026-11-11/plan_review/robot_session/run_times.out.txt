@@ -1,0 +1,16 @@
+label | ending | pictures | moves | seconds logged | seconds per picture | started | last picture | gap to next start (s)
+check_no_puck                | stopped  |  26 |  25 |   25.7 |  0.92 | 17:20:21 | 17:20:44 | gap    217 | start to start    240 | resnet18_model_1_all_sheets x1 | None 0.01
+E_sheet01_run1               | stopped  |  25 |  24 |   24.5 |  0.90 | 17:24:21 | 17:24:43 | gap    180 | start to start    202 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet02_run1               | quit     |  38 |  37 |   36.7 |  0.92 | 17:27:43 | 17:28:18 | gap    138 | start to start    173 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet02_run2               | stopped  |  42 |  41 |   40.0 |  0.91 | 17:30:36 | 17:31:13 | gap    275 | start to start    313 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet03_run1               | stopped  |  60 |  59 |   64.9 |  1.05 | 17:35:49 | 17:36:51 | gap    256 | start to start    319 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet04_run1               | stopped  |  69 |  68 |   63.1 |  0.89 | 17:41:08 | 17:42:08 | gap    159 | start to start    220 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet05_run1               | stopped  |  89 |  88 |   87.6 |  0.96 | 17:44:48 | 17:46:13 | gap    203 | start to start    288 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet06_run1               | stopped  |  41 |  40 |   43.2 |  1.00 | 17:49:36 | 17:50:16 | gap    107 | start to start    147 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+E_sheet03_run2_no_hoodie     | stopped  |  90 |  89 |   95.4 |  1.04 | 17:52:03 | 17:53:36 | gap    127 | start to start    221 | resnet18_model_4_chunk_stop_25_all_sheets x1 | None 0.01
+B_team5_sheet03              | stopped  |  74 |  73 |   83.0 |  1.10 | 17:55:44 | 17:57:04 | gap    nan | start to start    nan | resnet18_model_1_all_sheets x5 | None 0.01
+
+first start to last picture: 36.7 minutes for 10 runs = 3.7 minutes per run
+start-to-start cycles (min): 4.0, 3.4, 2.9, 5.2, 5.3, 3.7, 4.8, 2.5, 3.7
+median cycle 3.7 min, mean 3.9 min
+seconds logged inside the run loop: [25.7, 24.5, 36.7, 40.0, 64.9, 63.1, 87.6, 43.2, 95.4, 83.0] sum 564.1

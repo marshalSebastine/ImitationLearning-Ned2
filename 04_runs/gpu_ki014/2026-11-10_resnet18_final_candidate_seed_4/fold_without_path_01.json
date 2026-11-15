@@ -1,0 +1,99 @@
+{
+ "measures": {
+  "test_rows": 644,
+  "test_episodes": 20,
+  "direction_rows": 578,
+  "angle_error_median_deg": 12.6,
+  "angle_error_mean_deg": 28.73,
+  "class_accuracy": 0.6696,
+  "class_balanced_accuracy": 0.1792,
+  "within_30_deg": 0.7076,
+  "within_45_deg": 0.7716,
+  "within_60_deg": 0.8218,
+  "path_direction_rows": 529,
+  "path_angle_error_median_deg": 8.33,
+  "path_angle_error_mean_deg": 19.49,
+  "path_class_accuracy": 0.7486,
+  "path_class_balanced_accuracy": 0.1921,
+  "path_within_30_deg": 0.7902,
+  "path_within_45_deg": 0.8544,
+  "path_within_60_deg": 0.8998,
+  "stop_precision": 0.3214,
+  "stop_recall": 0.8571,
+  "stop_average_precision": 0.5742,
+  "episodes_stopped_right": 0.8,
+  "episodes_stopped_early": 0.1,
+  "episodes_never_stopped": 0.1,
+  "fixed_two_episodes_stopped_right": 0.8,
+  "fixed_two_episodes_stopped_early": 0.1,
+  "fixed_two_episodes_never_stopped": 0.1,
+  "tuned_episodes_stopped_right": 0.8,
+  "tuned_episodes_stopped_early": 0.1,
+  "tuned_episodes_never_stopped": 0.1,
+  "tuned_stop_threshold": 0.5,
+  "tuned_two_episodes_stopped_right": 0.8,
+  "tuned_two_episodes_stopped_early": 0.1,
+  "tuned_two_episodes_never_stopped": 0.1,
+  "tuned_two_stop_threshold": 0.5,
+  "twist_rows": 238,
+  "twist_sign_accuracy": 0.7437,
+  "twist_error_mean_deg": 2.121,
+  "lean_rows": 469,
+  "lean_sign_accuracy": 0.9083,
+  "lean_error_mean_deg": 0.87,
+  "hand_rows": 0,
+  "fold": "without_path_01",
+  "epochs_run": 8,
+  "minutes": 2.1
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 1.0628,
+   "validation_loss": 0.9066,
+   "seconds": 18.6
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.7681,
+   "validation_loss": 0.7282,
+   "seconds": 15.0
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.6856,
+   "validation_loss": 0.6821,
+   "seconds": 15.2
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.6626,
+   "validation_loss": 0.6009,
+   "seconds": 15.1
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.5639,
+   "validation_loss": 0.5874,
+   "seconds": 15.1
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.5376,
+   "validation_loss": 0.5619,
+   "seconds": 14.9
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.4822,
+   "validation_loss": 0.5447,
+   "seconds": 14.9
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.4608,
+   "validation_loss": 0.5438,
+   "seconds": 15.3
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+=== within_45_deg ~ fold + log2(pictures) + log2(sheets) ===
+all runs (n 126): per doubling of pictures +1.70 points (+0.79 to +2.67); per doubling of sheets +2.51 (+1.64 to +3.36)
+    projected: 4 new tracks x 20 +2.65; 100 more episodes on the six +0.96; ratio 2.76
+without the one-sheet runs (n 108): per doubling of pictures +1.86 points (+1.14 to +2.56); per doubling of sheets +2.13 (+0.90 to +3.32)
+    projected: 4 new tracks x 20 +2.44; 100 more episodes on the six +1.05; ratio 2.32
+without the one- and two-sheet runs (n 90): per doubling of pictures +1.86 points (+1.06 to +2.63); per doubling of sheets +3.21 (+1.00 to +5.47)
+    projected: 4 new tracks x 20 +3.24; 100 more episodes on the six +1.05; ratio 3.08
+
+=== tuned_two_episodes_stopped_right ~ fold + log2(pictures) + log2(sheets) ===
+all runs (n 126): per doubling of pictures +8.65 points (+5.77 to +11.72); per doubling of sheets +3.27 (+0.29 to +6.22)
+    projected: 4 new tracks x 20 +6.46; 100 more episodes on the six +4.88; ratio 1.32
+without the one-sheet runs (n 108): per doubling of pictures +7.68 points (+4.60 to +11.02); per doubling of sheets +4.57 (-0.85 to +9.63)
+    projected: 4 new tracks x 20 +6.96; 100 more episodes on the six +4.33; ratio 1.61
+without the one- and two-sheet runs (n 90): per doubling of pictures +6.83 points (+3.57 to +10.00); per doubling of sheets +2.09 (-7.71 to +11.75)
+    projected: 4 new tracks x 20 +4.74; 100 more episodes on the six +3.85; ratio 1.23
+

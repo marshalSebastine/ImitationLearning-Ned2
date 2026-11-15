@@ -1,0 +1,63 @@
+(a) Wrist and forearm in the whole-line demonstrations, by sheet and start end (the driver holds the wrist at 13.5 deg)
+                                       0      1      2       3
+sheet                                 05     05     06      06
+start end                              A      B      A       B
+demonstrations                         5     18     13       8
+pictures                             553   1992   1217     676
+wrist over 5 deg from 13.5, all     0.48   0.37   0.57    0.38
+in the loop                         0.51    0.4   0.58    0.46
+after the loop                      0.81   0.49   0.85     1.0
+wrist median in the loop           14.14  13.53   18.8   17.13
+wrist 90th in the loop             28.42  25.61  30.76   30.23
+wrist median after the loop        19.86  13.44  26.71   27.42
+forearm least                    -101.95 -81.43 -85.95 -117.72
+forearm most                       68.21  73.31  86.05   84.34
+backward steps per demonstration    30.0   30.0   30.0    17.0
+pictures per demonstration         111.0  109.5   83.0    82.5
+puck over 1 cm beside the line      0.25   0.28   0.17    0.12
+
+(b) Stop chance of the folds that never saw sheet 06, on sheet 06's pictures more than 4 cm of travel before the stop row, by what lies ahead of the puck
+  E recipe:
+                        pictures   mean  over_half
+dash ahead                   360  0.005      0.003
+edge of a dash               159  0.001      0.000
+gap ahead                    309  0.004      0.000
+not visible                  914  0.019      0.013
+hardly any ink ahead         118  0.004      0.000
+ink ahead in view           1270  0.002      0.001
+line ahead not in view       354  0.050      0.034
+                     pictures   mean  over_half
+part                                           
+after the loop            189  0.002       0.00
+before the crossing       308  0.000       0.00
+in the loop              1245  0.017       0.01
+  E recipe, seed 2:
+                        pictures   mean  over_half
+dash ahead                   360  0.004      0.000
+edge of a dash               159  0.006      0.000
+gap ahead                    309  0.012      0.003
+not visible                  914  0.051      0.030
+hardly any ink ahead         118  0.022      0.000
+ink ahead in view           1270  0.005      0.000
+line ahead not in view       354  0.122      0.079
+                     pictures   mean  over_half
+part                                           
+after the loop            189  0.017      0.000
+before the crossing       308  0.001      0.000
+in the loop              1245  0.039      0.022
+  A recipe:
+                        pictures   mean  over_half
+dash ahead                   360  0.001        0.0
+edge of a dash               159  0.002        0.0
+gap ahead                    309  0.001        0.0
+not visible                  914  0.007        0.0
+hardly any ink ahead         118  0.002        0.0
+ink ahead in view           1270  0.002        0.0
+line ahead not in view       354  0.013        0.0
+                     pictures   mean  over_half
+part                                           
+after the loop            189  0.002        0.0
+before the crossing       308  0.000        0.0
+in the loop              1245  0.006        0.0
+  E recipe fold without sheet 05, all its pictures 5 or more rows before the end: 2455 pictures, stop chance 0.5 or more in 2.6 %
+  E recipe fold without sheet 06, all its pictures 5 or more rows before the end: 1811 pictures, stop chance 0.5 or more in 0.7 %

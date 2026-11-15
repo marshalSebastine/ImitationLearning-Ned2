@@ -1,0 +1,4 @@
+splits | classes_held_out_episodes | 174.6 s | within 45: 0.6548 | class accuracy: 0.4681 | stopped right: 0.5086 | early: 0.1159
+splits | exact_held_out_episodes | 216.6 s | within 45: 0.7072 | class accuracy: 0.4778 | stopped right: 0.5712 | early: 0.1648
+splits | classes_held_out_sheets | 217.8 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+splits | exact_held_out_sheets | 215.4 s | within 45: 0.5914 | class accuracy: 0.3984 | stopped right: 0.2905 | early: 0.2426

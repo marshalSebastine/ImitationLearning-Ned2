@@ -1,0 +1,273 @@
+THE FOLD MODELS' TWIST ON HELD-OUT SHEETS (measured from predictions_*.npz in 04_runs/gpu_ki014 and frames.csv with the audit cleaning)
+
+1. Step by step, per held-out sheet
+   model                      sheet     rows mean |demo| mean |pred| size ratio demo on pred pred on demo correlation sign right
+   A recipe (exact)           path_01    623        2.25        1.39       0.62         0.64         0.21        0.36       0.71
+   A recipe (exact)           path_02   2614        2.71        2.82       1.04         0.54         0.39        0.46       0.81
+   A recipe (exact)           path_03   3899        4.27        3.24       0.76         0.97         0.49        0.69       0.86
+   A recipe (exact)           path_04   6171        4.77        2.94       0.62         0.97         0.35        0.59       0.77
+   A recipe (exact)           path_05   2561        3.89        1.92       0.49         0.84         0.22        0.44       0.73
+   A recipe (exact)           path_06   1905        4.51        2.05       0.46         1.16         0.26        0.57       0.76
+   A recipe (exact)           all      17773        4.11        2.69       0.65         0.90         0.36        0.57       0.79
+   A recipe seed 2            path_01    623        2.25        1.40       0.62         0.55         0.18        0.32       0.71
+   A recipe seed 2            path_02   2614        2.71        2.62       0.97         0.61         0.39        0.49       0.81
+   A recipe seed 2            path_03   3899        4.27        3.58       0.84         0.89         0.55        0.70       0.85
+   A recipe seed 2            path_04   6171        4.77        3.09       0.65         0.94         0.38        0.60       0.77
+   A recipe seed 2            path_05   2561        3.89        1.96       0.50         0.57         0.16        0.31       0.63
+   A recipe seed 2            path_06   1905        4.51        1.81       0.40         1.30         0.23        0.54       0.78
+   A recipe seed 2            all      17773        4.11        2.77       0.67         0.87         0.37        0.57       0.77
+   chunk                      path_01    623        2.25        1.50       0.67         0.57         0.18        0.33       0.67
+   chunk                      path_02   2614        2.71        2.59       0.96         0.59         0.36        0.45       0.80
+   chunk                      path_03   3899        4.27        3.08       0.72         0.99         0.47        0.68       0.85
+   chunk                      path_04   6171        4.77        2.97       0.62         1.01         0.38        0.62       0.78
+   chunk                      path_05   2561        3.89        1.73       0.45         0.68         0.14        0.31       0.65
+   chunk                      path_06   1905        4.51        1.99       0.44         1.32         0.28        0.59       0.79
+   chunk                      all      17773        4.11        2.60       0.63         0.94         0.35        0.58       0.78
+   E recipe (chunk, stop 25)  path_01    623        2.25        1.26       0.56         0.65         0.16        0.32       0.70
+   E recipe (chunk, stop 25)  path_02   2614        2.71        2.60       0.96         0.54         0.34        0.42       0.78
+   E recipe (chunk, stop 25)  path_03   3899        4.27        2.99       0.70         1.02         0.46        0.68       0.85
+   E recipe (chunk, stop 25)  path_04   6171        4.77        3.01       0.63         0.97         0.38        0.61       0.78
+   E recipe (chunk, stop 25)  path_05   2561        3.89        1.74       0.45         0.70         0.15        0.33       0.65
+   E recipe (chunk, stop 25)  path_06   1905        4.51        2.20       0.49         1.28         0.32        0.63       0.81
+   E recipe (chunk, stop 25)  all      17773        4.11        2.62       0.64         0.93         0.36        0.58       0.78
+   E recipe seed 2            path_01    623        2.25        1.22       0.54         0.60         0.17        0.32       0.68
+   E recipe seed 2            path_02   2614        2.71        2.51       0.93         0.63         0.37        0.48       0.79
+   E recipe seed 2            path_03   3899        4.27        3.33       0.78         0.92         0.51        0.69       0.85
+   E recipe seed 2            path_04   6171        4.77        3.11       0.65         0.92         0.35        0.57       0.77
+   E recipe seed 2            path_05   2561        3.89        1.99       0.51         0.67         0.20        0.38       0.70
+   E recipe seed 2            path_06   1905        4.51        1.42       0.32         1.48         0.19        0.53       0.74
+   E recipe seed 2            all      17773        4.11        2.66       0.65         0.88         0.35        0.55       0.77
+   chunk twist focus          path_01    623        2.25        1.30       0.58         0.66         0.20        0.36       0.69
+   chunk twist focus          path_02   2614        2.71        2.82       1.04         0.58         0.42        0.49       0.80
+   chunk twist focus          path_03   3899        4.27        3.30       0.77         0.95         0.51        0.70       0.86
+   chunk twist focus          path_04   6171        4.77        3.07       0.64         0.98         0.40        0.62       0.78
+   chunk twist focus          path_05   2561        3.89        1.90       0.49         0.67         0.17        0.36       0.67
+   chunk twist focus          path_06   1905        4.51        2.04       0.45         1.29         0.30        0.61       0.79
+   chunk twist focus          all      17773        4.11        2.74       0.67         0.91         0.38        0.59       0.78
+   chunk twist focus seed 2   path_01    623        2.25        1.41       0.63         0.62         0.24        0.38       0.72
+   chunk twist focus seed 2   path_02   2614        2.71        2.71       1.00         0.64         0.45        0.53       0.81
+   chunk twist focus seed 2   path_03   3899        4.27        3.37       0.79         0.94         0.53        0.70       0.85
+   chunk twist focus seed 2   path_04   6171        4.77        3.02       0.63         0.97         0.37        0.60       0.78
+   chunk twist focus seed 2   path_05   2561        3.89        2.21       0.57         0.64         0.22        0.38       0.70
+   chunk twist focus seed 2   path_06   1905        4.51        2.48       0.55         0.96         0.31        0.52       0.79
+   chunk twist focus seed 2   all      17773        4.11        2.82       0.69         0.88         0.39        0.58       0.79
+   'size ratio': mean |predicted| / mean |demonstrated| (the brief's 'about half').
+   'demo on pred': the factor that fits demonstrated = factor x predicted best, step by step (above 1: the model twists too little where it twists).
+   'pred on demo': predicted = factor x demonstrated: the share of each demonstrated twist the model gives back on average.
+   'sign right': on steps that twisted 2 degrees or more.
+
+2. Summed along the held-out demonstrations: joint 4 after N steps when the PREDICTED twists are added up over the demonstration's own pictures
+   model                      sheet    steps windows median |demo turn| median |drift| 90% |drift| pred on demo demo on pred correlation median |drift|, pred x best gain
+   A recipe (exact)           path_01     10     396                7.0            7.6        31.4         0.30         0.54        0.39                              6.6
+   A recipe (exact)           path_02     10    1698               19.9           14.6        35.8         0.74         0.68        0.70                             12.6
+   A recipe (exact)           path_03     10    2966               38.8           12.6        36.1         0.71         1.04        0.86                             12.2
+   A recipe (exact)           path_04     10    5173               40.8           20.1        56.0         0.49         0.99        0.71                             20.3
+   A recipe (exact)           path_05     10    2064               27.2           20.7        47.4         0.33         1.00        0.58                             20.7
+   A recipe (exact)           path_06     10    1533               39.6           21.7        48.5         0.39         1.52        0.78                             14.7
+   A recipe (exact)           all         10   13830               34.0           17.3        46.5         0.52         0.99        0.72                             17.4
+   A recipe (exact)           path_01     20     184               14.5           16.6        52.6         0.60         0.59        0.57                             13.2
+   A recipe (exact)           path_02     20     876               44.9           21.3        51.8         0.94         0.76        0.84                             18.0
+   A recipe (exact)           path_03     20    2067               67.1           16.0        52.1         0.82         1.01        0.91                             15.8
+   A recipe (exact)           path_04     20    4247               63.9           32.2        91.9         0.54         0.92        0.73                             34.4
+   A recipe (exact)           path_05     20    1590               39.6           32.5        75.4         0.34         1.00        0.60                             32.5
+   A recipe (exact)           path_06     20    1220               58.9           30.3        65.6         0.45         1.58        0.85                             20.0
+   A recipe (exact)           all         20   10184               55.6           26.8        71.8         0.59         0.97        0.76                             27.2
+   A recipe (exact)           path_01     40      33               14.6           41.7        72.1         2.21         0.29        0.75                              9.6
+   A recipe (exact)           path_02     40     170               75.9           28.4        59.1         1.00         0.82        0.90                             22.1
+   A recipe (exact)           path_03     40     899               90.4           20.1        56.6         1.00         0.90        0.95                             21.1
+   A recipe (exact)           path_04     40    2873               96.2           42.5       155.4         0.66         0.72        0.77                             46.2
+   A recipe (exact)           path_05     40     886               86.8           65.5       126.1         0.22         0.96        0.49                             65.8
+   A recipe (exact)           path_06     40     694               87.5           51.4        99.8         0.39         1.80        0.73                             26.1
+   A recipe (exact)           all         40    5555               89.8           41.6       126.3         0.64         0.81        0.74                             43.4
+
+   A recipe seed 2            path_01     10     396                7.0            7.7        36.8         0.25         0.41        0.31                              6.1
+   A recipe seed 2            path_02     10    1698               19.9           14.2        36.1         0.74         0.72        0.72                             12.6
+   A recipe seed 2            path_03     10    2966               38.8           13.2        36.2         0.78         0.94        0.86                             13.2
+   A recipe seed 2            path_04     10    5173               40.8           20.7        56.3         0.51         0.97        0.71                             21.0
+   A recipe seed 2            path_05     10    2064               27.2           25.4        55.1         0.20         0.59        0.35                             25.7
+   A recipe seed 2            path_06     10    1533               39.6           21.8        53.4         0.34         1.59        0.73                             14.5
+   A recipe seed 2            all         10   13830               34.0           18.3        49.9         0.53         0.93        0.71                             18.6
+   A recipe seed 2            path_01     20     184               14.5           18.3        67.3         0.56         0.46        0.48                             14.1
+   A recipe seed 2            path_02     20     876               44.9           21.6        51.5         0.89         0.79        0.82                             18.8
+   A recipe seed 2            path_03     20    2067               67.1           18.3        53.8         0.91         0.91        0.91                             17.9
+   A recipe seed 2            path_04     20    4247               63.9           34.3        96.5         0.55         0.90        0.73                             35.8
+   A recipe seed 2            path_05     20    1590               39.6           42.7        87.1         0.17         0.53        0.34                             39.4
+   A recipe seed 2            path_06     20    1220               58.9           31.0        77.8         0.38         1.65        0.78                             25.0
+   A recipe seed 2            all         20   10184               55.6           29.8        77.8         0.59         0.90        0.74                             29.8
+   A recipe seed 2            path_01     40      33               14.6           56.3        68.2         2.68         0.25        0.72                              8.9
+   A recipe seed 2            path_02     40     170               75.9           28.5        70.2         0.89         0.86        0.83                             21.6
+   A recipe seed 2            path_03     40     899               90.4           29.8        78.4         1.11         0.79        0.94                             23.9
+   A recipe seed 2            path_04     40    2873               96.2           41.5       159.7         0.65         0.71        0.75                             48.7
+   A recipe seed 2            path_05     40     886               86.8           82.1       154.4         0.01         0.06        0.13                             86.1
+   A recipe seed 2            path_06     40     694               87.5           57.6        93.3         0.37         1.91        0.80                             39.0
+   A recipe seed 2            all         40    5555               89.8           46.5       135.4         0.62         0.75        0.70                             47.5
+
+   chunk                      path_01     10     396                7.0           11.6        36.7         0.24         0.45        0.34                              7.1
+   chunk                      path_02     10    1698               19.9           13.5        34.7         0.68         0.74        0.70                             12.7
+   chunk                      path_03     10    2966               38.8           13.1        39.2         0.67         1.08        0.85                             12.4
+   chunk                      path_04     10    5173               40.8           19.6        52.3         0.52         1.05        0.74                             19.2
+   chunk                      path_05     10    2064               27.2           24.8        54.5         0.19         0.73        0.39                             25.6
+   chunk                      path_06     10    1533               39.6           21.6        47.0         0.40         1.48        0.76                             15.9
+   chunk                      all         10   13830               34.0           17.8        48.2         0.51         1.03        0.73                             17.7
+   chunk                      path_01     20     184               14.5           22.3        48.4         0.55         0.57        0.57                             13.5
+   chunk                      path_02     20     876               44.9           18.1        47.2         0.88         0.84        0.85                             17.2
+   chunk                      path_03     20    2067               67.1           18.7        52.3         0.75         1.09        0.90                             16.9
+   chunk                      path_04     20    4247               63.9           32.5        85.9         0.58         0.99        0.77                             32.6
+   chunk                      path_05     20    1590               39.6           41.8        88.1         0.17         0.63        0.37                             37.2
+   chunk                      path_06     20    1220               58.9           28.1        67.5         0.48         1.45        0.80                             24.3
+   chunk                      all         20   10184               55.6           27.9        76.0         0.58         1.02        0.77                             27.7
+   chunk                      path_01     40      33               14.6           37.9        61.9         2.29         0.31        0.77                              7.8
+   chunk                      path_02     40     170               75.9           28.2        49.5         0.97         0.88        0.89                             27.2
+   chunk                      path_03     40     899               90.4           21.0        57.1         0.89         1.00        0.94                             21.2
+   chunk                      path_04     40    2873               96.2           41.3       126.1         0.69         0.85        0.80                             42.2
+   chunk                      path_05     40     886               86.8           84.7       147.9         0.02         0.09        0.13                             86.6
+   chunk                      path_06     40     694               87.5           40.8        73.9         0.55         1.49        0.83                             24.6
+   chunk                      all         40    5555               89.8           41.0       120.4         0.63         0.89        0.76                             42.3
+
+   E recipe (chunk, stop 25)  path_01     10     396                7.0            8.6        36.5         0.20         0.51        0.31                              6.5
+   E recipe (chunk, stop 25)  path_02     10    1698               19.9           13.7        36.5         0.64         0.69        0.65                             12.6
+   E recipe (chunk, stop 25)  path_03     10    2966               38.8           13.7        37.9         0.66         1.10        0.85                             12.7
+   E recipe (chunk, stop 25)  path_04     10    5173               40.8           20.6        55.7         0.52         1.00        0.72                             20.6
+   E recipe (chunk, stop 25)  path_05     10    2064               27.2           24.2        53.8         0.20         0.76        0.42                             24.7
+   E recipe (chunk, stop 25)  path_06     10    1533               39.6           20.6        42.6         0.47         1.43        0.81                             16.6
+   E recipe (chunk, stop 25)  all         10   13830               34.0           17.9        48.5         0.52         1.01        0.72                             17.8
+   E recipe (chunk, stop 25)  path_01     20     184               14.5           20.1        55.0         0.44         0.63        0.51                             13.3
+   E recipe (chunk, stop 25)  path_02     20     876               44.9           20.5        47.8         0.86         0.80        0.82                             18.9
+   E recipe (chunk, stop 25)  path_03     20    2067               67.1           19.3        53.4         0.74         1.09        0.90                             17.3
+   E recipe (chunk, stop 25)  path_04     20    4247               63.9           32.2        89.4         0.59         0.95        0.75                             32.7
+   E recipe (chunk, stop 25)  path_05     20    1590               39.6           40.4        87.9         0.18         0.64        0.40                             37.8
+   E recipe (chunk, stop 25)  path_06     20    1220               58.9           24.4        65.4         0.53         1.36        0.84                             22.8
+   E recipe (chunk, stop 25)  all         20   10184               55.6           27.0        78.3         0.59         0.99        0.76                             27.2
+   E recipe (chunk, stop 25)  path_01     40      33               14.6           30.5        46.3         1.85         0.38        0.77                              7.7
+   E recipe (chunk, stop 25)  path_02     40     170               75.9           27.0        63.8         1.04         0.81        0.87                             26.6
+   E recipe (chunk, stop 25)  path_03     40     899               90.4           21.5        58.8         0.85         1.03        0.94                             20.6
+   E recipe (chunk, stop 25)  path_04     40    2873               96.2           39.2       125.2         0.74         0.83        0.81                             40.5
+   E recipe (chunk, stop 25)  path_05     40     886               86.8           91.5       148.5        -0.01        -0.07        0.14                             87.0
+   E recipe (chunk, stop 25)  path_06     40     694               87.5           49.2        86.0         0.53         1.27        0.77                             43.6
+   E recipe (chunk, stop 25)  all         40    5555               89.8           41.0       122.5         0.65         0.86        0.75                             43.0
+
+   E recipe seed 2            path_01     10     396                7.0            7.6        38.7         0.21         0.45        0.30                              6.0
+   E recipe seed 2            path_02     10    1698               19.9           13.2        33.1         0.70         0.76        0.72                             12.3
+   E recipe seed 2            path_03     10    2966               38.8           12.8        37.8         0.73         0.99        0.85                             12.8
+   E recipe seed 2            path_04     10    5173               40.8           22.0        57.1         0.49         0.96        0.69                             22.8
+   E recipe seed 2            path_05     10    2064               27.2           23.9        52.1         0.26         0.73        0.47                             24.3
+   E recipe seed 2            path_06     10    1533               39.6           25.5        53.2         0.28         1.89        0.73                             18.0
+   E recipe seed 2            all         10   13830               34.0           18.5        49.7         0.51         0.96        0.70                             18.7
+   E recipe seed 2            path_01     20     184               14.5           19.4        60.9         0.48         0.53        0.48                             13.6
+   E recipe seed 2            path_02     20     876               44.9           20.1        47.4         0.87         0.83        0.85                             18.4
+   E recipe seed 2            path_03     20    2067               67.1           17.5        56.6         0.84         0.95        0.89                             18.0
+   E recipe seed 2            path_04     20    4247               63.9           34.0        88.9         0.58         0.91        0.74                             35.3
+   E recipe seed 2            path_05     20    1590               39.6           42.2        83.7         0.24         0.65        0.46                             36.9
+   E recipe seed 2            path_06     20    1220               58.9           37.2        83.4         0.30         2.10        0.80                             28.2
+   E recipe seed 2            all         20   10184               55.6           29.9        78.4         0.58         0.93        0.74                             29.7
+   E recipe seed 2            path_01     40      33               14.6           41.5        60.9         2.11         0.30        0.73                              8.4
+   E recipe seed 2            path_02     40     170               75.9           27.4        63.3         0.91         0.87        0.87                             26.6
+   E recipe seed 2            path_03     40     899               90.4           24.8        68.7         1.00         0.86        0.93                             24.1
+   E recipe seed 2            path_04     40    2873               96.2           38.9       134.0         0.73         0.78        0.80                             39.6
+   E recipe seed 2            path_05     40     886               86.8           88.4       141.9         0.05         0.21        0.27                             84.3
+   E recipe seed 2            path_06     40     694               87.5           62.7       105.6         0.28         2.56        0.86                             37.4
+   E recipe seed 2            all         40    5555               89.8           44.5       125.3         0.65         0.81        0.74                             44.5
+
+   chunk twist focus          path_01     10     396                7.0            7.6        32.7         0.28         0.52        0.37                              6.4
+   chunk twist focus          path_02     10    1698               19.9           14.4        34.8         0.78         0.69        0.73                             11.8
+   chunk twist focus          path_03     10    2966               38.8           12.0        35.9         0.73         1.02        0.86                             11.8
+   chunk twist focus          path_04     10    5173               40.8           19.4        51.6         0.54         1.01        0.74                             19.3
+   chunk twist focus          path_05     10    2064               27.2           23.5        53.9         0.22         0.77        0.45                             23.7
+   chunk twist focus          path_06     10    1533               39.6           18.4        46.1         0.44         1.51        0.80                             12.2
+   chunk twist focus          all         10   13830               34.0           16.8        46.1         0.55         0.99        0.74                             16.9
+   chunk twist focus          path_01     20     184               14.5           15.2        59.0         0.60         0.57        0.57                             11.6
+   chunk twist focus          path_02     20     876               44.9           21.9        52.6         0.99         0.74        0.86                             17.2
+   chunk twist focus          path_03     20    2067               67.1           17.3        49.6         0.82         1.02        0.91                             17.0
+   chunk twist focus          path_04     20    4247               63.9           30.9        88.2         0.60         0.96        0.76                             31.7
+   chunk twist focus          path_05     20    1590               39.6           39.0        89.1         0.19         0.65        0.43                             37.1
+   chunk twist focus          path_06     20    1220               58.9           24.2        64.2         0.50         1.49        0.84                             17.9
+   chunk twist focus          all         20   10184               55.6           26.1        74.0         0.62         0.97        0.77                             26.4
+   chunk twist focus          path_01     40      33               14.6           41.7        79.2         2.27         0.27        0.74                              8.6
+   chunk twist focus          path_02     40     170               75.9           34.0        55.1         1.03         0.79        0.91                             25.1
+   chunk twist focus          path_03     40     899               90.4           22.6        57.5         0.95         0.93        0.94                             22.4
+   chunk twist focus          path_04     40    2873               96.2           37.8       123.4         0.73         0.84        0.81                             39.4
+   chunk twist focus          path_05     40     886               86.8           87.6       151.9         0.00         0.01        0.18                             87.3
+   chunk twist focus          path_06     40     694               87.5           38.4        66.8         0.57         1.52        0.87                             21.0
+   chunk twist focus          all         40    5555               89.8           39.3       120.5         0.67         0.87        0.76                             41.0
+
+   chunk twist focus seed 2   path_01     10     396                7.0            7.2        29.8         0.37         0.53        0.43                              6.1
+   chunk twist focus seed 2   path_02     10    1698               19.9           12.7        33.3         0.82         0.73        0.77                             11.4
+   chunk twist focus seed 2   path_03     10    2966               38.8           12.7        37.6         0.74         0.99        0.86                             12.6
+   chunk twist focus seed 2   path_04     10    5173               40.8           20.1        52.6         0.51         0.99        0.71                             20.3
+   chunk twist focus seed 2   path_05     10    2064               27.2           23.0        52.3         0.29         0.69        0.47                             23.5
+   chunk twist focus seed 2   path_06     10    1533               39.6           18.6        47.7         0.46         1.10        0.69                             17.5
+   chunk twist focus seed 2   all         10   13830               34.0           16.9        46.7         0.55         0.94        0.72                             17.5
+   chunk twist focus seed 2   path_01     20     184               14.5           17.2        53.6         0.71         0.52        0.59                             15.0
+   chunk twist focus seed 2   path_02     20     876               44.9           21.2        48.2         0.99         0.77        0.87                             16.5
+   chunk twist focus seed 2   path_03     20    2067               67.1           19.1        53.3         0.84         0.97        0.90                             19.4
+   chunk twist focus seed 2   path_04     20    4247               63.9           31.4        90.0         0.58         0.95        0.74                             32.3
+   chunk twist focus seed 2   path_05     20    1590               39.6           40.6        84.9         0.27         0.62        0.47                             36.5
+   chunk twist focus seed 2   path_06     20    1220               58.9           29.1        67.3         0.58         1.05        0.74                             28.7
+   chunk twist focus seed 2   all         20   10184               55.6           27.8        75.8         0.62         0.92        0.76                             28.1
+   chunk twist focus seed 2   path_01     40      33               14.6           50.5        92.7         2.45         0.24        0.76                             10.7
+   chunk twist focus seed 2   path_02     40     170               75.9           29.6        74.5         0.98         0.78        0.84                             26.4
+   chunk twist focus seed 2   path_03     40     899               90.4           27.5        66.8         1.02         0.85        0.93                             26.0
+   chunk twist focus seed 2   path_04     40    2873               96.2           42.2       133.8         0.71         0.81        0.78                             42.8
+   chunk twist focus seed 2   path_05     40     886               86.8           87.4       147.0         0.08         0.26        0.30                             82.7
+   chunk twist focus seed 2   path_06     40     694               87.5           23.5        64.9         0.77         1.10        0.80                             19.6
+   chunk twist focus seed 2   all         40    5555               89.8           39.9       122.4         0.70         0.82        0.76                             40.9
+
+   'drift': predicted sum minus demonstrated sum, degrees. 'pred on demo': the share of the demonstrated turn the summed predictions give back.
+   'demo on pred': the gain on the predicted twist that fits the summed turns best; the last column is the drift left with that gain.
+   The pictures are the demonstration's own, so this is the model's twist with the camera where the demonstrator had it, one decision per demonstrated picture.
+
+   Whole episodes (all kept steps of an episode added up; episodes with a gap from the cleaning are included, the gap's step is simply missing on both sides)
+   model                      sheet    episodes median |demo end turn| median |drift at end| pred on demo correlation median largest |drift| on the way
+   A recipe (exact)           path_01        20                   10.6                  12.6         1.28        0.28                              15.6
+   A recipe (exact)           path_02        45                   63.0                  59.6         1.59        0.87                              64.2
+   A recipe (exact)           path_03        45                    9.7                  33.2         0.42        0.20                              59.8
+   A recipe (exact)           path_04        45                    9.8                  86.6        -0.47       -0.28                             159.4
+   A recipe (exact)           path_05        29                   57.7                  73.5        -0.19       -0.43                             100.3
+   A recipe (exact)           path_06        25                   70.3                  97.0        -0.05        0.51                              98.3
+   A recipe (exact)           all           209                   26.4                  54.9         0.55        0.32                              75.1
+   E recipe (chunk, stop 25)  path_01        20                   10.6                   9.3         1.30        0.37                              16.2
+   E recipe (chunk, stop 25)  path_02        45                   63.0                  41.0         1.53        0.85                              62.9
+   E recipe (chunk, stop 25)  path_03        45                    9.7                  29.6         0.55        0.30                              61.3
+   E recipe (chunk, stop 25)  path_04        45                    9.8                  52.4        -0.17       -0.13                             123.3
+   E recipe (chunk, stop 25)  path_05        29                   57.7                 102.9        -0.65       -0.63                             110.3
+   E recipe (chunk, stop 25)  path_06        25                   70.3                  47.7         0.46        0.74                              68.3
+   E recipe (chunk, stop 25)  all           209                   26.4                  40.0         0.63        0.42                              69.2
+
+3. How noisy the demonstrated twist is from step to step, and what smoothing the target would change
+   demonstrated twist per step (non-stop rows, all sheets, 17773 rows): standard deviation 5.15 degrees, mean |twist| 4.11, correlation between one step and the next +0.78
+   change of the twist from one step to the next: standard deviation 3.41 degrees (raw) against 1.11 after smoothing over +-2 steps (factor 0.33)
+   smoothing over +-2 steps: the smoothed twist keeps 0.74 of the variance (standard deviation 4.44), the removed part has standard deviation 2.20 degrees (0.18 of the variance); mean |smoothed twist| 3.68
+   of two steps in a row that both twist 2 degrees or more, 0.04 twist in opposite directions
+
+   how the saved predictions fit the raw, the smoothed and the forward-averaged twist (the models were trained on the raw twist)
+   model                      target                             mean |target| mean |pred| size ratio correlation pred on target target on pred
+   A recipe (exact)           raw twist of the step                       4.11        2.69       0.65        0.57           0.36           0.90
+   A recipe (exact)           smoothed over +-2 steps                     3.68        2.69       0.73        0.64           0.47           0.87
+   A recipe (exact)           mean of the next 5 steps                    3.82        2.78       0.73        0.63           0.46           0.86
+   A recipe seed 2            raw twist of the step                       4.11        2.77       0.67        0.57           0.37           0.87
+   A recipe seed 2            smoothed over +-2 steps                     3.68        2.77       0.75        0.63           0.48           0.83
+   A recipe seed 2            mean of the next 5 steps                    3.82        2.87       0.75        0.62           0.47           0.81
+   chunk                      raw twist of the step                       4.11        2.60       0.63        0.58           0.35           0.94
+   chunk                      smoothed over +-2 steps                     3.68        2.60       0.71        0.64           0.46           0.90
+   chunk                      mean of the next 5 steps                    3.82        2.69       0.70        0.63           0.45           0.89
+   E recipe (chunk, stop 25)  raw twist of the step                       4.11        2.62       0.64        0.58           0.36           0.93
+   E recipe (chunk, stop 25)  smoothed over +-2 steps                     3.68        2.62       0.71        0.64           0.46           0.89
+   E recipe (chunk, stop 25)  mean of the next 5 steps                    3.82        2.70       0.71        0.63           0.45           0.89
+   E recipe seed 2            raw twist of the step                       4.11        2.66       0.65        0.55           0.35           0.88
+   E recipe seed 2            smoothed over +-2 steps                     3.68        2.66       0.72        0.62           0.45           0.85
+   E recipe seed 2            mean of the next 5 steps                    3.82        2.76       0.72        0.61           0.44           0.83
+   chunk twist focus          raw twist of the step                       4.11        2.74       0.67        0.59           0.38           0.91
+   chunk twist focus          smoothed over +-2 steps                     3.68        2.74       0.75        0.66           0.50           0.87
+   chunk twist focus          mean of the next 5 steps                    3.82        2.85       0.74        0.64           0.48           0.85
+   chunk twist focus seed 2   raw twist of the step                       4.11        2.82       0.69        0.58           0.39           0.88
+   chunk twist focus seed 2   smoothed over +-2 steps                     3.68        2.82       0.77        0.65           0.50           0.84
+   chunk twist focus seed 2   mean of the next 5 steps                    3.82        2.93       0.77        0.63           0.48           0.82
+
+   per sheet, for the E recipe: how much of the step-to-step twist is noise by this measure
+   sheet     sd raw sd smoothed sd removed  removed share of variance next-step correlation
+   path_01     3.38        2.56       2.00                       0.35                  0.62
+   path_02     3.83        3.04       2.04                       0.28                  0.67
+   path_03     5.31        4.64       2.22                       0.17                  0.80
+   path_04     5.73        5.02       2.31                       0.16                  0.81
+   path_05     4.77        3.98       2.14                       0.20                  0.76
+   path_06     5.26        4.56       2.19                       0.17                  0.79

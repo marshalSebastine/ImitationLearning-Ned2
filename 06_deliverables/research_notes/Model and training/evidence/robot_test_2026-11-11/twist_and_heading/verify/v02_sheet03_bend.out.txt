@@ -1,0 +1,92 @@
+sheet 03 start kinds x end:
+start_end   A  B
+start_kind      
+MID         5  0
+NE          5  5
+OL1         1  1
+OL1.5       1  1
+OR1         1  1
+OR1.5       1  1
+STD         8  8
+TL10        1  1
+TL15        1  0
+TR10        1  1
+TR15        0  1
+
+reference episodes (STD, end A): 8
+   path_03_two_curve_episode_004_plan_03-04_try_1 rows 122 first row_in_episode 1 joint 4 first 0.0 first tip (14.0, -1.5) cm plan 03-04
+   path_03_two_curve_episode_005_plan_03-05_try_1 rows 107 first row_in_episode 1 joint 4 first 0.2 first tip (14.0, -1.5) cm plan 03-05
+   path_03_two_curve_episode_026_plan_03-25_try_2 rows 102 first row_in_episode 1 joint 4 first 0.0 first tip (14.0, -1.5) cm plan 03-25
+   path_03_two_curve_episode_027_plan_03-26_try_1 rows 95 first row_in_episode 1 joint 4 first -0.7 first tip (14.0, -1.5) cm plan 03-26
+   path_03_two_curve_episode_030_plan_03-27_try_1 rows 99 first row_in_episode 1 joint 4 first -0.4 first tip (14.0, -1.5) cm plan 03-27
+   path_03_two_curve_episode_001_plan_03-01_try_1 rows 106 first row_in_episode 1 joint 4 first 0.0 first tip (14.0, -1.5) cm plan 03-01
+   path_03_two_curve_episode_002_plan_03-02_try_1 rows 126 first row_in_episode 1 joint 4 first 0.0 first tip (14.0, -1.5) cm plan 03-02
+   path_03_two_curve_episode_003_plan_03-03_try_1 rows 110 first row_in_episode 1 joint 4 first 0.0 first tip (14.0, -1.5) cm plan 03-03
+
+joint 4 reaches -50: demonstrations (8 episodes)
+   pictures  path_label_cm  path_tip_cm  net_cm   turn  turn_per_picture
+0         8           4.24         4.24    3.47 -54.05             -6.76
+1         8           4.70         4.78    2.94 -52.21             -6.53
+2         8           5.38         5.44    5.22 -53.96             -6.75
+3         9           6.16         6.17    4.75 -53.44             -5.94
+4         9           6.24         6.22    5.75 -54.05             -6.01
+5        10           7.53         7.57    4.53 -54.23             -5.42
+6         9           6.02         6.00    3.67 -50.62             -5.62
+7         3           3.46         3.80    3.15 -52.30            -17.43
+  medians: {'pictures': 8.5, 'path_label_cm': 5.7, 'path_tip_cm': 5.72, 'net_cm': 4.1, 'turn': -53.7, 'turn_per_picture': -6.27}
+  run 5: picture 11, path 11.0 cm, net displacement 10.3 cm, asked lengths sum 5.5 cm, start joint 4 -9.3, turn -44.4, turn per decision -4.03
+  run 9: picture 9, path 9.1 cm, net displacement 8.9 cm, asked lengths sum 4.5 cm, start joint 4 -5.2, turn -47.7, turn per decision -5.30
+  run 10: picture 9, path 8.9 cm, net displacement 7.8 cm, asked lengths sum 4.1 cm, start joint 4 -9.7, turn -43.5, turn per decision -4.83
+
+joint 4 reaches -70: demonstrations (8 episodes)
+   pictures  path_label_cm  path_tip_cm  net_cm   turn  turn_per_picture
+0        10           6.15         6.14    5.06 -74.62             -7.46
+1        12           8.82         8.97    6.56 -85.69             -7.14
+2        10           7.21         7.27    7.03 -74.18             -7.42
+3        13          10.20        10.24    7.23 -73.74             -5.67
+4        12           8.24         8.20    7.38 -72.51             -6.04
+5        13           8.25         8.32    5.07 -73.30             -5.64
+6        12           7.38         7.33    4.99 -71.19             -5.93
+7         6           5.33         5.69    4.99 -77.17            -12.86
+  medians: {'pictures': 12.0, 'path_label_cm': 7.81, 'path_tip_cm': 7.77, 'net_cm': 5.81, 'turn': -73.96, 'turn_per_picture': -6.59}
+  run 5: picture 17, path 17.0 cm, net displacement 7.6 cm, asked lengths sum 7.7 cm, start joint 4 -9.3, turn -60.9, turn per decision -3.58
+  run 9: picture 12, path 12.1 cm, net displacement 9.6 cm, asked lengths sum 5.5 cm, start joint 4 -5.2, turn -65.1, turn per decision -5.43
+  run 10: picture 13, path 12.8 cm, net displacement 8.4 cm, asked lengths sum 5.2 cm, start joint 4 -9.7, turn -60.6, turn per decision -4.66
+
+first 10 cm of demonstrated path (labelled lengths): pictures, net joint-4 change, net displacement
+   pictures    turn   path  net_cm  deg_per_picture  deg_per_cm  deg_per_net_cm  pictures_per_cm
+0        16  -95.80  10.55    7.63            -5.99       -9.08          -12.55             1.52
+1        14  -94.22  10.02    6.87            -6.73       -9.40          -13.72             1.40
+2        15 -106.52  10.64    8.73            -7.10      -10.02          -12.20             1.41
+3        13  -73.74  10.20    7.23            -5.67       -7.23          -10.20             1.27
+4        16  -98.17  10.92    8.20            -6.14       -8.99          -11.98             1.46
+5        16  -90.35  10.64    6.41            -5.65       -8.49          -14.10             1.50
+6        16  -89.47  10.77    6.68            -5.59       -8.31          -13.40             1.49
+7        12  -96.50  10.26    7.67            -8.04       -9.41          -12.58             1.17
+  medians: {'pictures': 15.5, 'turn': -95.01, 'path': 10.59, 'net_cm': 7.43, 'deg_per_picture': -6.06, 'deg_per_cm': -9.03, 'deg_per_net_cm': -12.57, 'pictures_per_cm': 1.44}
+
+robot, first 13 decisions
+  run 5: turn -53.7 over 13.0 cm path (11.1 cm net): -4.13 per decision, -4.13 per cm, -4.84 per net cm; asked: mean length 0.45 cm, sum 5.8 cm, mean twist -4.06, twist per asked cm -9.0
+        asked net vector length in the (turning) picture frame is not meaningful; asked angles: [1, 0, -22, -54, -50, -45, -31, -31, -20, -22, -21, 20, 10]
+        asked lengths: [0.71, 0.73, 0.58, 0.47, 0.45, 0.44, 0.43, 0.42, 0.43, 0.44, 0.35, 0.18, 0.2]
+        asked twists : [1.6, 0.9, -1.6, -5.7, -5.9, -6.2, -5.5, -5.4, -5.0, -5.3, -5.4, -4.6, -4.6]
+  run 9: turn -70.0 over 13.1 cm path (9.5 cm net): -5.38 per decision, -5.34 per cm, -7.40 per net cm; asked: mean length 0.46 cm, sum 6.0 cm, mean twist -5.29, twist per asked cm -11.4
+        asked net vector length in the (turning) picture frame is not meaningful; asked angles: [-15, -13, -31, -31, -38, -44, -36, -24, -19, -8, 27, 44, 42]
+        asked lengths: [0.71, 0.7, 0.52, 0.49, 0.46, 0.44, 0.4, 0.37, 0.39, 0.35, 0.34, 0.39, 0.5]
+        asked twists : [-3.7, -4.1, -5.8, -6.0, -6.2, -5.6, -5.3, -5.1, -5.2, -5.6, -5.9, -5.6, -4.6]
+  run 10: turn -60.6 over 12.8 cm path (8.4 cm net): -4.66 per decision, -4.74 per cm, -7.23 per net cm; asked: mean length 0.40 cm, sum 5.2 cm, mean twist -4.58, twist per asked cm -11.5
+        asked net vector length in the (turning) picture frame is not meaningful; asked angles: [-12, -22, -44, -58, -57, -46, -41, -25, 15, 62, -5, 19, 19]
+        asked lengths: [0.72, 0.73, 0.61, 0.5, 0.43, 0.38, 0.34, 0.22, 0.13, 0.19, 0.24, 0.26, 0.41]
+        asked twists : [1.9, -1.3, -4.7, -6.7, -7.5, -7.2, -6.7, -5.7, -5.1, -4.2, -5.0, -4.4, -3.2]
+
+first 10 decisions of every run
+  run  1 A path_01: mean asked length 1.01 cm, mean |asked twist| 1.1, net asked twist +11.0
+  run  2 E path_01: mean asked length 1.15 cm, mean |asked twist| 0.2, net asked twist +2.0
+  run  3 E path_02: mean asked length 0.42 cm, mean |asked twist| 3.7, net asked twist -36.6
+  run  4 E path_02: mean asked length 0.95 cm, mean |asked twist| 2.3, net asked twist +18.9
+  run  5 E path_03: mean asked length 0.51 cm, mean |asked twist| 4.3, net asked twist -38.2
+  run  6 E path_04: mean asked length 0.84 cm, mean |asked twist| 1.9, net asked twist +13.1
+  run  7 E path_05: mean asked length 1.15 cm, mean |asked twist| 2.2, net asked twist -22.1
+  run  8 E path_06: mean asked length 1.14 cm, mean |asked twist| 2.8, net asked twist +26.1
+  run  9 E path_03: mean asked length 0.48 cm, mean |asked twist| 5.3, net asked twist -52.6
+  run 10 B path_03: mean asked length 0.42 cm, mean |asked twist| 5.1, net asked twist -47.0

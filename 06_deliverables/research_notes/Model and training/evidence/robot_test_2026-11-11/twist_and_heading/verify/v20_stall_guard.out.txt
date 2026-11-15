@@ -1,0 +1,12 @@
+run  outcome-of-11.11  decisions | proposed guard (8 / 1 cm / 5 deg): first decision where it would fire, x1.0 and x1.3 | guard in the code (30 / 3 cm / 15 deg), x1.0 | asked: share under 0.3 cm and 1.5 deg
+  1  end reached         25 | x1.0: None   x1.3: None | None | 0.04
+  2  end reached         24 | x1.0: None   x1.3: None | None | 0.04
+  3  failed              38 | x1.0: None   x1.3: None | None | 0.00
+  4  end reached         41 | x1.0: None   x1.3: None | None | 0.02
+  5  failed              59 | x1.0: None   x1.3: None | None | 0.02
+  6  failed              68 | x1.0: 24   x1.3: 25 | 44 | 0.40
+  7  end reached         88 | x1.0: None   x1.3: None | None | 0.01
+  8  failed              40 | x1.0: None   x1.3: None | None | 0.03
+  9  failed              89 | x1.0: None   x1.3: None | None | 0.04
+ 10  failed              73 | x1.0: None   x1.3: None | None | 0.10
+None = would not fire. First order only: after the first different step the robot would have seen other pictures.

@@ -1,0 +1,36 @@
+﻿
+== sheet 01: 644 held-out pictures, 578 moving, 20 episodes
+   clean                          within 45 0.779 | stop right/early/never (0.5, 1) (12, 4, 1) (0.3, 2) (15, 3, 1) (tuned 0.4, 2) (16, 3, 1) | median predicted step on moving pictures 1.00 cm | 14 s
+      check against the saved predictions: largest stop difference 0.00e+00, largest angle difference 0.00e+00 deg
+      moving pictures 0 to 2 cm from the goal: 36; predicted step median 0.22 cm, demonstrated 1.01 cm; predicted under 0.3 cm 0.639, under 0.5 cm 0.972
+      moving pictures 2 to 5 cm from the goal: 86; predicted step median 0.70 cm, demonstrated 1.13 cm; predicted under 0.3 cm 0.093, under 0.5 cm 0.279
+      moving pictures 5 to 10 cm from the goal: 154; predicted step median 0.99 cm, demonstrated 1.14 cm; predicted under 0.3 cm 0.000, under 0.5 cm 0.065
+      moving pictures 10 to 1000 cm from the goal: 302; predicted step median 1.04 cm, demonstrated 1.11 cm; predicted under 0.3 cm 0.000, under 0.5 cm 0.050
+      stop pictures: 20; predicted step median 0.13 cm; all moving pictures: predicted median 1.00 cm against demonstrated 1.12 cm, ratio of means 0.81
+   brightness x0.5                within 45 0.785 | stop right/early/never (0.5, 1) (12, 4, 1) (0.3, 2) (16, 1, 1) (tuned 0.4, 2) (16, 2, 1) | median predicted step on moving pictures 0.95 cm | 14 s
+   brightness x1.5                within 45 0.772 | stop right/early/never (0.5, 1) (12, 2, 4) (0.3, 2) (16, 2, 2) (tuned 0.4, 2) (14, 2, 4) | median predicted step on moving pictures 1.01 cm | 13 s
+   warm cast (R x1.15, B x0.85)   within 45 0.775 | stop right/early/never (0.5, 1) (12, 4, 1) (0.3, 2) (15, 3, 1) (tuned 0.4, 2) (17, 2, 1) | median predicted step on moving pictures 0.99 cm | 13 s
+   cool cast (R x0.87, B x1.15)   within 45 0.777 | stop right/early/never (0.5, 1) (11, 4, 1) (0.3, 2) (15, 2, 1) (tuned 0.4, 2) (16, 3, 1) | median predicted step on moving pictures 0.99 cm | 13 s
+   shift 4 px right and down      within 45 0.791 | stop right/early/never (0.5, 1) (13, 3, 3) (0.3, 2) (16, 2, 2) (tuned 0.4, 2) (16, 2, 2) | median predicted step on moving pictures 1.02 cm | 11 s
+   shift 8 px right and down      within 45 0.785 | stop right/early/never (0.5, 1) (11, 4, 2) (0.3, 2) (15, 3, 2) (tuned 0.4, 2) (15, 3, 2) | median predicted step on moving pictures 0.96 cm | 11 s
+   shift 8 px left and up         within 45 0.779 | stop right/early/never (0.5, 1) (13, 3, 2) (0.3, 2) (16, 3, 1) (tuned 0.4, 2) (14, 1, 4) | median predicted step on moving pictures 0.97 cm | 13 s
+   roll 3 degrees                 within 45 0.787 | stop right/early/never (0.5, 1) (12, 4, 1) (0.3, 2) (15, 3, 1) (tuned 0.4, 2) (16, 2, 1) | median predicted step on moving pictures 1.00 cm | 19 s
+   blur sigma 1 px                within 45 0.766 | stop right/early/never (0.5, 1) (11, 4, 1) (0.3, 2) (15, 2, 1) (tuned 0.4, 2) (16, 2, 1) | median predicted step on moving pictures 1.03 cm | 12 s
+
+== sheet 02: 2670 held-out pictures, 2425 moving, 45 episodes
+   clean                          within 45 0.632 | stop right/early/never (0.5, 1) (24, 2, 18) (0.3, 2) (23, 1, 19) (tuned 0.1, 2) (19, 8, 13) | median predicted step on moving pictures 0.68 cm | 47 s
+      check against the saved predictions: largest stop difference 0.00e+00, largest angle difference 0.00e+00 deg
+      moving pictures 0 to 2 cm from the goal: 105; predicted step median 0.36 cm, demonstrated 1.10 cm; predicted under 0.3 cm 0.324, under 0.5 cm 0.790
+      moving pictures 2 to 5 cm from the goal: 301; predicted step median 0.51 cm, demonstrated 1.13 cm; predicted under 0.3 cm 0.100, under 0.5 cm 0.495
+      moving pictures 5 to 10 cm from the goal: 504; predicted step median 0.58 cm, demonstrated 1.13 cm; predicted under 0.3 cm 0.026, under 0.5 cm 0.349
+      moving pictures 10 to 1000 cm from the goal: 1515; predicted step median 0.75 cm, demonstrated 1.09 cm; predicted under 0.3 cm 0.022, under 0.5 cm 0.112
+      stop pictures: 45; predicted step median 0.28 cm; all moving pictures: predicted median 0.68 cm against demonstrated 1.11 cm, ratio of means 0.61
+   brightness x0.5                within 45 0.627 | stop right/early/never (0.5, 1) (21, 10, 11) (0.3, 2) (21, 9, 12) (tuned 0.1, 2) (16, 21, 4) | median predicted step on moving pictures 0.64 cm | 48 s
+   brightness x1.5                within 45 0.630 | stop right/early/never (0.5, 1) (24, 0, 19) (0.3, 2) (22, 0, 22) (tuned 0.1, 2) (20, 4, 18) | median predicted step on moving pictures 0.63 cm | 51 s
+   warm cast (R x1.15, B x0.85)   within 45 0.633 | stop right/early/never (0.5, 1) (25, 2, 16) (0.3, 2) (25, 2, 16) (tuned 0.1, 2) (18, 9, 12) | median predicted step on moving pictures 0.67 cm | 49 s
+   cool cast (R x0.87, B x1.15)   within 45 0.640 | stop right/early/never (0.5, 1) (22, 2, 20) (0.3, 2) (21, 3, 20) (tuned 0.1, 2) (18, 8, 15) | median predicted step on moving pictures 0.66 cm | 53 s
+   shift 4 px right and down      within 45 0.638 | stop right/early/never (0.5, 1) (26, 1, 17) (0.3, 2) (25, 1, 18) (tuned 0.1, 2) (24, 7, 9) | median predicted step on moving pictures 0.68 cm | 48 s
+   shift 8 px right and down      within 45 0.624 | stop right/early/never (0.5, 1) (25, 4, 14) (0.3, 2) (22, 4, 16) (tuned 0.1, 2) (19, 14, 6) | median predicted step on moving pictures 0.68 cm | 48 s
+   shift 8 px left and up         within 45 0.612 | stop right/early/never (0.5, 1) (25, 4, 13) (0.3, 2) (22, 6, 15) (tuned 0.1, 2) (23, 11, 9) | median predicted step on moving pictures 0.61 cm | 47 s
+   roll 3 degrees                 within 45 0.637 | stop right/early/never (0.5, 1) (21, 2, 19) (0.3, 2) (21, 2, 20) (tuned 0.1, 2) (23, 5, 14) | median predicted step on moving pictures 0.66 cm | 55 s
+   blur sigma 1 px                within 45 0.634 | stop right/early/never (0.5, 1) (21, 2, 20) (0.3, 2) (19, 1, 22) (tuned 0.1, 2) (26, 5, 11) | median predicted step on moving pictures 0.65 cm | 53 s

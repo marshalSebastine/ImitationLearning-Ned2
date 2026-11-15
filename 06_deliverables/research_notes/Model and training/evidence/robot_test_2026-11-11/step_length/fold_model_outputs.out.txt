@@ -1,0 +1,14 @@
+E_recipe | without_path_01 | 644 pictures in 6 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe | without_path_02 | 2670 pictures in 29 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe | without_path_03 | 3955 pictures in 51 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe | without_path_04 | 6227 pictures in 96 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe | without_path_05 | 2600 pictures in 41 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe | without_path_06 | 1936 pictures in 34 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+E_recipe: 18032 pictures written to fold_outputs_E_recipe.npz
+A_recipe | without_path_01 | 644 pictures in 10 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe | without_path_02 | 2670 pictures in 50 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe | without_path_03 | 3955 pictures in 96 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe | without_path_04 | 6227 pictures in 131 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe | without_path_05 | 2600 pictures in 54 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe | without_path_06 | 1936 pictures in 32 s | largest difference from the saved predictions: twist 0.0000 degrees, stop chance 0.00000
+A_recipe: 18032 pictures written to fold_outputs_A_recipe.npz

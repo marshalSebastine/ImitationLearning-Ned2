@@ -1,0 +1,363 @@
+group,day,sheet,shift_x,shift_y,score,episode_id,row_in_episode
+robot run  1,2026-11-11,,1,5,0.995,,
+robot run  1,2026-11-11,,2,6,0.996,,
+robot run  1,2026-11-11,,2,5,0.997,,
+robot run  1,2026-11-11,,2,5,0.997,,
+robot run  1,2026-11-11,,2,5,0.997,,
+robot run  1,2026-11-11,,2,5,0.998,,
+robot run  1,2026-11-11,,3,8,0.997,,
+robot run  1,2026-11-11,,3,10,0.997,,
+robot run  1,2026-11-11,,4,12,0.995,,
+robot run  1,2026-11-11,,0,5,0.996,,
+robot run  1,2026-11-11,,1,5,0.994,,
+robot run  1,2026-11-11,,1,5,0.994,,
+robot run  2,2026-11-11,,0,3,0.996,,
+robot run  2,2026-11-11,,1,4,0.997,,
+robot run  2,2026-11-11,,1,4,0.997,,
+robot run  2,2026-11-11,,1,3,0.997,,
+robot run  2,2026-11-11,,1,3,0.997,,
+robot run  2,2026-11-11,,1,4,0.998,,
+robot run  2,2026-11-11,,1,5,0.998,,
+robot run  2,2026-11-11,,1,5,0.998,,
+robot run  2,2026-11-11,,1,3,0.998,,
+robot run  2,2026-11-11,,1,1,0.998,,
+robot run  2,2026-11-11,,0,0,0.998,,
+robot run  2,2026-11-11,,1,0,0.998,,
+robot run  3,2026-11-11,,0,5,0.993,,
+robot run  3,2026-11-11,,1,5,0.994,,
+robot run  3,2026-11-11,,3,5,0.993,,
+robot run  3,2026-11-11,,4,7,0.996,,
+robot run  3,2026-11-11,,4,4,0.997,,
+robot run  3,2026-11-11,,2,1,0.997,,
+robot run  3,2026-11-11,,0,1,0.997,,
+robot run  3,2026-11-11,,0,2,0.997,,
+robot run  3,2026-11-11,,-1,2,0.998,,
+robot run  3,2026-11-11,,-1,2,0.998,,
+robot run  3,2026-11-11,,-1,4,0.99,,
+robot run  3,2026-11-11,,1,3,0.989,,
+robot run  4,2026-11-11,,0,3,0.995,,
+robot run  4,2026-11-11,,1,2,0.996,,
+robot run  4,2026-11-11,,1,2,0.997,,
+robot run  4,2026-11-11,,0,0,0.998,,
+robot run  4,2026-11-11,,0,-2,0.998,,
+robot run  4,2026-11-11,,0,-5,0.997,,
+robot run  4,2026-11-11,,1,-7,0.996,,
+robot run  4,2026-11-11,,1,-12,0.984,,
+robot run  4,2026-11-11,,0,-13,0.983,,
+robot run  4,2026-11-11,,-1,-14,0.993,,
+robot run  4,2026-11-11,,-1,-14,0.995,,
+robot run  4,2026-11-11,,-1,-14,0.993,,
+robot run  5,2026-11-11,,0,1,0.994,,
+robot run  5,2026-11-11,,2,1,0.993,,
+robot run  5,2026-11-11,,3,5,0.994,,
+robot run  5,2026-11-11,,2,3,0.997,,
+robot run  5,2026-11-11,,0,0,0.996,,
+robot run  5,2026-11-11,,-2,-2,0.991,,
+robot run  5,2026-11-11,,2,2,0.99,,
+robot run  5,2026-11-11,,1,2,0.993,,
+robot run  5,2026-11-11,,1,1,0.996,,
+robot run  5,2026-11-11,,1,0,0.997,,
+robot run  5,2026-11-11,,2,0,0.997,,
+robot run  5,2026-11-11,,1,1,0.997,,
+robot run  6,2026-11-11,,0,3,0.996,,
+robot run  6,2026-11-11,,0,1,0.996,,
+robot run  6,2026-11-11,,0,3,0.998,,
+robot run  6,2026-11-11,,-2,-1,0.996,,
+robot run  6,2026-11-11,,-1,-1,0.997,,
+robot run  6,2026-11-11,,-1,0,0.997,,
+robot run  6,2026-11-11,,-2,-1,0.996,,
+robot run  6,2026-11-11,,-2,0,0.995,,
+robot run  6,2026-11-11,,-2,1,0.994,,
+robot run  6,2026-11-11,,0,1,0.993,,
+robot run  6,2026-11-11,,-1,0,0.995,,
+robot run  6,2026-11-11,,0,0,0.996,,
+robot run  7,2026-11-11,,0,4,0.996,,
+robot run  7,2026-11-11,,4,4,0.997,,
+robot run  7,2026-11-11,,5,6,0.996,,
+robot run  7,2026-11-11,,2,1,0.992,,
+robot run  7,2026-11-11,,1,4,0.996,,
+robot run  7,2026-11-11,,0,0,0.997,,
+robot run  7,2026-11-11,,0,0,0.997,,
+robot run  7,2026-11-11,,-2,-6,0.998,,
+robot run  7,2026-11-11,,-1,-4,0.997,,
+robot run  7,2026-11-11,,0,0,0.997,,
+robot run  7,2026-11-11,,0,-1,0.998,,
+robot run  7,2026-11-11,,0,-4,0.997,,
+robot run  8,2026-11-11,,0,0,0.996,,
+robot run  8,2026-11-11,,0,0,0.997,,
+robot run  8,2026-11-11,,0,-2,0.997,,
+robot run  8,2026-11-11,,-1,-4,0.994,,
+robot run  8,2026-11-11,,-1,-12,0.995,,
+robot run  8,2026-11-11,,-1,-17,0.996,,
+robot run  8,2026-11-11,,0,-15,0.992,,
+robot run  8,2026-11-11,,-1,-16,0.99,,
+robot run  8,2026-11-11,,1,-8,0.989,,
+robot run  8,2026-11-11,,1,-17,0.992,,
+robot run  8,2026-11-11,,2,-21,0.995,,
+robot run  8,2026-11-11,,2,-14,0.994,,
+robot run  9,2026-11-11,,1,-1,0.992,,
+robot run  9,2026-11-11,,1,0,0.993,,
+robot run  9,2026-11-11,,2,-1,0.994,,
+robot run  9,2026-11-11,,0,-3,0.988,,
+robot run  9,2026-11-11,,1,0,0.997,,
+robot run  9,2026-11-11,,1,0,0.997,,
+robot run  9,2026-11-11,,1,0,0.998,,
+robot run  9,2026-11-11,,0,-3,0.997,,
+robot run  9,2026-11-11,,1,-2,0.997,,
+robot run  9,2026-11-11,,-1,1,0.996,,
+robot run  9,2026-11-11,,0,-4,0.995,,
+robot run  9,2026-11-11,,-1,0,0.992,,
+robot run 10,2026-11-11,,1,4,0.995,,
+robot run 10,2026-11-11,,1,4,0.994,,
+robot run 10,2026-11-11,,2,2,0.996,,
+robot run 10,2026-11-11,,0,1,0.998,,
+robot run 10,2026-11-11,,1,1,0.997,,
+robot run 10,2026-11-11,,0,-1,0.997,,
+robot run 10,2026-11-11,,0,3,0.997,,
+robot run 10,2026-11-11,,-1,-1,0.998,,
+robot run 10,2026-11-11,,-2,-3,0.997,,
+robot run 10,2026-11-11,,-1,-1,0.997,,
+robot run 10,2026-11-11,,0,0,0.994,,
+robot run 10,2026-11-11,,0,0,0.994,,
+2026-11-06 path_01,2026-11-06,path_01,-19,-10,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_003_plan_01-01_try_3,12.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-12,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_003_plan_01-01_try_3,21.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-7,0.997,2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1,9.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-9,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1,18.0
+2026-11-06 path_01,2026-11-06,path_01,-19,-7,0.992,2026-11-06_session_01_emranul/path_01_straight_line_episode_004_plan_01-02_try_1,29.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-7,0.994,2026-11-06_session_01_emranul/path_01_straight_line_episode_005_plan_01-03_try_1,15.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-1,0.992,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,0.0
+2026-11-06 path_01,2026-11-06,path_01,-17,0,0.994,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,1.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-4,0.997,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,3.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-6,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,10.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-6,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,11.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-7,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,13.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-9,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,15.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-7,0.994,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,22.0
+2026-11-06 path_01,2026-11-06,path_01,-21,-12,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_006_plan_01-04_try_1,26.0
+2026-11-06 path_01,2026-11-06,path_01,-19,-5,0.997,2026-11-06_session_01_emranul/path_01_straight_line_episode_007_plan_01-05_try_1,6.0
+2026-11-06 path_01,2026-11-06,path_01,-20,-4,0.984,2026-11-06_session_01_emranul/path_01_straight_line_episode_007_plan_01-05_try_1,12.0
+2026-11-06 path_01,2026-11-06,path_01,-20,-6,0.971,2026-11-06_session_01_emranul/path_01_straight_line_episode_007_plan_01-05_try_1,16.0
+2026-11-06 path_01,2026-11-06,path_01,-20,2,0.99,2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1,1.0
+2026-11-06 path_01,2026-11-06,path_01,-20,1,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1,3.0
+2026-11-06 path_01,2026-11-06,path_01,-19,-2,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_009_plan_01-07_try_1,7.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-8,0.992,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,8.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-9,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,10.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-9,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,11.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-10,0.994,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,13.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-11,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,16.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-11,0.994,2026-11-06_session_01_emranul/path_01_straight_line_episode_010_plan_01-08_try_1,18.0
+2026-11-06 path_01,2026-11-06,path_01,-17,0,0.99,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,0.0
+2026-11-06 path_01,2026-11-06,path_01,-17,1,0.989,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,1.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-2,0.992,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,3.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-9,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,15.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-9,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,17.0
+2026-11-06 path_01,2026-11-06,path_01,-16,-8,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,18.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-7,0.993,2026-11-06_session_01_emranul/path_01_straight_line_episode_015_plan_01-13_try_1,21.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-6,0.995,2026-11-06_session_01_emranul/path_01_straight_line_episode_017_plan_01-14_try_2,6.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-7,0.996,2026-11-06_session_01_emranul/path_01_straight_line_episode_017_plan_01-14_try_2,7.0
+2026-11-06 path_01,2026-11-06,path_01,-16,-9,0.992,2026-11-06_session_01_emranul/path_01_straight_line_episode_017_plan_01-14_try_2,17.0
+2026-11-06 path_01,2026-11-06,path_01,-16,-1,0.989,2026-11-06_session_01_emranul/path_01_straight_line_episode_018_plan_01-15_try_1,0.0
+2026-11-06 path_01,2026-11-06,path_01,-17,-1,0.988,2026-11-06_session_01_emranul/path_01_straight_line_episode_019_plan_01-16_try_1,2.0
+2026-11-06 path_01,2026-11-06,path_01,-18,-3,0.99,2026-11-06_session_01_emranul/path_01_straight_line_episode_021_plan_01-18_try_1,4.0
+2026-11-06 path_02,2026-11-06,path_02,-16,-1,0.987,2026-11-06_session_01_emranul/path_02_arc_episode_001_plan_02-01_try_1,0.0
+2026-11-06 path_02,2026-11-06,path_02,-16,-1,0.987,2026-11-06_session_01_emranul/path_02_arc_episode_001_plan_02-01_try_1,1.0
+2026-11-07 path_02,2026-11-07,path_02,-18,-2,0.975,2026-11-07_session_01_emranul/path_02_arc_episode_005_plan_02-02_try_3,3.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-15,0.986,2026-11-07_session_01_emranul/path_02_arc_episode_013_plan_02-07_try_1,35.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-15,0.986,2026-11-07_session_01_emranul/path_02_arc_episode_013_plan_02-07_try_1,36.0
+2026-11-07 path_02,2026-11-07,path_02,-17,-11,0.985,2026-11-07_session_01_emranul/path_02_arc_episode_015_plan_02-09_try_1,16.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-10,0.983,2026-11-07_session_01_emranul/path_02_arc_episode_015_plan_02-09_try_1,22.0
+2026-11-07 path_02,2026-11-07,path_02,-17,-5,0.992,2026-11-07_session_01_emranul/path_02_arc_episode_016_plan_02-10_try_1,6.0
+2026-11-07 path_02,2026-11-07,path_02,-21,-20,0.984,2026-11-07_session_01_emranul/path_02_arc_episode_016_plan_02-10_try_1,22.0
+2026-11-07 path_02,2026-11-07,path_02,-18,-15,0.99,2026-11-07_session_01_emranul/path_02_arc_episode_016_plan_02-10_try_1,54.0
+2026-11-07 path_02,2026-11-07,path_02,-18,-2,0.982,2026-11-07_session_01_emranul/path_02_arc_episode_022_plan_02-14_try_1,1.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-3,0.994,2026-11-07_session_01_emranul/path_02_arc_episode_024_plan_02-15_try_2,21.0
+2026-11-07 path_02,2026-11-07,path_02,-20,-10,0.995,2026-11-07_session_01_emranul/path_02_arc_episode_025_plan_02-16_try_1,31.0
+2026-11-07 path_02,2026-11-07,path_02,-18,0,0.994,2026-11-07_session_01_emranul/path_02_arc_episode_025_plan_02-16_try_1,52.0
+2026-11-07 path_02,2026-11-07,path_02,-21,0,0.981,2026-11-07_session_01_emranul/path_02_arc_episode_028_plan_02-19_try_1,2.0
+2026-11-07 path_02,2026-11-07,path_02,-14,-11,0.988,2026-11-07_session_01_emranul/path_02_arc_episode_028_plan_02-19_try_1,57.0
+2026-11-07 path_02,2026-11-07,path_02,-14,-11,0.987,2026-11-07_session_01_emranul/path_02_arc_episode_028_plan_02-19_try_1,60.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-3,0.989,2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2,26.0
+2026-11-07 path_02,2026-11-07,path_02,-20,-3,0.986,2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2,29.0
+2026-11-07 path_02,2026-11-07,path_02,-14,-8,0.991,2026-11-07_session_01_emranul/path_02_arc_episode_030_plan_02-20_try_2,40.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-3,0.995,2026-11-07_session_01_emranul/path_02_arc_episode_031_plan_02-21_try_1,12.0
+2026-11-07 path_02,2026-11-07,path_02,-14,-9,0.993,2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1,16.0
+2026-11-07 path_02,2026-11-07,path_02,-14,-9,0.992,2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1,20.0
+2026-11-07 path_02,2026-11-07,path_02,-15,-3,0.996,2026-11-07_session_01_emranul/path_02_arc_episode_033_plan_02-23_try_1,26.0
+2026-11-07 path_02,2026-11-07,path_02,-22,0,0.978,2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1,0.0
+2026-11-07 path_02,2026-11-07,path_02,-15,-13,0.991,2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1,38.0
+2026-11-07 path_02,2026-11-07,path_02,-17,-19,0.99,2026-11-07_session_01_emranul/path_02_arc_episode_039_plan_02-29_try_1,41.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-7,0.993,2026-11-07_session_01_emranul/path_02_arc_episode_040_plan_02-30_try_1,15.0
+2026-11-07 path_02,2026-11-07,path_02,-18,-17,0.991,2026-11-07_session_01_emranul/path_02_arc_episode_040_plan_02-30_try_1,43.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-6,0.997,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,6.0
+2026-11-07 path_02,2026-11-07,path_02,-16,-7,0.996,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,9.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-6,0.99,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,27.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-9,0.99,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,40.0
+2026-11-07 path_02,2026-11-07,path_02,-19,3,0.979,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,45.0
+2026-11-07 path_02,2026-11-07,path_02,-20,-3,0.98,2026-11-07_session_01_emranul/path_02_arc_episode_041_plan_02-31_try_1,48.0
+2026-11-07 path_02,2026-11-07,path_02,-18,-7,0.992,2026-11-07_session_01_emranul/path_02_arc_episode_042_plan_02-32_try_2,24.0
+2026-11-07 path_02,2026-11-07,path_02,-16,2,0.986,2026-11-07_session_01_emranul/path_02_arc_episode_042_plan_02-32_try_2,33.0
+2026-11-07 path_02,2026-11-07,path_02,-15,4,0.988,2026-11-07_session_01_emranul/path_02_arc_episode_042_plan_02-32_try_2,51.0
+2026-11-07 path_02,2026-11-07,path_02,-17,-2,0.981,2026-11-07_session_01_marshal/path_02_arc_episode_048_plan_02-38_try_1,10.0
+2026-11-07 path_02,2026-11-07,path_02,-21,-10,0.989,2026-11-07_session_01_marshal/path_02_arc_episode_052_plan_02-42_try_1,58.0
+2026-11-07 path_02,2026-11-07,path_02,-20,-12,0.975,2026-11-07_session_01_marshal/path_02_arc_episode_053_plan_02-43_try_1,68.0
+2026-11-07 path_02,2026-11-07,path_02,-19,-8,0.988,2026-11-07_session_01_marshal/path_02_arc_episode_054_plan_02-44_try_1,28.0
+2026-11-08 path_03,2026-11-08,path_03,-17,-5,0.99,2026-11-08_session_01_emranul/path_03_two_curve_episode_004_plan_03-04_try_1,15.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-7,0.925,2026-11-08_session_01_emranul/path_03_two_curve_episode_004_plan_03-04_try_1,70.0
+2026-11-08 path_03,2026-11-08,path_03,-19,2,0.987,2026-11-08_session_01_emranul/path_03_two_curve_episode_008_plan_03-08_try_1,6.0
+2026-11-08 path_03,2026-11-08,path_03,-16,-4,0.993,2026-11-08_session_01_emranul/path_03_two_curve_episode_008_plan_03-08_try_1,68.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-2,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_008_plan_03-08_try_1,114.0
+2026-11-08 path_03,2026-11-08,path_03,-17,-3,0.993,2026-11-08_session_01_emranul/path_03_two_curve_episode_009_plan_03-09_try_1,56.0
+2026-11-08 path_03,2026-11-08,path_03,-18,-5,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_009_plan_03-09_try_1,66.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-3,0.995,2026-11-08_session_01_emranul/path_03_two_curve_episode_009_plan_03-09_try_1,76.0
+2026-11-08 path_03,2026-11-08,path_03,-15,0,0.995,2026-11-08_session_01_emranul/path_03_two_curve_episode_013_plan_03-13_try_1,2.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-10,0.938,2026-11-08_session_01_emranul/path_03_two_curve_episode_014_plan_03-14_try_1,40.0
+2026-11-08 path_03,2026-11-08,path_03,-20,-8,0.992,2026-11-08_session_01_emranul/path_03_two_curve_episode_014_plan_03-14_try_1,88.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-5,0.996,2026-11-08_session_01_emranul/path_03_two_curve_episode_015_plan_03-15_try_1,5.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-7,0.996,2026-11-08_session_01_emranul/path_03_two_curve_episode_015_plan_03-15_try_1,9.0
+2026-11-08 path_03,2026-11-08,path_03,-14,-3,0.994,2026-11-08_session_01_emranul/path_03_two_curve_episode_018_plan_03-18_try_1,3.0
+2026-11-08 path_03,2026-11-08,path_03,-14,-5,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_018_plan_03-18_try_1,17.0
+2026-11-08 path_03,2026-11-08,path_03,-16,-8,0.988,2026-11-08_session_01_emranul/path_03_two_curve_episode_018_plan_03-18_try_1,59.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-7,0.992,2026-11-08_session_01_emranul/path_03_two_curve_episode_019_plan_03-19_try_1,68.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-7,0.991,2026-11-08_session_01_emranul/path_03_two_curve_episode_019_plan_03-19_try_1,69.0
+2026-11-08 path_03,2026-11-08,path_03,-13,-17,0.984,2026-11-08_session_01_emranul/path_03_two_curve_episode_019_plan_03-19_try_1,112.0
+2026-11-08 path_03,2026-11-08,path_03,-15,1,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_020_plan_03-20_try_1,7.0
+2026-11-08 path_03,2026-11-08,path_03,-20,2,0.984,2026-11-08_session_01_emranul/path_03_two_curve_episode_026_plan_03-25_try_2,3.0
+2026-11-08 path_03,2026-11-08,path_03,-18,-8,0.992,2026-11-08_session_01_emranul/path_03_two_curve_episode_026_plan_03-25_try_2,30.0
+2026-11-08 path_03,2026-11-08,path_03,-20,2,0.98,2026-11-08_session_01_emranul/path_03_two_curve_episode_030_plan_03-27_try_1,2.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-7,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1,8.0
+2026-11-08 path_03,2026-11-08,path_03,-14,-7,0.99,2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1,76.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-6,0.992,2026-11-08_session_01_emranul/path_03_two_curve_episode_031_plan_03-30_try_1,82.0
+2026-11-08 path_03,2026-11-08,path_03,-18,0,0.992,2026-11-08_session_01_emranul/path_03_two_curve_episode_032_plan_03-31_try_1,17.0
+2026-11-08 path_03,2026-11-08,path_03,-21,-6,0.981,2026-11-08_session_01_emranul/path_03_two_curve_episode_032_plan_03-31_try_1,90.0
+2026-11-08 path_03,2026-11-08,path_03,-18,-4,0.991,2026-11-08_session_01_emranul/path_03_two_curve_episode_033_plan_03-32_try_1,109.0
+2026-11-08 path_03,2026-11-08,path_03,-23,-6,0.99,2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1,52.0
+2026-11-08 path_03,2026-11-08,path_03,-21,-6,0.991,2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1,56.0
+2026-11-08 path_03,2026-11-08,path_03,-20,-4,0.991,2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1,58.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-4,0.996,2026-11-08_session_01_emranul/path_03_two_curve_episode_034_plan_03-33_try_1,91.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-4,0.997,2026-11-08_session_01_emranul/path_03_two_curve_episode_036_plan_03-35_try_1,13.0
+2026-11-08 path_03,2026-11-08,path_03,-15,-13,0.989,2026-11-08_session_01_emranul/path_03_two_curve_episode_036_plan_03-35_try_1,74.0
+2026-11-08 path_03,2026-11-08,path_03,-20,-4,0.973,2026-11-08_session_01_emranul/path_03_two_curve_episode_037_plan_03-36_try_1,22.0
+2026-11-08 path_03,2026-11-08,path_03,-18,5,0.992,2026-11-08_session_01_marshal/path_03_two_curve_episode_001_plan_03-01_try_1,12.0
+2026-11-08 path_03,2026-11-08,path_03,-16,-7,0.98,2026-11-08_session_01_marshal/path_03_two_curve_episode_002_plan_03-02_try_1,23.0
+2026-11-08 path_03,2026-11-08,path_03,-19,-6,0.996,2026-11-08_session_01_marshal/path_03_two_curve_episode_002_plan_03-02_try_1,61.0
+2026-11-08 path_03,2026-11-08,path_03,-23,-9,0.996,2026-11-08_session_01_marshal/path_03_two_curve_episode_002_plan_03-02_try_1,71.0
+2026-11-08 path_04,2026-11-08,path_04,-12,1,0.993,2026-11-08_session_01_emranul/path_04_meander_episode_008_plan_04-01_try_6,0.0
+2026-11-08 path_04,2026-11-08,path_04,-12,0,0.992,2026-11-08_session_01_emranul/path_04_meander_episode_009_plan_04-02_try_2,2.0
+2026-11-08 path_04,2026-11-08,path_04,-17,-12,0.99,2026-11-08_session_01_emranul/path_04_meander_episode_009_plan_04-02_try_2,11.0
+2026-11-08 path_04,2026-11-08,path_04,-17,-13,0.953,2026-11-08_session_01_emranul/path_04_meander_episode_009_plan_04-02_try_2,61.0
+2026-11-08 path_04,2026-11-08,path_04,-19,-17,0.982,2026-11-08_session_01_emranul/path_04_meander_episode_009_plan_04-02_try_2,67.0
+2026-11-08 path_04,2026-11-08,path_04,-18,-17,0.971,2026-11-08_session_01_emranul/path_04_meander_episode_011_plan_04-04_try_1,29.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-8,0.994,2026-11-08_session_01_emranul/path_04_meander_episode_011_plan_04-04_try_1,37.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-13,0.984,2026-11-08_session_01_emranul/path_04_meander_episode_012_plan_04-05_try_1,19.0
+2026-11-08 path_04,2026-11-08,path_04,-14,1,0.986,2026-11-08_session_01_emranul/path_04_meander_episode_013_plan_04-06_try_1,3.0
+2026-11-08 path_04,2026-11-08,path_04,-17,-6,0.948,2026-11-08_session_01_emranul/path_04_meander_episode_013_plan_04-06_try_1,145.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-8,0.967,2026-11-08_session_01_emranul/path_04_meander_episode_013_plan_04-06_try_1,175.0
+2026-11-08 path_04,2026-11-08,path_04,-19,-14,0.991,2026-11-08_session_01_emranul/path_04_meander_episode_016_plan_04-09_try_1,13.0
+2026-11-08 path_04,2026-11-08,path_04,-19,-18,0.986,2026-11-08_session_01_emranul/path_04_meander_episode_016_plan_04-09_try_1,59.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-16,0.977,2026-11-08_session_01_emranul/path_04_meander_episode_020_plan_04-13_try_1,99.0
+2026-11-08 path_04,2026-11-08,path_04,-20,-14,0.944,2026-11-08_session_01_emranul/path_04_meander_episode_022_plan_04-15_try_1,28.0
+2026-11-08 path_04,2026-11-08,path_04,-15,-7,0.953,2026-11-08_session_01_emranul/path_04_meander_episode_022_plan_04-15_try_1,30.0
+2026-11-08 path_04,2026-11-08,path_04,-19,-14,0.979,2026-11-08_session_01_emranul/path_04_meander_episode_022_plan_04-15_try_1,50.0
+2026-11-08 path_04,2026-11-08,path_04,-22,-18,0.94,2026-11-08_session_01_emranul/path_04_meander_episode_022_plan_04-15_try_1,148.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-5,0.987,2026-11-08_session_01_emranul/path_04_meander_episode_023_plan_04-16_try_1,28.0
+2026-11-08 path_04,2026-11-08,path_04,-15,-2,0.992,2026-11-08_session_01_emranul/path_04_meander_episode_030_plan_04-23_try_1,56.0
+2026-11-08 path_04,2026-11-08,path_04,-15,-2,0.994,2026-11-08_session_01_emranul/path_04_meander_episode_030_plan_04-23_try_1,60.0
+2026-11-08 path_04,2026-11-08,path_04,-14,-5,0.995,2026-11-08_session_01_emranul/path_04_meander_episode_030_plan_04-23_try_1,65.0
+2026-11-08 path_04,2026-11-08,path_04,-16,-8,0.997,2026-11-08_session_01_emranul/path_04_meander_episode_031_plan_04-24_try_1,87.0
+2026-11-08 path_04,2026-11-08,path_04,0,-7,0.997,2026-11-08_session_01_emranul/path_04_meander_episode_038_plan_04-30_try_1,34.0
+2026-11-08 path_04,2026-11-08,path_04,0,-7,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_038_plan_04-30_try_1,54.0
+2026-11-08 path_04,2026-11-08,path_04,0,2,0.987,2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,7.0
+2026-11-08 path_04,2026-11-08,path_04,1,4,0.993,2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,12.0
+2026-11-08 path_04,2026-11-08,path_04,-1,-8,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,49.0
+2026-11-08 path_04,2026-11-08,path_04,-4,-15,0.967,2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,61.0
+2026-11-08 path_04,2026-11-08,path_04,-4,-32,0.965,2026-11-08_session_01_emranul/path_04_meander_episode_039_plan_04-31_try_1,74.0
+2026-11-08 path_04,2026-11-08,path_04,0,-3,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_042_plan_04-34_try_1,35.0
+2026-11-08 path_04,2026-11-08,path_04,-3,3,0.993,2026-11-08_session_01_emranul/path_04_meander_episode_043_plan_04-35_try_1,4.0
+2026-11-08 path_04,2026-11-08,path_04,2,1,0.982,2026-11-08_session_01_emranul/path_04_meander_episode_043_plan_04-35_try_1,31.0
+2026-11-08 path_04,2026-11-08,path_04,0,1,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_044_plan_04-36_try_1,39.0
+2026-11-08 path_04,2026-11-08,path_04,0,6,0.995,2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,13.0
+2026-11-08 path_04,2026-11-08,path_04,0,1,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,27.0
+2026-11-08 path_04,2026-11-08,path_04,0,1,0.994,2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,43.0
+2026-11-08 path_04,2026-11-08,path_04,0,1,0.997,2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,58.0
+2026-11-08 path_04,2026-11-08,path_04,-3,-2,0.996,2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1,66.0
+2026-11-08 path_04,2026-11-08,path_04,-18,-15,0.978,2026-11-08_session_01_marshal/path_04_meander_episode_010_plan_04-03_try_1,17.0
+2026-11-08 path_05,2026-11-08,path_05,2,4,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3,16.0
+2026-11-08 path_05,2026-11-08,path_05,-2,-1,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3,95.0
+2026-11-08 path_05,2026-11-08,path_05,-2,-2,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_003_plan_05-01_try_3,98.0
+2026-11-08 path_05,2026-11-08,path_05,-1,2,0.991,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1,5.0
+2026-11-08 path_05,2026-11-08,path_05,0,-5,0.99,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1,41.0
+2026-11-08 path_05,2026-11-08,path_05,0,-2,0.989,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1,80.0
+2026-11-08 path_05,2026-11-08,path_05,0,-4,0.992,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_006_plan_05-03_try_1,86.0
+2026-11-08 path_05,2026-11-08,path_05,-1,4,0.991,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,5.0
+2026-11-08 path_05,2026-11-08,path_05,0,0,0.997,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,10.0
+2026-11-08 path_05,2026-11-08,path_05,0,1,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,13.0
+2026-11-08 path_05,2026-11-08,path_05,-2,2,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,42.0
+2026-11-08 path_05,2026-11-08,path_05,-1,4,0.997,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_007_plan_05-04_try_1,47.0
+2026-11-08 path_05,2026-11-08,path_05,-1,5,0.985,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_009_plan_05-06_try_1,1.0
+2026-11-08 path_05,2026-11-08,path_05,-1,3,0.989,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_009_plan_05-06_try_1,5.0
+2026-11-08 path_05,2026-11-08,path_05,0,1,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_009_plan_05-06_try_1,15.0
+2026-11-08 path_05,2026-11-08,path_05,1,4,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_009_plan_05-06_try_1,20.0
+2026-11-08 path_05,2026-11-08,path_05,-2,-2,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1,31.0
+2026-11-08 path_05,2026-11-08,path_05,-2,0,0.993,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1,41.0
+2026-11-08 path_05,2026-11-08,path_05,-1,0,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_010_plan_05-07_try_1,70.0
+2026-11-08 path_05,2026-11-08,path_05,0,-1,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_011_plan_05-08_try_1,36.0
+2026-11-08 path_05,2026-11-08,path_05,-1,-2,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_011_plan_05-08_try_1,39.0
+2026-11-08 path_05,2026-11-08,path_05,1,4,0.993,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_011_plan_05-08_try_1,48.0
+2026-11-08 path_05,2026-11-08,path_05,-2,-2,0.991,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1,9.0
+2026-11-08 path_05,2026-11-08,path_05,0,2,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1,20.0
+2026-11-08 path_05,2026-11-08,path_05,1,5,0.992,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_014_plan_05-10_try_1,25.0
+2026-11-08 path_05,2026-11-08,path_05,-3,7,0.99,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,1.0
+2026-11-08 path_05,2026-11-08,path_05,-1,0,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,32.0
+2026-11-08 path_05,2026-11-08,path_05,-3,0,0.995,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,51.0
+2026-11-08 path_05,2026-11-08,path_05,-6,-2,0.989,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,57.0
+2026-11-08 path_05,2026-11-08,path_05,-4,0,0.99,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_020_plan_05-15_try_1,64.0
+2026-11-08 path_05,2026-11-08,path_05,0,1,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_022_plan_05-17_try_1,16.0
+2026-11-08 path_05,2026-11-08,path_05,0,1,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_022_plan_05-17_try_1,17.0
+2026-11-08 path_05,2026-11-08,path_05,-1,2,0.997,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1,12.0
+2026-11-08 path_05,2026-11-08,path_05,-8,-15,0.989,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1,48.0
+2026-11-08 path_05,2026-11-08,path_05,1,-1,0.994,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_023_plan_05-18_try_1,97.0
+2026-11-08 path_05,2026-11-08,path_05,-2,2,0.99,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_025_plan_05-20_try_1,8.0
+2026-11-08 path_05,2026-11-08,path_05,0,-1,0.991,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1,45.0
+2026-11-08 path_05,2026-11-08,path_05,-3,1,0.992,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1,106.0
+2026-11-08 path_05,2026-11-08,path_05,-5,0,0.988,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_026_plan_05-21_try_1,112.0
+2026-11-08 path_05,2026-11-08,path_05,0,-1,0.996,2026-11-08_session_01_emranul/path_05_alpha_loop_episode_029_plan_05-24_try_1,21.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-1,0.995,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,6.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-3,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,10.0
+2026-11-09 path_06,2026-11-09,path_06,-8,-18,0.982,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,18.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-9,0.971,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,22.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-6,0.978,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,23.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-7,0.984,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1,25.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-2,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_003_plan_06-03_try_1,12.0
+2026-11-09 path_06,2026-11-09,path_06,-4,-3,0.992,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_003_plan_06-03_try_1,16.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-1,0.995,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_004_plan_06-04_try_1,6.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-6,0.981,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_005_plan_06-05_try_1,16.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-2,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_006_plan_06-06_try_1,9.0
+2026-11-09 path_06,2026-11-09,path_06,-4,-3,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_008_plan_06-08_try_1,25.0
+2026-11-09 path_06,2026-11-09,path_06,-2,0,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,5.0
+2026-11-09 path_06,2026-11-09,path_06,-2,0,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,7.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-3,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,12.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-3,0.99,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,15.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-9,0.985,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,20.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-7,0.969,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_010_plan_06-10_try_1,23.0
+2026-11-09 path_06,2026-11-09,path_06,-3,2,0.996,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_015_plan_06-14_try_1,3.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-8,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_015_plan_06-14_try_1,21.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-3,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_015_plan_06-14_try_1,26.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-2,0.989,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_015_plan_06-14_try_1,35.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-12,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,16.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-2,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,29.0
+2026-11-09 path_06,2026-11-09,path_06,-1,-1,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,35.0
+2026-11-09 path_06,2026-11-09,path_06,-1,0,0.986,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,40.0
+2026-11-09 path_06,2026-11-09,path_06,-1,-4,0.987,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_016_plan_06-15_try_1,46.0
+2026-11-09 path_06,2026-11-09,path_06,-3,0,0.995,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_017_plan_06-16_try_1,4.0
+2026-11-09 path_06,2026-11-09,path_06,-1,-2,0.986,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_017_plan_06-16_try_1,39.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-3,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1,11.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-11,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1,15.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-12,0.994,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1,18.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-2,0.988,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1,37.0
+2026-11-09 path_06,2026-11-09,path_06,-3,-14,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_019_plan_06-18_try_1,17.0
+2026-11-09 path_06,2026-11-09,path_06,-1,2,0.992,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,6.0
+2026-11-09 path_06,2026-11-09,path_06,-2,2,0.996,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,12.0
+2026-11-09 path_06,2026-11-09,path_06,-2,-2,0.993,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,37.0
+2026-11-09 path_06,2026-11-09,path_06,-1,0,0.984,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,45.0
+2026-11-09 path_06,2026-11-09,path_06,-1,0,0.984,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1,48.0
+2026-11-09 path_06,2026-11-09,path_06,-3,4,0.989,2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_022_plan_06-21_try_1,1.0

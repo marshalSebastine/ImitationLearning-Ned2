@@ -1,0 +1,23 @@
+A3 and A5: model E, the driver of 11.11 (fixed 1.0 cm)
+   model_mode.py robot --label A3_E_sheet01_fixed10 --run-name resnet18_model_4_chunk_stop_25_all_sheets --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\metrics.json --step-length fixed
+   -> runs: ending stopped after 19 pictures; run_name resnet18_model_4_chunk_stop_25_all_sheets; 1 checkpoint(s); step rule fixed, step_m 0.01, budget 30, stall rule 30 pictures / 0.03 m
+A4: model E, fixed 1.0 cm, short run
+   model_mode.py robot --label A4_E_fixed10 --run-name resnet18_model_4_chunk_stop_25_all_sheets --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\metrics.json --step-length fixed --step-budget 27
+   -> runs: ending stopped after 19 pictures; run_name resnet18_model_4_chunk_stop_25_all_sheets; 1 checkpoint(s); step rule fixed, step_m 0.01, budget 27, stall rule 30 pictures / 0.03 m
+A4: model E, its own length, short run
+   model_mode.py robot --label A4_E_own --run-name resnet18_model_4_chunk_stop_25_all_sheets --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\metrics.json --step-length predicted --step-budget 90
+   -> runs: ending stopped after 33 pictures; run_name resnet18_model_4_chunk_stop_25_all_sheets; 1 checkpoint(s); step rule predicted, step_m 0.01, budget 90, stall rule 30 pictures / 0.03 m
+A4: team of five, fixed 1.0 cm, short run
+   model_mode.py robot --label A4_team_fixed10 --run-name resnet18_model_1_all_sheets --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_2\checkpoints\all_sheets.pt ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_3\checkpoints\all_sheets.pt ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_4\checkpoints\all_sheets.pt ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_5\checkpoints\all_sheets.pt --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\metrics.json --step-length fixed --step-budget 27
+   -> runs: ending stopped after 8 pictures; run_name resnet18_model_1_all_sheets; 5 checkpoint(s); step rule fixed, step_m 0.01, budget 27, stall rule 30 pictures / 0.03 m
+A4: model without sheet 03, fixed 1.0 cm, short run
+   model_mode.py robot --label A4_fold03_fixed10 --run-name resnet18_chunk_stop_weight_25 --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\checkpoints\without_path_03.pt --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\metrics.json --step-length fixed --step-budget 27
+   -> runs: ending stopped after 8 pictures; run_name resnet18_chunk_stop_weight_25; 1 checkpoint(s); step rule fixed, step_m 0.01, budget 27, stall rule 30 pictures / 0.03 m
+
+flags that sitting A needs and that do not exist today:
+   --step-cm 0.65: not known to the command line (new work)
+   --travel-budget-cm 27: not known to the command line (new work)
+   --start recorded: not known to the command line (new work)
+   --stall log: not known to the command line (new work)
+   --scripted small_steps: not known to the command line (new work)
+   --smallest-step-cm 0.2: not known to the command line (new work)

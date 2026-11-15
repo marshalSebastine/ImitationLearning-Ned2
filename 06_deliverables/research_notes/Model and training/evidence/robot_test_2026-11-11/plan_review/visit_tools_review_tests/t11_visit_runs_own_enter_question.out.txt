@@ -1,0 +1,6 @@
+--- Ctrl+C at the question: exit code 1; started 0 command(s)
+    printed: ['THE REAL ROBOT moves in this run: the checklist done, nothing else connected to the robot, the stop button in reach.', 'not started']
+--- no keyboard (end of input): exit code 1; started 0 command(s)
+    printed: ['THE REAL ROBOT moves in this run: the checklist done, nothing else connected to the robot, the stop button in reach.', 'not started']
+--- Enter: exit code 0; started 1 command(s): ...robot --label robot_line ... --run-folder C:\Users\e7dc\AppData\Local\Temp\tmpzidqs0se --place-help --fresh-keys
+    printed: ['THE REAL ROBOT moves in this run: the checklist done, nothing else connected to the robot, the stop button in reach.', 'starting model_mode.py; it needs some seconds to load the model. Press no key until it asks its first question.']

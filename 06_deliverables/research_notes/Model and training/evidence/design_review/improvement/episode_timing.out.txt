@@ -1,0 +1,115 @@
+﻿episode folders with episode.json: 239 ; kept (score 1 to 3): 210 ; score 0: 28 ; no score: 1
+modes: {'hand_guided_exact': 239}
+statuses: {'completed': 210, 'discarded': 10, 'discarded_while_guiding': 7, 'start_unreachable': 7, 'discarded_camera_moved': 4, 'quit': 1}
+
+=== sittings (start gaps over 90 min): span from the first start to the last finish ===
+sitting 1: 06.11 17:02 to 06.11 21:44, 282 min, folders 23, kept 21, score 0 1, min per kept episode 13.41, kept by sheet {'path_01': 20, 'path_02': 1}
+sitting 2: 07.11 13:16 to 07.11 15:50, 154 min, folders 16, kept 9, score 0 7, min per kept episode 17.08, kept by sheet {'path_02': 9}
+sitting 3: 07.11 19:01 to 08.11 05:28, 626 min, folders 88, kept 80, score 0 8, min per kept episode 7.83, kept by sheet {'path_02': 35, 'path_03': 45}
+sitting 4: 08.11 14:01 to 08.11 18:07, 245 min, folders 31, kept 29, score 0 2, min per kept episode 8.46, kept by sheet {'path_04': 29}
+sitting 5: 08.11 19:33 to 09.11 02:14, 401 min, folders 81, kept 71, score 0 10, min per kept episode 5.64, kept by sheet {'path_04': 16, 'path_05': 30, 'path_06': 25}
+all sittings: 1708 min = 28.5 h for 210 kept episodes, 8.13 min per kept episode
+
+=== kept episodes, per sheet (minutes unless marked) ===
+--- path_01: 20 kept episodes
+  rows per episode: median 31.50, quartiles 26.00 to 44.25, 10th to 90th 13.00 to 52.10, n 20
+  start to finish (min): median 2.82, quartiles 2.17 to 3.31, 10th to 90th 1.92 to 4.97, n 20
+  initial guiding (s): median 37.09, quartiles 30.44 to 42.55, 10th to 90th 24.90 to 51.27, n 20
+  start to first row, without guiding (min): median 1.07, quartiles 0.81 to 1.22, 10th to 90th 0.75 to 1.48, n 20
+  replay span (min): median 0.78, quartiles 0.54 to 1.17, 10th to 90th 0.32 to 2.29, n 20
+  plain stepping (min): median 0.59, quartiles 0.51 to 0.79, 10th to 90th 0.32 to 1.10, n 20
+  pauses inside the replay (min): median 0.00, quartiles 0.00 to 0.35, 10th to 90th 0.00 to 1.57, n 20
+  last row to finish (min): median 0.11, quartiles 0.10 to 0.14, 10th to 90th 0.09 to 0.22, n 20
+  finish to next start (min): median 2.52, quartiles 1.60 to 8.66, 10th to 90th 0.89 to 33.74, n 20
+  start to next start (min): median 5.67, quartiles 4.49 to 11.55, 10th to 90th 3.99 to 37.08, n 20
+  hand corrections: median 0.00, quartiles 0.00 to 0.00, 10th to 90th 0.00 to 1.00, n 20 sum 5
+--- path_02: 45 kept episodes
+  rows per episode: median 66.00, quartiles 53.00 to 76.00, 10th to 90th 16.00 to 92.20, n 45
+  start to finish (min): median 4.38, quartiles 3.63 to 5.98, 10th to 90th 2.49 to 7.46, n 45
+  initial guiding (s): median 31.52, quartiles 25.46 to 39.14, 10th to 90th 17.04 to 46.48, n 45
+  start to first row, without guiding (min): median 1.05, quartiles 0.89 to 1.23, 10th to 90th 0.76 to 1.84, n 45
+  replay span (min): median 2.66, quartiles 1.57 to 3.57, 10th to 90th 0.39 to 4.73, n 45
+  plain stepping (min): median 1.29, quartiles 0.98 to 1.58, 10th to 90th 0.39 to 1.88, n 45
+  pauses inside the replay (min): median 1.22, quartiles 0.68 to 2.34, 10th to 90th 0.00 to 3.35, n 45
+  last row to finish (min): median 0.26, quartiles 0.21 to 0.29, 10th to 90th 0.18 to 0.36, n 45
+  finish to next start (min): median 1.41, quartiles 0.91 to 2.98, 10th to 90th 0.68 to 7.99, n 44
+  start to next start (min): median 6.43, quartiles 4.99 to 8.85, 10th to 90th 3.67 to 12.03, n 44
+  hand corrections: median 1.00, quartiles 1.00 to 2.00, 10th to 90th 0.00 to 2.00, n 45 sum 58
+--- path_03: 45 kept episodes
+  rows per episode: median 106.00, quartiles 64.00 to 124.00, 10th to 90th 20.60 to 132.20, n 45
+  start to finish (min): median 4.90, quartiles 2.95 to 6.32, 10th to 90th 1.46 to 7.81, n 45
+  initial guiding (s): median 33.60, quartiles 25.24 to 43.68, 10th to 90th 12.50 to 64.39, n 45
+  start to first row, without guiding (min): median 0.69, quartiles 0.58 to 0.85, 10th to 90th 0.48 to 1.16, n 45
+  replay span (min): median 3.22, quartiles 1.37 to 4.65, 10th to 90th 0.42 to 5.26, n 45
+  plain stepping (min): median 2.10, quartiles 1.36 to 2.35, 10th to 90th 0.42 to 2.74, n 45
+  pauses inside the replay (min): median 1.10, quartiles 0.00 to 2.13, 10th to 90th 0.00 to 2.68, n 45
+  last row to finish (min): median 0.11, quartiles 0.10 to 0.15, 10th to 90th 0.09 to 0.24, n 45
+  finish to next start (min): median 0.87, quartiles 0.58 to 1.17, 10th to 90th 0.49 to 2.94, n 45
+  start to next start (min): median 5.75, quartiles 3.63 to 7.97, 10th to 90th 2.03 to 10.71, n 45
+  hand corrections: median 1.00, quartiles 0.00 to 2.00, 10th to 90th 0.00 to 3.00, n 45 sum 59
+--- path_04: 45 kept episodes
+  rows per episode: median 168.00, quartiles 130.00 to 184.00, 10th to 90th 23.00 to 205.60, n 45
+  start to finish (min): median 5.98, quartiles 4.32 to 8.05, 10th to 90th 1.29 to 9.15, n 45
+  initial guiding (s): median 53.89, quartiles 41.89 to 64.08, 10th to 90th 9.23 to 73.49, n 45
+  start to first row, without guiding (min): median 0.62, quartiles 0.54 to 0.76, 10th to 90th 0.46 to 1.11, n 45
+  replay span (min): median 4.26, quartiles 2.85 to 6.19, 10th to 90th 0.48 to 7.15, n 45
+  plain stepping (min): median 3.45, quartiles 2.44 to 3.75, 10th to 90th 0.48 to 4.19, n 45
+  pauses inside the replay (min): median 1.06, quartiles 0.00 to 2.26, 10th to 90th 0.00 to 3.31, n 45
+  last row to finish (min): median 0.13, quartiles 0.12 to 0.16, 10th to 90th 0.10 to 0.20, n 45
+  finish to next start (min): median 0.63, quartiles 0.40 to 1.20, 10th to 90th 0.37 to 1.82, n 44
+  start to next start (min): median 7.00, quartiles 5.25 to 8.63, 10th to 90th 1.98 to 10.94, n 44
+  hand corrections: median 1.00, quartiles 0.00 to 3.00, 10th to 90th 0.00 to 4.00, n 45 sum 69
+--- path_05: 30 kept episodes
+  rows per episode: median 103.50, quartiles 88.25 to 116.25, 10th to 90th 17.90 to 123.10, n 30
+  start to finish (min): median 4.20, quartiles 3.29 to 4.87, 10th to 90th 1.75 to 5.82, n 30
+  initial guiding (s): median 33.64, quartiles 27.89 to 38.41, 10th to 90th 6.40 to 40.02, n 30
+  start to first row, without guiding (min): median 0.62, quartiles 0.59 to 0.77, 10th to 90th 0.51 to 0.92, n 30
+  replay span (min): median 2.56, quartiles 1.81 to 3.47, 10th to 90th 0.37 to 4.11, n 30
+  plain stepping (min): median 1.95, quartiles 1.79 to 2.30, 10th to 90th 0.32 to 2.43, n 30
+  pauses inside the replay (min): median 0.61, quartiles 0.04 to 1.06, 10th to 90th 0.00 to 1.82, n 30
+  last row to finish (min): median 0.28, quartiles 0.23 to 0.32, 10th to 90th 0.20 to 0.40, n 30
+  finish to next start (min): median 0.67, quartiles 0.47 to 1.21, 10th to 90th 0.43 to 1.54, n 30
+  start to next start (min): median 5.08, quartiles 4.21 to 6.11, 10th to 90th 2.38 to 6.63, n 30
+  hand corrections: median 1.00, quartiles 0.00 to 1.00, 10th to 90th 0.00 to 2.00, n 30 sum 27
+--- path_06: 25 kept episodes
+  rows per episode: median 82.00, quartiles 74.00 to 101.00, 10th to 90th 26.20 to 108.00, n 25
+  start to finish (min): median 3.38, quartiles 3.07 to 4.90, 10th to 90th 2.24 to 5.48, n 25
+  initial guiding (s): median 30.58, quartiles 27.18 to 35.45, 10th to 90th 17.21 to 39.05, n 25
+  start to first row, without guiding (min): median 0.62, quartiles 0.50 to 0.76, 10th to 90th 0.47 to 1.01, n 25
+  replay span (min): median 1.73, quartiles 1.57 to 3.28, 10th to 90th 1.06 to 4.01, n 25
+  plain stepping (min): median 1.70, quartiles 1.50 to 2.05, 10th to 90th 0.53 to 2.31, n 25
+  pauses inside the replay (min): median 0.00, quartiles 0.00 to 1.18, 10th to 90th 0.00 to 1.81, n 25
+  last row to finish (min): median 0.36, quartiles 0.31 to 0.40, 10th to 90th 0.28 to 0.42, n 25
+  finish to next start (min): median 0.57, quartiles 0.40 to 1.03, 10th to 90th 0.35 to 1.28, n 24
+  start to next start (min): median 4.35, quartiles 3.56 to 5.78, 10th to 90th 2.90 to 6.13, n 24
+  hand corrections: median 0.00, quartiles 0.00 to 1.00, 10th to 90th 0.00 to 3.00, n 25 sum 21
+
+=== all kept episodes ===
+  start to finish (min): median 4.31, quartiles 2.97 to 6.02, 10th to 90th 1.61 to 7.77, n 210
+  initial guiding (s): median 34.51, quartiles 27.20 to 46.03, 10th to 90th 11.97 to 61.09, n 210
+  start to first row without guiding (min): median 0.75, quartiles 0.59 to 1.02, 10th to 90th 0.49 to 1.28, n 210
+  plain stepping (min): median 1.72, quartiles 0.75 to 2.35, 10th to 90th 0.37 to 3.48, n 210
+  last row to finish (min): median 0.19, quartiles 0.12 to 0.28, 10th to 90th 0.10 to 0.38, n 210
+  finish to next start (min): median 0.92, quartiles 0.56 to 1.67, 10th to 90th 0.40 to 3.70, n 207
+  start to next start (min): median 5.78, quartiles 4.12 to 7.93, 10th to 90th 2.31 to 10.83, n 207
+  pause before the stop row (s): median 4.25, quartiles 3.02 to 7.02, 10th to 90th 2.24 to 10.00, n 210
+  plain stepping per step: 1.241 s (sum over 18046 steps)
+
+=== hand corrections in kept episodes ===
+count: 239 in 130 episodes
+pause from the row before to the first replayed row (s): median 51.64, quartiles 38.93 to 71.03, 10th to 90th 28.19 to 87.41, n 239
+guiding inside the correction (s): median 17.08, quartiles 10.12 to 25.29, 10th to 90th 5.96 to 32.68, n 239
+pause minus guiding (s): median 33.39, quartiles 26.00 to 45.64, 10th to 90th 20.15 to 59.17, n 239
+replayed rows per correction: median 22.00, quartiles 15.00 to 41.50, 10th to 90th 9.00 to 55.20, n 239
+  path_01: n 5, pause (s) median 80.67, quartiles 78.95 to 99.03, 10th to 90th 73.52 to 116.05, n 5
+  path_02: n 58, pause (s) median 67.60, quartiles 50.66 to 75.37, 10th to 90th 45.52 to 98.91, n 58
+  path_03: n 59, pause (s) median 54.34, quartiles 41.78 to 71.15, 10th to 90th 29.33 to 87.74, n 59
+  path_04: n 69, pause (s) median 46.73, quartiles 36.12 to 67.07, 10th to 90th 23.37 to 83.49, n 69
+  path_05: n 27, pause (s) median 44.08, quartiles 36.60 to 57.53, 10th to 90th 25.77 to 74.36, n 27
+  path_06: n 21, pause (s) median 32.47, quartiles 30.01 to 43.60, 10th to 90th 28.22 to 64.83, n 21
+
+=== start to finish against rows and hand corrections (least squares, kept episodes) ===
+minutes = 1.58 + 1.30 s per row + 1.01 min per correction
+  intercept (min): 1.582, 95 % bootstrap 1.373 to 1.821
+  per row (min): 0.022, 95 % bootstrap 0.019 to 0.024
+  per correction (min): 1.012, 95 % bootstrap 0.826 to 1.190

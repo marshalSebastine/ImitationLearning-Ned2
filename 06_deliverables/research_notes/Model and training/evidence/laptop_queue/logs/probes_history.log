@@ -1,0 +1,4 @@
+history | one_picture | 207.3 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+history | plus_previous_picture | 355.6 s | within 45: 0.5764 | class accuracy: 0.4112 | stopped right: 0.2535 | early: 0.1083
+history | plus_change_since_previous | 334.0 s | within 45: 0.6032 | class accuracy: 0.4325 | stopped right: 0.278 | early: 0.1592
+history | plus_pictures_2_and_4_back | 529.8 s | within 45: 0.5859 | class accuracy: 0.4121 | stopped right: 0.1857 | early: 0.1219

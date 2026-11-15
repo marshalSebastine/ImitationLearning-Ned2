@@ -1,0 +1,29 @@
+pictures 2 to 6 of each run; direction = mean asked direction in the picture (degrees, negative = to the right), twist = summed asked twist (degrees)
+run                        5     9     10
+logged direction mean   -40.3 -36.0 -49.1
+logged twist sum        -24.9 -28.8 -32.6
+E: direction            -40.3 -36.0 -33.5
+E: twist                -24.9 -28.8 -27.4
+chunk: direction        -47.0 -40.2 -43.9
+chunk: twist            -29.8 -32.7 -31.5
+team of five: direction -56.7 -50.5 -49.1
+team of five: twist     -31.2 -34.0 -32.6
+member 1: direction     -59.7 -59.6 -56.0
+member 1: twist         -28.6 -33.3 -32.9
+member 2: direction     -54.0 -52.3 -48.9
+member 2: twist         -30.5 -36.9 -34.8
+member 3: direction     -60.7 -49.2 -48.1
+member 3: twist         -33.1 -32.6 -31.9
+member 4: direction     -53.5 -40.7 -44.2
+member 4: twist         -30.7 -32.3 -31.4
+member 5: direction     -56.1 -49.2 -47.8
+member 5: twist         -32.9 -35.1 -32.3
+
+spread of the five single members' mean direction (smallest to largest), against E:
+  run 5: members -60.7 to -53.5 (mean -56.8), team -56.7, E -40.3, plain chunk model -47.0
+  run 9: members -59.6 to -40.7 (mean -50.2), team -50.5, E -36.0, plain chunk model -40.2
+  run 10: members -56.0 to -44.2 (mean -49.0), team -49.1, E -33.5, plain chunk model -43.9
+spread of the five single members' summed twist, against E:
+  run 5: members -33.1 to -28.6, team -31.2, E -24.9, plain chunk model -29.8
+  run 9: members -36.9 to -32.3, team -34.0, E -28.8, plain chunk model -32.7
+  run 10: members -34.8 to -31.4, team -32.6, E -27.4, plain chunk model -31.5

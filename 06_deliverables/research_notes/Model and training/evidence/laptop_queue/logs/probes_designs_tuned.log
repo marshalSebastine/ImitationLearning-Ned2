@@ -1,0 +1,6 @@
+designs | classes_small_motion_dropped | 172.8 s | within 45: 0.5603 | class accuracy: 0.4024 | stopped right: 0.1817 | early: 0.054
+designs | classes_small_motion_next_move | 153.6 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+designs | classes_small_motion_own_class | 153.6 s | within 45: 0.5604 | class accuracy: 0.4048 | stopped right: 0.207 | early: 0.059
+designs | exact_step | 222.9 s | within 45: 0.5914 | class accuracy: 0.3984 | stopped right: 0.2905 | early: 0.2426
+designs | mixed_classes_and_exact | 157.6 s | within 45: 0.5647 | class accuracy: 0.4077 | stopped right: 0.234 | early: 0.0598
+designs | chunk_of_5_steps | 228.4 s | within 45: 0.6071 | class accuracy: 0.4108 | stopped right: 0.3002 | early: 0.264

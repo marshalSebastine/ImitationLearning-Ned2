@@ -1,0 +1,12 @@
+wording (window past the bend, limit from the line's middle) | run 5 | run 9 | run 10 | gives back the check's reading (fail, fail, pass)? | demonstrations 03-25, 03-02, 03-13, 03-18, 03-07
+      4 cm, 12 mm | FAIL@9   | pass     | pass     | NO | ['pass', 'pass', 'pass', 'pass', 'pass']
+      4 cm, 17 mm | FAIL@9   | pass     | pass     | NO | ['pass', 'pass', 'pass', 'pass', 'pass']
+      6 cm, 12 mm | FAIL@9   | pass     | pass     | NO | ['pass', 'FAIL@20', 'pass', 'pass', 'pass']
+      6 cm, 17 mm | FAIL@9   | pass     | pass     | NO | ['pass', 'pass', 'pass', 'pass', 'pass']
+      8 cm, 12 mm | FAIL@9   | FAIL@21  | pass     | yes | ['pass', 'FAIL@20', 'pass', 'pass', 'pass']
+      8 cm, 17 mm | FAIL@9   | FAIL@21  | pass     | yes | ['pass', 'pass', 'pass', 'pass', 'pass']
+     10 cm, 12 mm | FAIL@9   | FAIL@21  | FAIL@22  | NO | ['pass', 'FAIL@20', 'pass', 'pass', 'pass']
+     10 cm, 17 mm | FAIL@9   | FAIL@21  | pass     | yes | ['pass', 'FAIL@34', 'pass', 'pass', 'pass']
+
+note: run 5's first counted failure comes from readings of 49 and 44 mm at pictures 8 and 9 that the measure's own flags call good; the check's other tool
+(step_length/line_and_puck.py) puts the puck 0.8 to 1.4 cm outside the ink there. The verdict is right, the number is not.

@@ -1,0 +1,27 @@
+columns of episodes.csv that name the start end: ['start_end', 'plan_end']
+path_03_two_curve_episode_026_plan_03-25_try_2 (start STD, end A, 2 hand corrections, score 3): bend at picture 13 (puck path 5.1 cm), window to picture 31 of 105
+   sound readings in the window 24 of 32: over 7 mm 0, over 12 mm 0, over 17 mm 0; largest 6.1 mm; while the puck was moving: over 12 mm 0
+      12 mm, any sound picture            : PASS
+      12 mm, two sound pictures in a row  : PASS
+      17 mm, two sound pictures in a row  : PASS
+path_03_two_curve_episode_002_plan_03-02_try_1 (start STD, end A, 3 hand corrections, score 2): bend at picture 16 (puck path 6.7 cm), window to picture 39 of 129
+   sound readings in the window 27 of 40: over 7 mm 20, over 12 mm 11, over 17 mm 6; largest 40.3 mm; while the puck was moving: over 12 mm 8
+      12 mm, any sound picture            : FAIL at picture 19
+      12 mm, two sound pictures in a row  : FAIL at picture 20
+      17 mm, two sound pictures in a row  : FAIL at picture 34
+path_03_two_curve_episode_013_plan_03-13_try_1 (start STD, end B, 1 hand corrections, score 3): bend at picture 6 (puck path 15.1 cm), window to picture 20 of 105
+   sound readings in the window 16 of 21: over 7 mm 0, over 12 mm 0, over 17 mm 0; largest 5.5 mm; while the puck was moving: over 12 mm 0
+      12 mm, any sound picture            : PASS
+      12 mm, two sound pictures in a row  : PASS
+      17 mm, two sound pictures in a row  : PASS
+path_03_two_curve_episode_018_plan_03-18_try_1 (start OL1, end B, 1 hand corrections, score 2): bend at picture 14 (puck path 3.9 cm), window to picture 23 of 118
+   sound readings in the window 9 of 24: over 7 mm 0, over 12 mm 0, over 17 mm 0; largest 5.6 mm; while the puck was moving: over 12 mm 0
+      12 mm, any sound picture            : PASS
+      12 mm, two sound pictures in a row  : PASS
+      17 mm, two sound pictures in a row  : PASS
+path_03_two_curve_episode_007_plan_03-07_try_1 (start OR1, end A, 2 hand corrections, score 3): bend at picture 25 (puck path 3.7 cm), window to picture 45 of 139
+   sound readings in the window 19 of 46: over 7 mm 0, over 12 mm 0, over 17 mm 0; largest 4.4 mm; while the puck was moving: over 12 mm 0
+      12 mm, any sound picture            : PASS
+      12 mm, two sound pictures in a row  : PASS
+      17 mm, two sound pictures in a row  : PASS
+path_03_two_curve_episode_024_plan_03-24_try_1 (NE): the puck travelled only 10.7 cm; left out

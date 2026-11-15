@@ -6,8 +6,9 @@ in one place only. Later phases add the keys named in the work plan.
 """
 
 import math
+import tempfile
 from pathlib import Path
-from typing import Optional
+from typing import Dict, Optional
 
 ROBOT_PARAMETERS = {
     "ip_address": "169.254.200.200",  # Ethernet cable (Emranul's laptop); 10.10.10.10 over the robot's hotspot
@@ -241,7 +242,8 @@ RECORDING_PAGE_PARAMETERS = {
     # caught by the picture check only when it falls under 30.
     "sharpness_warning_below": 30.0,
     "sharpness_rows": 5,
-    # Saving a score waits at most this long for the picture check (check_pictures.py) to finish writing into the folder.
+    # Closing the page (Ctrl-C) waits at most this long for running picture checks (check_pictures.py), so that a score
+    # saved during a check is still added to the folder's name. Until 12.11.26 saving a score waited for the check.
     "picture_check_wait_s": 60,
     "operators": ["emranul", "marshal"],
     "modes": {
@@ -341,10 +343,16 @@ RECORDING_PAGE_PARAMETERS = {
         "Before Enter at the start: puck placed, hands out of the picture. Never touch the puck once the robot is down."
     ],
     "sheet_placement_figure": "06_deliverables/research_notes/Recording tool/figures/2026-11-06_rule_a_placements.png",
+    # 13.11.26 (Emranul): how to tape the new-track mark and lay a new track, shown in the page's corner (drawn by
+    # setup_visuals.py --new-tracks beside table_marks.pdf)
+    "table_marks_figure": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode/table_marks.png",
     # One set-up picture per plan number, plan_<NN-NN>.png (setup_visuals.py, 6.11.26), shown in "Set up this episode".
     "setup_picture_folder": "06_deliverables/research_notes/Recording tool/figures/setup_per_episode",
-    # Round 1 of the plan: enough for the first model. The page offers these before anything else.
-    "first_round": {"sheets": ["path_01_straight_line", "path_02_arc", "path_04_meander"], "episodes_per_sheet": 12},
+    # Round 1 of the plan: the page offers these before anything else. Until 12.11.26 the first 12 episodes of sheets 01,
+    # 02 and 04 (all 210 course-sheet episodes were done by then); since 12.11.26 (Emranul) the pilot of the new tracks,
+    # plans 1 and 2 of the solid prints of T01 to T04 (NEW_TRACK_RECORDING_PARAMETERS below). After the round the page
+    # stays on a sheet while it has episodes left, then goes to the next sheet in this dictionary's order.
+    "first_round": {"sheets": ["path_11_T01_solid", "path_12_T02_solid", "path_13_T03_solid", "path_14_T04_solid"], "episodes_per_sheet": 2},
     # The episode plan per sheet: (first number, last number, kind of start or one per number, start end, what to know).
     "episode_plan": {
         "path_01_straight_line": [
@@ -562,6 +570,19 @@ RECORDING_PARAMETERS = {
     # compare a start picture with an earlier one after the first episodes).
     "travel_velocity_percent": 90,
     "travel_minimum_height_m": 0.04,
+    # 12.11.26 (Emranul: "make sure to increase that thing from 20% to 90%, I will take care of the puck"): the moves
+    # beside the puck that push nothing run at this speed cap: the lift off the puck or the line (record_episodes
+    # __lift, its fall-back with joints 2 and 3, the low first stops of __turn_back_lifted, the lift at the start of
+    # __return_to_joints_from_above when the rod starts low) and the last move down (the end of __lower_to_start and of
+    # __return_to_joints_from_above). Every pushing move (the steps of all modes, the exact replay's waypoints, the
+    # replay of a correction), the step-over and the hand flick keep their speed. 20 (ROBOT_PARAMETERS
+    # "arm_max_velocity_percent", the arm's usual cap) gives back the behaviour before 12.11.26. Not tried on the robot.
+    "near_puck_velocity_percent": 90,
+    # 12.11.26 (Emranul): straight after hand guiding or a hand correction the straight lift was refused in every
+    # episode (the log shows "inverse kinematics refused the pose (attempt 1 of 3)", "(attempt 2 of 3)", then "straight
+    # lift refused ...; lifted with joints 2 and 3 instead"); True lifts with joints 2 and 3 at once there. False gives
+    # back the old order (straight lift first). The time saved is a guess until timed at the robot.
+    "is_lift_after_guiding_by_joints": True,
     # 4.11.26, Emranul, after merging Marshal's keys of the same day: the back diagonals (z c) and the step-over keys
     # (r f) are not bound; the seven classes plus the camera turn are what the team records with. The actions and the
     # step-over code stay in the tool for Marshal's stepping rule v1, bound again by adding the keys here. The lean test
@@ -594,8 +615,10 @@ RECORDING_PARAMETERS = {
         "turn_left": 30,
         "turn_right": -30
     },
-    "min_turn_deg": -90,  # both sides since 4.11.26 (Emranul): v turns towards +, b towards -
-    "max_turn_deg": 90,
+    # both sides since 4.11.26 (Emranul): v turns towards +, b towards -; 11.11.26 (Emranul): no tighter than about 2 to 3
+    # degrees inside the hardware limit (the arm model's 119.75), so recordings can use the forearm's full swing
+    "min_turn_deg": -117,
+    "max_turn_deg": 117,
     # After a turn the tip stands at least this far back from the puck, opposite to the last push, instead of on its old
     # spot: the block turns with the forearm and after 90 degrees its wide side (37 mm) overlaps the puck's place by
     # about 12 mm (calc), and on 4.11.26 the tip came down onto the puck. The tool keeps count of how far the block
@@ -628,6 +651,13 @@ RECORDING_PARAMETERS = {
     # under the largest lean pushed. One run, one direction (outwards); a sideways push with the block's wide face
     # is not measured. Marshal's side_view_test.py keeps its own, more cautious 16.
     "max_turn_lean_deg": 28.0,
+    # 14.11.26 (Emranul: "raise the limits of the robot when reaching the taught position"): the rod's lean allowed at a
+    # taught start, where the robot only comes down behind the puck and the person then guides (it pushes nothing by
+    # itself). 28 refused T05's near-end start at 32 to 41 degrees and T06's first try at 28.2. The hand-guided
+    # demonstrations leaned far more (99th percentile 49.1 degrees, frames.csv 10.11.26) without the puck tipping, so
+    # 40 stays well inside what was pushed by hand. The robot's own joint limits are not touched. Not yet tried on the
+    # robot: watch the first start that needs more than 28.
+    "max_start_lean_deg": 40.0,
     # Lifted, the rod touches nothing, so only the arm's reach matters; 45 leaves room for the retreat at 38 cm (34.6).
     "max_turn_lifted_lean_deg": 45.0,
     "turn_model_tolerance_mm": SIDE_VIEW_TEST_PARAMETERS["model_tolerance_mm"],
@@ -703,6 +733,13 @@ RECORDING_PARAMETERS = {
     # correction of sheet 01, so the arm went to the parking pose and back). Calculated with the arm model at the three
     # correction poses of 6.11.26: these changes raise the magnet tip 38 mm and move it at most 2 mm sideways.
     "joint_lift_change_rad": {"joint_2": 0.12, "joint_3": -0.05},
+    # 14.11.26 (Emranul: the way home after a discarded episode was slow): at the standard start these changes raise the
+    # tip only about 1.7 cm (arm model), under "travel_minimum_height_m", so after guiding the lift is repeated until
+    # the rod's end is that high, at most this many more times; then the travel moves run at "travel_velocity_percent".
+    "joint_lift_repeats_most": 3,
+    # 14.11.26 (Emranul: "remove the orientation thing, it's not needed"): the second window, the map of the arm and
+    # the keys beside the picture (4.11.26), is not opened; True brings it back. It only draws.
+    "is_orientation_window_shown": False,
     # Putting the puck back after a hand correction: the live picture shows a circle where the puck was; within this
     # many pixels of its centre the status says "good" (the puck is about 60 px across near the block; chosen).
     "puck_back_good_px": 5,
@@ -724,6 +761,14 @@ RECORDING_PARAMETERS = {
     # the reference picture is laid over the live one at this share: the old puck shows as a faint ghost in its true
     # size and place, and the live puck is moved until the two merge (chosen; 0 turns it off).
     "puck_back_ghost_share": 0.35,
+    # 14.11.26 (Emranul: "the faint start helped us position the paper; implement the same in the recording tool"): on
+    # a new track's sheet the arm, once down at the start, shows the live picture with the line drawn where it should
+    # lie (track_lay_out.py: tracks.json laid by the new-track mark, projected with the fitted camera), until Enter,
+    # so the sheet can be moved onto it. Only on the first episode of each print ("first_of_sheet", plan number ending
+    # in -01), when the sheet has just been taped; "every_episode" shows it every time; False turns it off. The drawing
+    # is as good as the camera model (about 2 mm on the table, median; the puck shape sat a little low beside the
+    # block on 8.11), so the tape mark comes first and the drawing checks the turn.
+    "lay_out_line_episodes": "first_of_sheet",
     # A puck the detector misses in the reference (partly hidden, 7.11.26): the red part's outline is drawn instead.
     # Red in HSV (OpenCV hue 0 to 180): hue under the first edge or over the second, with these saturation and value
     # (chosen from the puck's colour in the 6.11 pictures, value low enough for the dimmed room of 7.11). At least
@@ -862,6 +907,140 @@ def step_budget_for(path_id: str) -> int:
     if length_cm is None:
         return RECORDING_PARAMETERS["step_budget"]
     return int(math.ceil(RECORDING_PARAMETERS["step_budget_per_cm"] * length_cm))
+
+
+# The 16 training tracks of 12.11.26 (make_test_tracks.py; tracks_2026-11-12/tracks.json), recorded on from 14.11.26.
+# Each track is printed twice, solid and dashed, and each print is a sheet of its own on the recording page: sheet
+# number 10 + n for the solid print of Tn and 30 + n for the dashed one (11 to 26 and 31 to 46, clear of the course
+# sheets' 01 to 06), sheet name path_<number>_<track>_<print>. Every print is laid by the rule of tracks.json
+# ("lay_out_rule", the same "mark_m" as TEST_TRACK_PARAMETERS["lay_out"]): the centre of end A's round cap on the
+# new-track mark, 19.5 cm in front of the base axis and 1.5 cm to its right, the first straight piece straight away from
+# the robot, not turned; all 16 pass the lay-out check from end A unturned (lay_outs.csv, calc with the arm model). The
+# recorder's own start (WORKSPACE_PARAMETERS["line_start_xy"]) is not changed: the arm comes down with its tip at
+# 14.0, -1.5 cm as for every course-sheet start, 5.5 cm behind the cap's centre, as in the 209 recordings (caps a median
+# 19.2 cm out). Lengths: the drawn centre line between the two cap centres (tracks.json "length_mm", calc from the
+# drawing). The plan (Emranul, 12.11.26): 58 episodes, 48 standard starts and 10 near-end starts; the pilot is plans 1
+# and 2 of the solid prints of T01 to T04; every print is taped once and all its episodes follow each other, its
+# near-end start last. 14.11.26 (Emranul): he records every episode himself, Marshal none ("we do only me"), so the
+# pilot no longer splits its plans between the two and no plan says "either operator".
+NEW_TRACK_RECORDING_PARAMETERS = {
+    "tracks_file": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12" / "tracks.json",
+    "mark_m": [0.195, -0.015],
+    "solid_number_offset": 10,
+    "dashed_number_offset": 30,
+    "near_end_note": "Puck 6 cm before the end cap.",
+    # 14.11.26: a near-end start that needs another distance than "near_end_note" (on T12 the push 6 cm before the end
+    # needs the forearm turned about 111 degrees, close to its 117; 8 cm before, about 92)
+    "near_end_notes": {"T12": "Puck 8 cm before the end cap."},
+    "pilot_notes": ["Pilot: recorded by Emranul.", "Pilot: recorded by Emranul."],
+    "either_operator_note": "Recorded by Emranul.",
+    # name, label, length in cm, standard starts on the solid print, standard starts on the dashed print, and the print
+    # that also gets a near-end start (solid for the even numbers T06 to T14, dashed for the odd numbers T05 to T13).
+    # 14.11.26 (Emranul, after 35-03 was refused three times): the near-end starts of T05, T06, T10 and T13 are taken
+    # out (None): there the line's last centimetres run back towards the robot, and starting a push needs the forearm
+    # turned 120 to 180 degrees against its 117 (calc from the drawings; T05 refused on the robot). 54 episodes remain,
+    # 48 standard and 6 near-end starts (T07, T08, T09, T11, T12 at 8 cm, T14).
+    "tracks": [
+        ("T01", "gentle S-curves", 32.7, 2, 1, None),
+        ("T02", "two sharp bends", 30.2, 2, 1, None),
+        ("T03", "loop", 39.7, 2, 1, None),
+        ("T04", "hairpin and medium bend", 40.8, 2, 1, None),
+        ("T05", "loop and corner", 45.6, 1, 2, None),
+        ("T06", "hairpin and sharp bend", 42.4, 2, 1, None),
+        ("T07", "two corners", 34.4, 1, 2, "dashed"),
+        ("T08", "loop and hairpin", 53.0, 2, 1, "solid"),
+        ("T09", "short gentle", 26.5, 1, 2, "dashed"),
+        ("T10", "loop and medium bend", 46.4, 2, 1, None),
+        ("T11", "three corners", 45.5, 1, 2, "dashed"),
+        ("T12", "long meander", 67.3, 2, 1, "solid"),
+        ("T13", "gentle", 41.4, 1, 2, None),
+        ("T14", "loop and corner", 52.2, 2, 1, "solid"),
+        ("T15", "mixed bends", 57.2, 1, 2, None),
+        ("T16", "long gentle", 46.8, 2, 1, None)
+    ]
+}
+
+
+def new_track_sheet_id(
+        track_name: str,
+        print_kind: str,
+        parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS
+) -> str:
+    """
+    The sheet name of one print of a new track, for example "path_13_T03_solid" or "path_33_T03_dashed".
+
+    Parameters
+    ----------
+    track_name : str
+        The track's name, "T01" to "T16".
+    print_kind : str
+        "solid" or "dashed".
+    parameters : dict, optional
+        NEW_TRACK_RECORDING_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    str
+        The sheet name, which starts every episode folder's name.
+    """
+
+    offset = parameters["solid_number_offset"] if print_kind == "solid" else parameters["dashed_number_offset"]
+    return f"path_{offset + int(track_name[1:]):02d}_{track_name}_{print_kind}"
+
+
+def add_new_track_sheets(parameters: Dict = NEW_TRACK_RECORDING_PARAMETERS) -> Dict[str, str]:
+    """
+    Add both prints of every new track to the recording page's sheets, set-up notes and episode plan, and their line
+    lengths to the step budgets, in track order (solid before dashed), so that the page offers them sheet by sheet.
+
+    Parameters
+    ----------
+    parameters : dict, optional
+        NEW_TRACK_RECORDING_PARAMETERS or a copy with changes.
+
+    Returns
+    -------
+    dict
+        Sheet name -> the name of its shape ("T03" for both prints of track T03), for the training code that comes later.
+    """
+
+    shapes = {}
+    mark_x_cm, mark_y_cm = 100 * parameters["mark_m"][0], 100 * parameters["mark_m"][1]
+    for name, label, length_cm, solid_starts, dashed_starts, near_end_print in parameters["tracks"]:
+        is_pilot = name in ("T01", "T02", "T03", "T04")
+        for print_kind, standard_starts in (("solid", solid_starts), ("dashed", dashed_starts)):
+            sheet_id = new_track_sheet_id(name, print_kind, parameters)
+            number = sheet_id.split("_")[1]
+            has_near_end = near_end_print == print_kind
+            if is_pilot and print_kind == "solid":
+                blocks = [(index + 1, index + 1, "STD", "A", parameters["pilot_notes"][index]) for index in range(standard_starts)]
+            else:
+                blocks = [(1, standard_starts, "STD", "A", parameters["either_operator_note"])]
+            if has_near_end:
+                note = parameters.get("near_end_notes", {}).get(name, parameters["near_end_note"])
+                blocks.append((standard_starts + 1, standard_starts + 1, "NE", "A", note))
+            count = standard_starts + int(has_near_end)
+            plan_text = f"{count} episode{'s' if count > 1 else ''}, end A: {standard_starts} standard start{'s' if standard_starts > 1 else ''}"
+            plan_text += ", then 1 near-end start" if has_near_end else ""
+            plan_text += " (pilot)" if is_pilot and print_kind == "solid" else ""
+            setup_text = (f"New track {name} ({label}), {print_kind} print, end A written on its back. Lay it by the NEW-TRACK MARK, "
+                          f"not by a course sheet's place: the centre of end A's round cap on the mark ({mark_x_cm:.1f} cm in front of "
+                          f"the base axis, {abs(mark_y_cm):.1f} cm to its right, table_marks.pdf), the first straight piece along the "
+                          f"direction line, the sheet not turned. Tape it down once and record all its episodes before the next sheet.")
+            if print_kind == "dashed":
+                setup_text += " Keep the dashes' direction across the gaps."
+            RECORDING_PAGE_PARAMETERS["sheets"][sheet_id] = {"number": number, "label": f"{name} {label}, {print_kind}", "plan": plan_text}
+            RECORDING_PAGE_PARAMETERS["sheet_setups"][sheet_id] = setup_text
+            RECORDING_PAGE_PARAMETERS["episode_plan"][sheet_id] = blocks
+            RECORDING_PARAMETERS["line_length_cm"][sheet_id] = length_cm
+            shapes[sheet_id] = name
+    return shapes
+
+
+# Which sheets carry the same line (the shape): both prints of a new track share one; each course sheet is its own
+# (sheet 06 is the same kind of loop as 05, not the same line).
+SHAPE_OF_SHEET = {path_id: sheet["number"] for path_id, sheet in RECORDING_PAGE_PARAMETERS["sheets"].items()}
+SHAPE_OF_SHEET.update(add_new_track_sheets())
 
 
 def camera_heading_rad(
@@ -1337,6 +1516,1097 @@ CLAUDE_OPERATOR_STUDY_PARAMETERS = {
     "study_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Claude operator study",
     "answer_key_path": Path(__file__).resolve().parent.parent / "03_data" / "claude_operator_study_answer_key.csv"
 }
+
+
+# ------------------------------------------------------------------------------------------------------------------
+# Model and training (9.11.26, Model and training session).
+
+def main_checkout_folder() -> Path:
+    """
+    Return the project folder that holds ``03_data``: this checkout, or the main checkout for a git worktree.
+
+    ``03_data`` is never in git, so a git worktree of the project (for example one under ``.claude/worktrees``) has no
+    data of its own. Its ``.git`` file names the worktree's folder inside the main checkout's ``.git`` folder, whose
+    parent is the main checkout.
+
+    Returns
+    -------
+    pathlib.Path
+        The folder that contains ``03_data``, or this checkout when no other one can be found.
+    """
+
+    project_folder = Path(__file__).resolve().parent.parent
+    if (project_folder / "03_data").exists():
+        return project_folder
+    git_file = project_folder / ".git"
+    if git_file.is_file():
+        git_line = git_file.read_text(encoding = "utf-8").strip()
+        if git_line.startswith("gitdir:"):
+            worktree_git_folder = Path(git_line.split(":", 1)[1].strip())
+            return worktree_git_folder.parent.parent.parent
+    return project_folder
+
+
+# The training data index: training_dataset.py reads the main data without changing it and writes one row per picture,
+# one row per episode, a small grey copy of every picture and the resized picture caches into "processed_folder".
+# Kept: the scores in "kept_scores" (Emranul, 6.11.26: every finished episode trains, score 1 included; score 0 is left
+# out). Episodes without a score yet (3 on 9.11.26) are indexed but marked; "is_unscored_kept" decides whether the
+# training uses them. Lighting notes were typed by hand (seven spellings by 9.11.26); a note naming the ceiling lights
+# counts as ceiling even when it also names daylight (one note says it was wrongly marked as natural light). The red and
+# dark measurements reuse the recording tool's own colour limits, so the numbers mean the same in both places.
+TRAINING_DATA_PARAMETERS = {
+    "raw_folder": main_checkout_folder() / "03_data" / "raw" / "main_data",
+    "processed_folder": main_checkout_folder() / "03_data" / "processed" / "v01_training_index",
+    "kept_scores": [1, 2, 3],
+    "is_unscored_kept": False,
+    "lighting_keywords": {"ceiling": ["ceiling", "cieling", "lamp"], "natural": ["natural", "cloudy", "daylight", "sun"]},
+    "thumbnail_size": [32, 24],
+    "image_caches": {"square_224": [224, 224], "wide_160": [160, 120]},
+    "red_hue_edges": RECORDING_PARAMETERS["puck_red_hue_edges"],
+    "red_minimum_saturation": RECORDING_PARAMETERS["puck_red_min_saturation"],
+    "red_minimum_value": RECORDING_PARAMETERS["puck_red_min_value"],
+    "dark_value_below": PICTURE_CHECK_PARAMETERS["dark_value_below"],
+    "robot_area_px": PICTURE_CHECK_PARAMETERS["robot_area_px"],
+    "worker_count": 6
+}
+
+# Frozen picture features (training_features.py): pretrained backbones from the timm library, used without changing
+# their weights, so that small heads can be compared in seconds (training_probes.py). "is_fixed_input" marks a vision
+# transformer whose input size is fixed by its position table. The untrained ResNet-18 is a control: it shows how much
+# a head learns from features that know nothing about pictures.
+TRAINING_FEATURE_PARAMETERS = {
+    "backbones": {
+        "resnet18_imagenet": {"timm_name": "resnet18.tv_in1k", "is_pretrained": True},
+        "resnet18_random": {"timm_name": "resnet18", "is_pretrained": False},
+        "efficientnet_b0_imagenet": {"timm_name": "efficientnet_b0.ra_in1k", "is_pretrained": True},
+        "mobilenetv3_large_imagenet": {"timm_name": "mobilenetv3_large_100.ra_in1k", "is_pretrained": True},
+        "dinov2_small": {"timm_name": "vit_small_patch14_dinov2.lvd142m", "is_pretrained": True,
+                         "creation_arguments": {"img_size": 224}, "is_fixed_input": True},
+        "clip_vit_b32": {"timm_name": "vit_base_patch32_clip_224.openai", "is_pretrained": True, "is_fixed_input": True}
+    },
+    "picture_cache": "square_224",
+    "grid_cells": 4,
+    "batch_size": 64,
+    "extraction_threads": 4,
+    "speed_threads": 4,
+    "speed_input_sizes": {"square_224": [224, 224], "wide_160": [160, 120]},
+    "speed_repeats": 20,
+    "seed": 9_11_26,
+    "is_overwritten": False
+}
+
+# Training targets and validation (training_targets.py). Rows used: the scores in "kept_scores", without the rows the
+# operators marked as a mistake; flagged pictures stay in unless "is_flagged_dropped". The plan's start end replaces
+# episode.json's where they disagree (19 re-planned episodes of sheets 05 and 06, checked on the tip's path, 9.11.26);
+# with "is_audit_cleaning" the audit's table of corrected ends is used instead (it also fixes 11 episodes of sheet 02).
+# A tip move under 3 mm (small_motion, mostly a forearm twist) becomes the next real move ("next_move"), is dropped
+# ("drop") or is its own class ("own_class"). A forearm change of "twist_threshold_deg" or more counts as a twist.
+TRAINING_TARGET_PARAMETERS = {
+    "kept_scores": [1, 2, 3],
+    "is_unscored_kept": False,
+    "is_mistake_dropped": True,
+    "is_flagged_dropped": False,
+    "corrected_start_end": "plan",
+    "small_motion_rule": "next_move",
+    "twist_threshold_deg": 2.0,
+    "chunk_steps": 5,
+    "episode_fold_count": 5,
+    "inner_validation_share": 0.15,
+    "seed": 9_11_26
+}
+
+# Offline measures (training_metrics.py), the same for every model. A stop counts as right within "right_stop_cm" of
+# where the demonstration stopped and as too early more than "early_stop_cm" before it (the is_at_goal label uses 2 cm).
+TRAINING_METRIC_PARAMETERS = {
+    "angle_thresholds_deg": [30, 45, 60],
+    "stop_threshold": 0.5,
+    "right_stop_cm": 2.0,
+    "early_stop_cm": 3.0,
+    "twist_threshold_deg": 2.0
+}
+
+# Quick comparisons on frozen features (training_probes.py). A head with one hidden layer of "hidden_size" (0: linear)
+# is trained on standardised features with AdamW and early stopping on whole episodes held back from the training
+# sheets; "class_weight_power" 0.5 weighs each class by the square root of its rarity. Each experiment answers one
+# question; a variant lists only what differs from these defaults and from the experiment's "shared" settings.
+TRAINING_PROBE_PARAMETERS = {
+    "backbone": "resnet18_imagenet",
+    "feature_kind": "grid",
+    "design": "classes",
+    "split": "sheets",
+    "history_lags": [],
+    "is_difference_history": False,
+    "hidden_size": 256,
+    "dropout": 0.2,
+    "learning_rate": 1e-3,
+    "weight_decay": 1e-2,
+    "batch_size": 256,
+    "max_epochs": 40,
+    "patience": 5,
+    "label_smoothing": 0.0,
+    "class_weight_power": 0.5,
+    "score_weights": {1: 1.0, 2: 1.0, 3: 1.0},
+    "twist_loss_weight": 0.5,
+    "angle_scale_deg": 5.0,
+    "huber_delta": 1.0,
+    "stop_positive_weight": 10.0,
+    "seed": 9_11_26,
+    "threads": 4,
+    "output_folder": Path(__file__).resolve().parent.parent / "04_runs" / "2026-11-09_frozen_feature_probes"
+}
+
+PROBE_BACKBONES = ["resnet18_imagenet", "resnet18_random", "efficientnet_b0_imagenet", "mobilenetv3_large_imagenet",
+                   "dinov2_small", "clip_vit_b32"]
+
+TRAINING_PROBE_EXPERIMENTS = {
+    "backbones": {
+        "question": "Which frozen backbone, with a summary or a 4 x 4 grid of features, transfers best to a held-out sheet?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [{"name": f"{backbone}_{kind}", "backbone": backbone, "feature_kind": kind}
+                     for backbone in PROBE_BACKBONES for kind in ["global", "grid"]]
+    },
+    "designs": {
+        "question": "What should the model predict: move classes, the exact step, both, or a chunk of several steps?",
+        "shared": {"split": "sheets"},
+        "variants": [
+            {"name": "classes_small_motion_dropped", "design": "classes", "small_motion_rule": "drop"},
+            {"name": "classes_small_motion_next_move", "design": "classes", "small_motion_rule": "next_move"},
+            {"name": "classes_small_motion_own_class", "design": "classes", "small_motion_rule": "own_class"},
+            {"name": "exact_step", "design": "exact"},
+            {"name": "mixed_classes_and_exact", "design": "mixed", "small_motion_rule": "next_move"},
+            {"name": "chunk_of_5_steps", "design": "chunk", "chunk_steps": 5}
+        ]
+    },
+    "splits": {
+        "question": "How much worse is a held-out sheet than held-out episodes of known sheets (the generalisation gap)?",
+        "shared": {},
+        "variants": [
+            {"name": "classes_held_out_episodes", "design": "classes", "split": "episodes"},
+            {"name": "exact_held_out_episodes", "design": "exact", "split": "episodes"},
+            {"name": "classes_held_out_sheets", "design": "classes", "split": "sheets"},
+            {"name": "exact_held_out_sheets", "design": "exact", "split": "sheets"}
+        ]
+    },
+    "history": {
+        "question": "Does a short history of earlier pictures help a one-picture model?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "one_picture", "history_lags": []},
+            {"name": "plus_previous_picture", "history_lags": [1]},
+            {"name": "plus_change_since_previous", "history_lags": [1], "is_difference_history": True},
+            {"name": "plus_pictures_2_and_4_back", "history_lags": [2, 4]}
+        ]
+    },
+    "scores": {
+        "question": "Should score-1 and score-2 episodes train, be weighted down, or be left out?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "scores_1_2_3", "kept_scores": [1, 2, 3]},
+            {"name": "scores_2_3", "kept_scores": [2, 3]},
+            {"name": "score_3_only", "kept_scores": [3]},
+            {"name": "scores_weighted", "kept_scores": [1, 2, 3], "score_weights": {1: 0.4, 2: 0.7, 3: 1.0}}
+        ]
+    },
+    "balance": {
+        "question": "How strongly should rare classes be weighted, and does label smoothing help?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "no_class_weights", "class_weight_power": 0.0},
+            {"name": "square_root_weights", "class_weight_power": 0.5},
+            {"name": "full_inverse_weights", "class_weight_power": 1.0},
+            {"name": "square_root_weights_label_smoothing", "class_weight_power": 0.5, "label_smoothing": 0.1}
+        ]
+    },
+    "head_size": {
+        "question": "Is a linear head enough on frozen features, or does a hidden layer help?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "linear", "hidden_size": 0},
+            {"name": "hidden_256", "hidden_size": 256},
+            {"name": "hidden_1024", "hidden_size": 1024, "dropout": 0.3}
+        ]
+    },
+    "cleaning": {
+        "question": "Do flagged pictures and the rows marked as mistakes hurt?",
+        "shared": {"design": "classes", "split": "sheets"},
+        "variants": [
+            {"name": "mistakes_dropped_flags_kept", "is_mistake_dropped": True, "is_flagged_dropped": False},
+            {"name": "mistakes_and_flags_dropped", "is_mistake_dropped": True, "is_flagged_dropped": True},
+            {"name": "nothing_dropped", "is_mistake_dropped": False, "is_flagged_dropped": False}
+        ]
+    }
+}
+
+# End-to-end training (train_policy_emranul.py). Defaults for every named run in TRAINING_RUNS; a run lists only what differs.
+# Pictures come from the 160 x 120 cache (the camera's 4:3 shape kept). A pretrained backbone learns at
+# "backbone_learning_rate_factor" times the head's rate, so its ImageNet knowledge is changed gently. "pooling" grid
+# keeps a 3 x 4 grid of cells, so the head knows where the line runs relative to the puck. Augmentation strengths:
+# brightness, contrast and saturation as plus or minus shares, gamma as plus or minus its natural logarithm, blur
+# sigma in pixels, noise as a share of full scale, shift in pixels (the taped camera crept up to about 8 px between
+# episodes at 640 px, about 2 px at 160 px), and the share of mirrored pictures (0: off). "device" "auto" trains on the
+# graphics card when PyTorch sees one (the OTH GPU pool, 10.11.26) and on the processor otherwise (the laptop); the
+# augmentation always runs on the processor, so "threads" still matters on the pool.
+TRAINING_RUN_PARAMETERS = {
+    "backbone": "resnet18.tv_in1k",
+    "is_pretrained": True,
+    "small_cnn_channels": [32, 64, 96, 128, 192],
+    "pooling": "grid",
+    "pooling_grid": [3, 4],
+    "hidden_size": 256,
+    "dropout": 0.2,
+    "design": "classes",
+    "split": "sheets",
+    "picture_cache": "wide_160",
+    "picture_size": [160, 120],
+    "normalisation": {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]},
+    "augmentation": {"brightness": 0.35, "contrast": 0.3, "saturation": 0.25, "gamma_log": 0.25, "blur_probability": 0.3,
+                     "blur_sigma_most": 1.5, "noise_most": 0.03, "shift_px": 3, "mirror_probability": 0.0},
+    "learning_rate": 1e-3,
+    "backbone_learning_rate_factor": 0.3,
+    "weight_decay": 0.05,
+    "batch_size": 64,
+    "epochs": 12,
+    "warm_up_epochs": 1,
+    "patience": 4,
+    "evaluation_batch_size": 256,
+    "class_weight_power": 0.5,
+    "score_weights": {1: 1.0, 2: 1.0, 3: 1.0},
+    "label_smoothing": 0.0,
+    "twist_loss_weight": 0.5,
+    "angle_scale_deg": 5.0,
+    "huber_delta": 1.0,
+    "stop_positive_weight": 10.0,
+    "seed": 9_11_26,
+    "threads": 6,
+    "device": "auto",
+    "date": None,
+    "output_root": Path(__file__).resolve().parent.parent / "04_runs"
+}
+
+NO_AUGMENTATION = {"brightness": 0.0, "contrast": 0.0, "saturation": 0.0, "gamma_log": 0.0, "blur_probability": 0.0,
+                   "blur_sigma_most": 1.5, "noise_most": 0.0, "shift_px": 0, "mirror_probability": 0.0}
+
+TRAINING_RUNS = {
+    "small_cnn_scratch_classes": {"backbone": "small_cnn", "is_pretrained": False, "learning_rate": 2e-3, "epochs": 25, "patience": 6},
+    "resnet18_finetune_classes": {},
+    "resnet18_finetune_exact": {"design": "exact"},
+    "resnet18_finetune_mixed": {"design": "mixed"},
+    "resnet18_finetune_mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)},
+    "resnet18_finetune_no_augmentation": {"augmentation": NO_AUGMENTATION},
+    "mobilenetv3_finetune_classes": {"backbone": "mobilenetv3_large_100.ra_in1k"},
+    "efficientnet_b0_finetune_classes": {"backbone": "efficientnet_b0.ra_in1k"}
+}
+
+# 9.11.26: two more settings for the probes and the end-to-end runs. "is_stop_separate" gives a class model its own stop
+# output instead of a stop class; "stop_target" trains a stop output on the episode's stop picture only ("stop_row")
+# or on every picture within "at_goal_within_cm" of the goal ("at_goal", more examples, may stop a little early).
+# The lean and hand changes are scored like the twist, from these thresholds.
+TRAINING_PROBE_PARAMETERS.update({"is_stop_separate": False, "stop_target": "stop_row", "is_prediction_saved": False})
+TRAINING_RUN_PARAMETERS.update({"is_stop_separate": False, "stop_target": "stop_row"})
+TRAINING_METRIC_PARAMETERS.update({"lean_threshold_deg": 1.0, "hand_threshold_deg": 3.0})
+TRAINING_PROBE_EXPERIMENTS["stop"] = {
+    "question": "How should the model decide to stop: as one more class, or with its own output trained on the stop picture or on every picture near the goal?",
+    "shared": {"split": "sheets"},
+    "variants": [
+        {"name": "classes_stop_as_class", "design": "classes"},
+        {"name": "classes_stop_head_on_stop_picture", "design": "classes", "is_stop_separate": True, "stop_target": "stop_row"},
+        {"name": "classes_stop_head_on_near_goal", "design": "classes", "is_stop_separate": True, "stop_target": "at_goal"},
+        {"name": "exact_stop_head_on_stop_picture", "design": "exact", "stop_target": "stop_row"},
+        {"name": "exact_stop_head_on_near_goal", "design": "exact", "stop_target": "at_goal"}
+    ]
+}
+
+# One comparison table of every model (compare_runs.py): the measures shown, with their headings; sorted best first by
+# the share of moving pictures whose predicted direction is within 45 degrees of the demonstrated one.
+TRAINING_COMPARISON_PARAMETERS = {
+    "runs_folder": Path(__file__).resolve().parent.parent / "04_runs",
+    "columns": [
+        ("within_45_deg_mean", "within 45 deg"),
+        ("within_45_deg_minimum", "within 45 deg, worst fold"),
+        ("within_30_deg_mean", "within 30 deg"),
+        ("angle_error_median_deg_mean", "median angle error"),
+        ("class_balanced_accuracy_mean", "balanced class accuracy"),
+        ("episodes_stopped_right_mean", "stopped right"),
+        ("episodes_stopped_early_mean", "stopped early"),
+        ("episodes_never_stopped_mean", "never stopped"),
+        ("twist_sign_accuracy_mean", "twist sign"),
+        ("lean_sign_accuracy_mean", "lean sign"),
+        ("milliseconds_per_picture", "ms per picture")
+    ],
+    "sort_by": "within 45 deg"
+}
+
+# 9.11.26: how the held-out-sheet result grows with more data, to decide whether more episodes or more different
+# tracks are worth recording ("train_episode_share" of each training sheet's episodes; "train_sheet_count" of the five
+# training sheets, chosen at random per fold). Each variant is repeated with three seeds, because one draw of sheets
+# can be lucky.
+TRAINING_PROBE_PARAMETERS.update({"train_episode_share": 1.0, "train_sheet_count": None})
+TRAINING_PROBE_EXPERIMENTS["data_amount"] = {
+    "question": "Does the held-out-sheet result still grow with more episodes per sheet, or with more different sheets?",
+    "shared": {"design": "classes", "split": "sheets"},
+    "variants": ([{"name": f"episode_share_{share}_seed_{seed}", "train_episode_share": share, "seed": seed}
+                  for share in [0.25, 0.5, 1.0] for seed in [1, 2, 3]]
+                 + [{"name": f"sheet_count_{count}_seed_{seed}", "train_sheet_count": count, "seed": seed}
+                    for count in [1, 2, 3, 4] for seed in [1, 2, 3]])
+}
+
+# 9.11.26: the head standardises its own input from this many evenly spread training rows (enough for a stable mean and
+# spread, and it keeps the features in half precision in memory).
+TRAINING_PROBE_PARAMETERS.update({"standardisation_rows": 4000})
+
+# 9.11.26: one end-to-end epoch over all 15,000 training pictures takes about 7 minutes on the laptop's processor
+# (measured with other jobs running). Neighbouring pictures are about 1 cm apart and look alike, so each epoch uses a
+# random "train_share_per_epoch" of them; 0.5 halves the time per epoch.
+TRAINING_RUN_PARAMETERS.update({"train_share_per_epoch": 1.0})
+TRAINING_RUNS["small_cnn_scratch_classes"].update({"train_share_per_epoch": 0.5, "epochs": 16, "patience": 5})
+for run_name in ("resnet18_finetune_classes", "resnet18_finetune_exact", "resnet18_finetune_mixed", "resnet18_finetune_mirror",
+                 "resnet18_finetune_no_augmentation", "mobilenetv3_finetune_classes", "efficientnet_b0_finetune_classes"):
+    TRAINING_RUNS[run_name].update({"train_share_per_epoch": 0.5, "epochs": 8, "patience": 3})
+
+# 9.11.26: the path direction, a less noisy target than one hand-guided step (the steps wobble by about 21 degrees
+# from one to the next): from the tip now to where it is "path_steps" steps later, scored where that is at least
+# "path_minimum_cm" long. The probes save their predictions (npz files under 04_runs, kept out of git) for error
+# analysis per sheet and situation.
+TRAINING_METRIC_PARAMETERS.update({"path_steps": 3, "path_minimum_cm": 1.5})
+TRAINING_PROBE_PARAMETERS.update({"is_prediction_saved": True})
+TRAINING_COMPARISON_PARAMETERS["columns"][3:3] = [("path_within_45_deg_mean", "path within 45 deg"),
+                                                  ("path_within_45_deg_minimum", "path within 45 deg, worst fold"),
+                                                  ("path_angle_error_median_deg_mean", "path median angle error")]
+
+# 9.11.26: "input_channels" "rgb" feeds the colour picture; "line_and_puck" feeds three maps instead (how much darker than
+# the picture's median a pixel is, how red it is, and the grey picture less its median), so light and table texture
+# matter less (train_policy_emranul.line_and_puck_maps). Tested with the small network from scratch.
+TRAINING_RUN_PARAMETERS.update({"input_channels": "rgb"})
+TRAINING_RUNS["small_cnn_line_and_puck_classes"] = dict(TRAINING_RUNS["small_cnn_scratch_classes"], input_channels = "line_and_puck")
+TRAINING_RUNS["resnet18_finetune_chunk"] = {"design": "chunk", "train_share_per_epoch": 0.5, "epochs": 8, "patience": 3}
+
+# 9.11.26: rows where the robot stood still (tip moved under "static_move_m", forearm under "static_turn_deg", not the
+# stop row: the first row of every episode and the first row after a hand correction, about 430) show nearly the same
+# picture as the next row, which carries the real move. "is_static_dropped" leaves them out; tested in "cleaning".
+TRAINING_TARGET_PARAMETERS.update({"is_static_dropped": False, "static_move_m": 0.001, "static_turn_deg": 1.0})
+TRAINING_PROBE_EXPERIMENTS["cleaning"]["variants"].append(
+    {"name": "mistakes_and_static_rows_dropped", "is_mistake_dropped": True, "is_static_dropped": True})
+
+# 9.11.26, from the picture audit: the taped camera moved once by about 14 px right and 5 px down at 640 px (about 4 px
+# at 160 px), so the shift is 4 px; sharpness hardly varies (at most about 0.5 px of blur at full size), so blur is
+# rare and light; a per-channel gain of plus or minus "channel_gain" imitates the bluish daylight cast.
+for augmentation in [TRAINING_RUN_PARAMETERS["augmentation"], NO_AUGMENTATION] + [run["augmentation"] for run in TRAINING_RUNS.values() if "augmentation" in run]:
+    augmentation.setdefault("channel_gain", 0.0)
+TRAINING_RUN_PARAMETERS["augmentation"].update({"shift_px": 4, "blur_probability": 0.15, "blur_sigma_most": 0.8, "channel_gain": 0.08})
+TRAINING_RUNS["resnet18_finetune_mirror"]["augmentation"] = dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)
+
+# Where a model goes wrong (training_error_analysis.py). "start" is the first "start_rows" rows; "near_goal" within
+# "near_goal_cm" of where the demonstration stopped; a "bend" turns the tip's direction by more than
+# "bend_threshold_deg" over "bend_window_steps" steps before and after; the forearm is "turned" from
+# "forearm_turned_deg" and "far_turned" from "forearm_far_turned_deg". The taped camera moved once (picture audit,
+# 9.11.26): view A before "camera_moved_from", view B from "camera_settled_at", "settling" between.
+TRAINING_ERROR_ANALYSIS_PARAMETERS = {
+    "start_rows": 3,
+    "near_goal_cm": 3.0,
+    "bend_window_steps": 3,
+    "bend_threshold_deg": 15.0,
+    "forearm_turned_deg": 30.0,
+    "forearm_far_turned_deg": 75.0,
+    "camera_moved_from": "2026-11-08T17:59:00",
+    "camera_settled_at": "2026-11-08T21:00:00"
+}
+
+# 9.11.26: the error analysis also scores the predicted direction averaged over the last 1, 2, 3 or 5 pictures.
+TRAINING_ERROR_ANALYSIS_PARAMETERS.update({"smoothing_windows": [1, 2, 3, 5]})
+
+# 9.11.26: the stop threshold is also tuned per fold on the held-back validation episodes (never on the test sheet), from
+# these candidates, for one picture and for two pictures in a row; the result is scored as "tuned_" and "tuned_two_".
+TRAINING_METRIC_PARAMETERS.update({"stop_threshold_candidates": [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]})
+TRAINING_COMPARISON_PARAMETERS["columns"][-1:-1] = [("tuned_two_episodes_stopped_right_mean", "stopped right, tuned, 2 in a row"),
+                                                    ("tuned_two_episodes_stopped_early_mean", "stopped early, tuned, 2 in a row")]
+
+# 9.11.26: how much the held-out-sheet result moves between seeds alone, so that a difference between two variants
+# can be judged against it (the same variant three times with different seeds).
+TRAINING_PROBE_EXPERIMENTS["seeds"] = {
+    "question": "How much does the result change between random seeds alone?",
+    "shared": {"split": "sheets"},
+    "variants": ([{"name": f"classes_seed_{seed}", "design": "classes", "seed": seed} for seed in [11, 12, 13]]
+                 + [{"name": f"exact_seed_{seed}", "design": "exact", "seed": seed} for seed in [11, 12, 13]])
+}
+
+# 9.11.26: the runs of this comparison keep the analysis date in their folder name, so that folds trained after
+# midnight land in the same folder as the others (04_runs/2026-11-09_<run>/).
+TRAINING_RUN_PARAMETERS.update({"date": "2026-11-09"})
+
+# 9.11.26: the end-to-end runs were trained on three held-out sheets (the two curves and both loops), so the comparison
+# also shows every model's means over exactly these folds.
+TRAINING_COMPARISON_PARAMETERS.update({"matched_folds": ["without_path_03", "without_path_05", "without_path_06"]})
+
+# 9.11.26: a third way to learn the stop. "stop_target" "goal_distance" trains the stop output to predict the tip's
+# distance to where the demonstration stopped (capped at "goal_distance_cap_cm"), from every picture; the robot stops
+# when the predicted distance is small for two pictures in a row (the threshold tuned on validation episodes).
+TRAINING_PROBE_PARAMETERS.update({"goal_distance_cap_cm": 10.0})
+TRAINING_RUN_PARAMETERS.update({"goal_distance_cap_cm": 10.0})
+TRAINING_PROBE_EXPERIMENTS["stop_distance"] = {
+    "question": "Does a stop output that predicts the distance to the goal from every picture stop more reliably?",
+    "shared": {"split": "sheets"},
+    "variants": [
+        {"name": "classes_stop_head_on_goal_distance", "design": "classes", "is_stop_separate": True, "stop_target": "goal_distance"},
+        {"name": "exact_stop_on_goal_distance", "design": "exact", "stop_target": "goal_distance"}
+    ]
+}
+TRAINING_RUNS["resnet18_finetune_exact_distance_stop"] = {"design": "exact", "stop_target": "goal_distance",
+                                                          "train_share_per_epoch": 0.5, "epochs": 8, "patience": 3}
+
+# 9.11.26: the cleaning the data audit recommends (06_deliverables/research_notes/Model and training/evidence/, section 11
+# of audit_synthesis.md), applied when "is_audit_cleaning" is on: scores of unscored folders from review.json (2
+# episodes, score 2); start ends from the audit's table of corrected ends (30 episodes changed: 19 on sheets 05 and 06,
+# 11 on sheet 02); 469 rows dropped (row 0 of every episode and the first row after every hand correction, both null
+# moves at waypoint 0; one more sudden-change picture; the half run 05-16; rows 169 to 175 of 04-01 try 6, where the
+# puck was pulled back by pressing its top); 50 rows relabelled as stop (their joints differ from the next row, the
+# stop row, by under 0.2 degrees, so the picture is the stop picture); the 25 steps over 2 cm and the few twists over
+# 15 degrees left by recording stalls clipped.
+TRAINING_TARGET_PARAMETERS.update({
+    "is_audit_cleaning": False,
+    "audit_cleaning": {
+        "corrected_ends_path": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "evidence" / "corrected_ends.csv",
+        "static_joint_limit_deg": 0.2,
+        "dropped_episode_patterns": ["_plan_05-16_"],
+        "dropped_row_ranges": [("_plan_04-01_try_6", 169, 175)],
+        "step_clip_m": 0.02,
+        "twist_clip_deg": 15.0
+    }
+})
+# The camera period from the audit: the camera view moved during the break on 8.11.26 between 18:07 and 19:33; from
+# 04-30 (19:33) on, 71 episodes are in the later view.
+TRAINING_ERROR_ANALYSIS_PARAMETERS.update({"camera_moved_from": "2026-11-08T18:07:00", "camera_settled_at": "2026-11-08T19:33:00"})
+
+# 9.11.26: the final candidate from the comparison: the exact step (tip forward and left, forearm twist, lean, hand)
+# with its own stop output trained on the stop pictures (259 after the audit's relabelling), the audit's cleaning, a
+# fixed 8 epochs on half the pictures each, and the LAST weights kept (no choice by validation loss, which predicts
+# robot success poorly); scored on all six held-out sheets.
+TRAINING_RUN_PARAMETERS.update({"is_last_checkpoint_kept": False})
+TRAINING_RUNS["resnet18_final_candidate"] = {"design": "exact", "stop_target": "stop_row", "is_audit_cleaning": True,
+                                             "train_share_per_epoch": 0.5, "epochs": 8, "patience": 99,
+                                             "is_last_checkpoint_kept": True}
+
+# 9.11.26, from the design review: the backup set-up named by two of the three judges (the 8 move names with square-root
+# class weights, whose probability-weighted mean direction is executed, together with the exact step, whose twist is
+# executed, and its own stop output), on the final candidate's recipe; and a second seed of the final candidate, to
+# measure how much end-to-end results move between seeds alone.
+TRAINING_RUNS["resnet18_backup_names_plus_exact"] = {"design": "mixed", "is_stop_separate": True, "stop_target": "stop_row",
+                                                     "is_audit_cleaning": True, "class_weight_power": 0.5,
+                                                     "train_share_per_epoch": 0.5, "epochs": 8, "patience": 99,
+                                                     "is_last_checkpoint_kept": True}
+TRAINING_RUNS["resnet18_final_candidate_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = 10_11_26)
+
+# 10.11.26, on the GPU pool: the final candidate with only the augmentation switched off, with both seeds, so that the
+# effect of augmentation is measured alone ("resnet18_finetune_no_augmentation" differs from the final candidate in its
+# design, cleaning and epochs as well, so it cannot answer this).
+TRAINING_RUNS["resnet18_final_candidate_no_augmentation"] = dict(TRAINING_RUNS["resnet18_final_candidate"], augmentation = NO_AUGMENTATION)
+TRAINING_RUNS["resnet18_final_candidate_no_augmentation_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_seed_2"], augmentation = NO_AUGMENTATION)
+
+# 10.11.26 (Emranul): model 1 for the first robot tests, the final candidate's recipe (augmentation kept, as the fair
+# test above decided) trained on every sheet and episode with no check pictures ("split" "all"), with both seeds so
+# that a spare exists. It has no offline score of its own; the robot is its test.
+TRAINING_RUNS["resnet18_model_1_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate"], split = "all", date = "2026-11-10")
+TRAINING_RUNS["resnet18_model_1_all_sheets_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_seed_2"], split = "all", date = "2026-11-10")
+
+# 10.11.26 night queue on ki-014 (Emranul: "if you want to train or test more, do it"): three more seeds of the final
+# candidate, so that five seeds can be scored as one averaging team (an ensemble) on the six held-out sheets, and the
+# same three on all sheets; the chunk target (the report's backup candidate if the names-plus-exact backup is dropped)
+# on the final candidate's recipe, two seeds, and on all sheets; and the final candidate with 16 rounds instead of 8.
+# Each six-sheet run is scored before its all-sheets copy is used on the robot.
+for seed_number, seed in ((3, 11_11_26), (4, 12_11_26), (5, 13_11_26)):
+    TRAINING_RUNS[f"resnet18_final_candidate_seed_{seed_number}"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = seed, date = "2026-11-10")
+    TRAINING_RUNS[f"resnet18_model_1_all_sheets_seed_{seed_number}"] = dict(TRAINING_RUNS["resnet18_final_candidate"], seed = seed, split = "all", date = "2026-11-10")
+TRAINING_RUNS["resnet18_final_candidate_chunk"] = dict(TRAINING_RUNS["resnet18_final_candidate"], design = "chunk", date = "2026-11-10")
+TRAINING_RUNS["resnet18_final_candidate_chunk_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_model_2_chunk_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], split = "all")
+TRAINING_RUNS["resnet18_final_candidate_16_rounds"] = dict(TRAINING_RUNS["resnet18_final_candidate"], epochs = 16, date = "2026-11-10")
+TRAINING_RUNS["resnet18_model_3_16_rounds_all_sheets"] = dict(TRAINING_RUNS["resnet18_final_candidate_16_rounds"], split = "all")
+
+# 11.11.26, round 1 of the search before the first robot test (Emranul: reach the ceiling of what the data allows). The
+# night showed the chunk target steering best (path within 45 0.817 and 0.802 against 0.772 to 0.793 for five seeds of
+# the final candidate) but stopping worse, and every model turning the forearm about half as much as the demonstrations.
+# Each idea changes one thing of the chunk recipe, with two seeds: the stop's weight, the twist's weight (a smaller
+# angle scale makes a twist error count more), a longer chunk, and two larger backbones. Decision rule, fixed before the
+# results: a change is kept only when both seeds beat the chunk's mean path within 45 (0.810) by 1.5 points or more and
+# stop right no less often, or stop right at least 8 episodes more often (of 209) without losing a point of path.
+CHUNK_IDEAS = {
+    "chunk_stop_weight_25": {"stop_positive_weight": 25.0},
+    "chunk_twist_focus": {"angle_scale_deg": 2.5},
+    "chunk_8_steps": {"chunk_steps": 8},
+    "chunk_resnet34": {"backbone": "resnet34.tv_in1k"},
+    "chunk_efficientnet_b0": {"backbone": "efficientnet_b0.ra_in1k"}
+}
+for idea_name, idea in CHUNK_IDEAS.items():
+    TRAINING_RUNS[f"resnet18_{idea_name}"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk"], **idea)
+    TRAINING_RUNS[f"resnet18_{idea_name}_seed_2"] = dict(TRAINING_RUNS["resnet18_final_candidate_chunk_seed_2"], **idea)
+
+# 11.11.26, round 1 by the rule above: two ideas passed on the stop branch, both seeds stopping right more often without
+# losing a point of path within 45 (chunk 87 and 87 right stops, path 0.817 and 0.802): the stop weighted 25 (103 and 105,
+# never stopped 71 and 51; path 0.808 and 0.800) and ResNet-34 (95 and 101; path 0.813 and 0.807). The twist focus, the
+# 8-step chunk and EfficientNet-B0 did not pass. Both passing ideas are trained on all sheets for the robot (models 4 and
+# 5); their combination is scored by the same rule before its all-sheets copy is used.
+TRAINING_RUNS["resnet18_model_4_chunk_stop_25_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "all")
+TRAINING_RUNS["resnet18_model_5_chunk_resnet34_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34"], split = "all")
+TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34"], stop_positive_weight = 25.0)
+TRAINING_RUNS["resnet18_chunk_resnet34_stop_25_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_seed_2"], stop_positive_weight = 25.0)
+TRAINING_RUNS["resnet18_model_6_chunk_resnet34_stop_25_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_resnet34_stop_25"], split = "all")
+
+# 14.11.26 (Emranul: one more model from the round 1 data before Marshal's model is tested): model E's recipe (chunk,
+# stop weighted 25) shown the camera's previous picture as well ("picture_count" 2, six colour channels), so that it can
+# see which way the puck came from in a loop or a bend, which one picture cannot show. Decision rule, fixed before the
+# results: kept only when BOTH seeds beat model E's recipe (path within 45 0.808 and 0.800, mean 0.804) by 1.5 points
+# or more, stop right no more than 8 episodes less often (103 and 105 of 209), AND lose no more than 1 point of path
+# within 45 on the turning pictures (where the demonstrated direction changes by 20 degrees or more from the step
+# before). The last part guards against a known trap of models with a history (de Haan and others 2019, "causal
+# confusion"): they score well offline by repeating the last move and then fail on the robot exactly where the move
+# must change.
+TRAINING_RUN_PARAMETERS.update({"picture_count": 1})
+TRAINING_RUNS["resnet18_two_pictures"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], picture_count = 2, date = "2026-11-14")
+TRAINING_RUNS["resnet18_two_pictures_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25_seed_2"], picture_count = 2, date = "2026-11-14")
+TRAINING_RUNS["resnet18_model_7_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_two_pictures"], split = "all")
+
+# 14.11.26 (Emranul: "can we pause halfway and train a model to see the difference"): model E's recipe, unchanged, on
+# round 1 plus the round 2 episodes recorded so far, from its own index (training_dataset.py into "v02_training_index",
+# so round 1's index stays as it is). Only the data differs from model E, so the robot shows what the new data adds:
+# both models on development tracks D01 to D10, which nobody records on, and on sheet 04.
+TRAINING_RUN_PARAMETERS.update({"processed_folder": None})
+ROUND_2_INDEX_FOLDER = main_checkout_folder() / "03_data" / "processed" / "v02_training_index"
+TRAINING_RUNS["resnet18_model_8_round_2_part_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_4_chunk_stop_25_all_sheets"],
+                                                                 processed_folder = ROUND_2_INDEX_FOLDER, date = None)
+# The offline half of the same check, on lines no model has seen: model E's recipe with each new track held out once
+# (trained on round 1 and the other new tracks), against the same recipe trained on round 1 only, both tested on the
+# new tracks. Rule, fixed before the results (14.11.26): the round 2 data helps when path within 45 on the held-out
+# new tracks rises by 2 points or more on average, without fewer episodes stopped right.
+TRAINING_RUNS["resnet18_round_2_part_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "new_shapes",
+                                                         processed_folder = ROUND_2_INDEX_FOLDER, date = None)
+TRAINING_RUNS["resnet18_round_1_to_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "round_1_to_new",
+                                                       processed_folder = ROUND_2_INDEX_FOLDER, date = None)
+
+# 14.11.26 evening, after round 2 was recorded to the end (Emranul: "make sure you are giving the best effort and you
+# are reaching the ceiling"): the search for the final model on round 1 plus all of round 2 (55 episodes on the 16 new
+# tracks), from its own index ("v03_training_index"; the mid-way index stays as it is, because its saved predictions
+# point into it).
+# The yardstick: each of the 16 new tracks held out once ("new_shapes": trained on round 1 and the other 15 tracks,
+# tested on both prints of the held-out track, 55 test episodes on lines the model has not seen), because the exam
+# track is unseen. The reference is model E's recipe (chunk, stop weighted 25), unchanged, with two seeds.
+# Decision rule, fixed before the results: a change of one thing is kept when it stops right (fixed threshold, two
+# pictures in a row) on at least 5 more of the 55 episodes than the reference's mean without losing more than 1 point
+# of path within 45, or when it gains 1.5 points or more of path within 45 without stopping right less often than the
+# reference's worse seed. A difference smaller than the gap between the reference's two seeds counts as no difference.
+# The first queue changes one thing each, all without new code: the previous picture as well (two pictures), ResNet-34,
+# 16 rounds instead of 8, and the score-1 episodes given no weight in training (they are still tested). Model 9 is the
+# reference recipe on every episode, for the robot; it has no offline score of its own.
+FULL_INDEX_FOLDER = main_checkout_folder() / "03_data" / "processed" / "v03_training_index"
+FULL_DATA = {"processed_folder": FULL_INDEX_FOLDER, "date": "2026-11-14"}
+TRAINING_RUNS["resnet18_full_new_shapes"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "new_shapes", **FULL_DATA)
+TRAINING_RUNS["resnet18_full_new_shapes_seed_2"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25_seed_2"], split = "new_shapes", **FULL_DATA)
+TRAINING_RUNS["resnet18_full_round_1_to_new"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "round_1_to_new", **FULL_DATA)
+TRAINING_RUNS["resnet18_model_9_full_all_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "all", **FULL_DATA)
+FULL_IDEAS = {
+    "two_pictures": {"picture_count": 2},
+    "resnet34": {"backbone": "resnet34.tv_in1k"},
+    "16_rounds": {"epochs": 16},
+    "score_1_off": {"score_weights": {1: 0.0, 2: 1.0, 3: 1.0}}
+}
+for idea_name, idea in FULL_IDEAS.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea)
+
+# 14.11.26 night, second queue: the stop. The stop check of the mid-way model (2026-11-14_stop_check.md) showed that
+# the model stops near the paper's edge, not at the line's end: every round 1 line ends 2.4 to 4.3 cm from the edge,
+# and of the 16 new tracks only six end in the middle of the paper ("mid_paper_end_tracks": end cap 7.7 to 9.9 cm from
+# the nearest edge, measured from the set-up geometry). Two changes against that, alone and together:
+#   "table_as_paper_probability" (in "augmentation"): in this share of the training pictures the table is repainted in
+#       the picture's own paper colour (train_policy_emranul.table_as_paper), so an end near the edge looks like an end in the
+#       middle of a sheet. Colour limits measured on 400 cached pictures at 160 px: the table's red minus blue lies
+#       between -0.04 and +0.10 (median colour 0.51, 0.52, 0.46), the paper's below -0.10 (0.62, 0.76, 0.84); the
+#       robot's silver gripper is left alone ("robot_area_px", at 160 px);
+#   "mid_paper_stop_weight": the stop pictures of the six tracks count this many times.
+# Judged by the rule above; reported as well: the right stops on the mid-paper-end episodes alone (19 of the 55).
+# And whether more tracks would still help: the reference trained on round 1 and only 4, 8 or 12 of the other new
+# tracks, drawn at random per fold ("new_track_train_count"; no new track is "resnet18_full_round_1_to_new", all 15
+# the reference). Reading rule, fixed before the results: more tracks are worth recording when from 12 to 15 tracks
+# path within 45 still rises by 1 point or more, or the right stops by 3 or more of 55; otherwise the curve is flat.
+TRAINING_RUN_PARAMETERS.update({
+    "mid_paper_stop_weight": 1.0,
+    "mid_paper_end_tracks": ["T03", "T05", "T07", "T10", "T13", "T15"],
+    "new_track_train_count": None,
+    "table_as_paper": {"table_red_over_blue_least": -0.07, "table_red_over_green_most": 0.20, "table_brightness_least": 0.30,
+                       "robot_area_px": [72, 84, 100, 120], "paper_red_over_blue_most": -0.10, "paper_brightness_least": 0.50,
+                       "paper_pixels_least": 150, "paper_colour": [0.62, 0.76, 0.84], "shade_least": 0.6, "shade_most": 1.25,
+                       "shade_power": 0.5}
+})
+TABLE_AS_PAPER = {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], table_as_paper_probability = 0.5)}
+TRAINING_RUNS["resnet18_full_table_as_paper_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **TABLE_AS_PAPER)
+TRAINING_RUNS["resnet18_full_mid_paper_stop_4_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], mid_paper_stop_weight = 4.0)
+TRAINING_RUNS["resnet18_full_table_and_mid_paper_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], mid_paper_stop_weight = 4.0,
+                                                                     **TABLE_AS_PAPER)
+for track_count in (4, 8, 12):
+    TRAINING_RUNS[f"resnet18_full_{track_count}_tracks_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"],
+                                                                           new_track_train_count = track_count)
+# A third change against the paper-edge stop cue, added when the first folds of the reference were in (14.11.26, 22:35:
+# with all 16 tracks the model still stopped right on none of the first 10 mid-paper-end episodes): made-up ends
+# (train_policy_emranul.made_up_end). In "made_up_end_probability" of the training pictures the line that leads on from the
+# puck is painted over with the paper's colour and the picture's targets become a stop (no move, no turn, stop), so
+# every stretch of every track gives examples of a line ending under the puck, near an edge or not. 0.04 is about three
+# times the share of real stop pictures (1.4 %); 0.10 is tried as well, and 0.04 together with the table repaint.
+# Colour limits at 160 px, from the cached pictures: the line's ink is dark blue (brightness 0.2 to 0.45, blue over
+# red 0.10 to 0.42; the robot's black parts are darker, its blue gripper more blue), the puck red over green by 0.25.
+# Judged by the same rule. A made-up end is not a demonstrated one: if this is kept, the report has to say so.
+TRAINING_RUN_PARAMETERS.update({
+    "made_up_end_probability": 0.0,
+    "made_up_end": {"puck_red_over_green_least": 0.25, "puck_red_over_blue_least": 0.15, "puck_red_least": 0.35, "puck_pixels_least": 15,
+                    "ink_brightness_least": 0.20, "ink_brightness_most": 0.45, "ink_blue_over_red_least": 0.10,
+                    "ink_blue_over_red_most": 0.42, "ink_contrast_window_px": 21, "ink_darker_than_nearby_least": 0.10,
+                    "robot_area_px": [50, 92, 130, 120], "seed_radius_px": 24, "behind_margin_px": 2,
+                    "joining_px": 9, "flood_steps": 120, "erase_margin_px": 5, "reach_least_cm": 1.5,
+                    "paper_red_over_blue_most": -0.10, "paper_brightness_least": 0.50, "fill_window_px": 15,
+                    "paper_colour": [0.62, 0.76, 0.84]}
+})
+TRAINING_RUNS["resnet18_full_made_up_ends_4_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], made_up_end_probability = 0.04)
+TRAINING_RUNS["resnet18_full_made_up_ends_10_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], made_up_end_probability = 0.10)
+TRAINING_RUNS["resnet18_full_made_up_ends_and_table_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"],
+                                                                        made_up_end_probability = 0.04, **TABLE_AS_PAPER)
+# One more thing changed alone, judged by the same rule: pictures of twice the width and height (320 x 240 instead of
+# 160 x 120, from the cache "wide_320" that training_dataset.add_image_cache adds to the index), to see whether small
+# things (a dash, a gap, the line's end beside the puck) are lost at 160 px. Four times the pixels, so about four
+# times the training time; two jobs at a time on the 8 GB card. The robot driver takes the picture size from the run.
+# The shift and the blur of the augmentation are doubled with the picture, so that they stay the same on the table.
+TRAINING_RUNS["resnet18_full_wide_320_new_shapes"] = dict(
+    TRAINING_RUNS["resnet18_full_new_shapes"], picture_cache = "wide_320", picture_size = [320, 240],
+    augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], shift_px = 2 * TRAINING_RUN_PARAMETERS["augmentation"]["shift_px"],
+                        blur_sigma_most = 2 * TRAINING_RUN_PARAMETERS["augmentation"]["blur_sigma_most"]))
+
+
+# 14.11.26, 22:55 (Emranul: "remove episode 14-02 as it skipped the thing"; his score note says it skipped a hairpin).
+# The recording stays where it is (nothing in 03_data/raw is changed); "weightless_episode_patterns" gives every picture
+# of the named episodes no weight in training. It stays a test episode of track T04, so the 55 test episodes are the
+# same for every run. All runs of the second queue train without it; the reference and the other runs of the first
+# queue had already trained with it (one episode of 264, 77 of 22,646 pictures). Model 10 is model 9 without it.
+TRAINING_RUN_PARAMETERS.update({"weightless_episode_patterns": []})
+WITHOUT_14_02 = {"weightless_episode_patterns": ["_plan_14-02_"]}
+for run_name in ["table_as_paper", "mid_paper_stop_4", "table_and_mid_paper", "made_up_ends_4", "made_up_ends_10", "made_up_ends_and_table",
+                 "4_tracks", "8_tracks", "12_tracks", "wide_320"]:
+    TRAINING_RUNS[f"resnet18_full_{run_name}_new_shapes"].update(WITHOUT_14_02)
+TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_9_full_all_sheets"], **WITHOUT_14_02)
+
+# 15.11.26, 00:30, third queue (Emranul: "you are not utilising the data to its full potential ... try taking a superior
+# model ... take six more hours"). It starts by itself when the second queue has finished. One thing changed each
+# against the reference, judged by the same rule on the same 55 test episodes; all train without 14-02:
+#   "mirror": half the training pictures mirrored left to right, the step with them (Emranul's idea; the mirror of
+#       9.11.26 was tried on the old names model only and was not a clean comparison);
+#   "turned_12": every training picture turned by its own angle within 12 degrees about the rod's tip, the step with it
+#       (Emranul's idea; train_policy_emranul.turned_pictures; the robot's own parts turn too, so the angle is small);
+#   "far_reach_3": pictures with the rod's tip more than 40 cm from the base count three times. On the robot, in the
+#       night of 14 to 15.11.26, model 10 (twice) and the round 1 model (once) left sheet 02's arc at the same place,
+#       the tip 43 cm out and going to 48 cm; 4.9 % of the recorded pictures lie beyond 42 cm, 2.0 % beyond 44 cm;
+#   "zoom": a 320 x 240 cut-out of the camera picture round the puck ("ZOOM_CROP_BOX", in camera pixels), shrunk to
+#       160 x 120: twice the detail at the puck and the line just ahead, less table, paper edge and room;
+#   "convnext_tiny", "resnet50": larger networks (28 and 26 million weights against 11 million), the backbone's
+#       learning rate lowered for ConvNeXt as its makers fine-tune it;
+#   a third seed of the reference (with 14-02, like seeds 1 and 2), so that the seed gap rests on three runs.
+TRAINING_RUN_PARAMETERS["augmentation"].update({"turn_most_deg": 0.0, "turn_centre_px": [80, 82]})
+TRAINING_RUN_PARAMETERS.update({"far_reach_weight": 1.0, "far_reach_from_cm": 40.0})
+ZOOM_CROP_BOX = [160, 160, 480, 400]
+THIRD_QUEUE = {
+    "mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5)},
+    "turned_12": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0)},
+    "far_reach_3": {"far_reach_weight": 3.0},
+    "zoom": {"picture_cache": "zoom_160", "picture_crop_box": ZOOM_CROP_BOX},
+    "convnext_tiny": {"backbone": "convnext_tiny.fb_in22k_ft_in1k", "backbone_learning_rate_factor": 0.1},
+    "resnet50": {"backbone": "resnet50.a1_in1k"}
+}
+for idea_name, idea in THIRD_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+TRAINING_RUNS["resnet18_full_new_shapes_seed_3"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], seed = 11_11_26)
+# Behind them, so that the card is not idle until the results are read in the morning, three combinations chosen
+# before any of the single results is known (so they cannot be picked to fit): the zoomed-in view with a second seed;
+# the zoomed-in view with turned and mirrored pictures; ConvNeXt-Tiny on the zoomed-in view. They are read by the same
+# rule, and count as kept only when the single changes they are made of pass as well.
+TRAINING_RUNS["resnet18_full_zoom_new_shapes_seed_2"] = dict(TRAINING_RUNS["resnet18_full_zoom_new_shapes"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_full_zoom_turned_mirror_new_shapes"] = dict(
+    TRAINING_RUNS["resnet18_full_zoom_new_shapes"],
+    augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0, mirror_probability = 0.5))
+TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_convnext_tiny_new_shapes"],
+                                                                    **THIRD_QUEUE["zoom"])
+
+# 15.11.26, 00:55, a robot candidate from the night's runs, not a comparison run: model 11 is model 10 with the two
+# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 pictures in which a
+# demonstration brings the puck back onto the line five times). The held-out pictures cannot score a recovery (every
+# test episode stays on its line), so its test is the robot, against model 10 on the same sheets.
+TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
+TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], recovery_weight = 5.0, far_reach_weight = 3.0)
+
+# 15.11.26, 01:40, from the robot: laid as on 11.11, the round 1 model (E) drove sheet 05's loop to the end again (91
+# steps), model 10 did not, with 0.65 cm and with 1 cm steps (it turned into the loop late, ran the puck to the paper's
+# edge and stopped there; Emranul: "it was perfect on the previous model and we made it worse"). The 16-track yardstick
+# cannot see this: it tests new tracks only. So a second yardstick beside it: each of the six COURSE sheets held out
+# once, trained on the other five and on all of round 2 ("split" "sheets", only the six course-sheet folds are run).
+# Against it stands the same recipe on round 1 alone (path within 45 0.808 and 0.800, stopped right 103 and 105 of
+# 209, two seeds on 11.11.26). A recipe for the exam has to hold on both yardsticks. Model 12 is model 10 with the
+# picture before as well (two pictures): at a crossing one picture cannot show which branch the puck came from.
+COURSE_SHEET_FOLDS = ["without_path_01", "without_path_02", "without_path_03", "without_path_04", "without_path_05", "without_path_06"]
+TRAINING_RUNS["resnet18_full_course_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "sheets", **FULL_DATA, **WITHOUT_14_02)
+TRAINING_RUNS["resnet18_full_two_pictures_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], picture_count = 2)
+TRAINING_RUNS["resnet18_full_zoom_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["zoom"])
+TRAINING_RUNS["resnet18_full_convnext_tiny_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["convnext_tiny"])
+TRAINING_RUNS["resnet18_full_resnet34_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], backbone = "resnet34.tv_in1k")
+TRAINING_RUNS["resnet18_model_12_full_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], picture_count = 2)
+
+# The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
+# 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
+# turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
+# "twist_step_most_deg" per step and stays within "joint_4_most_deg" (the demonstrations reached 119.35 against the arm
+# model's 119.75). The wrist (joint 5) and the hand (joint 6) are held at the median of the demonstrations' first rows
+# (13.5 and -6.1 degrees, frames.csv on 10.11.26) and joints 1 to 3 put the tip on its target. A direction shorter than
+# "smallest_direction_cm" is too short to trust, so the last step's direction is kept. The run stops when the stop
+# chance reaches "stop_threshold" on "stop_pictures_in_a_row" pictures in a row (the rule fixed in 7.2), after
+# "step_budget" steps (the longest demonstration had 226), or at the first refused step. Guards [judgement, to be
+# checked in phase 0a of report 7.4]: the rod may lean at most "rod_lean_most_deg" (the demonstrations: 99th percentile
+# 49.1, 99.9th 55.8, largest 63.0; with the wrist held, 5 of 400 recorded steps needed 50.6 to 57.6), the tip stays
+# "tip_reach_m" from the base (demonstrated 13.0 to 48.5 cm), and the tip and the puck's centre ahead of it stay inside
+# "workspace_x_m" and "workspace_y_m", the demonstrated tips of 6 to 9.11.26 (x 12.5 to 48.1, y -28.7 to 23.7 cm) with
+# about 1 cm to spare, widened by "puck_margin_m" for the puck. WORKSPACE_PARAMETERS' box is the old table's and refused
+# 4 % of recorded steps. Runs are logged under "run_folder", never in 03_data/raw.
+MODEL_MODE_PARAMETERS = {
+    "run_name": "resnet18_model_1_all_sheets",
+    "checkpoint_path": Path(__file__).resolve().parent.parent / "04_runs" / "gpu_ki014" / "2026-11-10_resnet18_model_1_all_sheets" / "checkpoints" / "all_sheets.pt",
+    "metrics_path": Path(__file__).resolve().parent.parent / "04_runs" / "gpu_ki014" / "2026-11-10_resnet18_model_1_all_sheets" / "metrics.json",
+    "step_m": 0.01,
+    # 11.11.26, first robot test: with the fixed step the robot pushed on where the model asked for a short step (the
+    # demonstrations twist the forearm in place at sharp bends): the median asked length was 0.31 cm on sheet 04 and 0.49
+    # to 0.55 cm on sheet 03, where the runs failed, against 0.8 to 1.1 cm on sheets 01, 02 and 05, where they worked.
+    # With "step_length_rule" "predicted" the tip moves the predicted length times "step_length_gain", at most
+    # "step_most_m" (the backup of report 4.4, without its 0.5 cm floor, so that a twist in place stays in place). A run
+    # whose tips all stay within "stall_extent_m" (the diagonal of the box round them) while the forearm turns by less
+    # than "stall_twist_deg" over "stall_steps" pictures is ended as stalled [judgement; report 7.4 counts a stall or a
+    # back-and-forth as a failed run].
+    "step_length_rule": "fixed",
+    "step_length_gain": 1.0,
+    "step_most_m": 0.01,
+    "stall_steps": 30,
+    "stall_extent_m": 0.03,
+    "stall_twist_deg": 15.0,
+    "twist_step_most_deg": 10.0,
+    # the models turn the forearm about half as much as the demonstrations (11.11.26: on unseen sheets the mean predicted
+    # twist was 1.7 to 3.6 degrees against 4.1 to 5.8 demonstrated, right sign in 68 to 84 %), so the robot test can
+    # try the predicted twist times "twist_gain" (1.0 = as predicted) before the clamps
+    "twist_gain": 1.0,
+    # 11.11.26 (Emranul): limits only about 2 to 3 degrees inside the hardware's (joint 4: 119.75 in the arm model);
+    # the demonstrations reached 119.35, so 115 cut off part of the loops' forearm swing
+    "joint_4_most_deg": 117.0,
+    "wrist_held_deg": 13.5,
+    "hand_held_deg": -6.1,
+    "smallest_direction_cm": 0.05,
+    "stop_threshold": 0.5,
+    "stop_pictures_in_a_row": 2,
+    "step_budget": 250,
+    "rod_lean_most_deg": 58.0,
+    "tip_reach_m": [0.12, 0.495],
+    "workspace_x_m": [0.115, 0.49],
+    "workspace_y_m": [-0.30, 0.25],
+    "puck_margin_m": 0.03,
+    "lift_at_end_m": 0.05,
+    "settle_lift_m": 0.03,
+    "pictures_after_move": RECORDING_PARAMETERS["steps_until_fresh_picture"],
+    "fresh_picture_timeout_s": RECORDING_PARAMETERS["fresh_picture_timeout_s"],
+    "run_folder": main_checkout_folder() / "03_data" / "model_runs",
+    # the checks without the robot: the fold model and saved predictions of the laptop's first set-up for the replay,
+    # and how many recorded rows the executor check and the replay use
+    "replay_run_folder": Path(__file__).resolve().parent.parent / "04_runs" / "2026-11-09_resnet18_final_candidate",
+    "replay_run_name": "resnet18_final_candidate",
+    "replay_fold": "without_path_01",
+    "replay_rows": 200,
+    "executor_check_rows": 400,
+    "executor_check_smallest_step_m": 0.005,
+    "executor_check_seed": 10_11_26,
+    "simulated_step_budget": 30,
+    # the solver's first guess for joints 2 and 3 (radians), and how far the hand-placed tip may be from pushing height
+    # before a robot run refuses to start (the demonstrated tip heights spread from 0.9 to 2.3 cm, 5th to 95th percentile)
+    "solver_start_joints_2_and_3_rad": [-0.8, -0.6],
+    "start_height_tolerance_m": 0.02,
+    # 12.11.26, additions for the first test visit (plan after the first robot test, step 1). Each one is off, or has
+    # the old value, by default: a robot run started without a new flag does what the driver as committed on 12.11.26
+    # (b0a12df) does, step for step. The ten robot runs of 11.11.26 were driven before the stall rule and the step
+    # length rule existed (both came that evening and have run on the simulated robot only), so "stalled" is an ending
+    # the robot has not produced yet. None of the additions adds a move of the arm; --step-cm only changes how long
+    # the fixed step is.
+    # --step-cm sets the fixed step ("step_m") for one run, within "step_cm_allowed" [judgement: no longer than the
+    # 1 cm driven on 11.11.26, so that a typing mistake such as 6.5 for 0.65 cannot ask for a long step; and at least
+    # about three times "stall_extent_m" / ("stall_steps" - 1) = 0.103 cm, the length below which the stall rule ends
+    # a run that drives straight on (29 moves of 0.1 cm cover 2.9 cm, less than the rule's 3 cm)].
+    "step_cm_allowed": [0.3, 1.0],
+    # what the stall rule does when it fires (--stall): "end" ends the run as stalled, as the driver has done since
+    # the evening of 11.11.26 (simulated runs only so far); "log" prints one line the first time, writes that picture's
+    # step number into the summary ("stall_logged_at_picture": counted from 0, as the column "step" of steps.csv and
+    # the frame files are) and lets the run go on.
+    "stall_action": "end",
+    # the recorded start: the arm pose from which 149 of the 210 demonstrations begin (degrees; the first rows of
+    # frames.csv, within 0.5 degrees). The arm model puts its magnet tip at x 14.0 cm, y -1.5 cm in the robot's frame.
+    # A robot run prints how far the hand-placed start is from it (the tip's distance on the table, its parts along x
+    # and y, and the forearm's difference) and writes the four numbers into the summary. Beyond "start_offset_warn_m"
+    # or "start_forearm_warn_deg" (judged on the numbers as printed, with one decimal) a second line says how to place
+    # the start again [judgement]; no run is refused for it.
+    "recorded_start_joints_deg": [-6.06, -41.87, -61.93, 0.0, 13.53, -6.15],
+    "start_offset_warn_m": 0.01,
+    "start_forearm_warn_deg": 3.0,
+    # the placing aid (--place-help): while the arm is guided by hand with the motors off, that offset and the tip's
+    # height against pushing height are shown on one line of the terminal, a new reading every "place_help_refresh_s",
+    # until Enter; the keyboard is looked at every "place_help_key_poll_s". Enter counts from reading number
+    # "place_help_readings_before_enter" on, so that a long or double press of the Enter that switched the motors off
+    # cannot end the placing while the arm is still in the hand. It only reads the robot's state.
+    "is_place_help_shown": False,
+    "place_help_refresh_s": 0.5,
+    "place_help_key_poll_s": 0.05,
+    "place_help_readings_before_enter": 2,
+    # the faint reference picture (--ghost PATH): the picture at "ghost_path" (a JPEG of the same camera, for example
+    # the first picture of a demonstration) is laid over a live picture in the go-ahead window with "ghost_strength"
+    # (0 = only the live picture, 1 = only the reference), a fresh picture every "ghost_refresh_s", so that the sheet
+    # and the puck can be set onto their faint copies. It only reads pictures; the arm stands still. While no camera
+    # picture can be read the window shows the reference alone and says so, and Enter does not count.
+    "ghost_path": None,
+    "ghost_strength": 0.35,
+    "ghost_refresh_s": 0.33,
+    # visit_runs.py starts one run of a visit from a run list and checks every checkpoint file against the first
+    # "run_list_sha256_characters" characters of its sha256, which the list gives. It refuses a step budget above
+    # "run_list_step_budget_most" [judgement: twice the default; the longest demonstration had 226 steps, and a line
+    # of 77 cm in steps of 0.3 cm needs 257]. It starts a robot run with --fresh-keys ("is_typed_ahead_discarded"):
+    # keys pressed before the robot part's first prompt is on the screen are thrown away, so that an Enter pressed
+    # while the model was loading cannot switch the motors off by itself; the run then reads every key that waits in
+    # the terminal at each step, so that Esc ends it also when Esc was pressed twice or another key waits behind it
+    # (the committed key reader never comes back then; it is left as it is for a run without the flag); and Ctrl+C is
+    # held back until the robot has answered the question under way, so that it ends a run after the move, with the
+    # lift, instead of leaving the link to the robot out of step.
+    "run_list_sha256_characters": 12,
+    "run_list_step_budget_most": 500,
+    "is_typed_ahead_discarded": False,
+    # the rehearsal ("python model_mode.py rehearsal", 12.11.26): the robot part's own questions, placing aid and
+    # go-ahead window against the simulated robot, so that the keys and the picture window can be tried at the laptop
+    # before a visit; no robot is connected. Its runs are logged under "rehearsal_run_folder", outside 03_data. With
+    # the placing aid a simulated hand brings the tip to the recorded start in "rehearsal_hand_readings" readings,
+    # from "rehearsal_hand_start_m" (metres further out, to the left and higher than the recorded start) and with the
+    # forearm turned "rehearsal_hand_start_forearm_deg", so that the placing line changes as it will at the robot.
+    "rehearsal_run_folder": Path(tempfile.gettempdir()) / "model_mode_rehearsal",
+    "rehearsal_hand_start_m": [-0.01, 0.025, 0.03],
+    "rehearsal_hand_start_forearm_deg": 8.0,
+    "rehearsal_hand_readings": 12
+}
+
+# 10.11.26 (after the design review): every run is also scored with the stop rule the judges chose for all models, a
+# fixed threshold of 0.5 on two pictures in a row ("fixed_two_"); compare_runs.py rescores older runs from their saved
+# predictions.
+TRAINING_COMPARISON_PARAMETERS["columns"][-1:-1] = [("fixed_two_episodes_stopped_right_mean", "stopped right, fixed 0.5, 2 in a row"),
+                                                    ("fixed_two_episodes_stopped_early_mean", "stopped early, fixed 0.5, 2 in a row"),
+                                                    ("fixed_two_episodes_never_stopped_mean", "never stopped, fixed 0.5, 2 in a row")]
+
+
+# Printable test tracks (make_test_tracks.py, 11.11.26; report 7.4 "a written random rule"): A4 portrait like the six
+# course sheets, the line "line_width_mm" thick with round ends (dashed: square-ended dashes of "dash_mm" with "gap_mm"
+# between, as sheet 06), its centre at least "edge_margin_mm" from the paper's edge. A track is a smooth random curve, kept
+# only when its length lies within the six sheets' 24 to 77 cm (lengths in RECORDING
+# PARAMETERS), it bends no tighter than "smallest_radius_mm" (the loops of sheets 05 and 06 measure about 40 to 50 mm on
+# the photos, a guess), its parts that are not neighbours keep "smallest_gap_mm" between centres except at a planned
+# crossing (crossed at "smallest_crossing_deg" or more), and its far end lies near (< "near_end_mm") or far (>
+# "far_end_mm") from the edge as planned. It is driven like a car through straight pieces ("straight_share" of them) and
+# arcs, each "piece_mm" long, an arc bending to the other side than the last one "side_change_share" of the time (S-curves
+# and meanders against loops). The start is within "start_from_bottom_mm" of the bottom edge, the robot's
+# side when the sheet lies as in the recordings. Three sets: practice (may be trained on later), validation (only for
+# choosing between models) and test (sealed: printed and kept out of sight until used, as report 7.4 asks).
+TEST_TRACK_PARAMETERS = {
+    "page_mm": [210.0, 297.0],
+    "line_width_mm": 10.0,
+    "dash_mm": 35.0,
+    "gap_mm": 15.0,
+    "edge_margin_mm": 22.0,
+    "length_mm": [240.0, 770.0],
+    "smallest_radius_mm": 35.0,
+    "smallest_gap_mm": 25.0,
+    "smallest_crossing_deg": 45.0,
+    "near_end_mm": 45.0,
+    "far_end_mm": 90.0,
+    "start_from_bottom_mm": 70.0,
+    "piece_mm": [30.0, 140.0],
+    "straight_share": 0.2,
+    "side_change_share": 0.6,
+    "sets": {"practice": 6, "validation": 4, "test": 10},
+    # 12.11.26: this seed is no longer sealed. Its "test" set was drawn and looked at during the check of the first robot
+    # test; a sealed set is drawn later by Marshal with a seed of his own (plan after the first robot test, step 4).
+    "seed": 11_11_26,
+    "attempts_per_track": 60_000,
+    "output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "test_tracks",
+    # 12.11.26: the new tracks for the recording of 14.11.26 ("python make_test_tracks.py"; the set of 11.11.26 above is
+    # drawn with "python make_test_tracks.py old"). The rule is matched to the six course sheets as measured from their
+    # traced centre lines (course_sheets_measured.csv in "new_output_folder"): tightest bends 5.3 to 5.6 mm on sheets 03
+    # and 04, loops crossing once, dashes about 20 mm with 10 mm gaps on sheet 06. Lengths in millimetres on the paper,
+    # x from the paper's left edge and y from its bottom edge, the bottom edge on the robot's side.
+    "new_output_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12",
+    "drawing_rule": {
+        "page_mm": [210.0, 297.0],
+        "line_width_mm": 10.0,
+        # the line's colour on every new page: the professor's original SVG files of the six course sheets (Niryo1.svg to
+        # Niryo6.svg from Moodle, found 12.11.26, in tracks_2026-11-12/course_sheets_original/) draw it in #575757, a
+        # dark grey, not black
+        "line_colour_hex": "#575757",
+        # the centre line keeps this far from every paper edge
+        "edge_margin_mm": 22.0,
+        # two parts of the line more than "gap_apart_along_mm" apart along it keep "smallest_gap_mm" between their
+        # centres, except near a crossing: there the parts within smallest_gap_mm / sin(crossing angle) +
+        # "crossing_clear_mm" of the crossing point are left out (the course sheets 03 to 05 keep 26 to 28 mm by this
+        # measure)
+        "smallest_gap_mm": 25.0,
+        "gap_apart_along_mm": 50.0,
+        "crossing_clear_mm": 10.0,
+        "smallest_crossing_deg": 60.0,
+        # end A: within "start_from_bottom_mm" of the bottom edge, at least "start_from_side_mm" from the side edges,
+        # leaving within "start_tilt_deg" of straight up the page, along a straight first piece
+        "start_straight_mm": [30.0, 60.0],
+        "start_from_bottom_mm": [24.0, 45.0],
+        "start_from_side_mm": 40.0,
+        "start_tilt_deg": 25.0,
+        "step_mm": 0.5,
+        # the pieces a track is built from: radius and turn of each arc. A hairpin turns "turn_deg" in all, as the
+        # hairpins of sheet 04 (164 and 170 degrees, tightest 8.8 and 9.0 mm): a shoulder of "shoulder_radius_mm"
+        # turning "shoulder_turn_deg" on each side and the tight arc of "radius_mm" between, so that its legs open. A
+        # loop is a straight lead in, an arc of "turn_deg" and a straight lead out that crosses the lead in (crossing
+        # angle 360 - turn: 65 to 115 degrees, read as 65 to 90)
+        "pieces": {
+            "straight": {"length_mm": [15.0, 60.0]},
+            "gentle": {"radius_mm": [35.0, 90.0], "turn_deg": [25.0, 80.0]},
+            "medium": {"radius_mm": [15.0, 35.0], "turn_deg": [40.0, 120.0]},
+            "sharp": {"radius_mm": [8.0, 15.0], "turn_deg": [60.0, 120.0]},
+            "corner": {"radius_mm": [6.0, 10.0], "turn_deg": [70.0, 140.0]},
+            "hairpin": {"radius_mm": [6.0, 10.0], "turn_deg": [150.0, 180.0], "shoulder_radius_mm": [15.0, 30.0], "shoulder_turn_deg": [15.0, 35.0]},
+            "loop": {"radius_mm": [25.0, 50.0], "turn_deg": [245.0, 295.0], "lead_extra_mm": [20.0, 40.0]}
+        },
+        # when the line, run straight on for "steer_look_ahead_mm", would leave the paper or the reach, the next filler
+        # bends towards "steer_towards_mm"; otherwise it bends to the other side than the last one "side_change_share"
+        # of the time
+        "steer_look_ahead_mm": 45.0,
+        "steer_towards_mm": [105.0, 150.0],
+        "side_change_share": 0.6,
+        # dashed prints: a dash and a gap drawn per track; square dash ends as on sheet 06 (photo); the dashes are laid
+        # along the line lengthened by half a line width at each end, so that the ink reaches as far as the solid print's
+        # round caps; the first and last dash are lengthened or shortened by the same amount so that both ends carry ink
+        "dash_mm": [15.0, 35.0],
+        "gap_mm": [8.0, 15.0],
+        # end B "near": within "near_end_mm" of an edge; "far": at least "far_end_mm" from every edge
+        "near_end_mm": 30.0,
+        "far_end_mm": 80.0,
+        # at most this share of a track's length may run back towards the robot (lay-out check)
+        "running_back_share_most": 0.34,
+        "attempts_per_track": 60_000,
+        # how bends are named when measured from a drawn centre line: a bend is a stretch bending one way with a radius
+        # below "bend_radius_below_mm" (circle through three points 5 mm apart); it is a corner below 8 mm, sharp
+        # below 15, medium below 35, else gentle; a hairpin when the radius goes to "hairpin_radius_most_mm" or less and
+        # the whole bend turns "hairpin_turn_deg" or more (the turn within the "hairpin_window_mm" of line around the
+        # tightest point is listed too: 117 to 135 degrees on the course sheets' tight bends)
+        "bend_radius_below_mm": 100.0,
+        "radius_classes_mm": {"corner": 8.0, "sharp": 15.0, "medium": 35.0},
+        "hairpin_radius_most_mm": 10.5,
+        "hairpin_turn_deg": 150.0,
+        "hairpin_window_mm": 30.0
+    },
+    # the lay-out at the recording: the centre of end A's cap on a mark 19.5 cm in front of the base axis and 1.5 cm to
+    # its right, the first straight piece along +x (straight away from the robot). The tip is "tip_behind_puck_m"
+    # behind the puck's centre along the line; wrist and hand held as MODEL_MODE_PARAMETERS holds them; the forearm
+    # turned so that the camera's picture points along the line (within joint_4_most_deg). The base is the square of
+    # SETUP_VISUALS_PARAMETERS["base_half_width_cm"] (calc, not measured). A line point counts as running back when the
+    # line's direction there is more than "running_back_deg" from straight away from the base.
+    "lay_out": {
+        "mark_m": [0.195, -0.015],
+        "start_tip_m": [0.140, -0.015],
+        "tip_behind_puck_m": 0.0185,
+        "reach_aim_m": 0.45,
+        "running_back_deg": 110.0,
+        "check_every_mm": 5.0,
+        "turns_tried_deg": [5.0, -5.0, 10.0, -10.0, 15.0, -15.0]
+    },
+    # small marks on a track page's face (light grey, outside the line): name and print note along the top edge, a
+    # 50 mm check bar, "A" at the start end, "B" at the other end, an arrow beside the first straight piece. OFF since
+    # 12.11.26 ("are_marks_printed" False): the forearm camera sees the paper round the puck, and the course and exam
+    # sheets carry nothing but the line, so a letter near the line's end could be learned as the stop. The face shows
+    # the line only (and on the two circle pages the grey circles, without numbers); names, ends and the print order
+    # are on the list pages of the merged print files, with thumbnails ("table_rows_per_page", "thumbnails_per_page").
+    "page_marks": {
+        "are_marks_printed": False,
+        "table_rows_per_page": 40,
+        "thumbnails_per_page": 16,
+        "grey": 0.55,
+        "check_bar_mm": 50.0,
+        "letter_size_pt": 13.0,
+        "text_size_pt": 7.5,
+        "mark_line_mm": 0.35,
+        "clearance_mm": 4.0,
+        "printable_inset_mm": 7.0
+    },
+    # the sets: per track a fixed seed, the planned pieces (in order), the fillers between them, the length range and
+    # where end B lies ("near", "far" or "any"). Training tracks are recorded on from 14.11.26; development tracks are
+    # never recorded on and are used to test models. No sealed set here (see "seed" above).
+    "training": [
+        {"name": "T01", "label": "gentle S-curves", "seed": 14_11_26_01, "plan": [{"kind": "gentle", "side": "left"}, {"kind": "gentle", "side": "right"}, {"kind": "gentle", "side": "left"}, {"kind": "gentle", "side": "right"}], "fillers": ["straight"], "length_mm": [300.0, 420.0], "end_b": "any"},
+        {"name": "T02", "label": "two sharp bends", "seed": 14_11_26_02, "plan": [{"kind": "sharp", "radius_mm": [8.0, 10.0]}, {"kind": "sharp", "radius_mm": [8.0, 10.0]}], "fillers": ["straight"], "length_mm": [250.0, 380.0], "end_b": "any"},
+        {"name": "T03", "label": "loop", "seed": 14_11_26_03, "plan": [{"kind": "loop", "side": "left"}], "fillers": ["straight", "gentle", "medium"], "length_mm": [380.0, 520.0], "end_b": "any"},
+        {"name": "T04", "label": "hairpin and medium bend", "seed": 14_11_26_04, "plan": ["hairpin", "medium"], "fillers": ["straight", "gentle"], "length_mm": [350.0, 500.0], "end_b": "any"},
+        {"name": "T05", "label": "loop and corner", "seed": 14_11_26_05, "plan": [{"kind": "loop", "side": "right"}, "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [450.0, 600.0], "end_b": "far"},
+        {"name": "T06", "label": "hairpin and sharp bend", "seed": 14_11_26_06, "plan": ["hairpin", "sharp"], "fillers": ["straight", "gentle", "medium"], "length_mm": [400.0, 550.0], "end_b": "near"},
+        {"name": "T07", "label": "two corners", "seed": 14_11_26_07, "plan": ["corner", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [300.0, 450.0], "end_b": "far"},
+        {"name": "T08", "label": "loop and hairpin", "seed": 14_11_26_08, "plan": [{"kind": "loop", "side": "left"}, "hairpin"], "fillers": ["straight", "gentle", "medium"], "length_mm": [500.0, 650.0], "end_b": "any"},
+        {"name": "T09", "label": "short gentle", "seed": 14_11_26_09, "plan": ["gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [250.0, 320.0], "end_b": "near"},
+        {"name": "T10", "label": "loop and medium bend", "seed": 14_11_26_10, "plan": [{"kind": "loop", "side": "right"}, "medium"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "far"},
+        {"name": "T11", "label": "three corners", "seed": 14_11_26_11, "plan": ["corner", "corner", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "near"},
+        {"name": "T12", "label": "long meander", "seed": 14_11_26_12, "plan": ["hairpin", "medium", "medium", "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [620.0, 750.0], "end_b": "any"},
+        {"name": "T13", "label": "gentle", "seed": 14_11_26_13, "plan": ["gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [330.0, 450.0], "end_b": "far"},
+        {"name": "T14", "label": "loop and corner", "seed": 14_11_26_14, "plan": [{"kind": "loop", "side": "left"}, "corner"], "fillers": ["straight", "gentle", "medium"], "length_mm": [500.0, 650.0], "end_b": "near"},
+        {"name": "T15", "label": "mixed bends", "seed": 14_11_26_15, "plan": ["medium", "sharp", "corner", "medium"], "fillers": ["straight", "gentle"], "length_mm": [550.0, 700.0], "end_b": "far"},
+        {"name": "T16", "label": "long gentle", "seed": 14_11_26_16, "plan": ["gentle", "gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "near"}
+    ],
+    "development": [
+        {"name": "D01", "label": "gentle bends","seed": 26_11_12_01, "plan": ["gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [280.0, 400.0], "end_b": "far"},
+        {"name": "D02", "label": "two sharp bends", "seed": 26_11_12_02, "plan": ["sharp", "sharp"], "fillers": ["straight"], "length_mm": [250.0, 380.0], "end_b": "near"},
+        {"name": "D03", "label": "loop and medium bend", "seed": 26_11_12_03, "plan": [{"kind": "loop", "side": "right"}, "medium"], "fillers": ["straight", "gentle"], "length_mm": [420.0, 560.0], "end_b": "any"},
+        {"name": "D04", "label": "hairpin and corner", "seed": 26_11_12_04, "plan": ["hairpin", "corner"], "fillers": ["straight", "gentle"], "length_mm": [380.0, 520.0], "end_b": "far"},
+        {"name": "D05", "label": "loop and sharp bend", "seed": 26_11_12_05, "plan": [{"kind": "loop", "side": "left"}, "sharp"], "fillers": ["straight", "gentle", "medium"], "length_mm": [450.0, 600.0], "end_b": "near"},
+        {"name": "D06", "label": "three corners", "seed": 26_11_12_06, "plan": ["corner", "corner", "corner"], "fillers": ["straight", "gentle"], "length_mm": [350.0, 500.0], "end_b": "far"},
+        {"name": "D07", "label": "long gentle", "seed": 26_11_12_07, "plan": ["gentle", "gentle", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [450.0, 600.0], "end_b": "any"},
+        {"name": "D08", "label": "long meander", "seed": 26_11_12_08, "plan": ["hairpin", "medium", "corner", "medium"], "fillers": ["straight", "gentle", "medium"], "length_mm": [560.0, 720.0], "end_b": "near"},
+        {"name": "D09", "label": "loop and hairpin", "seed": 26_11_12_09, "plan": [{"kind": "loop", "side": "right"}, "hairpin"], "fillers": ["straight", "gentle"], "length_mm": [500.0, 650.0], "end_b": "any"},
+        {"name": "D10", "label": "loop, corner and gentle", "seed": 26_11_12_10, "plan": [{"kind": "loop", "side": "left"}, "corner", "gentle"], "fillers": ["straight", "gentle"], "length_mm": [500.0, 650.0], "end_b": "far"}
+    ],
+    # the diagnostic pages: course sheets' traced centre lines (turned half a turn so that end A lies at the bottom),
+    # solid or dashed, and two pages of sheet 03 with thin grey circles of the puck's size at the places of the plan's
+    # sitting A2 (proofreading facts, items 14 and 15)
+    "diagnostic": {
+        "sheet_measurements": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Recording tool" / "2026-11-06_sheet_measurements.json",
+        "pages": [
+            {"name": "C05_solid", "sheet": "05", "is_dashed": False},
+            {"name": "C05_dashed", "sheet": "05", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0},
+            {"name": "C06_solid", "sheet": "06", "is_dashed": False},
+            {"name": "C06_dashed", "sheet": "06", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0},
+            {"name": "C01_solid", "sheet": "01", "is_dashed": False}
+        ],
+        "circle_sheet": "03",
+        "circle_diameter_mm": 24.0,
+        "circle_grey": 0.75,
+        "circle_line_mm": 0.3,
+        "beside_mm": [7.0, 12.0, 17.0],
+        "end_short_mm": 5.0,
+        "end_aside_mm": 7.0,
+        "far_reach_m": 0.40,
+        "forearm_turned_deg": 60.0,
+        # 12.11.26: plain copies of the six course sheets ("python make_test_tracks.py course", print_set_course_sheets.pdf),
+        # drawn from the traced centre lines where the trace puts them on the sheet, the line only. Sheet 06 is dashed
+        # along its whole length (photo); the dash places along the line could not be read from the photo, so its dashes
+        # are laid by the dash rule with 20 mm and 10 mm, which gives the photo's count of 16 dashes.
+        "course_sheet_pages": [
+            {"name": "C01_course", "sheet": "01", "is_dashed": False},
+            {"name": "C02_course", "sheet": "02", "is_dashed": False},
+            {"name": "C03_course", "sheet": "03", "is_dashed": False},
+            {"name": "C04_course", "sheet": "04", "is_dashed": False},
+            {"name": "C05_course", "sheet": "05", "is_dashed": False},
+            {"name": "C06_course", "sheet": "06", "is_dashed": True, "dash_mm": 20.0, "gap_mm": 10.0}
+        ]
+    }
+}
+
 
 # Dataset builder (build_dataset.py, Marshal, 13.11.26): one table of training pictures from the main data, with the
 # move names, the exact step and the episode's sheet, score and split. Nothing in the raw folder is changed or copied;

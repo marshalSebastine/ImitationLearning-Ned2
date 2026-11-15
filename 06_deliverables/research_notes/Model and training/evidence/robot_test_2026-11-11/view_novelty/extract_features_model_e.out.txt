@@ -1,0 +1,25 @@
+model E: D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt
+recipe: design chunk, backbone resnet18.tv_in1k, pooling grid [3, 4], picture size [160, 120]
+robot pictures: 554; descriptor sizes: grid 6144, mean 512, hidden 256
+
+Check: model E's answers computed here against the answers logged on the robot (steps.csv), runs 2 to 9
+run  pictures  largest difference: forward cm, left cm, twist deg, stop chance
+  2        25  0.00000  0.00000  0.00001  0.00000
+  3        38  0.00001  0.00001  0.00001  0.00000
+  4        42  0.00001  0.00000  0.00001  0.00000
+  5        60  0.00000  0.00001  0.00001  0.00000
+  6        69  0.00001  0.00001  0.00001  0.00000
+  7        89  0.00001  0.00001  0.00001  0.00000
+  8        41  0.00000  0.00000  0.00001  0.00000
+  9        90  0.00001  0.00001  0.00001  0.00000
+
+training pictures: (18522, 120, 160, 3)
+    pictures 0 of 18522
+    pictures 2560 of 18522
+    pictures 5120 of 18522
+    pictures 7680 of 18522
+    pictures 10240 of 18522
+    pictures 12800 of 18522
+    pictures 15360 of 18522
+    pictures 17920 of 18522
+training descriptors saved after 135 s

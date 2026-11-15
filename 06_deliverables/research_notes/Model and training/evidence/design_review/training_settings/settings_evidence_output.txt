@@ -1,0 +1,289 @@
+﻿
+--- class weights: no_class_weights minus square_root_weights
+within_45_deg                        base mean 0.577  variant mean 0.593  diff mean +0.016  per fold [+0.016, +0.008, +0.038, -0.002, -0.005, +0.040]  higher in 4 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.662  diff mean +0.029  per fold [+0.024, +0.009, +0.059, +0.008, +0.018, +0.057]  higher in 6 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.232  diff mean -0.022  per fold [-0.030, -0.011, -0.018, -0.028, -0.034, -0.009]  higher in 0 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.176  diff mean -0.082  per fold [-0.210, +0.023, -0.133, -0.067, -0.067, -0.040]  higher in 1 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.057  diff mean -0.054  per fold [+0.000, -0.159, +0.000, +0.000, -0.167, +0.000]  higher in 0 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.748  diff mean +0.149  per fold [+0.263, +0.114, +0.178, +0.067, +0.233, +0.040]  higher in 6 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.263  diff mean -0.054  per fold [-0.263, +0.023, -0.067, -0.022, +0.167, -0.160]  higher in 2 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.223  diff mean -0.051  per fold [-0.053, -0.250, -0.267, -0.022, +0.367, -0.080]  higher in 1 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.391  diff mean -0.017  per fold [+0.013, -0.125, +0.005, +0.017, -0.023, +0.008]  higher in 4 of 6
+
+--- class weights: full_inverse_weights minus square_root_weights
+within_45_deg                        base mean 0.577  variant mean 0.509  diff mean -0.068  per fold [-0.070, -0.045, -0.078, -0.039, -0.083, -0.092]  higher in 0 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.552  diff mean -0.082  per fold [-0.057, -0.073, -0.093, -0.057, -0.090, -0.119]  higher in 0 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.270  diff mean +0.016  per fold [+0.087, +0.021, +0.003, +0.005, -0.004, -0.013]  higher in 4 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.292  diff mean +0.034  per fold [-0.053, +0.000, +0.067, +0.111, +0.000, +0.080]  higher in 3 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.212  diff mean +0.100  per fold [+0.105, +0.114, +0.244, -0.022, +0.000, +0.160]  higher in 4 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.433  diff mean -0.166  per fold [-0.210, -0.136, -0.289, -0.089, -0.033, -0.240]  higher in 0 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.306  diff mean -0.011  per fold [+0.000, +0.000, -0.044, +0.000, +0.100, -0.120]  higher in 1 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.230  diff mean -0.044  per fold [+0.000, -0.114, -0.156, -0.133, +0.100, +0.040]  higher in 2 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.415  diff mean +0.007  per fold [-0.021, -0.008, +0.000, +0.015, +0.025, +0.029]  higher in 3 of 6
+
+--- class weights: square_root_weights_label_smoothing minus square_root_weights
+within_45_deg                        base mean 0.577  variant mean 0.558  diff mean -0.019  per fold [-0.007, -0.034, -0.003, -0.009, -0.037, -0.022]  higher in 0 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.610  diff mean -0.023  per fold [-0.002, -0.046, -0.002, -0.006, -0.047, -0.036]  higher in 0 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.254  diff mean -0.000  per fold [-0.007, +0.003, +0.002, +0.005, -0.000, -0.005]  higher in 3 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.233  diff mean -0.025  per fold [-0.053, +0.023, -0.045, +0.000, -0.033, -0.040]  higher in 1 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.054  diff mean -0.058  per fold [-0.053, -0.182, +0.022, -0.067, -0.067, +0.000]  higher in 1 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.677  diff mean +0.078  per fold [+0.105, +0.068, +0.089, +0.067, +0.100, +0.040]  higher in 6 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.327  diff mean +0.010  per fold [+0.000, +0.068, -0.067, +0.044, +0.133, -0.120]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.403  diff mean +0.129  per fold [+0.105, +0.227, -0.178, +0.133, +0.167, +0.320]  higher in 5 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.389  diff mean -0.019  per fold [+0.047, -0.132, +0.024, +0.018, -0.028, -0.043]  higher in 3 of 6
+
+--- scores: scores_2_3 minus scores_1_2_3
+within_45_deg                        base mean 0.577  variant mean 0.565  diff mean -0.012  per fold [-0.024, +0.007, -0.009, -0.012, -0.017, -0.018]  higher in 1 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.623  diff mean -0.010  per fold [+0.006, -0.021, +0.004, -0.010, -0.002, -0.037]  higher in 2 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.236  diff mean -0.018  per fold [-0.003, -0.024, -0.044, +0.011, -0.040, -0.011]  higher in 1 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.186  diff mean -0.072  per fold [-0.339, -0.001, -0.052, -0.062, -0.030, +0.051]  higher in 1 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.205  diff mean +0.094  per fold [+0.010, +0.077, +0.046, -0.028, +0.093, +0.364]  higher in 5 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.558  diff mean -0.041  per fold [+0.257, -0.154, +0.048, +0.082, -0.063, -0.414]  higher in 3 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.167  diff mean -0.151  per fold [-0.382, +0.018, -0.188, -0.167, +0.004, -0.189]  higher in 2 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.326  diff mean +0.052  per fold [-0.095, +0.181, -0.308, +0.201, +0.089, +0.244]  higher in 4 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.437  diff mean +0.029  per fold [+0.015, +0.054, -0.128, +0.229, -0.045, +0.047]  higher in 4 of 6
+
+--- scores: score_3_only minus scores_1_2_3
+within_45_deg                        base mean 0.577  variant mean 0.539  diff mean -0.038  per fold [-0.039, +0.009, -0.004, -0.004, -0.064, -0.123]  higher in 1 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.587  diff mean -0.046  per fold [-0.021, -0.015, -0.003, -0.013, -0.060, -0.165]  higher in 0 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.236  diff mean -0.018  per fold [+0.006, -0.004, -0.026, +0.001, -0.051, -0.035]  higher in 2 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.338  diff mean +0.080  per fold [+0.007, +0.157, -0.121, +0.015, +0.283, +0.136]  higher in 5 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.138  diff mean +0.026  per fold [+0.014, -0.108, +0.029, +0.081, +0.083, +0.059]  higher in 5 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.454  diff mean -0.145  per fold [-0.102, -0.102, +0.124, -0.230, -0.367, -0.195]  higher in 1 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.306  diff mean -0.011  per fold [-0.098, -0.008, +0.076, -0.092, +0.217, -0.162]  higher in 2 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.361  diff mean +0.087  per fold [+0.109, +0.102, -0.235, +0.015, +0.417, +0.115]  higher in 5 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.455  diff mean +0.047  per fold [+0.103, +0.016, +0.021, +0.079, -0.040, +0.099]  higher in 5 of 6
+
+--- scores: scores_weighted minus scores_1_2_3
+within_45_deg                        base mean 0.577  variant mean 0.573  diff mean -0.003  per fold [-0.004, -0.003, -0.008, -0.000, +0.003, -0.008]  higher in 1 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.627  diff mean -0.007  per fold [+0.006, -0.007, -0.023, -0.003, +0.001, -0.013]  higher in 2 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.255  diff mean +0.001  per fold [+0.016, +0.005, +0.000, -0.004, +0.012, -0.022]  higher in 3 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.306  diff mean +0.048  per fold [+0.000, +0.045, -0.045, +0.067, +0.100, +0.120]  higher in 4 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.121  diff mean +0.009  per fold [+0.105, -0.023, +0.067, +0.000, -0.133, +0.040]  higher in 3 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.537  diff mean -0.062  per fold [-0.158, -0.068, +0.044, -0.067, +0.033, -0.160]  higher in 2 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.330  diff mean +0.013  per fold [-0.158, +0.045, +0.000, +0.022, +0.167, +0.000]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.211  diff mean -0.063  per fold [+0.000, -0.068, -0.200, -0.156, -0.033, +0.080]  higher in 1 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.401  diff mean -0.007  per fold [+0.030, -0.069, -0.024, +0.009, -0.005, +0.016]  higher in 3 of 6
+
+--- cleaning: mistakes_and_flags_dropped minus mistakes_dropped_flags_kept
+within_45_deg                        base mean 0.577  variant mean 0.560  diff mean -0.017  per fold [-0.103, -0.005, -0.023, -0.012, +0.009, +0.034]  higher in 2 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.619  diff mean -0.014  per fold [-0.094, -0.014, -0.003, -0.024, +0.030, +0.019]  higher in 2 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.267  diff mean +0.013  per fold [+0.050, +0.030, -0.027, -0.006, -0.017, +0.048]  higher in 3 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.196  diff mean -0.062  per fold [-0.263, +0.114, -0.200, -0.156, -0.067, +0.200]  higher in 2 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.096  diff mean -0.016  per fold [+0.000, -0.159, +0.000, -0.044, +0.067, +0.040]  higher in 2 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.678  diff mean +0.079  per fold [+0.263, +0.000, +0.267, +0.222, +0.000, -0.280]  higher in 3 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.260  diff mean -0.057  per fold [-0.368, +0.091, -0.111, -0.067, +0.033, +0.080]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.223  diff mean -0.051  per fold [-0.158, -0.273, -0.133, -0.067, +0.367, -0.040]  higher in 1 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.409  diff mean +0.001  per fold [-0.049, +0.001, +0.013, +0.134, -0.144, +0.050]  higher in 4 of 6
+
+--- cleaning: nothing_dropped minus mistakes_dropped_flags_kept
+within_45_deg                        base mean 0.577  variant mean 0.556  diff mean -0.021  per fold [-0.015, -0.010, -0.006, +0.007, -0.039, -0.062]  higher in 1 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.614  diff mean -0.019  per fold [+0.000, -0.012, +0.029, -0.011, -0.041, -0.081]  higher in 2 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.246  diff mean -0.008  per fold [+0.028, -0.027, -0.011, -0.002, -0.018, -0.016]  higher in 1 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.271  diff mean +0.013  per fold [-0.158, -0.045, +0.155, -0.089, +0.133, +0.080]  higher in 3 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.161  diff mean +0.049  per fold [-0.053, +0.023, +0.178, -0.022, +0.167, +0.000]  higher in 3 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.530  diff mean -0.069  per fold [+0.210, -0.045, -0.311, +0.111, -0.300, -0.080]  higher in 2 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.320  diff mean +0.003  per fold [-0.263, +0.000, +0.089, -0.022, +0.133, +0.080]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.283  diff mean +0.009  per fold [+0.105, -0.250, -0.222, +0.000, +0.500, -0.080]  higher in 2 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.441  diff mean +0.032  per fold [+0.047, +0.104, -0.018, +0.117, -0.019, -0.037]  higher in 3 of 6
+
+--- cleaning: mistakes_and_static_rows_dropped minus mistakes_dropped_flags_kept
+within_45_deg                        base mean 0.577  variant mean 0.566  diff mean -0.011  per fold [+0.002, -0.007, -0.022, -0.016, -0.027, +0.006]  higher in 2 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.620  diff mean -0.013  per fold [+0.012, -0.013, -0.023, -0.016, -0.022, -0.014]  higher in 1 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.248  diff mean -0.006  per fold [-0.011, +0.007, -0.011, -0.020, -0.023, +0.022]  higher in 2 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.268  diff mean +0.010  per fold [-0.210, +0.068, -0.133, +0.089, -0.033, +0.280]  higher in 3 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.115  diff mean +0.003  per fold [+0.000, -0.136, +0.022, +0.000, +0.133, +0.000]  higher in 2 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.573  diff mean -0.026  per fold [+0.263, -0.023, +0.156, -0.133, -0.100, -0.320]  higher in 2 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.314  diff mean -0.003  per fold [+0.000, +0.114, +0.000, -0.133, +0.000, +0.000]  higher in 1 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.269  diff mean -0.005  per fold [-0.105, -0.045, -0.200, +0.044, +0.233, +0.040]  higher in 3 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.426  diff mean +0.018  per fold [-0.026, +0.016, +0.014, +0.182, -0.062, -0.016]  higher in 3 of 6
+
+--- head size: linear minus hidden_256
+within_45_deg                        base mean 0.577  variant mean 0.499  diff mean -0.078  per fold [-0.072, -0.076, -0.064, -0.053, -0.071, -0.133]  higher in 0 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.540  diff mean -0.093  per fold [-0.055, -0.099, -0.074, -0.083, -0.066, -0.180]  higher in 0 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.246  diff mean -0.008  per fold [+0.023, -0.008, -0.021, +0.015, -0.011, -0.046]  higher in 2 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.171  diff mean -0.087  per fold [-0.263, -0.068, -0.133, -0.156, +0.100, +0.000]  higher in 1 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.280  diff mean +0.169  per fold [+0.211, +0.250, +0.022, +0.422, +0.067, +0.040]  higher in 6 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.518  diff mean -0.081  per fold [+0.105, -0.273, +0.133, -0.244, -0.167, -0.040]  higher in 2 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.121  diff mean -0.197  per fold [-0.421, -0.114, -0.222, -0.289, +0.067, -0.200]  higher in 1 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.467  diff mean +0.193  per fold [+0.421, +0.500, -0.378, +0.467, +0.067, +0.080]  higher in 5 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.483  diff mean +0.075  per fold [+0.017, +0.120, +0.008, +0.205, +0.030, +0.071]  higher in 6 of 6
+
+--- head size: hidden_1024 minus hidden_256
+within_45_deg                        base mean 0.577  variant mean 0.558  diff mean -0.019  per fold [-0.014, -0.005, -0.031, -0.027, -0.005, -0.033]  higher in 0 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.608  diff mean -0.026  per fold [+0.017, -0.021, -0.035, -0.049, +0.000, -0.065]  higher in 2 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.249  diff mean -0.005  per fold [+0.007, -0.019, -0.007, -0.005, -0.018, +0.012]  higher in 2 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.271  diff mean +0.013  per fold [+0.105, -0.023, +0.000, +0.067, -0.033, -0.040]  higher in 2 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.156  diff mean +0.044  per fold [+0.053, +0.136, +0.000, +0.000, +0.033, +0.040]  higher in 4 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.520  diff mean -0.079  per fold [-0.158, -0.227, +0.000, -0.089, +0.000, +0.000]  higher in 0 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.318  diff mean +0.001  per fold [-0.053, +0.023, +0.022, +0.089, -0.033, -0.040]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.246  diff mean -0.028  per fold [-0.053, -0.091, -0.200, -0.200, +0.333, +0.040]  higher in 2 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.447  diff mean +0.039  per fold [+0.047, +0.045, +0.010, +0.092, -0.074, +0.113]  higher in 5 of 6
+
+--- design: exact_step minus classes_small_motion_next_move
+within_45_deg                        base mean 0.577  variant mean 0.591  diff mean +0.015  per fold [-0.009, +0.054, +0.059, -0.011, -0.020, +0.016]  higher in 3 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.673  diff mean +0.040  per fold [+0.028, +0.066, +0.131, -0.019, +0.027, +0.008]  higher in 5 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.216  diff mean -0.038  per fold [-0.036, -0.037, -0.031, -0.034, -0.075, -0.016]  higher in 0 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.291  diff mean +0.033  per fold [-0.053, +0.068, -0.067, -0.067, +0.033, +0.280]  higher in 3 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.243  diff mean +0.131  per fold [+0.053, -0.045, +0.111, +0.400, +0.067, +0.200]  higher in 5 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.429  diff mean -0.170  per fold [+0.053, -0.114, +0.000, -0.378, -0.100, -0.480]  higher in 1 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.221  diff mean -0.097  per fold [-0.211, +0.091, -0.111, -0.289, +0.100, -0.160]  higher in 2 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.414  diff mean +0.140  per fold [+0.158, -0.023, -0.267, +0.311, +0.300, +0.360]  higher in 4 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.700  diff mean +0.292  per fold [+0.479, +0.318, +0.145, +0.354, +0.208, +0.247]  higher in 6 of 6
+
+--- small motion: classes_small_motion_dropped minus classes_small_motion_next_move
+within_45_deg                        base mean 0.577  variant mean 0.560  diff mean -0.016  per fold [-0.025, -0.028, +0.023, -0.005, -0.025, -0.039]  higher in 1 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.617  diff mean -0.016  per fold [-0.005, -0.036, +0.046, -0.007, -0.031, -0.062]  higher in 1 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.260  diff mean +0.006  per fold [+0.023, +0.009, +0.023, -0.010, -0.013, +0.004]  higher in 4 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.182  diff mean -0.076  per fold [-0.263, +0.068, -0.156, -0.067, +0.000, -0.040]  higher in 1 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.054  diff mean -0.058  per fold [-0.053, -0.227, +0.000, -0.067, +0.000, +0.000]  higher in 0 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.742  diff mean +0.142  per fold [+0.368, +0.091, +0.200, +0.156, +0.000, +0.040]  higher in 5 of 6
+tuned_two_episodes_stopped_right     base mean 0.317  variant mean 0.307  diff mean -0.010  per fold [-0.211, +0.136, +0.111, -0.045, +0.067, -0.120]  higher in 3 of 6
+tuned_two_episodes_stopped_early     base mean 0.274  variant mean 0.300  diff mean +0.026  per fold [-0.053, -0.295, -0.245, -0.022, +0.533, +0.240]  higher in 2 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.403  diff mean -0.005  per fold [+0.004, -0.085, +0.013, +0.051, +0.002, -0.015]  higher in 4 of 6
+
+--- backbone untrained: resnet18_random_grid minus resnet18_imagenet_grid
+within_45_deg                        base mean 0.577  variant mean 0.490  diff mean -0.086  per fold [-0.109, -0.091, -0.044, -0.065, -0.114, -0.096]  higher in 0 of 6
+path_within_45_deg                   base mean 0.633  variant mean 0.522  diff mean -0.111  per fold [-0.125, -0.167, -0.019, -0.098, -0.139, -0.117]  higher in 0 of 6
+class_balanced_accuracy              base mean 0.254  variant mean 0.203  diff mean -0.051  per fold [-0.032, -0.060, -0.053, -0.011, -0.072, -0.076]  higher in 0 of 6
+episodes_stopped_right               base mean 0.258  variant mean 0.117  diff mean -0.141  per fold [-0.316, -0.159, -0.156, -0.111, -0.067, -0.040]  higher in 0 of 6
+episodes_stopped_early               base mean 0.112  variant mean 0.172  diff mean +0.060  per fold [-0.053, -0.295, +0.089, +0.178, +0.400, +0.040]  higher in 4 of 6
+episodes_never_stopped               base mean 0.599  variant mean 0.682  diff mean +0.083  per fold [+0.421, +0.409, +0.089, -0.089, -0.333, +0.000]  higher in 3 of 6
+twist_sign_accuracy                  base mean 0.408  variant mean 0.474  diff mean +0.066  per fold [+0.107, +0.145, -0.094, +0.064, +0.037, +0.136]  higher in 5 of 6
+
+=== class weights: within_45_deg per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+no_class_weights                           0.771   0.538   0.603   0.558   0.579   0.507  0.593
+square_root_weights                        0.756   0.530   0.565   0.559   0.583   0.467  0.577
+full_inverse_weights                       0.685   0.485   0.488   0.521   0.501   0.375  0.509
+square_root_weights_label_smoothing        0.749   0.496   0.562   0.550   0.546   0.445  0.558
+
+=== class weights: class_balanced_accuracy per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+no_class_weights                           0.183   0.215   0.274   0.197   0.262   0.263  0.232
+square_root_weights                        0.213   0.226   0.292   0.225   0.296   0.272  0.254
+full_inverse_weights                       0.300   0.247   0.295   0.230   0.292   0.259  0.270
+square_root_weights_label_smoothing        0.206   0.229   0.293   0.230   0.296   0.267  0.254
+
+=== class weights: episodes_stopped_right per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+no_class_weights                           0.316   0.182   0.244   0.311   0.000   0.000  0.176
+square_root_weights                        0.526   0.159   0.378   0.378   0.067   0.040  0.258
+full_inverse_weights                       0.474   0.159   0.444   0.489   0.067   0.120  0.292
+square_root_weights_label_smoothing        0.474   0.182   0.333   0.378   0.033   0.000  0.233
+
+=== scores: within_45_deg per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+scores_1_2_3                               0.756   0.530   0.565   0.559   0.583   0.467  0.577
+scores_2_3                                 0.732   0.537   0.557   0.547   0.567   0.449  0.565
+score_3_only                               0.717   0.539   0.561   0.555   0.519   0.344  0.539
+scores_weighted                            0.752   0.527   0.557   0.559   0.586   0.459  0.573
+
+=== scores: episodes_stopped_right per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+scores_1_2_3                               0.526   0.159   0.378   0.378   0.067   0.040  0.258
+scores_2_3                                 0.188   0.158   0.326   0.316   0.037   0.091  0.186
+score_3_only                               0.533   0.316   0.257   0.393   0.350   0.176  0.338
+scores_weighted                            0.526   0.204   0.333   0.444   0.167   0.160  0.306
+
+=== cleaning: within_45_deg per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+mistakes_dropped_flags_kept                0.756   0.530   0.565   0.559   0.583   0.467  0.577
+mistakes_and_flags_dropped                 0.653   0.524   0.543   0.548   0.592   0.501  0.560
+nothing_dropped                            0.740   0.520   0.559   0.567   0.544   0.405  0.556
+mistakes_and_static_rows_dropped           0.757   0.523   0.543   0.543   0.556   0.473  0.566
+
+=== head size: within_45_deg per fold
+variant                                      w01     w02     w03     w04     w05     w06   mean
+linear                                     0.684   0.454   0.501   0.507   0.512   0.334  0.499
+hidden_256                                 0.756   0.530   0.565   0.559   0.583   0.467  0.577
+hidden_1024                                0.742   0.524   0.534   0.532   0.578   0.434  0.558
+
+=== Seed spread of the six-fold mean
+classes (default seed + 11, 12, 13)      within_45_deg                      means [0.577, 0.561, 0.546, 0.556]  range 0.546 to 0.577  sd 0.0129  per-fold sd 0.006 to 0.039
+classes (default seed + 11, 12, 13)      path_within_45_deg                 means [0.633, 0.612, 0.599, 0.605]  range 0.599 to 0.633  sd 0.0148  per-fold sd 0.013 to 0.045
+classes (default seed + 11, 12, 13)      episodes_stopped_right             means [0.258, 0.317, 0.292, 0.317]  range 0.258 to 0.317  sd 0.0281  per-fold sd 0.057 to 0.114
+classes (default seed + 11, 12, 13)      tuned_two_episodes_stopped_right   means [0.317, 0.335, 0.361, 0.304]  range 0.304 to 0.361  sd 0.0248  per-fold sd 0.043 to 0.110
+exact (default seed + 11, 12, 13)        within_45_deg                      means [0.591, 0.616, 0.593, 0.611]  range 0.591 to 0.616  sd 0.0124  per-fold sd 0.005 to 0.043
+exact (default seed + 11, 12, 13)        path_within_45_deg                 means [0.673, 0.708, 0.674, 0.707]  range 0.673 to 0.708  sd 0.0198  per-fold sd 0.013 to 0.072
+exact (default seed + 11, 12, 13)        episodes_stopped_right             means [0.291, 0.332, 0.289, 0.3]  range 0.289 to 0.332  sd 0.0201  per-fold sd 0.028 to 0.153
+exact (default seed + 11, 12, 13)        tuned_two_episodes_stopped_right   means [0.221, 0.301, 0.295, 0.323]  range 0.221 to 0.323  sd 0.0445  per-fold sd 0.022 to 0.151
+classes, all episodes, seeds 1, 2, 3     within_45_deg                      means [0.574, 0.551, 0.541]  range 0.541 to 0.574  sd 0.0170  per-fold sd 0.009 to 0.056
+classes, all episodes, seeds 1, 2, 3     path_within_45_deg                 means [0.629, 0.597, 0.589]  range 0.589 to 0.629  sd 0.0212  per-fold sd 0.002 to 0.070
+classes, all episodes, seeds 1, 2, 3     episodes_stopped_right             means [0.287, 0.266, 0.337]  range 0.266 to 0.337  sd 0.0362  per-fold sd 0.000 to 0.241
+classes, all episodes, seeds 1, 2, 3     tuned_two_episodes_stopped_right   means [0.268, 0.335, 0.356]  range 0.268 to 0.356  sd 0.0461  per-fold sd 0.013 to 0.161
+
+=== Seeds per setting needed (two-sided 5 %, power 0.8), from the measured seed sd of the six-fold mean
+classes (default seed + 11, 12, 13)      within_45_deg            sd 0.0129 difference 0.01: seeds 28  P(right pick with 1, 2, 3 seeds) 0.71, 0.78, 0.83
+classes (default seed + 11, 12, 13)      within_45_deg            sd 0.0129 difference 0.02: seeds 8  P(right pick with 1, 2, 3 seeds) 0.86, 0.94, 0.97
+classes (default seed + 11, 12, 13)      within_45_deg            sd 0.0129 difference 0.03: seeds 5  P(right pick with 1, 2, 3 seeds) 0.95, 0.99, 1.00
+classes (default seed + 11, 12, 13)      within_45_deg            sd 0.0129 difference 0.05: seeds 3  P(right pick with 1, 2, 3 seeds) 1.00, 1.00, 1.00
+classes (default seed + 11, 12, 13)      episodes_stopped_right   sd 0.0281 difference 0.01: seeds 125  P(right pick with 1, 2, 3 seeds) 0.60, 0.64, 0.67
+classes (default seed + 11, 12, 13)      episodes_stopped_right   sd 0.0281 difference 0.02: seeds 32  P(right pick with 1, 2, 3 seeds) 0.69, 0.76, 0.81
+classes (default seed + 11, 12, 13)      episodes_stopped_right   sd 0.0281 difference 0.03: seeds 15  P(right pick with 1, 2, 3 seeds) 0.78, 0.86, 0.90
+classes (default seed + 11, 12, 13)      episodes_stopped_right   sd 0.0281 difference 0.05: seeds 7  P(right pick with 1, 2, 3 seeds) 0.90, 0.96, 0.99
+exact (default seed + 11, 12, 13)        within_45_deg            sd 0.0124 difference 0.01: seeds 26  P(right pick with 1, 2, 3 seeds) 0.72, 0.79, 0.84
+exact (default seed + 11, 12, 13)        within_45_deg            sd 0.0124 difference 0.02: seeds 8  P(right pick with 1, 2, 3 seeds) 0.87, 0.95, 0.98
+exact (default seed + 11, 12, 13)        within_45_deg            sd 0.0124 difference 0.03: seeds 4  P(right pick with 1, 2, 3 seeds) 0.96, 0.99, 1.00
+exact (default seed + 11, 12, 13)        within_45_deg            sd 0.0124 difference 0.05: seeds 3  P(right pick with 1, 2, 3 seeds) 1.00, 1.00, 1.00
+exact (default seed + 11, 12, 13)        episodes_stopped_right   sd 0.0201 difference 0.01: seeds 65  P(right pick with 1, 2, 3 seeds) 0.64, 0.69, 0.73
+exact (default seed + 11, 12, 13)        episodes_stopped_right   sd 0.0201 difference 0.02: seeds 17  P(right pick with 1, 2, 3 seeds) 0.76, 0.84, 0.89
+exact (default seed + 11, 12, 13)        episodes_stopped_right   sd 0.0201 difference 0.03: seeds 9  P(right pick with 1, 2, 3 seeds) 0.85, 0.93, 0.97
+exact (default seed + 11, 12, 13)        episodes_stopped_right   sd 0.0201 difference 0.05: seeds 4  P(right pick with 1, 2, 3 seeds) 0.96, 0.99, 1.00
+classes, all episodes, seeds 1, 2, 3     within_45_deg            sd 0.0170 difference 0.01: seeds 47  P(right pick with 1, 2, 3 seeds) 0.66, 0.72, 0.76
+classes, all episodes, seeds 1, 2, 3     within_45_deg            sd 0.0170 difference 0.02: seeds 13  P(right pick with 1, 2, 3 seeds) 0.80, 0.88, 0.93
+classes, all episodes, seeds 1, 2, 3     within_45_deg            sd 0.0170 difference 0.03: seeds 7  P(right pick with 1, 2, 3 seeds) 0.89, 0.96, 0.98
+classes, all episodes, seeds 1, 2, 3     within_45_deg            sd 0.0170 difference 0.05: seeds 4  P(right pick with 1, 2, 3 seeds) 0.98, 1.00, 1.00
+classes, all episodes, seeds 1, 2, 3     episodes_stopped_right   sd 0.0362 difference 0.01: seeds None  P(right pick with 1, 2, 3 seeds) 0.58, 0.61, 0.63
+classes, all episodes, seeds 1, 2, 3     episodes_stopped_right   sd 0.0362 difference 0.02: seeds 53  P(right pick with 1, 2, 3 seeds) 0.65, 0.71, 0.75
+classes, all episodes, seeds 1, 2, 3     episodes_stopped_right   sd 0.0362 difference 0.03: seeds 24  P(right pick with 1, 2, 3 seeds) 0.72, 0.80, 0.84
+classes, all episodes, seeds 1, 2, 3     episodes_stopped_right   sd 0.0362 difference 0.05: seeds 10  P(right pick with 1, 2, 3 seeds) 0.84, 0.92, 0.95
+
+=== End-to-end runs, per fold
+2026-11-09_frozen_feature_probes: no metrics.json yet
+2026-11-09_resnet18_final_candidate: no metrics.json yet
+
+resnet18_finetune_classes settings: epochs 8, share per epoch 0.5, lr 0.001, backbone factor 0.3, weight decay 0.05, batch 64, last checkpoint kept None, augmentation {'brightness': 0.35, 'contrast': 0.3, 'saturation': 0.25, 'gamma_log': 0.25, 'blur_probability': 0.15, 'blur_sigma_most': 0.8, 'noise_most': 0.03, 'shift_px': 4, 'mirror_probability': 0.0, 'channel_gain': 0.08}
+   without_path_03  within_45_deg=0.6634  path_within_45_deg=0.7037  class_balanced_accuracy=0.347  episodes_stopped_right=0.2889  episodes_stopped_early=0.1111  episodes_never_stopped=0.5778  twist_sign_accuracy=0.7034  epochs_run=8 minutes=20.4
+   without_path_05  within_45_deg=0.6592  path_within_45_deg=0.7106  class_balanced_accuracy=0.3853  episodes_stopped_right=0.1333  episodes_stopped_early=0.1667  episodes_never_stopped=0.7  twist_sign_accuracy=0.3719  epochs_run=8 minutes=26.7
+   without_path_06  within_45_deg=0.6401  path_within_45_deg=0.7073  class_balanced_accuracy=0.4118  episodes_stopped_right=0.04  episodes_stopped_early=0.04  episodes_never_stopped=0.92  twist_sign_accuracy=0.4224  epochs_run=8 minutes=28.9
+
+resnet18_finetune_exact settings: epochs 8, share per epoch 0.5, lr 0.001, backbone factor 0.3, weight decay 0.05, batch 64, last checkpoint kept None, augmentation {'brightness': 0.35, 'contrast': 0.3, 'saturation': 0.25, 'gamma_log': 0.25, 'blur_probability': 0.15, 'blur_sigma_most': 0.8, 'noise_most': 0.03, 'shift_px': 4, 'mirror_probability': 0.0, 'channel_gain': 0.08}
+   without_path_03  within_45_deg=0.6995  path_within_45_deg=0.8019  class_balanced_accuracy=0.2826  episodes_stopped_right=0.6889  episodes_stopped_early=0.1556  episodes_never_stopped=0.1111  tuned_two_episodes_stopped_right=0.7556  tuned_two_episodes_stopped_early=0.1778  twist_sign_accuracy=0.8445  epochs_run=8 minutes=24.4
+   without_path_05  within_45_deg=0.6673  path_within_45_deg=0.7774  class_balanced_accuracy=0.2573  episodes_stopped_right=0.2  episodes_stopped_early=0.5667  episodes_never_stopped=0.2333  tuned_two_episodes_stopped_right=0.1667  tuned_two_episodes_stopped_early=0.6333  twist_sign_accuracy=0.6694  epochs_run=8 minutes=23.5
+   without_path_06  within_45_deg=0.675  path_within_45_deg=0.791  class_balanced_accuracy=0.3136  episodes_stopped_right=0.2  episodes_stopped_early=0.04  episodes_never_stopped=0.76  tuned_two_episodes_stopped_right=0.32  tuned_two_episodes_stopped_early=0.24  twist_sign_accuracy=0.8021  epochs_run=8 minutes=22.6
+2026-11-09_resnet18_finetune_mirror: no metrics.json yet
+
+small_cnn_line_and_puck_classes settings: epochs 16, share per epoch 0.5, lr 0.002, backbone factor 0.3, weight decay 0.05, batch 64, last checkpoint kept None, augmentation {'brightness': 0.35, 'contrast': 0.3, 'saturation': 0.25, 'gamma_log': 0.25, 'blur_probability': 0.15, 'blur_sigma_most': 0.8, 'noise_most': 0.03, 'shift_px': 4, 'mirror_probability': 0.0, 'channel_gain': 0.08}
+   without_path_03  within_45_deg=0.6301  path_within_45_deg=0.6758  class_balanced_accuracy=0.3361  episodes_stopped_right=0.3778  episodes_stopped_early=0.0444  episodes_never_stopped=0.5556  tuned_two_episodes_stopped_right=0.6222  tuned_two_episodes_stopped_early=0.2889  twist_sign_accuracy=0.6593  epochs_run=16 minutes=15.8
+   without_path_05  within_45_deg=0.6248  path_within_45_deg=0.6766  class_balanced_accuracy=0.3502  episodes_stopped_right=0.0333  episodes_stopped_early=0.1667  episodes_never_stopped=0.8  tuned_two_episodes_stopped_right=0.0667  tuned_two_episodes_stopped_early=0.3  twist_sign_accuracy=0.3992  epochs_run=16 minutes=17.4
+   without_path_06  within_45_deg=0.623  path_within_45_deg=0.6961  class_balanced_accuracy=0.3685  episodes_stopped_right=0.0  episodes_stopped_early=0.0  episodes_never_stopped=1.0  tuned_two_episodes_stopped_right=0.0  tuned_two_episodes_stopped_early=0.0  twist_sign_accuracy=0.3979  epochs_run=16 minutes=18.2
+
+small_cnn_scratch_classes settings: epochs 16, share per epoch 0.5, lr 0.002, backbone factor 0.3, weight decay 0.05, batch 64, last checkpoint kept None, augmentation {'brightness': 0.35, 'contrast': 0.3, 'saturation': 0.25, 'gamma_log': 0.25, 'blur_probability': 0.15, 'blur_sigma_most': 0.8, 'noise_most': 0.03, 'shift_px': 4, 'mirror_probability': 0.0, 'channel_gain': 0.08}
+   without_path_03  within_45_deg=0.6345  path_within_45_deg=0.6689  class_balanced_accuracy=0.3167  episodes_stopped_right=0.3778  episodes_stopped_early=0.1333  episodes_never_stopped=0.4444  tuned_two_episodes_stopped_right=0.7556  tuned_two_episodes_stopped_early=0.1778  twist_sign_accuracy=0.7183  epochs_run=16 minutes=21.3
+   without_path_05  within_45_deg=0.6346  path_within_45_deg=0.6825  class_balanced_accuracy=0.3681  episodes_stopped_right=0.0333  episodes_stopped_early=0.0667  episodes_never_stopped=0.9  tuned_two_episodes_stopped_right=0.1  tuned_two_episodes_stopped_early=0.4  twist_sign_accuracy=0.405  epochs_run=16 minutes=21.7
+   without_path_06  within_45_deg=0.623  path_within_45_deg=0.6979  class_balanced_accuracy=0.369  episodes_stopped_right=0.04  episodes_stopped_early=0.0  episodes_never_stopped=0.96  tuned_two_episodes_stopped_right=0.28  tuned_two_episodes_stopped_early=0.08  twist_sign_accuracy=0.3713  epochs_run=16 minutes=24.7
+
+exact minus classes, end to end, per fold:
+   within_45_deg                        [0.036, 0.008, 0.035]  mean +0.026
+   path_within_45_deg                   [0.098, 0.067, 0.084]  mean +0.083
+   class_balanced_accuracy              [-0.064, -0.128, -0.098]  mean -0.097
+   episodes_stopped_right               [0.4, 0.067, 0.16]  mean +0.209
+   episodes_stopped_early               [0.044, 0.4, 0.0]  mean +0.148
+   episodes_never_stopped               [-0.467, -0.467, -0.16]  mean -0.364
+   twist_sign_accuracy                  [0.141, 0.297, 0.38]  mean +0.273
+
+=== Validation loss history (held-out episodes of the training sheets), end-to-end
+2026-11-09_resnet18_finetune_classes          fold_without_path_03     epochs 8  best validation epoch 7  last minus best +0.0113  train/validation last 1.362/1.6429  seconds per epoch 147
+2026-11-09_resnet18_finetune_classes          fold_without_path_05     epochs 8  best validation epoch 5  last minus best +0.0262  train/validation last 1.3933/1.822  seconds per epoch 196
+2026-11-09_resnet18_finetune_classes          fold_without_path_06     epochs 8  best validation epoch 7  last minus best +0.0168  train/validation last 1.3451/1.9363  seconds per epoch 215
+2026-11-09_resnet18_finetune_exact            fold_without_path_03     epochs 8  best validation epoch 8  last minus best +0.0000  train/validation last 0.5086/0.4867  seconds per epoch 180
+2026-11-09_resnet18_finetune_exact            fold_without_path_05     epochs 8  best validation epoch 8  last minus best +0.0000  train/validation last 0.4915/0.5349  seconds per epoch 170
+2026-11-09_resnet18_finetune_exact            fold_without_path_06     epochs 8  best validation epoch 8  last minus best +0.0000  train/validation last 0.471/0.5721  seconds per epoch 167
+2026-11-09_resnet18_finetune_mirror           fold_without_path_03     epochs 8  best validation epoch 8  last minus best +0.0000  train/validation last 1.5844/1.6282  seconds per epoch 207
+2026-11-09_small_cnn_line_and_puck_classes    fold_without_path_03     epochs 16  best validation epoch 16  last minus best +0.0000  train/validation last 1.6088/1.6689  seconds per epoch 58
+2026-11-09_small_cnn_line_and_puck_classes    fold_without_path_05     epochs 16  best validation epoch 16  last minus best +0.0000  train/validation last 1.5433/1.8197  seconds per epoch 64
+2026-11-09_small_cnn_line_and_puck_classes    fold_without_path_06     epochs 16  best validation epoch 16  last minus best +0.0000  train/validation last 1.5398/1.9405  seconds per epoch 72
+2026-11-09_small_cnn_scratch_classes          fold_without_path_03     epochs 16  best validation epoch 15  last minus best +0.0008  train/validation last 1.6291/1.6518  seconds per epoch 82
+2026-11-09_small_cnn_scratch_classes          fold_without_path_05     epochs 16  best validation epoch 16  last minus best +0.0000  train/validation last 1.5876/1.8184  seconds per epoch 84
+2026-11-09_small_cnn_scratch_classes          fold_without_path_06     epochs 16  best validation epoch 16  last minus best +0.0000  train/validation last 1.5544/1.9017  seconds per epoch 88

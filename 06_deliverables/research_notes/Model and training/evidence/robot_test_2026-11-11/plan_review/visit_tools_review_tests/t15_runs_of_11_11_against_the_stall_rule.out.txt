@@ -1,0 +1,15 @@
+settings of today that the robot runs of 11.11.26 did not log (they did not exist yet when the runs were driven):
+   ['ghost_path', 'ghost_refresh_s', 'ghost_strength', 'is_place_help_shown', 'is_typed_ahead_discarded', 'place_help_key_poll_s', 'place_help_refresh_s', 'recorded_start_joints_deg', 'run_list_sha256_characters', 'stall_action', 'stall_extent_m', 'stall_steps', 'stall_twist_deg', 'start_forearm_warn_deg', 'start_offset_warn_m', 'step_cm_allowed', 'step_length_gain', 'step_length_rule', 'step_most_m']
+summary keys of a run of 11.11.26: ['checkpoints', 'ending', 'is_lifted', 'label', 'moves', 'parameters', 'pictures', 'run_name', 'seconds', 'started']
+
+stall rule now: {'stall_steps': 30, 'stall_extent_m': 0.03, 'stall_twist_deg': 15.0, 'stall_action': 'end'}
+check_no_puck                ended 'stopped' after  26 pictures and  25 moves; the stall rule would not have fired
+E_sheet01_run1               ended 'stopped' after  25 pictures and  24 moves; the stall rule would not have fired
+E_sheet02_run1               ended 'quit' after  38 pictures and  37 moves; the stall rule would not have fired
+E_sheet02_run2               ended 'stopped' after  42 pictures and  41 moves; the stall rule would not have fired
+E_sheet03_run1               ended 'stopped' after  60 pictures and  59 moves; the stall rule would not have fired
+E_sheet04_run1               ended 'stopped' after  69 pictures and  68 moves; the stall rule would not have fired
+E_sheet05_run1               ended 'stopped' after  89 pictures and  88 moves; the stall rule would not have fired
+E_sheet06_run1               ended 'stopped' after  41 pictures and  40 moves; the stall rule would not have fired
+E_sheet03_run2_no_hoodie     ended 'stopped' after  90 pictures and  89 moves; the stall rule would not have fired
+B_team5_sheet03              ended 'stopped' after  74 pictures and  73 moves; the stall rule would not have fired

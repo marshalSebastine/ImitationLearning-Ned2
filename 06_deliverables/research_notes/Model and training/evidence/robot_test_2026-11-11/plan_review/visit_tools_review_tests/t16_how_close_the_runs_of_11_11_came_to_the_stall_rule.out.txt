@@ -1,0 +1,11 @@
+stall rule: 30 pictures in a row within 3.0 cm AND the forearm turned less than 15 degrees
+check_no_puck                fewer than 30 pictures
+E_sheet01_run1               fewer than 30 pictures
+E_sheet02_run1               smallest box over 30 pictures:  18.0 cm (pictures 7 to 36), the forearm turned  38.0 degrees there; with 0.65 cm steps on the same path that box would be about 11.7 cm
+E_sheet02_run2               smallest box over 30 pictures:  23.0 cm (pictures 9 to 38), the forearm turned  56.3 degrees there; with 0.65 cm steps on the same path that box would be about 15.0 cm
+E_sheet03_run1               smallest box over 30 pictures:  13.1 cm (pictures 16 to 45), the forearm turned  59.9 degrees there; with 0.65 cm steps on the same path that box would be about  8.5 cm
+E_sheet04_run1               smallest box over 30 pictures:   3.8 cm (pictures 18 to 47), the forearm turned   7.7 degrees there; with 0.65 cm steps on the same path that box would be about  2.4 cm
+E_sheet05_run1               smallest box over 30 pictures:  10.1 cm (pictures 33 to 62), the forearm turned 106.7 degrees there; with 0.65 cm steps on the same path that box would be about  6.6 cm
+E_sheet06_run1               smallest box over 30 pictures:  15.2 cm (pictures 9 to 38), the forearm turned  72.7 degrees there; with 0.65 cm steps on the same path that box would be about  9.9 cm
+E_sheet03_run2_no_hoodie     smallest box over 30 pictures:  11.8 cm (pictures 15 to 44), the forearm turned  60.6 degrees there; with 0.65 cm steps on the same path that box would be about  7.7 cm
+B_team5_sheet03              smallest box over 30 pictures:  15.8 cm (pictures 43 to 72), the forearm turned  30.1 degrees there; with 0.65 cm steps on the same path that box would be about 10.3 cm

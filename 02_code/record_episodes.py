@@ -48,13 +48,17 @@ import cv2
 import numpy
 
 from config import (PUCK_PARAMETERS, PUSHER_PARAMETERS, RECORDING_PARAMETERS, ROBOT_PARAMETERS, SHEET_PARAMETERS, WORKSPACE_PARAMETERS,
-                    action_step_to_table, camera_heading_rad, pushing_height, step_budget_for, table_height)
+                    action_step_to_table, camera_heading_rad, main_checkout_folder, pushing_height, step_budget_for, table_height)
 from forearm_camera_model import project_points
 from puck_detector import detect_puck
 from puck_tracking import PuckTracker
+from track_lay_out import expected_track_in_picture, track_of_sheet, with_expected_track
 from side_view_test import magnet_tip_and_lean, ned2_fk, solve_least_lean
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
+# The folder that holds 03_data (recordings, camera references): this checkout, or the main checkout when the tool runs
+# from a git worktree. The code version still comes from PROJECT_FOLDER.
+DATA_FOLDER = main_checkout_folder()
 WINDOW_NAME = "record_episodes"
 ORIENTATION_WINDOW_NAME = "orientation"
 # What the orientation window lists under its map in each view (Emranul, 5.11.26: "make the orientation better for
@@ -789,6 +793,8 @@ class EpisodeRecorder:
             self.__lift()
             return self.__finish_episode(episode_folder, summary, [])
 
+        summary["lay_out_line_shown"] = self.__check_sheet_lay_out()
+
         if mode in ("hand_guided", "hand_guided_exact"):
             # 7.11.26 (Marshal): the puck as it lies at the start, before guiding, so the replay's start can show a ring
             # where it has to go back to (the same help as after a hand correction).
@@ -797,10 +803,10 @@ class EpisodeRecorder:
             guided_path = self.__record_guided_path(episode_folder)
             if guided_path is None:
                 summary["status"] = "discarded_while_guiding"
-                self.__lift()
+                self.__lift(is_after_guiding = True)
                 self.__ask_how_episode_ended(summary)
                 return self.__finish_episode(episode_folder, summary, [])
-            self.__lift()
+            self.__lift(is_after_guiding = True)
             # The arm goes back to the start first, with the puck off the sheet, so it cannot land on a misplaced puck;
             # the live picture then shows the ring where the puck lay before guiding.
             self.__show_message("Motors on. Take the puck OFF the sheet (away from the block), then Enter: the arm goes back to the start")
@@ -1168,7 +1174,7 @@ class EpisodeRecorder:
         picture_bytes = self.__fresh_picture()
         (episode_folder / "camera_check.jpg").write_bytes(picture_bytes)
         start_x, start_y = self.recorder_parameters["start_point_xy"]
-        reference_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"] / "camera_check" / "camera_reference"
+        reference_folder = DATA_FOLDER / self.recorder_parameters["raw_folder"] / "camera_check" / "camera_reference"
         reference_path = reference_folder / f"{self.recorder_parameters['camera_mount']}_x{1000 * start_x:.0f}_y{1000 * start_y:.0f}mm.jpg"
         if not reference_path.exists():
             reference_folder.mkdir(parents = True, exist_ok = True)
@@ -1218,7 +1224,7 @@ class EpisodeRecorder:
         # where the arm is now (a turn-back lift would fly to the old tip, low over the sheet).
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
-        self.__lift()
+        self.__lift(is_after_guiding = True)
         if new_path is not None:
             # 6.11.26 (Marshal): the arm first goes back to where the correction began, with the puck off the sheet;
             # the camera then sees from the same place as the reference picture, so a circle can show the puck's spot.
@@ -1233,6 +1239,35 @@ class EpisodeRecorder:
         self.exact_index = 0
         self.is_auto_running = False
         self.__say(f"correction {number}: {len(self.exact_waypoints)} waypoints from {len(new_path)} guided points; Enter or g replays it")
+
+
+    def __check_sheet_lay_out(self) -> bool:
+        """
+        On a new track's sheet, show the live picture with the line drawn where it should lie (track_lay_out.py), until
+        Enter, so the sheet can be moved onto it while the arm stands at the start (14.11.26). Returns whether it was
+        shown.
+        """
+
+        when = self.recorder_parameters.get("lay_out_line_episodes", False)
+        if not when or track_of_sheet(self.path_id) is None:
+            return False
+        plan_number = self.recorder_parameters["plan_number"] or ""
+        if when == "first_of_sheet" and plan_number and not plan_number.endswith("-01"):
+            return False
+        joints = [float(value) for value in self.robot_link.read_state()["joints"]]
+        drawn = expected_track_in_picture(self.path_id, joints, self.puck_tracker.camera_parameters)
+        if drawn is None:
+            self.__say("the new track's line falls outside the camera's view here: lay the sheet by the tape mark only")
+            return False
+        self.__say("LAY-OUT CHECK: move only the SHEET (not the arm) until the printed line lies between the two GREEN lines, then Enter")
+        while True:
+            picture = cv2.imdecode(numpy.frombuffer(self.robot_link.read_picture_bytes(), numpy.uint8), cv2.IMREAD_COLOR)
+            shown = with_expected_track(picture, drawn)
+            text = "move the SHEET until the printed line lies between the GREEN lines (tape mark first), then Enter"
+            if self.recorder_parameters["is_window_shown"]:
+                show_in_window(numpy.vstack([shown, status_bar_image(text, shown.shape[1])]))
+            if self.key_reader(100) == "enter":
+                return True
 
 
     def __guide_puck_back(self, reference_bytes: bytes) -> None:
@@ -1431,16 +1466,17 @@ class EpisodeRecorder:
 
         position, orientation = arm_model.tool_pose(list(joints))
         lifted = [float(position[0]), float(position[1]), float(position[2]) + self.recorder_parameters["approach_height_m"]] + [float(value) for value in orientation]
+        # 12.11.26: a lift that starts low, and the last move down, at "near_puck_velocity_percent".
         try:
-            self.robot_link.move_to(lifted, is_linear = False, velocity_percent = self.__travel_velocity())
+            self.robot_link.move_to(lifted, is_linear = False, velocity_percent = self.__travel_velocity() or self.__near_puck_velocity())
         except Exception as error:
             # Above the target in joint space instead, so the last move is a short one straight down onto the puck's place.
             try:
-                self.robot_link.move_joints(self.__joints_lifted(list(joints)), velocity_percent = self.__travel_velocity())
+                self.robot_link.move_joints(self.__joints_lifted(list(joints)), velocity_percent = self.__travel_velocity() or self.__near_puck_velocity())
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); came above it with joints 2 and 3 instead")
             except Exception:
                 self.__say(f"the lifted approach was refused ({str(error).splitlines()[0]}); going down joint by joint from here")
-        self.robot_link.move_joints(list(joints))
+        self.robot_link.move_joints(list(joints), velocity_percent = self.__near_puck_velocity())
         self.forearm_turn_deg = math.degrees(joints[3])
         self.tip_xy = [float(value) for value in magnet_tip_and_lean(list(joints))[0][:2]]
 
@@ -1777,7 +1813,8 @@ class EpisodeRecorder:
             turn_deg: float,
             lift: float,
             is_lean_limited: bool = True,
-            near_wrist_rad: Optional[float] = None
+            near_wrist_rad: Optional[float] = None,
+            lean_limit_deg: Optional[float] = None
     ) -> List[float]:
         """
         The joints that put the magnet tip at ``tip_xy``, ``lift`` metres above pushing height, with the forearm
@@ -1787,8 +1824,9 @@ class EpisodeRecorder:
         the time; the full search is the fallback). With the forearm untwisted, joint 6 is set equal to joint 1, the
         hand's usual orientation for a vertical rod, so the first step after turning back does not spin the block
         against the puck. Raises when no joint angles within the limits reach the point, or when the rod would lean
-        more than the limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted). The wrist
-        (joint 5) is kept below the bracket's limit.
+        more than the limit for that height ("max_turn_lean_deg" down, "max_turn_lifted_lean_deg" lifted), or than
+        ``lean_limit_deg`` when given (the start, "max_start_lean_deg", 14.11.26). The wrist (joint 5) is kept below the
+        bracket's limit.
         """
 
         height = pushing_height(tip_xy[0], tip_xy[1]) - PUSHER_PARAMETERS["extension_below_rod_end_m"] + lift
@@ -1806,6 +1844,8 @@ class EpisodeRecorder:
             joints[5] = joints[0]
         lean_deg = magnet_tip_and_lean(joints)[1]
         limit = self.recorder_parameters["max_turn_lifted_lean_deg" if lift > 0.0 else "max_turn_lean_deg"]
+        if lean_limit_deg is not None:
+            limit = lean_limit_deg
         if is_lean_limited and lean_deg > limit:
             raise RuntimeError(f"the rod would lean {lean_deg:.1f} degrees at ({tip_xy[0]:.3f}, {tip_xy[1]:.3f}) with the forearm "
                                f"turned {turn_deg:.0f} degrees, above the limit of {limit}")
@@ -1864,7 +1904,7 @@ class EpisodeRecorder:
         self.is_arm_model_checked = True
 
 
-    def __turn_back_lifted(self) -> None:
+    def __turn_back_lifted(self, is_near_puck_fast: bool = True) -> None:
         """
         Lift at the current forearm turn and turn back to straight in increments; the arm stays lifted.
 
@@ -1873,6 +1913,8 @@ class EpisodeRecorder:
 
         8.11.26 (Emranul): lifted by "approach_height_m" (5 cm) instead of the steps' 2.5 cm, where the block's tip
         cleared the 2.9 cm puck by about 1 mm; once up, the turns back and the travel after them run at the travel speed.
+        12.11.26 (Emranul): the stops below the travel height run at "near_puck_velocity_percent" when
+        ``is_near_puck_fast`` (False for a step-over, which keeps the usual speed).
         """
 
         lift = self.recorder_parameters["approach_height_m"]
@@ -1889,7 +1931,10 @@ class EpisodeRecorder:
             plan.append(joints)
             near_wrist_rad = joints[4]
         for index, joints in enumerate(plan):
-            self.robot_link.move_joints(joints, velocity_percent = self.__travel_velocity() if index > 0 else None)
+            velocity_percent = self.__travel_velocity() if index > 0 else None
+            if velocity_percent is None and is_near_puck_fast:
+                velocity_percent = self.__near_puck_velocity()
+            self.robot_link.move_joints(joints, velocity_percent = velocity_percent)
         self.forearm_turn_deg = 0.0
         self.tip_xy = None
 
@@ -1903,7 +1948,7 @@ class EpisodeRecorder:
         """Lift, cross above the puck and come down on its other side, so the puck is not touched (Marshal, 4.11.26)."""
 
         height = self.recorder_parameters["approach_height_m"]
-        self.__lift()
+        self.__lift(is_near_puck_fast = False)
         self.robot_link.move_to([target_pose[0], target_pose[1], target_pose[2] + height] + target_pose[3:])
         self.robot_link.move_to(target_pose)
 
@@ -1996,10 +2041,11 @@ class EpisodeRecorder:
         A second window, "orientation" (Emranul, 4.11.26: after a forearm turn the new orientation was not obvious
         from the picture alone), drawn by __orientation_canvas for ``view`` (a key of ORIENTATION_LEGENDS). It stays
         on top, and the first time it opens it is placed beside the picture window on the same monitor so that it
-        does not hide behind it (Emranul, 5.11.26); after that it stays where the person puts it.
+        does not hide behind it (Emranul, 5.11.26); after that it stays where the person puts it. Off since 14.11.26
+        ("is_orientation_window_shown", Emranul: not needed); it only draws, so nothing else changes.
         """
 
-        if not self.recorder_parameters["is_window_shown"]:
+        if not self.recorder_parameters["is_window_shown"] or not self.recorder_parameters.get("is_orientation_window_shown", True):
             return
 
         try:
@@ -2656,25 +2702,39 @@ class EpisodeRecorder:
             tip_xy = self.__start_tip_xy()
             self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, self.recorder_parameters["approach_height_m"], is_lean_limited = False),
                                         velocity_percent = self.__travel_velocity())
-            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0))
+            self.robot_link.move_joints(self.__turned_joints(tip_xy, turn_deg, 0.0, lean_limit_deg = self.recorder_parameters["max_start_lean_deg"]),
+                                        velocity_percent = self.__near_puck_velocity())
             return
         start = self.__start_pose()
         above = list(start)
         above[2] += self.recorder_parameters["approach_height_m"]
         self.robot_link.move_to(above, is_linear = False, velocity_percent = self.__travel_velocity())
+        # 12.11.26: the last move down at "near_puck_velocity_percent" (it ends 5 mm above the paper).
         try:
-            self.robot_link.move_to(start)
+            self.robot_link.move_to(start, velocity_percent = self.__near_puck_velocity())
         except Exception as error:
             print(f"straight descent refused ({error}); descending joint-wise instead")
-            self.robot_link.move_to(start, is_linear = False)
+            self.robot_link.move_to(start, is_linear = False, velocity_percent = self.__near_puck_velocity())
 
 
-    def __lift(self) -> None:
+    def __lift(
+            self,
+            is_after_guiding: bool = False,
+            is_near_puck_fast: bool = True
+    ) -> None:
+        """
+        Lift the rod by "approach_height_m" off the puck or the line.
 
+        12.11.26 (Emranul): at "near_puck_velocity_percent" when ``is_near_puck_fast`` (False for a step-over, which keeps
+        the usual speed); right after hand guiding or a hand correction (``is_after_guiding``) with joints 2 and 3 first
+        when "is_lift_after_guiding_by_joints", because the straight lift was refused there in every episode.
+        """
+
+        lift_velocity = self.__near_puck_velocity() if is_near_puck_fast else None
         if self.forearm_turn_deg:
             # Lift first so the tip cannot sweep the puck, then turn the forearm straight again (Marshal's retreat).
             try:
-                self.__turn_back_lifted()
+                self.__turn_back_lifted(is_near_puck_fast)
                 return
             except Exception as error:
                 print(f"turning the forearm back failed ({str(error).splitlines()[0]}); going to the parking pose instead")
@@ -2686,13 +2746,21 @@ class EpisodeRecorder:
         state = self.robot_link.read_state()
         pose = list(state["pose"])
         pose[2] += self.recorder_parameters["approach_height_m"]
+        if is_after_guiding and self.recorder_parameters["is_lift_after_guiding_by_joints"]:
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])), velocity_percent = lift_velocity)
+                print("lifted with joints 2 and 3 (after guiding by hand)")
+                self.__lift_on_to_travel_height(lift_velocity)
+                return
+            except Exception as error:
+                print(f"lift with joints 2 and 3 refused ({str(error).splitlines()[0]}); trying the straight lift")
         try:
-            self.robot_link.move_to(pose)
+            self.robot_link.move_to(pose, velocity_percent = lift_velocity)
         except Exception as error:
             # 6.11.26: refused after every hand correction (the arm leans where the hand left it); lifting in joint
             # space first saves the trip to the parking pose and back.
             try:
-                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])))
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])), velocity_percent = lift_velocity)
                 print(f"straight lift refused ({str(error).splitlines()[0]}); lifted with joints 2 and 3 instead")
                 return
             except Exception:
@@ -2701,6 +2769,48 @@ class EpisodeRecorder:
             # the tool crashed here. Going to the parking pose is the safe alternative to lifting.
             print(f"lift refused ({str(error).splitlines()[0]}); going to the parking pose instead")
             self.robot_link.move_home(self.recorder_parameters["home_joints"], velocity_percent = self.__travel_velocity())
+
+
+    def __lift_on_to_travel_height(self, lift_velocity: Optional[int]) -> None:
+        """
+        Repeat the lift with joints 2 and 3 until the rod's end is "travel_minimum_height_m" above the sheet, at most
+        "joint_lift_repeats_most" more times (14.11.26, Emranul: the way home after a discarded episode was slow). At
+        the standard start one such lift raises the tip only about 1.7 cm (arm model), under the 4 cm the fast travel
+        speed needs, so the move home and the move back to the start after guiding ran at the usual 20 %. A refused
+        lift ends the repeats where the arm is.
+        """
+
+        for repeat in range(int(self.recorder_parameters["joint_lift_repeats_most"]) + 1):
+            state = self.robot_link.read_state()
+            pose = state["pose"]
+            height = float(pose[2]) - pushing_height(float(pose[0]), float(pose[1]))
+            if height >= self.recorder_parameters["travel_minimum_height_m"]:
+                if repeat:
+                    print(f"lifted on to {100 * height:.1f} cm above the pushing height ({repeat} more lift{'s' if repeat > 1 else ''}), so the next moves run fast")
+                return
+            if repeat == int(self.recorder_parameters["joint_lift_repeats_most"]):
+                print(f"still only {100 * height:.1f} cm up after {repeat} more lifts; the next move keeps the usual speed")
+                return
+            try:
+                self.robot_link.move_joints(self.__joints_lifted(list(state["joints"])), velocity_percent = lift_velocity)
+            except Exception as error:
+                print(f"a further lift with joints 2 and 3 was refused ({str(error).splitlines()[0]}); the next move keeps the usual speed")
+                return
+            pose = self.robot_link.read_state()["pose"]
+            if float(pose[2]) - pushing_height(float(pose[0]), float(pose[1])) - height < 0.005:
+                # at this pose the joint lift hardly lifts: repeating it would only move the arm sideways
+                print("a further lift with joints 2 and 3 rose under 5 mm; the next move keeps the usual speed")
+                return
+
+
+    def __near_puck_velocity(self) -> Optional[int]:
+        """
+        The speed cap for a move beside the puck that pushes nothing (12.11.26, Emranul): "near_puck_velocity_percent",
+        or None (the arm's usual cap, as before 12.11.26) when it equals ROBOT_PARAMETERS["arm_max_velocity_percent"].
+        """
+
+        percent = self.recorder_parameters["near_puck_velocity_percent"]
+        return None if percent == ROBOT_PARAMETERS["arm_max_velocity_percent"] else percent
 
 
     def __travel_velocity(self) -> Optional[int]:
@@ -2779,7 +2889,7 @@ class EpisodeRecorder:
         name when the recordings are merged.
         """
 
-        raw_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"]
+        raw_folder = DATA_FOLDER / self.recorder_parameters["raw_folder"]
         today = datetime.date.today().isoformat()
         operator = re.sub(r"[^a-z0-9]+", "_", self.operator.lower()).strip("_")
         numbers = [int(match.group(1)) for folder in raw_folder.glob(f"{today}_session_*_{operator}")
@@ -2800,7 +2910,7 @@ class EpisodeRecorder:
         path_01_straight_line_episode_004_plan_01-01_try_2.
         """
 
-        raw_folder = PROJECT_FOLDER / self.recorder_parameters["raw_folder"]
+        raw_folder = DATA_FOLDER / self.recorder_parameters["raw_folder"]
         name_pattern = rf"{re.escape(self.path_id)}_episode_(\d+)(?:_plan_(\d\d-\d\d)_try_\d+)?(?:_score_\d\d)?"
         folders = [(folder, match) for folder in raw_folder.glob(f"*/{self.path_id}_episode_*")
                    if (match := re.fullmatch(name_pattern, folder.name))]

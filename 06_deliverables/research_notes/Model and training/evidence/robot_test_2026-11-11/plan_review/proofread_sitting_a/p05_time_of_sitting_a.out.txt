@@ -1,0 +1,78 @@
+the ten runs of 11.11.26 [measured from steps.csv]:
+   2026-11-11_172021_check_no_puck             26 pictures, median 0.90 s per picture, whole run  23.0 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_172421_E_sheet01_run1            25 pictures, median 0.88 s per picture, whole run  21.6 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_172743_E_sheet02_run1            38 pictures, median 0.87 s per picture, whole run  34.0 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_173036_E_sheet02_run2            42 pictures, median 0.87 s per picture, whole run  37.4 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_173549_E_sheet03_run1            60 pictures, median 1.05 s per picture, whole run  62.2 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_174108_E_sheet04_run1            69 pictures, median 0.86 s per picture, whole run  60.5 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_174448_E_sheet05_run1            89 pictures, median 0.88 s per picture, whole run  84.9 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_174936_E_sheet06_run1            41 pictures, median 0.95 s per picture, whole run  40.1 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_175203_E_sheet03_run2_no_hoodie  90 pictures, median 1.04 s per picture, whole run  92.6 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   2026-11-11_175544_B_team5_sheet03           74 pictures, median 1.07 s per picture, whole run  80.4 s; today's stall rule (30 pictures, 3 cm, 15 deg): never fires
+   seconds per picture: median 0.93, mean 0.99, 90th percentile 1.26
+   gap, last picture of a run to first picture of the next: [217, 181, 139, 275, 257, 159, 203, 108, 128] s; median 181, shortest 108, longest 275
+   first picture to first picture: median 3.7 min; ten runs in 36.7 min
+
+sitting A with the shortest gap of 11.11 (108 s between runs) and 0.93 s per picture [calculated]:
+   warm-up: 1 runs, 2 min
+        1 x 30 pictures: one run, not counted (sheet 01, model E, 1.0 cm)
+   A1: 2 runs, 8 min
+        1 x 40 pictures: scripted list without the puck (30 small steps, 10 twists) (ruler photo before and after)
+        1 x 40 pictures: the same with the puck on sheet 01 (ruler photo after each group)
+   A3: 3 runs, 9 min
+        3 x 30 pictures: model E, sheet 01, 1.0 cm, full runs (photo with ruler at the stop)
+   A4: 24 runs, 56 min
+        5 x 27 pictures: model E, sheet 03, fixed 1.0 cm, budget 27 cm
+        5 x 42 pictures: model E, sheet 03, fixed 0.65 cm, budget 27 cm
+        4 x 52 pictures: model E, sheet 03, own length, budget 27 cm (pictures a guess)
+        4 x 27 pictures: team of five, sheet 03, fixed 1.0 cm
+        3 x 27 pictures: model without sheet 03, fixed 1.0 cm
+        3 x 42 pictures: model without sheet 03, fixed 0.65 cm
+   A5: 3 runs 7 min, then 5 min (one full run) or 8 min (three more runs): 13 to 16 min
+   runs: 34 to 36 (the warm-up and the two scripted lists included); runs alone 88 to 91 min = 1.5 to 1.5 h
+   A2 (20 places by hand, motors off and on again at each, three pictures each): 30 to 45 min [guess: 1.5 to 2.25 min per place]
+   on top [guess, nothing like it was timed]: switching on, the offline tests, camera check, backup at the end 20 min; tape marks and puck place for four lay-outs (sheets 01, 03, 04 and the circle print), 8 min each 32 min; each new movement once without sheet and puck (start move, lift and wait, scripted list, snapshot) 15 min; the checklist read and the go for each part 10 min; void runs repeated, 1 run in 10 9 min = 86 min
+   whole sitting: 204 to 222 min = 3.4 to 3.7 h
+
+sitting A with the median gap of 11.11 (181 s between runs) and 0.93 s per picture [calculated]:
+   warm-up: 1 runs, 3 min
+        1 x 30 pictures: one run, not counted (sheet 01, model E, 1.0 cm)
+   A1: 2 runs, 10 min
+        1 x 40 pictures: scripted list without the puck (30 small steps, 10 twists) (ruler photo before and after)
+        1 x 40 pictures: the same with the puck on sheet 01 (ruler photo after each group)
+   A3: 3 runs, 13 min
+        3 x 30 pictures: model E, sheet 01, 1.0 cm, full runs (photo with ruler at the stop)
+   A4: 24 runs, 86 min
+        5 x 27 pictures: model E, sheet 03, fixed 1.0 cm, budget 27 cm
+        5 x 42 pictures: model E, sheet 03, fixed 0.65 cm, budget 27 cm
+        4 x 52 pictures: model E, sheet 03, own length, budget 27 cm (pictures a guess)
+        4 x 27 pictures: team of five, sheet 03, fixed 1.0 cm
+        3 x 27 pictures: model without sheet 03, fixed 1.0 cm
+        3 x 42 pictures: model without sheet 03, fixed 0.65 cm
+   A5: 3 runs 11 min, then 7 min (one full run) or 12 min (three more runs): 18 to 23 min
+   runs: 34 to 36 (the warm-up and the two scripted lists included); runs alone 130 to 135 min = 2.2 to 2.3 h
+   A2 (20 places by hand, motors off and on again at each, three pictures each): 30 to 45 min [guess: 1.5 to 2.25 min per place]
+   on top [guess, nothing like it was timed]: switching on, the offline tests, camera check, backup at the end 20 min; tape marks and puck place for four lay-outs (sheets 01, 03, 04 and the circle print), 8 min each 32 min; each new movement once without sheet and puck (start move, lift and wait, scripted list, snapshot) 15 min; the checklist read and the go for each part 10 min; void runs repeated, 1 run in 10 13 min = 90 min
+   whole sitting: 250 to 270 min = 4.2 to 4.5 h
+
+sitting A with the longest gap of 11.11 (275 s between runs) and 0.93 s per picture [calculated]:
+   warm-up: 1 runs, 5 min
+        1 x 30 pictures: one run, not counted (sheet 01, model E, 1.0 cm)
+   A1: 2 runs, 13 min
+        1 x 40 pictures: scripted list without the puck (30 small steps, 10 twists) (ruler photo before and after)
+        1 x 40 pictures: the same with the puck on sheet 01 (ruler photo after each group)
+   A3: 3 runs, 17 min
+        3 x 30 pictures: model E, sheet 01, 1.0 cm, full runs (photo with ruler at the stop)
+   A4: 24 runs, 124 min
+        5 x 27 pictures: model E, sheet 03, fixed 1.0 cm, budget 27 cm
+        5 x 42 pictures: model E, sheet 03, fixed 0.65 cm, budget 27 cm
+        4 x 52 pictures: model E, sheet 03, own length, budget 27 cm (pictures a guess)
+        4 x 27 pictures: team of five, sheet 03, fixed 1.0 cm
+        3 x 27 pictures: model without sheet 03, fixed 1.0 cm
+        3 x 42 pictures: model without sheet 03, fixed 0.65 cm
+   A5: 3 runs 16 min, then 8 min (one full run) or 17 min (three more runs): 24 to 33 min
+   runs: 34 to 36 (the warm-up and the two scripted lists included); runs alone 183 to 192 min = 3.1 to 3.2 h
+   A2 (20 places by hand, motors off and on again at each, three pictures each): 30 to 45 min [guess: 1.5 to 2.25 min per place]
+   on top [guess, nothing like it was timed]: switching on, the offline tests, camera check, backup at the end 20 min; tape marks and puck place for four lay-outs (sheets 01, 03, 04 and the circle print), 8 min each 32 min; each new movement once without sheet and puck (start move, lift and wait, scripted list, snapshot) 15 min; the checklist read and the go for each part 10 min; void runs repeated, 1 run in 10 19 min = 96 min
+   whole sitting: 309 to 333 min = 5.2 to 5.5 h
+

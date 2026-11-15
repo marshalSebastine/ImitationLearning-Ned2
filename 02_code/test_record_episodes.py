@@ -19,6 +19,7 @@ from config import (RECORDING_PARAMETERS, WORKSPACE_PARAMETERS, action_step_to_t
 from record_episodes import (lean_and_hand_labels, ORIENTATION_LEGENDS, EpisodeRecorder, camera_shift_px, forearm_camera_heading_rad,
                              picture_heading_rad, status_bar_image)
 from robot_link import SimulatedRobotLink, simulated_hand_path
+from side_view_test import magnet_tip_and_lean
 
 
 def scripted_keys(keys: List[Optional[str]]) -> Callable[[int], Optional[str]]:
@@ -88,7 +89,7 @@ def test_picture_steps_point_the_right_way() -> None:
 def test_camera_side_view_turn(raw_folder: Path) -> None:
     """
     Three "v" presses turn the forearm 30, 60 and 90 degrees, the first landing the tip back from the puck (away from
-    it), the others not again; a fourth is refused (-90 to 90 allowed); while turned, forward goes where the turned
+    it), the others not again; a fourth is refused (the test sets -90 to 90; the tool allows -117 to 117 since 11.11.26); while turned, forward goes where the turned
     picture's top points and left 90 degrees from it; three "b" turn back and forward is +x again; after five steps a
     further "b" turns to -30 and lands near the tip as it is then; every row logs the forearm angle.
     """
@@ -100,7 +101,7 @@ def test_camera_side_view_turn(raw_folder: Path) -> None:
     turn_keys = dict(RECORDING_PARAMETERS["keys"], v = "turn_left", b = "turn_right")  # unbound by default since the camera left the hand
     recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
         "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "start_point_xy": start_point,
-        "keys": turn_keys}, key_reader = scripted_keys(keys))
+        "keys": turn_keys, "min_turn_deg": -90, "max_turn_deg": 90}, key_reader = scripted_keys(keys))
     recorder.record_session("keyboard")
 
     episode_folder, summary, rows = read_episode(raw_folder)
@@ -198,8 +199,10 @@ def test_exact_replay(raw_folder: Path) -> None:
     assert max(abs(final - guided) for final, guided in zip(final_joints, guided_joints)) < 1e-4, (final_joints, guided_joints)
     assert all(row["tip_forward_m"] != "" for row in rows[1:-1]), "the exact movement is stored"
     assert rows[-1]["is_at_goal"] == "1" and rows[-1]["goal_distance_cm"] == "0.0", rows[-1]
-    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not.
-    assert 2 <= robot_link.fast_moves < len(rows), robot_link.fast_moves
+    # 8.11.26: the parking and above-the-start moves ran at the travel speed; the steps did not. Since 12.11.26 the lifts
+    # and last moves down beside the puck carry a speed too ("near_puck_velocity_percent"), so only the lower bound
+    # stays here; test_only_moves_beside_the_puck_run_faster checks every step's speed.
+    assert robot_link.fast_moves >= 2, robot_link.fast_moves
 
 
 def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
@@ -234,6 +237,79 @@ def test_exact_replay_with_hand_correction(raw_folder: Path) -> None:
     assert (episode_folder / "correction_01_reference.jpg").exists() and (episode_folder / "correction_01_guided_path.csv").exists()
     assert rows[-1]["action"] == "stop" and all(row["source"] == "replay_exact" for row in rows[:-1]), [row["source"] for row in rows]
     assert len(rows) >= 4, len(rows)
+
+
+class MoveLoggingLink(SimulatedRobotLink):
+    """The simulated link, logging every move it is asked for: kind, speed, and the rod end's height before and after."""
+
+    moves = []
+    is_inside_joint_move = False
+
+    def move_to(self, pose, is_linear = True, velocity_percent = None) -> None:
+
+        before = self.pose[2]
+        height_before = before - pushing_height(self.pose[0], self.pose[1])
+        super().move_to(pose, is_linear = is_linear, velocity_percent = velocity_percent)
+        # The simulated move_joints moves through move_to; that inner call is the same move, logged once.
+        if not self.is_inside_joint_move:
+            MoveLoggingLink.moves.append({"kind": "move_to", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2],
+                                          "height_before": height_before})
+
+
+    def move_joints(self, joints, velocity_percent = None) -> None:
+
+        before = self.pose[2]
+        height_before = before - pushing_height(self.pose[0], self.pose[1])
+        self.is_inside_joint_move = True
+        try:
+            super().move_joints(joints, velocity_percent = velocity_percent)
+        finally:
+            self.is_inside_joint_move = False
+        MoveLoggingLink.moves.append({"kind": "move_joints", "speed": velocity_percent, "z_before": before, "z_after": self.pose[2],
+                                      "height_before": height_before})
+
+
+    def set_free_motion(self, is_enabled: bool) -> None:
+
+        super().set_free_motion(is_enabled)
+        MoveLoggingLink.moves.append({"kind": "free_motion" if is_enabled else "motors_on"})
+
+
+def test_only_moves_beside_the_puck_run_faster(raw_folder: Path) -> None:
+    """
+    12.11.26 (Emranul): with "near_puck_velocity_percent" at 90, the lifts off the puck and the last moves down run at
+    90 (or at the travel speed when they start high); every move that stays at pushing height (the steps, the replayed
+    waypoints, the replay of a correction) and the step-over keep the usual speed (None). Right after guiding by hand
+    the first move is the lift with joints 2 and 3. Run on a keyboard episode with a step-over, a hand-guided episode
+    and an exact replay with one hand correction.
+    """
+
+    global SimulatedRobotLink
+    original_link = SimulatedRobotLink
+    SimulatedRobotLink = MoveLoggingLink
+    MoveLoggingLink.moves = []
+    try:
+        for test in (test_step_over_reverses_without_touching_the_puck, test_hand_guided_episode, test_exact_replay_with_hand_correction):
+            with tempfile.TemporaryDirectory() as folder:
+                test(Path(folder))
+    finally:
+        SimulatedRobotLink = original_link
+    near = RECORDING_PARAMETERS["near_puck_velocity_percent"]
+    travel = RECORDING_PARAMETERS["travel_velocity_percent"]
+    moves = [move for move in MoveLoggingLink.moves if move["kind"] in ("move_to", "move_joints")]
+    # 14.11.26: a level move that starts at the travel height (above the puck, after the repeated lift after guiding)
+    # may run at the travel speed; every level move lower down keeps the usual speed
+    travel_height = RECORDING_PARAMETERS["travel_minimum_height_m"]
+    flat = [move for move in moves if abs(move["z_after"] - move["z_before"]) < 0.003 and move["height_before"] < travel_height]
+    assert flat and all(move["speed"] is None for move in flat), [move for move in flat if move["speed"] is not None]
+    assert any(move["speed"] == near for move in moves), "no move ran at the near-puck speed"
+    for move in moves:
+        if move["speed"] == near and move["height_before"] < travel_height:
+            assert abs(move["z_after"] - move["z_before"]) > 0.005, move
+        assert move["speed"] in (None, near, travel), move
+    after_guiding = [MoveLoggingLink.moves[index + 1] for index, move in enumerate(MoveLoggingLink.moves[:-1]) if move["kind"] == "motors_on"]
+    assert after_guiding and all(move["kind"] == "move_joints" and move["speed"] == near and move["z_after"] > move["z_before"] + 0.02
+                                 for move in after_guiding), after_guiding
 
 
 def scripted_pad(states: List[dict]) -> Callable[[], dict]:
@@ -608,6 +684,80 @@ def test_puck_shape_sits_where_the_camera_places_the_puck() -> None:
     assert cv2.contourArea(shape["outline"]) > cv2.contourArea(shape["footprint"])
 
 
+def test_a_taught_start_may_lean_more_than_a_pushing_step(raw_folder: Path) -> None:
+    """
+    14.11.26: T05's near-end start was refused at a 32.4 degree lean (tip at 40.6, -2.4 cm, forearm -68 degrees) by
+    the 28 degree limit of pushing steps; the start now has its own limit, "max_start_lean_deg".
+    """
+
+    robot_link = SimulatedRobotLink({"line_xy": [[0.14, -0.015], [0.40, -0.015]], "puck_xy": [0.1585, -0.015]})
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = lambda wait_ms = 0: None)
+    solver = recorder._EpisodeRecorder__turned_joints
+    try:
+        solver([0.406, -0.024], -68.0, 0.0)
+        raise AssertionError("a pushing step at a 32 degree lean was allowed")
+    except RuntimeError as error:
+        assert "lean" in str(error), error
+    joints = solver([0.406, -0.024], -68.0, 0.0, lean_limit_deg = RECORDING_PARAMETERS["max_start_lean_deg"])
+    assert 28.0 < magnet_tip_and_lean(joints)[1] <= RECORDING_PARAMETERS["max_start_lean_deg"], magnet_tip_and_lean(joints)[1]
+
+
+def test_lift_after_guiding_reaches_the_travel_height(raw_folder: Path) -> None:
+    """
+    14.11.26 (Emranul: the way home after a discarded episode was slow): at the standard start one lift with joints 2
+    and 3 raises the tip only about 1.7 cm, so it is repeated until the rod's end is "travel_minimum_height_m" up, and
+    the move home then runs at the travel speed.
+    """
+
+    from config import pushing_height
+
+    start_joints = [-0.10574, -0.73073, -1.08094, 0.00163, 0.23614, -0.10575]
+    robot_link = SimulatedRobotLink({"line_xy": [[0.14, -0.015], [0.40, -0.015]], "puck_xy": [0.1585, -0.015]})
+    recorder = EpisodeRecorder(robot_link, operator = "test", recorder_parameters = {
+        "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True}, key_reader = lambda wait_ms = 0: None)
+    robot_link.move_joints(start_joints)
+    pose = robot_link.read_state()["pose"]
+    assert pose[2] - pushing_height(pose[0], pose[1]) < 0.01, pose
+    recorder._EpisodeRecorder__lift(is_after_guiding = True)
+    pose = robot_link.read_state()["pose"]
+    height = pose[2] - pushing_height(pose[0], pose[1])
+    assert height >= RECORDING_PARAMETERS["travel_minimum_height_m"], height
+    assert recorder._EpisodeRecorder__travel_velocity() == RECORDING_PARAMETERS["travel_velocity_percent"]
+
+
+def test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print(raw_folder: Path) -> None:
+    """
+    14.11.26: on a new track's sheet the arm, once at the start, shows the line drawn where it should lie until Enter,
+    on the first episode of each print only; never on a course sheet. The drawn line starts near the start and runs
+    up the picture.
+    """
+
+    from track_lay_out import expected_track_in_picture
+
+    for path_id, plan_number, expected in (("path_11_T01_solid", "11-01", True), ("path_11_T01_solid", "11-02", False),
+                                            ("path_31_T01_dashed", "31-01", True), ("path_03_two_curve", "03-01", False)):
+        robot_link = SimulatedRobotLink({"line_xy": [[0.14, -0.015], [0.40, -0.015]], "puck_xy": [0.1585, -0.015]})
+        keys = []
+        recorder = EpisodeRecorder(robot_link, operator = "test", path_id = path_id, recorder_parameters = {
+            "raw_folder": str(raw_folder), "is_window_shown": False, "is_simulated": True, "plan_number": plan_number},
+            key_reader = lambda wait_ms = 0: keys.append(wait_ms) or "enter")
+        recorder._EpisodeRecorder__lower_to_start()
+        shown = recorder._EpisodeRecorder__check_sheet_lay_out()
+        assert shown == expected, (path_id, plan_number, shown)
+        assert (len(keys) == 1) == expected, (path_id, plan_number, keys)
+        if expected:
+            # the simulated arm does not solve its joints, so the real ones at the standard start are used (episode
+            # 2026-11-07 path_02_arc 006, first picture: tip at 14.0, -1.5 cm, forearm straight)
+            joints = [-0.10574, -0.73073, -1.08094, 0.00163, 0.23614, -0.10575]
+            drawn = expected_track_in_picture(path_id, joints, recorder.puck_tracker.camera_parameters)
+            centre = numpy.vstack([piece.reshape(-1, 2) for piece in drawn["centre"]])
+            inside = centre[(centre[:, 0] >= 0) & (centre[:, 0] < 640) & (centre[:, 1] >= 0) & (centre[:, 1] < 480)]
+            assert len(inside) > 20, len(inside)
+            # end A lies ahead of the tip, so the drawn line begins low in the picture and climbs towards its top
+            assert inside[0, 1] > inside[-1, 1], (inside[0], inside[-1])
+
+
 if __name__ == "__main__":
     test_lean_and_hand_labels()
     print("test_lean_and_hand_labels: passed")
@@ -619,11 +769,21 @@ if __name__ == "__main__":
     print("test_camera_shift_is_measured: passed")
     test_status_bar_wraps_long_hints()
     print("test_status_bar_wraps_long_hints: passed")
+    with tempfile.TemporaryDirectory() as folder:
+        test_a_taught_start_may_lean_more_than_a_pushing_step(Path(folder))
+    print("test_a_taught_start_may_lean_more_than_a_pushing_step: passed")
+    with tempfile.TemporaryDirectory() as folder:
+        test_lift_after_guiding_reaches_the_travel_height(Path(folder))
+    print("test_lift_after_guiding_reaches_the_travel_height: passed")
+    with tempfile.TemporaryDirectory() as folder:
+        test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print(Path(folder))
+    print("test_new_track_lay_out_line_is_shown_on_the_first_episode_of_a_print: passed")
     for test in (test_taught_start_turns_the_forearm, test_keyboard_episode, test_hand_guided_episode, test_workspace_guard_protects_the_puck, test_step_over_reverses_without_touching_the_puck,
                  test_discard_stores_its_reason, test_camera_side_view_turn, test_hand_flick, test_turn_hint,
                  test_replay_copies_forearm_turn, test_exact_replay, test_exact_replay_with_hand_correction, test_gamepad_episode,
                  test_gamepad_raises_and_lowers_the_tip,
-                 test_orientation_window_lists_the_gamepad_controls, test_folder_names_carry_the_plan_number):
+                 test_orientation_window_lists_the_gamepad_controls, test_folder_names_carry_the_plan_number,
+                 test_only_moves_beside_the_puck_run_faster):
         with tempfile.TemporaryDirectory() as folder:
             test(Path(folder))
         print(f"{test.__name__}: passed")

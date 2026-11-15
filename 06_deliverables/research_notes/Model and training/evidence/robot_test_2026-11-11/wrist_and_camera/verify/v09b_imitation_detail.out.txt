@@ -1,0 +1,35 @@
+my rule here: 'right' = first firing within 2 cm of the goal, 'before' = any earlier firing
+  recorded   {'right': 103, 'never': 69, 'before': 35}
+  replicate  {'right': 93, 'never': 79, 'before': 35}
+  reflect    {'right': 94, 'never': 78, 'before': 35}
+  null       {'right': 95, 'never': 72, 'before': 40}
+
+right stops lost and won against the recorded pictures, per way of imitating:
+  replicate  lost 16 (to never 14, to before 2), won 6; net -10
+  reflect    lost 15 (to never 13, to before 2), won 6; net -9
+  null       lost 10 (to never 5, to before 5), won 2; net -8
+
+right stops by how far the last picture is moved (px at 160):
+            episodes  recorded  replicate  reflect  null
+end_bin                                                 
+0 to 4            95        44         43       44    44
+5 to 9            49        27         25       25    23
+10 or more        63        32         25       25    28
+
+right stops by sheet:
+         episodes  recorded  replicate  reflect  null
+sheet                                                
+path_01        19        15         15       15    15
+path_02        44        12         10       11    11
+path_03        45        33         31       31    31
+path_04        45        29         30       30    29
+path_05        29         6          3        3     4
+path_06        25         8          4        4     5
+
+last two rows of every episode: share with a stop chance of 0.5 or more
+            rows  recorded  replicate  reflect   null
+end_bin                                              
+0             70     0.671      0.671    0.671  0.671
+1 to 4       120     0.725      0.675    0.692  0.725
+5 to 9        97     0.680      0.660    0.670  0.660
+10 or more   127     0.622      0.465    0.457  0.567

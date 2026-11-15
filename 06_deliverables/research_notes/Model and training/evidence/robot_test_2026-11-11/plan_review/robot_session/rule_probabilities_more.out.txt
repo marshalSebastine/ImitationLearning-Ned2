@@ -1,0 +1,65 @@
+BLOCK A, the plan's rule (new at least 3 of 4, fixed 1.0 cm at most 1 of 4), three settings with 4 runs each
+  what the rule leaves open: the fixed 1.0 cm passes 2 or more of 4 (then no new rule can be taken on, whatever it scores)
+      true pass chance of fixed 1.0 cm 0.05: it passes 2 or more of 4 with chance 0.01
+      true pass chance of fixed 1.0 cm 0.20: it passes 2 or more of 4 with chance 0.18
+      true pass chance of fixed 1.0 cm 0.33: it passes 2 or more of 4 with chance 0.41
+      true pass chance of fixed 1.0 cm 0.50: it passes 2 or more of 4 with chance 0.69
+      true pass chance of fixed 1.0 cm 0.70: it passes 2 or more of 4 with chance 0.92
+  'if the model's own length and fixed 0.65 cm pass alike': chance that two settings show the SAME count of 4
+      true chances 0.7 and 0.7: same count 0.30, different count 0.70
+      true chances 0.5 and 0.5: same count 0.27, different count 0.73
+      true chances 0.8 and 0.5: same count 0.19, different count 0.81
+      true chances 0.9 and 0.5: same count 0.13, different count 0.87
+  'the two best settings' go on to block B: chance that second and third place tie, so that 'the two best' is not defined
+      true pass chances (0.2, 0.7, 0.7): 0.14
+      true pass chances (0.3, 0.5, 0.7): 0.28
+      true pass chances (0.5, 0.5, 0.5): 0.37
+      true pass chances (0.1, 0.8, 0.8): 0.03
+
+BLOCK A with a measured number per run instead of pass or fail (for example the puck's largest distance from the line's middle in the bend window, mm)
+  rule: the new setting's runs are ranked against the old one's; taken on when its rank sum is small enough. Exact chance that a setting that is NO better meets the rule:
+      4 against 4 runs, rank sum of the new setting at most 10: 1 of 70 orders = 0.014
+      4 against 4 runs, rank sum of the new setting at most 11: 2 of 70 orders = 0.029
+      4 against 4 runs, rank sum of the new setting at most 12: 4 of 70 orders = 0.057
+      5 against 5 runs, rank sum of the new setting at most 15: 1 of 252 orders = 0.004
+      5 against 5 runs, rank sum of the new setting at most 17: 4 of 252 orders = 0.016
+      5 against 5 runs, rank sum of the new setting at most 18: 7 of 252 orders = 0.028
+      5 against 5 runs, rank sum of the new setting at most 19: 12 of 252 orders = 0.048
+      6 against 6 runs, rank sum of the new setting at most 23: 4 of 924 orders = 0.004
+      6 against 6 runs, rank sum of the new setting at most 26: 19 of 924 orders = 0.021
+      6 against 6 runs, rank sum of the new setting at most 28: 43 of 924 orders = 0.047
+  the three sheet-03 runs of 11.11 read 41.1, 32.7 and 15.6 mm (largest offset in the window): median 33 mm, spread of the logarithm 0.51
+  simulation (20,000 sessions, runs drawn log-normal with that spread; a guess of the shape, not a measurement): chance that the rule takes the better setting on
+      4 runs each, old median 30 mm, new median 20 mm: rank rule (sum at most 11) 0.17; pass-count rule at 17 mm (new at least 3, old at most 1) 0.14
+      4 runs each, old median 30 mm, new median 15 mm: rank rule (sum at most 11) 0.38; pass-count rule at 17 mm (new at least 3, old at most 1) 0.43
+      4 runs each, old median 30 mm, new median 10 mm: rank rule (sum at most 11) 0.72; pass-count rule at 17 mm (new at least 3, old at most 1) 0.82
+      4 runs each, old median 30 mm, new median 20 mm: rank rule (sum at most 12) 0.28; pass-count rule at 17 mm (new at least 3, old at most 1) 0.14
+      4 runs each, old median 30 mm, new median 15 mm: rank rule (sum at most 12) 0.54; pass-count rule at 17 mm (new at least 3, old at most 1) 0.43
+      4 runs each, old median 30 mm, new median 10 mm: rank rule (sum at most 12) 0.85; pass-count rule at 17 mm (new at least 3, old at most 1) 0.81
+      5 runs each, old median 30 mm, new median 20 mm: rank rule (sum at most 19) 0.30; pass-count rule at 17 mm (new at least 4, old at most 1) 0.06
+      5 runs each, old median 30 mm, new median 15 mm: rank rule (sum at most 19) 0.60; pass-count rule at 17 mm (new at least 4, old at most 1) 0.29
+      5 runs each, old median 30 mm, new median 10 mm: rank rule (sum at most 19) 0.91; pass-count rule at 17 mm (new at least 4, old at most 1) 0.73
+
+BLOCK C, the plan's rule (solid print of shape 06 finished at least 2 of 3 AND dashed print of shape 05 fails at least 2 of 3 -> 'dashes';
+          solid print of shape 06 fails 'like run 8' -> 'shape'), under a third truth the check itself raised: model E finishes only the print it learnt
+      a learnt print is finished with chance 0.8, any changed print (solid 06, dashed 05) with 0.2: the rule says 'shape' with chance 0.90, 'dashes' with 0.09; both would be wrong
+      a learnt print is finished with chance 0.7, any changed print (solid 06, dashed 05) with 0.3: the rule says 'shape' with chance 0.78, 'dashes' with 0.17; both would be wrong
+  the same 8 runs as 2 per cell (shape 05 or 06) x (solid or dashed), all four printed by us: dashes judged on 4 dashed against 4 solid runs,
+  shape on 4 runs of shape 05 against 4 of shape 06. Rule 'dashes matter' = solid finished at least 3 of 4 and dashed at most 1 of 4:
+      dashes do nothing (solid 0.5, dashed 0.5): rule met with chance 0.10
+      dashes matter a lot (solid 0.8, dashed 0.2): rule met with chance 0.67
+      dashes matter (solid 0.7, dashed 0.3): rule met with chance 0.42
+
+BLOCK E, a phone photo 'from straight above' of a puck 29 mm tall, ruler on the paper [calculated, plain geometry]
+      lens 250 mm above the paper, puck 10 mm from the picture's centre: the puck's top is drawn 1.3 mm further out than its foot
+      lens 250 mm above the paper, puck 30 mm from the picture's centre: the puck's top is drawn 3.9 mm further out than its foot
+      lens 250 mm above the paper, puck 60 mm from the picture's centre: the puck's top is drawn 7.9 mm further out than its foot
+      lens 350 mm above the paper, puck 10 mm from the picture's centre: the puck's top is drawn 0.9 mm further out than its foot
+      lens 350 mm above the paper, puck 30 mm from the picture's centre: the puck's top is drawn 2.7 mm further out than its foot
+      lens 350 mm above the paper, puck 60 mm from the picture's centre: the puck's top is drawn 5.4 mm further out than its foot
+      lens 500 mm above the paper, puck 10 mm from the picture's centre: the puck's top is drawn 0.6 mm further out than its foot
+      lens 500 mm above the paper, puck 30 mm from the picture's centre: the puck's top is drawn 1.8 mm further out than its foot
+      lens 500 mm above the paper, puck 60 mm from the picture's centre: the puck's top is drawn 3.7 mm further out than its foot
+      phone tilted 3 degrees: the puck's top is drawn 1.5 mm beside its foot
+      phone tilted 6 degrees: the puck's top is drawn 3.0 mm beside its foot
+      phone tilted 10 degrees: the puck's top is drawn 5.1 mm beside its foot

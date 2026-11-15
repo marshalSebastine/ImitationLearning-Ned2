@@ -1,0 +1,18 @@
+every flow in a process of its own, its window on a desktop that is never shown
+== Enter in the window after 2 s, two other keys before it
+   key code 120 posted to the window at 0.70 s: True
+   key code 32 posted to the window at 1.19 s: True
+   key code 13 posted to the window at 2.00 s: True
+   came back with True after 2.02 s; the camera was read 7 times, 7 pictures were shown (3.5 a second), processor time 0.47 s; a picture window exists: True
+== Esc in the window after 1.5 s
+   key code 27 posted to the window at 1.50 s: True
+   came back with False after 1.51 s; the camera was read 5 times, 5 pictures were shown (3.3 a second), processor time 0.30 s; a picture window exists: True
+== the third and fourth pictures cannot be read, then Enter after 2 s
+   key code 13 posted to the window at 2.00 s: True
+   came back with True after 2.02 s; the camera was read 6 times, 4 pictures were shown (2.0 a second), processor time 0.36 s; a picture window exists: True
+   the person was told 1 time(s): a camera picture could not be read; waiting for the next one
+== no picture can ever be read; Enter and Esc are tried, then it is ended from outside after 3 s, as Ctrl+C would end it
+   key code 13 posted to the window at 1.00 s: False
+   key code 27 posted to the window at 2.00 s: False
+   came back with raised KeyboardInterrupt after 3.11 s; the camera was read 9 times, 0 pictures were shown (0.0 a second), processor time 0.06 s; a picture window exists: False
+   the person was told 1 time(s): a camera picture could not be read; waiting for the next one

@@ -1,0 +1,20 @@
+true rates 90% against 70%: fixed 24 blocks chooses the better 0.962; fixed 12 blocks 0.892
+  stop after 12 at a lead of 3: chooses the better 0.961; stops after 12 blocks 0.481; chooses the worse at the stop 0.004; expected blocks 18.2
+  stop after 12 at a lead of 4: chooses the better 0.962; stops after 12 blocks 0.279; chooses the worse at the stop 0.001; expected blocks 20.7
+  stop after 12 at a lead of 5: chooses the better 0.962; stops after 12 blocks 0.132; chooses the worse at the stop 0.000; expected blocks 22.4
+true rates 90% against 80%: fixed 24 blocks chooses the better 0.834; fixed 12 blocks 0.750
+  stop after 12 at a lead of 3: chooses the better 0.833; stops after 12 blocks 0.235; chooses the worse at the stop 0.014; expected blocks 21.2
+  stop after 12 at a lead of 4: chooses the better 0.834; stops after 12 blocks 0.093; chooses the worse at the stop 0.003; expected blocks 22.9
+  stop after 12 at a lead of 5: chooses the better 0.834; stops after 12 blocks 0.029; chooses the worse at the stop 0.000; expected blocks 23.6
+true rates 70% against 50%: fixed 24 blocks chooses the better 0.923; fixed 12 blocks 0.841
+  stop after 12 at a lead of 3: chooses the better 0.919; stops after 12 blocks 0.508; chooses the worse at the stop 0.019; expected blocks 17.9
+  stop after 12 at a lead of 4: chooses the better 0.922; stops after 12 blocks 0.330; chooses the worse at the stop 0.006; expected blocks 20.0
+  stop after 12 at a lead of 5: chooses the better 0.922; stops after 12 blocks 0.188; chooses the worse at the stop 0.002; expected blocks 21.7
+true rates 80% against 60%: fixed 24 blocks chooses the better 0.937; fixed 12 blocks 0.858
+  stop after 12 at a lead of 3: chooses the better 0.934; stops after 12 blocks 0.498; chooses the worse at the stop 0.013; expected blocks 18.0
+  stop after 12 at a lead of 4: chooses the better 0.936; stops after 12 blocks 0.313; chooses the worse at the stop 0.004; expected blocks 20.2
+  stop after 12 at a lead of 5: chooses the better 0.937; stops after 12 blocks 0.169; chooses the worse at the stop 0.001; expected blocks 22.0
+true rates 70% against 70%: fixed 24 blocks chooses the better 0.500; fixed 12 blocks 0.500
+  stop after 12 at a lead of 3: chooses the better 0.500; stops after 12 blocks 0.263; chooses the worse at the stop 0.132; expected blocks 20.8
+  stop after 12 at a lead of 4: chooses the better 0.500; stops after 12 blocks 0.116; chooses the worse at the stop 0.058; expected blocks 22.6
+  stop after 12 at a lead of 5: chooses the better 0.500; stops after 12 blocks 0.043; chooses the worse at the stop 0.021; expected blocks 23.5

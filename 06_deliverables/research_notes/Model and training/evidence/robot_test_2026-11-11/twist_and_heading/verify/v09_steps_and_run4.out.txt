@@ -1,0 +1,26 @@
+(a) consecutive demonstrated steps: 17533
+    size = max(length / 1 cm, largest joint change / 5 degrees): 5th percentile 1.02, median 1.22, share under 0.9: 0.008
+    steps shorter than 0.7 cm: 0.274 of the steps, 0.113 of the path, 0.442 of all |twist|; joint 4 is the joint that moved most in 0.960 of them; median length 0.40 cm, median |twist| 6.3; pooled 17.2 degrees per cm against 2.8 on longer steps
+    all non-stop rows: median step 1.06 cm, mean 0.94; under 0.5 cm: 0.182; under 0.2 cm: 0.054; median length of steps with |twist| >= 6: 0.65
+    largest |asked twist| on the robot (all ten runs): 7.5
+(b) run 4, sheet 02 from end B: robot joint 4 from +9.8 to +86.7 (net +76.9); demonstrations' net over the whole episode: median +91.5 (range +25.8 to +101.3, 6 episodes)
+      after  5 cm of path: robot turned   +1.4; demonstrations median   +0.9 (range -8.8 to +3.9)
+      after 10 cm of path: robot turned  +20.2; demonstrations median   +2.9 (range -60.4 to +15.1)
+      after 15 cm of path: robot turned  +36.4; demonstrations median  +12.5 (range -38.5 to +37.7)
+      after 20 cm of path: robot turned  +49.6; demonstrations median  +37.8 (range +5.9 to +57.4)
+      after 25 cm of path: robot turned  +59.0; demonstrations median  +43.3 (range +25.3 to +56.8)
+      after 30 cm of path: robot turned  +64.0; demonstrations median  +57.9 (range +47.7 to +77.1)
+      after 35 cm of path: robot turned  +68.3; demonstrations median  +62.8 (range +51.2 to +82.9)
+(c) run 8, sheet 06 from end A: robot joint 4 from +7.2 to +93.5 (net +86.3); demonstrations' net over the whole episode: median -63.9 (range -71.5 to -49.7, 6 episodes)
+      after  5 cm of path: robot turned   +3.7; demonstrations median   +1.0 (range -1.3 to +3.5)
+      after  9 cm of path: robot turned  +21.9; demonstrations median  +15.5 (range +7.9 to +18.1)
+      after 12 cm of path: robot turned  +40.5; demonstrations median  +24.8 (range +22.8 to +27.9)
+      after 15 cm of path: robot turned  +60.3; demonstrations median  +40.8 (range +36.5 to +44.2)
+      after 18 cm of path: robot turned  +75.4; demonstrations median  +58.4 (range +45.9 to +72.7)
+      after 20 cm of path: robot turned  +78.1; demonstrations median  +77.1 (range +49.0 to +84.1)
+(c) run 6, sheet 04 from end A: robot joint 4 from +3.2 to +1.1 (net -2.0); demonstrations' net over the whole episode: median -2.5 (range -87.5 to +21.5, 11 episodes)
+      after  4 cm of path: robot turned   -2.4; demonstrations median   +6.8 (range -5.1 to +17.6)
+      after  8 cm of path: robot turned  +11.9; demonstrations median  +29.5 (range +13.4 to +46.3)
+      after 12 cm of path: robot turned  +11.8; demonstrations median  +68.8 (range +17.7 to +105.4)
+      after 16 cm of path: robot turned   +7.6; demonstrations median +106.0 (range +6.9 to +118.7)
+      after 20 cm of path: robot turned   +2.1; demonstrations median  +74.8 (range +5.0 to +118.7)

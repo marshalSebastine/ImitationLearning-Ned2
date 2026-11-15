@@ -1,0 +1,29 @@
+(a) pipeline check: all-sheets model E on the logged pictures of run 9 (first 30) against the log
+    largest difference: forward 0.0000 cm, left 0.0000 cm, twist 0.0000 degrees
+
+(b) the robot pictures at the first bend of sheet 03: the model used on the robot (trained on sheet 03 too) against fold models that never saw sheet 03
+    run 5, pictures 0 to 16 (the forearm went from -9.3 to -70.2 degrees)
+       logged (E, all sheets): mean asked length 0.45 cm, sum 7.7; mean twist -3.50, sum -59.6; twist per asked cm -7.7
+       fold E without sheet 03: mean asked length 0.51 cm, sum 8.7; mean twist -3.92, sum -66.7; twist per asked cm -7.6; twists [0.10000000149011612, -1.399999976158142, -4.300000190734863, -5.900000095367432, -5.300000190734863, -5.099999904632568, -5.0, -4.5, -4.699999809265137, -4.800000190734863, -4.800000190734863, -4.800000190734863, -5.900000095367432, -4.800000190734863, -1.7000000476837158, -2.200000047683716, -1.399999976158142]
+       fold A without sheet 03: mean asked length 0.42 cm, sum 7.1; mean twist -3.25, sum -55.3; twist per asked cm -7.8; twists [-0.10000000149011612, -1.5, -4.099999904632568, -5.599999904632568, -3.9000000953674316, -3.9000000953674316, -3.4000000953674316, -2.4000000953674316, -1.899999976158142, -3.0999999046325684, -4.400000095367432, -4.800000190734863, -4.900000095367432, -4.400000095367432, -3.0, -1.899999976158142, -2.299999952316284]
+    run 9, pictures 0 to 12 (the forearm went from -5.2 to -75.1 degrees)
+       logged (E, all sheets): mean asked length 0.46 cm, sum 6.0; mean twist -5.29, sum -68.7; twist per asked cm -11.4
+       fold E without sheet 03: mean asked length 0.48 cm, sum 6.3; mean twist -4.18, sum -54.4; twist per asked cm -8.6; twists [-3.5, -2.9000000953674316, -3.5999999046325684, -4.0, -5.0, -4.599999904632568, -4.300000190734863, -4.099999904632568, -4.199999809265137, -4.900000095367432, -5.5, -5.5, -2.4000000953674316]
+       fold A without sheet 03: mean asked length 0.48 cm, sum 6.2; mean twist -3.78, sum -49.2; twist per asked cm -8.0; twists [-3.4000000953674316, -3.700000047683716, -4.900000095367432, -4.400000095367432, -4.599999904632568, -3.5, -2.0999999046325684, -2.200000047683716, -2.799999952316284, -3.9000000953674316, -5.0, -5.199999809265137, -3.4000000953674316]
+    run 10, pictures 0 to 12 (the forearm went from -9.7 to -70.3 degrees)
+       logged (B, all sheets): mean asked length 0.40 cm, sum 5.2; mean twist -4.58, sum -59.6; twist per asked cm -11.5
+       fold E without sheet 03: mean asked length 0.48 cm, sum 6.2; mean twist -3.95, sum -51.3; twist per asked cm -8.2; twists [-0.4000000059604645, -2.700000047683716, -4.800000190734863, -5.699999809265137, -5.5, -5.400000095367432, -4.900000095367432, -5.099999904632568, -5.699999809265137, -5.900000095367432, -3.700000047683716, -1.5, -0.0]
+       fold A without sheet 03: mean asked length 0.42 cm, sum 5.5; mean twist -3.85, sum -50.1; twist per asked cm -9.1; twists [0.800000011920929, -2.0, -3.9000000953674316, -4.199999809265137, -4.5, -4.099999904632568, -4.5, -5.199999809265137, -5.099999904632568, -5.0, -5.099999904632568, -4.099999904632568, -3.0999999046325684]
+
+(c) the demonstration pictures of the eight standard-start demonstrations of sheet 03 (end A), from the first picture to the one where joint 4 reaches -70
+   pictures  demo_path  demo_net  demo_twist_sum  all E length sum  all E twist sum  fold E length sum  fold E twist sum  all A length sum  all A twist sum  fold A length sum  fold A twist sum
+0        10        6.1       5.1           -73.7               4.5       -58.799999                5.5        -35.799999               4.5       -63.200001                4.7        -53.700001
+1        12        8.8       6.6           -68.7               5.6       -71.000000                6.2        -45.700001               5.1       -74.800003                5.3        -61.599998
+2        10        7.2       7.0           -73.0               5.1       -65.500000                5.4        -32.400002               4.8       -69.800003                5.5        -46.799999
+3        13       10.2       7.2           -71.9               6.8       -81.000000                6.8        -49.200001               6.2       -84.900002                6.5        -66.000000
+4        12        8.2       7.4           -71.0               6.3       -64.500000                6.1        -39.400002               5.7       -73.199997                5.8        -50.099998
+5        13        8.3       5.1           -72.1               6.3       -69.400002                6.5        -48.599998               6.1       -77.400002                6.6        -60.799999
+6        12        7.4       5.0           -69.9               5.8       -75.400002                6.1        -53.000000               6.0       -81.800003                6.3        -65.800003
+7         6        5.3       5.0           -50.9               2.9       -35.799999                3.2        -21.600000               2.7       -36.799999                2.7        -33.299999
+    medians: {'pictures': 12.0, 'demo_path': 7.81, 'demo_net': 5.81, 'demo_twist_sum': -71.45, 'all E length sum': 5.67, 'all E twist sum': -67.41, 'fold E length sum': 6.12, 'fold E twist sum': -42.55, 'all A length sum': 5.39, 'all A twist sum': -74.01, 'fold A length sum': 5.62, 'fold A twist sum': -57.23}
+    the analyst's fold_steps_E.npz against my own run of the same checkpoint on these pictures: largest difference 0.0000

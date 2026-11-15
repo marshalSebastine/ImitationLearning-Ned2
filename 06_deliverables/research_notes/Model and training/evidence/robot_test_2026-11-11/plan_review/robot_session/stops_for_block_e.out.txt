@@ -1,0 +1,10 @@
+20 full runs, each ending at the line's end with chance 0.2: 10 or more stops with chance 0.00; expected stops 4
+20 full runs, each ending at the line's end with chance 0.3: 10 or more stops with chance 0.05; expected stops 6
+20 full runs, each ending at the line's end with chance 0.4: 10 or more stops with chance 0.24; expected stops 8
+20 full runs, each ending at the line's end with chance 0.5: 10 or more stops with chance 0.59; expected stops 10
+20 full runs, each ending at the line's end with chance 0.6: 10 or more stops with chance 0.87; expected stops 12
+24 full runs, each ending at the line's end with chance 0.2: 10 or more stops with chance 0.01; expected stops 5
+24 full runs, each ending at the line's end with chance 0.3: 10 or more stops with chance 0.15; expected stops 7
+24 full runs, each ending at the line's end with chance 0.4: 10 or more stops with chance 0.51; expected stops 10
+24 full runs, each ending at the line's end with chance 0.5: 10 or more stops with chance 0.85; expected stops 12
+24 full runs, each ending at the line's end with chance 0.6: 10 or more stops with chance 0.98; expected stops 14

@@ -1,0 +1,82 @@
+================ E_recipe: 209 demonstrations, each answered by the model that never saw its sheet
+   plan: 15 pictures, 4 cm, 15 degrees    | own length     | ends  17 of 209 ( 8.1 %),  11 before the last tenth
+         sheet 02 start OR1.5 : fires at picture  65 of  68; median asked length in that window 0.42 cm
+         sheet 03 start STD   : fires at picture  35 of 110; median asked length in that window 0.55 cm
+         sheet 03 start STD   : fires at picture  74 of 125; median asked length in that window 0.43 cm
+         sheet 03 start STD   : fires at picture 116 of 121; median asked length in that window 0.37 cm
+         sheet 03 start TR10  : fires at picture 132 of 134; median asked length in that window 0.24 cm
+         sheet 04 start MID   : fires at picture 154 of 160; median asked length in that window 0.27 cm
+         sheet 04 start STD   : fires at picture 158 of 162; median asked length in that window 0.29 cm
+         sheet 04 start STD   : fires at picture 197 of 200; median asked length in that window 0.32 cm
+         sheet 04 start TR15  : fires at picture 141 of 172; median asked length in that window 0.38 cm
+         sheet 05 start STD   : fires at picture  36 of 115; median asked length in that window 0.53 cm
+         sheet 05 start STD   : fires at picture  42 of 100; median asked length in that window 0.31 cm
+         sheet 05 start STD   : fires at picture  57 of  96; median asked length in that window 0.45 cm
+         sheet 05 start X1    : fires at picture  36 of  91; median asked length in that window 0.19 cm
+         sheet 06 start NE    : fires at picture  14 of  25; median asked length in that window 0.21 cm
+         sheet 06 start STD   : fires at picture  34 of 124; median asked length in that window 0.48 cm
+         sheet 06 start STD   : fires at picture  64 of  77; median asked length in that window 0.41 cm
+         sheet 06 start STD   : fires at picture  74 of 115; median asked length in that window 0.42 cm
+   plan: 15 pictures, 4 cm, 15 degrees    | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   plan: 15 pictures, 4 cm, 15 degrees    | fixed 0.5 cm   | ends  12 of 209 ( 5.7 %),  12 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | own length     | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | own length     | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | own length     | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | own length     | ends   1 of 209 ( 0.5 %),   1 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   asked length on unseen sheets: median 0.67 cm, share under 0.27 cm (15 such steps on a straight path stay within 4 cm): 3.6 %
+
+================ A_recipe: 209 demonstrations, each answered by the model that never saw its sheet
+   plan: 15 pictures, 4 cm, 15 degrees    | own length     | ends  29 of 209 (13.9 %),  21 before the last tenth
+         sheet 01 start TL15  : fires at picture  37 of  39; median asked length in that window 0.28 cm
+         sheet 03 start MID   : fires at picture  72 of  74; median asked length in that window 0.32 cm
+         sheet 03 start OR1   : fires at picture 119 of 136; median asked length in that window 0.35 cm
+         sheet 03 start OR1.5 : fires at picture  18 of  97; median asked length in that window 0.35 cm
+         sheet 03 start STD   : fires at picture  68 of 109; median asked length in that window 0.50 cm
+         sheet 03 start STD   : fires at picture  73 of 105; median asked length in that window 0.29 cm
+         sheet 03 start STD   : fires at picture 113 of 121; median asked length in that window 0.28 cm
+         sheet 03 start TR10  : fires at picture 133 of 134; median asked length in that window 0.33 cm
+         sheet 04 start MID   : fires at picture 152 of 160; median asked length in that window 0.28 cm
+         sheet 04 start OL1   : fires at picture  51 of 202; median asked length in that window 0.30 cm
+         sheet 04 start OR1.5 : fires at picture  19 of 220; median asked length in that window 0.31 cm
+         sheet 04 start STD   : fires at picture  42 of 188; median asked length in that window 0.30 cm
+         sheet 04 start STD   : fires at picture 118 of 193; median asked length in that window 0.33 cm
+         sheet 04 start STD   : fires at picture 156 of 203; median asked length in that window 0.23 cm
+         sheet 04 start STD   : fires at picture 160 of 162; median asked length in that window 0.26 cm
+         sheet 04 start STD   : fires at picture 197 of 200; median asked length in that window 0.29 cm
+         sheet 04 start TL10  : fires at picture 171 of 173; median asked length in that window 0.24 cm
+         sheet 04 start TR10  : fires at picture 127 of 167; median asked length in that window 0.32 cm
+         sheet 04 start TR15  : fires at picture 140 of 172; median asked length in that window 0.24 cm
+         sheet 05 start OL1   : fires at picture  61 of 112; median asked length in that window 0.34 cm
+         sheet 05 start STD   : fires at picture  35 of 115; median asked length in that window 0.26 cm
+         sheet 05 start STD   : fires at picture  36 of 100; median asked length in that window 0.26 cm
+         sheet 05 start STD   : fires at picture  42 of  96; median asked length in that window 0.29 cm
+         sheet 05 start STD   : fires at picture  46 of 120; median asked length in that window 0.29 cm
+         sheet 05 start X1    : fires at picture  25 of  91; median asked length in that window 0.22 cm
+         sheet 05 start X1    : fires at picture  38 of  90; median asked length in that window 0.07 cm
+         sheet 06 start STD   : fires at picture  68 of 115; median asked length in that window 0.35 cm
+         sheet 06 start STD   : fires at picture  73 of 107; median asked length in that window 0.35 cm
+         sheet 06 start STD   : fires at picture 101 of 124; median asked length in that window 0.33 cm
+   plan: 15 pictures, 4 cm, 15 degrees    | fixed 0.65 cm  | ends   1 of 209 ( 0.5 %),   1 before the last tenth
+   plan: 15 pictures, 4 cm, 15 degrees    | fixed 0.5 cm   | ends   9 of 209 ( 4.3 %),   9 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | own length     | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   today: 30 pictures, 3 cm, 15 degrees   | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | own length     | ends   3 of 209 ( 1.4 %),   3 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   20 pictures, 3 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | own length     | ends   3 of 209 ( 1.4 %),   3 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   25 pictures, 4 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | own length     | ends   3 of 209 ( 1.4 %),   3 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | fixed 0.65 cm  | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   15 pictures, 2 cm, 15 degrees          | fixed 0.5 cm   | ends   0 of 209 ( 0.0 %),   0 before the last tenth
+   asked length on unseen sheets: median 0.64 cm, share under 0.27 cm (15 such steps on a straight path stay within 4 cm): 5.2 %
+

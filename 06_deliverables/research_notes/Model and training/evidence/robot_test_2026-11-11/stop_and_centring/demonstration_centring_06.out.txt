@@ -1,0 +1,7 @@
+path_06_alpha_loop_dashed_episode_006_plan_06-06_try_1: 83 pictures, offset measured in 80, median size 2.6 mm, 90th percentile 5.4 mm, largest 29.0 mm
+path_06_alpha_loop_dashed_episode_018_plan_06-17_try_1: 68 pictures, offset measured in 57, median size 5.9 mm, 90th percentile 12.2 mm, largest 53.1 mm
+path_06_alpha_loop_dashed_episode_002_plan_06-02_try_1: 129 pictures, offset measured in 127, median size 7.6 mm, 90th percentile 23.4 mm, largest 61.6 mm
+path_06_alpha_loop_dashed_episode_007_plan_06-07_try_1: 105 pictures, offset measured in 103, median size 7.1 mm, 90th percentile 22.5 mm, largest 59.3 mm
+path_06_alpha_loop_dashed_episode_008_plan_06-08_try_1: 101 pictures, offset measured in 96, median size 2.9 mm, 90th percentile 11.8 mm, largest 55.2 mm
+path_06_alpha_loop_dashed_episode_014_plan_06-13_try_1: 83 pictures, offset measured in 80, median size 4.3 mm, 90th percentile 11.3 mm, largest 154.1 mm
+written: demonstration_centring_06.csv (6 episodes, 569 pictures)

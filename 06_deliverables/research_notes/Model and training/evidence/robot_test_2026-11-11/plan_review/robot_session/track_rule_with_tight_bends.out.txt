@@ -1,0 +1,6 @@
+smallest radius   35 mm, smallest gap  25 mm: one tightest piece turns 49 to 229 degrees; kept 6 of 6 tracks within 3000 attempts each (4 s); tightest bend of the kept tracks (mm): [47.3, 39.2, 36.8, 43.6, 35.8, 44.4]; lengths (cm): [35.2, 30.8, 28.6, 32.7, 41.7, 42.2]
+smallest radius   13 mm, smallest gap  25 mm: one tightest piece turns 132 to 617 degrees; kept 3 of 6 tracks within 3000 attempts each (28 s); tightest bend of the kept tracks (mm): [14.7, 22.1, 22.8]; lengths (cm): [32.3, 35.3, 30.3]
+smallest radius   10 mm, smallest gap  25 mm: one tightest piece turns 172 to 802 degrees; kept 0 of 6 tracks within 3000 attempts each (64 s); tightest bend of the kept tracks (mm): []; lengths (cm): []
+smallest radius    8 mm, smallest gap  25 mm: one tightest piece turns 215 to 1003 degrees; kept 0 of 6 tracks within 3000 attempts each (88 s); tightest bend of the kept tracks (mm): []; lengths (cm): []
+smallest radius   10 mm, smallest gap  12 mm: one tightest piece turns 172 to 802 degrees; kept 2 of 6 tracks within 3000 attempts each (46 s); tightest bend of the kept tracks (mm): [13.1, 11.2]; lengths (cm): [27.3, 32.8]
+smallest radius    8 mm, smallest gap  12 mm: one tightest piece turns 215 to 1003 degrees; kept 0 of 6 tracks within 3000 attempts each (87 s); tightest bend of the kept tracks (mm): []; lengths (cm): []

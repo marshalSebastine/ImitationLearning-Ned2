@@ -1,0 +1,739 @@
+﻿=== designs / classes_small_motion_dropped
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7311     0.5017     0.5885     0.5545     0.5581     0.4279
+path_within_45_deg                     0.7952     0.5933     0.6168     0.6443     0.5901     0.4643
+path_expected_within_45_deg            0.8395      0.643     0.6786     0.6929     0.6774     0.5035
+expected_within_45_deg                 0.7522     0.5367     0.6145     0.5866     0.6026     0.4549
+class_balanced_accuracy                0.2364     0.2352     0.3145     0.2144     0.2833     0.2756
+episodes_stopped_right                 0.2632     0.2273     0.2222     0.3111     0.0667          0
+episodes_stopped_early                      0     0.0909          0     0.0667     0.1667          0
+episodes_never_stopped                 0.7368     0.6136     0.7333        0.6     0.7667          1
+tuned_episodes_stopped_right           0.4211       0.25     0.4667     0.3556     0.0667       0.16
+tuned_episodes_stopped_early           0.1579       0.25     0.1333     0.2444     0.1667        0.2
+tuned_episodes_never_stopped           0.4211     0.4091     0.3778        0.2     0.7667       0.64
+tuned_stop_threshold                      0.3        0.2        0.2       0.15        0.5        0.2
+tuned_two_episodes_stopped_right       0.4211       0.25     0.5778     0.3333        0.1       0.16
+tuned_two_episodes_stopped_early       0.1053     0.1818     0.1333     0.3556     0.6667       0.36
+tuned_two_episodes_never_stopped       0.4737     0.4773     0.2667     0.1333        0.2       0.48
+tuned_two_stop_threshold                 0.15       0.15       0.05       0.05       0.05        0.1
+stop_average_precision                 0.4033     0.1234     0.3062     0.2778     0.2132     0.0571
+stop_recall                            0.2632     0.2273     0.1778     0.3778        0.1          0
+stop_precision                         0.5556     0.1515     0.3333     0.3617     0.2727          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1496     0.3353     0.6852     0.4415     0.4439     0.3636
+twist_error_mean_deg                    2.254      3.086      3.322      4.224      4.041      4.384
+=== designs / classes_small_motion_next_move
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7557     0.5299     0.5651     0.5595     0.5832     0.4671
+path_within_45_deg                     0.8007      0.629     0.5703     0.6517     0.6212     0.5263
+path_expected_within_45_deg            0.8469     0.6695     0.6478      0.699     0.6758     0.5539
+expected_within_45_deg                 0.7592      0.559     0.6157     0.5898     0.6184     0.4892
+class_balanced_accuracy                0.2129      0.226     0.2918     0.2248     0.2962     0.2719
+episodes_stopped_right                 0.5263     0.1591     0.3778     0.3778     0.0667       0.04
+episodes_stopped_early                 0.0526     0.3182          0     0.1333     0.1667          0
+episodes_never_stopped                 0.3684     0.5227     0.5333     0.4444     0.7667       0.96
+tuned_episodes_stopped_right           0.5789     0.1136     0.5111     0.4444     0.0667       0.08
+tuned_episodes_stopped_early           0.1579        0.5     0.2889     0.2889     0.1667          0
+tuned_episodes_never_stopped           0.2105     0.3182     0.1333     0.1333     0.7667       0.92
+tuned_stop_threshold                      0.4        0.2        0.2       0.15        0.5        0.4
+tuned_two_episodes_stopped_right       0.6316     0.1136     0.4667     0.3778     0.0333       0.28
+tuned_two_episodes_stopped_early       0.1579     0.4773     0.3778     0.3778     0.1333       0.12
+tuned_two_episodes_never_stopped       0.1579     0.3409     0.0889     0.1333     0.8333       0.56
+tuned_two_stop_threshold                  0.1       0.15       0.05       0.05        0.3       0.15
+stop_average_precision                 0.4394     0.1346      0.315     0.2999     0.1041     0.1638
+stop_recall                            0.5263       0.25     0.3556     0.4444     0.0667          0
+stop_precision                         0.3704     0.0917     0.3137     0.2817     0.1818          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1453     0.4202     0.6719     0.3908     0.4416      0.379
+twist_error_mean_deg                    2.202      3.181      3.416      4.182      4.051      4.297
+=== designs / classes_small_motion_own_class
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7399     0.5291     0.5697     0.5513     0.5427     0.4295
+path_within_45_deg                      0.797     0.6272     0.6014     0.6401     0.5859     0.4707
+path_expected_within_45_deg            0.8358     0.6787      0.678     0.6949     0.6438     0.4871
+expected_within_45_deg                 0.7627     0.5679      0.611     0.5849     0.5803     0.4356
+class_balanced_accuracy                0.2418     0.2153     0.3087     0.2157     0.2793     0.2848
+episodes_stopped_right                 0.5263     0.2045     0.2444        0.2     0.0667          0
+episodes_stopped_early                 0.1053     0.2045          0     0.0444          0          0
+episodes_never_stopped                 0.2632     0.5227     0.7333     0.7556     0.9333          1
+tuned_episodes_stopped_right           0.1579     0.1818     0.2444     0.3333     0.2333       0.12
+tuned_episodes_stopped_early           0.2632     0.3409          0     0.1333        0.3       0.12
+tuned_episodes_never_stopped           0.2105     0.3636     0.7333     0.4889     0.4667       0.76
+tuned_stop_threshold                      0.2        0.3        0.5        0.3        0.2       0.15
+tuned_two_episodes_stopped_right       0.2105     0.2273     0.3778     0.3333     0.3667        0.2
+tuned_two_episodes_stopped_early       0.4211     0.1818     0.0889     0.2889        0.2       0.44
+tuned_two_episodes_never_stopped       0.1053     0.4773     0.4889     0.2444     0.4333       0.32
+tuned_two_stop_threshold                 0.05        0.3       0.15       0.05        0.1       0.05
+stop_average_precision                   0.27     0.1073     0.3685     0.2697     0.2728     0.0985
+stop_recall                            0.5263     0.2727     0.1556     0.1556     0.0667          0
+stop_precision                           0.25     0.1111     0.4667     0.3182          1          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1325     0.4711     0.6551     0.4298     0.5119     0.3594
+twist_error_mean_deg                     2.04      3.132      3.419      4.111      3.954      4.015
+=== designs / exact_step
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7469     0.5835     0.6238     0.5481     0.5633     0.4831
+path_within_45_deg                     0.8284     0.6945     0.7018      0.633     0.6485      0.534
+class_balanced_accuracy                0.1768     0.1889     0.2607     0.1909     0.2217      0.256
+episodes_stopped_right                 0.4737     0.2273     0.3111     0.3111        0.1       0.32
+episodes_stopped_early                 0.1053     0.2727     0.1111     0.5333     0.2333        0.2
+episodes_never_stopped                 0.4211     0.4091     0.5333     0.0667     0.6667       0.48
+tuned_episodes_stopped_right           0.3684     0.2273     0.4667     0.1111        0.1       0.32
+tuned_episodes_stopped_early           0.1053     0.4773     0.1556     0.7556     0.2333       0.28
+tuned_episodes_never_stopped           0.5263       0.25     0.3556          0     0.6333        0.4
+tuned_stop_threshold                      0.6        0.3        0.3        0.1        0.4        0.4
+tuned_two_episodes_stopped_right       0.4211     0.2045     0.3556     0.0889     0.1333       0.12
+tuned_two_episodes_stopped_early       0.3158     0.4545     0.1111     0.6889     0.4333       0.48
+tuned_two_episodes_never_stopped       0.2632     0.2727     0.4889     0.0222     0.4333       0.32
+tuned_two_stop_threshold                  0.2       0.15        0.2       0.05       0.15        0.1
+stop_average_precision                 0.2709     0.1204     0.3001     0.3199     0.0991     0.2547
+stop_recall                            0.4211     0.2727     0.3111     0.7111        0.1       0.32
+stop_precision                          0.381      0.096     0.2857     0.1481     0.0909     0.2963
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.6239     0.7385     0.8171     0.7452     0.6496     0.6259
+twist_error_mean_deg                    2.373      2.819       3.41      4.006      3.644      3.964
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9132     0.8127     0.8488     0.8276     0.7799      0.653
+lean_error_mean_deg                     0.933      0.808      0.717      0.864      0.944      1.111
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          1     0.4667          1     0.7143
+=== designs / mixed_classes_and_exact
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7575     0.5299     0.5471     0.5424     0.5528     0.4583
+path_within_45_deg                     0.7915      0.629     0.5512      0.641     0.5968     0.5076
+vector_within_45_deg                   0.7663     0.5961     0.6079     0.4957     0.5548     0.4798
+path_vector_within_45_deg              0.8469     0.7214     0.6999     0.6216     0.6241     0.5363
+path_expected_within_45_deg            0.8303     0.6787      0.646     0.6909     0.6678     0.5498
+expected_within_45_deg                 0.7821     0.5658     0.5986     0.5686     0.6014     0.4947
+class_balanced_accuracy                 0.222      0.226     0.2829      0.204     0.2752     0.2713
+episodes_stopped_right                 0.2632     0.2273     0.2889     0.4444        0.1       0.08
+episodes_stopped_early                      0     0.1364          0     0.1556     0.0667          0
+episodes_never_stopped                 0.7368     0.5227     0.6444     0.3333     0.8333       0.92
+tuned_episodes_stopped_right           0.6316     0.2045     0.4889     0.4222     0.1333       0.08
+tuned_episodes_stopped_early           0.1053     0.3409     0.1778     0.1778        0.4          0
+tuned_episodes_never_stopped           0.2105     0.3409     0.2889     0.2889     0.4667       0.92
+tuned_stop_threshold                      0.2        0.3        0.2        0.4        0.2        0.5
+tuned_two_episodes_stopped_right       0.5789     0.1136     0.3111     0.2889     0.1667       0.24
+tuned_two_episodes_stopped_early       0.0526     0.7273     0.0667     0.4444     0.3667        0.2
+tuned_two_episodes_never_stopped       0.3684     0.0909     0.5778     0.0444     0.4667       0.48
+tuned_two_stop_threshold                 0.15        0.1        0.2        0.1        0.1       0.15
+stop_average_precision                 0.4083     0.1141     0.3343     0.2559     0.1276     0.1617
+stop_recall                            0.2105       0.25     0.2667     0.5333        0.1       0.08
+stop_precision                            0.5      0.131     0.3333     0.2424     0.4286        0.5
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                     0.594     0.7402     0.8331     0.7263     0.6775     0.6231
+twist_error_mean_deg                    2.562      2.839      3.282      4.092      3.638      3.998
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9154      0.817      0.804     0.8253      0.766     0.6684
+lean_error_mean_deg                     0.924       0.79      0.789      0.791      0.954      1.082
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          0     0.7333          1     0.7143
+=== designs / chunk_of_5_steps
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7768     0.5797     0.6191     0.5532     0.5779     0.5357
+path_within_45_deg                     0.8506     0.6897     0.6921     0.6571     0.6556     0.6341
+vector_within_45_deg                   0.7557     0.5801     0.6287     0.5373     0.5791     0.5141
+path_vector_within_45_deg              0.8524     0.7262      0.753       0.68     0.7039     0.6183
+class_balanced_accuracy                0.2339     0.1936      0.253     0.1998     0.2362      0.257
+episodes_stopped_right                 0.5789     0.2045     0.5111     0.2667          0       0.24
+episodes_stopped_early                 0.0526     0.2955     0.1333     0.3556     0.4667       0.28
+episodes_never_stopped                 0.3158     0.3182     0.3111     0.2444     0.5333       0.48
+tuned_episodes_stopped_right           0.6316     0.2045     0.4667     0.2667          0       0.12
+tuned_episodes_stopped_early           0.1579       0.25     0.1111     0.3556     0.4667       0.72
+tuned_episodes_never_stopped           0.1579     0.4318     0.3778     0.2444     0.5333       0.16
+tuned_stop_threshold                      0.4        0.6        0.6        0.5        0.5        0.2
+tuned_two_episodes_stopped_right       0.6842     0.2045     0.4444     0.2222     0.0333        0.2
+tuned_two_episodes_stopped_early       0.0526     0.1818     0.0667     0.5333     0.7333       0.48
+tuned_two_episodes_never_stopped       0.1579     0.4318     0.4444     0.0667     0.2333       0.32
+tuned_two_stop_threshold                 0.15        0.4        0.4       0.15       0.15       0.15
+stop_average_precision                 0.4565     0.1999     0.3213     0.2268     0.0443     0.1206
+stop_recall                            0.5789     0.5227     0.5778     0.5556     0.0333       0.28
+stop_precision                         0.2895     0.1314     0.2989     0.1786      0.025     0.1944
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.5983      0.736     0.8179     0.7247     0.6764     0.6392
+twist_error_mean_deg                    2.541      2.821      3.398      4.119        3.6      4.029
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9132     0.8239     0.8228      0.831     0.8185     0.6876
+lean_error_mean_deg                     0.976      0.769      0.733      0.817      0.915      1.149
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          0     0.4667          1     0.7143
+chunk_error_step_1_cm                   0.613      0.785      0.703      0.747      0.824      0.793
+chunk_error_step_3_cm                   1.236       1.69      1.531      1.722      1.893      1.951
+chunk_error_step_5_cm                   1.611      2.245      2.024      2.221      2.549      2.774
+=== stop / classes_stop_as_class
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7557     0.5299     0.5651     0.5595     0.5832     0.4671
+path_within_45_deg                     0.8007      0.629     0.5703     0.6517     0.6212     0.5263
+path_expected_within_45_deg            0.8469     0.6695     0.6478      0.699     0.6758     0.5539
+expected_within_45_deg                 0.7592      0.559     0.6157     0.5898     0.6184     0.4892
+class_balanced_accuracy                0.2129      0.226     0.2918     0.2248     0.2962     0.2719
+episodes_stopped_right                 0.5263     0.1591     0.3778     0.3778     0.0667       0.04
+episodes_stopped_early                 0.0526     0.3182          0     0.1333     0.1667          0
+episodes_never_stopped                 0.3684     0.5227     0.5333     0.4444     0.7667       0.96
+tuned_episodes_stopped_right           0.5789     0.1136     0.5111     0.4444     0.0667       0.08
+tuned_episodes_stopped_early           0.1579        0.5     0.2889     0.2889     0.1667          0
+tuned_episodes_never_stopped           0.2105     0.3182     0.1333     0.1333     0.7667       0.92
+tuned_stop_threshold                      0.4        0.2        0.2       0.15        0.5        0.4
+tuned_two_episodes_stopped_right       0.6316     0.1136     0.4667     0.3778     0.0333       0.28
+tuned_two_episodes_stopped_early       0.1579     0.4773     0.3778     0.3778     0.1333       0.12
+tuned_two_episodes_never_stopped       0.1579     0.3409     0.0889     0.1333     0.8333       0.56
+tuned_two_stop_threshold                  0.1       0.15       0.05       0.05        0.3       0.15
+stop_average_precision                 0.4394     0.1346      0.315     0.2999     0.1041     0.1638
+stop_recall                            0.5263       0.25     0.3556     0.4444     0.0667          0
+stop_precision                         0.3704     0.0917     0.3137     0.2817     0.1818          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1453     0.4202     0.6719     0.3908     0.4416      0.379
+twist_error_mean_deg                    2.202      3.181      3.416      4.182      4.051      4.297
+=== stop / classes_stop_head_on_stop_picture
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7223     0.5371     0.5636     0.5578     0.5524     0.4312
+path_within_45_deg                     0.7638     0.6298     0.5684      0.633     0.5981      0.493
+path_expected_within_45_deg             0.821     0.6761     0.6532     0.6968     0.6644     0.5275
+expected_within_45_deg                 0.7452     0.5616     0.6087     0.5849     0.6014     0.4677
+class_balanced_accuracy                0.2351     0.2118      0.302     0.2108     0.2794     0.2715
+episodes_stopped_right                 0.5263     0.2045        0.4        0.4     0.2333       0.16
+episodes_stopped_early                 0.1053     0.4773     0.0889     0.1778     0.3667       0.04
+episodes_never_stopped                 0.3684       0.25     0.4667     0.3333        0.4        0.8
+tuned_episodes_stopped_right           0.6316     0.1818     0.5333     0.3556     0.2333        0.2
+tuned_episodes_stopped_early           0.2105     0.2727     0.1778     0.2222     0.3667       0.12
+tuned_episodes_never_stopped           0.1579     0.3864     0.2667     0.2444        0.4       0.68
+tuned_stop_threshold                      0.3        0.6        0.3        0.4        0.5        0.3
+tuned_two_episodes_stopped_right       0.6842     0.2273     0.5556     0.3556     0.2667        0.2
+tuned_two_episodes_stopped_early       0.1579     0.3182     0.2222        0.4     0.2333        0.2
+tuned_two_episodes_never_stopped       0.1579     0.4091     0.1556     0.0889        0.5        0.6
+tuned_two_stop_threshold                 0.15        0.5        0.1       0.15        0.4        0.2
+stop_average_precision                 0.4703     0.1046     0.3005     0.2134     0.1918     0.1534
+stop_recall                            0.4211     0.5682     0.4222     0.5111     0.3333       0.12
+stop_precision                         0.3636     0.0947     0.2836     0.2371     0.1818     0.4286
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.2009     0.3633     0.6627     0.4296     0.4102     0.3175
+twist_error_mean_deg                     2.45       3.45      3.364        4.2      3.948      4.453
+=== stop / classes_stop_head_on_near_goal
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7522     0.5274     0.5619      0.569      0.584     0.4306
+path_within_45_deg                     0.8007     0.6118      0.565     0.6676     0.6371     0.4731
+path_expected_within_45_deg            0.8339      0.669     0.6535     0.7252     0.6762     0.5176
+expected_within_45_deg                 0.7715     0.5607     0.6061     0.5978     0.6002     0.4555
+class_balanced_accuracy                0.2696     0.2277     0.2972     0.2133     0.2838      0.269
+episodes_stopped_right                      0     0.2273        0.2     0.2889     0.0333       0.08
+episodes_stopped_early                 0.9474     0.5455     0.4889     0.4889        0.8       0.68
+episodes_never_stopped                 0.0526     0.1591     0.0222     0.0222     0.1667       0.12
+tuned_episodes_stopped_right           0.1053       0.25     0.5556     0.3778     0.0667       0.28
+tuned_episodes_stopped_early           0.5789     0.1364        0.2     0.2667     0.4667       0.16
+tuned_episodes_never_stopped           0.2105        0.5     0.1556        0.2     0.4667       0.56
+tuned_stop_threshold                      0.8        0.9        0.9        0.8        0.9        0.9
+tuned_two_episodes_stopped_right       0.4211     0.1818     0.6222     0.4444     0.0667       0.24
+tuned_two_episodes_stopped_early       0.1579     0.1364        0.2     0.2667     0.3667       0.16
+tuned_two_episodes_never_stopped       0.2632     0.6364     0.0444     0.1111     0.5667        0.6
+tuned_two_stop_threshold                  0.8        0.9        0.7        0.6        0.9        0.8
+stop_average_precision                 0.2428     0.1286     0.3299     0.2206     0.0489     0.1374
+stop_recall                            0.7895     0.5909     0.9111        0.8     0.4667       0.48
+stop_precision                         0.0943     0.0929     0.1367     0.1125     0.0476     0.1121
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.2094     0.4694     0.6734     0.5894     0.4521      0.349
+twist_error_mean_deg                    2.477      3.386      3.368       4.05      4.103      4.112
+=== stop / exact_stop_head_on_stop_picture
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7469     0.5835     0.6238     0.5481     0.5633     0.4831
+path_within_45_deg                     0.8284     0.6945     0.7018      0.633     0.6485      0.534
+class_balanced_accuracy                0.1768     0.1889     0.2607     0.1909     0.2217      0.256
+episodes_stopped_right                 0.4737     0.2273     0.3111     0.3111        0.1       0.32
+episodes_stopped_early                 0.1053     0.2727     0.1111     0.5333     0.2333        0.2
+episodes_never_stopped                 0.4211     0.4091     0.5333     0.0667     0.6667       0.48
+tuned_episodes_stopped_right           0.3684     0.2273     0.4667     0.1111        0.1       0.32
+tuned_episodes_stopped_early           0.1053     0.4773     0.1556     0.7556     0.2333       0.28
+tuned_episodes_never_stopped           0.5263       0.25     0.3556          0     0.6333        0.4
+tuned_stop_threshold                      0.6        0.3        0.3        0.1        0.4        0.4
+tuned_two_episodes_stopped_right       0.4211     0.2045     0.3556     0.0889     0.1333       0.12
+tuned_two_episodes_stopped_early       0.3158     0.4545     0.1111     0.6889     0.4333       0.48
+tuned_two_episodes_never_stopped       0.2632     0.2727     0.4889     0.0222     0.4333       0.32
+tuned_two_stop_threshold                  0.2       0.15        0.2       0.05       0.15        0.1
+stop_average_precision                 0.2709     0.1204     0.3001     0.3199     0.0991     0.2547
+stop_recall                            0.4211     0.2727     0.3111     0.7111        0.1       0.32
+stop_precision                          0.381      0.096     0.2857     0.1481     0.0909     0.2963
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.6239     0.7385     0.8171     0.7452     0.6496     0.6259
+twist_error_mean_deg                    2.373      2.819       3.41      4.006      3.644      3.964
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9132     0.8127     0.8488     0.8276     0.7799      0.653
+lean_error_mean_deg                     0.933      0.808      0.717      0.864      0.944      1.111
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          1     0.4667          1     0.7143
+=== stop / exact_stop_head_on_near_goal
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7663     0.5734     0.5975     0.5183     0.5743     0.4655
+path_within_45_deg                     0.8173     0.6783     0.7009     0.5942     0.6485     0.5041
+class_balanced_accuracy                0.1782     0.2131     0.2396     0.1891     0.2115     0.2644
+episodes_stopped_right                 0.1579     0.2273        0.2     0.2444     0.0667       0.16
+episodes_stopped_early                 0.7368     0.3409     0.4889     0.4667        0.8       0.24
+episodes_never_stopped                 0.0526     0.3182          0     0.0222     0.1333       0.52
+tuned_episodes_stopped_right           0.4737     0.1364     0.3556     0.3333     0.0667       0.08
+tuned_episodes_stopped_early           0.1579     0.1591     0.3778     0.3333     0.5667          0
+tuned_episodes_never_stopped           0.2105     0.6136     0.0667     0.0444     0.3667       0.92
+tuned_stop_threshold                      0.9        0.9        0.8        0.7        0.9        0.9
+tuned_two_episodes_stopped_right       0.5789     0.2045     0.4889     0.3778        0.1       0.16
+tuned_two_episodes_stopped_early       0.1053     0.2045     0.3111        0.4     0.6333          0
+tuned_two_episodes_never_stopped       0.2105     0.4773     0.0444     0.0222     0.2667       0.84
+tuned_two_stop_threshold                  0.8        0.5        0.7        0.4        0.8        0.8
+stop_average_precision                 0.1755     0.0999     0.3074     0.1812     0.0693     0.1906
+stop_recall                            0.7895     0.3636     0.9111     0.8889     0.6667       0.28
+stop_precision                         0.1339     0.0988      0.138     0.1111     0.0749        0.2
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.5085     0.7521     0.8312     0.7747     0.6589     0.6392
+twist_error_mean_deg                    2.494      2.829      3.292      3.862      3.697       4.05
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9111     0.8351     0.8397     0.7939     0.7683      0.726
+lean_error_mean_deg                     0.953      0.773      0.748      0.816      0.954      1.082
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.5385          1     0.7333          1          0
+=== stop_distance / classes_stop_head_on_goal_distance
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7575     0.5261     0.5416     0.5445     0.5755     0.4256
+path_within_45_deg                     0.8247     0.6206     0.5515     0.6338      0.617     0.4637
+path_expected_within_45_deg            0.8358     0.6695      0.629     0.7003     0.6711     0.4947
+expected_within_45_deg                 0.7645     0.5616     0.5966     0.5784     0.6087     0.4367
+class_balanced_accuracy                0.2106     0.2155     0.2809      0.216     0.2989     0.2612
+episodes_stopped_right                 0.1053     0.0909     0.3111     0.0444          0          0
+episodes_stopped_early                      0     0.0455     0.0444          0          0          0
+episodes_never_stopped                 0.8947     0.8636     0.6444     0.9556          1          1
+tuned_episodes_stopped_right           0.2105     0.1136     0.3333        0.2          0          0
+tuned_episodes_stopped_early           0.0526     0.0455     0.1333     0.1333     0.1667          0
+tuned_episodes_never_stopped           0.6842     0.8182     0.4444     0.5556     0.8333          1
+tuned_stop_threshold                      0.4        0.4        0.4        0.3        0.3        0.3
+tuned_two_episodes_stopped_right       0.3684     0.1364     0.2889     0.1556          0          0
+tuned_two_episodes_stopped_early       0.0526     0.0682     0.1333     0.0222     0.1333          0
+tuned_two_episodes_never_stopped       0.5789     0.7955     0.4889     0.7778     0.8667          1
+tuned_two_stop_threshold                  0.3        0.3        0.3        0.3        0.3        0.3
+stop_average_precision                 0.2492      0.079     0.2477     0.1541     0.1001      0.139
+stop_recall                                 0     0.0455     0.2889     0.0222          0          0
+stop_precision                              0     0.1333      0.325        0.5          0          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                     0.188      0.382     0.6677     0.4287     0.4631     0.3748
+twist_error_mean_deg                    2.419      3.239      3.519      4.121      3.979      4.412
+=== stop_distance / exact_stop_on_goal_distance
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7821     0.5379      0.629     0.5185     0.5755     0.5257
+path_within_45_deg                     0.8358     0.6175     0.7072     0.6138     0.6443     0.6013
+class_balanced_accuracy                0.2347     0.2149     0.2611     0.1818     0.2584     0.2401
+episodes_stopped_right                 0.1053     0.0455     0.3778     0.1333          0          0
+episodes_stopped_early                      0          0     0.0222     0.0222     0.0333          0
+episodes_never_stopped                 0.8421     0.9545     0.5333     0.8222     0.9667          1
+tuned_episodes_stopped_right           0.2105     0.1136     0.3778     0.2222     0.0667          0
+tuned_episodes_stopped_early           0.0526     0.0682     0.0667     0.0444     0.1333          0
+tuned_episodes_never_stopped           0.6842     0.8182     0.4667     0.6667        0.8          1
+tuned_stop_threshold                      0.4        0.4        0.4        0.4        0.3        0.4
+tuned_two_episodes_stopped_right       0.2632     0.1136     0.3778     0.1333          0          0
+tuned_two_episodes_stopped_early            0     0.0455     0.0667          0        0.1          0
+tuned_two_episodes_never_stopped       0.6842     0.8182     0.4667     0.8444        0.9          1
+tuned_two_stop_threshold                  0.3        0.3        0.3        0.4        0.3        0.3
+stop_average_precision                 0.3693     0.0808      0.304     0.1916     0.1177     0.1634
+stop_recall                            0.1579     0.0227     0.3778     0.1111          0          0
+stop_precision                            0.6        0.2     0.3696     0.3846          0          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.5726     0.6757      0.819     0.7285     0.6711     0.5986
+twist_error_mean_deg                    2.548      2.873      3.372      4.083      3.691      4.224
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9197     0.8119     0.8287      0.811     0.7907     0.6825
+lean_error_mean_deg                     0.921      0.835      0.735      0.852      0.968      1.086
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.6154          1     0.7333          1          1
+=== splits / classes_held_out_episodes
+fold                               des_fold_0 des_fold_1 des_fold_2 des_fold_3 des_fold_4
+test_episodes                              42         42         42         42         40
+direction_rows                           2871       3442       2657       3520       3460
+within_45_deg                          0.6496     0.6639     0.6586     0.6466     0.6552
+path_within_45_deg                     0.6963     0.7185     0.7009     0.6973     0.6769
+path_expected_within_45_deg            0.7635     0.7774      0.774     0.7742     0.7495
+expected_within_45_deg                   0.69     0.7063     0.6914     0.6966      0.691
+class_balanced_accuracy                0.3396     0.3894     0.3487     0.3612     0.3671
+episodes_stopped_right                 0.5714     0.5714     0.5476     0.4524        0.4
+episodes_stopped_early                 0.0476     0.0238      0.119     0.2143      0.175
+episodes_never_stopped                 0.3571      0.381     0.2381     0.3095      0.425
+tuned_episodes_stopped_right           0.5476     0.5714        0.5     0.4524        0.5
+tuned_episodes_stopped_early           0.1429     0.0476     0.1905     0.2143      0.325
+tuned_episodes_never_stopped           0.2619     0.2381     0.1429     0.3095      0.125
+tuned_stop_threshold                      0.3        0.3        0.3        0.5        0.1
+tuned_two_episodes_stopped_right       0.5714     0.5952        0.5     0.4286       0.55
+tuned_two_episodes_stopped_early       0.0238     0.0714     0.2143     0.1667        0.3
+tuned_two_episodes_never_stopped       0.3571     0.2619      0.119     0.4048       0.15
+tuned_two_stop_threshold                  0.3        0.2        0.1        0.4        0.1
+stop_average_precision                 0.2927      0.404     0.2681     0.2931     0.3146
+stop_recall                            0.5952     0.5714     0.6429     0.5476        0.4
+stop_precision                         0.2941      0.381     0.2755     0.3067     0.3077
+twist_rows                               2147       2547       1929       2556       2551
+twist_sign_accuracy                    0.6176     0.6321     0.6153     0.6827     0.7283
+twist_error_mean_deg                    2.825      2.773      2.775      2.858      3.055
+=== splits / exact_held_out_episodes
+fold                               des_fold_0 des_fold_1 des_fold_2 des_fold_3 des_fold_4
+test_episodes                              42         42         42         42         40
+direction_rows                           2871       3442       2657       3520       3460
+within_45_deg                          0.7203     0.6979     0.6993     0.7151     0.7032
+path_within_45_deg                     0.7828     0.7979     0.8048     0.8138     0.7756
+class_balanced_accuracy                0.3173     0.2856     0.3084     0.3189     0.3266
+episodes_stopped_right                 0.6667      0.619     0.5714     0.5238      0.475
+episodes_stopped_early                 0.1667     0.0714     0.1905     0.0952        0.3
+episodes_never_stopped                  0.119     0.2619     0.0714     0.2857      0.075
+tuned_episodes_stopped_right           0.7143     0.5952     0.5714     0.5952        0.4
+tuned_episodes_stopped_early           0.1429     0.0476     0.1905     0.1429       0.35
+tuned_episodes_never_stopped           0.0714     0.3095     0.0714      0.119      0.075
+tuned_stop_threshold                      0.4        0.6        0.5        0.3        0.3
+tuned_two_episodes_stopped_right          0.5     0.5238     0.5952     0.5952        0.5
+tuned_two_episodes_stopped_early       0.1429     0.0476     0.2381      0.119      0.275
+tuned_two_episodes_never_stopped       0.3333     0.4286     0.0714     0.1667      0.125
+tuned_two_stop_threshold                  0.5        0.5       0.15       0.15        0.3
+stop_average_precision                 0.3135     0.3862     0.3701     0.3884     0.2889
+stop_recall                            0.7857     0.6429     0.9048     0.5952      0.725
+stop_precision                         0.2463     0.3034     0.2235     0.2688     0.2214
+twist_rows                               2147       2547       1929       2556       2551
+twist_sign_accuracy                    0.8379     0.8602      0.873     0.8674      0.831
+twist_error_mean_deg                    2.675      2.723      2.741      2.685      2.841
+lean_rows                                1354       1615       1211       1633       1535
+lean_sign_accuracy                     0.8863     0.8706     0.8786     0.8757     0.8625
+lean_error_mean_deg                     0.711      0.737      0.754      0.733      0.727
+hand_rows                                   9          8         13          3          4
+hand_sign_accuracy                     0.4444      0.875     0.3846     0.6667        0.5
+=== splits / classes_held_out_sheets
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7557     0.5299     0.5651     0.5595     0.5832     0.4671
+path_within_45_deg                     0.8007      0.629     0.5703     0.6517     0.6212     0.5263
+path_expected_within_45_deg            0.8469     0.6695     0.6478      0.699     0.6758     0.5539
+expected_within_45_deg                 0.7592      0.559     0.6157     0.5898     0.6184     0.4892
+class_balanced_accuracy                0.2129      0.226     0.2918     0.2248     0.2962     0.2719
+episodes_stopped_right                 0.5263     0.1591     0.3778     0.3778     0.0667       0.04
+episodes_stopped_early                 0.0526     0.3182          0     0.1333     0.1667          0
+episodes_never_stopped                 0.3684     0.5227     0.5333     0.4444     0.7667       0.96
+tuned_episodes_stopped_right           0.5789     0.1136     0.5111     0.4444     0.0667       0.08
+tuned_episodes_stopped_early           0.1579        0.5     0.2889     0.2889     0.1667          0
+tuned_episodes_never_stopped           0.2105     0.3182     0.1333     0.1333     0.7667       0.92
+tuned_stop_threshold                      0.4        0.2        0.2       0.15        0.5        0.4
+tuned_two_episodes_stopped_right       0.6316     0.1136     0.4667     0.3778     0.0333       0.28
+tuned_two_episodes_stopped_early       0.1579     0.4773     0.3778     0.3778     0.1333       0.12
+tuned_two_episodes_never_stopped       0.1579     0.3409     0.0889     0.1333     0.8333       0.56
+tuned_two_stop_threshold                  0.1       0.15       0.05       0.05        0.3       0.15
+stop_average_precision                 0.4394     0.1346      0.315     0.2999     0.1041     0.1638
+stop_recall                            0.5263       0.25     0.3556     0.4444     0.0667          0
+stop_precision                         0.3704     0.0917     0.3137     0.2817     0.1818          0
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1453     0.4202     0.6719     0.3908     0.4416      0.379
+twist_error_mean_deg                    2.202      3.181      3.416      4.182      4.051      4.297
+=== splits / exact_held_out_sheets
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7469     0.5835     0.6238     0.5481     0.5633     0.4831
+path_within_45_deg                     0.8284     0.6945     0.7018      0.633     0.6485      0.534
+class_balanced_accuracy                0.1768     0.1889     0.2607     0.1909     0.2217      0.256
+episodes_stopped_right                 0.4737     0.2273     0.3111     0.3111        0.1       0.32
+episodes_stopped_early                 0.1053     0.2727     0.1111     0.5333     0.2333        0.2
+episodes_never_stopped                 0.4211     0.4091     0.5333     0.0667     0.6667       0.48
+tuned_episodes_stopped_right           0.3684     0.2273     0.4667     0.1111        0.1       0.32
+tuned_episodes_stopped_early           0.1053     0.4773     0.1556     0.7556     0.2333       0.28
+tuned_episodes_never_stopped           0.5263       0.25     0.3556          0     0.6333        0.4
+tuned_stop_threshold                      0.6        0.3        0.3        0.1        0.4        0.4
+tuned_two_episodes_stopped_right       0.4211     0.2045     0.3556     0.0889     0.1333       0.12
+tuned_two_episodes_stopped_early       0.3158     0.4545     0.1111     0.6889     0.4333       0.48
+tuned_two_episodes_never_stopped       0.2632     0.2727     0.4889     0.0222     0.4333       0.32
+tuned_two_stop_threshold                  0.2       0.15        0.2       0.05       0.15        0.1
+stop_average_precision                 0.2709     0.1204     0.3001     0.3199     0.0991     0.2547
+stop_recall                            0.4211     0.2727     0.3111     0.7111        0.1       0.32
+stop_precision                          0.381      0.096     0.2857     0.1481     0.0909     0.2963
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.6239     0.7385     0.8171     0.7452     0.6496     0.6259
+twist_error_mean_deg                    2.373      2.819       3.41      4.006      3.644      3.964
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9132     0.8127     0.8488     0.8276     0.7799      0.653
+lean_error_mean_deg                     0.933      0.808      0.717      0.864      0.944      1.111
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          1     0.4667          1     0.7143
+=== seeds / classes_seed_11
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7768     0.4713     0.5547     0.5511     0.5395     0.4737
+path_within_45_deg                     0.8321     0.5533     0.5574     0.6277     0.5817     0.5176
+path_expected_within_45_deg            0.8616     0.6105     0.6444     0.6918     0.6476     0.5749
+expected_within_45_deg                 0.7891     0.5194     0.6009     0.5919     0.5755     0.5124
+class_balanced_accuracy                0.1985     0.2429      0.278     0.2342     0.2475     0.2729
+episodes_stopped_right                 0.4737     0.1591     0.6222     0.2889        0.2       0.16
+episodes_stopped_early                 0.1053     0.2727     0.1556     0.2889        0.3       0.08
+episodes_never_stopped                 0.4211     0.5227     0.1778     0.2889        0.5       0.76
+tuned_episodes_stopped_right           0.6316       0.25     0.5111     0.2889     0.2667       0.08
+tuned_episodes_stopped_early           0.1053     0.3182     0.2222     0.4444     0.3667       0.48
+tuned_episodes_never_stopped           0.2632     0.3636     0.1111     0.1111     0.3667       0.44
+tuned_stop_threshold                      0.3        0.4        0.3        0.3        0.4        0.2
+tuned_two_episodes_stopped_right       0.5789     0.2045     0.5556     0.2444     0.2667       0.16
+tuned_two_episodes_stopped_early       0.1053     0.2955        0.2     0.5111     0.3667       0.36
+tuned_two_episodes_never_stopped       0.3158     0.3636     0.1778     0.0667     0.3667       0.48
+tuned_two_stop_threshold                 0.15        0.2        0.3        0.1        0.3        0.2
+stop_average_precision                 0.3978     0.1138     0.2941     0.3183     0.1508     0.1416
+stop_recall                            0.3158     0.2273     0.7556     0.6667     0.2333       0.12
+stop_precision                         0.3529     0.1087     0.2787     0.1587     0.1667     0.2727
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1923     0.4822     0.6821     0.5517      0.398     0.4762
+twist_error_mean_deg                    2.048      3.215       3.36      4.119      4.182      3.856
+=== seeds / classes_seed_12
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.6854     0.5063      0.561     0.5545     0.5225     0.4444
+path_within_45_deg                     0.7251      0.596     0.5835     0.6192     0.5649     0.5082
+path_expected_within_45_deg            0.7786     0.6523     0.6588     0.6929     0.6128      0.531
+expected_within_45_deg                 0.7135     0.5493     0.5925     0.5902     0.5585     0.4621
+class_balanced_accuracy                 0.278     0.2093     0.2923     0.2454     0.2709     0.2861
+episodes_stopped_right                 0.3158     0.2727     0.5333     0.2222     0.1667       0.24
+episodes_stopped_early                 0.1579     0.1818     0.1111     0.1333     0.5667       0.04
+episodes_never_stopped                 0.4211     0.4773     0.3333        0.6     0.2667       0.68
+tuned_episodes_stopped_right           0.5263     0.2727     0.5556     0.3333     0.0667       0.24
+tuned_episodes_stopped_early           0.2105     0.2955     0.1111     0.2222        0.8       0.24
+tuned_episodes_never_stopped           0.1579     0.3409     0.2889        0.4     0.1333        0.4
+tuned_stop_threshold                      0.3        0.4        0.4        0.4       0.15        0.3
+tuned_two_episodes_stopped_right       0.6842     0.1818        0.6     0.3556     0.0667       0.28
+tuned_two_episodes_stopped_early       0.1579     0.3409     0.1333        0.2        0.8       0.24
+tuned_two_episodes_never_stopped       0.1579     0.2727     0.1778        0.4     0.1333        0.4
+tuned_two_stop_threshold                  0.1        0.1       0.15        0.3        0.1       0.15
+stop_average_precision                  0.353     0.1515     0.2954     0.2893      0.052     0.1585
+stop_recall                            0.4737       0.25     0.5556     0.2667        0.2       0.16
+stop_precision                         0.2432     0.1294     0.2778     0.2857     0.0769     0.2857
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.1154     0.3277     0.6635     0.4657     0.4602     0.3944
+twist_error_mean_deg                     2.41       2.92      3.436      4.178      3.974      4.415
+=== seeds / classes_seed_13
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7311        0.5       0.57     0.5331     0.5556     0.4483
+path_within_45_deg                     0.7934     0.5819     0.5847     0.5898      0.596      0.483
+path_expected_within_45_deg            0.8395     0.6466     0.6733     0.6602     0.6426     0.5433
+expected_within_45_deg                 0.7469     0.5396      0.633     0.5745     0.5892     0.4892
+class_balanced_accuracy                0.2128     0.2192     0.2948     0.2163     0.2754     0.2731
+episodes_stopped_right                 0.5789     0.1591     0.5556     0.2889        0.2       0.12
+episodes_stopped_early                 0.1053     0.3864     0.1333     0.3778        0.3          0
+episodes_never_stopped                 0.2632     0.3864     0.2444     0.1333        0.5       0.88
+tuned_episodes_stopped_right           0.2632     0.0682     0.4667     0.2889     0.1667       0.12
+tuned_episodes_stopped_early           0.0526     0.6818     0.0889     0.3778        0.7          0
+tuned_episodes_never_stopped           0.6316     0.1818     0.3778     0.1333     0.1333       0.88
+tuned_stop_threshold                      0.7        0.3        0.6        0.5       0.15        0.5
+tuned_two_episodes_stopped_right       0.6316     0.1136     0.5556     0.2444        0.2       0.08
+tuned_two_episodes_stopped_early            0     0.3636     0.1556     0.4222     0.6333          0
+tuned_two_episodes_never_stopped       0.3158     0.3636     0.1556     0.0889     0.1667       0.92
+tuned_two_stop_threshold                  0.4        0.3        0.3        0.3        0.1        0.5
+stop_average_precision                 0.3221     0.1438     0.3051     0.3047     0.1234     0.1486
+stop_recall                            0.5789     0.3636     0.6667     0.7333        0.2       0.08
+stop_precision                         0.2895     0.1221     0.2609      0.141       0.15        0.4
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.0812     0.5323     0.5989     0.4785     0.3364     0.4392
+twist_error_mean_deg                     2.06      3.436      3.394      3.748       4.28      4.108
+=== seeds / exact_seed_11
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7469     0.5784     0.6275     0.5872       0.59      0.565
+path_within_45_deg                     0.8081     0.7126     0.7006     0.6957     0.6577     0.6756
+class_balanced_accuracy                0.1608     0.1995     0.2758     0.1975     0.2407     0.2625
+episodes_stopped_right                 0.4211     0.2955        0.6     0.3556          0       0.32
+episodes_stopped_early                 0.2105     0.2955     0.1333     0.3556     0.6333        0.2
+episodes_never_stopped                 0.3684     0.3409     0.2222     0.1556     0.3667       0.48
+tuned_episodes_stopped_right           0.4211     0.2955     0.5333     0.2889     0.0333       0.32
+tuned_episodes_stopped_early           0.2105     0.2955     0.0889     0.5333     0.6333        0.2
+tuned_episodes_never_stopped           0.3684     0.3409     0.3556     0.0667     0.3333       0.48
+tuned_stop_threshold                      0.5        0.5        0.7        0.4        0.4        0.5
+tuned_two_episodes_stopped_right       0.4737     0.1818     0.5556     0.2444     0.0333       0.32
+tuned_two_episodes_stopped_early       0.1579     0.2727        0.2     0.5333        0.8       0.08
+tuned_two_episodes_never_stopped       0.3684     0.4318        0.2     0.0667     0.1667       0.56
+tuned_two_stop_threshold                  0.3        0.3       0.15       0.15        0.1        0.6
+stop_average_precision                 0.3463      0.119     0.2927     0.3207     0.0368     0.2309
+stop_recall                            0.4737     0.4545     0.6889     0.7111     0.0333       0.48
+stop_precision                         0.2432     0.1176     0.2743      0.173     0.0083     0.2727
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.5299     0.7173     0.8259     0.7108      0.688     0.6629
+twist_error_mean_deg                    2.688      2.825      3.389      4.227      3.628      3.924
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9111     0.8015     0.8475     0.8352     0.8054     0.7055
+lean_error_mean_deg                     0.988      0.787      0.723      0.794      0.938      1.106
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          1     0.2667          1     0.4286
+=== seeds / exact_seed_12
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7241     0.5717     0.5905     0.5716     0.5496     0.5489
+path_within_45_deg                     0.8229     0.6721     0.6359     0.6741     0.5985     0.6388
+class_balanced_accuracy                0.1679     0.1991     0.2631     0.2074     0.2446     0.2609
+episodes_stopped_right                 0.5789     0.2273     0.4444     0.2889     0.0333       0.16
+episodes_stopped_early                 0.1579     0.4545     0.0889        0.4        0.8        0.4
+episodes_never_stopped                 0.2105     0.2273     0.4222     0.1333     0.1667        0.4
+tuned_episodes_stopped_right           0.5789     0.2045     0.5111     0.2889     0.0333       0.16
+tuned_episodes_stopped_early           0.1579     0.2273     0.0889        0.4        0.8        0.4
+tuned_episodes_never_stopped           0.2105     0.5227     0.3556     0.1333     0.1667        0.4
+tuned_stop_threshold                      0.5        0.8        0.4        0.5        0.5        0.4
+tuned_two_episodes_stopped_right       0.4211     0.2273     0.5333        0.4     0.0667       0.12
+tuned_two_episodes_stopped_early       0.3158     0.2273     0.1778     0.2889        0.8       0.52
+tuned_two_episodes_never_stopped       0.2105     0.4318     0.2444        0.2     0.1333       0.32
+tuned_two_stop_threshold                  0.2        0.5       0.05        0.4        0.3        0.2
+stop_average_precision                 0.4229     0.1337     0.3146     0.2897     0.0682     0.2631
+stop_recall                            0.7368     0.3409     0.4667     0.6667        0.4       0.44
+stop_precision                         0.2857     0.0852     0.3134     0.1775     0.0469     0.2075
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.5641     0.7267     0.8228     0.7348      0.656     0.6168
+twist_error_mean_deg                    2.348      2.807      3.341      4.043      3.606      4.156
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9024     0.8093     0.8144     0.8257     0.7923     0.7939
+lean_error_mean_deg                     1.048      0.785      0.782      0.792      0.935      1.033
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.3077          1     0.5333          0          0
+=== seeds / exact_seed_13
+fold                               ut_path_01 ut_path_02 ut_path_03 ut_path_04 ut_path_05 ut_path_06
+test_episodes                              19         44         45         45         30         25
+direction_rows                            569       2372       3458       5271       2471       1809
+within_45_deg                          0.7522     0.5759     0.6134     0.5965     0.5439     0.5815
+path_within_45_deg                     0.8395     0.6963     0.6893     0.7007     0.6241     0.6944
+class_balanced_accuracy                0.1583     0.2098     0.2467     0.1969     0.2249     0.2626
+episodes_stopped_right                 0.5263     0.2273        0.6     0.3111     0.1333          0
+episodes_stopped_early                 0.1053     0.3409     0.1778     0.3778        0.7       0.64
+episodes_never_stopped                 0.1053     0.3182     0.1556     0.0667     0.1667       0.28
+tuned_episodes_stopped_right           0.5789     0.1818        0.6     0.3111     0.1667       0.12
+tuned_episodes_stopped_early           0.1579     0.2955     0.1778     0.3778        0.7       0.44
+tuned_episodes_never_stopped           0.1053     0.4091     0.1556     0.0667     0.1333       0.44
+tuned_stop_threshold                      0.6        0.6        0.5        0.5        0.3        0.8
+tuned_two_episodes_stopped_right       0.7368     0.1818     0.5556     0.3556     0.0667       0.04
+tuned_two_episodes_stopped_early       0.1053     0.5455     0.3111     0.3333        0.8       0.56
+tuned_two_episodes_never_stopped       0.1579     0.1818     0.0222     0.1111     0.1333       0.32
+tuned_two_stop_threshold                  0.5        0.1       0.15        0.4       0.05        0.5
+stop_average_precision                 0.4037     0.1122     0.3461     0.3695     0.0488      0.197
+stop_recall                            0.8421     0.3409     0.7778        0.8     0.3333       0.44
+stop_precision                         0.2712     0.0862       0.25     0.1374     0.0704     0.0827
+twist_rows                                234       1178       2630       4537       1721       1430
+twist_sign_accuracy                    0.6111     0.7131     0.8293     0.7542      0.627     0.6203
+twist_error_mean_deg                    2.437      2.773      3.219      3.906      3.819      4.106
+lean_rows                                 461       1164       1541       2106       1295        781
+lean_sign_accuracy                     0.9067      0.805     0.8157     0.8248     0.7884     0.7849
+lean_error_mean_deg                     0.982      0.788      0.759        0.8       0.93      1.061
+hand_rows                                   0         13          1         15          1          7
+hand_sign_accuracy                        nan     0.2308          1     0.5333          1     0.8571
+=== end-to-end / 2026-11-09_resnet18_finetune_classes
+fold                               ut_path_03 ut_path_05 ut_path_06
+test_episodes                              45         30         25
+direction_rows                           3458       2471       1809
+within_45_deg                          0.6634     0.6592     0.6401
+path_within_45_deg                     0.7037     0.7106     0.7073
+path_expected_within_45_deg            0.7511     0.7535     0.7283
+expected_within_45_deg                 0.6868     0.6779     0.6374
+class_balanced_accuracy                 0.347     0.3853     0.4118
+episodes_stopped_right                 0.2889     0.1333       0.04
+episodes_stopped_early                 0.1111     0.1667       0.04
+episodes_never_stopped                 0.5778        0.7       0.92
+stop_average_precision                 0.3532     0.1554      0.186
+stop_recall                            0.3333     0.1667       0.04
+stop_precision                          0.375       0.25       0.25
+twist_rows                               2630       1721       1430
+twist_sign_accuracy                    0.7034     0.3719     0.4224
+twist_error_mean_deg                    3.041      3.916      3.801
+=== end-to-end / 2026-11-09_resnet18_finetune_exact
+fold                               ut_path_03 ut_path_05 ut_path_06
+test_episodes                              45         30         25
+direction_rows                           3458       2471       1809
+within_45_deg                          0.6995     0.6673      0.675
+path_within_45_deg                     0.8019     0.7774      0.791
+class_balanced_accuracy                0.2826     0.2573     0.3136
+episodes_stopped_right                 0.6889        0.2        0.2
+episodes_stopped_early                 0.1556     0.5667       0.04
+episodes_never_stopped                 0.1111     0.2333       0.76
+tuned_episodes_stopped_right           0.6889        0.2       0.24
+tuned_episodes_stopped_early           0.1556        0.6       0.32
+tuned_episodes_never_stopped           0.1111        0.2       0.44
+tuned_stop_threshold                      0.5        0.4        0.2
+tuned_two_episodes_stopped_right       0.7556     0.1667       0.32
+tuned_two_episodes_stopped_early       0.1778     0.6333       0.24
+tuned_two_episodes_never_stopped       0.0444        0.2       0.44
+tuned_two_stop_threshold                 0.15        0.3       0.15
+stop_average_precision                 0.4312     0.1318       0.19
+stop_recall                            0.8444     0.4667       0.16
+stop_precision                         0.2946     0.0833     0.3333
+twist_rows                               2630       1721       1430
+twist_sign_accuracy                    0.8445     0.6694     0.8021
+twist_error_mean_deg                     2.89      3.571      3.354
+lean_rows                                1541       1295        781
+lean_sign_accuracy                     0.8871     0.8069     0.8079
+lean_error_mean_deg                     0.722      0.872      0.958
+hand_rows                                   1          1          7
+hand_sign_accuracy                          0          1          0
+=== end-to-end / 2026-11-09_small_cnn_line_and_puck_classes
+fold                               ut_path_03 ut_path_05 ut_path_06
+test_episodes                              45         30         25
+direction_rows                           3458       2471       1809
+within_45_deg                          0.6301     0.6248      0.623
+path_within_45_deg                     0.6758     0.6766     0.6961
+path_expected_within_45_deg            0.7279      0.719     0.7529
+expected_within_45_deg                 0.6559      0.637     0.6462
+class_balanced_accuracy                0.3361     0.3502     0.3685
+episodes_stopped_right                 0.3778     0.0333          0
+episodes_stopped_early                 0.0444     0.1667          0
+episodes_never_stopped                 0.5556        0.8          1
+tuned_episodes_stopped_right           0.5556          0       0.12
+tuned_episodes_stopped_early           0.1111     0.2333          0
+tuned_episodes_never_stopped           0.2889     0.7667        0.8
+tuned_stop_threshold                      0.2        0.4        0.2
+tuned_two_episodes_stopped_right       0.6222     0.0667          0
+tuned_two_episodes_stopped_early       0.2889        0.3          0
+tuned_two_episodes_never_stopped       0.0444     0.6333          1
+tuned_two_stop_threshold                 0.05        0.2        0.3
+stop_average_precision                 0.3511     0.0703     0.1578
+stop_recall                            0.3778     0.0333          0
+stop_precision                         0.4474     0.0714          0
+twist_rows                               2630       1721       1430
+twist_sign_accuracy                    0.6593     0.3992     0.3979
+twist_error_mean_deg                    3.179      3.988      3.857
+=== end-to-end / 2026-11-09_small_cnn_scratch_classes
+fold                               ut_path_03 ut_path_05 ut_path_06
+test_episodes                              45         30         25
+direction_rows                           3458       2471       1809
+within_45_deg                          0.6345     0.6346      0.623
+path_within_45_deg                     0.6689     0.6825     0.6979
+path_expected_within_45_deg             0.732     0.7346     0.7722
+expected_within_45_deg                 0.6709     0.6673     0.6606
+class_balanced_accuracy                0.3167     0.3681      0.369
+episodes_stopped_right                 0.3778     0.0333       0.04
+episodes_stopped_early                 0.1333     0.0667          0
+episodes_never_stopped                 0.4444        0.9       0.96
+tuned_episodes_stopped_right           0.5556     0.0667       0.16
+tuned_episodes_stopped_early              0.2        0.2          0
+tuned_episodes_never_stopped           0.1556     0.7333        0.8
+tuned_stop_threshold                      0.2        0.4        0.3
+tuned_two_episodes_stopped_right       0.7556        0.1       0.28
+tuned_two_episodes_stopped_early       0.1778        0.4       0.08
+tuned_two_episodes_never_stopped       0.0444        0.5        0.6
+tuned_two_stop_threshold                  0.1        0.2        0.2
+stop_average_precision                 0.3069     0.1318     0.2417
+stop_recall                            0.4667     0.0333       0.04
+stop_precision                         0.2958        0.2        0.5
+twist_rows                               2630       1721       1430
+twist_sign_accuracy                    0.7183      0.405     0.3713
+twist_error_mean_deg                    3.148      3.744      4.014

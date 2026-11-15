@@ -1,0 +1,121 @@
+demonstration rows: 18522; tip above the fitted table (mm): median 2.8, 5th to 95th percentile -0.6 to 12.0 (the driver: 5.0)
+demonstrated wrist minus the held 13.5 degrees: within 2 degrees in 50.5 % of rows, over 5 in 33.0 %, over 10 in 19.4 %
+
+=== variant held_same_tip: solved for 18522 of 18522 rows (100.00 %) ===
+          quantity  rows  median    p90    p95    most  over_8px  over_16px  over_20px  over_40px
+    camera_move_mm 18522   1.659 13.886 18.465  38.859     0.217      0.073      0.036      0.000
+   camera_turn_deg 18522   0.272  2.579  3.619  10.075     0.002      0.000      0.000      0.000
+      tip_shift_px 18522   5.202 41.213 58.519 131.527     0.436      0.309      0.271      0.106
+    ahead_shift_px 18522   5.210 41.556 57.952 126.472     0.436      0.309      0.269      0.105
+   centre_shift_px 18522   5.392 42.810 59.328 121.595     0.442      0.313      0.275      0.112
+grid_mean_shift_px 18522   5.594 44.523 61.497 127.184     0.450      0.316      0.281      0.124
+grid_most_shift_px 18522   6.974 56.992 75.380 147.063     0.490      0.362      0.320      0.179
+  heading change (degrees): median |x| 0.12, 95th percentile 3.12
+  at the model's 160-px width the same shifts are a quarter: tip median 1.30 px, 90th percentile 10.30 px, largest 32.88 px; over the augmentation's 4 px (16 px at 640) in 30.9 % of rows
+
+=== variant held_driver_height: solved for 18522 of 18522 rows (100.00 %) ===
+          quantity  rows  median    p90    p95    most  over_8px  over_16px  over_20px  over_40px
+    camera_move_mm 18522   5.015 14.161 18.548  46.052     0.254      0.076      0.037      0.000
+   camera_turn_deg 18522   0.608  2.500  3.507  10.065     0.002      0.000      0.000      0.000
+      tip_shift_px 18522   5.202 41.213 58.519 131.527     0.436      0.309      0.271      0.106
+    ahead_shift_px 18522   6.424 41.827 57.672 126.321     0.458      0.314      0.271      0.106
+   centre_shift_px 18522   6.369 42.633 58.484 120.387     0.460      0.315      0.274      0.112
+grid_mean_shift_px 18522   7.100 44.273 60.313 125.982     0.474      0.327      0.283      0.123
+grid_most_shift_px 18522  11.653 56.671 72.784 146.499     0.701      0.402      0.347      0.178
+  heading change (degrees): median |x| 0.13, 95th percentile 3.15
+  at the model's 160-px width the same shifts are a quarter: tip median 1.30 px, 90th percentile 10.30 px, largest 32.88 px; over the augmentation's 4 px (16 px at 640) in 30.9 % of rows
+
+=== variant height_only: solved for 18522 of 18522 rows (100.00 %) ===
+          quantity  rows  median    p90    p95   most  over_8px  over_16px  over_20px  over_40px
+    camera_move_mm 18522   3.429  6.478  7.601 46.532     0.040      0.004      0.002      0.000
+   camera_turn_deg 18522   0.353  0.759  0.861  4.039     0.000      0.000      0.000      0.000
+      tip_shift_px 18522   0.000  0.000  0.000  0.000     0.000      0.000      0.000      0.000
+    ahead_shift_px 18522   1.395  4.816  6.741 71.776     0.036      0.008      0.004      0.001
+   centre_shift_px 18522   2.029  5.627  7.711 78.326     0.047      0.011      0.005      0.001
+grid_mean_shift_px 18522   3.902  6.859  8.795 75.989     0.063      0.013      0.007      0.001
+grid_most_shift_px 18522   6.945 11.997 14.859 87.773     0.421      0.041      0.022      0.002
+  heading change (degrees): median |x| 0.02, 95th percentile 0.11
+  at the model's 160-px width the same shifts are a quarter: tip median 0.00 px, 90th percentile 0.00 px, largest 0.00 px; over the augmentation's 4 px (16 px at 640) in 0.0 % of rows
+
+=== variant held_first_row: solved for 18522 of 18522 rows (100.00 %) ===
+          quantity  rows  median    p90    p95    most  over_8px  over_16px  over_20px  over_40px
+    camera_move_mm 18522   0.882 12.002 16.034  43.664     0.178      0.050      0.023      0.001
+   camera_turn_deg 18522   0.145  2.327  3.148   7.348     0.000      0.000      0.000      0.000
+      tip_shift_px 18522   2.633 36.534 49.809 109.417     0.391      0.261      0.232      0.080
+    ahead_shift_px 18522   2.670 36.661 49.476 110.767     0.392      0.261      0.231      0.078
+   centre_shift_px 18522   2.813 37.841 49.236 114.230     0.399      0.264      0.235      0.082
+grid_mean_shift_px 18522   2.952 39.324 51.125 118.276     0.406      0.267      0.240      0.094
+grid_most_shift_px 18522   3.721 49.510 65.194 151.808     0.442      0.310      0.268      0.146
+  heading change (degrees): median |x| 0.07, 95th percentile 2.72
+  at the model's 160-px width the same shifts are a quarter: tip median 0.66 px, 90th percentile 9.13 px, largest 27.35 px; over the augmentation's 4 px (16 px at 640) in 26.1 % of rows
+
+=== held_same_tip, by sheet (pixels at 640; divide by 4 for the model's 160) ===
+         rows  wrist_offset_median_deg  abs_wrist_offset_p90_deg  tip_shift_median_px  tip_shift_p90_px  ahead_shift_p90_px  grid_mean_shift_p90_px  tip_over_16px_share  tip_over_20px_share  tip_over_40px_share  not_solved_share
+sheet                                                                                                                                                                                                                               
+path_01   671                   -2.343                    21.240                6.412            61.480              60.360                  62.628                0.404                0.390                0.197               0.0
+path_02  2775                   -0.058                     9.638                0.558            26.966              26.865                  28.106                0.207                0.174                0.071               0.0
+path_03  4072                   -0.410                    20.009                4.535            57.715              57.060                  60.991                0.264                0.250                0.153               0.0
+path_04  6350                   -0.058                    12.187                6.168            34.101              33.892                  35.928                0.290                0.234                0.067               0.0
+path_05  2672                    0.030                    15.314                6.006            39.721              40.467                  44.012                0.391                0.336                0.100               0.0
+path_06  1982                    3.545                    17.775               13.928            45.414              45.704                  49.350                0.464                0.438                0.156               0.0
+
+=== held_same_tip, by |joint 4| ===
+                rows  wrist_offset_median_deg  abs_wrist_offset_p90_deg  tip_shift_median_px  tip_shift_p90_px  ahead_shift_p90_px  grid_mean_shift_p90_px  tip_over_16px_share  tip_over_20px_share  tip_over_40px_share  not_solved_share
+twist_bin                                                                                                                                                                                                                                  
+(-0.001, 30.0]  6551                    0.030                    14.883                2.224            40.557              40.444                  43.460                0.271                0.241                0.100               0.0
+(30.0, 60.0]    5240                   -0.058                    14.622                6.168            38.499              38.884                  41.558                0.318                0.271                0.092               0.0
+(60.0, 90.0]    4833                   -0.058                    17.872                7.139            46.273              46.100                  49.206                0.330                0.287                0.121               0.0
+(90.0, 120.0]   1898                   -0.058                    16.465                7.624            46.040              46.148                  49.745                0.365                0.332                0.120               0.0
+
+=== held_same_tip, by reach (tip distance from the base) ===
+              rows  wrist_offset_median_deg  abs_wrist_offset_p90_deg  tip_shift_median_px  tip_shift_p90_px  ahead_shift_p90_px  grid_mean_shift_p90_px  tip_over_16px_share  tip_over_20px_share  tip_over_40px_share  not_solved_share
+reach_bin                                                                                                                                                                                                                                
+(0.119, 0.2]  1882                    0.030                     2.343                0.319             6.412               6.489                   7.384                0.027                0.023                0.000               0.0
+(0.2, 0.26]   3882                    0.030                    12.950                1.273            34.329              35.124                  38.705                0.234                0.209                0.072               0.0
+(0.26, 0.32]  4500                   -0.058                    16.230                6.653            44.386              44.729                  48.636                0.337                0.297                0.110               0.0
+(0.32, 0.38]  5195                   -0.234                    18.867                9.083            54.240              53.395                  55.933                0.384                0.336                0.150               0.0
+(0.38, 0.5]   3063                   -2.519                    17.812               11.037            50.786              49.966                  51.544                0.411                0.351                0.132               0.0
+
+=== held_same_tip, by |joint 4| and reach: share of rows with the tip shifted over 20 px ===
+reach_bin       (0.119, 0.2]  (0.2, 0.26]  (0.26, 0.32]  (0.32, 0.38]  (0.38, 0.5]
+twist_bin                                                                         
+(-0.001, 30.0]         0.018        0.229         0.290         0.360        0.386
+(30.0, 60.0]           0.028        0.229         0.301         0.309        0.304
+(60.0, 90.0]           0.058        0.158         0.257         0.333        0.352
+(90.0, 120.0]          0.000        0.160         0.373         0.370        0.357
+
+=== held_same_tip, by |joint 4| and reach: 90th percentile of the tip shift (px at 640) ===
+reach_bin       (0.119, 0.2]  (0.2, 0.26]  (0.26, 0.32]  (0.32, 0.38]  (0.38, 0.5]
+twist_bin                                                                         
+(-0.001, 30.0]           1.7         36.0          49.2          58.3         51.1
+(30.0, 60.0]             6.7         35.6          44.4          46.8         36.5
+(60.0, 90.0]             9.1         25.2          35.6          57.4         60.1
+(90.0, 120.0]            0.3         25.4          51.4          43.1         38.4
+
+=== held_same_tip, by |joint 4| and reach: rows ===
+reach_bin       (0.119, 0.2]  (0.2, 0.26]  (0.26, 0.32]  (0.32, 0.38]  (0.38, 0.5]
+twist_bin                                                                         
+(-0.001, 30.0]          1368         1767          1478          1082          856
+(30.0, 60.0]             361         1019          1552          1592          716
+(60.0, 90.0]             137          790           915          1777         1214
+(90.0, 120.0]             16          306           555           744          277
+
+=== held_same_tip, by the demonstrated wrist minus 13.5 degrees ===
+                  rows  tip_du_median_px  tip_dv_median_px  tip_shift_median_px  ahead_shift_median_px  centre_shift_median_px  grid_mean_shift_median_px  camera_move_median_mm  camera_turn_median_deg  heading_change_median_deg
+wrist_offset_bin                                                                                                                                                                                                                   
+(-45.001, -20.0]  1035             -0.64            -71.00                71.01                  69.20                   69.37                      71.59                  20.05                    3.92                       0.00
+(-20.0, -10.0]    1329             -0.39            -37.96                37.96                  37.69                   38.79                      40.26                  11.60                    2.43                       0.09
+(-10.0, -5.0]     1599             -0.23            -20.93                20.93                  20.88                   21.74                      22.55                   6.54                    1.21                       0.22
+(-5.0, -2.0]      2263             -0.10             -9.08                 9.08                   8.99                    9.30                       9.61                   2.98                    0.53                       0.11
+(-2.0, 2.0]       9352              0.00              0.08                 0.32                   0.32                    0.34                       0.36                   0.11                    0.02                       0.00
+(2.0, 5.0]         801              0.12              9.99                 9.99                   9.94                   10.23                      10.68                   3.13                    0.55                      -0.25
+(5.0, 10.0]        914              0.24             18.74                18.74                  18.81                   19.66                      20.39                   6.83                    1.19                       0.03
+(10.0, 20.0]      1176              0.49             35.41                35.42                  35.78                   37.27                      38.93                  13.54                    2.25                       0.88
+(20.0, 35.0]        53              0.88             57.51                57.52                  56.88                   58.81                      61.32                  24.91                    1.52                       4.53
+
+tip's vertical shift against the wrist offset (rows over 1 degree off): 2.803 px at 640 per degree (0.701 px at 160 per degree), intercept -0.86 px
+shift of the table point 2 cm ahead of the tip against the wrist offset: 2.770 px at 640 per degree
+
+rod lean (degrees from straight down): demonstrated median 24.6, 95th 42.5, 99th 49.1, largest 63.0; with the wrist held: median 25.1, 95th 42.1, 99th 48.0, largest 60.4; over the driver's 58-degree limit in 4 rows, not solvable in 0 rows
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\held_wrist_views.png and held_wrist_views_rows.csv

@@ -1,0 +1,15 @@
+FOLD MODELS RUN AGAIN ON THEIR HELD-OUT SHEETS, to get the step length each one asked for (inference only)
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_01: 644 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.94 cm
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_02: 2670 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.69 cm
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_03: 3955 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.64 cm
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_04: 6227 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.64 cm
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_05: 2600 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.72 cm
+E 2026-11-10_resnet18_chunk_stop_weight_25 without_path_06: 1936 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.68 cm
+E: saved fold_steps_E.npz with 18032 rows in 306 s
+A 2026-11-09_resnet18_final_candidate without_path_01: 644 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.97 cm
+A 2026-11-09_resnet18_final_candidate without_path_02: 2670 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.63 cm
+A 2026-11-09_resnet18_final_candidate without_path_03: 3955 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.59 cm
+A 2026-11-09_resnet18_final_candidate without_path_04: 6227 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.64 cm
+A 2026-11-09_resnet18_final_candidate without_path_05: 2600 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.67 cm
+A 2026-11-09_resnet18_final_candidate without_path_06: 1936 pictures; twist against the saved predictions: largest difference 0.0000 degrees; asked step length median 0.62 cm
+A: saved fold_steps_A.npz with 18032 rows in 332 s

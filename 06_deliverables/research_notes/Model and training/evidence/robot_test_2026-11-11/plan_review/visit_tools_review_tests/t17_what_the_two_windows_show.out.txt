@@ -1,0 +1,4 @@
+{'path_01': 20, 'path_02': 45, 'path_03': 45, 'path_04': 45, 'path_05': 30, 'path_06': 25}
+ghost: 000.jpg path_01_straight_line_episode_003_plan_01-01_try_3_score_01 | live: path_01_straight_line_episode_008_plan_01-06_try_1_score_03 | other sheet: path_02_arc_episode_001_plan_02-01_try_1_score_02
+ghost shape: (480, 640, 3)
+written: t17_what_the_two_windows_show.jpg (the go-ahead window on the same sheet, on another sheet, and the run window with a 0.65 cm step)

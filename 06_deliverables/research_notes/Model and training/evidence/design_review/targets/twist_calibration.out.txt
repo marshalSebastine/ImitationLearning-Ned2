@@ -1,0 +1,8 @@
+non-stop pictures 8610; least-squares gain demonstrated on predicted (through zero) 0.97; median |demonstrated| / median |predicted| 2.04
+by |predicted twist|: rows, sign right where the demonstration twisted 2 deg or more, median |demonstrated|, median |predicted|
+  0 to 1 deg: 2314, 0.565, 2.37, 0.46
+  1 to 2 deg: 1883, 0.700, 2.90, 1.48
+  2 to 3 deg: 1512, 0.813, 3.78, 2.46
+  3 to 5 deg: 1896, 0.907, 5.27, 3.85
+  5 to 8 deg: 985, 0.943, 6.06, 5.63
+  8 to 20 deg: 20, 1.000, 7.29, 8.36

@@ -1,0 +1,14 @@
+held-out rows of recipe E without the stop rows: 17823; episodes: 209
+asked length, all rows: median 0.67 cm; in the last 5 cm before the goal: median 0.51 cm, share under 0.3 cm 16 %
+
+=== stall rule 'plan: 15 pictures, 4 cm, 15 degrees' ===
+  demonstrated steps (the plan's own check): fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+  asked length, gain 1.0, at most 1.0 cm: fires in 19 of 209 episodes (9 %); first firing within 5 cm of the goal 8, further away 11; per sheet 01: 0/20, 02: 1/45, 03: 6/45, 04: 4/45, 05: 4/29, 06: 4/25
+  fixed 0.65 cm in the asked direction: fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+  fixed 1.0 cm in the asked direction: fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+
+=== stall rule 'driver today: 30 pictures, 3 cm, 15 degrees' ===
+  demonstrated steps (the plan's own check): fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+  asked length, gain 1.0, at most 1.0 cm: fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+  fixed 0.65 cm in the asked direction: fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+  fixed 1.0 cm in the asked direction: fires in 0 of 209 episodes (0 %); first firing within 5 cm of the goal 0, further away 0; per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25

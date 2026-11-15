@@ -1,0 +1,11 @@
+picture at which each rule would end the run (- = never): as driven (1 cm steps) | own length, open loop | fixed 0.65 cm, open loop
+ 1 check_no_puck              (26 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 2 E_sheet01_run1             (25 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 3 E_sheet02_run1             (38 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 4 E_sheet02_run2             (42 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 5 E_sheet03_run1             (60 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 6 E_sheet04_run1             (69 pictures)   plan 15/4cm/15deg: 31 | 26 | 27     today 30/3cm/15deg: - | 42 | -     middle 25/4cm/15deg: 41 | 36 | 39
+ 7 E_sheet05_run1             (89 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 8 E_sheet06_run1             (41 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+ 9 E_sheet03_run2_no_hoodie   (90 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -
+10 B_team5_sheet03            (74 pictures)   plan 15/4cm/15deg: - | - | -     today 30/3cm/15deg: - | - | -     middle 25/4cm/15deg: - | - | -

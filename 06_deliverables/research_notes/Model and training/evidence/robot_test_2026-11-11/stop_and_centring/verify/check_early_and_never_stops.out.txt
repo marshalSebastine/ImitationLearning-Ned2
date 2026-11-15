@@ -1,0 +1,9 @@
+E recipe: 209 held-out episodes; the two-in-a-row rule fires {'within the last 8 pictures': 106, 'never': 71, 'earlier': 32}
+  the earlier ones: tip then a median 4.3 cm from its stop place (10th to 90th percentile 1.9 to 19.1 cm); by sheet {'path_01': 3, 'path_02': 4, 'path_03': 3, 'path_04': 9, 'path_05': 11, 'path_06': 2}
+  by sheet (never / earlier / within the last 8): {'path_01': (1, 3, 16), 'path_02': (29, 4, 12), 'path_03': (8, 3, 34), 'path_04': (6, 9, 30), 'path_05': (12, 11, 6), 'path_06': (15, 2, 8)}
+E recipe, seed 2: 209 held-out episodes; the two-in-a-row rule fires {'within the last 8 pictures': 109, 'never': 51, 'earlier': 49}
+  the earlier ones: tip then a median 5.4 cm from its stop place (10th to 90th percentile 1.9 to 19.0 cm); by sheet {'path_01': 2, 'path_02': 6, 'path_03': 9, 'path_04': 13, 'path_05': 14, 'path_06': 5}
+  by sheet (never / earlier / within the last 8): {'path_01': (1, 2, 17), 'path_02': (25, 6, 14), 'path_03': (1, 9, 35), 'path_04': (2, 13, 30), 'path_05': (7, 14, 8), 'path_06': (15, 5, 5)}
+A recipe: 209 held-out episodes; the two-in-a-row rule fires {'within the last 8 pictures': 97, 'never': 82, 'earlier': 30}
+  the earlier ones: tip then a median 5.5 cm from its stop place (10th to 90th percentile 2.3 to 18.8 cm); by sheet {'path_01': 1, 'path_02': 4, 'path_03': 4, 'path_04': 9, 'path_05': 12}
+  by sheet (never / earlier / within the last 8): {'path_01': (2, 1, 17), 'path_02': (29, 4, 12), 'path_03': (13, 4, 28), 'path_04': (11, 9, 25), 'path_05': (7, 12, 10), 'path_06': (20, 0, 5)}

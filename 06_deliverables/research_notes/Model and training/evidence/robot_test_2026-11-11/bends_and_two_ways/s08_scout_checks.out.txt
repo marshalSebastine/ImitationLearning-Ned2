@@ -1,0 +1,66 @@
+== 1. demonstrated step length (cleaned rows without the stop rows; measured, frames.csv) ==
+rows 17773 | median 1.06 cm | mean 0.94 cm | under 0.5 cm: 0.182 | under 0.3 cm: 0.099 | under 0.2 cm: 0.054
+steps with a twist of 6 degrees or more: 5085 (0.286) | their median length 0.65 cm
+all 18312 rows of frames.csv without the stop rows (no cleaning): median 1.05 cm | mean 0.92 | under 0.5 cm: 0.204 | under 0.2 cm: 0.080 | twist of 6 degrees or more: median length 0.65 cm
+
+== 2. forearm twist per cm of tip travel ==
+-- demonstrations, per sheet (median over the episodes of: sum of absolute twists / tip travel, and / steps) --
+         episodes  twist_per_cm_median  twist_per_step_median
+sheet                                                        
+path_01        20                 1.57                   1.69
+path_02        45                 2.54                   2.58
+path_03        45                 4.64                   4.38
+path_04        45                 5.65                   4.82
+path_05        29                 3.39                   3.75
+path_06        25                 4.42                   4.49
+-- robot runs --
+172021_check_no_puck             | path_01 | moves  25 | twist used per cm driven 1.01 | twist asked per cm ASKED 1.07 | twist asked per move 1.01 | demonstrations of that sheet: 1.57 per cm, 1.69 per step
+172421_E_sheet01_run1            | path_01 | moves  24 | twist used per cm driven 0.37 | twist asked per cm ASKED 0.35 | twist asked per move 0.37 | demonstrations of that sheet: 1.57 per cm, 1.69 per step
+172743_E_sheet02_run1            | path_02 | moves  38 | twist used per cm driven 2.40 | twist asked per cm ASKED 3.94 | twist asked per move 2.40 | demonstrations of that sheet: 2.54 per cm, 2.58 per step
+173036_E_sheet02_run2            | path_02 | moves  41 | twist used per cm driven 1.92 | twist asked per cm ASKED 2.40 | twist asked per move 1.92 | demonstrations of that sheet: 2.54 per cm, 2.58 per step
+173549_E_sheet03_run1            | path_03 | moves  59 | twist used per cm driven 3.14 | twist asked per cm ASKED 5.81 | twist asked per move 3.14 | demonstrations of that sheet: 4.64 per cm, 4.38 per step
+174108_E_sheet04_run1            | path_04 | moves  68 | twist used per cm driven 1.37 | twist asked per cm ASKED 3.58 | twist asked per move 1.37 | demonstrations of that sheet: 5.65 per cm, 4.82 per step
+174448_E_sheet05_run1            | path_05 | moves  88 | twist used per cm driven 2.74 | twist asked per cm ASKED 3.50 | twist asked per move 2.74 | demonstrations of that sheet: 3.39 per cm, 3.75 per step
+174936_E_sheet06_run1            | path_06 | moves  40 | twist used per cm driven 2.58 | twist asked per cm ASKED 3.20 | twist asked per move 2.58 | demonstrations of that sheet: 4.42 per cm, 4.49 per step
+175203_E_sheet03_run2_no_hoodie  | path_03 | moves  89 | twist used per cm driven 3.23 | twist asked per cm ASKED 6.51 | twist asked per move 3.23 | demonstrations of that sheet: 4.64 per cm, 4.38 per step
+175544_B_team5_sheet03           | path_03 | moves  73 | twist used per cm driven 2.85 | twist asked per cm ASKED 5.56 | twist asked per move 2.85 | demonstrations of that sheet: 4.64 per cm, 4.38 per step
+
+== 3. the first steps of the demonstration plan_03-04_try_1 ==
+ row_in_episode        action  step_cm  step_picture_deg  step_table_deg  twist_deg  forearm_turn_deg       place
+              1          left     0.31            101.53           95.47      -6.15              0.01 gentle bend
+              2       forward     1.53             16.47           16.55      -3.60             -6.15 gentle bend
+              3       forward     0.32            -10.58           -5.24      -8.53             -9.84  sharp bend
+              4  small_motion     0.21           -113.94         -101.40      -5.63            -18.45  sharp bend
+              5  small_motion     0.15             12.23           28.76      -6.24            -24.25  sharp bend
+              6  small_motion     0.19            -82.04          -59.73      -4.83            -30.58  sharp bend
+              7 forward_right     0.54            -35.57           -9.68      -9.14            -35.59  sharp bend
+              8       forward     0.98            -27.90            6.09      -9.32            -44.73  sharp bend
+              9 forward_right     0.81            -34.74            8.71     -11.43            -54.05  sharp bend
+             10         right     1.10            -96.04          -40.78      -8.79            -65.47  sharp bend
+             11  small_motion     0.10             45.39          107.48      -6.24            -74.53  sharp bend
+             12       forward     1.16             -1.77           66.83      -0.26            -80.85  sharp bend
+
+== 4. how long the average of neighbouring demonstrated steps is (cm), beside the predicted step ==
+straight     | pictures  1959 | demonstrated step median 1.13 | average of 3 steps: 1.07 | average of 5 steps: 0.99 | predicted, held-out sheet (recipe E): 0.84 | predicted by model E on pictures it was trained on: 0.97
+gentle bend  | pictures  6627 | demonstrated step median 1.09 | average of 3 steps: 0.94 | average of 5 steps: 0.85 | predicted, held-out sheet (recipe E): 0.70 | predicted by model E on pictures it was trained on: 0.80
+sharp bend   | pictures  6252 | demonstrated step median 1.01 | average of 3 steps: 0.77 | average of 5 steps: 0.71 | predicted, held-out sheet (recipe E): 0.63 | predicted by model E on pictures it was trained on: 0.69
+hairpin      | pictures  1091 | demonstrated step median 0.53 | average of 3 steps: 0.49 | average of 5 steps: 0.47 | predicted, held-out sheet (recipe E): 0.63 | predicted by model E on pictures it was trained on: 0.46
+line end     | pictures   484 | demonstrated step median 1.11 | average of 3 steps: 0.84 | average of 5 steps: 0.69 | predicted, held-out sheet (recipe E): 0.49 | predicted by model E on pictures it was trained on: 0.55
+
+== 5. sheet 03 from end A: the tip's x when it is 2.0 cm to the left of its start (the first bend taken) ==
+demonstrations (15 episodes with a start on the start mark): x 20.4 cm (from 13.4 to 23.3) | advance in x since the start 6.4 cm (from -0.6 to 9.3) | farthest advance in x before that 6.4 cm (from 0.0 to 9.4) | steps 16 | tip travel 10.8 cm | forearm twist summed -89 deg
+173549_E_sheet03_run1            | x 15.6 cm | advance in x since the start 3.4 cm | farthest advance in x before that 11.1 cm | moves 21 (1 cm each) | the model had asked for 10.1 cm over these moves | forearm twist used -58 deg
+175203_E_sheet03_run2_no_hoodie  | x 23.3 cm | advance in x since the start 9.2 cm | farthest advance in x before that 9.8 cm | moves 13 (1 cm each) | the model had asked for 6.0 cm over these moves | forearm twist used -69 deg
+175544_B_team5_sheet03           | x 23.8 cm | advance in x since the start 8.0 cm | farthest advance in x before that 8.2 cm | moves 14 (1 cm each) | the model had asked for 5.7 cm over these moves | forearm twist used -61 deg
+
+== 6. where each run started, against where the demonstrations with a standard start of the same sheet and end started (tip, cm, robot's base frame) ==
+172021_check_no_puck             | path_01 from end A | run: x 14.2, y +0.1, forearm -1.8 deg | 2 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 1.6 cm
+172421_E_sheet01_run1            | path_01 from end A | run: x 14.8, y +0.1, forearm +6.1 deg | 2 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 1.8 cm
+172743_E_sheet02_run1            | path_02 from end A | run: x 16.5, y -1.4, forearm -1.0 deg | 4 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 2.5 cm
+173036_E_sheet02_run2            | path_02 from end A | run: x 15.0, y +2.2, forearm +9.8 deg | 4 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 3.8 cm
+173549_E_sheet03_run1            | path_03 from end A | run: x 12.2, y +1.0, forearm -9.3 deg | 8 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 3.1 cm
+174108_E_sheet04_run1            | path_04 from end A | run: x 18.2, y +1.3, forearm +3.2 deg | 11 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 5.0 cm
+174448_E_sheet05_run1            | path_05 from end B | run: x 15.9, y +2.0, forearm -1.7 deg | 6 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 4.0 cm
+174936_E_sheet06_run1            | path_06 from end A | run: x 16.0, y +1.0, forearm +7.2 deg | 6 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 3.2 cm
+175203_E_sheet03_run2_no_hoodie  | path_03 from end A | run: x 14.1, y -0.2, forearm -5.2 deg | 8 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 1.3 cm
+175544_B_team5_sheet03           | path_03 from end A | run: x 15.8, y +1.2, forearm -9.7 deg | 8 demonstrations: x 14.0 (from 14.0 to 14.0), y -1.5 (from -1.5 to -1.5), forearm +0.0 deg | apart 3.2 cm

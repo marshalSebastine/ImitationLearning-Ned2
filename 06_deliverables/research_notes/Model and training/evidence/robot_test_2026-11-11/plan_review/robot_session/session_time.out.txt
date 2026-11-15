@@ -1,0 +1,32 @@
+11.11.26, ten runs [measured from steps.csv]
+   seconds per picture: median 0.94, range 0.89 to 1.10
+   gap from the last picture of a run to the first picture of the next (lift, new sheet or puck, placing the tip by hand, typing the command, loading the model, the go-ahead): median 181 s, mean 185 s, range 108 to 275 s
+   gaps in order (s): [217, 181, 139, 275, 257, 159, 203, 108, 128]
+
+demonstrations with the standard start [measured from frames.csv]: pictures and tip travel per episode
+   path_01: 6 episodes, pictures median 32 (largest 45), tip travel median 33 cm
+   path_02: 10 episodes, pictures median 70 (largest 95), tip travel median 67 cm
+   path_03: 16 episodes, pictures median 114 (largest 140), tip travel median 100 cm
+   path_04: 16 episodes, pictures median 177 (largest 222), tip travel median 153 cm
+   path_05: 12 episodes, pictures median 107 (largest 124), tip travel median 105 cm
+   path_06: 11 episodes, pictures median 83 (largest 129), tip travel median 89 cm
+
+episodes.csv time column used: started
+   recording: start to start inside one sheet, gaps under 30 minutes: median 5.9 minutes over 196 gaps
+
+session 2 as planned [calculated]: 0.94 s per picture; a full run is taken as long as the standard-start demonstrations' median tip travel
+   (sheet 03: 100 cm, loops: 97 cm, sheet 02: 67 cm); 60 s more per full run for the phone photo of block E and the note of the result
+   gap as the fastest on 11.11 (107 s): runs alone 145 min = 2.4 h
+   gap as the median on 11.11 (180 s): runs alone 192 min = 3.2 h
+      0  dry run without the puck, twice (the 11.11 checklist did the same): 2 runs x 75 pictures = 8 min
+      A  fixed 1.0 cm, 4 short runs (5.5 cm to the puck, 4 cm to the bend, 10 cm past it): 4 runs x 20 pictures = 13 min
+      A  model's own length, 4 short runs (median asked 0.61 cm): 4 runs x 33 pictures = 14 min
+      A  fixed 0.65 cm, 4 short runs: 4 runs x 31 pictures = 14 min
+      B  fold model without sheet 03 on sheet 03, 2 settings x 3 full runs: 6 runs x 154 pictures = 39 min
+      B  model E on two new tracks, 3 full runs each (track length taken as sheet 03's): 6 runs x 154 pictures = 39 min
+      C  solid shape 06 and dashed shape 05, 3 full runs each, driver of 11.11 (1.0 cm): 6 runs x 97 pictures = 33 min
+      C  sheets 05 and 06 once each: 2 runs x 97 pictures = 11 min
+      D  sheet 02 lying square, 2 starts x 2 runs, tip placed by hand (full runs, as the plan counts them): 4 runs x 67 pictures = 20 min
+   gap as the slowest on 11.11 (275 s): runs alone 251 min = 4.2 h
+
+   on top of the runs [guess, nothing like it was timed]: switching on, the offline tests and the automatic calibration 15 min; tape marks for about 8 sheet lay-outs (sheet 03, two new tracks, four loop prints, sheet 02 square; blocks A and B share sheet 03) at 5 min each = 40 min; scoring block A before block B (12 runs) 15 min; the checklist read aloud and the go for each new movement 10 min; voided runs repeated, 1 in 10: 4 runs = about 20 min

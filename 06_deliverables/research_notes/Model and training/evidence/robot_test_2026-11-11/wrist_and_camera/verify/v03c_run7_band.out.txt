@@ -1,0 +1,18 @@
+run 7: 85 of 89 pictures with 5 or more neighbours; neighbours' wrist: lowest 10th percentile -12.9, highest 90th percentile 28.4; median of the medians 13.5
+pictures where more than a third of the neighbours had a wrist over 5.7 degrees from 13.5: 36; among neighbours twisted alike (within 20 degrees): 24 of 59 pictures
+ picture  neighbours   p10  median  p90  far_share  alike  alike_far_share
+       0          17  13.5    13.5 13.6        0.0     14              0.0
+       6          38   4.5    13.5 21.6        0.3      7              0.1
+      12          40 -12.9    13.5 25.2        0.4     13              0.5
+      18          71  11.6    13.5 28.0        0.3     34              0.3
+      24          23  12.0    13.8 25.7        0.4     12              0.2
+      30          39   9.6    15.8 26.2        0.5      4              NaN
+      36          62   4.5    13.5 21.0        0.4      2              NaN
+      42           9 -12.9    13.4 13.4        0.2      0              NaN
+      50          13  -8.2    12.2 13.4        0.2      5              0.2
+      58          18 -12.9    12.7 14.0        0.3     17              0.4
+      64          29 -12.9    12.1 13.8        0.3      9              0.2
+      70          84   4.5    13.5 20.8        0.3     26              0.3
+      76          60 -12.7    13.5 26.9        0.4     14              0.5
+      82          60  13.4    13.5 28.0        0.3      0              NaN
+      88          28   0.2    13.7 27.2        0.5      7              0.6

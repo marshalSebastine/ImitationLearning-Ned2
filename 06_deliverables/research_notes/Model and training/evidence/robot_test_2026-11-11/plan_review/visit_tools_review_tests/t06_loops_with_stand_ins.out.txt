@@ -1,0 +1,68 @@
+=== placing_help (real refresh 0.5 s, real poll 0.05 s unless said)
+Enter once, before anything is shown: STILL WAITING after 2.2 s
+   readings taken while waiting: 5
+Enter once 0.2 s after the aid began (first reading still on the line): STILL WAITING after 2.2 s
+   readings taken: 9
+Enter once 0.7 s after the aid began: True after 0.72 s
+   readings taken: 2
+no key ever: STILL WAITING after 1.7 s
+   readings taken in 1.7 s: 4
+reading fails at once: False after 0.00 s
+   last printed line: 'the placing aid stopped (no answer from the robot); placing goes on without it'
+reading fails at the third time: False after 0.16 s
+   last printed line: 'the placing aid stopped (the robot does not answer); placing goes on without it'
+reading gives None: False after 0.00 s
+   last printed line: "the placing aid stopped ('NoneType' object is not iterable); placing goes on without it"
+reading gives three joints: False after 0.00 s
+   last printed line: 'the placing aid stopped (list index out of range); placing goes on without it'
+reading gives text: False after 0.02 s
+   last printed line: 'the placing aid stopped (must be real number, not str); placing goes on without it'
+reading raises an error without a message: False after 0.00 s
+   last printed line: 'the placing aid stopped (RuntimeError); placing goes on without it'
+reading gives nan joints: True after 0.00 s
+   last shown: 'tip  nan cm off (nan closer, nan right), forearm   +nan deg: not close'
+key reader raises OSError: False after 0.00 s
+   printed: 'the placing aid stopped (no console); placing goes on without it'
+key reader raises KeyboardInterrupt (Ctrl+C): 'KeyboardInterrupt: ' after 0.00 s
+   printed ends with a line feed: True
+key reader always answers 'escape': STILL WAITING after 0.6 s
+key reader always answers 'ENTER': STILL WAITING after 0.6 s
+key reader always answers '\r': STILL WAITING after 0.6 s
+key reader always answers True: STILL WAITING after 0.6 s
+key reader always answers 13: STILL WAITING after 0.6 s
+settings {'place_help_refresh_s': 0.0, 'place_help_key_poll_s': 0.0}: True after 0.01 s
+settings {'place_help_refresh_s': -1.0}: True after 0.00 s
+settings {'place_help_key_poll_s': 2.0, 'place_help_refresh_s': 0.1}: True after 2.00 s
+
+=== go_ahead_with_ghost
+Enter at the first look: True after 0.03 s
+   pictures shown before it started: 1
+Esc at the first look: False after 0.03 s
+no key ever (stand-in waits 10 ms): STILL WAITING after 1.0 s
+   pictures shown in 1 s: 78
+camera raises at once: 'RuntimeError: camera stream lost' after 0.00 s
+   shown: 0 | printed: []
+camera gives empty bytes for ever: True after 0.00 s
+   shown: 0 | printed: ['a camera picture could not be read; waiting for the next one']
+camera gives None: True after 0.00 s
+   shown: 0 | printed: ['a camera picture could not be read; waiting for the next one']
+camera gives text bytes for ever: True after 0.00 s
+   shown: 0 | printed: ['a camera picture could not be read; waiting for the next one']
+camera raises at the fourth picture: 'RuntimeError: camera stream lost' after 0.03 s
+   shown before the error: 3
+window key always 'ENTER': STILL WAITING after 0.3 s
+window key always '\r': STILL WAITING after 0.3 s
+window key always 'q': STILL WAITING after 0.3 s
+window key always ' ': STILL WAITING after 0.3 s
+window key always 13: STILL WAITING after 0.3 s
+window key always True: STILL WAITING after 0.3 s
+settings {'ghost_refresh_s': 0.0}: True after 0.02 s
+   waits asked of the window, ms: [1, 1]
+settings {'ghost_refresh_s': -2}: True after 0.03 s
+   waits asked of the window, ms: [1, 1]
+settings {'ghost_refresh_s': 0.0004}: True after 0.03 s
+   waits asked of the window, ms: [1, 1]
+settings {'ghost_strength': 5}: True after 0.03 s
+   waits asked of the window, ms: [330, 330]
+a live picture smaller than the reference (320x240): True after 0.01 s
+   shown shape: (240, 320, 3)

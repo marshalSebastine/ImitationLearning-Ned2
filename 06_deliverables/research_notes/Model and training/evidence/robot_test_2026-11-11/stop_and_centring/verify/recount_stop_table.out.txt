@@ -1,0 +1,22 @@
+E recipe: 175 episodes, 1392 pictures scored
+  share of pictures with a stop chance of 0.5 or more by shortfall (mm): {'(-30, -5]': '0.86 of 22', '(-5, 0]': '0.81 of 74', '(0, 5]': '0.69 of 181', '(5, 10]': '0.56 of 151', '(10, 15]': '0.39 of 101', '(15, 25]': '0.18 of 251', '(25, 45]': '0.01 of 383', '(45, 90]': '0.00 of 229'}
+  threshold 0.5: first stop-like picture found in 133 episodes, never in 42; the puck is then short by median +8.3 mm (10th to 90th percentile +0.6 to +19.7); over 7 mm short in 73
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 45 %, with the sideways offset as it was in 29 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 59 %, with the sideways offset as it was in 35 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 61 %, with the sideways offset as it was in 32 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 62 %, with the sideways offset as it was in 29 %
+    the next demonstrated picture is also stop-like in 103 episodes: the puck then stands median +4.6 mm short (10th to 90th percentile -1.9 to +12.9); centres at most 7 mm apart in 43 of 103; still more than 7 mm short in 35
+    (this last line is the nearest thing to a driver that moves the predicted length: the confirming picture lies one demonstrated nudge further on; the present driver instead adds a full centimetre to the first picture's median +8.3 mm)
+  threshold 0.7: first stop-like picture found in 116 episodes, never in 59; the puck is then short by median +6.0 mm (10th to 90th percentile +0.1 to +19.5); over 7 mm short in 53
+  threshold 0.9: first stop-like picture found in 86 episodes, never in 89; the puck is then short by median +5.1 mm (10th to 90th percentile -1.8 to +17.5); over 7 mm short in 32
+A recipe: 175 episodes, 1392 pictures scored
+  share of pictures with a stop chance of 0.5 or more by shortfall (mm): {'(-30, -5]': '0.91 of 22', '(-5, 0]': '0.76 of 74', '(0, 5]': '0.61 of 181', '(5, 10]': '0.51 of 151', '(10, 15]': '0.31 of 101', '(15, 25]': '0.10 of 251', '(25, 45]': '0.00 of 383', '(45, 90]': '0.00 of 229'}
+  threshold 0.5: first stop-like picture found in 123 episodes, never in 52; the puck is then short by median +6.7 mm (10th to 90th percentile +0.1 to +16.9); over 7 mm short in 60
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 51 %, with the sideways offset as it was in 33 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 68 %, with the sideways offset as it was in 38 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 67 %, with the sideways offset as it was in 37 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 66 %, with the sideways offset as it was in 33 %
+    the next demonstrated picture is also stop-like in 97 episodes: the puck then stands median +3.8 mm short (10th to 90th percentile -2.5 to +9.9); centres at most 7 mm apart in 41 of 97; still more than 7 mm short in 26
+    (this last line is the nearest thing to a driver that moves the predicted length: the confirming picture lies one demonstrated nudge further on; the present driver instead adds a full centimetre to the first picture's median +6.7 mm)
+  threshold 0.7: first stop-like picture found in 97 episodes, never in 78; the puck is then short by median +5.2 mm (10th to 90th percentile -0.5 to +15.6); over 7 mm short in 38
+  threshold 0.9: first stop-like picture found in 36 episodes, never in 139; the puck is then short by median +4.7 mm (10th to 90th percentile +0.2 to +10.0); over 7 mm short in 10

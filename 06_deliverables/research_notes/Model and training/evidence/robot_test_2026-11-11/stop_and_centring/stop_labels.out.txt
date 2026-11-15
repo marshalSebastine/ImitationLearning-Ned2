@@ -1,0 +1,124 @@
+PART 1: the labels
+episodes 210, stop rows 210 (one per episode: True)
+goal_distance_cm at the stop rows: smallest 0.00, largest 0.00; is_at_goal at the stop rows: 210 of 210
+  (record_episodes.goal_labels: the goal is the magnet tip's place at the episode's last stop row; is_at_goal is 'within 2.0 cm of it'. Both say where the demonstrator stopped, nothing about the line's end.)
+rows with is_at_goal 1 per episode: median 3, range 2 to 13; all rows with is_at_goal 1: 808 of 18522
+  tip's distance to its stop place 1 picture(s) before the stop: median 0.38 cm, 10th to 90th percentile 0.00 to 0.85 cm
+  tip's distance to its stop place 2 picture(s) before the stop: median 1.54 cm, 10th to 90th percentile 1.02 to 2.04 cm
+  tip's distance to its stop place 3 picture(s) before the stop: median 2.46 cm, 10th to 90th percentile 1.59 to 3.18 cm
+  tip's distance to its stop place 4 picture(s) before the stop: median 3.22 cm, 10th to 90th percentile 2.01 to 4.22 cm
+the demonstrated last move before the stop row: median 0.37 cm, under 0.5 cm in 123 of 210 episodes, under 0.2 cm in 54
+the operators' own verdict (episode.json 'outcome'): {'puck_in_goal': 208, 'puck_not_in_goal': 2}
+
+the training rows of models A and E (audit cleaning on): 18032 rows of 209 episodes; stop rows 259 (50 of them relabelled: the row before the stop row shows the same picture); that is 1.44 % of the rows
+the driver's stop rule: stop chance at least 0.5 on 2 pictures in a row, with a fixed step of 1.0 cm between them
+
+PART 2: where the fold models would stop, on the table
+demonstrations with a reliably measured end: 175 of 210
+the demonstrations' own arrival: the puck's centre short of the end's centre, by pictures before the stop (mm)
+  0 before: median   +2.4, 10th to 90th percentile   -3.3 to   +6.9  (175 episodes)
+  1 before: median   +5.5, 10th to 90th percentile   -0.7 to  +11.3  (175 episodes)
+  2 before: median  +15.6, 10th to 90th percentile   +3.9 to  +21.9  (174 episodes)
+  3 before: median  +24.0, 10th to 90th percentile   +9.6 to  +31.7  (169 episodes)
+  4 before: median  +30.2, 10th to 90th percentile  +12.2 to  +42.8  (171 episodes)
+  5 before: median  +36.3, 10th to 90th percentile  +13.3 to  +52.3  (172 episodes)
+  6 before: median  +42.2, 10th to 90th percentile  +14.4 to  +63.1  (172 episodes)
+  7 before: median  +46.7, 10th to 90th percentile  +15.4 to  +71.9  (174 episodes)
+
+A recipe (final candidate) (2026-11-09_resnet18_final_candidate): 175 episodes, 1377 of their last pictures scored
+  stop chance by how far short of the end's centre the puck stands (mm):
+                 pictures  share_at_threshold  median_chance
+  short_bin                                                 
+  (-30.0, -5.0]        22               0.909          0.850
+  (-5.0, 0.0]          73               0.767          0.746
+  (0.0, 5.0]          181               0.613          0.612
+  (5.0, 10.0]         150               0.513          0.529
+  (10.0, 15.0]        101               0.307          0.156
+  (15.0, 25.0]        243               0.103          0.013
+  (25.0, 45.0]        378               0.000          0.000
+  (45.0, 90.0]        229               0.000          0.000
+  first picture of the last eight with a stop chance of 0.5 or more: found in 123 episodes, never in 52
+    the puck's centre is then short of the end's centre by: median +6.7 mm, mean +7.9 mm, 10th to 90th percentile +0.1 to +16.9 mm; more than 7 mm short in 60, beyond the centre in 12
+    with the next picture also stop-like (the driver's rule), 97 episodes: the puck then stands median +3.8 mm short (negative: beyond), 10th to 90th percentile -2.5 to +9.9 mm; centres at most 7 mm apart in 41 of 97
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 51 %, with the sideways offset as it was in 33 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 68 %, with the sideways offset as it was in 38 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 67 %, with the sideways offset as it was in 37 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 66 %, with the sideways offset as it was in 33 %
+    sideways at that picture: median size 5.1 mm, over 7 mm in 41 of 123
+    threshold 0.3: first such picture in 134 episodes (never in 41); puck then short by median +9.3 mm, 10th to 90th percentile +0.2 to +19.3 mm; over 7 mm short in 76
+    threshold 0.7: first such picture in 97 episodes (never in 78); puck then short by median +5.2 mm, 10th to 90th percentile -0.5 to +15.6 mm; over 7 mm short in 38
+    threshold 0.9: first such picture in 36 episodes (never in 139); puck then short by median +4.7 mm, 10th to 90th percentile +0.2 to +10.0 mm; over 7 mm short in 10
+
+A recipe, seed 2 (2026-11-09_resnet18_final_candidate_seed_2): 175 episodes, 1377 of their last pictures scored
+  stop chance by how far short of the end's centre the puck stands (mm):
+                 pictures  share_at_threshold  median_chance
+  short_bin                                                 
+  (-30.0, -5.0]        22               0.818          0.844
+  (-5.0, 0.0]          73               0.699          0.795
+  (0.0, 5.0]          181               0.624          0.700
+  (5.0, 10.0]         150               0.580          0.605
+  (10.0, 15.0]        101               0.327          0.122
+  (15.0, 25.0]        243               0.103          0.006
+  (25.0, 45.0]        378               0.003          0.000
+  (45.0, 90.0]        229               0.000          0.000
+  first picture of the last eight with a stop chance of 0.5 or more: found in 123 episodes, never in 52
+    the puck's centre is then short of the end's centre by: median +6.7 mm, mean +8.2 mm, 10th to 90th percentile +1.2 to +16.8 mm; more than 7 mm short in 58, beyond the centre in 10
+    with the next picture also stop-like (the driver's rule), 96 episodes: the puck then stands median +3.8 mm short (negative: beyond), 10th to 90th percentile -3.1 to +10.5 mm; centres at most 7 mm apart in 34 of 96
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 53 %, with the sideways offset as it was in 30 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 70 %, with the sideways offset as it was in 39 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 72 %, with the sideways offset as it was in 37 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 69 %, with the sideways offset as it was in 36 %
+    sideways at that picture: median size 5.2 mm, over 7 mm in 42 of 123
+    threshold 0.3: first such picture in 133 episodes (never in 42); puck then short by median +8.2 mm, 10th to 90th percentile +1.5 to +17.9 mm; over 7 mm short in 70
+    threshold 0.7: first such picture in 108 episodes (never in 67); puck then short by median +5.4 mm, 10th to 90th percentile -0.6 to +16.0 mm; over 7 mm short in 38
+    threshold 0.9: first such picture in 57 episodes (never in 118); puck then short by median +3.5 mm, 10th to 90th percentile -1.2 to +8.8 mm; over 7 mm short in 13
+
+E recipe (chunk, stop weight 25) (2026-11-10_resnet18_chunk_stop_weight_25): 175 episodes, 1377 of their last pictures scored
+  stop chance by how far short of the end's centre the puck stands (mm):
+                 pictures  share_at_threshold  median_chance
+  short_bin                                                 
+  (-30.0, -5.0]        22               0.864          0.919
+  (-5.0, 0.0]          73               0.822          0.902
+  (0.0, 5.0]          181               0.685          0.814
+  (5.0, 10.0]         150               0.560          0.597
+  (10.0, 15.0]        101               0.386          0.333
+  (15.0, 25.0]        243               0.181          0.013
+  (25.0, 45.0]        378               0.011          0.001
+  (45.0, 90.0]        229               0.000          0.000
+  first picture of the last eight with a stop chance of 0.5 or more: found in 133 episodes, never in 42
+    the puck's centre is then short of the end's centre by: median +8.3 mm, mean +9.4 mm, 10th to 90th percentile +0.6 to +19.7 mm; more than 7 mm short in 72, beyond the centre in 11
+    with the next picture also stop-like (the driver's rule), 103 episodes: the puck then stands median +4.6 mm short (negative: beyond), 10th to 90th percentile -2.2 to +12.9 mm; centres at most 7 mm apart in 43 of 103
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 46 %, with the sideways offset as it was in 29 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 59 %, with the sideways offset as it was in 35 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 62 %, with the sideways offset as it was in 32 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 62 %, with the sideways offset as it was in 29 %
+    sideways at that picture: median size 5.1 mm, over 7 mm in 44 of 133
+    threshold 0.3: first such picture in 139 episodes (never in 36); puck then short by median +9.8 mm, 10th to 90th percentile +1.9 to +20.5 mm; over 7 mm short in 83
+    threshold 0.7: first such picture in 116 episodes (never in 59); puck then short by median +6.0 mm, 10th to 90th percentile +0.1 to +19.5 mm; over 7 mm short in 53
+    threshold 0.9: first such picture in 86 episodes (never in 89); puck then short by median +5.1 mm, 10th to 90th percentile -1.8 to +17.5 mm; over 7 mm short in 32
+
+E recipe, seed 2 (2026-11-10_resnet18_chunk_stop_weight_25_seed_2): 175 episodes, 1377 of their last pictures scored
+  stop chance by how far short of the end's centre the puck stands (mm):
+                 pictures  share_at_threshold  median_chance
+  short_bin                                                 
+  (-30.0, -5.0]        22               0.864          0.953
+  (-5.0, 0.0]          73               0.849          0.871
+  (0.0, 5.0]          181               0.691          0.835
+  (5.0, 10.0]         150               0.640          0.755
+  (10.0, 15.0]        101               0.515          0.527
+  (15.0, 25.0]        243               0.239          0.057
+  (25.0, 45.0]        378               0.000          0.002
+  (45.0, 90.0]        229               0.000          0.001
+  first picture of the last eight with a stop chance of 0.5 or more: found in 137 episodes, never in 38
+    the puck's centre is then short of the end's centre by: median +10.2 mm, mean +10.3 mm, 10th to 90th percentile +2.2 to +19.6 mm; more than 7 mm short in 87, beyond the centre in 9
+    with the next picture also stop-like (the driver's rule), 116 episodes: the puck then stands median +5.1 mm short (negative: beyond), 10th to 90th percentile -2.3 to +13.0 mm; centres at most 7 mm apart in 43 of 116
+    a last straight push of  0.0 mm after that picture: within 7 mm along the line in 36 %, with the sideways offset as it was in 20 %
+    a last straight push of  5.0 mm after that picture: within 7 mm along the line in 55 %, with the sideways offset as it was in 30 %
+    a last straight push of  8.0 mm after that picture: within 7 mm along the line in 64 %, with the sideways offset as it was in 32 %
+    a last straight push of 10.0 mm after that picture: within 7 mm along the line in 68 %, with the sideways offset as it was in 34 %
+    sideways at that picture: median size 5.3 mm, over 7 mm in 49 of 137
+    threshold 0.3: first such picture in 142 episodes (never in 33); puck then short by median +11.8 mm, 10th to 90th percentile +3.1 to +20.5 mm; over 7 mm short in 99
+    threshold 0.7: first such picture in 130 episodes (never in 45); puck then short by median +8.7 mm, 10th to 90th percentile +1.1 to +19.0 mm; over 7 mm short in 72
+    threshold 0.9: first such picture in 101 episodes (never in 74); puck then short by median +5.2 mm, 10th to 90th percentile +0.2 to +17.0 mm; over 7 mm short in 37
+
+written: stop_probability_by_shortfall.png

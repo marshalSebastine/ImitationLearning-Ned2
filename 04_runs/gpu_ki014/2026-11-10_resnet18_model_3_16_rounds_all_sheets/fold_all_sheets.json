@@ -1,0 +1,106 @@
+{
+ "measures": {
+  "fold": "all_sheets",
+  "train_rows": 18032,
+  "epochs_run": 16,
+  "minutes": 4.6
+ },
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 1.0245,
+   "validation_loss": null,
+   "seconds": 19.2
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.7539,
+   "validation_loss": null,
+   "seconds": 17.5
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.7006,
+   "validation_loss": null,
+   "seconds": 17.6
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.6646,
+   "validation_loss": null,
+   "seconds": 17.2
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.6243,
+   "validation_loss": null,
+   "seconds": 17.4
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.5585,
+   "validation_loss": null,
+   "seconds": 17.3
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.5423,
+   "validation_loss": null,
+   "seconds": 17.1
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.5073,
+   "validation_loss": null,
+   "seconds": 17.1
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.4782,
+   "validation_loss": null,
+   "seconds": 17.2
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.4683,
+   "validation_loss": null,
+   "seconds": 16.9
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.4399,
+   "validation_loss": null,
+   "seconds": 17.0
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.4225,
+   "validation_loss": null,
+   "seconds": 17.3
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.4023,
+   "validation_loss": null,
+   "seconds": 17.2
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.3881,
+   "validation_loss": null,
+   "seconds": 17.1
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.38,
+   "validation_loss": null,
+   "seconds": 17.1
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.3696,
+   "validation_loss": null,
+   "seconds": 17.1
+  }
+ ]
+}

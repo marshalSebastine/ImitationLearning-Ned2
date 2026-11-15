@@ -1,0 +1,13 @@
+the run refuses a start whose tip is more than 2.0 cm from pushing height
+tip 0.0 cm above pushing height | the placing aid shows: 'tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close'
+      | the start line: 'start: tip 0.0 cm from the recorded start (0.0 cm further out,' ...  (1 line)
+      | the run then says: the start is fine
+tip 1.5 cm above pushing height | the placing aid shows: 'tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close'
+      | the start line: 'start: tip 0.0 cm from the recorded start (0.0 cm further out,' ...  (1 line)
+      | the run then says: the start is fine
+tip 3.0 cm above pushing height | the placing aid shows: 'tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close'
+      | the start line: 'start: tip 0.0 cm from the recorded start (0.0 cm further out,' ...  (1 line)
+      | the run then says: the tip is +3.0 cm from pushing height; place it again just above the sheet
+tip 5.0 cm above pushing height | the placing aid shows: 'tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close'
+      | the start line: 'start: tip 0.0 cm from the recorded start (0.0 cm further out,' ...  (1 line)
+      | the run then says: the tip is +5.0 cm from pushing height; place it again just above the sheet

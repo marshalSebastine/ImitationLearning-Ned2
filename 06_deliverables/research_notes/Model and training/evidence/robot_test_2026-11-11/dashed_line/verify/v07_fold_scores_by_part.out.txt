@@ -1,0 +1,54 @@
+Data counts
+  frames.csv: 18522 pictures in 210 episodes; after the audit cleaning: 18032 pictures in 209 episodes
+         episodes  pictures  cleaned_episodes  cleaned_pictures  share_of_cleaned_%
+sheet                                                                              
+path_01        20       671                20               644                 3.6
+path_02        45      2775                45              2670                14.8
+path_03        45      4072                45              3955                21.9
+path_04        45      6350                45              6227                34.5
+path_05        30      2672                29              2600                14.4
+path_06        25      1982                25              1936                10.7
+  sheet 06: scores {3.0: 17, 2.0: 5, 1.0: 3}; operators {'emranul': 25}; lighting {'ceiling': 25}; sessions {'2026-11-09_session_01_emranul': 25}
+  sheet 06 recorded from 2026-11-09T00:22:33 to 2026-11-09T02:14:14
+  sheet 06 after cleaning, by the start end the training used:
+           episodes  pictures
+start_end                    
+A                15      1230
+B                10       706
+  sheet 05 after cleaning, by the start end the training used:
+           episodes  pictures
+start_end                    
+A                 8       594
+B                21      2006
+
+  my placing: episodes left out for a poor line fit: ['05-28', '05-30', '06-22', '06-23', '06-24', '06-25'] (short starts near an end)
+
+Path direction within 45 degrees on the held-out sheet, by part of the line (rows scored: not the stop row, the tip moves 1.5 cm or more over three rows)
+                           model sheet  rows  path_rows  whole_sheet  before the crossing  n before  in the loop  n in  after the loop  n after
+E recipe (chunk, stop weight 25)    05  2600       2324        0.811                0.982       327        0.763  1604           0.864      360
+E recipe (chunk, stop weight 25)    06  1936       1691        0.788                0.977       298        0.814  1104           0.509      222
+                E recipe, seed 2    05  2600       2324        0.794                0.969       327        0.742  1604           0.864      360
+                E recipe, seed 2    06  1936       1691        0.789                0.987       298        0.793  1104           0.608      222
+                    chunk recipe    05  2600       2324        0.833                0.972       327        0.796  1604           0.867      360
+                    chunk recipe    06  1936       1691        0.778                0.980       298        0.793  1104           0.518      222
+            chunk recipe, seed 2    05  2600       2324        0.799                0.969       327        0.749  1604           0.861      360
+            chunk recipe, seed 2    06  1936       1691        0.755                0.977       298        0.796  1104           0.360      222
+                A recipe (exact)    05  2600       2324        0.773                0.942       327        0.726  1604           0.825      360
+                A recipe (exact)    06  1936       1691        0.827                0.980       298        0.783  1104           0.910      222
+                A recipe, seed 2    05  2600       2324        0.744                0.957       327        0.686  1604           0.800      360
+                A recipe, seed 2    06  1936       1691        0.760                0.960       298        0.773  1104           0.509      222
+
+In the loop: twist (rows with a demonstrated twist of 2 degrees or more) and backward steps (demonstrated step beyond 90 degrees and longer than 0.3 cm)
+                           model sheet  loop twist sign right  loop twist size ratio  loop twist projected ratio  loop backward rows  loop backward also asked  loop first chunk step cm  loop demonstrated step cm
+E recipe (chunk, stop weight 25)    05                  0.619                  0.332                       0.129                 638                     0.525                     0.680                      1.082
+E recipe (chunk, stop weight 25)    06                  0.828                  0.431                       0.362                 440                     0.795                     0.666                      1.051
+                E recipe, seed 2    05                  0.669                  0.381                       0.177                 638                     0.564                     0.607                      1.082
+                E recipe, seed 2    06                  0.744                  0.264                       0.191                 440                     0.780                     0.635                      1.051
+                    chunk recipe    05                  0.634                  0.331                       0.131                 638                     0.688                     0.683                      1.082
+                    chunk recipe    06                  0.785                  0.365                       0.287                 440                     0.823                     0.656                      1.051
+            chunk recipe, seed 2    05                  0.686                  0.387                       0.212                 638                     0.536                     0.620                      1.082
+            chunk recipe, seed 2    06                  0.786                  0.339                       0.233                 440                     0.820                     0.696                      1.051
+                A recipe (exact)    05                  0.717                  0.377                       0.226                 638                     0.506                       NaN                        NaN
+                A recipe (exact)    06                  0.793                  0.384                       0.291                 440                     0.561                       NaN                        NaN
+                A recipe, seed 2    05                  0.608                  0.366                       0.148                 638                     0.279                       NaN                        NaN
+                A recipe, seed 2    06                  0.825                  0.352                       0.277                 440                     0.555                       NaN                        NaN

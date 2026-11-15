@@ -1,0 +1,10 @@
+sheet 06 from end A: 13 whole-line demonstrations, 1213 pictures with the puck placed:
+   puck's centre within 0.5 cm of the line's middle in 58 % of pictures, further than 1.0 cm in 17 %, further than 1.7 cm (puck no longer touching the line) in 6 %; median 0.40 cm
+   in the loop only: within 0.5 cm in 55 %, further than 1.0 cm in 20 %, median 0.45 cm
+   per demonstration, the 98th percentile of the distance: median 1.3 cm, range 0.8 to 3.7 cm
+   run_8: within 0.5 cm in 20 of 41 pictures, further than 1.0 cm in 15, further than 1.7 cm in 11; largest 7.3 cm; median 0.52 cm; in the loop: median 0.89 cm
+sheet 05 from end B: 18 whole-line demonstrations, 1984 pictures with the puck placed:
+   puck's centre within 0.5 cm of the line's middle in 45 % of pictures, further than 1.0 cm in 29 %, further than 1.7 cm (puck no longer touching the line) in 15 %; median 0.59 cm
+   in the loop only: within 0.5 cm in 42 %, further than 1.0 cm in 32 %, median 0.63 cm
+   per demonstration, the 98th percentile of the distance: median 2.1 cm, range 1.1 to 3.8 cm
+   run_7: within 0.5 cm in 42 of 89 pictures, further than 1.0 cm in 24, further than 1.7 cm in 11; largest 2.1 cm; median 0.61 cm; in the loop: median 0.82 cm

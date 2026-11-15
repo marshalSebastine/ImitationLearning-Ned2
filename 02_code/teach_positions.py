@@ -21,8 +21,10 @@ import cv2
 import numpy
 from pyniryo import NiryoRobot
 
-from config import ROBOT_PARAMETERS
+from config import ROBOT_PARAMETERS, main_checkout_folder
 
+# "result_folder": in the main checkout when this runs from a git worktree, which has no 03_data (a 03_data made here
+# would make main_checkout_folder() point every later recording at the worktree).
 TEACH_PARAMETERS = {
     "ip_address": ROBOT_PARAMETERS["ip_address"],
     "spots": [
@@ -33,7 +35,7 @@ TEACH_PARAMETERS = {
         ("corner_far_right", "the rod's tip on the far right corner"),
         ("corner_far_left", "the rod's tip on the far left corner")
     ],
-    "result_folder": Path(__file__).resolve().parent.parent / "03_data" / "raw" / "workspace"
+    "result_folder": main_checkout_folder() / "03_data" / "raw" / "workspace"
 }
 
 

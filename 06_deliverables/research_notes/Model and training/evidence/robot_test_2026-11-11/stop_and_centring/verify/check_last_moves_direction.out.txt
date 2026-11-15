@@ -1,0 +1,5 @@
+demonstrations with a usable line direction: 152; puck more than 7 mm beside the line three pictures before the stop: 58
+  over the last three pictures the puck moves towards the line by a median +5.4 mm (towards it in 44, away in 6)
+  over the same pictures the magnet tip moves sideways towards the side the puck is on by a median -7.2 mm (towards the puck's side by over 2 mm in 6, towards the other side by over 2 mm in 46, within 2 mm in 6)
+  the tip's move along the line over these pictures: median 25.5 mm
+run 2 of the robot for comparison (verify_robot_last_steps.out.txt): the puck stood 5.7 mm left three pictures before the stop; the tip then moved 8.3 mm to the LEFT (the puck's side) and the puck went 8.0 mm further from the line.

@@ -1,0 +1,238 @@
+== every run: the logged exact step, the chunk of model E on the same pictures, and the keep-last rule on the logged answers ==
+(measured from steps.csv and from model E run again on frames/NNN.jpg; for runs 1 and 10 the robot's model was A and the team of five, so the chunk is what model E would have said to their pictures)
+                                                 0                      1                      2                      3                      4                      5                      6                      7                                8                       9
+run                           172021_check_no_puck  172421_E_sheet01_run1  172743_E_sheet02_run1  173036_E_sheet02_run2  173549_E_sheet03_run1  174108_E_sheet04_run1  174448_E_sheet05_run1  174936_E_sheet06_run1  175203_E_sheet03_run2_no_hoodie  175544_B_team5_sheet03
+moves                                           25                     24                     38                     41                     59                     68                     88                     40                               89                      73
+pictures are model E's                       False                   True                   True                   True                   True                   True                   True                   True                             True                   False
+asked length median cm                        0.98                   1.14                   0.53                   0.87                   0.55                   0.31                   0.83                   0.82                             0.49                    0.55
+asked under 0.3 cm                            0.04                   0.04                    0.0                   0.02                   0.12                    0.5                   0.09                   0.03                             0.15                    0.16
+asked path cm                                 23.5                   25.6                   23.1                   32.9                   31.9                   26.0                   68.9                   32.3                             44.1                    37.5
+net tip travel cm                             23.6                   23.2                   20.7                   26.7                   22.1                   24.0                   22.1                   13.1                             22.1                    25.2
+exact reversals                                  0                      0                      0                      0                      1                     24                      1                      0                                1                       0
+chunk-3 reversals                                0                      0                      0                      0                      0                     22                      3                      0                                1                       0
+chunk-5 reversals                                0                      0                      0                      0                      0                      7                      1                      0                                1                       0
+chunk-3 length median cm                      3.31                   3.46                   1.69                   2.56                   1.67                   1.01                   2.59                   2.31                             1.37                    1.59
+chunk-3 under 0.5 cm                           0.0                   0.04                    0.0                   0.02                   0.05                   0.21                   0.03                   0.03                             0.06                    0.04
+exact to chunk-3, median deg                   2.0                    0.9                    6.1                    3.0                    5.2                    8.9                    5.3                    4.5                              7.4                    13.2
+exact to chunk-3 over 45 deg                   0.0                    0.0                    0.0                    0.0                   0.02                   0.12                    0.0                    0.0                             0.01                    0.08
+keep-last fired (exact)                          0                      0                      0                      0                      0                     17                      6                      0                                1                       0
+first at step                                  NaN                    NaN                    NaN                    NaN                    NaN                   19.0                   49.0                    NaN                             30.0                     NaN
+longest row                                      0                      0                      0                      0                      0                      2                      6                      0                                1                       0
+keep-last fired (chunk-3)                        0                      0                      0                      0                      0                      6                      6                      0                                0                       0
+kept directions                                  0                      0                      0                      0                      0                      3                      0                      0                                0                       0
+twist asked, sum abs deg                      25.0                    9.0                   91.0                   79.0                  185.0                   93.0                  241.0                  103.0                            287.0                   208.0
+forearm range deg                             14.0                    8.0                   38.0                   78.0                   65.0                   29.0                  131.0                   95.0                            142.0                   108.0
+
+== a stall rule on the logged tips and forearm angles (the runs were driven with the fixed 1 cm step; first picture at which each rule would end the run) ==
+   driver's rule (30 pictures, box 3 cm): over the last 30 pictures, the box round the tips is under 3.0 cm across and the forearm turned over less than 15 degrees
+   box 4 cm over 15 pictures: over the last 15 pictures, the box round the tips is under 4.0 cm across and the forearm turned over less than 15 degrees
+   net travel under 1.5 cm over 12 pictures: over the last 12 pictures, the tip ends under 1.5 cm from where it began and the forearm turned over less than 15 degrees
+172021_check_no_puck             | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+172421_E_sheet01_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+172743_E_sheet02_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+173036_E_sheet02_run2            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+173549_E_sheet03_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+174108_E_sheet04_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: picture 31 | net travel under 1.5 cm over 12 pictures: picture 28
+174448_E_sheet05_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+174936_E_sheet06_run1            | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+175203_E_sheet03_run2_no_hoodie  | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+175544_B_team5_sheet03           | driver's rule (30 pictures, box 3 cm): never | box 4 cm over 15 pictures: never | net travel under 1.5 cm over 12 pictures: never
+
+== run 6 (2026-11-11_174108_E_sheet04_run1), steps 12 to 54: exact step, chunk and the keep-last rule ==
+ step  exact cm  exact deg (picture)  twist  chunk-3 cm  chunk-3 deg (picture)  chunk-5 cm  chunk-5 deg (picture)  driven deg (table)  keep-last would drive (table)  rule fired
+   12      0.59                -22.0   -0.6        1.87                  -22.0        2.93                  -21.0               -29.0                          -29.0       False
+   13      0.53                -18.0   -0.7        1.70                  -19.0        2.66                  -19.0               -26.0                          -26.0       False
+   14      0.53                -40.0   -1.3        1.71                  -38.0        2.65                  -36.0               -47.0                          -47.0       False
+   15      0.56                -59.0   -1.8        1.76                  -55.0        2.66                  -53.0               -67.0                          -67.0       False
+   16      0.53                -58.0   -1.5        1.66                  -54.0        2.51                  -52.0               -66.0                          -66.0       False
+   17      0.55                -62.0   -3.2        1.68                  -57.0        2.51                  -52.0               -71.0                          -71.0       False
+   18      0.35                -73.0   -2.0        1.06                  -64.0        1.62                  -55.0               -80.0                          -80.0       False
+   19      0.16                114.0    1.8        0.52                   88.0        0.89                   66.0               107.0                          -80.0        True
+   20      0.20                -83.0   -1.0        0.57                  -65.0        0.92                  -47.0               -89.0                          -89.0       False
+   21      0.03                 25.0   -0.2        0.30                   33.0        0.76                   28.0                17.0                           17.0       False
+   22      0.36                102.0    1.5        1.20                   93.0        1.91                   83.0                93.0                           93.0       False
+   23      0.23                116.0    1.2        0.77                   98.0        1.22                   80.0               107.0                          107.0       False
+   24      0.23                -97.0   -1.1        0.62                  -81.0        0.95                  -63.0              -104.0                          107.0        True
+   25      0.05                -81.0   -0.8        0.22                   -8.0        0.62                    5.0               -89.0                          107.0        True
+   26      0.16                 71.0   -0.5        0.71                   64.0        1.35                   57.0                61.0                           61.0       False
+   27      0.19                 79.0    0.2        0.80                   70.0        1.46                   62.0                72.0                           72.0       False
+   28      0.03               -102.0   -0.2        0.16                    7.0        0.55                   12.0              -108.0                           72.0        True
+   29      0.20                -84.0   -0.9        0.56                  -65.0        0.90                  -47.0               -88.0                           72.0        True
+   30      0.07                145.0    0.4        0.22                   80.0        0.56                   46.0               140.0                          140.0       False
+   31      0.13                -73.0   -0.5        0.40                  -44.0        0.77                  -24.0               -77.0                          140.0        True
+   32      0.09                116.0    0.4        0.38                   77.0        0.79                   55.0               111.0                          111.0       False
+   33      0.09                -94.0   -0.8        0.23                  -40.0        0.56                  -11.0               -98.0                          111.0        True
+   34      0.07                -79.0   -0.9        0.25                  -19.0        0.64                    1.0               -84.0                          111.0        True
+   35      0.14                116.0    0.8        0.53                   83.0        1.02                   60.0               110.0                          110.0       False
+   36      0.20                -72.0   -1.4        0.61                  -53.0        1.02                  -36.0               -77.0                          110.0        True
+   37      0.06                130.0    0.7        0.28                   62.0        0.73                   40.0               125.0                          125.0       False
+   38      0.23                -61.0   -2.4        0.70                  -44.0        1.16                  -29.0               -66.0                          125.0        True
+   39      0.03                -43.0    0.6        0.31                    9.0        0.80                   13.0               -47.0                          125.0        True
+   40      0.34                115.0    1.4        1.07                  102.0        1.65                   88.0               109.0                          109.0       False
+   41      0.29                116.0    1.4        0.94                   99.0        1.48                   83.0               110.0                          110.0       False
+   42      0.16                -59.0   -1.6        0.53                  -34.0        0.99                  -18.0               -64.0                          110.0        True
+   43      0.11                108.0    0.4        0.48                   74.0        0.99                   55.0               103.0                          103.0       False
+   44      0.17                -55.0   -1.8        0.57                  -32.0        1.05                  -17.0               -59.0                          103.0        True
+   45      0.22                106.0    1.2        0.78                   85.0        1.36                   68.0               102.0                          102.0       False
+   46      0.06                117.0   -0.1        0.33                   60.0        0.81                   41.0               114.0                          114.0       False
+   47      0.42                -74.0   -3.3        1.24                  -64.0        1.87                  -54.0               -75.0                          114.0        True
+   48      0.27                -59.0   -2.7        0.82                  -44.0        1.33                  -30.0               -59.0                          114.0        True
+   49      0.09                110.0    0.3        0.41                   70.0        0.91                   49.0               111.0                          111.0       False
+   50      0.10                 77.0    0.5        0.53                   57.0        1.13                   44.0                79.0                           79.0       False
+   51      0.56                -51.0   -4.3        1.67                  -45.0        2.48                  -38.0               -48.0                           79.0        True
+   52      0.29                -28.0   -2.2        0.96                  -16.0        1.64                   -8.0               -22.0                          -22.0       False
+   53      0.44                103.0    1.8        1.40                   93.0        2.16                   79.0               110.0                          -22.0        True
+   54      0.25                -18.0   -1.8        0.86                   -5.0        1.55                    3.0               -10.0                          -10.0       False
+
+run 6, steps 19 to 50: exact step median 0.16 cm; chunk-3 median 0.53 cm; chunk-5 median 0.97 cm (steps 0 to 4: chunk-3 2.95, chunk-5 4.69)
+run 6, steps 19 to 50: exact step: reversals over 90 deg between consecutive answers: 20 of 31; answers to the picture's left: 17, to its right: 15
+run 6, steps 19 to 50: chunk-3: reversals over 90 deg between consecutive answers: 18 of 31; answers to the picture's left: 19, to its right: 13
+run 6, steps 19 to 50: chunk-5: reversals over 90 deg between consecutive answers: 6 of 31; answers to the picture's left: 21, to its right: 11
+
+== run 7 (2026-11-11_174448_E_sheet05_run1), steps 42 to 60: the walk round the puck at the loop's tight bend, which the run completed, and the keep-last rule ==
+ step  exact cm  exact deg (picture)  twist  forearm deg  driven deg (table)  keep-last would drive (table)  rule fired
+   42      0.83                 47.0    3.9        -17.4                98.0                           98.0       False
+   43      0.72                 25.0    3.0        -13.4                74.0                           74.0       False
+   44      0.53                  3.0    2.9        -10.3                51.0                           51.0       False
+   45      0.46                -50.0    2.4         -7.2                -4.0                           -4.0       False
+   46      0.42                -38.0    2.4         -4.6                 3.0                            3.0       False
+   47      0.14               -123.0    5.3         -1.9               -84.0                          -84.0       False
+   48      0.20                161.0    6.3          3.5              -167.0                         -167.0       False
+   49      0.29                 29.0    5.4          9.9                56.0                         -167.0        True
+   50      0.25                 21.0    5.0         15.5                44.0                         -167.0        True
+   51      0.26                 -1.0    5.3         20.7                17.0                         -167.0        True
+   52      0.38                  5.0    5.9         26.1                18.0                         -167.0        True
+   53      0.34                 -5.0    6.1         32.2                 1.0                         -167.0        True
+   54      0.25                -15.0    6.2         38.5               -16.0                         -167.0        True
+   55      0.17                -89.0    5.8         44.7               -97.0                          -97.0       False
+   56      0.48               -119.0    4.5         50.5              -134.0                         -134.0       False
+   57      0.76               -124.0    0.8         55.0              -144.0                         -144.0       False
+   58      0.96               -129.0   -0.5         55.8              -150.0                         -150.0       False
+   59      0.99               -134.0   -0.9         55.7              -154.0                         -154.0       False
+   60      1.07               -139.0   -0.9         55.0              -158.0                         -158.0       False
+figure: s05_run7_walk_round.jpg (the pictures of these steps with the asked direction)
+figure: s05_run9_first_bend.jpg (run 9 at the first bend of sheet 03: the swing to the outside of the bend, driven 1 cm per picture)
+
+== sheet 03, the first bend (125 degrees of turning within 6 cm, to the left on the table): the first steps of the three runs ==
+-- 2026-11-11_173549_E_sheet03_run1 --
+ step  tip x cm  tip y cm  asked cm  asked deg (picture)  asked twist  forearm deg  camera heading  driven deg (table)  chunk-3 deg (picture)  chunk-5 deg (picture)
+    0      12.2       1.0      0.71                  1.0          1.6         -9.3            12.0                13.0                   -1.0                   -1.0
+    1      13.2       1.2      0.73                 -0.0          0.9         -7.7            11.0                11.0                   -2.0                   -2.0
+    2      14.1       1.4      0.58                -22.0         -1.6         -6.9            11.0               -11.0                  -22.0                  -19.0
+    3      15.1       1.2      0.47                -54.0         -5.7         -8.4            12.0               -43.0                  -47.0                  -36.0
+    4      15.9       0.6      0.45                -50.0         -5.9        -14.2            14.0               -36.0                  -41.0                  -30.0
+    5      16.7       0.0      0.44                -45.0         -6.2        -20.3            17.0               -28.0                  -36.0                  -24.0
+    6      17.5      -0.5      0.43                -31.0         -5.5        -26.5            21.0               -10.0                  -23.0                  -12.0
+    7      18.5      -0.6      0.42                -31.0         -5.4        -32.1            26.0                -5.0                  -23.0                  -12.0
+    8      19.5      -0.7      0.43                -20.0         -5.0        -37.6            31.0                11.0                  -11.0                   -1.0
+    9      20.5      -0.5      0.44                -22.0         -5.3        -42.7            36.0                14.0                  -12.0                   -1.0
+   10      21.5      -0.3      0.35                -21.0         -5.4        -48.2            42.0                21.0                   -8.0                    3.0
+   11      22.5       0.0      0.18                 20.0         -4.6        -53.7            48.0                68.0                   33.0                   37.0
+   12      22.8       0.9      0.20                 10.0         -4.6        -58.4            55.0                65.0                   25.0                   31.0
+   13      23.2       1.8      0.36                 76.0         -2.5        -63.0            62.0               137.0                   77.0                   72.0
+   14      22.5       2.5      0.60                101.0         -1.3        -65.8            66.0               167.0                  102.0                   98.0
+   15      21.5       2.7      0.50                108.0         -1.7        -67.1            68.0               176.0                  107.0                  100.0
+over these 16 moves: asked 7.3 cm, driven 16.0 cm; twist asked -58 deg (sum of sizes 63)
+-- 2026-11-11_175203_E_sheet03_run2_no_hoodie --
+ step  tip x cm  tip y cm  asked cm  asked deg (picture)  asked twist  forearm deg  camera heading  driven deg (table)  chunk-3 deg (picture)  chunk-5 deg (picture)
+    0      14.1      -0.2      0.71                -15.0         -3.7         -5.2             3.0               -12.0                  -12.0                   -7.0
+    1      15.1      -0.4      0.70                -13.0         -4.1         -9.0             6.0                -7.0                   -9.0                   -3.0
+    2      16.1      -0.5      0.52                -31.0         -5.8        -13.2             9.0               -23.0                  -26.0                  -16.0
+    3      17.0      -0.9      0.49                -31.0         -6.0        -19.1            13.0               -18.0                  -23.0                  -14.0
+    4      18.0      -1.2      0.46                -38.0         -6.2        -25.2            18.0               -20.0                  -31.0                  -19.0
+    5      18.9      -1.6      0.44                -44.0         -5.6        -31.4            22.0               -21.0                  -36.0                  -25.0
+    6      19.9      -1.9      0.40                -36.0         -5.3        -37.1            27.0                -9.0                  -29.0                  -18.0
+    7      20.9      -2.1      0.37                -24.0         -5.1        -42.4            32.0                 8.0                  -16.0                   -5.0
+    8      21.9      -1.9      0.39                -19.0         -5.2        -47.6            37.0                18.0                  -10.0                    0.0
+    9      22.9      -1.7      0.35                 -8.0         -5.6        -52.9            43.0                36.0                    5.0                   15.0
+   10      23.7      -1.1      0.34                 27.0         -5.9        -58.5            50.0                78.0                   38.0                   44.0
+   11      23.9      -0.1      0.39                 44.0         -5.6        -64.5            59.0               102.0                   52.0                   54.0
+   12      23.6       0.9      0.50                 42.0         -4.6        -70.3            66.0               109.0                   50.0                   54.0
+   13      23.3       1.8      0.51                 48.0         -3.7        -75.1            73.0               122.0                   55.0                   57.0
+   14      22.8       2.7      0.58                 68.0         -1.7        -78.9            79.0               147.0                   68.0                   67.0
+   15      22.0       3.2      0.54                 76.0         -0.2        -80.7            82.0               159.0                   72.0                   69.0
+over these 16 moves: asked 7.7 cm, driven 16.0 cm; twist asked -74 deg (sum of sizes 74)
+-- 2026-11-11_175544_B_team5_sheet03 --
+ step  tip x cm  tip y cm  asked cm  asked deg (picture)  asked twist  forearm deg  camera heading  driven deg (table)  chunk-3 deg (picture)  chunk-5 deg (picture)
+    0      15.8       1.2      0.72                -12.0          1.9         -9.7            12.0                 1.0                  -11.0                  -11.0
+    1      16.8       1.2      0.73                -22.0         -1.3         -7.7            11.0               -12.0                  -12.0                  -11.0
+    2      17.8       1.0      0.61                -44.0         -4.7         -9.0            11.0               -33.0                  -21.0                  -18.0
+    3      18.6       0.4      0.50                -58.0         -6.7        -13.8            13.0               -45.0                  -48.0                  -38.0
+    4      19.3      -0.3      0.43                -57.0         -7.5        -20.6            17.0               -40.0                  -29.0                  -17.0
+    5      20.1      -0.9      0.38                -46.0         -7.2        -28.3            22.0               -24.0                  -21.0                   -9.0
+    6      20.9      -1.3      0.34                -41.0         -6.7        -35.5            28.0               -13.0                  -14.0                   -3.0
+    7      21.9      -1.6      0.22                -25.0         -5.7        -42.3            34.0                 9.0                  -11.0                   -0.0
+    8      22.9      -1.4      0.13                 15.0         -5.1        -48.0            40.0                55.0                   -4.0                    6.0
+    9      23.4      -0.6      0.19                 62.0         -4.2        -53.2            47.0               109.0                   18.0                   25.0
+   10      23.1       0.3      0.24                 -5.0         -5.0        -57.5            53.0                47.0                   13.0                   21.0
+   11      23.8       1.0      0.26                 19.0         -4.4        -62.7            59.0                79.0                   21.0                   28.0
+   12      24.0       2.0      0.41                 19.0         -3.2        -67.1            66.0                85.0                   20.0                   26.0
+   13      24.0       3.0      0.55                 31.0         -1.1        -70.3            71.0               102.0                   31.0                   34.0
+   14      23.8       3.9      0.67                 52.0          3.0        -71.4            75.0               126.0                   53.0                   50.0
+   15      23.2       4.7      0.68                 50.0          4.4        -68.7            74.0               124.0                   52.0                   49.0
+over these 16 moves: asked 7.1 cm, driven 16.0 cm; twist asked -53 deg (sum of sizes 72)
+
+-- the demonstrations with a standard start at end A of this sheet (8 episodes): per step number, medians --
+             tip_x_cm  tip_y_cm  step_cm  share_short  twist_deg  forearm_deg  camera_heading  step_table_deg  puck_along_line_cm
+step_number                                                                                                                      
+0                14.0      -1.5     0.62         0.00       -5.8          0.0            -6.0            78.0                 0.0
+1                14.0      -1.1     1.00         0.25       -3.1         -5.8             0.0             9.0                 0.0
+2                14.8      -0.7     0.71         0.12       -7.1         -9.9             4.0            -7.0                 0.2
+3                15.6      -1.0     0.76         0.25       -5.4        -16.2            10.0           -33.0                 1.0
+4                15.9      -1.1     0.41         0.38       -6.7        -19.9            13.0            -9.0                 1.1
+5                16.1      -1.2     0.38         0.38       -5.8        -28.0            19.0           -46.0                 1.5
+6                16.7      -1.3     0.69         0.12       -6.6        -35.2            25.0           -16.0                 1.6
+7                17.4      -1.3     0.49         0.50       -7.6        -42.2            30.0             9.0                 2.2
+8                17.7      -1.1     0.82         0.00       -9.4        -48.4            38.0            -5.0                 2.5
+9                18.3      -1.1     0.81         0.00       -6.7        -56.3            45.0            13.0                 3.1
+10               18.8      -1.4     0.66         0.25       -5.9        -60.8            48.0            33.0                 3.5
+11               19.2      -1.2     1.03         0.12       -5.9        -65.8            54.0            30.0                 3.5
+12               20.3      -0.9     0.60         0.38       -5.8        -77.1            67.0            52.0                 4.2
+13               20.4      -0.5     0.86         0.12       -6.5        -83.0            74.0            29.0                 4.9
+14               20.3      -0.6     0.57         0.12       -5.1        -88.2            82.0            58.0                 5.0
+15               20.8       0.3     1.08         0.12       -0.4        -92.0            88.0            96.0                 5.3
+over their first 16 steps the demonstrations moved the tip 11.1 cm (median; from 10.5 to 14.5) and twisted the forearm by 93 degrees in all (sum of sizes, median)
+
+== sheet 04, the first bend (to the right on the table, then the pointed corner to the left): the first steps of run 6 ==
+-- 2026-11-11_174108_E_sheet04_run1 --
+ step  tip x cm  tip y cm  asked cm  asked deg (picture)  asked twist  forearm deg  camera heading  driven deg (table)  chunk-3 deg (picture)  chunk-5 deg (picture)
+    0      18.2       1.3      0.96                  2.0         -1.7          3.2             2.0                 3.0                    6.0                   10.0
+    1      19.2       1.4      1.05                  4.0         -1.0          1.5             3.0                 7.0                    8.0                   10.0
+    2      20.2       1.5      1.00                  9.0         -0.1          0.4             4.0                13.0                   11.0                   13.0
+    3      21.2       1.7      0.94                 11.0          0.5          0.4             4.0                15.0                   13.0                   14.0
+    4      22.1       2.0      0.81                 20.0          2.9          0.8             4.0                24.0                   20.0                   19.0
+    5      23.0       2.4      0.72                 32.0          4.2          3.7             3.0                35.0                   30.0                   28.0
+    6      23.9       3.0      0.69                 48.0          4.0          7.9             0.0                48.0                   44.0                   39.0
+    7      24.5       3.7      0.69                 29.0          2.8         12.1            -2.0                26.0                   27.0                   25.0
+    8      25.4       4.1      0.80                  8.0          1.2         15.0            -4.0                 4.0                    7.0                    6.0
+    9      26.4       4.2      0.76                  1.0          0.4         16.3            -6.0                -5.0                    0.0                    0.0
+   10      27.4       4.1      0.74                -11.0         -0.8         16.8            -7.0               -17.0                  -11.0                  -12.0
+   11      28.3       3.8      0.71                -19.0         -1.0         16.0            -7.0               -26.0                  -20.0                  -20.0
+   12      29.2       3.4      0.59                -22.0         -0.6         14.9            -7.0               -29.0                  -22.0                  -21.0
+   13      30.1       2.9      0.53                -18.0         -0.7         14.6            -7.0               -26.0                  -19.0                  -19.0
+   14      31.0       2.5      0.53                -40.0         -1.3         13.8            -8.0               -47.0                  -38.0                  -36.0
+   15      31.7       1.7      0.56                -59.0         -1.8         12.4            -8.0               -67.0                  -55.0                  -53.0
+over these 16 moves: asked 12.1 cm, driven 16.0 cm; twist asked +7 deg (sum of sizes 25)
+
+-- the demonstrations with a standard start at end A of this sheet (11 episodes): per step number, medians --
+             tip_x_cm  tip_y_cm  step_cm  share_short  twist_deg  forearm_deg  camera_heading  step_table_deg  puck_along_line_cm
+step_number                                                                                                                      
+0                14.0      -1.5     1.17         0.00        0.5          0.0            -6.0            18.0                 0.0
+1                15.0      -1.6     1.13         0.00        1.9          0.4            -5.0             6.0                 0.0
+2                16.0      -1.8     1.09         0.00        3.6          3.1            -6.0             8.0                 1.1
+3                17.2      -1.9     1.10         0.09        3.7          7.0            -9.0            20.0                 2.5
+4                18.1      -1.4     1.08         0.09        5.3         10.9           -10.0            19.0                 3.0
+5                18.8      -1.1     1.06         0.00        3.8         16.3           -14.0            26.0                 3.6
+6                19.5      -0.6     1.02         0.00        5.1         17.8           -16.0            20.0                 4.6
+7                20.2      -0.5     0.90         0.09        5.0         21.5           -19.0            13.0                 5.2
+8                21.1      -0.2     0.66         0.27        4.9         26.5           -24.0            45.0                 5.2
+9                21.6       0.6     0.70         0.27        5.8         33.1           -29.0            20.0                 5.4
+10               22.2       0.7     1.01         0.09        4.9         39.0           -35.0            19.0                 5.7
+11               22.6       0.8     0.68         0.18        6.1         47.2           -38.0             8.0                 5.8
+12               23.3       0.5     0.46         0.36        6.2         53.5           -46.0             6.0                 6.0
+13               23.5       0.5     0.67         0.18        6.1         62.1           -51.0           -38.0                 6.1
+14               24.0       0.4     0.43         0.18        5.8         69.3           -60.0           -26.0                 6.2
+15               24.2       0.3     0.25         0.55        6.1         75.1           -65.0           -44.0                 6.2
+over their first 16 steps the demonstrations moved the tip 12.5 cm (median; from 10.2 to 17.9) and twisted the forearm by 85 degrees in all (sum of sizes, median)
+
+figure: s05_sheet03_first_bend.png

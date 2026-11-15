@@ -1,0 +1,4 @@
+balance | no_class_weights | 212.3 s | within 45: 0.5927 | class accuracy: 0.4395 | stopped right: 0.1755 | early: 0.0575
+balance | square_root_weights | 213.2 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+balance | full_inverse_weights | 204.7 s | within 45: 0.5091 | class accuracy: 0.352 | stopped right: 0.2921 | early: 0.212
+balance | square_root_weights_label_smoothing | 219.1 s | within 45: 0.5581 | class accuracy: 0.4008 | stopped right: 0.2333 | early: 0.0542

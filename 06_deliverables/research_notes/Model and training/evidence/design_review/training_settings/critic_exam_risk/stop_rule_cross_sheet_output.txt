@@ -1,0 +1,16 @@
+﻿
+== criterion: right minus early
+   sheet 01: rule chosen on the other sheets (0.6, 1): right 12 early 4 never 1 | inner-validation rule: right 16 early 3 never 1
+   sheet 02: rule chosen on the other sheets (0.6, 1): right 23 early 2 never 19 | inner-validation rule: right 19 early 8 never 13
+   sheet 03: rule chosen on the other sheets (0.6, 1): right 32 early 4 never 7 | inner-validation rule: right 34 early 8 never 2
+   sheet 05: rule chosen on the other sheets (0.3, 2): right 5 early 19 never 6 | inner-validation rule: right 5 early 19 never 6
+   sheet 06: rule chosen on the other sheets (0.6, 1): right 4 early 1 never 20 | inner-validation rule: right 8 early 6 never 11
+   pooled over 165 episodes: chosen on other sheets right 76 early 30 never 53 | inner-validation rule right 82 early 44 never 33
+
+== criterion: right minus twice early
+   sheet 01: rule chosen on the other sheets (0.6, 1): right 12 early 4 never 1 | inner-validation rule: right 16 early 3 never 1
+   sheet 02: rule chosen on the other sheets (0.8, 2): right 10 early 0 never 33 | inner-validation rule: right 19 early 8 never 13
+   sheet 03: rule chosen on the other sheets (0.9, 1): right 4 early 0 never 41 | inner-validation rule: right 34 early 8 never 2
+   sheet 05: rule chosen on the other sheets (0.3, 2): right 5 early 19 never 6 | inner-validation rule: right 5 early 19 never 6
+   sheet 06: rule chosen on the other sheets (0.8, 1): right 0 early 1 never 24 | inner-validation rule: right 8 early 6 never 11
+   pooled over 165 episodes: chosen on other sheets right 31 early 24 never 105 | inner-validation rule right 82 early 44 never 33

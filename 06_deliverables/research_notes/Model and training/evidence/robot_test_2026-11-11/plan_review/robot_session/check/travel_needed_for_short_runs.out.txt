@@ -1,0 +1,16 @@
+demonstrations of sheet 03 from end A with the standard start (the tip starts about 5.5 cm behind the puck):
+   03-01: the puck passes 119 mm of line at picture 28; tip travel by then 19.0 cm; puck starts at 0 mm of line; line laid on with a median misfit of 4.5 mm
+   03-02: the puck passes 119 mm of line at picture 32; tip travel by then 21.3 cm; puck starts at 3 mm of line; line laid on with a median misfit of 7.9 mm
+   03-03: the puck passes 119 mm of line at picture 22; tip travel by then 16.2 cm; puck starts at 0 mm of line; line laid on with a median misfit of 7.0 mm
+   03-04: the puck passes 119 mm of line at picture 26; tip travel by then 17.3 cm; puck starts at 4 mm of line; line laid on with a median misfit of 4.7 mm
+   03-05: the puck passes 119 mm of line at picture 22; tip travel by then 18.0 cm; puck starts at 10 mm of line; line laid on with a median misfit of 5.4 mm
+   03-25: the puck passes 119 mm of line at picture 24; tip travel by then 18.4 cm; puck starts at 0 mm of line; line laid on with a median misfit of 6.7 mm
+   03-26: the puck passes 119 mm of line at picture 26; tip travel by then 19.3 cm; puck starts at 0 mm of line; line laid on with a median misfit of 2.8 mm
+   03-27: the puck passes 119 mm of line at picture 26; tip travel by then 20.8 cm; puck starts at 10 mm of line; line laid on with a median misfit of 3.9 mm
+   tip travel needed: median 18.7 cm, largest 21.3 cm
+
+the three robot runs of 11.11.26 (1 cm steps; started with the block at the puck):
+   run 10 (kept the line): the puck passed 119 mm at picture 17 = 17 cm of tip travel; from the recorded start about 3.7 cm more: 20.7 cm
+   a budget of 22 cm covers the window in 8 of 8 demonstrations
+   a budget of 26 cm covers the window in 8 of 8 demonstrations
+   a budget of 30 cm covers the window in 8 of 8 demonstrations

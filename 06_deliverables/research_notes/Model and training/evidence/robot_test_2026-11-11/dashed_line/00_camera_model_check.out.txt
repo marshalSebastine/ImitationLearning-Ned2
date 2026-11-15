@@ -1,0 +1,8 @@
+Check 1: the line drawn from pictures with little forearm twist against pictures with much twist
+  robot run 7 (sheet 05): 25 pictures under 30 deg, 8 over 60 deg: the two drawings fit best when shifted by (-2, -1) cells of 2 mm = 4.5 mm (correlation 0.92 on 5593 cells)
+  robot run 8 (sheet 06): 10 pictures under 30 deg, 27 over 60 deg: the two drawings fit best when shifted by (2, 0) cells of 2 mm = 4.0 mm (correlation 0.85 on 4807 cells)
+  demonstration 06-03: 34 pictures under 30 deg, 26 over 60 deg: the two drawings fit best when shifted by (1, 0) cells of 2 mm = 2.0 mm (correlation 0.51 on 6861 cells)
+  demonstration 06-06: 33 pictures under 30 deg, 23 over 60 deg: the two drawings fit best when shifted by (1, -1) cells of 2 mm = 2.8 mm (correlation 0.43 on 3461 cells)
+  demonstration 05-03: 22 pictures under 30 deg, 49 over 60 deg: the two drawings fit best when shifted by (2, 1) cells of 2 mm = 4.5 mm (correlation 0.67 on 13855 cells)
+  demonstration 05-06: 26 pictures under 30 deg, 39 over 60 deg: the two drawings fit best when shifted by (3, 0) cells of 2 mm = 6.0 mm (correlation 0.60 on 13619 cells)
+Check 2: 00_camera_model_check.png shows the placed dashes (yellow outlines) on pictures of run 8 with the forearm twisted 61 to 102 degrees

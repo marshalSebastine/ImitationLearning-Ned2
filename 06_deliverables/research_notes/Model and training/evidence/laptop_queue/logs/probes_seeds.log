@@ -1,0 +1,6 @@
+seeds | classes_seed_11 | 151.2 s | within 45: 0.5612 | class accuracy: 0.402 | stopped right: 0.3173 | early: 0.2004
+seeds | classes_seed_12 | 154.2 s | within 45: 0.5457 | class accuracy: 0.3941 | stopped right: 0.2918 | early: 0.1985
+seeds | classes_seed_13 | 149.5 s | within 45: 0.5564 | class accuracy: 0.399 | stopped right: 0.3171 | early: 0.2171
+seeds | exact_seed_11 | 236.3 s | within 45: 0.6158 | class accuracy: 0.4208 | stopped right: 0.332 | early: 0.3047
+seeds | exact_seed_12 | 204.1 s | within 45: 0.5927 | class accuracy: 0.4149 | stopped right: 0.2888 | early: 0.3836
+seeds | exact_seed_13 | 197.9 s | within 45: 0.6106 | class accuracy: 0.4176 | stopped right: 0.2997 | early: 0.3903

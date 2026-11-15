@@ -1,0 +1,11 @@
+fold model without_path_03: D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\checkpoints\without_path_03.pt
+    pictures 0 of 18522
+    pictures 2560 of 18522
+    pictures 5120 of 18522
+    pictures 7680 of 18522
+    pictures 10240 of 18522
+    pictures 12800 of 18522
+    pictures 15360 of 18522
+    pictures 17920 of 18522
+18522 training pictures (all sheets) saved as fold_without_path_03_all.npz after 136 s
+554 robot pictures saved as fold_without_path_03_robot.npz

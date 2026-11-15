@@ -1,0 +1,10 @@
+steps with a wrist jump of 4.0 degrees or more, the twist within 1.0 and the hand within 1.0 degree: 127
+
+the block (75 pairs with a match score of 0.8 or more): it moves by -1.83 px at 640 per degree of wrist (measured; negative = up the picture when the wrist grows); calculated for the same pairs: the magnet tip -2.63, the rod's end -1.81
+  correlation of the measured move with the calculated tip move 0.957, with the calculated rod-end move 0.959; measured minus rod-end move: median |x| 2.05 px
+
+the table (277 patches from 106 pairs): measured against calculated move down the picture: slope 0.910, correlation 0.906; measured minus calculated: median +0.03, median |x| 0.96, 90th percentile |x| 4.59 px
+  sideways: slope 0.936, correlation 0.817, median |gap| 1.07 px; the moves themselves: median |x| 3.0 px down, 2.0 px sideways
+  (between these neighbouring pictures the hand-guided wrist jump moved the block over the table; the forearm, and with it the camera, moved little, so the table moved little. With the wrist HELD, joints 1 to 3 must make up for it and the camera moves: that case is calculated in held_wrist_views.py with the same models.)
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\check_shift_per_degree.png and two csv tables

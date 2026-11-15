@@ -1,0 +1,18 @@
+check 1, the puck's size (22 pictures of the robot's runs 2 and 4):
+  radius cm          0.9    1.0    1.1    1.2    1.3    1.4    1.6    1.8    2.0
+  median misfit     2106   1262    420    150    122    194    465    722   1015   (pixels of blob and outline that disagree, weighted)
+  best in              0      0      0     13      7      2      0      0      0   pictures
+
+check 2, the camera model: the same piece of line seen in two pictures of a run
+  173036_E_sheet02_run2, as fitted,  6 steps apart:  32 pairs, disagreement median 1.54 mm, 90th percentile 3.98 mm; forearm turned 10 degrees or more between the two: 19 pairs, median 1.58 mm
+  173036_E_sheet02_run2, as fitted, 12 steps apart:  24 pairs, disagreement median 3.59 mm, 90th percentile 5.79 mm; forearm turned 10 degrees or more between the two: 24 pairs, median 3.59 mm
+  173036_E_sheet02_run2, corrected,  6 steps apart:  32 pairs, disagreement median 1.41 mm, 90th percentile 2.50 mm; forearm turned 10 degrees or more between the two: 19 pairs, median 1.80 mm
+  173036_E_sheet02_run2, corrected, 12 steps apart:  23 pairs, disagreement median 1.80 mm, 90th percentile 2.66 mm; forearm turned 10 degrees or more between the two: 23 pairs, median 1.80 mm
+  174448_E_sheet05_run1, as fitted,  6 steps apart:  73 pairs, disagreement median 2.83 mm, 90th percentile 5.70 mm; forearm turned 10 degrees or more between the two: 48 pairs, median 3.77 mm
+  174448_E_sheet05_run1, as fitted, 12 steps apart:  65 pairs, disagreement median 4.61 mm, 90th percentile 6.15 mm; forearm turned 10 degrees or more between the two: 56 pairs, median 5.01 mm
+  174448_E_sheet05_run1, corrected,  6 steps apart:  73 pairs, disagreement median 2.55 mm, 90th percentile 4.86 mm; forearm turned 10 degrees or more between the two: 48 pairs, median 2.55 mm
+  174448_E_sheet05_run1, corrected, 12 steps apart:  65 pairs, disagreement median 2.50 mm, 90th percentile 5.14 mm; forearm turned 10 degrees or more between the two: 56 pairs, median 2.69 mm
+
+check 3, overlays (yellow: the line as all pictures of the run voted it; green: the fitted puck; cyan: its foot on the table; magenta cross: the centre of the line's end)
+written: overlays_robot_runs.png
+written: overlays_demonstrations.png

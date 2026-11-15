@@ -1,0 +1,16 @@
+path_01: net per cm over 5-cm stretches, median 0.79; share of the twisting still there at the end of the stretch 0.67
+path_02: net per cm over 5-cm stretches, median 1.33; share of the twisting still there at the end of the stretch 0.81
+path_03: net per cm over 5-cm stretches, median 2.88; share of the twisting still there at the end of the stretch 0.90
+path_04: net per cm over 5-cm stretches, median 3.61; share of the twisting still there at the end of the stretch 0.89
+path_05: net per cm over 5-cm stretches, median 2.55; share of the twisting still there at the end of the stretch 0.86
+path_06: net per cm over 5-cm stretches, median 3.83; share of the twisting still there at the end of the stretch 0.89
+run  1 path_01: net per cm, median over stretches 1.42; against the demonstrations 1.80
+run  2 path_01: net per cm, median over stretches 0.10; against the demonstrations 0.13
+run  3 path_02: net per cm, median over stretches 2.10; against the demonstrations 1.58
+run  4 path_02: net per cm, median over stretches 1.68; against the demonstrations 1.27
+run  5 path_03: net per cm, median over stretches 2.87; against the demonstrations 1.00
+run  6 path_04: net per cm, median over stretches 0.67; against the demonstrations 0.19
+run  7 path_05: net per cm, median over stretches 2.62; against the demonstrations 1.03
+run  8 path_06: net per cm, median over stretches 1.49; against the demonstrations 0.39
+run  9 path_03: net per cm, median over stretches 3.20; against the demonstrations 1.11
+run 10 path_03: net per cm, median over stretches 2.07; against the demonstrations 0.72

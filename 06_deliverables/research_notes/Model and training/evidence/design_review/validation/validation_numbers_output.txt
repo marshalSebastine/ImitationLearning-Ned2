@@ -1,0 +1,244 @@
+frames.csv: 18522 rows, 210 episodes
+
+=== 1. Held-out episodes against held-out sheets, sheet by sheet (splits experiment, frozen ResNet-18 grid) ===
+
+--- design: classes
+check against stored folds (recomputed / stored): within 45, direction rows, stopped right/early/never
+  episodes_fold_0: 0.6496 / 0.6496, 2871 / 2871, 0.5714/0.0476/0.3571 / 0.5714/0.0476/0.3571, episodes 42
+  episodes_fold_1: 0.6639 / 0.6639, 3442 / 3442, 0.5714/0.0238/0.3810 / 0.5714/0.0238/0.381, episodes 42
+  episodes_fold_2: 0.6586 / 0.6586, 2657 / 2657, 0.5476/0.1190/0.2381 / 0.5476/0.119/0.2381, episodes 42
+  episodes_fold_3: 0.6466 / 0.6466, 3520 / 3520, 0.4524/0.2143/0.3095 / 0.4524/0.2143/0.3095, episodes 42
+  episodes_fold_4: 0.6552 / 0.6552, 3460 / 3460, 0.4000/0.1750/0.4250 / 0.4/0.175/0.425, episodes 40
+  without_path_01: 0.7557 / 0.7557, 569 / 569, 0.5263/0.0526/0.3684 / 0.5263/0.0526/0.3684, episodes 19
+  without_path_02: 0.5299 / 0.5299, 2372 / 2372, 0.1591/0.3182/0.5227 / 0.1591/0.3182/0.5227, episodes 44
+  without_path_03: 0.5651 / 0.5651, 3458 / 3458, 0.3778/0.0000/0.5333 / 0.3778/0.0/0.5333, episodes 45
+  without_path_04: 0.5595 / 0.5595, 5271 / 5271, 0.3778/0.1333/0.4444 / 0.3778/0.1333/0.4444, episodes 45
+  without_path_05: 0.5832 / 0.5832, 2471 / 2471, 0.0667/0.1667/0.7667 / 0.0667/0.1667/0.7667, episodes 30
+  without_path_06: 0.4671 / 0.4671, 1809 / 1809, 0.0400/0.0000/0.9600 / 0.04/0.0/0.96, episodes 25
+fold spread of the stored numbers (within 45): episodes 0.647 to 0.664; sheets 0.467 to 0.756
+fold spread of the stored numbers (path within 45): episodes 0.677 to 0.719; sheets 0.526 to 0.801
+fold spread of the stored numbers (stopped right, fixed 0.5): episodes 0.400 to 0.571; sheets 0.040 to 0.526
+
+per sheet: moving rows (episodes split / sheets split), within 45 held-out episodes, within 45 held-out sheet, gap, always forward on the same rows, stopped right/early/never (episodes split; sheets split) as counts of episodes
+  path_01: rows 569/569, episodes 19/19: 0.764 0.756 gap +0.9 points; always forward 0.747; stops 9/2/8 of 19; 10/1/7 of 19
+  path_02: rows 2372/2372, episodes 44/44: 0.540 0.530 gap +1.1 points; always forward 0.565; stops 23/6/12 of 44; 7/14/23 of 44
+  path_03: rows 3458/3458, episodes 45/45: 0.654 0.565 gap +8.9 points; always forward 0.522; stops 30/4/10 of 45; 17/0/24 of 45
+  path_04: rows 5271/5271, episodes 45/45: 0.659 0.559 gap +10.0 points; always forward 0.485; stops 20/7/16 of 45; 17/6/20 of 45
+  path_05: rows 2471/2471, episodes 30/30: 0.705 0.583 gap +12.1 points; always forward 0.509; stops 12/4/14 of 30; 2/5/23 of 30
+  path_06: rows 1809/1809, episodes 25/25: 0.690 0.467 gap +22.3 points; always forward 0.402; stops 12/1/11 of 25; 1/0/24 of 25
+  six-sheet means: episodes split 0.669, sheets split 0.577, always forward 0.538; mean gap +9.2 points (smallest +0.9, largest +22.3)
+  pooled over all pictures: episodes split 0.655 (15950 rows), sheets split 0.556 (15950 rows)
+  stops pooled over all episodes: episodes split right 106, early 24, never 71 of 208; sheets split right 54, early 26, never 121 of 208
+
+--- design: exact
+check against stored folds (recomputed / stored): within 45, direction rows, stopped right/early/never
+  episodes_fold_0: 0.7203 / 0.7203, 2871 / 2871, 0.6667/0.1667/0.1190 / 0.6667/0.1667/0.119, episodes 42
+  episodes_fold_1: 0.6979 / 0.6979, 3442 / 3442, 0.6190/0.0714/0.2619 / 0.619/0.0714/0.2619, episodes 42
+  episodes_fold_2: 0.6993 / 0.6993, 2657 / 2657, 0.5714/0.1905/0.0714 / 0.5714/0.1905/0.0714, episodes 42
+  episodes_fold_3: 0.7151 / 0.7151, 3520 / 3520, 0.5238/0.0952/0.2857 / 0.5238/0.0952/0.2857, episodes 42
+  episodes_fold_4: 0.7032 / 0.7032, 3460 / 3460, 0.4750/0.3000/0.0750 / 0.475/0.3/0.075, episodes 40
+  without_path_01: 0.7469 / 0.7469, 569 / 569, 0.4737/0.1053/0.4211 / 0.4737/0.1053/0.4211, episodes 19
+  without_path_02: 0.5835 / 0.5835, 2372 / 2372, 0.2273/0.2727/0.4091 / 0.2273/0.2727/0.4091, episodes 44
+  without_path_03: 0.6238 / 0.6238, 3458 / 3458, 0.3111/0.1111/0.5333 / 0.3111/0.1111/0.5333, episodes 45
+  without_path_04: 0.5481 / 0.5481, 5271 / 5271, 0.3111/0.5333/0.0667 / 0.3111/0.5333/0.0667, episodes 45
+  without_path_05: 0.5633 / 0.5633, 2471 / 2471, 0.1000/0.2333/0.6667 / 0.1/0.2333/0.6667, episodes 30
+  without_path_06: 0.4831 / 0.4831, 1809 / 1809, 0.3200/0.2000/0.4800 / 0.32/0.2/0.48, episodes 25
+fold spread of the stored numbers (within 45): episodes 0.698 to 0.720; sheets 0.483 to 0.747
+fold spread of the stored numbers (path within 45): episodes 0.776 to 0.814; sheets 0.534 to 0.828
+fold spread of the stored numbers (stopped right, fixed 0.5): episodes 0.475 to 0.667; sheets 0.100 to 0.474
+
+per sheet: moving rows (episodes split / sheets split), within 45 held-out episodes, within 45 held-out sheet, gap, always forward on the same rows, stopped right/early/never (episodes split; sheets split) as counts of episodes
+  path_01: rows 569/569, episodes 19/19: 0.752 0.747 gap +0.5 points; always forward 0.747; stops 15/2/0 of 19; 9/2/8 of 19
+  path_02: rows 2372/2372, episodes 44/44: 0.629 0.583 gap +4.6 points; always forward 0.565; stops 21/5/12 of 44; 10/12/18 of 44
+  path_03: rows 3458/3458, episodes 45/45: 0.692 0.624 gap +6.9 points; always forward 0.522; stops 32/7/3 of 45; 14/5/24 of 45
+  path_04: rows 5271/5271, episodes 45/45: 0.711 0.548 gap +16.3 points; always forward 0.485; stops 21/10/5 of 45; 14/24/3 of 45
+  path_05: rows 2471/2471, episodes 30/30: 0.754 0.563 gap +19.0 points; always forward 0.509; stops 11/9/10 of 30; 3/7/20 of 30
+  path_06: rows 1809/1809, episodes 25/25: 0.749 0.483 gap +26.6 points; always forward 0.402; stops 19/1/4 of 25; 8/5/12 of 25
+  six-sheet means: episodes split 0.714, sheets split 0.591, always forward 0.538; mean gap +12.3 points (smallest +0.5, largest +26.6)
+  pooled over all pictures: episodes split 0.707 (15950 rows), sheets split 0.572 (15950 rows)
+  stops pooled over all episodes: episodes split right 119, early 34, never 34 of 208; sheets split right 58, early 55, never 85 of 208
+
+=== 2. How much a held-out-sheet number moves: sampled episodes and seeds ===
+
+--- design: classes, held-out sheets, within 45, 95 % episode-bootstrap interval (4000 draws)
+  path_01: 0.756, interval 0.700 to 0.814 (19 episodes), half-width about 5.7 points
+  path_02: 0.530, interval 0.501 to 0.558 (44 episodes), half-width about 2.8 points
+  path_03: 0.565, interval 0.546 to 0.585 (45 episodes), half-width about 2.0 points
+  path_04: 0.559, interval 0.539 to 0.580 (45 episodes), half-width about 2.0 points
+  path_05: 0.583, interval 0.559 to 0.607 (30 episodes), half-width about 2.4 points
+  path_06: 0.467, interval 0.437 to 0.499 (25 episodes), half-width about 3.1 points
+  six-sheet mean 0.577: episode-bootstrap interval 0.563 to 0.591; between-sheet standard deviation 0.097, t interval over the six sheets 0.475 to 0.678
+
+--- design: exact, held-out sheets, within 45, 95 % episode-bootstrap interval (4000 draws)
+  path_01: 0.747, interval 0.688 to 0.809 (19 episodes), half-width about 6.0 points
+  path_02: 0.583, interval 0.558 to 0.609 (44 episodes), half-width about 2.5 points
+  path_03: 0.624, interval 0.603 to 0.646 (45 episodes), half-width about 2.1 points
+  path_04: 0.548, interval 0.527 to 0.570 (45 episodes), half-width about 2.2 points
+  path_05: 0.563, interval 0.535 to 0.592 (30 episodes), half-width about 2.9 points
+  path_06: 0.483, interval 0.456 to 0.515 (25 episodes), half-width about 3.0 points
+  six-sheet mean 0.591: episode-bootstrap interval 0.578 to 0.606; between-sheet standard deviation 0.089, t interval over the six sheets 0.498 to 0.685
+
+--- seeds: held-out sheets, within 45 per sheet (default seed, then seeds 11, 12, 13), range per sheet
+  design classes:
+    path_01: step 0.756 0.777 0.685 0.731 (range 9.1 points); path 0.801 0.832 0.725 0.793 (range 10.7); stopped right 0.526 0.474 0.316 0.579 (range 26.3)
+    path_02: step 0.530 0.471 0.506 0.500 (range 5.9 points); path 0.629 0.553 0.596 0.582 (range 7.6); stopped right 0.159 0.159 0.273 0.159 (range 11.4)
+    path_03: step 0.565 0.555 0.561 0.570 (range 1.5 points); path 0.570 0.557 0.584 0.585 (range 2.7); stopped right 0.378 0.622 0.533 0.556 (range 24.4)
+    path_04: step 0.559 0.551 0.554 0.533 (range 2.6 points); path 0.652 0.628 0.619 0.590 (range 6.2); stopped right 0.378 0.289 0.222 0.289 (range 15.6)
+    path_05: step 0.583 0.539 0.522 0.556 (range 6.1 points); path 0.621 0.582 0.565 0.596 (range 5.6); stopped right 0.067 0.200 0.167 0.200 (range 13.3)
+    path_06: step 0.467 0.474 0.444 0.448 (range 2.9 points); path 0.526 0.518 0.508 0.483 (range 4.3); stopped right 0.040 0.160 0.240 0.120 (range 20.0)
+    six-sheet means: step 0.577 0.561 0.546 0.556 (range 3.1 points); path 0.633 0.612 0.599 0.605 (range 3.4); stopped right 0.258 0.317 0.292 0.317 (range 5.9)
+  design exact:
+    path_01: step 0.747 0.747 0.724 0.752 (range 2.8 points); path 0.828 0.808 0.823 0.840 (range 3.1); stopped right 0.474 0.421 0.579 0.526 (range 15.8)
+    path_02: step 0.584 0.578 0.572 0.576 (range 1.2 points); path 0.695 0.713 0.672 0.696 (range 4.0); stopped right 0.227 0.295 0.227 0.227 (range 6.8)
+    path_03: step 0.624 0.627 0.591 0.613 (range 3.7 points); path 0.702 0.701 0.636 0.689 (range 6.6); stopped right 0.311 0.600 0.444 0.600 (range 28.9)
+    path_04: step 0.548 0.587 0.572 0.597 (range 4.8 points); path 0.633 0.696 0.674 0.701 (range 6.8); stopped right 0.311 0.356 0.289 0.311 (range 6.7)
+    path_05: step 0.563 0.590 0.550 0.544 (range 4.6 points); path 0.648 0.658 0.599 0.624 (range 5.9); stopped right 0.100 0.000 0.033 0.133 (range 13.3)
+    path_06: step 0.483 0.565 0.549 0.582 (range 9.8 points); path 0.534 0.676 0.639 0.694 (range 16.0); stopped right 0.320 0.320 0.160 0.000 (range 32.0)
+    six-sheet means: step 0.591 0.616 0.593 0.611 (range 2.4 points); path 0.673 0.708 0.674 0.707 (range 3.5); stopped right 0.291 0.332 0.289 0.300 (range 4.3)
+
+=== 3. Paired differences on the same pictures (second minus first, within 45), episode-bootstrap 95 % intervals ===
+  probe exact - probe classes, path_01: -0.9 points, interval -3.3 to +1.9 (19 episodes, 569 moving rows)
+  probe exact - probe classes, path_02: +5.4 points, interval +3.2 to +7.4 (44 episodes, 2372 moving rows)
+  probe exact - probe classes, path_03: +5.9 points, interval +3.8 to +7.8 (45 episodes, 3458 moving rows)
+  probe exact - probe classes, path_04: -1.1 points, interval -2.7 to +0.6 (45 episodes, 5271 moving rows)
+  probe exact - probe classes, path_05: -2.0 points, interval -4.4 to +0.7 (30 episodes, 2471 moving rows)
+  probe exact - probe classes, path_06: +1.6 points, interval -2.8 to +6.0 (25 episodes, 1809 moving rows)
+  probe classes seed 12 - seed 11, path_01: -9.1 points, interval -13.2 to -5.2 (19 episodes, 569 moving rows)
+  probe classes seed 12 - seed 11, path_02: +3.5 points, interval +1.3 to +5.9 (44 episodes, 2372 moving rows)
+  probe classes seed 12 - seed 11, path_03: +0.6 points, interval -1.4 to +2.6 (45 episodes, 3458 moving rows)
+  probe classes seed 12 - seed 11, path_04: +0.3 points, interval -0.7 to +1.4 (45 episodes, 5271 moving rows)
+  probe classes seed 12 - seed 11, path_05: -1.7 points, interval -4.1 to +0.7 (30 episodes, 2471 moving rows)
+  probe classes seed 12 - seed 11, path_06: -2.9 points, interval -6.2 to +0.3 (25 episodes, 1809 moving rows)
+  end-to-end ResNet-18 exact - classes, path_03: +3.6 points, interval +2.0 to +5.3 (45 episodes, 3458 moving rows)
+  end-to-end ResNet-18 exact - classes, path_05: +0.8 points, interval -1.9 to +4.0 (30 episodes, 2471 moving rows)
+  end-to-end ResNet-18 exact - classes, path_06: +3.5 points, interval +0.2 to +6.9 (25 episodes, 1809 moving rows)
+  end-to-end ResNet-18 classes - small CNN classes, path_03: +2.9 points, interval +1.1 to +4.6 (45 episodes, 3458 moving rows)
+  end-to-end ResNet-18 classes - small CNN classes, path_05: +2.5 points, interval -0.2 to +4.8 (30 episodes, 2471 moving rows)
+  end-to-end ResNet-18 classes - small CNN classes, path_06: +1.7 points, interval -0.7 to +4.0 (25 episodes, 1809 moving rows)
+  end-to-end ResNet-18 exact - probe exact, path_03: +7.6 points, interval +6.0 to +9.1 (45 episodes, 3458 moving rows)
+  end-to-end ResNet-18 exact - probe exact, path_05: +10.4 points, interval +7.7 to +13.1 (30 episodes, 2471 moving rows)
+  end-to-end ResNet-18 exact - probe exact, path_06: +19.2 points, interval +15.2 to +22.6 (25 episodes, 1809 moving rows)
+  end-to-end resnet18_finetune_classes path_03: within 45 0.663 on 3458 rows, stops right/early/never 13/5/26 of 45
+  end-to-end resnet18_finetune_classes path_05: within 45 0.659 on 2471 rows, stops right/early/never 4/5/21 of 30
+  end-to-end resnet18_finetune_classes path_06: within 45 0.640 on 1809 rows, stops right/early/never 1/1/23 of 25
+  end-to-end resnet18_finetune_exact path_03: within 45 0.700 on 3458 rows, stops right/early/never 31/7/5 of 45
+  end-to-end resnet18_finetune_exact path_05: within 45 0.667 on 2471 rows, stops right/early/never 6/17/7 of 30
+  end-to-end resnet18_finetune_exact path_06: within 45 0.675 on 1809 rows, stops right/early/never 5/1/19 of 25
+  end-to-end small_cnn_scratch_classes path_03: within 45 0.634 on 3458 rows, stops right/early/never 17/6/20 of 45
+  end-to-end small_cnn_scratch_classes path_05: within 45 0.635 on 2471 rows, stops right/early/never 1/2/27 of 30
+  end-to-end small_cnn_scratch_classes path_06: within 45 0.623 on 1809 rows, stops right/early/never 1/0/24 of 25
+  end-to-end small_cnn_line_and_puck_classes path_03: within 45 0.630 on 3458 rows, stops right/early/never 17/2/25 of 45
+  end-to-end small_cnn_line_and_puck_classes path_05: within 45 0.625 on 2471 rows, stops right/early/never 1/5/24 of 30
+  end-to-end small_cnn_line_and_puck_classes path_06: within 45 0.623 on 1809 rows, stops right/early/never 0/0/25 of 25
+
+=== 4. Pictures after a hand correction (recovery pictures) against the others, held-out sheets, within 45 ===
+  all rows of frames.csv after a correction: 7021 of 18522; in the probes' rows: 6983 of 18430; moving: 5996 of 15950
+  probe classes: before any correction 0.594 (9954 rows; always forward 0.555); after a correction 0.494 (5996 rows; always forward 0.431)
+    per sheet, before/after (rows): 01 0.815/0.402 (487/82); 02 0.616/0.419 (1335/1037); 03 0.596/0.531 (1800/1658); 04 0.594/0.502 (3315/1956); 05 0.601/0.553 (1552/919); 06 0.490/0.369 (1465/344)
+  probe exact: before any correction 0.605 (9954 rows; always forward 0.555); after a correction 0.518 (5996 rows; always forward 0.431)
+    per sheet, before/after (rows): 01 0.813/0.354 (487/82); 02 0.667/0.475 (1335/1037); 03 0.656/0.589 (1800/1658); 04 0.578/0.498 (3315/1956); 05 0.578/0.539 (1552/919); 06 0.504/0.395 (1465/344)
+  end-to-end classes (03, 05, 06): before any correction 0.688 (4817 rows; always forward 0.523); after a correction 0.605 (2921 rows; always forward 0.435)
+    per sheet, before/after (rows): 03 0.707/0.616 (1800/1658); 05 0.686/0.615 (1552/919); 06 0.668/0.523 (1465/344)
+  end-to-end exact (03, 05, 06): before any correction 0.731 (4817 rows; always forward 0.523); after a correction 0.605 (2921 rows; always forward 0.435)
+    per sheet, before/after (rows): 03 0.762/0.631 (1800/1658); 05 0.713/0.590 (1552/919); 06 0.713/0.515 (1465/344)
+
+=== 5. Steps per cm of line (rows per episode / cap-to-cap line length), episodes with score 1 to 3 ===
+  start kinds (episodes): STD 71, NE 41, OL1 10, MID 10, OR1 9, SQL 9, OL1.5 8, OR1.5 8, TR10 7, TL10 7, TL15 6, SQP 6, X1 6, TR15 5, X2 3, empty 2
+  STD starts:
+    path_01: 6 episodes, rows per cm median 1.37, 90th percentile 1.89, largest 1.93; over 3 per cm 0, over 4 per cm 0
+    path_02: 10 episodes, rows per cm median 2.25, 90th percentile 2.92, largest 3.04; over 3 per cm 1, over 4 per cm 0
+    path_03: 16 episodes, rows per cm median 2.24, 90th percentile 2.57, largest 2.76; over 3 per cm 0, over 4 per cm 0
+    path_04: 16 episodes, rows per cm median 2.44, 90th percentile 2.85, largest 3.07; over 3 per cm 1, over 4 per cm 0
+    path_05: 12 episodes, rows per cm median 1.89, 90th percentile 2.18, largest 2.19; over 3 per cm 0, over 4 per cm 0
+    path_06: 11 episodes, rows per cm median 1.78, 90th percentile 2.58, largest 2.77; over 3 per cm 0, over 4 per cm 0
+    all sheets: 71 episodes, median 2.14, 90th percentile 2.75, largest 3.07; over 3 per cm 2, over 4 per cm 0
+  all episodes:
+    path_01: 19 episodes, rows per cm median 1.37, 90th percentile 2.24, largest 2.40; over 3 per cm 0, over 4 per cm 0
+    path_02: 44 episodes, rows per cm median 2.11, 90th percentile 2.95, largest 3.32; over 3 per cm 4, over 4 per cm 0
+    path_03: 45 episodes, rows per cm median 2.09, 90th percentile 2.61, largest 2.80; over 3 per cm 0, over 4 per cm 0
+    path_04: 45 episodes, rows per cm median 2.32, 90th percentile 2.84, largest 3.12; over 3 per cm 3, over 4 per cm 0
+    path_05: 30 episodes, rows per cm median 1.83, 90th percentile 2.17, largest 2.76; over 3 per cm 0, over 4 per cm 0
+    path_06: 25 episodes, rows per cm median 1.76, 90th percentile 2.32, largest 2.77; over 3 per cm 0, over 4 per cm 0
+    all sheets: 208 episodes, median 1.97, 90th percentile 2.69, largest 3.32; over 3 per cm 7, over 4 per cm 0
+  seconds to the next row: median 1.23, 90th percentile 1.53
+
+=== 6. End-to-end folds (stored measures) and training histories ===
+  resnet18_finetune_classes path_03: episodes 45, within 45 0.6634 of 3458 rows, path within 45 0.7037 of 3186; stop 0.5 right/early/never 13/5/26; epochs 8, lowest validation loss at epoch 7
+  resnet18_finetune_classes path_05: episodes 30, within 45 0.6592 of 2471 rows, path within 45 0.7106 of 2381; stop 0.5 right/early/never 4/5/21; epochs 8, lowest validation loss at epoch 5
+  resnet18_finetune_classes path_06: episodes 25, within 45 0.6401 of 1809 rows, path within 45 0.7073 of 1708; stop 0.5 right/early/never 1/1/23; epochs 8, lowest validation loss at epoch 7
+  resnet18_finetune_exact path_03: episodes 45, within 45 0.6995 of 3458 rows, path within 45 0.8019 of 3186; stop 0.5 right/early/never 31/7/5; tuned two in a row right/early/never 34/8/2 (threshold 0.15); epochs 8, lowest validation loss at epoch 8
+  resnet18_finetune_exact path_05: episodes 30, within 45 0.6673 of 2471 rows, path within 45 0.7774 of 2381; stop 0.5 right/early/never 6/17/7; tuned two in a row right/early/never 5/19/6 (threshold 0.3); epochs 8, lowest validation loss at epoch 8
+  resnet18_finetune_exact path_06: episodes 25, within 45 0.675 of 1809 rows, path within 45 0.791 of 1708; stop 0.5 right/early/never 5/1/19; tuned two in a row right/early/never 8/6/11 (threshold 0.15); epochs 8, lowest validation loss at epoch 8
+  small_cnn_scratch_classes path_03: episodes 45, within 45 0.6345 of 3458 rows, path within 45 0.6689 of 3186; stop 0.5 right/early/never 17/6/20; tuned two in a row right/early/never 34/8/2 (threshold 0.1); epochs 16, lowest validation loss at epoch 15
+  small_cnn_scratch_classes path_05: episodes 30, within 45 0.6346 of 2471 rows, path within 45 0.6825 of 2381; stop 0.5 right/early/never 1/2/27; tuned two in a row right/early/never 3/12/15 (threshold 0.2); epochs 16, lowest validation loss at epoch 16
+  small_cnn_scratch_classes path_06: episodes 25, within 45 0.623 of 1809 rows, path within 45 0.6979 of 1708; stop 0.5 right/early/never 1/0/24; tuned two in a row right/early/never 7/2/15 (threshold 0.2); epochs 16, lowest validation loss at epoch 16
+  small_cnn_line_and_puck_classes path_03: episodes 45, within 45 0.6301 of 3458 rows, path within 45 0.6758 of 3186; stop 0.5 right/early/never 17/2/25; tuned two in a row right/early/never 28/13/2 (threshold 0.05); epochs 16, lowest validation loss at epoch 16
+  small_cnn_line_and_puck_classes path_05: episodes 30, within 45 0.6248 of 2471 rows, path within 45 0.6766 of 2381; stop 0.5 right/early/never 1/5/24; tuned two in a row right/early/never 2/9/19 (threshold 0.2); epochs 16, lowest validation loss at epoch 16
+  small_cnn_line_and_puck_classes path_06: episodes 25, within 45 0.623 of 1809 rows, path within 45 0.6961 of 1708; stop 0.5 right/early/never 0/0/25; tuned two in a row right/early/never 0/0/25 (threshold 0.3); epochs 16, lowest validation loss at epoch 16
+
+=== 7. Robot-trial statistics (calculated) ===
+
+--- 95 % intervals: Wilson and Clopper-Pearson (exact)
+  5/10: Wilson 0.237 to 0.763 (half-width 26.3 points); Clopper-Pearson 0.187 to 0.813
+  7/10: Wilson 0.397 to 0.892 (half-width 24.8 points); Clopper-Pearson 0.348 to 0.933
+  8/10: Wilson 0.490 to 0.943 (half-width 22.7 points); Clopper-Pearson 0.444 to 0.975
+  9/10: Wilson 0.596 to 0.982 (half-width 19.3 points); Clopper-Pearson 0.555 to 0.997
+  10/10: Wilson 0.722 to 1.000 (half-width 13.9 points); Clopper-Pearson 0.692 to 1.000
+  10/20: Wilson 0.299 to 0.701 (half-width 20.1 points); Clopper-Pearson 0.272 to 0.728
+  14/20: Wilson 0.481 to 0.855 (half-width 18.7 points); Clopper-Pearson 0.457 to 0.881
+  16/20: Wilson 0.584 to 0.919 (half-width 16.8 points); Clopper-Pearson 0.563 to 0.943
+  18/20: Wilson 0.699 to 0.972 (half-width 13.7 points); Clopper-Pearson 0.683 to 0.988
+  20/20: Wilson 0.839 to 1.000 (half-width 8.1 points); Clopper-Pearson 0.832 to 1.000
+  15/30: Wilson 0.332 to 0.668 (half-width 16.8 points); Clopper-Pearson 0.313 to 0.687
+  21/30: Wilson 0.521 to 0.833 (half-width 15.6 points); Clopper-Pearson 0.506 to 0.853
+  24/30: Wilson 0.627 to 0.905 (half-width 13.9 points); Clopper-Pearson 0.614 to 0.923
+  27/30: Wilson 0.744 to 0.965 (half-width 11.1 points); Clopper-Pearson 0.735 to 0.979
+  30/30: Wilson 0.886 to 1.000 (half-width 5.7 points); Clopper-Pearson 0.884 to 1.000
+
+--- one model against a 70 % bar (exact binomial test, one-sided 5 %), true rate 90 %
+  10 trials: pass with 10/10 or more; size 0.028; power 0.349
+  15 trials: pass with 14/15 or more; size 0.035; power 0.549
+  20 trials: pass with 18/20 or more; size 0.035; power 0.677
+  25 trials: pass with 22/25 or more; size 0.033; power 0.764
+  28 trials: pass with 24/28 or more; size 0.047; power 0.858
+  30 trials: pass with 26/30 or more; size 0.030; power 0.825
+  33 trials: pass with 28/33 or more; size 0.041; power 0.894
+  35 trials: pass with 30/35 or more; size 0.027; power 0.868
+  40 trials: pass with 34/40 or more; size 0.024; power 0.900
+  first trial count with power 0.8: 28
+
+--- choosing the better of two models: chance that the better shows more successes (ties split)
+  90% against 70%: 10 each 0.870, 12 each 0.892, 15 each 0.918, 20 each 0.947, 24 each 0.962, 30 each 0.977, 50 each 0.995
+  90% against 80%: 10 each 0.729, 12 each 0.750, 15 each 0.776, 20 each 0.811, 24 each 0.834, 30 each 0.861, 50 each 0.921
+  70% against 50%: 10 each 0.819, 12 each 0.841, 15 each 0.869, 20 each 0.903, 24 each 0.923, 30 each 0.944, 50 each 0.980
+  60% against 40%: 10 each 0.814, 12 each 0.836, 15 each 0.864, 20 each 0.898, 24 each 0.918, 30 each 0.940, 50 each 0.978
+
+--- an observed 20-point gap: Newcombe 95 % interval of the difference, and P(second better) with uniform priors
+  7/10 against 9/10: difference -0.160 to +0.514; P(second better) 0.845
+  14/20 against 18/20: difference -0.054 to +0.431; P(second better) 0.935
+  21/30 against 27/30: difference -0.005 to +0.390; P(second better) 0.971
+
+--- trials clustered on tracks: design effect 1 + (m - 1) x rho and effective number of trials out of 30 (rho guessed)
+  3 tracks x 10: rho 0.05: effect 1.45, effective 20.7; rho 0.15: effect 2.35, effective 12.8; rho 0.30: effect 3.70, effective 8.1
+  6 tracks x 5: rho 0.05: effect 1.20, effective 25.0; rho 0.15: effect 1.60, effective 18.8; rho 0.30: effect 2.20, effective 13.6
+  10 tracks x 3: rho 0.05: effect 1.10, effective 27.3; rho 0.15: effect 1.30, effective 23.1; rho 0.30: effect 1.60, effective 18.8
+  15 tracks x 2: rho 0.05: effect 1.05, effective 28.6; rho 0.15: effect 1.15, effective 26.1; rho 0.30: effect 1.30, effective 23.1
+  30 tracks x 1: rho 0.05: effect 1.00, effective 30.0; rho 0.15: effect 1.00, effective 30.0; rho 0.30: effect 1.00, effective 30.0
+  27/30 seen as 11/13 effective trials (3 x 10, rho 0.15): Wilson 0.578 to 0.957
+  27/30 seen as 21/23 effective trials (10 x 3, rho 0.15): Wilson 0.732 to 0.976
+  27/30 as 30 independent trials: Wilson 0.744 to 0.965
+
+--- robot time (minutes): per-sheet minutes from main_session_facts.md (steps x 1.22 s + 1 min set-up, a guess),
+    and a slower case: 1.5 x the demonstration steps and a 2.5-minute reset (both guesses)
+  path_01: 1.6 min per trial; slow case 3.5
+  path_02: 2.4 min per trial; slow case 4.5
+  path_03: 3.2 min per trial; slow case 5.7
+  path_04: 4.4 min per trial; slow case 7.6
+  path_05: 3.1 min per trial; slow case 5.7
+  path_06: 2.7 min per trial; slow case 5.0
+  a new track, assumed like sheets 03 to 06: 3.35 min; slow case 6.00
+  phase 0, pipeline check: sheet 01, 6 runs: 10 min (0.2 h); slow case 21 min (0.3 h)
+  phase 1, choice: 24 paired blocks (48 trials): sheets 04, 05, 06 x 2 ends x 2, and 2 validation tracks x 2 ends x 3: 162 min (2.7 h); slow case 290 min (4.8 h)
+  phase 2, final: 6 sheets x 5 trials, 10 sealed tracks x 3 trials (60 trials): 188 min (3.1 h); slow case 340 min (5.7 h)
+  light check: sheets 03, 05, 06 x 2 under a changed light (6 trials): 18 min (0.3 h); slow case 33 min (0.5 h)
+  all phases: 6.3 h; slow case 11.4 h (without breaks, warm-up runs and void re-runs)

@@ -1,0 +1,148 @@
+STORED CHECK (recomputed, stored)
+  final_candidate_01: within_45 0.7785 / 0.7785; path_within_45 0.8563 / 0.8563; direction_rows 578 / 578; stopped_right_0.5 0.6 / 0.6; stopped_early_0.5 0.2 / 0.2; tuned_two_right 0.8 / 0.8; tuned_one_right 0.65 / 0.65
+  final_candidate_02: within_45 0.6318 / 0.6318; path_within_45 0.7615 / 0.7615; direction_rows 2425 / 2425; stopped_right_0.5 0.5333 / 0.5333; stopped_early_0.5 0.0444 / 0.0444; tuned_two_right 0.4222 / 0.4222; tuned_one_right 0.5556 / 0.5556
+  final_candidate_03: within_45 0.6802 / 0.6802; path_within_45 0.8007 / 0.8007; direction_rows 3458 / 3458; stopped_right_0.5 0.7333 / 0.7333; stopped_early_0.5 0.2 / 0.2; tuned_two_right 0.6889 / 0.6889; tuned_one_right 0.6889 / 0.6889
+  final_candidate_04: within_45 0.6423 / 0.6423; path_within_45 0.7352 / 0.7352; direction_rows 5264 / 5264; stopped_right_0.5 0.4 / 0.4; stopped_early_0.5 0.2889 / 0.2889; tuned_two_right 0.3333 / 0.3333; tuned_one_right 0.4 / 0.4
+  final_candidate_05: within_45 0.6485 / 0.6485; path_within_45 0.7543 / 0.7543; direction_rows 2461 / 2461; stopped_right_0.5 0.4138 / 0.4138; stopped_early_0.5 0.3793 / 0.3793; tuned_two_right 0.4138 / 0.4138; tuned_one_right 0.5517 / 0.5517
+  finetune_exact_03: within_45 0.6995 / 0.6995; path_within_45 0.8019 / 0.8019; direction_rows 3458 / 3458; stopped_right_0.5 0.6889 / 0.6889; stopped_early_0.5 0.1556 / 0.1556; tuned_two_right 0.7556 / 0.7556; tuned_one_right 0.6889 / 0.6889
+  finetune_exact_05: within_45 0.6673 / 0.6673; path_within_45 0.7774 / 0.7774; direction_rows 2471 / 2471; stopped_right_0.5 0.2 / 0.2; stopped_early_0.5 0.5667 / 0.5667; tuned_two_right 0.1667 / 0.1667; tuned_one_right 0.2 / 0.2
+  finetune_exact_06: within_45 0.675 / 0.675; path_within_45 0.791 / 0.791; direction_rows 1809 / 1809; stopped_right_0.5 0.2 / 0.2; stopped_early_0.5 0.04 / 0.04; tuned_two_right 0.32 / 0.32; tuned_one_right 0.24 / 0.24
+  finetune_chunk_03: within_45 0.6917 / 0.6917; path_within_45 0.8368 / 0.8368; direction_rows 3458 / 3458; stopped_right_0.5 0.5778 / 0.5778; stopped_early_0.5 0.1111 / 0.1111; tuned_two_right 0.6667 / 0.6667; tuned_one_right 0.6667 / 0.6667
+  finetune_chunk_05: within_45 0.6807 / 0.6807; path_within_45 0.795 / 0.795; direction_rows 2471 / 2471; stopped_right_0.5 0.1667 / 0.1667; stopped_early_0.5 0.6 / 0.6; tuned_two_right 0.0667 / 0.0667; tuned_one_right 0.1667 / 0.1667
+  finetune_classes_03: within_45 0.6634 / 0.6634; path_within_45 0.7037 / 0.7037; direction_rows 3458 / 3458; stopped_right_0.5 0.2889 / 0.2889; stopped_early_0.5 0.1111 / 0.1111
+  finetune_classes_05: within_45 0.6592 / 0.6592; path_within_45 0.7106 / 0.7106; direction_rows 2471 / 2471; stopped_right_0.5 0.1333 / 0.1333; stopped_early_0.5 0.1667 / 0.1667
+  finetune_classes_06: within_45 0.6401 / 0.6401; path_within_45 0.7073 / 0.7073; direction_rows 1809 / 1809; stopped_right_0.5 0.04 / 0.04; stopped_early_0.5 0.04 / 0.04
+  finetune_mirror_03: within_45 0.6703 / 0.6703; path_within_45 0.726 / 0.726; direction_rows 3458 / 3458; stopped_right_0.5 0.5778 / 0.5778; stopped_early_0.5 0.0667 / 0.0667; tuned_two_right 0.6222 / 0.6222; tuned_one_right 0.5333 / 0.5333
+  finetune_mirror_05: within_45 0.6588 / 0.6588; path_within_45 0.7392 / 0.7392; direction_rows 2471 / 2471; stopped_right_0.5 0.3 / 0.3; stopped_early_0.5 0.2667 / 0.2667; tuned_two_right 0.2667 / 0.2667; tuned_one_right 0.3 / 0.3
+  finetune_mirror_06: within_45 0.5987 / 0.5987; path_within_45 0.6692 / 0.6692; direction_rows 1809 / 1809; stopped_right_0.5 0.24 / 0.24; stopped_early_0.5 0.04 / 0.04; tuned_two_right 0.4 / 0.4; tuned_one_right 0.28 / 0.28
+  small_cnn_classes_03: within_45 0.6345 / 0.6345; path_within_45 0.6689 / 0.6689; direction_rows 3458 / 3458; stopped_right_0.5 0.3778 / 0.3778; stopped_early_0.5 0.1333 / 0.1333; tuned_two_right 0.7556 / 0.7556; tuned_one_right 0.5556 / 0.5556
+  small_cnn_classes_05: within_45 0.6346 / 0.6346; path_within_45 0.6825 / 0.6825; direction_rows 2471 / 2471; stopped_right_0.5 0.0333 / 0.0333; stopped_early_0.5 0.0667 / 0.0667; tuned_two_right 0.1 / 0.1; tuned_one_right 0.0667 / 0.0667
+  small_cnn_classes_06: within_45 0.623 / 0.623; path_within_45 0.6979 / 0.6979; direction_rows 1809 / 1809; stopped_right_0.5 0.04 / 0.04; stopped_early_0.5 0.0 / 0.0; tuned_two_right 0.28 / 0.28; tuned_one_right 0.16 / 0.16
+
+PER FOLD (moving rows, model within 45, path rows, model path 45, always forward 45 and path 45, backward rows and within 45, other moves within 45)
+  final_candidate 01: moving 578, within45 0.7785, path rows 529, path45 0.8563, forward 0.7526 / 0.8015, backward 37 at 0.0541, other 0.8281; twist gain 0.655, sign 0.6765 of 238, sign where predicted >= 3 deg 0.7234 of 47
+  final_candidate 02: moving 2425, within45 0.6318, path rows 2243, path45 0.7615, forward 0.5629 / 0.6572, backward 280 at 0.1393, other 0.696; twist gain 0.552, sign 0.8017 of 1195, sign where predicted >= 3 deg 0.8651 of 704
+  final_candidate 03: moving 3458, within45 0.6802, path rows 3116, path45 0.8007, forward 0.5223 / 0.6085, backward 340 at 0.4118, other 0.7094; twist gain 0.935, sign 0.8479 of 2630, sign where predicted >= 3 deg 0.9275 of 1670
+  final_candidate 04: moving 5264, within45 0.6423, path rows 4502, path45 0.7352, forward 0.4856 / 0.5817, backward 523 at 0.3002, other 0.68; twist gain 0.962, sign 0.7729 of 4535, sign where predicted >= 3 deg 0.851 of 2382
+  final_candidate 05: moving 2461, within45 0.6485, path rows 2324, path45 0.7543, forward 0.5071 / 0.5422, backward 416 at 0.3197, other 0.7154; twist gain 0.664, sign 0.6772 of 1713, sign where predicted >= 3 deg 0.7875 of 367
+  finetune_exact 03: moving 3458, within45 0.6995, path rows 3186, path45 0.8019, forward 0.5223 / 0.603, backward 340 at 0.4118, other 0.7309; twist gain 1.054, sign 0.8445 of 2630, sign where predicted >= 3 deg 0.9536 of 1445
+  finetune_exact 05: moving 2471, within45 0.6673, path rows 2381, path45 0.7774, forward 0.5087 / 0.5439, backward 416 at 0.2788, other 0.746; twist gain 0.593, sign 0.6694 of 1721, sign where predicted >= 3 deg 0.8133 of 466
+  finetune_exact 06: moving 1809, within45 0.675, path rows 1708, path45 0.791, forward 0.4019 / 0.4333, backward 298 at 0.5268, other 0.7042; twist gain 1.193, sign 0.8021 of 1430, sign where predicted >= 3 deg 0.9284 of 489
+  finetune_chunk 03: moving 3458, within45 0.6917, path rows 3186, path45 0.8368, forward 0.5223 / 0.603, backward 340 at 0.4324, other 0.72; vector: within45 0.6718, path45 0.8318; twist gain 1.009, sign 0.8392 of 2630, sign where predicted >= 3 deg 0.9427 of 1465
+  finetune_chunk 05: moving 2471, within45 0.6807, path rows 2381, path45 0.795, forward 0.5087 / 0.5439, backward 416 at 0.4183, other 0.7338; vector: within45 0.6758, path45 0.8005; twist gain 0.643, sign 0.6624 of 1721, sign where predicted >= 3 deg 0.8471 of 471
+  finetune_classes 03: moving 3458, within45 0.6634, path rows 3186, path45 0.7037, forward 0.5223 / 0.603, backward 340 at 0.5794, other 0.6725; expected: within45 0.6868, path45 0.7511, backward 0.5559
+  finetune_classes 05: moving 2471, within45 0.6592, path rows 2381, path45 0.7106, forward 0.5087 / 0.5439, backward 416 at 0.6587, other 0.6594; expected: within45 0.6779, path45 0.7535, backward 0.6779
+  finetune_classes 06: moving 1809, within45 0.6401, path rows 1708, path45 0.7073, forward 0.4019 / 0.4333, backward 298 at 0.7617, other 0.6161; expected: within45 0.6374, path45 0.7283, backward 0.7651
+  finetune_mirror 03: moving 3458, within45 0.6703, path rows 3186, path45 0.726, forward 0.5223 / 0.603, backward 340 at 0.5206, other 0.6867; expected: within45 0.6802, path45 0.7583, backward 0.5
+  finetune_mirror 05: moving 2471, within45 0.6588, path rows 2381, path45 0.7392, forward 0.5087 / 0.5439, backward 416 at 0.613, other 0.6681; expected: within45 0.6835, path45 0.7761, backward 0.6106
+  finetune_mirror 06: moving 1809, within45 0.5987, path rows 1708, path45 0.6692, forward 0.4019 / 0.4333, backward 298 at 0.7248, other 0.5738; expected: within45 0.6374, path45 0.7289, backward 0.7483
+  small_cnn_classes 03: moving 3458, within45 0.6345, path rows 3186, path45 0.6689, forward 0.5223 / 0.603, backward 340 at 0.4941, other 0.6498; expected: within45 0.6709, path45 0.732, backward 0.5
+  small_cnn_classes 05: moving 2471, within45 0.6346, path rows 2381, path45 0.6825, forward 0.5087 / 0.5439, backward 416 at 0.5264, other 0.6564; expected: within45 0.6673, path45 0.7346, backward 0.5216
+  small_cnn_classes 06: moving 1809, within45 0.623, path rows 1708, path45 0.6979, forward 0.4019 / 0.4333, backward 298 at 0.7282, other 0.6023; expected: within45 0.6606, path45 0.7722, backward 0.755
+
+POOLED STOP OUTCOMES (episodes: right / early / never / between 2 and 3 cm)
+  final_candidate over sheets ['01', '02', '03', '04', '05']:
+    fixed t0.5_k1: 99 / 39 / 29 / 17 of 184
+    fixed t0.5_k2: 99 / 24 / 48 / 13 of 184
+    fixed t0.3_k1: 89 / 53 / 22 / 20 of 184
+    fixed t0.3_k2: 95 / 39 / 36 / 14 of 184
+    fixed t0.4_k1: 96 / 44 / 24 / 20 of 184
+    fixed t0.4_k2: 98 / 30 / 42 / 14 of 184
+    fixed t0.6_k1: 101 / 31 / 36 / 16 of 184
+    fixed t0.7_k1: 98 / 23 / 50 / 13 of 184
+    tuned_one_counts: 103 / 31 / 34 / 16
+    tuned_two_counts: 93 / 46 / 25 / 20
+    best fixed settings with hindsight: t0.6_k1 101 / 31 / 36; t0.5_k2 99 / 24 / 48; t0.5_k1 99 / 39 / 29
+    leave one sheet out, k1: 93 / 32 / 43 / 16 of 184 (right Wilson [0.434, 0.577]); thresholds 01 0.6, 02 0.6, 03 0.7, 04 0.6, 05 0.5
+    leave one sheet out, k2: 93 / 33 / 46 / 12 of 184 (right Wilson [0.434, 0.577]); thresholds 01 0.5, 02 0.5, 03 0.5, 04 0.5, 05 0.3
+  finetune_exact over sheets ['03', '05', '06']:
+    fixed t0.5_k1: 42 / 25 / 31 / 2 of 100
+    fixed t0.5_k2: 36 / 23 / 40 / 1 of 100
+    fixed t0.3_k1: 42 / 34 / 21 / 3 of 100
+    fixed t0.3_k2: 44 / 27 / 27 / 2 of 100
+    fixed t0.4_k1: 46 / 26 / 25 / 3 of 100
+    fixed t0.4_k2: 39 / 24 / 35 / 2 of 100
+    fixed t0.6_k1: 43 / 17 / 38 / 2 of 100
+    fixed t0.7_k1: 34 / 15 / 49 / 2 of 100
+    tuned_one_counts: 43 / 33 / 22 / 2
+    tuned_two_counts: 47 / 33 / 19 / 1
+    best fixed settings with hindsight: t0.4_k1 46 / 26 / 25; t0.15_k2 45 / 36 / 18; t0.3_k2 44 / 27 / 27
+    leave one sheet out, k1: 43 / 26 / 28 / 3 of 100 (right Wilson [0.337, 0.528]); thresholds 03 0.4, 05 0.4, 06 0.6
+    leave one sheet out, k2: 34 / 38 / 26 / 2 of 100 (right Wilson [0.255, 0.437]); thresholds 03 0.4, 05 0.15, 06 0.1
+  finetune_chunk over sheets ['03', '05']:
+    fixed t0.5_k1: 31 / 23 / 19 / 2 of 75
+    fixed t0.5_k2: 23 / 14 / 37 / 1 of 75
+    fixed t0.3_k1: 29 / 31 / 12 / 3 of 75
+    fixed t0.3_k2: 25 / 21 / 27 / 2 of 75
+    fixed t0.4_k1: 32 / 26 / 15 / 2 of 75
+    fixed t0.4_k2: 24 / 18 / 31 / 2 of 75
+    fixed t0.6_k1: 29 / 19 / 25 / 2 of 75
+    fixed t0.7_k1: 25 / 11 / 38 / 1 of 75
+    tuned_one_counts: 35 / 30 / 9 / 1
+    tuned_two_counts: 32 / 31 / 11 / 1
+    best fixed settings with hindsight: t0.2_k1 33 / 33 / 8; t0.4_k1 32 / 26 / 15; t0.1_k2 32 / 31 / 11
+  finetune_classes over sheets ['03', '05', '06']:
+    fixed t0.5_k1: 18 / 11 / 70 / 1 of 100
+    fixed t0.5_k2: 10 / 8 / 81 / 1 of 100
+    fixed t0.3_k1: 30 / 19 / 50 / 1 of 100
+    fixed t0.3_k2: 17 / 11 / 71 / 1 of 100
+    fixed t0.4_k1: 25 / 13 / 61 / 1 of 100
+    fixed t0.4_k2: 14 / 8 / 77 / 1 of 100
+    fixed t0.6_k1: 14 / 8 / 77 / 1 of 100
+    fixed t0.7_k1: 9 / 6 / 84 / 1 of 100
+    best fixed settings with hindsight: t0.05_k1 37 / 39 / 19; t0.1_k1 36 / 29 / 32; t0.15_k1 35 / 28 / 35
+    leave one sheet out, k1: 31 / 38 / 27 / 4 of 100 (right Wilson [0.228, 0.406]); thresholds 03 0.15, 05 0.05, 06 0.05
+    leave one sheet out, k2: 30 / 34 / 35 / 1 of 100 (right Wilson [0.219, 0.396]); thresholds 03 0.1, 05 0.05, 06 0.05
+  finetune_mirror over sheets ['03', '05', '06']:
+    fixed t0.5_k1: 41 / 12 / 44 / 3 of 100
+    fixed t0.5_k2: 35 / 7 / 57 / 1 of 100
+    fixed t0.3_k1: 40 / 19 / 37 / 4 of 100
+    fixed t0.3_k2: 41 / 16 / 41 / 2 of 100
+    fixed t0.4_k1: 41 / 16 / 40 / 3 of 100
+    fixed t0.4_k2: 38 / 9 / 51 / 2 of 100
+    fixed t0.6_k1: 33 / 8 / 57 / 2 of 100
+    fixed t0.7_k1: 25 / 2 / 72 / 1 of 100
+    tuned_one_counts: 40 / 22 / 35 / 3
+    tuned_two_counts: 46 / 21 / 30 / 3
+    best fixed settings with hindsight: t0.2_k2 43 / 18 / 37; t0.1_k2 43 / 27 / 27; t0.15_k2 42 / 23 / 32
+    leave one sheet out, k1: 36 / 22 / 39 / 3 of 100 (right Wilson [0.273, 0.458]); thresholds 03 0.4, 05 0.15, 06 0.5
+    leave one sheet out, k2: 40 / 27 / 31 / 2 of 100 (right Wilson [0.309, 0.498]); thresholds 03 0.1, 05 0.1, 06 0.2
+  small_cnn_classes over sheets ['03', '05', '06']:
+    fixed t0.5_k1: 19 / 8 / 71 / 2 of 100
+    fixed t0.5_k2: 19 / 4 / 76 / 1 of 100
+    fixed t0.3_k1: 35 / 16 / 46 / 3 of 100
+    fixed t0.3_k2: 34 / 9 / 56 / 1 of 100
+    fixed t0.4_k1: 27 / 12 / 59 / 2 of 100
+    fixed t0.4_k2: 24 / 4 / 70 / 2 of 100
+    fixed t0.6_k1: 15 / 5 / 78 / 2 of 100
+    fixed t0.7_k1: 10 / 2 / 88 / 0 of 100
+    tuned_one_counts: 31 / 15 / 49 / 5
+    tuned_two_counts: 44 / 22 / 32 / 2
+    best fixed settings with hindsight: t0.1_k2 47 / 28 / 23; t0.15_k2 43 / 23 / 32; t0.2_k2 41 / 18 / 39
+    leave one sheet out, k1: 30 / 34 / 30 / 6 of 100 (right Wilson [0.219, 0.396]); thresholds 03 0.15, 05 0.1, 06 0.3
+    leave one sheet out, k2: 47 / 28 / 23 / 2 of 100 (right Wilson [0.375, 0.567]); thresholds 03 0.1, 05 0.1, 06 0.1
+
+PER-FOLD STOP COUNTS, final candidate (right / early / never / between)
+  01 (20 episodes): t0.5_k1 12/4/1/3; t0.5_k2 16/3/1/0; t0.3_k1 11/3/1/5; t0.3_k2 15/3/1/1; tuned one (0.7) 13/2/3/2; tuned two (0.4) 16/3/1/0
+  02 (45 episodes): t0.5_k1 24/2/18/1; t0.5_k2 19/1/24/1; t0.3_k1 25/4/14/2; t0.3_k2 23/1/19/2; tuned one (0.3) 25/4/14/2; tuned two (0.1) 19/8/13/5
+  03 (45 episodes): t0.5_k1 33/9/1/2; t0.5_k2 29/5/8/3; t0.3_k1 29/12/0/4; t0.3_k2 28/9/5/3; tuned one (0.6) 31/6/6/2; tuned two (0.1) 31/10/1/3
+  04 (45 episodes): t0.5_k1 18/13/4/10; t0.5_k2 21/9/8/7; t0.3_k1 17/16/4/8; t0.3_k2 21/11/6/7; tuned one (0.4) 18/14/4/9; tuned two (0.1) 15/16/4/10
+  05 (29 episodes): t0.5_k1 12/11/5/1; t0.5_k2 14/6/7/2; t0.3_k1 7/18/3/1; t0.3_k2 8/15/5/1; tuned one (0.8) 16/5/7/1; tuned two (0.4) 12/9/6/2
+
+PAIRED DIFFERENCES ON SHARED ROWS (points, 95 % episode bootstrap)
+  finetune_chunk.angle_deg minus finetune_exact.angle_deg, sheet 03: step -0.8 [-1.7, 0.2] on 3458 rows; path 3.5 [1.8, 5.1] on 3186 rows
+  finetune_chunk.angle_deg minus finetune_exact.angle_deg, sheet 05: step 1.3 [-0.3, 2.9] on 2471 rows; path 1.8 [-0.4, 4.1] on 2381 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_deg, sheet 03: step 3.6 [1.9, 5.3] on 3458 rows; path 9.8 [7.7, 12.2] on 3186 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_deg, sheet 05: step 0.8 [-2.1, 3.9] on 2471 rows; path 6.7 [3.1, 10.5] on 2381 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_deg, sheet 06: step 3.5 [0.1, 7.0] on 1809 rows; path 8.4 [4.5, 12.2] on 1708 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_expected_deg, sheet 03: step 1.3 [-0.5, 3.2] on 3458 rows; path 5.1 [2.9, 7.4] on 3186 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_expected_deg, sheet 05: step -1.1 [-3.6, 1.9] on 2471 rows; path 2.4 [-0.5, 5.7] on 2381 rows
+  finetune_exact.angle_deg minus finetune_classes.angle_expected_deg, sheet 06: step 3.8 [0.3, 7.4] on 1809 rows; path 6.3 [2.8, 9.7] on 1708 rows
+  finetune_mirror.angle_deg minus finetune_classes.angle_deg, sheet 03: step 0.7 [-0.8, 2.2] on 3458 rows; path 2.2 [0.4, 4.1] on 3186 rows
+  finetune_mirror.angle_deg minus finetune_classes.angle_deg, sheet 05: step -0.0 [-3.0, 2.9] on 2471 rows; path 2.9 [0.4, 5.3] on 2381 rows
+  finetune_mirror.angle_deg minus finetune_classes.angle_deg, sheet 06: step -4.1 [-6.8, -1.5] on 1809 rows; path -3.8 [-7.0, -0.6] on 1708 rows
+  finetune_classes.angle_deg minus small_cnn_classes.angle_deg, sheet 03: step 2.9 [1.2, 4.5] on 3458 rows; path 3.5 [1.2, 5.6] on 3186 rows
+  finetune_classes.angle_deg minus small_cnn_classes.angle_deg, sheet 05: step 2.5 [-0.4, 4.8] on 2471 rows; path 2.8 [-0.7, 6.0] on 2381 rows
+  finetune_classes.angle_deg minus small_cnn_classes.angle_deg, sheet 06: step 1.7 [-0.7, 4.1] on 1809 rows; path 0.9 [-2.3, 3.8] on 1708 rows
+  final_candidate.angle_deg minus finetune_exact.angle_deg, sheet 03: step -1.9 [-3.8, -0.3] on 3458 rows; path -0.7 [-2.8, 1.2] on 3091 rows
+  final_candidate.angle_deg minus finetune_exact.angle_deg, sheet 05: step -1.8 [-3.3, -0.3] on 2461 rows; path -2.3 [-4.3, -0.5] on 2311 rows

@@ -1,0 +1,38 @@
+PART 1, labels (frames.csv)
+rows 18522 episodes with rows 210 episodes.csv rows 211
+episodes of episodes.csv without rows: ['2026-11-06_session_01_emranul/path_01_straight_line_episode_016_plan_01-14_try_1']
+stop rows 210 episodes with exactly one stop row 210
+goal_distance_cm at stop rows: min 0.0 max 0.0 ; is_at_goal at stop rows: 210 of 210
+rows with is_at_goal per episode: median 3.0 min 2 max 13 ; all 808
+tip travel from the row before the stop row to the stop row (cm): episodes 210 median 0.37 under 0.5: 123 under 0.2: 54
+goal_distance_cm one row before the stop row: median 0.375
+episode.json outcome: {'puck_in_goal': 208, 'puck_not_in_goal': 2}
+the training rows of the robot's models (cleaning settings read from each run's metrics.json):
+  2026-11-10_resnet18_model_1_all_sheets {'is_audit_cleaning': True}: rows 18032, episodes 209, stop rows 259 (relabelled 50), share 1.44 %, design exact
+  2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets {'is_audit_cleaning': True}: rows 18032, episodes 209, stop rows 259 (relabelled 50), share 1.44 %, design chunk
+
+PART 2, the driver's last steps (steps.csv of the four runs that reached the end)
+run 1 (2026-11-11_172021_check_no_puck): rows 26, last action stop
+  step  21: asked forward +0.66 left -0.23 cm (length 0.70 cm, -19 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 9.8 mm, kept direction 0.0
+  step  22: asked forward +0.70 left -0.26 cm (length 0.75 cm, -20 deg left of picture up), stop chance 0.003, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  23: asked forward +0.54 left -0.10 cm (length 0.55 cm, -11 deg left of picture up), stop chance 0.221, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  24: asked forward +0.20 left -0.02 cm (length 0.21 cm, -6 deg left of picture up), stop chance 0.862, action model_step, planned step 10.0 mm, tip really moved 9.9 mm, kept direction 0.0
+  step  25: asked forward +0.16 left -0.00 cm (length 0.16 cm, -2 deg left of picture up), stop chance 0.919, action stop, planned step nan mm, tip really moved nan mm, kept direction nan
+run 2 (2026-11-11_172421_E_sheet01_run1): rows 25, last action stop
+  step  20: asked forward +0.95 left +0.22 cm (length 0.97 cm, +13 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.1 mm, kept direction 0.0
+  step  21: asked forward +0.85 left +0.24 cm (length 0.89 cm, +16 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.1 mm, kept direction 0.0
+  step  22: asked forward +0.54 left +0.27 cm (length 0.60 cm, +27 deg left of picture up), stop chance 0.078, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  23: asked forward +0.20 left +0.15 cm (length 0.25 cm, +38 deg left of picture up), stop chance 0.884, action model_step, planned step 10.0 mm, tip really moved 9.8 mm, kept direction 0.0
+  step  24: asked forward +0.17 left +0.08 cm (length 0.19 cm, +25 deg left of picture up), stop chance 0.949, action stop, planned step nan mm, tip really moved nan mm, kept direction nan
+run 4 (2026-11-11_173036_E_sheet02_run2): rows 42, last action stop
+  step  37: asked forward +0.95 left -0.21 cm (length 0.98 cm, -13 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  38: asked forward +0.82 left -0.10 cm (length 0.82 cm, -7 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  39: asked forward +0.51 left +0.02 cm (length 0.51 cm, +2 deg left of picture up), stop chance 0.009, action model_step, planned step 10.0 mm, tip really moved 9.7 mm, kept direction 0.0
+  step  40: asked forward +0.20 left -0.12 cm (length 0.23 cm, -32 deg left of picture up), stop chance 0.897, action model_step, planned step 10.0 mm, tip really moved 9.8 mm, kept direction 0.0
+  step  41: asked forward +0.21 left -0.13 cm (length 0.25 cm, -32 deg left of picture up), stop chance 0.882, action stop, planned step nan mm, tip really moved nan mm, kept direction nan
+run 7 (2026-11-11_174448_E_sheet05_run1): rows 89, last action stop
+  step  84: asked forward +0.85 left -0.01 cm (length 0.85 cm, -1 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  85: asked forward +0.78 left -0.09 cm (length 0.78 cm, -6 deg left of picture up), stop chance 0.000, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  86: asked forward +0.51 left -0.02 cm (length 0.51 cm, -2 deg left of picture up), stop chance 0.024, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  87: asked forward +0.22 left -0.02 cm (length 0.22 cm, -6 deg left of picture up), stop chance 0.928, action model_step, planned step 10.0 mm, tip really moved 10.0 mm, kept direction 0.0
+  step  88: asked forward +0.15 left -0.03 cm (length 0.15 cm, -11 deg left of picture up), stop chance 0.968, action stop, planned step nan mm, tip really moved nan mm, kept direction nan

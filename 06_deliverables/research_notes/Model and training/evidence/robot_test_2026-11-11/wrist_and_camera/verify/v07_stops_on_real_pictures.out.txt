@@ -1,0 +1,79 @@
+stop rows scored: 207
+
+a) stop rows as recorded: share with a stop chance of 0.5 or more, per model set, by the wrist's group
+       rows      E     E2      A     A2      C  mean_of_models
+group                                                         
+above    32  0.438  0.594  0.344  0.438  0.312           0.425
+below    83  0.783  0.843  0.759  0.783  0.759           0.785
+near     92  0.793  0.750  0.652  0.728  0.728           0.730
+
+   by sheet (mean over the five model sets of the share with 0.5 or more; rows in brackets):
+  sheet     below      near     above
+path_01 0.98 (11)  0.95 (8)         -
+path_02 0.54 (17) 0.47 (26)  1.00 (1)
+path_03 0.86 (21) 0.88 (21)  0.73 (3)
+path_04 0.95 (21) 0.88 (21)  0.67 (3)
+path_05 0.57 (12) 0.72 (13)  0.55 (4)
+path_06  0.40 (1)  0.40 (3) 0.30 (21)
+
+b) inside same-goal groups (sheet, corrected start end, start-mark or taught): near against below, where both have 3 or more stop rows
+        family  near_rows  below_rows  near_share  below_share  near_minus_below  near_mean_chance  below_mean_chance
+path_02 A mark         13           4       0.446        0.300             0.146             0.432              0.339
+path_02 B mark         13           4       0.492        0.500            -0.008             0.460              0.505
+path_03 A mark          8           4       0.725        0.950            -0.225             0.680              0.830
+path_04 A mark         12           7       0.817        0.943            -0.126             0.713              0.853
+path_05 B mark         10           3       0.940        1.000            -0.060             0.821              0.939
+   weighted mean of (near minus below): -0.064; families where near is lower: 4 of 5
+
+   the wrist's distance from 13.5 at the stop row against the stop chance (mean of the model sets), rank correlation per sheet:
+     path_01: 19 rows, Spearman of stop chance with (wrist - 13.5): -0.03; with |wrist - 13.5|: -0.01
+     path_02: 44 rows, Spearman of stop chance with (wrist - 13.5): -0.23; with |wrist - 13.5|: +0.15
+     path_03: 45 rows, Spearman of stop chance with (wrist - 13.5): -0.02; with |wrist - 13.5|: -0.11
+     path_04: 45 rows, Spearman of stop chance with (wrist - 13.5): -0.43; with |wrist - 13.5|: +0.20
+     path_05: 29 rows, Spearman of stop chance with (wrist - 13.5): -0.20; with |wrist - 13.5|: -0.06
+     path_06: 25 rows, Spearman of stop chance with (wrist - 13.5): -0.44; with |wrist - 13.5|: -0.45
+
+c) the three rows before the stop row (stop chance 0.5 or more, mean over the model sets), by the STOP row's wrist group
+   0 rows before the end: {'above': 0.425, 'below': 0.786, 'near': 0.73}; goal distance median 0.0 cm
+   1 rows before the end: {'above': 0.35, 'below': 0.677, 'near': 0.609}; goal distance median 0.4 cm
+   2 rows before the end: {'above': 0.206, 'below': 0.405, 'near': 0.324}; goal distance median 1.5 cm
+   3 rows before the end: {'above': 0.075, 'below': 0.171, 'near': 0.146}; goal distance median 2.5 cm
+
+d) start-mark episodes: where the rule (0.5 twice in a row) first fires, by the wrist's group at the end, per model set
+   model set E:
+outcome    at the end (last 2 rows)  before the goal  never  within 2 cm of the goal  episode_rows_median
+end_group                                                                                                
+above                             6                4     15                        0                100.0
+below                            17                3      9                        4                102.0
+near                             31               25     25                        8                101.0
+   model set E2:
+outcome    at the end (last 2 rows)  before the goal  never  within 2 cm of the goal  episode_rows_median
+end_group                                                                                                
+above                             6                6     12                        1                100.0
+below                            14                6      7                        6                102.0
+near                             35               28     19                        7                101.0
+   model set A:
+outcome    at the end (last 2 rows)  before the goal  never  within 2 cm of the goal  episode_rows_median
+end_group                                                                                                
+above                             5                2     18                        0                100.0
+below                            16                5     10                        2                102.0
+near                             29               22     32                        6                101.0
+   model set A2:
+outcome    at the end (last 2 rows)  before the goal  never  within 2 cm of the goal  episode_rows_median
+end_group                                                                                                
+above                             6                3     16                        0                100.0
+below                            14                5      7                        7                102.0
+near                             34               24     23                        8                101.0
+   model set C:
+outcome    at the end (last 2 rows)  before the goal  never  within 2 cm of the goal  episode_rows_median
+end_group                                                                                                
+above                             4                1     19                        1                100.0
+below                            17                6      8                        2                102.0
+near                             31               19     35                        4                101.0
+
+operators of the start-mark episodes by end group:
+operator   emranul  marshal
+end_group                  
+above           22        3
+below           32        1
+near            80        9

@@ -1,0 +1,101 @@
+THE AIM OF THE CAMERA: push direction (tip to puck) minus picture heading, degrees; 0 = the puck straight up the picture from the tip, + = to its left
+Measured with the team's puck tracker on every picture (06_puck_positions.py); the puck was found in 99.3 % of the demonstration pictures and in all robot pictures.
+
+1. Demonstrations
+   tip to puck centre, cm: median   +3.0  quartiles   +2.4 to   +3.7  5 to 95 %   +2.1 to   +4.9
+   share of pictures with the tip touching the puck (puck centre within 2.8 cm): 0.44; further than 4 cm away: 0.18
+   aim, all pictures:       median   -3.3  quartiles  -30.2 to  +19.1  5 to 95 %  -90.3 to +103.8
+   aim, tip touching:       median   +1.8  quartiles  -10.9 to  +16.2  5 to 95 %  -28.3 to  +39.6
+   aim, tip not touching:   median  -18.6  quartiles  -59.6 to  +24.3  5 to 95 %  -97.8 to +117.2
+   touching pictures within 10 degrees of the median aim (+1.8): 0.38
+   touching pictures within 20 degrees of the median aim (+1.8): 0.68
+   touching pictures within 30 degrees of the median aim (+1.8): 0.86
+   touching pictures within 45 degrees of the median aim (+1.8): 0.96
+   path_01 touching (350): median  +10.6  quartiles   +2.2 to  +19.1  5 to 95 %  -14.8 to  +30.9
+   path_02 touching (1026): median   +3.1  quartiles   -7.5 to  +15.5  5 to 95 %  -28.1 to  +32.2
+   path_03 touching (1690): median   +6.3  quartiles   -5.7 to  +17.9  5 to 95 %  -19.7 to  +33.0
+   path_04 touching (2913): median   +1.1  quartiles  -14.0 to  +16.4  5 to 95 %  -32.1 to  +35.0
+   path_05 touching (1084): median   -4.6  quartiles  -14.0 to   +7.9  5 to 95 %  -28.6 to  +63.6
+   path_06 touching (739): median   -5.2  quartiles  -15.1 to  +31.8  5 to 95 %  -27.5 to +112.6
+
+2. Robot runs (the tip pushes all the time, so every picture is compared with the demonstrations' touching pictures)
+   demonstrations' 5 to 95 % range of the aim when touching: -28.3 to +39.6 degrees
+   run  1 A path_01: aim median  -24.6  quartiles  -29.4 to  -23.5  5 to 95 %  -34.8 to  -20.9; outside the demonstrations' range in 0.35 of the pictures, first 3 in a row from picture 13; tip to puck median 2.1 cm, over 4 cm in 0.00; reached the end
+   run  2 E path_01: aim median   -6.0  quartiles   -6.9 to   +9.0  5 to 95 %   -8.3 to  +15.4; outside the demonstrations' range in 0.00 of the pictures; tip to puck median 1.9 cm, over 4 cm in 0.00; reached the end
+   run  3 E path_02: aim median  -30.5  quartiles  -75.6 to   +2.3  5 to 95 %  -92.0 to  +12.1; outside the demonstrations' range in 0.50 of the pictures, first 3 in a row from picture 17; tip to puck median 2.4 cm, over 4 cm in 0.00; failed (lost the line, Esc)
+   run  4 E path_02: aim median  -25.3  quartiles  -53.8 to  -15.0  5 to 95 %  -65.2 to   -9.3; outside the demonstrations' range in 0.48 of the pictures, first 3 in a row from picture 22; tip to puck median 2.9 cm, over 4 cm in 0.38; reached the end
+   run  5 E path_03: aim median  -22.3  quartiles  -43.3 to  +22.1  5 to 95 %  -98.6 to  +89.0; outside the demonstrations' range in 0.57 of the pictures, first 3 in a row from picture 9; tip to puck median 2.4 cm, over 4 cm in 0.07; failed (overshot the first bend)
+   run  6 E path_04: aim median  +49.8  quartiles   -0.1 to  +58.1  5 to 95 %  -36.7 to  +67.0; outside the demonstrations' range in 0.71 of the pictures, first 3 in a row from picture 7; tip to puck median 2.7 cm, over 4 cm in 0.22; failed (stuck at the hairpin)
+   run  7 E path_05: aim median  -19.4  quartiles  -54.5 to   +6.1  5 to 95 % -102.9 to +103.1; outside the demonstrations' range in 0.62 of the pictures, first 3 in a row from picture 18; tip to puck median 2.8 cm, over 4 cm in 0.16; reached the end
+   run  8 E path_06: aim median  -16.7  quartiles  -54.3 to   -7.0  5 to 95 %  -68.9 to   -2.8; outside the demonstrations' range in 0.41 of the pictures, first 3 in a row from picture 19; tip to puck median 3.0 cm, over 4 cm in 0.34; failed (left the dashed loop)
+   run  9 E path_03: aim median  -27.0  quartiles  -76.2 to  +22.6  5 to 95 % -102.7 to  +74.2; outside the demonstrations' range in 0.68 of the pictures, first 3 in a row from picture 8; tip to puck median 2.7 cm, over 4 cm in 0.21; failed (overshot the first bend)
+   run 10 B path_03: aim median  -41.5  quartiles  -72.1 to  +12.9  5 to 95 % -114.5 to  +51.0; outside the demonstrations' range in 0.77 of the pictures, first 3 in a row from picture 0; tip to puck median 2.9 cm, over 4 cm in 0.16; failed (overshot the first bend)
+
+   in blocks of 10 pictures: median aim, largest |aim - demonstrations' median|, sum of the twist done
+   run  1 [  0:  -23.1  26.4  +11.7] [ 10:  -30.8  37.9   -6.5] [ 20:  -26.4  31.3   -7.8]
+   run  2 [  0:   -7.0  10.4   +1.8] [ 10:   -3.0   9.2   +5.3] [ 20:  +13.7  15.0   -0.4]
+   run  3 [  0:   +7.1  11.3  -37.5] [ 10:  -16.4  47.2  +23.9] [ 20:  -89.3  95.2  +13.2] [ 30:  -61.8  91.3  -14.3]
+   run  4 [  0:  -10.8  14.8  +19.2] [ 10:  -17.8  22.7  +29.6] [ 20:  -49.8  69.9  +14.9] [ 30:  -54.8  68.6  +12.3] [ 40:  -52.7  54.8   +0.9]
+   run  5 [  0:   -0.8  44.2  -38.8] [ 10:  +82.8  97.5  -22.5] [ 20:  -29.3  78.5  +38.7] [ 30:  -92.7 109.2   +9.2] [ 40:  -24.0  59.3   -3.5] [ 50:  -21.8  42.6  +21.4]
+   run  6 [  0:  -18.4  41.0  +13.6] [ 10:  -17.9  65.6  -11.4] [ 20:  +62.1  70.8   -2.3] [ 30:  +54.7  59.0   -3.5] [ 40:  +52.8  60.0   -5.0] [ 50:  +55.2  60.7   -5.2] [ 60:   +4.5  55.3  +11.8]
+   run  7 [  0:  -12.4  17.4  -22.9] [ 10:   +4.2  60.3  -45.5] [ 20:  +92.8 104.6  +17.5] [ 30:  +64.1 104.5  +26.0] [ 40:  -81.5 106.8  +42.1] [ 50: -101.3 109.6  +39.6] [ 60:  -47.1  92.1  -12.6] [ 70:  -19.2  26.5   +0.2] [ 80:  -38.9  43.3  +14.7]
+   run  8 [  0:   -8.0  16.9  +27.0] [ 10:  -11.6  34.2  +51.1] [ 20:  -65.3  71.5  +14.3] [ 30:  -34.9  66.2   -6.1] [ 40:   -3.9   5.7   +0.0]
+   run  9 [  0:   +7.9  55.2  -53.3] [ 10:  +68.4  69.4  -13.4] [ 20:  -56.0 108.8  +43.0] [ 30:  -87.2 112.7  -15.3] [ 40:  -25.0  29.6  +15.9] [ 50:  -46.0  69.2  +43.0] [ 60:  -95.6 105.7  +32.3] [ 70:  -70.4  90.8   +6.5] [ 80:  +73.9  86.6  -11.1]
+   run 10 [  0:   +9.6  57.1  -47.8] [ 10:  +43.9  49.9  +19.4] [ 20:  -59.5  78.2  +45.9] [ 30:  -48.8  70.3   -5.6] [ 40:  -57.6 100.3  +15.9] [ 50: -113.3 121.3  +17.6] [ 60:  -47.8  99.2  -19.0] [ 70:  +27.9  31.0   -1.0]
+
+3. The twist as a correction of the aim (twist > 0 turns the camera to the right; a puck to the picture's LEFT, aim > 0, calls for twist < 0)
+   least-squares line twist = slope x aim + offset over pictures within 45 degrees of the median aim
+   who                                                          rows  slope, deg twist per deg aim  offset correlation
+   demonstrated twist, tip touching, all sheets                 7480                        -0.074    0.42       -0.25
+   demonstrated twist, all pictures                            12450                        -0.061   -0.05       -0.24
+   demonstrated twist, tip touching, path_01                     349                         0.009    0.07        0.04
+   demonstrated twist, tip touching, path_02                    1014                        -0.035    0.74       -0.14
+   demonstrated twist, tip touching, path_03                    1689                        -0.120    1.27       -0.34
+   demonstrated twist, tip touching, path_04                    2863                        -0.093    0.45       -0.30
+   demonstrated twist, tip touching, path_05                     992                        -0.016   -0.65       -0.05
+   demonstrated twist, tip touching, path_06                     562                        -0.145   -0.57       -0.38
+   fold models A recipe (exact), held-out sheets, same pictures   7480                        -0.056    0.66       -0.28   = 0.75 of the demonstrated reaction
+       path_01                                                   349                         0.019    0.32        0.21   = 2.04 of the demonstrated reaction on this sheet
+       path_02                                                  1014                        -0.105    0.95       -0.51   = 3.02 of the demonstrated reaction on this sheet
+       path_03                                                  1689                        -0.115    1.31       -0.42   = 0.96 of the demonstrated reaction on this sheet
+       path_04                                                  2863                        -0.037    0.89       -0.20   = 0.40 of the demonstrated reaction on this sheet
+       path_05                                                   992                        -0.035   -0.31       -0.19   = 2.20 of the demonstrated reaction on this sheet
+       path_06                                                   562                        -0.091   -0.31       -0.43   = 0.63 of the demonstrated reaction on this sheet
+   fold models E recipe (chunk, stop 25), held-out sheets, same pictures   7480                        -0.057    0.59       -0.29   = 0.77 of the demonstrated reaction
+       path_01                                                   349                         0.027    0.43        0.31   = 2.81 of the demonstrated reaction on this sheet
+       path_02                                                  1014                        -0.088    1.23       -0.46   = 2.54 of the demonstrated reaction on this sheet
+       path_03                                                  1689                        -0.104    1.43       -0.41   = 0.87 of the demonstrated reaction on this sheet
+       path_04                                                  2863                        -0.051    0.50       -0.26   = 0.55 of the demonstrated reaction on this sheet
+       path_05                                                   992                        -0.027   -0.16       -0.16   = 1.71 of the demonstrated reaction on this sheet
+       path_06                                                   562                        -0.120   -0.89       -0.50   = 0.83 of the demonstrated reaction on this sheet
+   robot, all ten runs (models A, B, E trained on all sheets)    327                        -0.030   -0.15       -0.21   = 0.40 of the demonstrated reaction (per decision)
+   robot, runs that reached the end (1, 2, 4, 7)                 134                        -0.031   -0.25       -0.28   = 0.42 of the demonstrated reaction (per decision)
+   robot, failed runs (3, 5, 6, 8, 9, 10)                        193                        -0.029   -0.06       -0.18   = 0.39 of the demonstrated reaction (per decision)
+
+   mean twist per bin of the aim (degrees per step): demonstrated (touching), fold models on the same pictures, and the robot's models
+              aim demo rows demonstrated   A fold   E fold robot rows robot (asked) demo step cm robot asked cm
+      -180 to -60         7        +0.76    +0.20    +0.07        115         +1.72         1.14           0.52
+       -60 to -40        39        +1.26    +0.80    +0.70         52         +0.90         0.97           0.69
+       -40 to -25       514        +2.48    +1.85    +1.91         67         +0.94         0.95           0.73
+       -25 to -15       887        +1.58    +1.56    +1.51         70         +1.15         0.92           0.84
+        -15 to -5      1395        +1.32    +1.35    +1.22         63         +0.58         0.93           0.93
+         -5 to +5      1531        +0.86    +0.99    +0.99         32         -0.20         0.91           0.75
+        +5 to +15      1314        -0.20    +0.38    +0.32         18         -2.24         0.90           0.60
+       +15 to +25      1003        -1.68    -0.73    -0.90         13         -1.18         0.92           0.49
+       +25 to +40       731        -1.92    -1.35    -1.42         16         -2.01         0.93           0.45
+       +40 to +60       141        -1.58    -2.19    -2.48         49         -0.85         0.95           0.31
+      +60 to +180       240        -0.64    +0.41    -0.54         50         -0.23         1.09           0.42
+
+   how fast the aim comes back: the aim N steps later against the aim now (slope of a line through the median; 1 = no correction, 0 = fully corrected)
+   demonstrations   after  1 steps 0.98, after  3 steps 0.93, after  5 steps 0.85, after 10 steps 0.71
+   robot runs       after  1 steps 1.00, after  3 steps 0.98, after  5 steps 0.96, after 10 steps 0.81
+
+4. A hand-written rule 'turn the forearm towards the puck': twist = -gain x (aim - usual aim), at most 10 degrees per step
+   (scored on the demonstrations' touching pictures; it uses the puck tracker, not the model, so it is NOT imitation learning and would need the professor's permission)
+   predictor                                     correlation with the demonstrated twist mean |twist|  sign right (demo >= 2 deg)
+   E-recipe fold model (held-out sheets)                                            0.66         3.01                        0.83
+   rule with gain 0.10                                                              0.20         1.74                        0.63
+   rule with gain 0.15                                                              0.21         2.51                        0.63
+   rule with gain 0.20                                                              0.23         3.24                        0.63
+   rule with gain 0.30                                                              0.24         4.58                        0.63
+   demonstrated mean |twist| on these pictures: 4.44 degrees

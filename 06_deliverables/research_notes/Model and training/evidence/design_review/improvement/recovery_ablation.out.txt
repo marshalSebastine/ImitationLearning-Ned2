@@ -1,0 +1,10 @@
+﻿recovery_all_seed_1: 708 s, within 45 0.6025, path within 45 0.6907, stopped right 0.29
+recovery_no_corrections_seed_1: 595 s, within 45 0.5865, path within 45 0.6668, stopped right 0.2485
+recovery_no_matched_first_pass_seed_1: 671 s, within 45 0.5707, path within 45 0.653, stopped right 0.2906
+recovery_all_seed_2: 970 s, within 45 0.5959, path within 45 0.6804, stopped right 0.3039
+recovery_no_corrections_seed_2: 582 s, within 45 0.5809, path within 45 0.6598, stopped right 0.1804
+recovery_no_matched_first_pass_seed_2: 517 s, within 45 0.5801, path within 45 0.663, stopped right 0.2515
+recovery_all_seed_3: 675 s, within 45 0.6019, path within 45 0.6899, stopped right 0.2675
+recovery_no_corrections_seed_3: 318 s, within 45 0.5816, path within 45 0.6643, stopped right 0.236
+recovery_no_matched_first_pass_seed_3: 290 s, within 45 0.5792, path within 45 0.6699, stopped right 0.3042
+rows: 18430 correction-replay rows: 6983

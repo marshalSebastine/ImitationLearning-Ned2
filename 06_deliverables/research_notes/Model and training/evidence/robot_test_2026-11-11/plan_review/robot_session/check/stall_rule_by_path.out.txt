@@ -1,0 +1,72 @@
+================ E_recipe, 209 demonstrations
+   rule: last 15 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   4 of 209 (0 shuffling, 4 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      the ten runs as driven: run 6 at picture 33 (shuffling)
+   rule: last 12 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   4 of 209 (0 shuffling, 4 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      the ten runs as driven: none
+   rule: last 15 cm of path within 4 cm (at least 15 pictures), or last 30 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   7 of 209 (0 shuffling, 7 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      the ten runs as driven: run 6 at picture 33 (shuffling)
+   rule: last 10 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   5 of 209 (1 shuffling, 4 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   1 of 209 (1 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      the ten runs as driven: none
+
+================ A_recipe, 209 demonstrations
+   rule: last 15 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   8 of 209 (0 shuffling, 8 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+   rule: last 12 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   8 of 209 (0 shuffling, 8 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+   rule: last 15 cm of path within 4 cm (at least 15 pictures), or last 30 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   9 of 209 (0 shuffling, 9 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+   rule: last 10 cm of path within 4 cm (at least 15 pictures), or last 40 pictures within 1.5 cm; forearm under 15 degrees
+      recorded steps    : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained own       : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk own    : ends   8 of 209 (0 shuffling, 8 on the spot)
+      chained 0.65      : ends   0 of 209 (0 shuffling, 0 on the spot)
+      paced walk 0.65   : ends   0 of 209 (0 shuffling, 0 on the spot)
+      chained 0.5       : ends   1 of 209 (1 shuffling, 0 on the spot)
+      paced walk 0.5    : ends   0 of 209 (0 shuffling, 0 on the spot)
+

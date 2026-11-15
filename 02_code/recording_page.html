@@ -162,7 +162,7 @@
       <section>
         <h2>After Start</h2>
         <ul class="steps">
-          <li>The robot goes to its parking pose, and the picture and orientation windows open. They may open behind this page.</li>
+          <li>The robot goes to its parking pose, and the picture window opens. It may open behind this page.</li>
           <li>Put the puck in place, keep hands out of the picture, click the <strong>picture window</strong>, press <strong>Enter</strong>: the robot comes down to the start.</li>
           <li>All keys go to the picture window, not this page.</li>
           <li>Each Start records one episode, then the robot parks and this page asks for its score.</li>
@@ -179,6 +179,17 @@
       <section>
         <h2>Latest session<span id="session-name" class="code-line"></span></h2>
         <pre id="notes" style="max-height:220px">No recordings yet.</pre>
+      </section>
+      <section>
+        <h2>Lay a new track (T01 to T16)</h2>
+        <ul class="steps">
+          <li>The start mark is taped once on the table: a <strong>direction line</strong> straight away from the robot, 1.5 cm right of the base's middle, and a <strong>cross line</strong> 19.5 cm in front of the base axis. Light tape, thin pen line.</li>
+          <li>Put the round start of the line (end A, as the set-up picture shows) on the crossing.</li>
+          <li>Turn the sheet until the first straight piece of the line lies along the direction line. Check one corner distance of the set-up picture with the ruler.</li>
+          <li>Tape the corners, away from the line. The sheet stays until all its episodes are done. The six course sheets are laid as before.</li>
+        </ul>
+        <a href="/table-marks.png" target="_blank" rel="noopener"><img src="/table-marks.png" alt="Where the start mark is taped on the table" style="width:100%;max-width:420px;border:1px solid #ccc;border-radius:6px;margin-top:6px"></a>
+        <div class="hint">Click the picture to see it large.</div>
       </section>
     </div>
   </div>
@@ -483,6 +494,12 @@ function explainEnd(status) {
   return `${status.title} ended with an error (code ${status.exit_code}). Read the messages below.`;
 }
 
+// One status request at a time (12.11.26): the next is asked a second after the last answer, so slow answers never pile up.
+async function pollStatus() {
+  await refreshStatus();
+  window.setTimeout(pollStatus, 1000);
+}
+
 async function refreshStatus() {
   let status;
   try {
@@ -493,7 +510,7 @@ async function refreshStatus() {
     return;
   }
   const code = status.code;
-  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : "Code version unknown";
+  element("code-line").textContent = code.commit ? `Code: ${code.branch} at ${code.commit}` : code.is_reading ? "Reading the code version…" : "Code version unknown";
   const warning = element("warning");
   warning.textContent = code.has_uncommitted_code ? "02_code has uncommitted changes, so episodes would not match their recorded code version. Commit before real data." : "";
   warning.classList.toggle("shown", code.has_uncommitted_code);
@@ -625,7 +642,7 @@ async function initialise() {
     suggestNextPlanNumber(false);
   });
   await refreshStatus();
-  window.setInterval(refreshStatus, 1000);
+  window.setTimeout(pollStatus, 1000);
 }
 
 initialise().catch(() => showMessage("The page could not load its options. Is recording_page.py still running?"));

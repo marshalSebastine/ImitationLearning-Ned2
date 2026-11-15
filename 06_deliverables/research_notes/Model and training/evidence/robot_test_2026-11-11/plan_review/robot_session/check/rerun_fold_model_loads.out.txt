@@ -1,0 +1,29 @@
+default model of the driver: resnet18_model_1_all_sheets
+
+E recipe, without sheet 03: run name in TRAINING_RUNS True; checkpoint exists True (51.1 MB); metrics.json exists True
+   metrics.json: design chunk, split sheets, normalisation {'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225]}, stop weight 25.0, folds ['without_path_01', 'without_path_02', 'without_path_03', 'without_path_04', 'without_path_05', 'without_path_06']
+   run 5 picture 000.jpg: forward +0.84 cm, left -0.03 cm, twist +0.1 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.38 cm, left -0.27 cm, twist -4.7 deg, stop chance 0.002
+   run 5 picture 020.jpg: forward +0.28 cm, left +0.72 cm, twist +0.2 deg, stop chance 0.001
+   command: model_mode.py robot --label <name> --run-name resnet18_chunk_stop_weight_25 --checkpoint .._runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\checkpoints\without_path_03.pt --metrics .._runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\metrics.json
+
+E recipe seed 2, without sheet 03: run name in TRAINING_RUNS True; checkpoint exists True (51.1 MB); metrics.json exists True
+   metrics.json: design chunk, split sheets, normalisation {'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225]}, stop weight 25.0, folds ['without_path_01', 'without_path_02', 'without_path_03', 'without_path_04', 'without_path_05', 'without_path_06']
+   run 5 picture 000.jpg: forward +0.76 cm, left -0.25 cm, twist -1.0 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.44 cm, left -0.31 cm, twist -3.5 deg, stop chance 0.000
+   run 5 picture 020.jpg: forward -0.09 cm, left +0.85 cm, twist +2.3 deg, stop chance 0.002
+   command: model_mode.py robot --label <name> --run-name resnet18_chunk_stop_weight_25_seed_2 --checkpoint .._runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25_seed_2\checkpoints\without_path_03.pt --metrics .._runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25_seed_2\metrics.json
+
+A recipe, without sheet 03: run name in TRAINING_RUNS True; checkpoint exists True (51.1 MB); metrics.json exists True
+   metrics.json: design exact, split sheets, normalisation {'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225]}, stop weight 10.0, folds ['without_path_01', 'without_path_02', 'without_path_03', 'without_path_04', 'without_path_05', 'without_path_06']
+   run 5 picture 000.jpg: forward +0.58 cm, left -0.20 cm, twist -0.1 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.52 cm, left -0.02 cm, twist -1.9 deg, stop chance 0.001
+   run 5 picture 020.jpg: forward +0.50 cm, left +0.30 cm, twist +0.7 deg, stop chance 0.000
+   command: model_mode.py robot --label <name> --run-name resnet18_final_candidate --checkpoint .._runs\gpu_ki014\2026-11-09_resnet18_final_candidate\checkpoints\without_path_03.pt --metrics .._runs\gpu_ki014\2026-11-09_resnet18_final_candidate\metrics.json
+
+model E, all sheets (used on 11.11): run name in TRAINING_RUNS True; checkpoint exists True (51.1 MB); metrics.json exists True
+   metrics.json: design chunk, split all, normalisation {'mean': [0.485, 0.456, 0.406], 'std': [0.229, 0.224, 0.225]}, stop weight 25.0, folds ['all_sheets']
+   run 5 picture 000.jpg: forward +0.71 cm, left +0.01 cm, twist +1.6 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.40 cm, left -0.15 cm, twist -5.0 deg, stop chance 0.001
+   run 5 picture 020.jpg: forward +0.13 cm, left +0.81 cm, twist +1.4 deg, stop chance 0.000
+   command: model_mode.py robot --label <name> --run-name resnet18_model_4_chunk_stop_25_all_sheets --checkpoint .._runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt --metrics .._runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\metrics.json

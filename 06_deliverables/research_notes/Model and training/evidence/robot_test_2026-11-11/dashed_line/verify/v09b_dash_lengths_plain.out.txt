@@ -1,0 +1,4 @@
+run 8, 10 pictures with the forearm under 30 degrees, 1 mm cells, no widening along the line:
+  12 dashes: median 2.1 cm, [np.float64(2.2), np.float64(2.1), np.float64(2.1), np.float64(2.1), np.float64(2.2), np.float64(2.1), np.float64(2.1), np.float64(2.1), np.float64(2.1), np.float64(2.0), np.float64(2.0), np.float64(2.1)]
+  11 gaps: median 0.9 cm, [np.float64(0.7), np.float64(0.8), np.float64(1.0), np.float64(1.2), np.float64(0.9), np.float64(0.9), np.float64(0.9), np.float64(0.9), np.float64(0.9), np.float64(0.9), np.float64(1.0)]
+  dash plus gap: 3.0 cm; ink on 71 % of the seen line

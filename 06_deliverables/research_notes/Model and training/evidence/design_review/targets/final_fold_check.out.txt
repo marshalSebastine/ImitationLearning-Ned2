@@ -1,0 +1,8 @@
+without_path_01: pictures 644, episodes 20
+  moving rows 578: median predicted 0.998 cm against demonstrated 1.119 cm; stop rows 20: median predicted 0.130 cm
+  twisted rows 238: median |predicted| 1.28 against 4.92 deg; sign right 0.676
+  standing still away from the goal: 6 of 560 pictures in 2 episodes; predicted step under 0.3 cm: 6
+without_path_02: pictures 2670, episodes 45
+  moving rows 2425: median predicted 0.677 cm against demonstrated 1.107 cm; stop rows 45: median predicted 0.280 cm
+  twisted rows 1195: median |predicted| 3.43 against 5.27 deg; sign right 0.802
+  standing still away from the goal: 18 of 2398 pictures in 8 episodes; predicted step under 0.3 cm: 75

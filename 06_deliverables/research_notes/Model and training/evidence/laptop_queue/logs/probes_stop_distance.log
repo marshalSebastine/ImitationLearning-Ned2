@@ -1,0 +1,2 @@
+stop_distance | classes_stop_head_on_goal_distance | 192.6 s | within 45: 0.5618 | class accuracy: 0.4085 | stopped right: 0.0919 | early: 0.015
+stop_distance | exact_stop_on_goal_distance | 575.4 s | within 45: 0.5948 | class accuracy: 0.3942 | stopped right: 0.1103 | early: 0.013

@@ -1,0 +1,51 @@
+config: wrist_pitch_max_rad 1.500 rad = 85.9 degrees; rod_lean_most_deg 58.0; clearance above the sheet 5.0 mm; joint 5 limits -110.0 to 110.2 degrees
+
+rod lean (degrees) with the wrist held at 13.5, by reach and twist ('-' = no solution within the joint limits):
+reach_cm       0      30      60      90     117     -60    -117
+    12.0     4.5     9.0    15.2    19.9    22.2    15.2    22.2
+    14.0     0.4     6.9    12.9    17.0    18.7    12.9    18.7
+    20.0    10.4    11.3    12.9    13.5    12.4    12.9    12.4
+    26.0    19.9    19.8    19.2    17.2    13.7    19.2    13.7
+    30.0    26.1    25.7    24.4    21.6    17.7    24.4    17.7
+    34.0    32.3    31.7    30.0    26.8    22.7    30.0    22.7
+    38.0    38.7    38.1    36.1    32.7    28.5    36.1    28.5
+    40.0    42.1    41.5    39.4    35.9    31.8    39.4    31.8
+    42.0    45.8    45.1    42.9    39.3    35.3    42.9    35.3
+    44.0    49.7    49.0    46.7    43.1    39.1    46.7    39.1
+    45.0    51.9    51.1    48.8    45.2    41.2    48.8    41.2
+    46.0    54.1    53.4    51.1    47.4    43.5    51.1    43.5
+    47.0    56.6    55.8    53.5    49.9    46.0    53.5    46.0
+    48.0    59.3    58.6    56.3    52.6    48.8    56.3    48.8
+    49.0    62.5    61.7    59.5    55.9    52.2    59.5    52.2
+    49.5    64.4    63.6    61.4    57.9    54.3    61.4    54.3
+    50.0    66.5    65.8    63.6    60.3    56.8    63.6    56.8
+
+reach at which the lean passes 58 degrees (0.25 cm steps):
+  twist     0: 47.75 cm
+  twist    30: 48.00 cm
+  twist    60: 48.75 cm
+  twist    90: 49.75 cm
+  twist   117: None
+  twist   -60: 48.75 cm
+  twist  -117: None
+
+same to the sides (bearing of the tip from the base), twist 0: lean at 40 and 46 cm
+  bearing  -40: 41.9, 54.0
+  bearing  -20: 42.1, 54.1
+  bearing    0: 42.1, 54.1
+  bearing   20: 42.2, 54.1
+  bearing   40: 42.1, 54.1
+
+other held wrists at twist 0 (what a wrist sweep or a different constant would do): lean at reach 14 / 20 / 30 / 40 / 46 cm
+  wrist -10.0: 18.2 / 7.4 / 8.2 / 24.2 / 36.2
+  wrist   0.0: 10.4 / 0.3 / 15.9 / 31.8 / 43.6
+  wrist   5.0: 6.6 / 4.1 / 19.7 / 35.6 / 47.5
+  wrist  13.5: 0.4 / 10.4 / 26.1 / 42.1 / 54.1
+  wrist  25.0: 7.6 / 18.7 / 34.7 / 51.1 / 63.5
+  wrist  35.0: 14.4 / 25.8 / 42.2 / 59.2 / 72.1
+
+the hand (joint 6): does turning it move the tip or the camera?
+  hand  -6.1: tip [300.     0.    15.34] mm, lean 25.918, camera centre [279.26  -14.006 238.054] mm
+  hand   0.0: tip [300.     0.    15.34] mm, lean 25.918, camera centre [279.26  -14.006 238.054] mm
+  hand  29.6: tip [300.     0.    15.34] mm, lean 25.918, camera centre [279.26  -14.006 238.054] mm
+  a block face 15 mm off the rod's axis turns with the hand: 30 degrees of hand moves it 7.5 mm sideways

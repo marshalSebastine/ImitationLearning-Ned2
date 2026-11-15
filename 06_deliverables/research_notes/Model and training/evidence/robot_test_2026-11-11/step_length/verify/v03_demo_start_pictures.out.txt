@@ -1,0 +1,36 @@
+path_03 STD plans: ['03-01', '03-02', '03-03', '03-04', '03-05', '03-13', '03-14', '03-15', '03-16', '03-17', '03-25', '03-26', '03-27', '03-28', '03-29', '03-30']
+   plan 03-01: start_end A, plan_end A, rows 108, orientation text: plan 03-01, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-02: start_end A, plan_end A, rows 130, orientation text: plan 03-02, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-03: start_end A, plan_end A, rows 112, orientation text: plan 03-03, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-04: start_end A, plan_end A, rows 125, orientation text: plan 03-04, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-05: start_end A, plan_end A, rows 109, orientation text: plan 03-05, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-13: start_end B, plan_end B, rows 106, orientation text: plan 03-13, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-14: start_end B, plan_end B, rows 140, orientation text: plan 03-14, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-15: start_end B, plan_end B, rows 131, orientation text: plan 03-15, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-16: start_end B, plan_end B, rows 121, orientation text: plan 03-16, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-17: start_end B, plan_end B, rows 115, orientation text: plan 03-17, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-25: start_end A, plan_end A, rows 106, orientation text: plan 03-25, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-26: start_end A, plan_end A, rows 97, orientation text: plan 03-26, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-27: start_end A, plan_end A, rows 102, orientation text: plan 03-27, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-28: start_end B, plan_end B, rows 124, orientation text: plan 03-28, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-29: start_end B, plan_end B, rows 91, orientation text: plan 03-29, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 03-30: start_end B, plan_end B, rows 121, orientation text: plan 03-30, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\step_length\verify\v03_start_pictures_path_03.png 54
+path_04 STD plans: ['04-01', '04-02', '04-03', '04-04', '04-05', '04-13', '04-14', '04-15', '04-16', '04-17', '04-18', '04-30', '04-31', '04-32', '04-33', '04-34']
+   plan 04-01: start_end A, plan_end A, rows 196, orientation text: plan 04-01, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-02: start_end A, plan_end A, rows 205, orientation text: plan 04-02, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-03: start_end A, plan_end A, rows 182, orientation text: plan 04-03, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-04: start_end A, plan_end A, rows 208, orientation text: plan 04-04, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-05: start_end A, plan_end A, rows 192, orientation text: plan 04-05, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-13: start_end A, plan_end A, rows 154, orientation text: plan 04-13, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-14: start_end A, plan_end A, rows 138, orientation text: plan 04-14, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-15: start_end A, plan_end A, rows 199, orientation text: plan 04-15, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-16: start_end A, plan_end A, rows 172, orientation text: plan 04-16, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-17: start_end A, plan_end A, rows 162, orientation text: plan 04-17, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-18: start_end A, plan_end A, rows 167, orientation text: plan 04-18, end A, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-30: start_end B, plan_end B, rows 222, orientation text: plan 04-30, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-31: start_end B, plan_end B, rows 155, orientation text: plan 04-31, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-32: start_end B, plan_end B, rows 189, orientation text: plan 04-32, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-33: start_end B, plan_end B, rows 154, orientation text: plan 04-33, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+   plan 04-34: start_end B, plan_end B, rows 168, orientation text: plan 04-34, end B, STD, START MARK; first tip (14.0, -1.5) cm, joint 4 first 0.0
+D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\step_length\verify\v03_start_pictures_path_04.png 54

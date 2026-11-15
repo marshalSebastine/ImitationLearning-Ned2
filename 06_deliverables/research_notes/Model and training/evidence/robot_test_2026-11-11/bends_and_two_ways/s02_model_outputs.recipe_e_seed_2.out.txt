@@ -1,0 +1,7 @@
+demonstration pictures after the audit's cleaning: 18032
+recipe_e_seed_2 | without_path_01 | 644 pictures | 6 s | largest difference to the saved angle: 0.0001 deg | ok
+recipe_e_seed_2 | without_path_02 | 2670 pictures | 21 s | largest difference to the saved angle: 0.0006 deg | ok
+recipe_e_seed_2 | without_path_03 | 3955 pictures | 35 s | largest difference to the saved angle: 0.0012 deg | ok
+recipe_e_seed_2 | without_path_04 | 6227 pictures | 50 s | largest difference to the saved angle: 0.0003 deg | ok
+recipe_e_seed_2 | without_path_05 | 2600 pictures | 19 s | largest difference to the saved angle: 0.0003 deg | ok
+recipe_e_seed_2 | without_path_06 | 1936 pictures | 14 s | largest difference to the saved angle: 0.0005 deg | ok

@@ -1,0 +1,12 @@
+== the aid fails at its third reading, then the plain prompt: ending not_started
+   prompts (seconds, text): [(0.0, "Put the puck at the line's start. "), (0.5, '  ... answered'), (1.52, 'Guide the magnet tip just behind t'), (3.0, '  ... answered')]
+   asked of the link (seconds, what): [(0.5, 'motors off'), (0.5, 'read state'), (1.02, 'read state'), (1.52, 'read state'), (3.0, 'read state'), (3.0, 'motors on'), (3.03, 'move'), (3.05, 'move'), (3.11, 'read state'), (3.12, 'move'), (3.12, 'close')]
+== keys and an Enter typed in the aid's first half second, then the aid fails: ending not_started
+   prompts (seconds, text): [(0.0, "Put the puck at the line's start. "), (0.5, '  ... answered'), (1.55, 'Guide the magnet tip just behind t'), (3.5, '  ... answered')]
+   asked of the link (seconds, what): [(0.5, 'motors off'), (0.5, 'read state'), (1.01, 'read state'), (1.55, 'read state'), (3.5, 'read state'), (3.5, 'motors on'), (3.53, 'move'), (3.53, 'move'), (3.53, 'read state'), (3.55, 'move'), (3.55, 'close')]
+== an Enter in the aid's first half second, a second one later: ending not_started
+   prompts (seconds, text): [(0.01, "Put the puck at the line's start. "), (0.5, '  ... answered')]
+   asked of the link (seconds, what): [(0.5, 'motors off'), (0.5, 'read state'), (1.01, 'read state'), (1.53, 'read state'), (2.05, 'read state'), (2.55, 'read state'), (2.61, 'read state'), (2.61, 'motors on'), (2.62, 'move'), (2.62, 'move'), (2.62, 'read state'), (2.62, 'move'), (2.62, 'close')]
+== two Enters typed before the first prompt, with the aid and fresh keys: ending not_started
+   prompts (seconds, text): [(0.01, "Put the puck at the line's start. "), (1.0, '  ... answered')]
+   asked of the link (seconds, what): [(1.0, 'motors off'), (1.0, 'read state'), (1.5, 'read state'), (2.01, 'read state'), (2.51, 'read state'), (3.03, 'read state'), (3.03, 'motors on'), (3.05, 'move'), (3.05, 'move'), (3.05, 'read state'), (3.05, 'move'), (3.05, 'close')]

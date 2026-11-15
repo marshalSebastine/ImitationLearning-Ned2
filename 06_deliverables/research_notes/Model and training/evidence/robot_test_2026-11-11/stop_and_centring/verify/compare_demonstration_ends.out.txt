@@ -1,0 +1,69 @@
+THE ANALYST'S TABLE, recounted
+episodes 210, reliable 175; covered (centres at most 7 mm apart) 104; within 12 mm 161
+short: mean +2.0, sd 4.2; over 7 short 17, over 7 beyond 5
+aside: mean +0.2, sd 6.0, median size 4.2; over 7 39
+sheet 01: reliable 18, covered 5, median size aside 8.1, mean aside +4.1
+stop picture shows ink ahead (over 0 square mm): 6; ink beyond the puck seen from above over 5 square mm: 41
+all 210, whatever the reliability: end found 210, covered 109
+
+MY MEASURE, camera corrected
+  every episode with at least one reference picture: 179 episodes
+    short: mean +3.9, sd 11.0, median +2.6; over 7 short 26, over 7 beyond 6
+    aside: mean +0.6, sd 8.7, median size 4.7; over 7 48
+    centres at most 7 mm apart: 92 of 179 (51 %); at most 12 mm: 149; median gap 6.9 mm
+         episodes  covered  short_mean  aside_mean  aside_sd  aside_size_median
+    sheet                                                                          
+    path_01      18.0      5.0         2.4         4.6       8.3                8.3
+    path_02      43.0     25.0         0.3        -1.0       6.8                4.2
+    path_03      38.0     16.0         4.3         0.5       6.0                4.6
+    path_04      35.0     15.0        10.2         2.8      11.8                5.3
+    path_05      30.0     21.0         4.6        -2.1      10.9                3.0
+    path_06      15.0     10.0        -0.7         1.0       3.9                3.5
+  episodes with 3 or more reference pictures that agree (sideways range 8 mm, along 10 mm): 86 episodes
+    short: mean +4.5, sd 11.6, median +3.0; over 7 short 13, over 7 beyond 2
+    aside: mean +1.5, sd 8.4, median size 5.3; over 7 24
+    centres at most 7 mm apart: 39 of 86 (45 %); at most 12 mm: 70; median gap 7.3 mm
+         episodes  covered  short_mean  aside_mean  aside_sd  aside_size_median
+    sheet                                                                          
+    path_01       7.0      1.0         0.7         7.0      10.4               11.2
+    path_02      11.0      4.0        -1.4         0.1       8.8                6.7
+    path_03      25.0     11.0         5.1         0.2       5.0                4.2
+    path_04      20.0      7.0         9.6         3.4      12.5                5.3
+    path_05      21.0     15.0         3.3        -0.0       5.6                4.5
+    path_06       2.0      1.0         5.4         0.1       7.4                5.2
+  side by side on the 81 episodes that both measured reliably:
+    mine minus the analyst's, short: median +0.3 mm, median size 0.8, 90th percentile of the size 3.5
+    mine minus the analyst's, aside: median +0.0 mm, median size 0.8, 90th percentile of the size 2.2
+    correlation short 0.00, aside 0.65
+    covered by mine 39, by the analyst's 45; both 36, only mine 3, only the analyst's 9, neither 33
+
+MY MEASURE, camera fitted
+  every episode with at least one reference picture: 181 episodes
+    short: mean +4.1, sd 11.4, median +2.8; over 7 short 38, over 7 beyond 6
+    aside: mean -1.0, sd 9.2, median size 5.2; over 7 59
+    centres at most 7 mm apart: 82 of 181 (45 %); at most 12 mm: 147; median gap 7.4 mm
+         episodes  covered  short_mean  aside_mean  aside_sd  aside_size_median
+    sheet                                                                          
+    path_01      19.0      5.0         3.3         1.0      11.5                7.5
+    path_02      43.0     24.0         0.6        -2.2       6.8                4.3
+    path_03      39.0     17.0         3.9        -0.7       6.0                4.6
+    path_04      36.0     18.0         8.7         1.9      12.1                5.5
+    path_05      30.0     11.0         6.9        -4.0      10.4                4.0
+    path_06      14.0      7.0        -1.9        -2.1       7.7                6.2
+  episodes with 3 or more reference pictures that agree (sideways range 8 mm, along 10 mm): 81 episodes
+    short: mean +5.0, sd 12.0, median +3.7; over 7 short 19, over 7 beyond 2
+    aside: mean -0.1, sd 8.6, median size 5.1; over 7 25
+    centres at most 7 mm apart: 33 of 81 (41 %); at most 12 mm: 65; median gap 7.6 mm
+         episodes  covered  short_mean  aside_mean  aside_sd  aside_size_median
+    sheet                                                                          
+    path_01       7.0      0.0         1.0         5.1      10.4               10.5
+    path_02      10.0      5.0        -0.5        -2.2       8.6                5.6
+    path_03      24.0     11.0         4.9        -0.9       5.2                3.0
+    path_04      19.0      9.0         8.5         2.4      12.5                4.8
+    path_05      19.0      7.0         5.7        -2.1       6.0                5.2
+    path_06       2.0      1.0         6.6        -5.3       4.3                5.3
+  side by side on the 75 episodes that both measured reliably:
+    mine minus the analyst's, short: median +0.4 mm, median size 1.4, 90th percentile of the size 3.9
+    mine minus the analyst's, aside: median -1.5 mm, median size 1.7, 90th percentile of the size 4.5
+    correlation short 0.05, aside 0.67
+    covered by mine 32, by the analyst's 38; both 27, only mine 5, only the analyst's 11, neither 32

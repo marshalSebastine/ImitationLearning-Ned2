@@ -1,0 +1,32 @@
+episodes with rows: 210
+first row within 0.3 cm of (14.0, -1.5) cm and forearm within 2 degrees of 0: 149 of 210
+col_0       False  True 
+start_kind              
+MID            10      0
+NE             42      0
+OL1             0     10
+OL1.5           0      8
+OR1             0      9
+OR1.5           0      8
+SQL             0     10
+SQP             0      6
+STD             0     71
+TL10            0      7
+TL15            0      6
+TR10            0      7
+TR15            0      5
+X1              6      0
+X2              3      0
+distance of the others, cm:  {'count': 61.0, 'mean': 17.51, 'std': 5.55, 'min': 2.22, '25%': 15.25, '50%': 17.57, '75%': 22.6, 'max': 24.54}
+joint 4 of the others, degrees: {'count': 61.0, 'mean': -6.5, 'std': 45.3, 'min': -88.6, '25%': -45.5, '50%': -0.1, '75%': 5.6, 'max': 70.0}
+wrist (joint 5) at the first row, degrees, by on-mark:
+       count  mean  std   min   25%   50%   75%   max
+False   61.0 -12.3  8.9 -29.3 -19.1 -10.8  -6.8   8.9
+True   149.0  13.6  0.1  13.5  13.5  13.5  13.6  14.0
+wrist at the first row of the taught starts, by kind:
+            count  mean  std   min   25%   50%   75%   max
+start_kind                                                
+MID          10.0 -13.2  4.0 -19.1 -17.0 -10.8 -10.8 -10.4
+NE           42.0 -14.6  8.2 -29.3 -20.5 -11.5  -8.6  -0.0
+X1            6.0   1.2  8.4  -6.7  -6.5   1.2   8.9   8.9
+X2            3.0  -5.1  0.0  -5.1  -5.1  -5.1  -5.1  -5.1

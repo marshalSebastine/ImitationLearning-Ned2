@@ -1,0 +1,38 @@
+gap as the recordings' own (112 s)
+      block 0a: scripted steps without the puck (30 small steps and 10 twists): 2 min
+      block 0b: the same with the puck on sheet 01: 2 min
+      measure at known places: 20 placements, one picture each (45 s each, no run): 15 min
+      control: model E on sheet 01, 11.11 driver, 3 runs (33 cm of tip travel): 9 min
+      block A: model E, fixed 1.0 cm, 5 short runs (22 cm): 11 min
+      block A: model E, fixed 0.65 cm, 5 short runs: 12 min
+      block A: model E, own length, 4 short runs: 10 min
+      block A: model without sheet 03, fixed 1.0 and 0.65 cm, 3 short runs each: 14 min
+   day 1: 25 runs, 75 min of runs + 35 min (switching on and tests 15, tape for sheets 01 and 03: 10, checklists for the new movements 10) [guess] = 1.8 h
+      stop: model E on sheet 01 with the chosen step (0.65 cm), 3 runs: 11 min
+      sheet 05: model E 3 runs and the model without sheet 05 3 runs (105 cm at 0.65 cm): 32 min
+      two new tracks: model E, 3 runs each (about 80 cm of tip travel at 0.65 cm): 29 min
+      sheet 04 repeat: model E, 11.11 driver, 2 runs (153 cm at 1.0 cm): 11 min
+      block D: two start poses, 2 short runs each (12 cm): 8 min
+   day 2 without block C: 21 runs, 91 min of runs + 55 min (switching on 15, tape for five lay-outs 25, repeated runs 15) [guess] = 2.4 h
+      block C as 2 runs per cell of shape x line style (97 cm at 1.0 cm): 35 min
+   block C on top: 8 runs, 35 min of runs + 20 min (tape for four prints 20) [guess] = 0.9 h
+
+gap as the median of 11.11 (181 s)
+      block 0a: scripted steps without the puck (30 small steps and 10 twists): 4 min
+      block 0b: the same with the puck on sheet 01: 4 min
+      measure at known places: 20 placements, one picture each (45 s each, no run): 15 min
+      control: model E on sheet 01, 11.11 driver, 3 runs (33 cm of tip travel): 12 min
+      block A: model E, fixed 1.0 cm, 5 short runs (22 cm): 17 min
+      block A: model E, fixed 0.65 cm, 5 short runs: 18 min
+      block A: model E, own length, 4 short runs: 14 min
+      block A: model without sheet 03, fixed 1.0 and 0.65 cm, 3 short runs each: 21 min
+   day 1: 25 runs, 104 min of runs + 35 min (switching on and tests 15, tape for sheets 01 and 03: 10, checklists for the new movements 10) [guess] = 2.3 h
+      stop: model E on sheet 01 with the chosen step (0.65 cm), 3 runs: 14 min
+      sheet 05: model E 3 runs and the model without sheet 05 3 runs (105 cm at 0.65 cm): 39 min
+      two new tracks: model E, 3 runs each (about 80 cm of tip travel at 0.65 cm): 36 min
+      sheet 04 repeat: model E, 11.11 driver, 2 runs (153 cm at 1.0 cm): 13 min
+      block D: two start poses, 2 short runs each (12 cm): 13 min
+   day 2 without block C: 21 runs, 115 min of runs + 55 min (switching on 15, tape for five lay-outs 25, repeated runs 15) [guess] = 2.8 h
+      block C as 2 runs per cell of shape x line style (97 cm at 1.0 cm): 44 min
+   block C on top: 8 runs, 44 min of runs + 20 min (tape for four prints 20) [guess] = 1.1 h
+

@@ -1,0 +1,7 @@
+place,pictures,"top probability, median","probability over 90 deg from the top name, mean",share of pictures with 0.25 or more there,"resultant length, median",share with resultant under 0.5,"entropy, median bits"
+straight,2186,0.586,0.034,0.024,0.835,0.038,1.52
+gentle bend,6772,0.478,0.054,0.033,0.776,0.073,1.82
+sharp bend,6305,0.459,0.063,0.042,0.764,0.099,1.9
+hairpin,1091,0.486,0.036,0.007,0.789,0.02,1.77
+line end,823,0.343,0.157,0.221,0.501,0.493,2.48
+all places,17177,0.475,0.058,0.043,0.775,0.095,1.83

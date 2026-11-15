@@ -1,0 +1,76 @@
+LIGHT, COLOUR AND SHARPNESS (measured: robot pictures from their JPEGs, training pictures from frames.csv and the 160 x 120 cache)
+
+Training pictures by recording day and lighting note (median; 5 % to 95 % in brackets)
+group                          pictures           brightness_mean            brightness_std        sharpness_measured                 paper_red               paper_green                paper_blue       paper_red_over_blue
+2026-11-06 ceiling                  736   149.05 [129.56, 162.03]    47.20 [ 36.92,  53.76]   167.30 [105.12, 215.15]   171.00 [157.00, 184.25]   203.00 [186.00, 213.00]   217.00 [184.00, 226.00]     0.79 [  0.74,   0.91]
+2026-11-07 ceiling                 1970   146.62 [128.97, 159.15]    43.09 [ 34.51,  55.06]   180.25 [107.25, 245.45]   162.00 [148.00, 179.00]   197.00 [157.00, 211.00]   213.00 [141.00, 222.00]     0.78 [  0.72,   1.08]
+2026-11-07 natural                  740   122.52 [ 99.89, 137.86]    44.85 [ 35.22,  51.16]   107.75 [ 41.13, 177.41]   147.00 [120.95, 166.00]   188.00 [165.00, 201.05]   211.00 [187.00, 223.00]     0.69 [  0.61,   0.78]
+2026-11-08 ceiling                10713   145.90 [130.25, 158.10]    46.88 [ 36.62,  55.22]   243.40 [147.16, 352.60]   168.00 [152.00, 188.00]   200.00 [177.00, 215.00]   215.50 [174.00, 227.00]     0.79 [  0.74,   0.91]
+2026-11-08 natural                 2267   126.54 [107.42, 141.81]    44.73 [ 35.62,  52.56]   189.40 [ 99.89, 366.31]   148.00 [122.00, 168.00]   190.00 [170.00, 202.00]   211.00 [188.00, 224.00]     0.70 [  0.63,   0.78]
+2026-11-09 ceiling                 2096   143.32 [126.29, 154.94]    44.34 [ 35.81,  51.50]   186.30 [111.20, 280.60]   162.00 [143.00, 178.00]   198.00 [172.00, 209.00]   214.00 [170.00, 225.00]     0.77 [  0.72,   0.88]
+ALL TRAINING PICTURES             18522   143.78 [119.19, 157.62]    45.65 [ 36.06,  54.61]   213.15 [110.10, 342.79]   164.00 [139.00, 184.00]   198.00 [172.00, 213.00]   214.00 [172.00, 226.00]     0.78 [  0.67,   0.91]
+
+Robot runs of 11.11.26 (median of the run; in brackets the place of that median among ALL training pictures, percentile 0 to 100)
+group                          pictures           brightness_mean            brightness_std        sharpness_measured                 paper_red               paper_green                paper_blue       paper_red_over_blue
+run  1 (path_01)                       26          148.42 [pct  68]           42.92 [pct  33]          241.85 [pct  64]          160.00 [pct  35]          199.00 [pct  52]          209.50 [pct  31]            0.76 [pct  35]
+run  2 (path_01)                       25          163.00 [pct 100]           43.97 [pct  39]          252.90 [pct  69]          175.00 [pct  81]          211.00 [pct  91]          225.00 [pct  93]            0.78 [pct  49]
+run  3 (path_02)                       38          154.76 [pct  89]           43.89 [pct  38]          233.95 [pct  61]          171.00 [pct  69]          207.00 [pct  82]          223.00 [pct  88]            0.76 [pct  33]
+run  4 (path_02)                       42          137.97 [pct  31]           48.85 [pct  72]          239.65 [pct  63]          152.00 [pct  16]          197.00 [pct  45]          218.00 [pct  64]            0.71 [pct  11]
+run  5 (path_03)                       60          152.67 [pct  83]           47.36 [pct  62]          327.80 [pct  93]          171.00 [pct  69]          206.00 [pct  78]          225.00 [pct  93]            0.76 [pct  35]
+run  6 (path_04)                       69          138.68 [pct  33]           55.74 [pct  97]          324.30 [pct  92]          166.00 [pct  54]          205.00 [pct  76]          227.00 [pct  96]            0.73 [pct  17]
+run  7 (path_05)                       89          147.08 [pct  63]           44.61 [pct  43]          297.00 [pct  85]          170.00 [pct  67]          204.00 [pct  71]          222.00 [pct  84]            0.77 [pct  40]
+run  8 (path_06)                       41          138.89 [pct  33]           40.51 [pct  21]          258.90 [pct  72]          155.00 [pct  22]          197.00 [pct  45]          218.00 [pct  64]            0.73 [pct  15]
+run  9 (path_03)                       90          145.91 [pct  58]           46.37 [pct  55]          256.20 [pct  71]          165.00 [pct  52]          204.00 [pct  71]          226.00 [pct  94]            0.74 [pct  19]
+run 10 (path_03)                       74          149.06 [pct  71]           46.86 [pct  58]          267.70 [pct  75]          160.50 [pct  40]          203.00 [pct  66]          223.00 [pct  88]            0.77 [pct  44]
+
+brightness (grey 0 to 255): training pictures span 87.08 to 166.92 (middle 99 %: 102.64 to 162.65); robot pictures span 109.53 to 168.97; 33 of 554 robot pictures lie outside the training pictures' middle 99 % (runs [np.int64(2), np.int64(3), np.int64(4), np.int64(7), np.int64(10)])
+contrast (spread of grey): training pictures span 28.63 to 75.77 (middle 99 %: 32.03 to 58.16); robot pictures span 36.16 to 64.81; 26 of 554 robot pictures lie outside the training pictures' middle 99 % (runs [np.int64(4), np.int64(6), np.int64(10)])
+sharpness (variance of the Laplacian): training pictures span 18.80 to 618.30 (middle 99 %: 56.42 to 419.66); robot pictures span 168.30 to 416.60; 0 of 554 robot pictures lie outside the training pictures' middle 99 %
+paper colour, red: training pictures span 95.00 to 202.00 (middle 99 %: 118.00 to 194.00); robot pictures span 146.00 to 181.00; 0 of 554 robot pictures lie outside the training pictures' middle 99 %
+paper colour, green: training pictures span 134.00 to 222.00 (middle 99 %: 156.00 to 217.00); robot pictures span 155.00 to 212.00; 3 of 554 robot pictures lie outside the training pictures' middle 99 % (runs [np.int64(10)])
+paper colour, blue: training pictures span 132.00 to 233.00 (middle 99 %: 140.00 to 231.00); robot pictures span 130.00 to 232.00; 26 of 554 robot pictures lie outside the training pictures' middle 99 % (runs [np.int64(2), np.int64(6), np.int64(9), np.int64(10)])
+paper red over blue (1 = neutral white, lower = bluer): training pictures span 0.57 to 1.18 (middle 99 %: 0.61 to 1.09); robot pictures span 0.67 to 1.18; 17 of 554 robot pictures lie outside the training pictures' middle 99 % (runs [np.int64(10)])
+
+THE CAMERA ON ITS MOUNT (shift of the bottom strip, the robot's own hand and block, against the recording tool's reference picture
+forearm_cover_tape_bare_camera_x159_y-15mm.jpg of 6.11.26, in pixels of the 640 x 480 picture: x to the right, y downwards; the recording tool warned above 4.0 px; training augmentation shifts by up to 4 px at 160 px wide = 16 px here)
+
+Demonstrations, first picture of every standard-start episode (wrist 13.5, hand -6.1 degrees, as held in the robot runs)
+recording day   episodes   shift x: median  [min, max]     shift y: median  [min, max]
+2026-11-06         13               0.2  [ -2.3,  0.7]              -5.3  [ -7.3, -4.5]
+2026-11-07         35              -0.1  [ -3.9,  1.8]              -7.3  [-10.3, -4.7]
+2026-11-08         81               2.9  [ -2.9, 16.8]              -3.6  [-10.5,  1.5]
+2026-11-09         18              13.6  [ 13.3, 14.6]              -1.2  [ -1.8,  0.2]
+
+Robot runs of 11.11.26, every picture (the wrist and hand were held, so the strip shows the same parts in every picture)
+run   pictures   shift x: median  [5 %, 95 %]     shift y: median  [5 %, 95 %]    against the last recording day's median: x, y
+  1         26              17.7  [ 17.1, 19.2]               1.9  [  0.0,  6.9]      +4.1,   +3.1
+  2         25              16.8  [ 16.2, 17.2]              -0.5  [ -3.9,  1.3]      +3.2,   +0.6
+  3         38              16.8  [ 16.0, 20.1]              -1.1  [ -4.2,  2.4]      +3.1,   +0.1
+  4         42              16.0  [-10.8, 17.6]              -8.4  [-20.7,  0.8]      +2.3,   -7.3
+  5         60              17.0  [-58.4, 24.5]              -1.2  [-15.8,  3.3]      +3.4,   -0.1
+  6         69              15.7  [ 15.3, 16.9]              -4.2  [ -4.9, -2.0]      +2.1,   -3.0
+  7         89              15.6  [ 14.1, 21.9]              -2.3  [-10.5,  5.0]      +2.0,   -1.1
+  8         41              15.2  [-17.8, 18.4]             -11.9  [-25.2, -3.4]      +1.6,  -10.7
+  9         90              16.5  [ 15.4, 18.0]              -4.3  [-11.9, -1.4]      +2.8,   -3.1
+ 10         74              16.1  [ 15.2, 17.9]              -5.2  [ -9.3,  1.2]      +2.5,   -4.1
+all robot pictures: shift x median 16.3, shift y median -3.5; last recording day (2026-11-09): x 13.6, y -1.2
+
+THE PICTURE FILES (size, colour mode, and the JPEG quantisation tables, which fix the compression strength)
+  training pictures (40 per recording day): 160 files of 640 x 480, mode RGB, luminance table sum 3323, tables id 62941
+  robot pictures (all): 554 files of 640 x 480, mode RGB, luminance table sum 3323, tables id 62941
+  same kinds of file in both: True
+
+WHERE EACH RUN STARTED (step 0 of steps.csv; the demonstrations' standard starts all began with the tip at x 14.0 cm, y -1.5 cm, forearm twist 0 degrees: measured, frames.csv row 0)
+run  sheet     tip x cm  tip y cm   from the demonstrations' start: forward cm, left cm, distance cm   forearm twist deg   picture heading deg
+  1  path_01       14.2       0.1                                     +0.2,  +1.6,   1.6                -1.8                  +1.8
+  2  path_01       14.8       0.1                                     +0.8,  +1.6,   1.8                +6.1                  -4.4
+  3  path_02       16.5      -1.4                                     +2.5,  +0.1,   2.5                -1.0                  -4.2
+  4  path_02       15.0       2.2                                     +1.0,  +3.7,   3.9                +9.8                  +0.5
+  5  path_03       12.2       1.0                                     -1.8,  +2.5,   3.1                -9.3                 +11.7
+  6  path_04       18.2       1.3                                     +4.2,  +2.8,   5.1                +3.2                  +1.5
+  7  path_05       15.9       2.0                                     +1.9,  +3.5,   4.0                -1.7                  +8.5
+  8  path_06       16.0       1.0                                     +2.0,  +2.5,   3.2                +7.2                  -2.3
+  9  path_03       14.1      -0.2                                     +0.1,  +1.3,   1.3                -5.2                  +3.2
+ 10  path_03       15.8       1.2                                     +1.8,  +2.7,   3.3                -9.7                 +12.3
+
+written: setup_light_and_camera_per_picture.csv, figures/setup_light_and_colour.png, figures/setup_camera_strips.png

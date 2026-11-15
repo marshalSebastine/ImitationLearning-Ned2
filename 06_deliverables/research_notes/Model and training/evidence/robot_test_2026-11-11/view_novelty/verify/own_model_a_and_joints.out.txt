@@ -1,0 +1,19 @@
+A. RUN 1 (model A): the answer as seen and with the picture slid 17 px to the left
+model A's answers recomputed here match the log of run 1 within 0.0000 degrees of direction on 26 pictures
+turn of the asked direction when the shift is undone (24 pictures): median +2.8 degrees, middle half +1.8 to +3.4; positive = to the left
+calculated from it: 1.06 cm sideways over 22 cm if nothing corrects it (the tip's own y went from +0.09 to -1.81 cm between steps 0 and 22)
+
+B. SHOULDER, ELBOW AND REACH: the robot runs against the training pictures model E trained on
+shoulder (joint 2), degrees    training 1 %   -70.3, median   -51.6, 99 %   -41.7 | robot least   -72.9, median   -48.4, most   -41.5; outside 1 % to 99 %: 25 of 554
+elbow (joint 3), degrees       training 1 %   -61.9, median   -22.5, 99 %   +20.1 | robot least   -65.0, median   -30.5, most   +21.9; outside 1 % to 99 %: 5 of 554
+tip reach from the base, cm    training 1 %   +14.1, median   +30.9, 99 %   +44.2 | robot least   +12.2, median   +28.6, most   +45.0; outside 1 % to 99 %: 7 of 554
+elbow (joint 3) by reach band, training median against robot median (degrees):
+   reach 14 to 18 cm: elbow training  -58.0 (5 %  -61.9, 95 %  -53.8), robot  -57.0 | shoulder training  -41.9 (5 %  -43.7, 95 %  -40.5), robot  -41.8   (1049 training, 54 robot pictures)
+   reach 18 to 22 cm: elbow training  -47.6 (5 %  -53.1, 95 %  -42.4), robot  -50.3 | shoulder training  -44.2 (5 %  -45.3, 95 %  -41.8), robot  -42.5   (1751 training, 81 robot pictures)
+   reach 22 to 26 cm: elbow training  -39.5 (5 %  -44.5, 95 %  -33.3), robot  -41.7 | shoulder training  -46.1 (5 %  -48.0, 95 %  -44.1), robot  -44.6   (2714 training, 94 robot pictures)
+   reach 26 to 30 cm: elbow training  -30.0 (5 %  -36.1, 95 %  -23.0), robot  -31.1 | shoulder training  -49.0 (5 %  -51.0, 95 %  -46.8), robot  -47.9   (2791 training, 75 robot pictures)
+   reach 30 to 36 cm: elbow training  -16.3 (5 %  -25.0, 95 %   -7.4), robot  -20.2 | shoulder training  -53.9 (5 %  -57.5, 95 %  -50.5), robot  -52.7   (4869 training, 145 robot pictures)
+
+C. ROYAL BLUE IN THE TRAINING PICTURES (every 12th raw picture; large royal-blue objects at the border as in own_setup_checks.py)
+1544 pictures: 5.7 % show more than 0.5 % of such blue, 0.6 % more than 2.6 %, 0.2 % more than 5 %; largest share 6.3 %
+of the pictures with more than 2.6 %: forearm twist median -76 degrees (the robot's own base comes into view when the forearm is twisted far to the negative side)

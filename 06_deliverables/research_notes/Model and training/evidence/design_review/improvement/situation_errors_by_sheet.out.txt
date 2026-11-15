@@ -1,0 +1,64 @@
+﻿=== resnet18_finetune_exact: off_line (step within 45; count of moving pictures) ===
+sheet                              path_03       path_05       path_06
+off_line                                                              
+1 to 2 cm off                  0.673 (587)   0.555 (474)   0.595 (299)
+no fit                          0.63 (586)    0.68 (532)           NaN
+over 2 cm off                  0.598 (423)   0.567 (365)   0.539 (317)
+puck within 1 cm of the line  0.753 (1862)  0.743 (1100)  0.731 (1193)
+
+=== resnet18_finetune_exact: line_to_go (step within 45; count of moving pictures) ===
+sheet                      path_03       path_05       path_06
+line_to_go                                                    
+3 to 8 cm to go        0.655 (429)   0.782 (174)   0.734 (124)
+last 3 cm of line      0.551 (265)    0.562 (96)     0.8 (100)
+more than 8 cm to go  0.719 (2738)  0.662 (2191)  0.639 (1234)
+no fit                  0.923 (26)      0.9 (10)   0.744 (351)
+
+=== resnet18_finetune_exact: line_radius (step within 45; count of moving pictures) ===
+sheet               path_03      path_05      path_06
+line_radius                                          
+1.5 to 2.5 cm   0.687 (329)   0.479 (96)   0.696 (23)
+10 cm or more  0.682 (1652)  0.823 (910)   0.76 (375)
+2.5 to 5 cm     0.734 (504)  0.548 (650)  0.643 (384)
+5 to 10 cm      0.759 (606)  0.607 (805)  0.617 (627)
+no fit           0.923 (26)     0.9 (10)  0.744 (351)
+under 1.5 cm    0.625 (341)          NaN    0.51 (49)
+
+=== resnet18_finetune_exact: shape (step within 45; count of moving pictures) ===
+sheet          path_03      path_05       path_06
+shape                                            
+bend      0.661 (2422)   0.6 (1700)  0.622 (1238)
+straight   0.79 (1036)  0.816 (771)    0.79 (571)
+
+=== exact_step: off_line (step within 45; count of moving pictures) ===
+sheet                            path_01      path_02       path_03       path_04       path_05       path_06
+off_line                                                                                                     
+1 to 2 cm off                  0.64 (86)  0.512 (256)   0.586 (587)  0.533 (1007)   0.508 (474)   0.492 (299)
+no fit                        0.684 (38)  0.557 (982)   0.613 (586)   0.518 (193)   0.573 (532)           NaN
+over 2 cm off                 0.735 (68)  0.545 (233)    0.47 (423)   0.525 (746)   0.441 (365)   0.483 (317)
+puck within 1 cm of the line  0.78 (377)  0.643 (901)  0.674 (1862)  0.559 (3325)  0.623 (1100)  0.481 (1193)
+
+=== exact_step: line_to_go (step within 45; count of moving pictures) ===
+sheet                     path_01       path_02       path_03       path_04       path_05       path_06
+line_to_go                                                                                             
+3 to 8 cm to go         0.6 (145)   0.492 (439)   0.615 (429)   0.614 (443)   0.655 (174)   0.694 (124)
+last 3 cm of line      0.603 (78)   0.465 (269)   0.521 (265)   0.494 (318)    0.427 (96)    0.52 (100)
+more than 8 cm to go  0.842 (335)  0.636 (1526)  0.633 (2738)  0.543 (4485)  0.561 (2191)  0.449 (1234)
+no fit                 0.818 (11)   0.529 (138)    0.885 (26)     0.92 (25)      0.7 (10)   0.519 (351)
+
+=== exact_step: line_radius (step within 45; count of moving pictures) ===
+sheet              path_01       path_02       path_03       path_04      path_05      path_06
+line_radius                                                                                   
+1.5 to 2.5 cm          NaN           NaN   0.544 (329)   0.508 (612)   0.438 (96)   0.565 (23)
+10 cm or more  0.746 (558)  0.588 (2097)  0.632 (1652)  0.581 (1591)  0.747 (910)  0.392 (375)
+2.5 to 5 cm            NaN           NaN   0.611 (504)   0.526 (740)  0.428 (650)  0.513 (384)
+5 to 10 cm             NaN   0.569 (137)   0.696 (606)  0.593 (1311)  0.478 (805)  0.488 (627)
+no fit          0.818 (11)   0.529 (138)    0.885 (26)     0.92 (25)     0.7 (10)  0.519 (351)
+under 1.5 cm           NaN           NaN   0.531 (341)   0.467 (992)          NaN   0.592 (49)
+
+=== exact_step: shape (step within 45; count of moving pictures) ===
+sheet         path_01       path_02       path_03       path_04       path_05       path_06
+shape                                                                                      
+bend      0.567 (252)  0.545 (1630)  0.586 (2422)  0.546 (3736)  0.515 (1700)  0.506 (1238)
+straight   0.89 (317)   0.667 (742)  0.712 (1036)  0.552 (1535)   0.671 (771)   0.434 (571)
+

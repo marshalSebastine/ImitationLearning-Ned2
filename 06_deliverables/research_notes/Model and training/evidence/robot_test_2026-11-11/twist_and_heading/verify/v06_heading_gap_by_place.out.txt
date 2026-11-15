@@ -1,0 +1,29 @@
+run 4 (path_02, end B, 6 standard-start demonstrations): robot start tip (15.0, 2.2) cm, joint 4 +9.8, heading +0.5; demonstrated start tips [14.0, -1.5] (distance 3.8 to 3.8 cm); nearest demonstrated tip position anywhere 2.9 cm; demonstrated first headings [-6.1, -6.1, -6.0, -6.1, -6.1, -5.9]
+   pictures on the path before it is first left: 0; first picture with fewer than 3 demonstrations within 1 cm: 4
+
+run 5 (path_03, end A, 8 standard-start demonstrations): robot start tip (12.2, 1.0) cm, joint 4 -9.3, heading +11.7; demonstrated start tips [14.0, -1.5] (distance 3.1 to 3.1 cm); nearest demonstrated tip position anywhere 2.1 cm; demonstrated first headings [-6.1, -6.2, -6.1, -5.4, -5.6, -6.1, -6.1, -6.1]
+   pictures on the path before it is first left: 1; first picture with fewer than 3 demonstrations within 1 cm: 5
+   gap over those pictures: median |gap| 0.7, largest 0.7 at picture 4 (nearest demonstrated tip 0.33 cm, 3 demonstrations near, their spread 3.8)
+   gap by picture: 4:+1
+
+run 6 (path_04, end A, 11 standard-start demonstrations): robot start tip (18.2, 1.3) cm, joint 4 +3.2, heading +1.5; demonstrated start tips [14.0, -1.5] (distance 5.0 to 5.0 cm); nearest demonstrated tip position anywhere 0.2 cm; demonstrated first headings [-6.1, -6.1, -6.1, -6.1, -6.1, -5.7, -5.6, -6.1, -6.1, -6.1, -6.1]
+   pictures on the path before it is first left: 7; first picture with fewer than 3 demonstrations within 1 cm: 7
+   gap over those pictures: median |gap| 28.6, largest 39.8 at picture 5 (nearest demonstrated tip 0.27 cm, 5 demonstrations near, their spread 12.6)
+   gap by picture: 0:+17, 1:+18, 2:+22, 3:+29, 4:+34, 5:+40, 6:+34
+
+run 7 (path_05, end B, 6 standard-start demonstrations): robot start tip (15.9, 2.0) cm, joint 4 -1.7, heading +8.5; demonstrated start tips [14.0, -1.5] (distance 4.0 to 4.0 cm); nearest demonstrated tip position anywhere 2.9 cm; demonstrated first headings [-6.1, -6.1, -6.1, -6.0, -6.2, -6.2]
+   pictures on the path before it is first left: 0; first picture with fewer than 3 demonstrations within 1 cm: 4
+
+run 8 (path_06, end A, 6 standard-start demonstrations): robot start tip (16.0, 1.0) cm, joint 4 +7.2, heading -2.3; demonstrated start tips [14.0, -1.5] (distance 3.2 to 3.2 cm); nearest demonstrated tip position anywhere 2.7 cm; demonstrated first headings [-6.2, -6.1, -5.7, -6.1, -6.0, -6.1]
+   pictures on the path before it is first left: 0; first picture with fewer than 3 demonstrations within 1 cm: 4
+
+run 9 (path_03, end A, 8 standard-start demonstrations): robot start tip (14.1, -0.2) cm, joint 4 -5.2, heading +3.2; demonstrated start tips [14.0, -1.5] (distance 1.3 to 1.3 cm); nearest demonstrated tip position anywhere 0.2 cm; demonstrated first headings [-6.1, -6.2, -6.1, -5.4, -5.6, -6.1, -6.1, -6.1]
+   pictures on the path before it is first left: 8; first picture with fewer than 3 demonstrations within 1 cm: 8
+   gap over those pictures: median |gap| 19.7, largest -30.1 at picture 7 (nearest demonstrated tip 0.15 cm, 3 demonstrations near, their spread 3.7)
+   gap by picture: 0:+2, 1:+1, 2:-7, 3:-19, 4:-21, 5:-29, 6:-29, 7:-30
+
+run 10 (path_03, end A, 8 standard-start demonstrations): robot start tip (15.8, 1.2) cm, joint 4 -9.7, heading +12.3; demonstrated start tips [14.0, -1.5] (distance 3.2 to 3.3 cm); nearest demonstrated tip position anywhere 0.9 cm; demonstrated first headings [-6.1, -6.2, -6.1, -5.4, -5.6, -6.1, -6.1, -6.1]
+   pictures on the path before it is first left: 4; first picture with fewer than 3 demonstrations within 1 cm: 8
+   gap over those pictures: median |gap| 46.8, largest -50.6 at picture 4 (nearest demonstrated tip 0.25 cm, 5 demonstrations near, their spread 10.9)
+   gap by picture: 4:-51, 5:-45, 6:-37, 7:-49
+

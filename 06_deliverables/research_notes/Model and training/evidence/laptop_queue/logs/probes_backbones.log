@@ -1,0 +1,12 @@
+backbones | resnet18_imagenet_global | 20.3 s | within 45: 0.5448 | class accuracy: 0.4023 | stopped right: 0.254 | early: 0.1248
+backbones | resnet18_imagenet_grid | 107.4 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+backbones | resnet18_random_global | 46.9 s | within 45: 0.4614 | class accuracy: 0.3291 | stopped right: 0.0758 | early: 0.188
+backbones | resnet18_random_grid | 126.9 s | within 45: 0.4903 | class accuracy: 0.3475 | stopped right: 0.1166 | early: 0.1716
+backbones | efficientnet_b0_imagenet_global | 23.8 s | within 45: 0.5479 | class accuracy: 0.4028 | stopped right: 0.2386 | early: 0.0934
+backbones | efficientnet_b0_imagenet_grid | 257.1 s | within 45: 0.5465 | class accuracy: 0.3938 | stopped right: 0.2532 | early: 0.0811
+backbones | mobilenetv3_large_imagenet_global | 25.8 s | within 45: 0.5422 | class accuracy: 0.395 | stopped right: 0.2316 | early: 0.094
+backbones | mobilenetv3_large_imagenet_grid | 190.5 s | within 45: 0.5763 | class accuracy: 0.4076 | stopped right: 0.2146 | early: 0.0697
+backbones | dinov2_small_global | 23.2 s | within 45: 0.5322 | class accuracy: 0.3911 | stopped right: 0.3298 | early: 0.106
+backbones | dinov2_small_grid | 86.1 s | within 45: 0.545 | class accuracy: 0.3893 | stopped right: 0.2865 | early: 0.0953
+backbones | clip_vit_b32_global | 21.6 s | within 45: 0.5225 | class accuracy: 0.3826 | stopped right: 0.3072 | early: 0.1426
+backbones | clip_vit_b32_grid | 165.5 s | within 45: 0.5468 | class accuracy: 0.3979 | stopped right: 0.2093 | early: 0.2169

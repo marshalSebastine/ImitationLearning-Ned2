@@ -1,0 +1,25 @@
+outcome                                      between  early  never  right
+fold     goal_end goal_end_to_paper_edge_cm                              
+exact_03 A        3.6                              0      2      2     16
+         B        2.5                              1      6      0     18
+exact_05 A        5.9                              0     14      2      5
+         B        6.0                              0      5      4      0
+exact_06 A        4.4                              0      0     10      0
+         B        8.0                              0      6      1      8
+final_01 A        3.7                              0      0      0      4
+         B        3.0                              0      3      1     12
+final_02 A        6.2                              3      5     10     15
+         B        6.4                              2      3      3      4
+
+fold      goal_end
+exact_03  A           0.758
+          B           0.840
+exact_05  A           0.575
+          B           0.003
+exact_06  A           0.000
+          B           0.375
+final_01  A           0.919
+          B           0.924
+final_02  A           0.724
+          B           0.584
+exit 0

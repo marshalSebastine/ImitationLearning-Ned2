@@ -1,0 +1,9 @@
+episodes by how far the content of their last picture moves in the held-wrist view; stop rule 0.5 on two pictures in a row
+                    last picture moved by (px at 160)  episodes  right as recorded  right held view  never as recorded  never held view  early as recorded  early held view
+                                               0 to 4        95                 44               42                 26               28                 20               20
+                                               5 to 9        49                 27               24                 17               19                  4                6
+                                             10 to 40        63                 32               24                 26               36                  3                2
+  moved up by 5 or more (wrist below 13.5 at the end)        82                 50               42                 26               35                  4                4
+moved down by 5 or more (wrist above 13.5 at the end)        30                  9                6                 17               20                  3                4
+
+saved D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\wrist_and_camera\held_wrist_offline_by_shift.csv

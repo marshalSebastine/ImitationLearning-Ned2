@@ -1,0 +1,6 @@
+team of the five exact seeds (mean of unit directions): {'straight': 0.885, 'gentle bend': 0.799, 'sharp bend': 0.78, 'hairpin': 0.744, 'line end': 0.481, 'all places': 0.792, 'rows': 13890}
+resnet18_chunk_stop_weight_25 (first chunk step): {'straight': 0.895, 'gentle bend': 0.791, 'sharp bend': 0.794, 'hairpin': 0.801, 'line end': 0.464, 'all places': 0.796, 'rows': 13890}
+resnet18_chunk_stop_weight_25_seed_2 (first chunk step): {'straight': 0.874, 'gentle bend': 0.788, 'sharp bend': 0.78, 'hairpin': 0.836, 'line end': 0.528, 'all places': 0.791, 'rows': 13890}
+where the five seeds' agreement (length of the mean unit direction) is 0.0 to 0.6: 80 pictures, path within 45 deg 0.438
+where the five seeds' agreement (length of the mean unit direction) is 0.6 to 0.9: 934 pictures, path within 45 deg 0.558
+where the five seeds' agreement (length of the mean unit direction) is 0.9 to 1.0: 12876 pictures, path within 45 deg 0.811

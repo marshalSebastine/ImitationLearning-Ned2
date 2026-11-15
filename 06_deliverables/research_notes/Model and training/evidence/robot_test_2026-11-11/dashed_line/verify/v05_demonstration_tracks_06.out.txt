@@ -1,0 +1,34 @@
+sheet 06: 25 episodes, 1982 pictures, 84 s
+line placed per episode (angle and place of the line's middle on the table) and the end the puck travelled from
+('first_end' and 'last_end' are the two ends of the course-photo centre line):
+ plan  kind index_end  pictures  angle_deg  x_cm   y_cm  mirrored  ink_to_line_mm  line_seen  line_on_ink travel_from  mean_beside_cm  other_way_cm  progress_cm  start_from_cm  puck_seen
+06-01   STD         A       105     193.43 25.89  -2.78     False            2.54       0.99         0.81   first_end            0.68          0.68         46.5            0.0        105
+06-02   STD         A       129     194.83 25.58  -2.78     False            2.60       0.90         0.84   first_end            0.85          0.85         44.4            0.3        129
+06-03   STD         A        80     194.47 25.62  -2.73     False            2.43       0.92         0.84   first_end            0.49          0.49         45.6            0.0         80
+06-04   STD         A       110     193.55 25.73  -2.79     False            2.72       0.90         0.85   first_end            0.83          0.83         45.8            0.1        106
+06-05   STD         A       105     195.15 25.75  -2.80     False            2.44       0.97         0.84   first_end            1.11          1.11         45.3            0.3        105
+06-06   STD         A        83     194.55 25.54  -2.71     False            2.55       0.88         0.87   first_end            0.25          0.25         45.7            0.4         83
+06-07   OL1         A       105     195.04 25.49  -2.75     False            2.30       0.95         0.86   first_end            0.84          0.84         44.9            0.4        105
+06-08   OR1         A       101     195.16 25.44  -2.69     False            2.42       0.97         0.82   first_end            0.46          0.46         45.3            0.0        101
+06-09  TL10         A        82     211.35 25.22  -1.35     False            2.27       0.92         0.84   first_end            0.47          0.47         45.2            0.0         82
+06-10  TR10         A        81     202.17 23.32  -1.05     False            2.45       0.82         0.89   first_end            0.32          0.32         45.1            0.5         81
+06-11    X1         A        79     202.95 23.26  -1.15     False            2.22       0.73         0.84   first_end            0.38          0.38         42.8            2.8         79
+06-12    X1         A        74     201.07 23.20  -0.91     False            2.44       0.74         0.85   first_end            0.37          0.37         42.9            2.9         74
+06-13    X1         A        83     201.33 23.40  -1.01     False            2.49       0.76         0.84   first_end            0.32          0.32         43.4            2.7         83
+06-14   STD         A       120     196.09 25.22 -13.26     False            2.81       1.00         0.81    last_end            1.06          1.04         45.4            0.4        118
+06-15   STD         A        73     197.12 25.13 -13.35     False            2.63       1.00         0.82    last_end            0.31          0.31         45.0            0.1         73
+06-16   STD         A        76     196.22 25.20 -13.29     False            2.91       1.00         0.84    last_end            0.50          0.50         45.5            0.0         76
+06-17   STD         A        68     196.15 25.04 -13.30     False            3.08       1.00         0.86    last_end            0.49          0.49         43.9            1.0         68
+06-18   STD         A        79     195.79 25.28 -13.27     False            2.79       1.00         0.81    last_end            0.27          0.27         45.5            0.0         79
+06-19 OL1.5         A        86     196.96 24.98 -13.37     False            2.67       1.00         0.81    last_end            0.38          0.38         45.4            0.5         86
+06-20 OR1.5         A        87     197.60 25.09 -13.22     False            2.56       1.00         0.80    last_end            0.42          0.42         45.0            0.4         87
+06-21  TL15         A        87     211.72 30.19  -9.13     False            2.61       1.00         0.83    last_end            0.60          0.60         45.2            0.0         87
+06-22    NE         A        19     269.20 33.48  -1.93      True            2.32       0.17         0.45   first_end            7.34          7.34          0.0           17.6         19
+06-23    NE         A        17     272.45 34.23  -3.64      True            2.37       0.27         0.39   first_end            9.78          9.78          0.2           17.4         17
+06-24    NE         A        28     247.64 28.99  -8.32      True            3.05       0.60         0.64    last_end            1.02          1.02          6.9           12.3         28
+06-25    NE         A        25     173.09 26.04  -1.67     False            4.05       0.58         0.32   first_end            0.53          0.53          6.0           17.1         25
+
+episodes by the index's start_end and by the travel I measured:
+index_end  travel_from
+A          first_end      16
+           last_end        9

@@ -1,0 +1,40 @@
+template: 390 x 86 pixels of the arm region, 3929 of them steady on the robot day
+demonstration pictures with wrist and hand within 0.5 degrees of the held values: 7258 of 18522
+
+WHERE THE ARM SITS IN THE PICTURE, against the robot day (pixels of 640 x 480; negative x = further LEFT than on the robot day)
+group                   pictures   shift x: median  [5 %, 95 %]    shift y: median  [5 %, 95 %]   fit score median
+robot run  1                  12               2.0  [  0.6,   3.4]               5.0  [  5.0,  10.9]   0.996
+robot run  2                  12               1.0  [  0.0,   1.0]               3.0  [  0.0,   5.0]   0.998
+robot run  3                  12               0.5  [ -1.0,   4.0]               3.5  [  1.0,   5.9]   0.996
+robot run  4                  12               0.0  [ -1.0,   1.0]              -6.0  [-14.0,   2.4]   0.995
+robot run  5                  12               1.0  [ -0.9,   2.4]               1.0  [ -0.9,   3.9]   0.995
+robot run  6                  12              -1.0  [ -2.0,   0.0]               0.0  [ -1.0,   3.0]   0.996
+robot run  7                  12               0.0  [ -1.4,   4.4]               0.0  [ -4.9,   4.9]   0.997
+robot run  8                  12               0.0  [ -1.0,   2.0]             -13.0  [-18.8,   0.0]   0.995
+robot run  9                  12               1.0  [ -1.0,   1.4]              -0.5  [ -3.5,   0.4]   0.995
+robot run 10                  12               0.0  [ -1.4,   1.4]               0.5  [ -1.9,   4.0]   0.997
+2026-11-06 path_01            40             -17.0  [-20.0, -16.0]              -7.0  [-11.1,   1.0]   0.994
+2026-11-06 path_02             2             -16.0  [-16.0, -16.0]              -1.0  [ -1.0,  -1.0]   0.987
+2026-11-07 path_02            40             -18.0  [-21.0, -14.0]              -7.0  [-17.1,   2.0]   0.989
+2026-11-08 path_03            40             -18.0  [-21.1, -14.0]              -5.0  [-10.1,   2.0]   0.992
+2026-11-08 path_04            40             -14.5  [-19.1,   0.0]              -7.0  [-18.0,   3.0]   0.991
+2026-11-08 path_05            40              -1.0  [ -5.0,   1.0]               0.0  [ -4.0,   5.0]   0.994
+2026-11-09 path_06            40              -2.0  [ -4.0,  -1.0]              -2.5  [-12.1,   2.0]   0.993
+
+BY RECORDING DAY (demonstrations only; good fits only, score 0.97 or more)
+day          pictures   shift x: median  [5 %, 95 %]   shift y: median   so the arm sits this much further RIGHT on the robot day
+2026-11-06         42             -17.0  [-20.0, -16.0]              -7.0   +17.0 px
+2026-11-07         40             -18.0  [-21.0, -14.0]              -7.0   +18.0 px
+2026-11-08        110             -12.0  [-20.0,   1.0]              -2.0   +12.0 px
+2026-11-09         39              -2.0  [ -4.0,  -1.0]              -2.0   +2.0 px
+
+BY SHEET (demonstrations only; good fits only)
+sheet     pictures   shift x: median  [5 %, 95 %]   share of pictures more than 8 px left of the robot day
+path_01         40             -17.0  [-20.0, -16.0]   100 %
+path_02         42             -17.5  [-21.0, -14.0]   100 %
+path_03         38             -17.5  [-21.3, -14.0]   100 %
+path_04         32             -13.0  [-19.0,   0.4]   56 %
+path_05         40              -1.0  [ -5.0,   1.0]   0 %
+path_06         39              -2.0  [ -4.0,  -1.0]   0 %
+
+written: own_camera_creep_per_picture.csv, figures/own_camera_creep_examples.png

@@ -1,0 +1,35 @@
+=== path_03
+               name  rows_used  puck_start_x  puck_start_y  first_leg_deg  tip_start_to_puck_cm  tip_start_along_leg  tip_furthest_along_leg  row_of_furthest  joint_4_turn_at_furthest  puck_furthest_along_leg
+demonstration 03-01         22         16.36          0.75           8.19                  3.23                -2.62                    4.80               20                     85.78                     4.68
+demonstration 03-02         23         16.61          0.17           4.00                  3.08                -2.71                    4.31               19                     90.61                     4.86
+demonstration 03-03         22         16.45          0.14           6.56                  2.92                -2.59                    4.33               14                     91.76                     4.01
+demonstration 03-04         25         16.31          0.20          10.51                  2.85                -2.57                    4.87               19                     90.35                     4.67
+demonstration 03-05         20         16.59          0.29          10.30                  3.11                -2.83                    4.67               16                     94.31                     4.86
+demonstration 03-25         21         17.62         -0.40           3.05                  3.76                -3.65                    5.38               17                    107.75                     4.35
+demonstration 03-26         22         17.60         -0.37          -4.69                  3.75                -3.48                    4.67               18                    106.96                     3.80
+demonstration 03-27         22         18.23         -0.13          13.95                  4.44                -4.43                    4.39               18                    100.99                     3.24
+        robot run 5         17         15.45          0.47           9.99                  3.32                -3.13                    7.90               13                     53.70                     5.85
+        robot run 9         16         17.20         -0.61           1.56                  3.13                -3.09                    6.69               11                     59.33                     5.31
+       robot run 10         17         18.73          0.08           3.77                  3.10                -2.81                    5.49               13                     60.64                     4.43
+demonstrations: tip furthest along the first leg median 4.67 cm (4.31 to 5.38); puck furthest median 4.51 (3.24 to 4.86)
+robot run 5: tip furthest 7.90 cm, overshoot against the demonstrations' median +3.23 cm; puck furthest 5.85 cm against 4.51
+robot run 9: tip furthest 6.69 cm, overshoot against the demonstrations' median +2.02 cm; puck furthest 5.31 cm against 4.51
+robot run 10: tip furthest 5.49 cm, overshoot against the demonstrations' median +0.82 cm; puck furthest 4.43 cm against 4.51
+
+=== path_04
+               name  rows_used  puck_start_x  puck_start_y  first_leg_deg  tip_start_to_puck_cm  tip_start_along_leg  tip_furthest_along_leg  row_of_furthest  joint_4_turn_at_furthest  puck_furthest_along_leg
+demonstration 04-01         24         19.42          0.05           1.70                  5.62                -5.44                    7.52               22                    113.56                     5.95
+demonstration 04-02         20         19.26          0.19          -1.40                  5.52                -5.22                    6.85               19                    104.41                     5.82
+demonstration 04-03         17         19.48          0.39          -3.24                  5.79                -5.36                    4.74               12                     18.98                     5.74
+demonstration 04-04         24         19.31          0.14          -3.61                  5.55                -5.19                    6.17               22                    109.34                     5.71
+demonstration 04-05         24         19.38          0.41          -8.11                  5.70                -5.06                    6.72               22                    111.36                     6.09
+demonstration 04-13         23         18.13         -1.77          -8.41                  4.13                -4.12                    5.40               21                    108.19                     5.56
+demonstration 04-14         17         17.78         -1.89          -4.96                  3.79                -3.79                    7.36               14                     25.23                     6.83
+demonstration 04-15         16         18.24         -1.99          -1.16                  4.25                -4.23                    6.50               14                     16.96                     6.26
+demonstration 04-16         22         17.74         -2.06          -0.63                  3.77                -3.74                    7.42               20                    111.27                     6.54
+demonstration 04-17         23         17.64         -2.17           1.15                  3.68                -3.60                    7.86               20                    115.58                     6.06
+demonstration 04-18         25         17.78         -1.96           1.66                  3.80                -3.76                    6.06               22                    107.23                     5.77
+        robot run 6         17         20.98          1.06           7.22                  2.81                -2.74                   10.99               16                      7.65                    12.91
+demonstrations: tip furthest along the first leg median 6.72 cm (4.74 to 7.86); puck furthest median 5.95 (5.56 to 6.83)
+robot run 6: tip furthest 10.99 cm, overshoot against the demonstrations' median +4.27 cm; puck furthest 12.91 cm against 5.95
+

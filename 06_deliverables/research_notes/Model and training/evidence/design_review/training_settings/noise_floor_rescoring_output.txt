@@ -1,0 +1,30 @@
+﻿=== Seed against seed, same setting (the noise floor)
+classes default vs seed 11: within 45 differences per fold [0.021, -0.059, -0.01, -0.008, -0.044, 0.007], mean -0.0156, largest |difference| 0.059; stopped right 0.258 against 0.317; discordant episodes 29 against 16 (sign test p 0.072)
+classes default vs seed 12: within 45 differences per fold [-0.07, -0.024, -0.004, -0.005, -0.061, -0.023], mean -0.0311, largest |difference| 0.070; stopped right 0.258 against 0.292; discordant episodes 28 against 19 (sign test p 0.243)
+classes default vs seed 13: within 45 differences per fold [-0.025, -0.03, 0.005, -0.026, -0.028, -0.019], mean -0.0204, largest |difference| 0.030; stopped right 0.258 against 0.317; discordant episodes 26 against 15 (sign test p 0.117)
+classes seed 11 vs seed 12: within 45 differences per fold [-0.091, 0.035, 0.006, 0.003, -0.017, -0.029], mean -0.0155, largest |difference| 0.091; stopped right 0.317 against 0.292; discordant episodes 23 against 27 (sign test p 0.672)
+classes seed 11 vs seed 13: within 45 differences per fold [-0.046, 0.029, 0.015, -0.018, 0.016, -0.025], mean -0.0048, largest |difference| 0.046; stopped right 0.317 against 0.317; discordant episodes 14 against 16 (sign test p 0.856)
+classes seed 12 vs seed 13: within 45 differences per fold [0.046, -0.006, 0.009, -0.021, 0.033, 0.004], mean +0.0107, largest |difference| 0.046; stopped right 0.292 against 0.317; discordant episodes 24 against 22 (sign test p 0.883)
+exact default vs seed 11: within 45 differences per fold [0.0, -0.005, 0.004, 0.039, 0.027, 0.082], mean +0.0244, largest |difference| 0.082; stopped right 0.291 against 0.332; discordant episodes 30 against 16 (sign test p 0.054)
+exact default vs seed 12: within 45 differences per fold [-0.023, -0.012, -0.033, 0.023, -0.014, 0.066], mean +0.0013, largest |difference| 0.066; stopped right 0.291 against 0.289; discordant episodes 16 against 15 (sign test p 1.000)
+exact default vs seed 13: within 45 differences per fold [0.005, -0.008, -0.01, 0.048, -0.019, 0.098], mean +0.0191, largest |difference| 0.098; stopped right 0.291 against 0.300; discordant episodes 31 against 24 (sign test p 0.419)
+exact seed 11 vs seed 12: within 45 differences per fold [-0.023, -0.007, -0.037, -0.016, -0.04, -0.016], mean -0.0231, largest |difference| 0.040; stopped right 0.332 against 0.289; discordant episodes 13 against 26 (sign test p 0.053)
+exact seed 11 vs seed 13: within 45 differences per fold [0.005, -0.003, -0.014, 0.009, -0.046, 0.017], mean -0.0053, largest |difference| 0.046; stopped right 0.332 against 0.300; discordant episodes 20 against 27 (sign test p 0.382)
+exact seed 12 vs seed 13: within 45 differences per fold [0.028, 0.004, 0.023, 0.025, -0.006, 0.033], mean +0.0178, largest |difference| 0.033; stopped right 0.289 against 0.300; discordant episodes 30 against 24 (sign test p 0.497)
+
+=== Settings compared on the same rows
+classes square-root weights vs no class weights: within 45 differences per fold [0.016, 0.008, 0.038, -0.002, -0.005, 0.04], mean +0.0159, largest |difference| 0.040; stopped right 0.258 against 0.176; discordant episodes 9 against 24 (sign test p 0.014)
+classes equal score weights vs 0.4/0.7/1.0: within 45 differences per fold [-0.004, -0.003, -0.008, -0.0, 0.003, -0.008], mean -0.0033, largest |difference| 0.008; stopped right 0.258 against 0.306; discordant episodes 17 against 8 (sign test p 0.108)
+classes vs label smoothing 0.1: within 45 differences per fold [-0.007, -0.034, -0.003, -0.009, -0.037, -0.022], mean -0.0187, largest |difference| 0.037; stopped right 0.258 against 0.233; discordant episodes 8 against 12 (sign test p 0.503)
+
+=== End to end, mirror run against the plain classes run (same seed, same folds finished so far)
+end-to-end classes vs classes with mirroring: within 45 differences per fold [0.007, -0.0], mean +0.0033, largest |difference| 0.007; stopped right 0.211 against 0.439; discordant episodes 21 against 3 (sign test p 0.000)
+end-to-end ResNet-18 classes vs small CNN classes: within 45 differences per fold [-0.029, -0.025, -0.017], mean -0.0235, largest |difference| 0.029; stopped right 0.154 against 0.150; discordant episodes 11 against 10 (sign test p 1.000)
+
+sign test p values used in the section:
+   24 against 16: p 0.268
+   14 against 24: p 0.143
+   17 against 8: p 0.108
+   14 against 23: p 0.188
+   23 against 20: p 0.761
+   21 against 17: p 0.627

@@ -1,0 +1,7 @@
+sampled pictures with an offset: 3260; over 12 mm: 766 (23 %)
+over 12 mm and NOT smaller by 2 mm or more five pictures later (what rule 2 takes): 365 (11 % of all measured pictures)
+  of these, the puck is brought back within 7 mm during the next 15 pictures in 245 (67 %): the first part of a correction that works
+  of these, the puck stands (under 2 mm) while the tip moves 4 mm or more in 113 (31 %): the tip going round the puck
+  of these, the puck is pushed on (4 mm or more) in 113 (31 %)
+  never brought back within 15 pictures: 120 pictures (4 % of all measured); by sheet: {'path_01': 4, 'path_02': 25, 'path_03': 28, 'path_04': 53, 'path_05': 5, 'path_06': 5}
+by sheet, pictures the rule takes: {'path_01': 23, 'path_02': 71, 'path_03': 74, 'path_04': 117, 'path_05': 42, 'path_06': 38} of measured {'path_01': 229, 'path_02': 357, 'path_03': 596, 'path_04': 865, 'path_05': 670, 'path_06': 543}

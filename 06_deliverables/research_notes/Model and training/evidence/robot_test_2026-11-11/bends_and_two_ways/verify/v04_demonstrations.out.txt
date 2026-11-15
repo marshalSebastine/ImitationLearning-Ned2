@@ -1,0 +1,77 @@
+cleaned demonstration rows 18032, episodes 209, with a line position 17416, stop rows 259
+non-stop rows 17773; with a kind of place 17177
+pictures per sheet and kind of place (non-stop rows):
+place    gentle bend  hairpin  line end  no place  sharp bend  straight
+sheet                                                                  
+path_01            0        0        57        21           0       545
+path_02         1851        0       208       141           0       414
+path_03         1284        0       197        30        1847       541
+path_04         1895     1091       221        27        2759       178
+path_05          944        0        72         0         988       557
+path_06          690        0        49       377         696        93
+
+== per kind of place, all sheets (the verifier's numbers) ==
+place                                             straight  gentle bend  sharp bend  hairpin  line end
+pictures                                           2328.00      6664.00     6290.00  1091.00    804.00
+episodes                                            152.00       173.00      128.00    35.00    188.00
+pictures per cm (clipped progress)                    1.90         2.01        3.03     4.86      4.16
+pictures per cm (raw progress)                        2.02         2.07        2.16     1.99      6.34
+step median cm                                        1.13         1.09        1.01     0.53      1.08
+under 0.3 cm %                                        6.20         5.50       12.90    30.00     10.20
+twists in place %                                     6.00         5.40       12.80    29.80      4.50
+twist median deg                                      2.46         3.43        5.27     6.15      0.74
+twist per cm of line                                  6.03         7.42       14.84    29.49      8.16
+jumps over 90 %, all pairs                            6.80         7.40        9.60    18.40     11.60
+jumps over 90 %, pairs bridging dropped rows too      7.40         8.80       10.20    18.40     15.60
+both real, over 90 %                                  3.80         5.20        5.20     8.20      9.40
+both real, over 120 %                                 0.90         1.50        1.30     2.10      4.00
+one short, over 90 %                                 34.00        27.60       25.70    29.80     24.10
+one short, over 120 %                                22.10        15.00       15.20    16.00     14.90
+
+== jumps over 90 deg per sheet and kind of place (all pairs, %) ==
+place    gentle bend  hairpin  line end  sharp bend  straight
+sheet                                                        
+path_01          NaN      NaN      10.5         NaN       6.9
+path_02          9.6      NaN       9.9         NaN      15.2
+path_03          8.2      NaN      12.5        11.0       5.5
+path_04          6.9     18.4      12.7        10.6       6.7
+path_05          4.9      NaN      10.3         6.8       1.6
+path_06          5.0      NaN      13.3         6.2       8.7
+pairs behind those shares:
+place    gentle bend  hairpin  line end  sharp bend  straight
+sheet                                                        
+path_01          NaN      NaN      38.0         NaN     540.0
+path_02       1804.0      NaN     161.0         NaN     414.0
+path_03       1261.0      NaN     152.0      1825.0     530.0
+path_04       1867.0   1087.0     166.0      2735.0     178.0
+path_05        935.0      NaN      39.0       976.0     555.0
+path_06        676.0      NaN      30.0       691.0      92.0
+
+== real moves (0.3 cm or more) against the line's direction of travel (more than 120 deg off it), per sheet, sharp bends ==
+check of the sheet coordinates: median of (tip move in the sheet's frame minus labelled step length) -0.000 cm
+all sheets, straight    : against the line 8.3 % of 2184 real moves
+all sheets, gentle bend : against the line 14.1 % of 6299 real moves
+all sheets, sharp bend  : against the line 12.8 % of 5478 real moves
+all sheets, hairpin     : against the line 5.5 % of 764 real moves
+all sheets, line end    : against the line 18.8 % of 722 real moves
+path_03, sharp bend: against the line 7.1 % of 1556 real moves; median twist per step 5.1 deg
+path_04, sharp bend: against the line 9.1 % of 2331 real moves; median twist per step 5.2 deg
+path_05, sharp bend: against the line 24.5 % of 937 real moves; median twist per step 4.6 deg
+path_06, sharp bend: against the line 22.9 % of 654 real moves; median twist per step 4.9 deg
+
+== complete passes through named bends (3 cm of line before and after the middle) ==
+04 hairpin 1 from end A: 26 passes; steps median 27.5 (8 to 33); tip travel 17.5 cm; twists in place 8.0; twist sum of sizes 178 deg, net +175 deg, same sign in 96 % of passes
+04 hairpin 1 from end B: 9 passes; steps median 24.0 (20 to 28); tip travel 13.6 cm; twists in place 8.0; twist sum of sizes 164 deg, net -148 deg, same sign in 100 % of passes
+04 hairpin 2 from end A: 26 passes; steps median 17.5 (11 to 37); tip travel 13.1 cm; twists in place 4.0; twist sum of sizes 98 deg, net -89 deg, same sign in 100 % of passes
+04 hairpin 2 from end B: 9 passes; steps median 12.0 (8 to 39); tip travel 13.8 cm; twists in place 0.0; twist sum of sizes 27 deg, net +13 deg, same sign in 89 % of passes
+03 first bend from end A: 15 passes; steps median 14.0 (9 to 21); tip travel 9.6 cm; twists in place 3.0; twist sum of sizes 80 deg, net -79 deg, same sign in 100 % of passes
+03 first bend from end B: 14 passes; steps median 17.5 (11 to 23); tip travel 13.6 cm; twists in place 1.5; twist sum of sizes 90 deg, net +87 deg, same sign in 100 % of passes
+
+== the first 16 steps of the standard starts from end A ==
+path_03: 8 episodes; tip travel median 11.1 cm (10.5 to 14.5); twist sum of sizes median 93 deg (88 to 106); net median -92 deg
+path_04: 11 episodes; tip travel median 12.5 cm (10.2 to 17.9); twist sum of sizes median 85 deg (32 to 112); net median +79 deg
+
+== the scout's step lengths ==
+all non-stop rows of frames.csv (18312): median 1.05 cm, mean 0.92, under 0.5 cm 20.4 %, under 0.2 cm 8.0 %
+cleaned non-stop rows (17773): median 1.06 cm, mean 0.94, under 0.5 cm 18.2 %, under 0.2 cm 5.4 %; steps with a twist of 6 deg or more: median 0.65 cm
+twist per cm of tip travel per sheet (sum of sizes over sum of step lengths): 01: 2.21, 02: 2.68, 03: 4.64, 04: 5.51, 05: 3.70, 06: 4.58

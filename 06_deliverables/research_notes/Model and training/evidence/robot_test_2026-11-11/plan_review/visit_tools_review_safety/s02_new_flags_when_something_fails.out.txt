@@ -1,0 +1,150 @@
+======================================================================================================================
+no new flag (for comparison)
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x4, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 3
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121445_check
+======================================================================================================================
+placing aid: Enter at the fourth look at the keyboard
+   asked of the robot: set_free_motion OFF, read_state x4, set_free_motion ON, move_joints x2, read_picture_bytes x4, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 3
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | Guide the magnet tip just behind the puck, facing along the line.
+      | The line below shows the tip against the recorded start, a new reading every 0 s:
+      |   out / closer = further from / nearer to the base; left / right as seen from the robot's base looking out along x;
+      |   forearm = joint 4; close = within 1 cm and 3 degrees.
+      | LET GO of the arm, then press Enter ...
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121445_check
+======================================================================================================================
+placing aid: the third reading of the state fails
+   asked of the robot: set_free_motion OFF, read_state x4, set_free_motion ON, move_joints x2, read_picture_bytes x4, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 3
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | Guide the magnet tip just behind the puck, facing along the line.
+      | The line below shows the tip against the recorded start, a new reading every 0 s:
+      |   out / closer = further from / nearer to the base; left / right as seen from the robot's base looking out along x;
+      |   forearm = joint 4; close = within 1 cm and 3 degrees.
+      | LET GO of the arm, then press Enter ...
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | the placing aid stopped (no answer from the robot); placing goes on without it
+      | <PROMPT 2, after 4 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121446_check
+======================================================================================================================
+placing aid: Ctrl+C while the arm is guided (between two readings)
+   asked of the robot: set_free_motion OFF, read_state x3, set_free_motion ON, close
+   result: None | raised: KeyboardInterrupt | tip 1.3 cm high at the end | motors off at the end: False | pictures given to the window: 0
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | Guide the magnet tip just behind the puck, facing along the line.
+      | The line below shows the tip against the recorded start, a new reading every 0 s:
+      |   out / closer = further from / nearer to the base; left / right as seen from the robot's base looking out along x;
+      |   forearm = joint 4; close = within 1 cm and 3 degrees.
+      | LET GO of the arm, then press Enter ...
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <PROMPT 2, after 4 calls to the link: THE MOTORS ARE STILL OFF. Hold the arm, set it down safely ...>
+======================================================================================================================
+placing aid: Ctrl+C raised inside a reading
+   asked of the robot: set_free_motion OFF, read_state x2, set_free_motion ON, close
+   result: None | raised: KeyboardInterrupt | tip 1.3 cm high at the end | motors off at the end: False | pictures given to the window: 0
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | Guide the magnet tip just behind the puck, facing along the line.
+      | The line below shows the tip against the recorded start, a new reading every 0 s:
+      |   out / closer = further from / nearer to the base; left / right as seen from the robot's base looking out along x;
+      |   forearm = joint 4; close = within 1 cm and 3 degrees.
+      | LET GO of the arm, then press Enter ...
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <PROMPT 2, after 3 calls to the link: THE MOTORS ARE STILL OFF. Hold the arm, set it down safely ...>
+======================================================================================================================
+live window: Enter after three live pictures
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x6, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 5
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121446_check
+======================================================================================================================
+live window: Esc
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x3, read_state, move_joints, close
+   result: {'ending': 'not_started', 'moves': None, 'is_lifted': None} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 3
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | nothing moved by the model; ending
+======================================================================================================================
+live window: the camera raises at the third live picture
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x3, close
+   result: None | raised: RuntimeError: Command GET_IMAGE_COMPRESSED KO | tip 1.3 cm high at the end | motors off at the end: False | pictures given to the window: 2
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+======================================================================================================================
+live window: Ctrl+C
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x3, close
+   result: None | raised: KeyboardInterrupt | tip 1.3 cm high at the end | motors off at the end: False | pictures given to the window: 3
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+======================================================================================================================
+live window: one empty picture, then good ones
+   asked of the robot: set_free_motion OFF, read_state, set_free_motion ON, move_joints x2, read_picture_bytes x6, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 4
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | <PROMPT 2, after 1 calls to the link: Guide the magnet tip just behind the puck, facing along th ...>
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | a camera picture could not be read; waiting for the next one
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121446_check
+======================================================================================================================
+both aids together
+   asked of the robot: set_free_motion OFF, read_state x3, set_free_motion ON, move_joints x2, read_picture_bytes x5, read_state, move_joints, read_picture_bytes x3, read_state, move_joints, read_state, move_joints, close
+   result: {'ending': 'step_budget_reached', 'moves': 2, 'is_lifted': True} | raised: None | tip 6.3 cm high at the end | motors off at the end: False | pictures given to the window: 4
+   printed:
+      | <PROMPT 1, after 0 calls to the link: Put the puck at the line's start. Press Enter to switch th ...>
+      | Guide the magnet tip just behind the puck, facing along the line.
+      | The line below shows the tip against the recorded start, a new reading every 0 s:
+      |   out / closer = further from / nearer to the base; left / right as seen from the robot's base looking out along x;
+      |   forearm = joint 4; close = within 1 cm and 3 degrees.
+      | LET GO of the arm, then press Enter ...
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | <the line is written over> tip  0.0 cm off (0.0 out, 0.0 left), forearm   +0.0 deg: close
+      | start: tip 0.0 cm from the recorded start (0.0 cm further out, 0.0 cm to the left; left and right as seen from the robot's base looking out along x), forearm +0.0 degrees
+      | the picture window is live, with the reference picture laid faintly over it: slide the sheet and set the puck until the line
+      | and the puck lie on their faint copies. Do not touch the arm: its motors are on.
+      | click the picture window, then Enter there lets the model push; Esc there or in this terminal ends a run
+      | run check ended: step_budget_reached after 2 pictures and 2 moves; logged in C:\Users\e7dc\AppData\Local\Temp\tmpoxcrr_mh\2026-11-12_121446_check

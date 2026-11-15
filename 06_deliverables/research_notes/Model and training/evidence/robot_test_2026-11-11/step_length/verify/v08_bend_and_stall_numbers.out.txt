@@ -1,0 +1,42 @@
+picture_left_sign 1; cleaned rows 18032
+label turned onto the table against the tip's real move to the next row: median difference 0.009 cm, 90th percentile 0.021 cm (17533 rows with a next row)
+
+================ E_recipe: 17773 step rows
+A. windows of 10 rows: demonstrated net turn per cm 3.425 deg/cm; in sharp windows (net turn of 30 degrees or more) 6.431 deg/cm
+   fixed 1.0 cm                                : net turn per cm as a share of the demonstrated: all windows 0.499; sharp windows 0.416 (per held-out sheet: 01 0.07, 02 0.49, 03 0.50, 04 0.39, 05 0.22, 06 0.44)
+   own length, at most 1.2 cm                  : net turn per cm as a share of the demonstrated: all windows 0.736; sharp windows 0.632 (per held-out sheet: 01 0.10, 02 0.63, 03 0.77, 04 0.63, 05 0.33, 06 0.63)
+   gain 1.6, clamp 0.5 to 1.5 (report 4.4)     : net turn per cm as a share of the demonstrated: all windows 0.465; sharp windows 0.397 (per held-out sheet: 01 0.07, 02 0.40, 03 0.48, 04 0.39, 05 0.21, 06 0.40)
+   fixed 1.0 cm, twist gain 1.6                : net turn per cm as a share of the demonstrated: all windows 0.788; sharp windows 0.654 (per held-out sheet: 01 0.12, 02 0.77, 03 0.79, 04 0.62, 05 0.36, 06 0.70)
+   length and twist both x 1.4, at most 1.2 cm : net turn per cm as a share of the demonstrated: all windows 0.760; sharp windows 0.648 (per held-out sheet: 01 0.11, 02 0.67, 03 0.79, 04 0.64, 05 0.34, 06 0.65)
+B. first bend of sheet 03 with the fold model that never saw sheet 03:
+ plan  rows  first_row_in_episode  demonstrated_travel  demonstrated_turn  predicted_travel  predicted_turn  predicted_length_median  predicted_twist_median  demonstrated_deg_per_cm  own_length_deg_per_cm  fixed_deg_per_cm
+03-01    11                     1                 7.65             -60.64              5.70      -35.230000                     0.50                   -4.32                     7.92                   6.18              3.20
+03-02    11                     1                 7.09             -64.23              5.67      -46.669998                     0.46                   -5.34                     9.06                   8.23              4.24
+03-03     4                     1                 4.71             -34.24              2.37       -8.440000                     0.59                   -1.80                     7.26                   3.56              2.11
+03-04     9                     1                 5.05             -64.87              4.99      -30.370001                     0.57                   -3.47                    12.85                   6.09              3.37
+03-05    12                     1                 8.82             -68.72              6.23      -45.689999                     0.50                   -4.60                     7.79                   7.33              3.81
+03-25     9                     1                 6.17             -64.42              5.01      -25.520000                     0.57                   -2.00                    10.44                   5.10              2.84
+03-26    10                     1                 7.04             -58.62              5.33      -30.879999                     0.55                   -3.19                     8.33                   5.80              3.09
+03-27    10                     1                 6.58             -59.32              5.24      -26.230000                     0.48                   -1.86                     9.02                   5.01              2.62
+   medians: demonstrated 8.68 deg/cm; own length 5.95 (0.69 of the demonstrated; pooled over the 8: 0.69); fixed 1 cm 3.15 (0.36; pooled 0.37); predicted length median 0.53; predicted turn as a share of the demonstrated turn (pooled) 0.52
+C. windows of 6 steps (16728): net tip move under 1.0 cm AND net forearm turn under 10 degrees: demonstrations 0.25 %; the model's own steps on the same pictures 0.35 % (model net move median 3.77 cm)
+
+================ A_recipe: 17773 step rows
+A. windows of 10 rows: demonstrated net turn per cm 3.425 deg/cm; in sharp windows (net turn of 30 degrees or more) 6.431 deg/cm
+   fixed 1.0 cm                                : net turn per cm as a share of the demonstrated: all windows 0.514; sharp windows 0.425 (per held-out sheet: 01 0.12, 02 0.58, 03 0.55, 04 0.36, 05 0.36, 06 0.36)
+   own length, at most 1.2 cm                  : net turn per cm as a share of the demonstrated: all windows 0.786; sharp windows 0.678 (per held-out sheet: 01 0.17, 02 0.78, 03 0.91, 04 0.58, 05 0.58, 06 0.57)
+   gain 1.6, clamp 0.5 to 1.5 (report 4.4)     : net turn per cm as a share of the demonstrated: all windows 0.498; sharp windows 0.426 (per held-out sheet: 01 0.11, 02 0.50, 03 0.57, 04 0.37, 05 0.36, 06 0.36)
+   fixed 1.0 cm, twist gain 1.6                : net turn per cm as a share of the demonstrated: all windows 0.814; sharp windows 0.672 (per held-out sheet: 01 0.19, 02 0.92, 03 0.87, 04 0.57, 05 0.57, 06 0.57)
+   length and twist both x 1.4, at most 1.2 cm : net turn per cm as a share of the demonstrated: all windows 0.820; sharp windows 0.700 (per held-out sheet: 01 0.19, 02 0.82, 03 0.94, 04 0.60, 05 0.60, 06 0.58)
+B. first bend of sheet 03 with the fold model that never saw sheet 03:
+ plan  rows  first_row_in_episode  demonstrated_travel  demonstrated_turn  predicted_travel  predicted_turn  predicted_length_median  predicted_twist_median  demonstrated_deg_per_cm  own_length_deg_per_cm  fixed_deg_per_cm
+03-01    11                     1                 7.65             -60.64              5.84      -47.070000                     0.44                   -4.55                     7.92                   8.06              4.28
+03-02    11                     1                 7.09             -64.23              5.97      -58.630001                     0.52                   -5.54                     9.06                   9.82              5.33
+03-03     4                     1                 4.71             -34.24              1.99      -18.879999                     0.52                   -3.94                     7.26                   9.47              4.72
+03-04     9                     1                 5.05             -64.87              4.25      -46.590000                     0.45                   -4.57                    12.85                  10.96              5.18
+03-05    12                     1                 8.82             -68.72              5.29      -61.639999                     0.40                   -4.70                     7.79                  11.66              5.14
+03-25     9                     1                 6.17             -64.42              5.16      -38.919998                     0.61                   -4.21                    10.44                   7.55              4.32
+03-26    10                     1                 7.04             -58.62              5.20      -44.349998                     0.53                   -4.60                     8.33                   8.52              4.44
+03-27    10                     1                 6.58             -59.32              5.25      -36.849998                     0.48                   -3.35                     9.02                   7.02              3.68
+   medians: demonstrated 8.68 deg/cm; own length 8.99 (1.04 of the demonstrated; pooled over the 8: 1.01); fixed 1 cm 4.58 (0.53; pooled 0.52); predicted length median 0.50; predicted turn as a share of the demonstrated turn (pooled) 0.74
+C. windows of 6 steps (16728): net tip move under 1.0 cm AND net forearm turn under 10 degrees: demonstrations 0.25 %; the model's own steps on the same pictures 0.57 % (model net move median 3.60 cm)

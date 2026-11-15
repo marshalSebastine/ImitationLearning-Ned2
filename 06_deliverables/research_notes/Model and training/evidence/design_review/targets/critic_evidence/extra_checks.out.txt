@@ -1,0 +1,36 @@
+frames 18522; goal_distance_cm missing on 0 rows (0 of them non-stop rows)
+A earlier end-to-end exact, without_path_03: non-stop pictures 4014; gain 1.05; twisted rows 2630, sign right 0.844; median |pred| on twisted 3.29 against |demo| 5.71; |pred| 0-1: n 914, sign 0.549; |pred| 1-3: n 1367, sign 0.806; |pred| 3-20: n 1733, sign 0.954
+A earlier end-to-end exact, without_path_05: non-stop pictures 2639; gain 0.59; twisted rows 1721, sign right 0.669; median |pred| on twisted 1.71 against |demo| 5.36; |pred| 0-1: n 914, sign 0.562; |pred| 1-3: n 1103, sign 0.659; |pred| 3-20: n 622, sign 0.813
+A earlier end-to-end exact, without_path_06: non-stop pictures 1957; gain 1.19; twisted rows 1430, sign right 0.802; median |pred| on twisted 2.34 against |demo| 5.63; |pred| 0-1: n 486, sign 0.596; |pred| 1-3: n 925, sign 0.794; |pred| 3-20: n 546, sign 0.928
+A final candidate, without_path_01: non-stop pictures 624; gain 0.65; twisted rows 238, sign right 0.676; median |pred| on twisted 1.28 against |demo| 4.92; |pred| 0-1: n 364, sign 0.604; |pred| 1-3: n 204, sign 0.726; |pred| 3-20: n 56, sign 0.723
+A final candidate, without_path_02: non-stop pictures 2625; gain 0.55; twisted rows 1195, sign right 0.802; median |pred| on twisted 3.43 against |demo| 5.27; |pred| 0-1: n 435, sign 0.536; |pred| 1-3: n 933, sign 0.770; |pred| 3-20: n 1257, sign 0.865
+without_path_01: saved arrays ['angle_deg', 'frame_index', 'hand_deg', 'lean_deg', 'stop_probability', 'twist_deg']
+without_path_02: saved arrays ['angle_deg', 'frame_index', 'hand_deg', 'lean_deg', 'stop_probability', 'twist_deg']
+without_path_03: saved arrays ['angle_deg', 'frame_index', 'hand_deg', 'lean_deg', 'stop_probability', 'twist_deg']
+B without_path_01: moving rows 578; backward 37; within 45 on backward 0.054, on the others 0.828; predicted straight back 0.000
+A final candidate (saved predictions), without_path_01: non-stop pictures 624; gain 0.65; twisted rows 238, sign right 0.676; median |pred| on twisted 1.28 against |demo| 4.92; |pred| 0-1: n 364, sign 0.604; |pred| 1-3: n 204, sign 0.726; |pred| 3-20: n 56, sign 0.723
+B without_path_02: moving rows 2425; backward 280; within 45 on backward 0.139, on the others 0.696; predicted straight back 0.000
+A final candidate (saved predictions), without_path_02: non-stop pictures 2625; gain 0.55; twisted rows 1195, sign right 0.802; median |pred| on twisted 3.43 against |demo| 5.27; |pred| 0-1: n 435, sign 0.536; |pred| 1-3: n 933, sign 0.770; |pred| 3-20: n 1257, sign 0.865
+B without_path_03: moving rows 3458; backward 340; within 45 on backward 0.412, on the others 0.709; predicted straight back 0.003
+A final candidate (saved predictions), without_path_03: non-stop pictures 3910; gain 0.94; twisted rows 2630, sign right 0.848; median |pred| on twisted 3.84 against |demo| 5.71; |pred| 0-1: n 696, sign 0.580; |pred| 1-3: n 1087, sign 0.780; |pred| 3-20: n 2127, sign 0.928
+C without_path_01: episodes 20; far no-line p90 0.002 (n 176), with line p90 0.004; stop pictures median 0.918
+  1 in a row, fixed 0.5: right 12/20 (0.600), early 4 (0.200), never 0.050; early median 4.4 cm, no line ahead 2 of 4
+  1 in a row, validation-tuned 0.7: right 13/20 (0.650), early 2 (0.100), never 0.150; early median 3.2 cm, no line ahead 2 of 2
+  2 in a row, fixed 0.5: right 16/20 (0.800), early 3 (0.150), never 0.050; early median 4.6 cm, no line ahead 2 of 3
+  2 in a row, validation-tuned 0.4: right 16/20 (0.800), early 3 (0.150), never 0.050; early median 4.6 cm, no line ahead 2 of 3
+  1 in a row, chosen on the other finished sheets ['02', '03']: threshold 0.5; right 12/20 (0.600), early 4 (0.200), never 0.050
+  2 in a row, chosen on the other finished sheets ['02', '03']: threshold 0.25; right 15/20 (0.750), early 2 (0.100), never 0.050
+C without_path_02: episodes 45; far no-line p90 0.026 (n 301), with line p90 0.003; stop pictures median 0.724
+  1 in a row, fixed 0.5: right 24/45 (0.533), early 2 (0.044), never 0.400; early median 4.0 cm, no line ahead 2 of 2
+  1 in a row, validation-tuned 0.3: right 25/45 (0.556), early 4 (0.089), never 0.311; early median 4.1 cm, no line ahead 3 of 4
+  2 in a row, fixed 0.5: right 19/45 (0.422), early 1 (0.022), never 0.533; early median 3.4 cm, no line ahead 1 of 1
+  2 in a row, validation-tuned 0.1: right 19/45 (0.422), early 8 (0.178), never 0.289; early median 6.4 cm, no line ahead 6 of 8
+  1 in a row, chosen on the other finished sheets ['01', '03']: threshold 0.5; right 24/45 (0.533), early 2 (0.044), never 0.400
+  2 in a row, chosen on the other finished sheets ['01', '03']: threshold 0.1; right 19/45 (0.422), early 8 (0.178), never 0.289
+C without_path_03: episodes 45; far no-line p90 0.009 (n 530), with line p90 0.002; stop pictures median 0.758
+  1 in a row, fixed 0.5: right 33/45 (0.733), early 9 (0.200), never 0.022; early median 4.7 cm, no line ahead 9 of 9
+  1 in a row, validation-tuned 0.6: right 31/45 (0.689), early 6 (0.133), never 0.133; early median 4.2 cm, no line ahead 6 of 6
+  2 in a row, fixed 0.5: right 29/45 (0.644), early 5 (0.111), never 0.178; early median 4.4 cm, no line ahead 5 of 5
+  2 in a row, validation-tuned 0.1: right 31/45 (0.689), early 10 (0.222), never 0.022; early median 11.3 cm, no line ahead 8 of 10
+  1 in a row, chosen on the other finished sheets ['01', '02']: threshold 0.4; right 30/45 (0.667), early 10 (0.222), never 0.022
+  2 in a row, chosen on the other finished sheets ['01', '02']: threshold 0.25; right 30/45 (0.667), early 9 (0.200), never 0.067

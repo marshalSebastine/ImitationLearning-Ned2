@@ -1,0 +1,149 @@
+rows 18522 episodes 210 episodes.csv rows 211
+
+wrist (joint 5), all rows: 1st -15.2, 5th -6.7, 50th 13.44, 95th 25.2, 99th 31.4, least -29.3, most 45.3
+  |wrist - 13.5| within 2.0: 50.5 %, over: 49.5 %
+  |wrist - 13.5| within 5.0: 67.0 %, over: 33.0 %
+  |wrist - 13.5| within 5.7: 68.7 %, over: 31.3 %
+  |wrist - 13.5| within 10.0: 80.6 %, over: 19.4 %
+
+start kinds (episodes):
+start_kind
+STD       71
+NE        42
+OL1       10
+SQL       10
+MID       10
+OR1        9
+OL1.5      8
+OR1.5      8
+TR10       7
+TL10       7
+TL15       6
+SQP        6
+X1         6
+TR15       5
+X2         3
+(none)     2
+
+sheet_orientation examples:
+sheet_orientation
+end A, STD, START MARK      39
+end B, STD, START MARK      34
+end A, NE, taught start     27
+end B, NE, taught start     15
+end A, MID, taught start    10
+end A, OL1, START MARK       6
+end A, OR1, START MARK       5
+end A, TL15, START MARK      5
+end A, OL1.5, START MARK     5
+end A, OR1.5, START MARK     5
+end A, SQL, START MARK       5
+end B, SQL, START MARK       5
+end A, TR10, START MARK      4
+end B, OR1, START MARK       4
+end B, TL10, START MARK      4
+end B, OL1, START MARK       4
+end A, SQP, START MARK       3
+end B, SQP, START MARK       3
+end B, OL1.5, START MARK     3
+end B, OR1.5, START MARK     3
+end B, TR15, START MARK      3
+end A, TL10, START MARK      3
+end B, TR10, START MARK      3
+end B, X1, taught start      3
+end B, X2, taught start      3
+end A, X1, taught start      3
+end A, TR15, START MARK      2
+end B, TL15, START MARK      1
+
+start mark episodes: 149  taught-start episodes: 61  neither: 0
+
+first rows, start mark: 149 episodes
+   tip_x_m                least     0.140  median     0.140  most     0.141
+   tip_y_m                least    -0.015  median    -0.015  most    -0.015
+   joint_4_deg            least    -0.171  median     0.005  most     0.093
+   joint_5_deg            least    13.530  median    13.530  most    13.969
+   joint_6_deg            least    -6.147  median    -6.147  most    -6.059
+   picture_heading_deg    least    -6.150  median    -6.060  most    -5.890
+
+first rows, not start mark: 61 episodes
+   tip_x_m                least     0.160  median     0.306  most     0.371
+   tip_y_m                least    -0.176  median    -0.045  most     0.123
+   joint_4_deg            least   -88.588  median    -0.083  most    69.966
+   joint_5_deg            least   -29.273  median   -10.816  most     8.872
+   joint_6_deg            least    -7.641  median     0.005  most    29.712
+   picture_heading_deg    least   -85.740  median     3.790  most    66.260
+
+first rows of the not-start-mark episodes by start kind:
+     joint_5_deg                      joint_6_deg                     joint_4_deg                     
+           count    min median    max       count   min median    max       count    min median    max
+kind                                                                                                  
+MID           10 -19.08 -10.82 -10.38          10  0.01  14.77  29.71          10 -51.50  -0.52  -0.08
+NE            42 -29.27 -11.52  -0.01          42 -7.64   0.01   3.87          42 -88.59  -0.08  69.97
+X1             6  -6.69   1.23   8.87           6  0.01   0.01   0.09           6 -19.42  -3.95   5.63
+X2             3  -5.10  -5.10  -5.10           3  0.01   0.01   0.01           3  56.87  56.87  56.87
+
+steps inside episodes: 18312
+  wrist steps over 1 degree: 582 (3.18 %), they carry 68.3 % of the wrist's travel
+  hand steps over 1 degree: 65
+
+rows with the wrist more than 5.7 degrees from 13.5: start mark 22.5 % of 16057 rows, others 88.4 % of 2465 rows
+
+start-mark rows, share with the wrist over 5.7 degrees from 13.5, by sheet and tenth of the episode:
+tenth      0     1     2     3     4     5     6     7     8     9
+sheet                                                             
+path_01  2.0  15.0  20.0  26.0  29.0  30.0  42.0  42.0  40.0  44.0
+path_02  3.0   6.0  10.0  13.0  17.0  18.0  19.0  19.0  21.0  25.0
+path_03  2.0   3.0   3.0  12.0  13.0  15.0  24.0  24.0  23.0  29.0
+path_04  2.0   5.0   8.0  15.0  21.0  23.0  29.0  32.0  32.0  33.0
+path_05  0.0   1.0  10.0  31.0  41.0  48.0  51.0  46.0  47.0  39.0
+path_06  0.0   0.0  19.0  47.0  57.0  42.0  51.0  66.0  79.0  82.0
+
+by sheet (all rows): wrist percentiles and share far
+         rows    p05  median    p95  far_share
+sheet                                         
+path_01   671 -15.39   11.16  13.88       0.40
+path_02  2775  -8.53   13.44  13.88       0.21
+path_03  4072 -10.73   13.09  14.23       0.26
+path_04  6350  -4.05   13.44  20.47       0.29
+path_05  2672  -6.42   13.53  28.03       0.40
+path_06  1982   8.78   17.05  31.81       0.47
+
+stop rows: 210 ; wrist over 5.7 from 13.5 in 116 (55.2 %); median wrist 10.8, 5th to 95th -10.9 to 29.1
+         stops   far  wrist_median
+sheet                             
+path_01     20  0.60          4.57
+path_02     45  0.40         10.19
+path_03     45  0.53          8.34
+path_04     45  0.53          8.96
+path_05     30  0.53         10.67
+path_06     25  0.88         27.33
+stops by start mark:                size   mean
+is_start_mark             
+False            61  0.951
+True            149  0.389
+last rows of all 210 episodes: wrist over 5.7 from 13.5 in 55.2 %
+
+hand (joint 6): within 0.3 of -6.1 in 82.2 % of rows; within 0.3 of 0.0 in 9.8 %; over 10 from -6.1 in 3.6 % (663 rows, 13 episodes)
+episodes with the hand over 10 degrees from -6.1 in some row:
+                                                                                      rows  hand_median    sheet
+episode_id                                                                                                      
+2026-11-06_session_01_emranul/path_02_arc_episode_001_plan_02-01_try_1                   2     9.057890  path_02
+2026-11-07_session_01_emranul/path_02_arc_episode_006_plan_02-03_try_1                  11   -32.514209  path_02
+2026-11-08_session_01_emranul/path_03_two_curve_episode_038_plan_03-37_try_1            74    29.360649  path_03
+2026-11-08_session_01_emranul/path_03_two_curve_episode_039_plan_03-38_try_1            77    29.712445  path_03
+2026-11-08_session_01_emranul/path_03_two_curve_episode_040_plan_03-39_try_1            64    29.712445  path_03
+2026-11-08_session_01_emranul/path_03_two_curve_episode_041_plan_03-40_try_1            70    29.712445  path_03
+2026-11-08_session_01_emranul/path_03_two_curve_episode_042_plan_03-41_try_1            57    29.712445  path_03
+2026-11-08_session_01_emranul/path_04_meander_episode_024_plan_04-17_try_1               1     4.136182  path_04
+2026-11-08_session_01_emranul/path_04_meander_episode_036_plan_04-28_try_2               1     5.806354  path_04
+2026-11-08_session_01_emranul/path_04_meander_episode_037_plan_04-29_try_1             118     8.442533  path_04
+2026-11-08_session_01_emranul/path_04_meander_episode_046_plan_04-38_try_1             139    21.714527  path_04
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_020_plan_06-19_try_1    22   -19.066890  path_06
+2026-11-09_session_01_emranul/path_06_alpha_loop_dashed_episode_021_plan_06-20_try_1    27   -25.922330  path_06
+
+wrist range per episode by operator (median):
+          count  median  mean
+operator                     
+emranul     193     8.0  9.91
+marshal      17     0.7  4.33

@@ -4,7 +4,7 @@ The one live state file. Every Claude session reads it at the start and updates 
 ("update STATUS.md and memory with what changed"). Keep it under 150 lines; details go into the notes it points to.
 Full background for a newcomer: `HANDOFF_2026-10-26.md`. How the sessions are organised: `HOW_WE_WORK.md`.
 
-Last updated: 15.11.26 by Marshal's session (round 2 data in v02; batch on two GPUs; tuning running on ki-016).
+Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and hand-guided episodes chosen; hand-guided mode and model output still open), 9.11.26 by the Model and training session (its section only), and 10 and 11.11.26 by the Model and training session (its section only: GPU pool; first robot test, its check and the plan after it). 14.11.26 by the Model and training session (its section only: round 2 recorded, the search for the final model started). Also: 15.11.26 by Marshal's session (round 2 data in v02; batch on two GPUs; tuning running on ki-016).
 
 ## Dates that cannot move
 
@@ -108,6 +108,84 @@ Last updated: 15.11.26 by Marshal's session (round 2 data in v02; batch on two G
   Open: raw-data backup and sharing (`03_data` is not in git).
 
 ## Model and training
+
+### Emranul's session (picture-to-step models, robot driver `model_mode.py`)
+
+- Done 9.11.26 (branch `emranul/training-analysis`): the training analysis, with a plain summary at the top of
+  `06_deliverables/research_notes/Model and training/2026-11-09_training_set_up_analysis.md`; one table of all main-data
+  pictures (211 episodes, 18,522 pictures), a twice-checked data audit (drop 469 null rows, relabel 50 as stop, 30 start
+  ends corrected, keep score 1), the literature checked against its sources, and runs scored by holding out whole sheets.
+  Installed 9.11 into `.venv`: `02_code/requirements_training_emranul.txt` (torch 2.15, processor build); Marshal needs it too.
+- Done 10.11.26 (same session; nothing committed, as Emranul said): training moved to the OTH GPU pool computer ki-014
+  (OTH VPN; `ssh e.hoque@oth-aw.de@ki-014.oth-aw.de` with Emranul's own OTH password; Adel allowed our code, data and
+  Python packages in the home folder): about 10 times faster (one held-out sheet in about 2 minutes, laptop about 19).
+  `train_policy_emranul.py` got a `device` setting (not committed). How to: `02_code/HOW_TO_RUN.md`; report section 11.4;
+  results in `04_runs/gpu_ki014/`. Laptop queue stopped at about 11:05 on Emranul's request.
+- Found 9 to 10.11 (to be confirmed by Emranul and Marshal): first set-up `TRAINING_RUNS["resnet18_final_candidate"]`
+  (ImageNet ResNet-18 fine-tuned on one 160 x 120 picture; exact step, forearm twist, its own stop; 8 epochs): on
+  held-out sheets 77 to 79 % of its steps point within 45 degrees of where the tip went next (five seeds on ki-014);
+  the backup "names plus exact" is 6 to 8 points lower, so the report's rule (2.5) says drop it; the stop is the weak
+  point (right place in 92 to 105 of 209 episodes). Augmentation stays (report 6.2). Compare runs within one computer.
+- Done 10 to 11.11.26 (not committed): more recipes on ki-014 (chunk outputs, stop weighted 25, ResNet-34, a team of
+  five; `04_runs/gpu_ki014/`, table in `claude_memory/project-gpu-pool-access.md`), models trained on all six sheets
+  (`.../2026-11-10_resnet18_model_*_all_sheets*/checkpoints/all_sheets.pt`), and the model mode `02_code/model_mode.py`
+  (the driver: one picture, one step; `test_model_mode.py` needs no robot).
+- Done 11.11.26: first robot test, ten runs (`03_data/model_runs/2026-11-11_17*`): four reached the end and stopped
+  (sheet 01 twice, 02, 05; two of them on the end by the 12 mm rule), six lost the line (02 lying square, 03 three
+  times, 04, 06). Checked the same evening by eight analyses, each recomputed by an independent checker
+  (`06_deliverables/research_notes/Model and training/evidence/robot_test_2026-11-11/check_results_complete.md`).
+  Confirmed: the driver moved a fixed 1 cm where the model asked a median 0.61 cm. Open: sheet 04 (the sheet lay 15 to
+  25 degrees off) and the dashed loop. Never driven: a line the model has not seen. Short form with all findings:
+  `claude_memory/project-first-robot-test.md`.
+- Plan from the check, version 2 (reviewed by four critics, each objection tested by a second agent; all in
+  `.../evidence/robot_test_2026-11-11/plan_review/`): `.../Model and training/2026-11-11_plan_after_first_robot_test.md`.
+  Three short test sittings (A: small steps, the measure, the step at sheet 03's bend, sheet 04 again; B: the loop,
+  lines never seen, the driver decision; C: the stop, dashes, orientation); version 1 frozen early as the fallback; a
+  pilot and a recording round on 18 to 24 new shapes in one written style; models judged by a panel fixed in advance;
+  a final test in exam form. About 35 to 45 robot hours until 20.12.
+- Reported by Emranul on 11.11 (the first four are the professor's words; `claude_memory/project-exam-rules-reported.md`):
+  own printed tracks may be trained on; an unseen track can be anything; finishing first, then time, ranked; what the
+  model lacks may be trained; the robot must stop by itself; the team lays every sheet; one try per track; unseen
+  tracks only on the day. Not yet in `05_meetings/requests_to_professor.md` (for the orchestrator).
+- 12.11.26: committed on Emranul's laptop with his yes (three commits on `emranul/training-analysis`, not pushed).
+  Two proofreaders found about fifty corrections to the plan (`.../plan_review/proofread_complete.md`), not yet worked
+  in. Emranul's dates: Thursday 12.11 at the robot (a first test visit with the driver as it is plus small switches,
+  checklist `.../Model and training/2026-11-12_test_visit_checklist.md`), Saturday 14.11 recording with Marshal (hand
+  trial of the demonstration rules, a pilot, a first batch on new shapes).
+- Done 12 to 13.11.26: the test visit (36 runs) and its scoring (`claude_memory/project-test-visit-2026-11-12.md`).
+- Done 14.11.26 (Emranul at the robot alone; branch pushed once in the afternoon, later commits local): round 2
+  recorded to the end, 55 scored episodes on the 16 new tracks T01 to T16 (4,748 pictures), with a lay-out line in the
+  recording tool, quicker lifts and a looser lean limit at the taught start. A two-picture model (steers better, stops
+  worse, not kept; `.../2026-11-14_two_picture_model.md`). A mid-way check (`.../2026-11-14_midway_check.md`) and the
+  stop check (`.../2026-11-14_stop_check.md`): the model stops near the paper's edge, not at the line's end (every
+  round 1 line ends 2.4 to 4.3 cm from the edge).
+- Running since 14.11.26, 22:21, on ki-014: the search for the final model on round 1 plus all of round 2 (index
+  `03_data/processed/v03_training_index`, 264 episodes, 22,646 pictures). Yardstick and rule fixed before the results:
+  each of the 16 new tracks held out once (55 test episodes). First numbers: steering 0.83 path within 45 (round 1
+  only: 0.81); the stop right on about 1 episode in 4 and on none of the mid-paper ends. Under test: three changes
+  against the edge cue (table repainted as paper, made-up line ends, heavier mid-paper stops), two pictures, ResNet-34,
+  16 rounds, score 1 without weight, fewer tracks (would more help?), 320-px pictures. Model 9 (reference recipe on all
+  episodes) is on the laptop, not yet driven. All in `.../Model and training/2026-11-14_final_model_search.md`.
+- Next: read the search's results by its rule, choose the recipe, train it on every episode and test it on the robot
+  with the comparison run list (`.../2026-11-14_comparison_runs.csv`); Marshal's model into the same list.
+- Open for Emranul: leave episode 14-02 out (skipped hairpin)? May made-up line ends be used (not demonstrated stops)?
+  Make today's camera view the camera check's reference? Pilot feedback on the recording rules.
+- Night of 14 to 15.11.26, robot look with model 10 (reference recipe on all data): sheet 01 stopped 1 cm left of the
+  end; sheet 02 fails in the standard lay-out where the rod tip is 43 cm and more from the base and goes better lying
+  landscape; sheet 04 better in the standard lay-out; on sheet 05 (laid as on 11.11) the round 1 model E works and
+  model 10 does not, so E stays the model for the six course sheets. Both models follow the puck and use the line
+  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); only 280 of 23,270 pictures show a puck
+  being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
+  second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
+- Merged into `main` on 15.11.26 (asked for by Emranul): his training program is now `02_code/train_policy_emranul.py`
+  (packages: `requirements_training_emranul.txt`), renamed so that it lives beside Marshal's `train_policy.py`; every
+  script and the robot driver follow. The copy on ki-014 (`~/ai_project/02_code/train_policy.py`) keeps the old name
+  until the queues there have finished; the next upload has to send the new name. Open: the safety copy to a second
+  disk.
+- Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
+  merged; findings in `claude_memory/project-synthetic-pictures.md`.
+
+### Marshal's session (five policies, `train_policy.py`, policy mode of the recording tool)
 
 - Done: method chosen (SOTA report section 1): single-picture classifier over 1 cm steps plus stop, ResNet-18 or a 5-layer
   CNN, random-crop augmentation, trained on the laptop; ACT only as an optional comparison on a GPU.

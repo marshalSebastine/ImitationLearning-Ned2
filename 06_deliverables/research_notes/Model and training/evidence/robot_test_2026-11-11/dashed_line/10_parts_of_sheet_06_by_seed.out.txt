@@ -1,0 +1,38 @@
+Sheet 06 held out, share of path pictures within 45 degrees, 24 fold runs; path pictures per part: {'after the loop': 234, 'before the crossing': 289, 'loop': 1124}; after the loop from end A 187, from end B 47
+                                       fold run  before the crossing  loop  after the loop  after the loop, from end A  after the loop, from end B
+               resnet18_backup_names_plus_exact                0.976 0.790           0.744                       0.743                       0.745
+                       resnet18_final_candidate                0.979 0.779           0.893                       0.914                       0.809
+       resnet18_final_candidate_no_augmentation                0.965 0.803           0.842                       0.872                       0.723
+resnet18_final_candidate_no_augmentation_seed_2                0.958 0.754           0.829                       0.850                       0.745
+                resnet18_final_candidate_seed_2                0.958 0.768           0.517                       0.444                       0.809
+              resnet18_finetune_no_augmentation                0.913 0.598           0.466                       0.465                       0.468
+                         resnet18_chunk_8_steps                0.986 0.809           0.799                       0.797                       0.809
+                  resnet18_chunk_8_steps_seed_2                0.962 0.802           0.530                       0.492                       0.681
+                 resnet18_chunk_efficientnet_b0                0.976 0.684           0.705                       0.727                       0.617
+          resnet18_chunk_efficientnet_b0_seed_2                0.955 0.687           0.808                       0.829                       0.723
+                        resnet18_chunk_resnet34                0.990 0.754           0.632                       0.631                       0.638
+                 resnet18_chunk_resnet34_seed_2                0.990 0.776           0.731                       0.770                       0.574
+                resnet18_chunk_resnet34_stop_25                0.983 0.750           0.774                       0.797                       0.681
+         resnet18_chunk_resnet34_stop_25_seed_2                0.986 0.756           0.590                       0.545                       0.766
+                  resnet18_chunk_stop_weight_25                0.976 0.802           0.517                       0.540                       0.426
+           resnet18_chunk_stop_weight_25_seed_2                0.986 0.786           0.598                       0.567                       0.723
+                     resnet18_chunk_twist_focus                0.972 0.796           0.645                       0.631                       0.702
+              resnet18_chunk_twist_focus_seed_2                0.969 0.828           0.735                       0.706                       0.851
+             resnet18_final_candidate_16_rounds                0.986 0.749           0.380                       0.380                       0.383
+                 resnet18_final_candidate_chunk                0.979 0.786           0.521                       0.519                       0.532
+          resnet18_final_candidate_chunk_seed_2                0.976 0.786           0.368                       0.321                       0.553
+                resnet18_final_candidate_seed_3                0.969 0.762           0.825                       0.850                       0.723
+                resnet18_final_candidate_seed_4                0.941 0.815           0.701                       0.668                       0.830
+                resnet18_final_candidate_seed_5                0.955 0.787           0.752                       0.770                       0.681
+
+spread over the fold runs (least, median, most):
+        before the crossing   loop  after the loop  after the loop, from end A  after the loop, from end B
+min                   0.913  0.598           0.368                       0.321                       0.383
+median                0.976  0.782           0.703                       0.687                       0.713
+max                   0.990  0.828           0.893                       0.914                       0.851
+
+what the demonstrations do after the loop of sheet 06 (cleaned rows): step direction in the picture, forearm and wrist
+           pictures  step_direction_median_deg  forearm_median_deg  wrist_median_deg
+start_end                                                                           
+A               209                       79.5               -35.4              26.7
+B                73                       95.9              -110.8              27.8

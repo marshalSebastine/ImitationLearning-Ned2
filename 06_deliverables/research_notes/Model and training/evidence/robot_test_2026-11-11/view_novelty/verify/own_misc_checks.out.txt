@@ -1,0 +1,21 @@
+A. JOINTS: the robot runs against the training pictures (degrees)
+forearm twist (joint 4)  training: least  -119.3, 1 %  -105.2, median   +4.3, 99 %  +114.0, most  +118.9 | robot: least   -80.9, most  +101.5; outside the training pictures' 1 % to 99 %: 0 of 554
+wrist (joint 5)          training: least   -29.3, 1 %   -15.1, median  +13.4, 99 %   +31.4, most   +45.3 | robot: least   +13.3, most   +13.5; outside the training pictures' 1 % to 99 %: 0 of 554
+hand (joint 6)           training: least   -32.7, 1 %    -6.6, median   -6.1, 99 %   +29.7, most   +30.2 | robot: least    -6.2, most    -6.1; outside the training pictures' 1 % to 99 %: 0 of 554
+training pictures with wrist and hand within 3 degrees of the held 13.4 and -6.1: 54.9 % of 18032
+wrist of the training pictures: 5 % -6.7, 95 % +25.3; hand: 5 % -6.2, 95 % +0.1
+
+B. THE PROPOSED STOP RULE: model E's distance to all its training pictures above 0.18 on 4 pictures in a row
+run  outcome   rule fires at step  puck left the line at step (verifier)  steps between  largest distance of the run
+  1  reached                never                                      -              -                        0.206
+  2  reached                never                                      -              -                        0.120
+  3  failed                    10                                      5              5                        0.277
+  4  reached                never                                      -              -                        0.265
+  5  failed                    19                                     18              1                        0.265
+  6  failed                    16                                     10              6                        0.285
+  7  reached                never                                      -              -                        0.221
+  8  failed                    34                                     20             14                        0.257
+  9  failed                    30                                     17             13                        0.341
+ 10  failed                    39                                     37              2                        0.324
+
+C. written: figures/own_sheet_01_offset_labels.png (first pictures of plans 01-17 and 01-18)

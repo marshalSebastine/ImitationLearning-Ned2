@@ -1,0 +1,76 @@
+=== block A: at least 3 of 4 passes where fixed 1.0 cm has at most 1 of 4 ===
+  true pass chance (new rule, fixed 1.0 cm) -> chance that the rule takes the new setting on
+    new 0.90, old 0.33: 0.57   (new passes >= 3 of 4: 0.95; old <= 1 of 4: 0.60)
+    new 0.75, old 0.33: 0.44   (new passes >= 3 of 4: 0.74; old <= 1 of 4: 0.60)
+    new 0.75, old 0.50: 0.23   (new passes >= 3 of 4: 0.74; old <= 1 of 4: 0.31)
+    new 0.60, old 0.33: 0.28   (new passes >= 3 of 4: 0.48; old <= 1 of 4: 0.60)
+    new 0.50, old 0.50: 0.10   (new passes >= 3 of 4: 0.31; old <= 1 of 4: 0.31)
+    new 0.33, old 0.33: 0.06   (new passes >= 3 of 4: 0.11; old <= 1 of 4: 0.60)
+    new 0.90, old 0.10: 0.90   (new passes >= 3 of 4: 0.95; old <= 1 of 4: 0.95)
+    new 1.00, old 0.00: 1.00   (new passes >= 3 of 4: 1.00; old <= 1 of 4: 1.00)
+  the old driver passed this bend 1 time in 3 on 11.11.26 (run 10 passed; runs 5 and 9 did not), so 0.33 is the measured guess for the old setting
+  two new settings that are NO better (0.33 each, same control runs): at least one is taken on by luck with chance about 0.122
+
+=== block C: solid print finished >= 2 of 3 AND dashed print fails >= 2 of 3 ===
+    true finish chance solid 0.5, dashed 0.5: the rule says dashes with chance 0.25
+    true finish chance solid 0.6, dashed 0.6: the rule says dashes with chance 0.23
+    true finish chance solid 0.7, dashed 0.3: the rule says dashes with chance 0.61
+    true finish chance solid 0.9, dashed 0.1: the rule says dashes with chance 0.94
+
+=== what k of n runs say about the true finish chance (95 % Wilson interval) ===
+    0 of 3: 0.00 to 0.56
+    1 of 3: 0.06 to 0.79
+    2 of 3: 0.21 to 0.94
+    3 of 3: 0.44 to 1.00
+    0 of 4: 0.00 to 0.49
+    2 of 4: 0.15 to 0.85
+    4 of 4: 0.51 to 1.00
+    12 of 18: 0.44 to 0.84
+    15 of 18: 0.61 to 0.94
+
+=== why the number of attempts per track matters: chance to finish a track at least once ===
+    one-run finish chance 0.3: 1 attempt 0.30, 2 attempts 0.51, 3 attempts 0.66
+    one-run finish chance 0.5: 1 attempt 0.50, 2 attempts 0.75, 3 attempts 0.88
+    one-run finish chance 0.7: 1 attempt 0.70, 2 attempts 0.91, 3 attempts 0.97
+
+=== expected gain of stopped right on unseen sheets from the recording round (frozen-probe fit of report 8.2, an extrapolation) ===
+    58 new episodes with an end: stop pictures x1.22 -> about +2.5 points; 106 of 209 becomes about 111 of 209
+    78 new episodes with an end: stop pictures x1.30 -> about +3.3 points; 106 of 209 becomes about 113 of 209
+    108 new episodes with an end: stop pictures x1.42 -> about +4.4 points; 106 of 209 becomes about 115 of 209
+    per sheet, model E on its unseen sheet today (never / earlier / right; verifier, check_early_and_never_stops.out.txt):
+      sheet 01: right 16 of 20 = 80 %, never 5 %, too early 15 %
+      sheet 02: right 12 of 45 = 27 %, never 64 %, too early 9 %
+      sheet 03: right 34 of 45 = 76 %, never 18 %, too early 7 %
+      sheet 04: right 30 of 45 = 67 %, never 13 %, too early 20 %
+      sheet 05: right 6 of 29 = 21 %, never 41 %, too early 38 %
+      sheet 06: right 8 of 25 = 32 %, never 60 %, too early 8 %
+
+=== robot hours, plan item by item (low to high) ===
+  new shapes, 48 episodes: one lay-out per track 7.1 h; two lay-outs per track 9.1 h; a new lay-out or print at every episode 13.1 h (plan: about 6)
+  session 2: 36 runs at the measured 3.93 min, plus block 0, a photo at 24 stops, 8 sheet changes (plan: about 3): 3.5 to 4.7 h
+  hand trial of the demonstration rules (plan: 0.5): 0.5 to 0.5 h
+  recording: new shapes, 48 episodes (plan: about 6): 9.1 to 13.1 h
+  recording: 30 recoveries (plan: about 3; report 8.4: 2.8 to 3.6): 2.8 to 3.6 h
+  recording: 10 to 30 line ends (plan: 1 to 3): 1.0 to 3.0 h
+  session 3: development tracks and six sheets, 3 runs each (plan: no number): 2.4 to 4.0 h
+  correction pilot, 5 episodes (report 8.4; not in the plan): 0.4 to 0.6 h
+  correction round 1, 50 episodes (plan: 4 to 6; report: 3.7 to 6.3): 3.7 to 6.3 h
+  paired test new against old (plan: no number; report 7.4: 12 to 24 blocks): 1.7 to 4.8 h
+  final test, 60 runs (plan: no number; report 7.4: 4.0 to 5.7): 4.0 to 5.7 h
+  light block and timed rehearsal (report: 0.4 to 0.5; rehearsal a guess of 1): 1.4 to 1.5 h
+  SUM without correction round 2 and without the open recording item: 30 to 48 h
+  with correction round 2 (report 8.4: 2.2 to 6.3 h): 33 to 54 h
+  12.11 to 20.12.26 is 5.6 weeks: 5.5 to 8.6 h a week, every week; at 2.5 h a sitting that is 12 to 19 sittings
+  what the plan itself writes down as hours: 3 + 0.5 + (6 + 3 + 1 to 3) + (4 to 6) = 17.5 to 21.5 h; the other items have no number
+
+  the two weeks 23.11 to 6.12 in the plan's calendar (finish recording round 2, session 3, freeze the driver):
+    if the recording of new shapes starts only after the answers of 23.11: 15 to 24 h in two weeks = 8 to 12 h a week
+  the week 7.12 to 13.12 (correction pilot, round 1, paired test): 5.8 to 11.7 h, plus round 2 if round 1 helped
+
+=== time per run (second criterion) ===
+  measured 11.11.26: 1.04 s per move at fixed 1 cm (timing_checks.out.txt); meeting-1 note of 25.10.26: a 1 cm step takes 0.77 s at a 20 % cap and 0.76 s at 40 %, so the speed cap is no lever
+    sheet 01: demonstrated median 31.5 steps -> about 33 s at 1 cm; with the asked length (verifier: about 1.3 times longer) to fixed 0.65 cm (1.54 times): 43 to 50 s
+    sheet 03: demonstrated median 106 steps -> about 110 s at 1 cm; with the asked length (verifier: about 1.3 times longer) to fixed 0.65 cm (1.54 times): 143 to 170 s
+    sheet 04: demonstrated median 168 steps -> about 175 s at 1 cm; with the asked length (verifier: about 1.3 times longer) to fixed 0.65 cm (1.54 times): 227 to 269 s
+    sheet 05: demonstrated median 103.5 steps -> about 108 s at 1 cm; with the asked length (verifier: about 1.3 times longer) to fixed 0.65 cm (1.54 times): 140 to 166 s
+    step budget 400 x 1.04 s = about 7 minutes for a run that never stops

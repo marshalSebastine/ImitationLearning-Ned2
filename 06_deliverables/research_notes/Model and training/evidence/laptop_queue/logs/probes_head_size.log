@@ -1,0 +1,3 @@
+head_size | linear | 132.6 s | within 45: 0.4985 | class accuracy: 0.3514 | stopped right: 0.1712 | early: 0.2804
+head_size | hidden_256 | 198.2 s | within 45: 0.5767 | class accuracy: 0.4154 | stopped right: 0.258 | early: 0.1118
+head_size | hidden_1024 | 429.3 s | within 45: 0.5575 | class accuracy: 0.4025 | stopped right: 0.2706 | early: 0.1555

@@ -1,0 +1,137 @@
+﻿{
+ "small_cnn | classes": {
+  "backbone_parameters": 1016672,
+  "head_parameters": 593164,
+  "total_parameters": 1609836,
+  "feature_map_at_160_by_120": [
+   192,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 188507136
+ },
+ "small_cnn | exact": {
+  "backbone_parameters": 1016672,
+  "head_parameters": 591622,
+  "total_parameters": 1608294,
+  "feature_map_at_160_by_120": [
+   192,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 188505600
+ },
+ "small_cnn | chunk": {
+  "backbone_parameters": 1016672,
+  "head_parameters": 594192,
+  "total_parameters": 1610864,
+  "feature_map_at_160_by_120": [
+   192,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 188508160
+ },
+ "resnet18.tv_in1k | classes": {
+  "backbone_parameters": 11176512,
+  "head_parameters": 1576204,
+  "total_parameters": 12752716,
+  "feature_map_at_160_by_120": [
+   512,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 716512256
+ },
+ "resnet18.tv_in1k | exact": {
+  "backbone_parameters": 11176512,
+  "head_parameters": 1574662,
+  "total_parameters": 12751174,
+  "feature_map_at_160_by_120": [
+   512,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 716510720
+ },
+ "resnet18.tv_in1k | chunk": {
+  "backbone_parameters": 11176512,
+  "head_parameters": 1577232,
+  "total_parameters": 12753744,
+  "feature_map_at_160_by_120": [
+   512,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 716513280
+ },
+ "mobilenetv3_large_100.ra_in1k | classes": {
+  "backbone_parameters": 4202032,
+  "head_parameters": 2952460,
+  "total_parameters": 7154492,
+  "feature_map_at_160_by_120": [
+   960,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 89205152
+ },
+ "mobilenetv3_large_100.ra_in1k | exact": {
+  "backbone_parameters": 4202032,
+  "head_parameters": 2950918,
+  "total_parameters": 7152950,
+  "feature_map_at_160_by_120": [
+   960,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 89203616
+ },
+ "mobilenetv3_large_100.ra_in1k | chunk": {
+  "backbone_parameters": 4202032,
+  "head_parameters": 2953488,
+  "total_parameters": 7155520,
+  "feature_map_at_160_by_120": [
+   960,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 89206176
+ },
+ "efficientnet_b0.ra_in1k | classes": {
+  "backbone_parameters": 4007548,
+  "head_parameters": 3935500,
+  "total_parameters": 7943048,
+  "feature_map_at_160_by_120": [
+   1280,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 158165632
+ },
+ "efficientnet_b0.ra_in1k | exact": {
+  "backbone_parameters": 4007548,
+  "head_parameters": 3933958,
+  "total_parameters": 7941506,
+  "feature_map_at_160_by_120": [
+   1280,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 158164096
+ },
+ "efficientnet_b0.ra_in1k | chunk": {
+  "backbone_parameters": 4007548,
+  "head_parameters": 3936528,
+  "total_parameters": 7944076,
+  "feature_map_at_160_by_120": [
+   1280,
+   4,
+   5
+  ],
+  "multiply_adds_per_picture_160_by_120": 158166656
+ },
+ "resnet18 backbone at 224 x 224 (check against torchvision's 1.81 G)": {
+  "multiply_adds_per_picture": 1813561344
+ }
+}

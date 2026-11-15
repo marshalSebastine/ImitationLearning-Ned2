@@ -1,0 +1,78 @@
+1. Rule 3 against the recorded style: where did the puck travel in the picture while the tip pushed?
+   (pushing step = tip move of 0.7 cm or more; the puck's travel between 4 rows back and 4 ahead, at least 2 cm)
+   rows with a known direction of puck travel: 11419 of 17773 step rows; pushing rows among them: 9084
+   sheet     pushing rows   median |angle|   within 20   within 30   within 45   beyond 60   beyond 90
+   path_01           317             5.7       92.4%       95.0%       96.2%        2.5%        1.3%
+   path_02          1533             8.9       70.3%       76.3%       81.0%       14.3%        6.2%
+   path_03          1986            12.6       61.2%       68.4%       76.9%       18.9%        9.0%
+   path_04          2791            10.2       66.8%       71.8%       75.1%       23.1%       12.7%
+   path_05          1445            12.0       58.1%       61.5%       63.0%       35.2%       23.1%
+   path_06          1012            72.9       41.7%       43.8%       45.0%       53.5%       33.6%
+   all              9084            11.2       62.9%       67.9%       72.0%       25.3%       14.4%
+   the same for the line AHEAD of the puck (the puck's travel from this row to 8 rows ahead), which is what rule 3 names:
+   sheet     pushing rows   median |angle|   within 20   within 30   within 45   beyond 60   beyond 90
+   path_01           308             6.7       91.9%       94.8%       95.5%        2.9%        1.6%
+   path_02          1470            15.4       60.5%       72.6%       78.8%       16.4%        7.4%
+   path_03          1863            18.8       52.0%       64.7%       74.7%       19.6%       10.7%
+   path_04          2587            17.9       54.3%       68.0%       74.7%       22.6%       12.3%
+   path_05          1441            16.6       54.0%       61.2%       64.3%       34.1%       25.5%
+   path_06           992            75.8       37.7%       42.3%       44.2%       53.4%       41.1%
+   all              8661            17.4       54.2%       64.9%       70.9%       25.6%       16.2%
+   rows where the line ahead runs more than 30 degrees off the picture's top: 4039 of 11419; in these the demonstrator pushed on (0.7 cm or more) in 75.2 %, moved 0.3 to 0.7 cm in 16.9 % and turned nearly in place (under 0.3 cm) in 8.0 %; median |twist| 3.6 degrees
+   twisting rows (3 degrees or more) with a known travel direction: 6070; correlation of the twist with the puck's travel direction in the picture (clipped at 90 degrees): +0.03
+   (a twist of +1 degree turns the picture's heading by about -0.9 degrees, so turning the camera towards the puck's travel gives a NEGATIVE correlation; -1 would be a demonstrator who always turns the camera towards where the puck goes)
+   puck travels  0 to 15 degrees to the picture's left :  4545 rows; camera turned towards it (2 degrees or more) in 27.1 %, away in 37.8 %, neither in 35.1 %; median tip step 1.09 cm
+   puck travels  0 to 15 degrees to the picture's right:  2044 rows; camera turned towards it (2 degrees or more) in 24.4 %, away in 42.6 %, neither in 33.0 %; median tip step 1.07 cm
+   puck travels 15 to 30 degrees to the picture's left :   878 rows; camera turned towards it (2 degrees or more) in 15.7 %, away in 56.2 %, neither in 28.1 %; median tip step 1.02 cm
+   puck travels 15 to 30 degrees to the picture's right:   508 rows; camera turned towards it (2 degrees or more) in 19.1 %, away in 43.1 %, neither in 37.8 %; median tip step 1.04 cm
+   puck travels 30 to 45 degrees to the picture's left :   122 rows; camera turned towards it (2 degrees or more) in  9.0 %, away in 51.6 %, neither in 39.3 %; median tip step 1.08 cm
+   puck travels 30 to 45 degrees to the picture's right:   324 rows; camera turned towards it (2 degrees or more) in 16.0 %, away in 33.6 %, neither in 50.3 %; median tip step 1.11 cm
+   puck travels 45 to 60 degrees to the picture's left :    56 rows; camera turned towards it (2 degrees or more) in 19.6 %, away in 39.3 %, neither in 41.1 %; median tip step 1.13 cm
+   puck travels 45 to 60 degrees to the picture's right:   241 rows; camera turned towards it (2 degrees or more) in 15.8 %, away in 30.7 %, neither in 53.5 %; median tip step 1.13 cm
+   puck travels 60 to 90 degrees to the picture's left :   363 rows; camera turned towards it (2 degrees or more) in 43.8 %, away in 24.2 %, neither in 32.0 %; median tip step 1.08 cm
+   puck travels 60 to 90 degrees to the picture's right:   786 rows; camera turned towards it (2 degrees or more) in 25.4 %, away in 21.5 %, neither in 53.1 %; median tip step 1.12 cm
+
+2. Rule 3 against the forearm's limit: the joint-4 angle that would put the puck's travel straight up the picture
+   check of the formula: in the 5232 rows where the puck already travels within 10 degrees of the picture's top the needed angle differs from the recorded one by a median 4.8 degrees
+   sheet     rows   needs |joint 4| over 117   over 105   over 90   recorded |joint 4| over 90   over 105   episodes that need over 117 somewhere
+   path_01    338                      1.5%      1.5%     1.8%                       0.0%      0.0%      2 of 20
+   path_02   1741                     14.7%     19.2%    29.1%                       7.2%      2.8%     39 of 45
+   path_03   2557                     24.4%     29.1%    38.4%                      15.7%      6.1%     35 of 45
+   path_04   3782                     19.8%     24.5%    39.4%                      16.9%      5.3%     35 of 45
+   path_05   1721                     35.4%     37.6%    42.8%                       5.9%      1.6%     23 of 29
+   path_06   1280                     46.5%     52.3%    55.5%                      12.3%      4.5%     25 of 25
+   all      11419                     24.9%     29.1%    38.8%                      12.5%      4.3%    159 of 209
+   the same with the line AHEAD of the puck (from this row to 8 rows ahead):
+   path_01    338                      1.5%      1.5%     1.8%   episodes that need over 117 somewhere:    2 of 20
+   path_02   1741                     15.7%     22.6%    32.2%   episodes that need over 117 somewhere:   40 of 45
+   path_03   2557                     26.5%     31.8%    41.1%   episodes that need over 117 somewhere:   35 of 45
+   path_04   3782                     21.3%     28.5%    45.6%   episodes that need over 117 somewhere:   35 of 45
+   path_05   1721                     35.7%     39.3%    43.9%   episodes that need over 117 somewhere:   23 of 29
+   path_06   1280                     51.6%     54.8%    55.9%   episodes that need over 117 somewhere:   25 of 25
+   all      11419                     26.6%     32.1%    42.2%   episodes that need over 117 somewhere:  160 of 209
+   the puck's travel direction against 'straight away from the base' (radial), rows with a known direction:
+     0 to  45 degrees from radial:  39.5 % of rows; of these the rule needs joint 4 beyond 117 in   0.0 %
+    45 to  90 degrees from radial:  25.9 % of rows; of these the rule needs joint 4 beyond 117 in   0.1 %
+    90 to 110 degrees from radial:  10.3 % of rows; of these the rule needs joint 4 beyond 117 in   8.2 %
+   110 to 135 degrees from radial:   8.1 % of rows; of these the rule needs joint 4 beyond 117 in  96.2 %
+   135 to 180 degrees from radial:  16.2 % of rows; of these the rule needs joint 4 beyond 117 in 100.0 %
+
+3. The size of one recorded step by the recording rule (1 cm of tip travel or 5 degrees on a joint)
+   rows used (a step followed by the next recorded row, not the last step before the stop): 17324
+   size by all six joints: 5th percentile 1.02, 25th 1.11, median 1.23, 75th 1.42, 95th 1.92; under 0.8 in 0.0 %, under 0.5 in 0.0 %
+   size by tip travel and forearm twist only (what the model predicts): 5th percentile 1.01, 25th 1.10, median 1.22, 75th 1.41, 95th 1.88; under 0.8 in 0.7 %, under 0.5 in 0.2 %
+   steps whose size comes from a joint turn, not from tip travel: 44.9 %; the joint that turned most in those steps: joint 1 0.0 %, joint 2 0.0 %, joint 3 0.1 %, joint 4 97.1 %, joint 5 2.5 %, joint 6 0.2 %
+   the last step before the stop row (209 rows): median length 0.65 cm, under 0.5 cm in 37 %
+
+4. How much each shape weighs in training, now and after the plan's recording round 2
+         pictures  episodes  pictures_per_episode  share
+sheet                                                   
+path_01       644        20                32.200  0.036
+path_02      2670        45                59.333  0.148
+path_03      3955        45                87.889  0.219
+path_04      6227        45               138.378  0.345
+path_05      2600        29                89.655  0.144
+path_06      1936        25                77.440  0.107
+   the six sheets now: 18032 pictures; effective number of shapes when every picture counts the same: 4.49 (shapes: 6); largest share 34.5 % (sheet 04)
+   the six sheets plus 12 new shapes x 4 episodes: 22448 pictures; effective number of shapes when every picture counts the same: 6.80 (shapes: 18); largest share 27.7 % (sheet 04)
+   pictures per new episode assumed: 92 (mean of the recorded episodes of sheets 02 to 06); new pictures 4416 = 19.7 % of the enlarged set, old-style pictures 80.3 %

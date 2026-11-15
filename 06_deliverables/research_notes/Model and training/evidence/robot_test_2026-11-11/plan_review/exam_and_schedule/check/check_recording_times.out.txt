@@ -1,0 +1,29 @@
+columns: ['folder', 'sheet', 'mode', 'status', 'outcome', 'operator', 'score', 'started_s', 'finished_s', 'reviewed_s', 'hand_corrections_logged', 'steps_logged', 'guiding_s', 'rows', 'first_row_s', 'last_row_s', 'replay_span_s', 'stepping_s', 'plain_steps', 'pause_s', 'stop_pause_s', 'corrections_found', 'is_kept', 'duration_min', 'before_first_row_min', 'setup_without_guiding_min', 'after_last_row_min', 'sitting', 'to_next_start_min', 'cycle_min']
+
+=== when each sheet's kept episodes were recorded, and its first five cycle times ===
+  path_01: dates {'2026-11-06': 20}; first five on ['2026-11-06']; first five cycles (min) [35.6, 50.5, 5.0, 8.8, 4.4]; operators of the first five {'emranul': 5}
+  path_02: dates {'2026-11-06': 1, '2026-11-07': 44}; first five on ['2026-11-06', '2026-11-07']; first five cycles (min) [nan, 15.8, 12.6, 8.7, 8.8]; operators of the first five {'emranul': 5}
+  path_03: dates {'2026-11-08': 45}; first five on ['2026-11-08']; first five cycles (min) [10.4, 13.8, 6.4, 10.0, 9.2]; operators of the first five {'marshal': 3, 'emranul': 2}
+  path_04: dates {'2026-11-08': 45}; first five on ['2026-11-08']; first five cycles (min) [11.0, 10.8, 8.8, 8.5, 8.6]; operators of the first five {'emranul': 4, 'marshal': 1}
+  path_05: dates {'2026-11-08': 24, '2026-11-09': 6}; first five on ['2026-11-08']; first five cycles (min) [5.1, 6.4, 7.9, 4.7, 5.0]; operators of the first five {'emranul': 5}
+  path_06: dates {'2026-11-09': 25}; first five on ['2026-11-09']; first five cycles (min) [6.1, 7.6, 3.7, 5.8, 5.8]; operators of the first five {'emranul': 5}
+
+=== cycle per kept episode by date (learning the tool against a new shape) ===
+  2026-11-06: n 21, median 5.67, mean 13.26 min; sheets {'path_01': 20, 'path_02': 1}
+  2026-11-07: n 44, median 6.43, mean 8.67 min; sheets {'path_02': 44}
+  2026-11-08: n 114, median 6.08, mean 6.69 min; sheets {'path_03': 45, 'path_04': 45, 'path_05': 24}
+  2026-11-09: n 31, median 3.93, mean 4.20 min; sheets {'path_05': 6, 'path_06': 25}
+
+=== 48 episodes on new shapes under four unit times ===
+  median cycle inside a sheet: 5.78 min -> 48 episodes 4.6 h; plus 12 new tracks at the report's guess of 0.5 h each: 10.6 h
+  mean cycle: 7.38 min -> 48 episodes 5.9 h; plus 12 new tracks at the report's guess of 0.5 h each: 11.9 h
+  first five of all six sheets, mean (the critic's 10.6): 10.55 min -> 48 episodes 8.4 h; plus 12 new tracks at the report's guess of 0.5 h each: 14.4 h
+  first five of all six sheets, median: 8.57 min -> 48 episodes 6.9 h; plus 12 new tracks at the report's guess of 0.5 h each: 12.9 h
+  first five of the two sheets recorded last (05, 06), mean: 5.81 min -> 48 episodes 4.7 h; plus 12 new tracks at the report's guess of 0.5 h each: 10.7 h
+
+=== sittings: longest stretch at the robot ===
+  sitting 1: 4.7 h on ['2026-11-06'], kept 21, operators {'emranul': 21}
+  sitting 2: 2.6 h on ['2026-11-07'], kept 9, operators {'emranul': 9}
+  sitting 3: 10.4 h on ['2026-11-07', '2026-11-08'], kept 80, operators {'emranul': 64, 'marshal': 16}
+  sitting 4: 4.1 h on ['2026-11-08'], kept 29, operators {'emranul': 28, 'marshal': 1}
+  sitting 5: 6.7 h on ['2026-11-08', '2026-11-09'], kept 71, operators {'emranul': 71}

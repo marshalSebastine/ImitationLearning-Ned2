@@ -1,0 +1,65 @@
+sheet,model,part,pictures as,pictures,path_pictures,path_within_45,path_error_median_deg,twist_sign_right,twist_asked_mean_deg,length_asked_median_cm,stop_chance_mean,backward_also_asked,stop_chance_on_stop_pictures
+06,E recipe without 06,whole sheet,as recorded,1879,1647,0.7857,21.8711,0.8108,2.4057,0.6818,0.0171,0.862,0.3431
+06,E recipe without 06,whole sheet,gaps filled,1879,1647,0.7905,22.5053,0.777,2.6307,0.7509,0.0166,0.8988,0.344
+06,E recipe without 06,before the crossing,as recorded,299,289,0.9758,13.8095,0.8057,2.5844,0.8783,0.0003,0.5714,
+06,E recipe without 06,before the crossing,gaps filled,299,289,0.9689,8.5612,0.8531,3.1041,0.8899,0.0004,0.6429,
+06,E recipe without 06,loop,as recorded,1270,1124,0.7972,21.8253,0.824,2.5239,0.6649,0.0169,0.8592,
+06,E recipe without 06,loop,gaps filled,1270,1124,0.7749,24.0893,0.7687,2.6402,0.7337,0.0161,0.8989,
+06,E recipe without 06,after the loop,as recorded,310,234,0.4957,45.303,0.7525,1.6472,0.6682,0.0358,1.0,0.3431
+06,E recipe without 06,after the loop,gaps filled,310,234,0.6453,37.3206,0.7376,2.0901,0.7226,0.036,1.0,0.344
+06,"E recipe without 06, seed 2",whole sheet,as recorded,1879,1647,0.7936,19.9571,0.7475,1.6101,0.6424,0.0351,0.8528,0.2894
+06,"E recipe without 06, seed 2",whole sheet,gaps filled,1879,1647,0.7851,22.2176,0.723,1.9233,0.705,0.0442,0.8712,0.2931
+06,"E recipe without 06, seed 2",before the crossing,as recorded,299,289,0.9862,7.1781,0.9005,2.6535,0.8738,0.0006,0.6429,
+06,"E recipe without 06, seed 2",before the crossing,gaps filled,299,289,0.9792,9.0875,0.9242,3.3291,0.8785,0.0006,0.6429,
+06,"E recipe without 06, seed 2",loop,as recorded,1270,1124,0.7891,22.0822,0.7339,1.5559,0.6349,0.0391,0.8484,
+06,"E recipe without 06, seed 2",loop,gaps filled,1270,1124,0.7731,24.0338,0.7114,1.76,0.6956,0.0526,0.8664,
+06,"E recipe without 06, seed 2",after the loop,as recorded,310,234,0.5769,39.0002,0.6535,0.7822,0.4879,0.0538,0.9714,0.2894
+06,"E recipe without 06, seed 2",after the loop,gaps filled,310,234,0.6026,37.1029,0.5693,1.2447,0.6134,0.0526,1.0,0.2931
+06,E recipe without 05,whole sheet,as recorded,1879,1647,0.9381,10.5923,0.905,3.918,0.858,0.0176,0.8804,0.9116
+06,E recipe without 05,whole sheet,gaps filled,1879,1647,0.901,13.5794,0.895,2.7355,0.794,0.0168,0.9018,0.8884
+06,E recipe without 05,before the crossing,as recorded,299,289,0.9965,7.1997,0.9573,4.3629,0.9109,0.0002,0.7143,
+06,E recipe without 05,before the crossing,gaps filled,299,289,0.9896,8.2804,0.9242,3.7897,0.8533,0.0002,0.7143,
+06,E recipe without 05,loop,as recorded,1270,1124,0.9217,12.683,0.8966,4.1093,0.8578,0.0023,0.8845,
+06,E recipe without 05,loop,gaps filled,1270,1124,0.8835,15.6437,0.8936,2.6378,0.7834,0.005,0.9061,
+06,E recipe without 05,after the loop,as recorded,310,234,0.9444,8.0565,0.8911,2.5278,0.8289,0.1048,0.9143,0.9116
+06,E recipe without 05,after the loop,gaps filled,310,234,0.8761,15.4072,0.8713,2.1074,0.8298,0.0875,0.9429,0.8884
+06,E all sheets,whole sheet,as recorded,1879,1647,0.9447,11.5791,0.9273,4.1487,0.8148,0.0187,0.816,0.9573
+06,E all sheets,whole sheet,gaps filled,1879,1647,0.9199,14.0157,0.9094,3.3243,0.7794,0.0172,0.8282,0.9331
+06,E all sheets,before the crossing,as recorded,299,289,0.9965,7.1934,0.9716,4.4172,0.9157,0.0003,0.7143,
+06,E all sheets,before the crossing,gaps filled,299,289,0.9896,8.626,0.9479,3.6055,0.8883,0.0004,0.7143,
+06,E all sheets,loop,as recorded,1270,1124,0.9297,13.7747,0.9284,4.196,0.7911,0.0022,0.8412,
+06,E all sheets,loop,gaps filled,1270,1124,0.8968,16.2426,0.915,3.226,0.7614,0.0033,0.8592,
+06,E all sheets,after the loop,as recorded,310,234,0.953,10.6311,0.8762,3.6396,0.8646,0.1128,0.6571,0.9573
+06,E all sheets,after the loop,gaps filled,310,234,0.9444,12.9996,0.8416,3.5063,0.8224,0.0977,0.6286,0.9331
+05,E recipe without 06,whole sheet,as recorded,1296,1157,0.9473,10.3822,0.8914,3.4041,0.843,0.0213,0.8468,0.9678
+05,E recipe without 06,whole sheet,dashes cut,1296,1157,0.9179,13.3199,0.8701,2.6219,0.7922,0.0241,0.8723,0.9656
+05,E recipe without 06,before the crossing,as recorded,173,168,1.0,5.6836,0.9204,2.8607,1.0735,0.0,1.0,
+05,E recipe without 06,before the crossing,dashes cut,173,168,0.9881,9.6758,0.8673,2.4586,0.8715,0.0001,0.8333,
+05,E recipe without 06,loop,as recorded,891,802,0.9389,12.4151,0.8924,3.6625,0.808,0.0072,0.8654,
+05,E recipe without 06,loop,dashes cut,891,802,0.8978,15.3696,0.8766,2.6735,0.7674,0.0117,0.899,
+05,E recipe without 06,after the loop,as recorded,232,187,0.9358,10.5526,0.8529,2.4049,0.8265,0.0978,0.619,0.9678
+05,E recipe without 06,after the loop,dashes cut,232,187,0.9412,10.8053,0.8333,2.4836,0.7969,0.0956,0.619,0.9656
+05,"E recipe without 06, seed 2",whole sheet,as recorded,1296,1157,0.9412,10.8414,0.9008,3.4896,0.8744,0.0221,0.8213,0.9737
+05,"E recipe without 06, seed 2",whole sheet,dashes cut,1296,1157,0.9239,11.2504,0.8819,2.1727,0.7973,0.0269,0.817,0.9614
+05,"E recipe without 06, seed 2",before the crossing,as recorded,173,168,1.0,5.1344,0.9292,3.2175,1.0629,0.0001,0.8333,
+05,"E recipe without 06, seed 2",before the crossing,dashes cut,173,168,0.9881,6.2734,0.885,2.1302,0.9275,0.0002,0.6667,
+05,"E recipe without 06, seed 2",loop,as recorded,891,802,0.9302,12.2028,0.9051,3.7084,0.8328,0.0132,0.851,
+05,"E recipe without 06, seed 2",loop,dashes cut,891,802,0.9102,12.8761,0.8845,2.1993,0.7611,0.0209,0.8606,
+05,"E recipe without 06, seed 2",after the loop,as recorded,232,187,0.9358,10.7789,0.8431,2.4349,0.9257,0.0773,0.5238,0.9737
+05,"E recipe without 06, seed 2",after the loop,dashes cut,232,187,0.9251,12.0031,0.8627,2.0544,0.9096,0.0739,0.4286,0.9614
+05,E recipe without 05,whole sheet,as recorded,1296,1157,0.8202,17.7204,0.6564,1.8861,0.7211,0.0437,0.6255,0.585
+05,E recipe without 05,whole sheet,dashes cut,1296,1157,0.8047,20.3658,0.7072,2.0791,0.7839,0.0344,0.4383,0.5849
+05,E recipe without 05,before the crossing,as recorded,173,168,0.9881,7.8729,0.6991,1.9424,0.8149,0.0001,0.8333,
+05,E recipe without 05,before the crossing,dashes cut,173,168,0.9762,9.436,0.8142,2.4049,0.8607,0.0001,0.8333,
+05,E recipe without 05,loop,as recorded,891,802,0.7693,21.8797,0.6297,1.8852,0.6832,0.0575,0.6587,
+05,E recipe without 05,loop,dashes cut,891,802,0.7519,24.535,0.6725,2.0033,0.743,0.0443,0.4471,
+05,E recipe without 05,after the loop,as recorded,232,187,0.8877,15.9299,0.7745,1.8292,0.7885,0.021,0.2381,0.585
+05,E recipe without 05,after the loop,dashes cut,232,187,0.877,16.0725,0.8039,2.1879,0.8479,0.0208,0.2381,0.5849
+05,E all sheets,whole sheet,as recorded,1296,1157,0.9499,10.9492,0.9103,3.5774,0.8756,0.0163,0.817,0.9795
+05,E all sheets,whole sheet,dashes cut,1296,1157,0.917,13.7985,0.8512,2.7337,0.8424,0.0169,0.6894,0.9792
+05,E all sheets,before the crossing,as recorded,173,168,0.994,7.0103,0.9292,3.2461,1.0245,0.0001,1.0,
+05,E all sheets,before the crossing,dashes cut,173,168,0.9881,8.8723,0.8053,2.7237,0.9809,0.0001,0.6667,
+05,E all sheets,loop,as recorded,891,802,0.9401,12.7498,0.9146,3.8399,0.8284,0.0058,0.8413,
+05,E all sheets,loop,dashes cut,891,802,0.899,16.2607,0.8639,2.7726,0.8065,0.0065,0.7212,
+05,E all sheets,after the loop,as recorded,232,187,0.9519,10.0449,0.8627,2.3178,0.9049,0.0736,0.5238,0.9795
+05,E all sheets,after the loop,dashes cut,232,187,0.9305,13.0227,0.8235,2.5037,0.9077,0.0738,0.381,0.9792

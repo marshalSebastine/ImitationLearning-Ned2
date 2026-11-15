@@ -1,0 +1,6 @@
+variant,steps,steps against as recorded,step median cm,share under 0.3 cm,share twists in place,twist median abs deg,twist 99th percentile abs deg,"jumps over 90 deg, all steps","jumps over 90 deg, real moves","jump median, real moves deg",sheet 04: share under 0.3 cm,tip off the hand's path: median mm,tip off the hand's path: 95th percentile mm,tip off the hand's path: largest mm,tip height change: lowest mm,tip height change: highest mm
+as recorded: 1 cm or 5 deg on any joint,15102,1.0,1.05,0.104,0.1,4.92,11.9,0.089,0.05,19.2,0.157,0.0,0.0,0.0,0.0,0.0
+"smoothed over 5 guided points, same cutting",14543,0.96,1.03,0.082,0.079,5.12,10.0,0.017,0.013,12.6,0.142,1.06,3.11,26.9,-7.51,6.67
+"smoothed over 9 guided points, same cutting",13978,0.93,1.02,0.076,0.073,5.16,9.7,0.006,0.005,9.6,0.149,1.94,5.45,31.2,-11.09,7.23
+"not smoothed, 1 cm or 10 deg of forearm twist",12408,0.82,1.14,0.024,0.021,3.87,16.8,0.064,0.053,20.9,0.042,0.0,0.0,0.0,0.0,0.0
+"smoothed over 5 points, 1 cm or 10 deg of forearm twist",11912,0.79,1.13,0.013,0.011,4.15,15.5,0.02,0.017,14.6,0.022,1.06,3.11,26.9,-7.51,6.67

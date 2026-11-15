@@ -1,0 +1,7 @@
+path_03_two_curve_episode_026_plan_03-25_try_2: 106 pictures, offset measured in 98, median size 4.9 mm, 90th percentile 16.5 mm, largest 38.5 mm
+path_03_two_curve_episode_002_plan_03-02_try_1: 130 pictures, offset measured in 118, median size 10.0 mm, 90th percentile 30.3 mm, largest 41.2 mm
+path_03_two_curve_episode_013_plan_03-13_try_1: 106 pictures, offset measured in 99, median size 3.6 mm, 90th percentile 12.0 mm, largest 46.3 mm
+path_03_two_curve_episode_018_plan_03-18_try_1: 119 pictures, offset measured in 117, median size 8.1 mm, 90th percentile 19.6 mm, largest 24.2 mm
+path_03_two_curve_episode_007_plan_03-07_try_1: 140 pictures, offset measured in 139, median size 5.1 mm, 90th percentile 23.2 mm, largest 35.3 mm
+path_03_two_curve_episode_024_plan_03-24_try_1: 26 pictures, offset measured in 25, median size 5.2 mm, 90th percentile 9.8 mm, largest 14.2 mm
+written: demonstration_centring_03.csv (6 episodes, 627 pictures)

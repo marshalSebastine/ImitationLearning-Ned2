@@ -1,0 +1,4 @@
+fold model without path_05: D:\AI_Project\.claude\worktrees\training-analysis\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\checkpoints\without_path_05.pt
+    training pictures 0 of 2672
+2672 demonstration pictures of path_05 and 89 robot pictures (runs [7])
+done after 38 s

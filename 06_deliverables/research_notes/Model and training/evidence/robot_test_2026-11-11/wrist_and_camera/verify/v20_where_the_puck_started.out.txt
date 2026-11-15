@@ -1,0 +1,26 @@
+the puck at the start of the STD start-mark demonstrations (first picture; tip at 14.0, -1.5 cm in all of them):
+             episodes  x_median  x_least  x_most  y_median  y_least  y_most  width_cm
+sheet   end                                                                          
+path_02 A           3      25.2     19.9    25.2       3.2     -0.8     3.6       2.1
+        B           5      22.8     21.4    28.3      -0.5     -1.2     0.9       2.2
+path_03 A           7      16.8     16.1    17.6       0.5     -0.2     1.0       2.0
+        B           5      18.8     18.6    19.2      -0.8     -1.5    -0.8       2.1
+path_04 A           4      19.3     19.1    19.3       0.4      0.2     0.5       2.1
+        B           1      19.1     19.1    19.1      -2.7     -2.7    -2.7       2.0
+path_05 A           1      19.0     19.0    19.0      -3.4     -3.4    -3.4       2.1
+        B           2      20.6     18.4    22.7      -1.8     -2.6    -1.1       1.9
+path_06 A           4      18.8     18.7    19.0      -2.1     -2.5    -2.0       1.7
+        B           3      18.7     17.8    18.9      -2.4     -2.4    -2.1       1.5
+all STD demonstrations: puck x median 19.0 (5th 16.6, 95th 25.8), y median -0.8 (5th -2.6, 95th 1.7) cm; puck width median 2.1 cm (56 px at 640)
+
+the puck in the first picture of each robot run, against the demonstrations of the same sheet (and end, where the plan is known):
+  172021_check_no_puck               puck at  17.4,  -0.6 cm (tip 14.2,  0.1; puck ahead of the tip by 3.3 cm); demonstrations:   nan,   nan; the run's puck lies +nan cm further out and +nan cm to the left (gap nan cm)
+  172421_E_sheet01_run1              puck at  17.5,  -0.5 cm (tip 14.8,  0.1; puck ahead of the tip by 2.8 cm); demonstrations:   nan,   nan; the run's puck lies +nan cm further out and +nan cm to the left (gap nan cm)
+  172743_E_sheet02_run1              puck at  18.8,  -1.5 cm (tip 16.5, -1.4; puck ahead of the tip by 2.4 cm); demonstrations:  24.0,  -0.2; the run's puck lies -5.2 cm further out and -1.4 cm to the left (gap 5.3 cm)
+  173036_E_sheet02_run2              puck at  18.7,   2.0 cm (tip 15.0,  2.2; puck ahead of the tip by 3.7 cm); demonstrations:  22.8,  -0.5; the run's puck lies -4.1 cm further out and +2.5 cm to the left (gap 4.8 cm)
+  173549_E_sheet03_run1              puck not found
+  174108_E_sheet04_run1              puck at  21.1,   1.0 cm (tip 18.2,  1.3; puck ahead of the tip by 2.9 cm); demonstrations:  19.3,   0.4; the run's puck lies +1.8 cm further out and +0.6 cm to the left (gap 1.9 cm)
+  174448_E_sheet05_run1              puck at  18.8,   1.4 cm (tip 15.9,  2.0; puck ahead of the tip by 3.0 cm); demonstrations:  20.6,  -1.8; the run's puck lies -1.7 cm further out and +3.2 cm to the left (gap 3.7 cm)
+  174936_E_sheet06_run1              puck at  19.1,   0.2 cm (tip 16.0,  1.0; puck ahead of the tip by 3.2 cm); demonstrations:  18.8,  -2.1; the run's puck lies +0.3 cm further out and +2.4 cm to the left (gap 2.4 cm)
+  175203_E_sheet03_run2_no_hoodie    puck not found
+  175544_B_team5_sheet03             puck at  19.2,   0.0 cm (tip 15.8,  1.2; puck ahead of the tip by 3.5 cm); demonstrations:  16.8,   0.5; the run's puck lies +2.4 cm further out and -0.5 cm to the left (gap 2.4 cm)

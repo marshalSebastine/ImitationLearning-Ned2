@@ -1,0 +1,23 @@
+episodes in frames.csv: 210; first picture within 0.5 degrees of the stored start joints [-6.06, -41.87, -61.93, 0.0, 13.53, -6.15]: 149
+   their median joints: [-6.06, -41.87, -61.93, 0.01, 13.53, -6.15]; largest difference among them 0.44 degrees
+
+at the stored start joints: tip (14.01, -1.49) cm, lean 0.3 deg; tip 4.9 mm above the taught table plane (the driver's pushing height puts it 5 mm above)
+   today's start check (placed_point_problem): accepted
+   settled with the wrist and hand held: differs from the stored joints by at most 0.05 degrees
+   3 cm above the start: reachable; joints [-6.1, -29.6, -67.4, 0.0, 13.5, -6.1]; tip 35 mm above the table, lean 6.5 deg; clear of a 29 mm puck by 6 mm
+   5 cm above the start: reachable; joints [-6.1, -20.6, -70.7, 0.0, 13.5, -6.1]; tip 55 mm above the table, lean 12.2 deg; clear of a 29 mm puck by 26 mm
+   6 cm above the start: reachable; joints [-6.1, -15.9, -72.2, 0.0, 13.5, -6.1]; tip 65 mm above the table, lean 15.4 deg; clear of a 29 mm puck by 36 mm
+   a first 1 cm step straight ahead from there: accepted
+   recording tool's travel speed 90 % above 4 cm; the driver's moves use the link's default (20 %)
+
+where the ten runs of 11.11 ended (the tip, and the lifted tip the arm would travel back from):
+   2026-11-11_172021_check_no_puck            tip ( 38.7,   -2.5) cm, forearm   -4.4 deg, 24.7 cm from the start; lift of 5 cm reachable
+   2026-11-11_172421_E_sheet01_run1           tip ( 38.8,    0.4) cm, forearm  +12.7 deg, 24.9 cm from the start; lift of 5 cm reachable
+   2026-11-11_172743_E_sheet02_run1           tip ( 37.0,   -4.0) cm, forearm  -15.7 deg, 23.2 cm from the start; lift of 5 cm reachable
+   2026-11-11_173036_E_sheet02_run2           tip ( 35.2,  -15.2) cm, forearm  +86.7 deg, 25.2 cm from the start; lift of 5 cm reachable
+   2026-11-11_173549_E_sheet03_run1           tip ( 28.5,   17.1) cm, forearm   -4.9 deg, 23.6 cm from the start; lift of 5 cm reachable
+   2026-11-11_174108_E_sheet04_run1           tip ( 42.5,    7.3) cm, forearm   +1.1 deg, 29.8 cm from the start; lift of 5 cm reachable
+   2026-11-11_174448_E_sheet05_run1           tip ( 38.5,    0.4) cm, forearm  +57.3 deg, 24.6 cm from the start; lift of 5 cm reachable
+   2026-11-11_174936_E_sheet06_run1           tip ( 24.8,   -9.5) cm, forearm  +93.5 deg, 13.5 cm from the start; lift of 5 cm reachable
+   2026-11-11_175203_E_sheet03_run2_no_hoodie tip ( 36.0,    5.0) cm, forearm  +42.4 deg, 22.9 cm from the start; lift of 5 cm reachable
+   2026-11-11_175544_B_team5_sheet03          tip ( 42.0,    0.5) cm, forearm  +15.7 deg, 28.0 cm from the start; lift of 5 cm reachable

@@ -1,0 +1,39 @@
+sheet 05: 30 episodes, 2672 pictures, 118 s
+line placed per episode (angle and place of the line's middle on the table) and the end the puck travelled from
+('first_end' and 'last_end' are the two ends of the course-photo centre line):
+ plan  kind index_end  pictures  angle_deg  x_cm  y_cm  mirrored  ink_to_line_mm  line_seen  line_on_ink travel_from  mean_beside_cm  other_way_cm  progress_cm  start_from_cm  puck_seen
+05-01   STD         B        99     271.59 29.27  5.90     False            2.59       1.00         1.00    last_end            0.49          0.49         55.3            0.6         99
+05-02   STD         B       124     271.46 29.30  5.89     False            2.59       1.00         1.00    last_end            0.69          0.69         55.6            0.3        124
+05-03   STD         B       110     240.03 27.57 -0.26     False            2.53       1.00         1.00    last_end            0.71          0.71         55.8            0.0        110
+05-04   STD         B       103     239.89 27.38 -0.21     False            2.58       1.00         1.00    last_end            0.94          0.94         54.9            0.3        102
+05-05   STD         B       104     239.85 27.42 -0.22     False            2.56       0.98         1.00    last_end            0.73          0.73         55.0            0.2        104
+05-06   STD         B       114     239.76 27.39 -0.18     False            2.63       1.00         1.00    last_end            0.65          0.65         55.3            0.4        114
+05-07   OL1         B       156     240.39 27.36 -0.18     False            2.67       1.00         1.00    last_end            1.19          1.19         55.8            0.1        155
+05-08   OR1         B       100     240.30 27.40 -0.15     False            2.52       1.00         1.00    last_end            0.60          0.60         55.8            0.2        100
+05-09  TL10         B       123     228.26 30.91 -3.22     False            2.52       1.00         1.00    last_end            0.85          0.85         55.0            0.5        122
+05-10  TR10         B       109     225.79 29.75 -4.06     False            2.49       1.00         1.00    last_end            0.85          0.85         54.4            0.5        109
+05-11    X1         B        94     226.50 29.55 -4.09     False            2.54       1.00         1.00    last_end            1.15          1.16         46.5            8.4         89
+05-12    X1         B       105     226.48 29.61 -4.15     False            2.68       0.95         0.99    last_end            0.53          0.53         46.9            8.3        105
+05-13    X1         B        92     224.75 29.81 -4.25     False            2.87       0.95         0.94    last_end            0.49          0.49         47.3            8.1         92
+05-14   STD         B       111     124.64 32.37  0.29     False            2.45       0.97         1.00   first_end            0.65          0.65         56.5            0.0        111
+05-15   STD         B       124     124.86 32.26  0.30     False            2.44       0.96         1.00   first_end            0.64          0.64         56.4            0.0        124
+05-16   STD         B        13     125.59 32.12  0.39     False            2.63       0.79         1.00   first_end            0.34          0.34          5.7            0.6         13
+05-17   STD         B       100     124.82 32.46  0.32     False            2.48       0.96         1.00   first_end            0.89          0.89         56.2            0.3        100
+05-18   STD         B        99     124.54 32.28  0.29     False            2.44       0.96         1.00   first_end            0.73          0.73         56.1            0.4         99
+05-19   STD         B       119     124.81 32.50  0.35     False            2.49       0.96         1.00   first_end            0.73          0.73         55.9            0.4        119
+05-20 OL1.5         B       122     242.25 29.31  2.78     False            2.56       0.98         1.00    last_end            1.08          1.08         55.0            0.2        122
+05-21 OR1.5         B       113     242.67 29.25  2.76     False            2.44       0.98         1.00    last_end            0.83          0.83         55.3            0.2        113
+05-22  TL15         B       120     220.58 30.04 -0.34     False            2.59       1.00         1.00    last_end            0.81          0.81         55.5            0.3        120
+05-23  TR15         B        87     220.30 29.98 -0.33     False            2.57       1.00         1.00    last_end            0.53          0.53         55.3            0.3         87
+05-24   OL1         B       117     220.43 30.09 -0.39     False            2.57       1.00         1.00    last_end            1.33          1.33         55.2            0.6        117
+05-25    X2         B        17     221.33 29.69 -0.26     False            2.50       0.43         1.00    last_end            0.46          0.46         15.5           39.9         17
+05-26    X2         B        18     221.56 29.61 -0.18     False            2.39       0.43         1.00    last_end            0.25          0.25         16.1           39.5         18
+05-27    X2         B        27     221.49 29.64 -0.18     False            2.55       0.43         1.00    last_end            0.69          0.69         16.2           39.8         27
+05-28    NE         B        18     262.78 36.60 -2.81      True            4.83       0.66         0.61   first_end            2.98          2.98          7.9            7.0         18
+05-29    NE         B        16      90.20 31.26 -4.20     False            2.62       0.52         1.00   first_end            0.26          0.26         14.1           41.7         16
+05-30    NE         B        18     263.92 37.00 -2.73      True            4.50       0.70         0.57   first_end            2.76          2.76          8.4            6.7         18
+
+episodes by the index's start_end and by the travel I measured:
+index_end  travel_from
+B          first_end       9
+           last_end       21

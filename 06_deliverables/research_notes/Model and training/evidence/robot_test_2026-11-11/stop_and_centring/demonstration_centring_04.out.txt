@@ -1,0 +1,7 @@
+path_04_meander_episode_023_plan_04-16_try_1: 172 pictures, offset measured in 162, median size 5.4 mm, 90th percentile 18.2 mm, largest 56.9 mm
+path_04_meander_episode_042_plan_04-34_try_1: 168 pictures, offset measured in 145, median size 9.0 mm, 90th percentile 30.8 mm, largest 46.5 mm
+path_04_meander_episode_011_plan_04-04_try_1: 208 pictures, offset measured in 135, median size 7.5 mm, 90th percentile 19.4 mm, largest 29.3 mm
+path_04_meander_episode_026_plan_04-19_try_1: 175 pictures, offset measured in 152, median size 6.3 mm, 90th percentile 16.0 mm, largest 43.2 mm
+path_04_meander_episode_014_plan_04-07_try_1: 179 pictures, offset measured in 149, median size 4.3 mm, 90th percentile 16.3 mm, largest 26.2 mm
+path_04_meander_episode_034_plan_04-27_try_1: 130 pictures, offset measured in 122, median size 5.8 mm, 90th percentile 24.2 mm, largest 34.4 mm
+written: demonstration_centring_04.csv (6 episodes, 1032 pictures)

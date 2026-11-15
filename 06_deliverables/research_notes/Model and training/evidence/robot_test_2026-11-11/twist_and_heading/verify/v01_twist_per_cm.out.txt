@@ -1,0 +1,21 @@
+cleaned rows 18032 episodes 209 non-stop rows 17773
+
+A. demonstrations: sum|twist| / sum(step length), per episode, median over episodes; and by tip-position path length
+  path_01: episodes 20  median 1.57  pooled 2.21  (from joint-4 and tip positions of consecutive kept rows: median 1.53)
+  path_02: episodes 45  median 2.54  pooled 2.68  (from joint-4 and tip positions of consecutive kept rows: median 2.49)
+  path_03: episodes 45  median 4.64  pooled 4.64  (from joint-4 and tip positions of consecutive kept rows: median 4.69)
+  path_04: episodes 45  median 5.65  pooled 5.51  (from joint-4 and tip positions of consecutive kept rows: median 5.73)
+  path_05: episodes 29  median 3.39  pooled 3.70  (from joint-4 and tip positions of consecutive kept rows: median 3.43)
+  path_06: episodes 25  median 4.42  pooled 4.58  (from joint-4 and tip positions of consecutive kept rows: median 4.49)
+
+B. robot runs: measured |joint-4 change| per cm of measured tip path; clamps; commanded against measured
+  run  1 A path_01: moves 25  path 24.9 cm  median step 1.00 (min 0.96, max 1.02)  twist/cm 1.05  demo 1.57  ratio 0.67  clamped 0  largest |asked twist| 2.8  |used - asked| max 0.000  |measured - used| median 0.08 max 0.30  joint 4 -4.4..9.9
+  run  2 E path_01: moves 24  path 24.2 cm  median step 1.01 (min 0.98, max 1.04)  twist/cm 0.38  demo 1.57  ratio 0.24  clamped 0  largest |asked twist| 1.0  |used - asked| max 0.000  |measured - used| median 0.03 max 0.13  joint 4 6.1..13.7
+  run  3 E path_02: moves 37  path 37.1 cm  median step 1.00 (min 0.98, max 1.04)  twist/cm 2.45  demo 2.54  ratio 0.96  clamped 0  largest |asked twist| 5.3  |used - asked| max 0.001  |measured - used| median 0.10 max 0.21  joint 4 -39.4..-1.0
+  run  4 E path_02: moves 41  path 40.5 cm  median step 0.98 (min 0.94, max 1.02)  twist/cm 2.01  demo 2.54  ratio 0.79  clamped 0  largest |asked twist| 3.9  |used - asked| max 0.000  |measured - used| median 0.06 max 0.22  joint 4 7.6..86.7
+  run  5 E path_03: moves 59  path 59.3 cm  median step 1.01 (min 0.97, max 1.04)  twist/cm 3.16  demo 4.64  ratio 0.68  clamped 0  largest |asked twist| 6.2  |used - asked| max 0.001  |measured - used| median 0.07 max 0.28  joint 4 -71.3..-4.9
+  run  6 E path_04: moves 68  path 67.8 cm  median step 1.00 (min 0.97, max 1.03)  twist/cm 1.38  demo 5.65  ratio 0.24  clamped 0  largest |asked twist| 4.4  |used - asked| max 0.000  |measured - used| median 0.04 max 0.21  joint 4 -12.1..16.8
+  run  7 E path_05: moves 88  path 87.7 cm  median step 1.00 (min 0.96, max 1.05)  twist/cm 2.78  demo 3.39  ratio 0.82  clamped 0  largest |asked twist| 6.3  |used - asked| max 0.001  |measured - used| median 0.08 max 0.53  joint 4 -73.3..57.3
+  run  8 E path_06: moves 40  path 40.0 cm  median step 1.00 (min 0.98, max 1.03)  twist/cm 2.60  demo 4.42  ratio 0.59  clamped 0  largest |asked twist| 6.6  |used - asked| max 0.000  |measured - used| median 0.08 max 0.31  joint 4 6.3..101.5
+  run  9 E path_03: moves 89  path 89.2 cm  median step 1.00 (min 0.97, max 1.03)  twist/cm 3.28  demo 4.64  ratio 0.71  clamped 0  largest |asked twist| 6.3  |used - asked| max 0.000  |measured - used| median 0.10 max 0.32  joint 4 -80.9..60.6
+  run 10 B path_03: moves 73  path 72.4 cm  median step 0.99 (min 0.97, max 1.02)  twist/cm 2.93  demo 4.64  ratio 0.63  clamped 0  largest |asked twist| 7.5  |used - asked| max 0.000  |measured - used| median 0.07 max 0.28  joint 4 -71.4..36.2

@@ -1,0 +1,136 @@
+
+=== A (2026-11-09_resnet18_final_candidate) ===
+scored pictures 13772; path within 45: 0.776; mean of the six sheets 0.792; always forward 0.588
+first 10 kept rows of every episode, by kind of start:
+                      pictures  episodes  path_within_45  always_forward
+start_group                                                             
+puck beside the line       282        35           0.784           0.433
+square landscape            76        10           0.921           0.526
+square portrait             39         6           0.615           0.744
+standard                   639        72           0.991           0.948
+taught                     510        61           0.782           0.790
+turned 10 or 15            228        25           0.991           0.917
+  the six SQP episodes one by one (first 10 rows):
+             pictures  hits  forward_hits
+plan_number                              
+02-13               5     5             5
+02-14               6     5             4
+02-15               9     7             8
+02-16               4     3             4
+02-17               6     1             1
+02-18               9     3             7
+by direction from radial:
+path_from_radial     -150     -120     -90      -60       -30        0         30       60        90       120      150     180
+pictures          884.000  734.000  853.000  904.000  1301.000  2950.000  1637.000  894.000  1129.000  814.000  762.000  910.00
+path_within_45      0.705    0.657    0.742    0.791     0.816     0.854     0.859    0.757     0.741    0.700    0.714    0.68
+always_forward      0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.00
+by reach:
+reach_cm        (12.0, 20.0]  (20.0, 27.5]  (27.5, 35.0]  (35.0, 42.5]  (42.5, 49.5]
+pictures            1383.000      3660.000      4654.000      3754.000       321.000
+path_within_45         0.905         0.802         0.758         0.738         0.629
+always_forward         0.759         0.668         0.550         0.511         0.380
+by reach, only paths within 45 degrees of straight away: {Interval(12.0, 20.0, closed='right'): 0.948, Interval(20.0, 27.5, closed='right'): 0.827, Interval(27.5, 35.0, closed='right'): 0.841, Interval(35.0, 42.5, closed='right'): 0.802, Interval(42.5, 49.5, closed='right'): 0.605}
+by reach, only paths back towards the base (beyond 135): {Interval(12.0, 20.0, closed='right'): 0.463, Interval(20.0, 27.5, closed='right'): 0.683, Interval(27.5, 35.0, closed='right'): 0.776, Interval(35.0, 42.5, closed='right'): 0.667, Interval(42.5, 49.5, closed='right'): 0.356}
+by reach, without the first 10 rows of every episode: {'size': {Interval(12.0, 20.0, closed='right'): 402, Interval(20.0, 27.5, closed='right'): 3294, Interval(27.5, 35.0, closed='right'): 4448, Interval(35.0, 42.5, closed='right'): 3533, Interval(42.5, 49.5, closed='right'): 321}, 'mean': {Interval(12.0, 20.0, closed='right'): 0.866, Interval(20.0, 27.5, closed='right'): 0.794, Interval(27.5, 35.0, closed='right'): 0.759, Interval(35.0, 42.5, closed='right'): 0.729, Interval(42.5, 49.5, closed='right'): 0.629}}
+
+=== A seed 2 (2026-11-09_resnet18_final_candidate_seed_2) ===
+scored pictures 13772; path within 45: 0.768; mean of the six sheets 0.778; always forward 0.588
+first 10 kept rows of every episode, by kind of start:
+                      pictures  episodes  path_within_45  always_forward
+start_group                                                             
+puck beside the line       282        35           0.830           0.433
+square landscape            76        10           0.895           0.526
+square portrait             39         6           0.718           0.744
+standard                   639        72           0.989           0.948
+taught                     510        61           0.755           0.790
+turned 10 or 15            228        25           0.965           0.917
+  the six SQP episodes one by one (first 10 rows):
+             pictures  hits  forward_hits
+plan_number                              
+02-13               5     5             5
+02-14               6     6             4
+02-15               9     8             8
+02-16               4     3             4
+02-17               6     2             1
+02-18               9     4             7
+by direction from radial:
+path_from_radial     -150     -120     -90      -60       -30        0         30       60        90       120      150      180
+pictures          884.000  734.000  853.000  904.000  1301.000  2950.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45      0.661    0.634    0.701    0.758     0.813     0.866     0.868    0.777     0.711    0.697    0.723    0.647
+always_forward      0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+by reach:
+reach_cm        (12.0, 20.0]  (20.0, 27.5]  (27.5, 35.0]  (35.0, 42.5]  (42.5, 49.5]
+pictures            1383.000      3660.000      4654.000      3754.000       321.000
+path_within_45         0.906         0.779         0.765         0.726         0.564
+always_forward         0.759         0.668         0.550         0.511         0.380
+by reach, only paths within 45 degrees of straight away: {Interval(12.0, 20.0, closed='right'): 0.951, Interval(20.0, 27.5, closed='right'): 0.845, Interval(27.5, 35.0, closed='right'): 0.847, Interval(35.0, 42.5, closed='right'): 0.803, Interval(42.5, 49.5, closed='right'): 0.553}
+by reach, only paths back towards the base (beyond 135): {Interval(12.0, 20.0, closed='right'): 0.612, Interval(20.0, 27.5, closed='right'): 0.644, Interval(27.5, 35.0, closed='right'): 0.74, Interval(35.0, 42.5, closed='right'): 0.646, Interval(42.5, 49.5, closed='right'): 0.375}
+by reach, without the first 10 rows of every episode: {'size': {Interval(12.0, 20.0, closed='right'): 402, Interval(20.0, 27.5, closed='right'): 3294, Interval(27.5, 35.0, closed='right'): 4448, Interval(35.0, 42.5, closed='right'): 3533, Interval(42.5, 49.5, closed='right'): 321}, 'mean': {Interval(12.0, 20.0, closed='right'): 0.858, Interval(20.0, 27.5, closed='right'): 0.767, Interval(27.5, 35.0, closed='right'): 0.766, Interval(35.0, 42.5, closed='right'): 0.72, Interval(42.5, 49.5, closed='right'): 0.564}}
+
+=== E (2026-11-10_resnet18_chunk_stop_weight_25) ===
+scored pictures 13772; path within 45: 0.805; mean of the six sheets 0.814; always forward 0.588
+first 10 kept rows of every episode, by kind of start:
+                      pictures  episodes  path_within_45  always_forward
+start_group                                                             
+puck beside the line       282        35           0.837           0.433
+square landscape            76        10           0.947           0.526
+square portrait             39         6           0.718           0.744
+standard                   639        72           0.994           0.948
+taught                     510        61           0.818           0.790
+turned 10 or 15            228        25           1.000           0.917
+  the six SQP episodes one by one (first 10 rows):
+             pictures  hits  forward_hits
+plan_number                              
+02-13               5     5             5
+02-14               6     6             4
+02-15               9     5             8
+02-16               4     4             4
+02-17               6     2             1
+02-18               9     6             7
+by direction from radial:
+path_from_radial     -150     -120     -90      -60       -30        0         30       60        90       120      150      180
+pictures          884.000  734.000  853.000  904.000  1301.000  2950.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45      0.766    0.736    0.749    0.796     0.849     0.888     0.878    0.772     0.738    0.716    0.751    0.737
+always_forward      0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+by reach:
+reach_cm        (12.0, 20.0]  (20.0, 27.5]  (27.5, 35.0]  (35.0, 42.5]  (42.5, 49.5]
+pictures            1383.000      3660.000      4654.000      3754.000        321.00
+path_within_45         0.939         0.833         0.793         0.760          0.62
+always_forward         0.759         0.668         0.550         0.511          0.38
+by reach, only paths within 45 degrees of straight away: {Interval(12.0, 20.0, closed='right'): 0.967, Interval(20.0, 27.5, closed='right'): 0.874, Interval(27.5, 35.0, closed='right'): 0.861, Interval(35.0, 42.5, closed='right'): 0.832, Interval(42.5, 49.5, closed='right'): 0.605}
+by reach, only paths back towards the base (beyond 135): {Interval(12.0, 20.0, closed='right'): 0.701, Interval(20.0, 27.5, closed='right'): 0.748, Interval(27.5, 35.0, closed='right'): 0.822, Interval(35.0, 42.5, closed='right'): 0.71, Interval(42.5, 49.5, closed='right'): 0.375}
+by reach, without the first 10 rows of every episode: {'size': {Interval(12.0, 20.0, closed='right'): 402, Interval(20.0, 27.5, closed='right'): 3294, Interval(27.5, 35.0, closed='right'): 4448, Interval(35.0, 42.5, closed='right'): 3533, Interval(42.5, 49.5, closed='right'): 321}, 'mean': {Interval(12.0, 20.0, closed='right'): 0.92, Interval(20.0, 27.5, closed='right'): 0.824, Interval(27.5, 35.0, closed='right'): 0.792, Interval(35.0, 42.5, closed='right'): 0.755, Interval(42.5, 49.5, closed='right'): 0.62}}
+
+=== E seed 2 (2026-11-10_resnet18_chunk_stop_weight_25_seed_2) ===
+scored pictures 13772; path within 45: 0.799; mean of the six sheets 0.806; always forward 0.588
+first 10 kept rows of every episode, by kind of start:
+                      pictures  episodes  path_within_45  always_forward
+start_group                                                             
+puck beside the line       282        35           0.851           0.433
+square landscape            76        10           0.908           0.526
+square portrait             39         6           0.718           0.744
+standard                   639        72           0.994           0.948
+taught                     510        61           0.751           0.790
+turned 10 or 15            228        25           0.987           0.917
+  the six SQP episodes one by one (first 10 rows):
+             pictures  hits  forward_hits
+plan_number                              
+02-13               5     5             5
+02-14               6     6             4
+02-15               9     8             8
+02-16               4     4             4
+02-17               6     1             1
+02-18               9     4             7
+by direction from radial:
+path_from_radial     -150     -120     -90      -60       -30        0         30       60        90       120      150      180
+pictures          884.000  734.000  853.000  904.000  1301.000  2950.000  1637.000  894.000  1129.000  814.000  762.000  910.000
+path_within_45      0.730    0.698    0.748    0.793     0.825     0.883     0.869    0.787     0.751    0.705    0.774    0.745
+always_forward      0.083    0.263    0.637    0.795     0.797     0.886     0.841    0.694     0.609    0.271    0.016    0.000
+by reach:
+reach_cm        (12.0, 20.0]  (20.0, 27.5]  (27.5, 35.0]  (35.0, 42.5]  (42.5, 49.5]
+pictures            1383.000      3660.000      4654.000      3754.000       321.000
+path_within_45         0.934         0.844         0.783         0.742         0.598
+always_forward         0.759         0.668         0.550         0.511         0.380
+by reach, only paths within 45 degrees of straight away: {Interval(12.0, 20.0, closed='right'): 0.966, Interval(20.0, 27.5, closed='right'): 0.874, Interval(27.5, 35.0, closed='right'): 0.842, Interval(35.0, 42.5, closed='right'): 0.812, Interval(42.5, 49.5, closed='right'): 0.5}
+by reach, only paths back towards the base (beyond 135): {Interval(12.0, 20.0, closed='right'): 0.731, Interval(20.0, 27.5, closed='right'): 0.748, Interval(27.5, 35.0, closed='right'): 0.814, Interval(35.0, 42.5, closed='right'): 0.708, Interval(42.5, 49.5, closed='right'): 0.385}
+by reach, without the first 10 rows of every episode: {'size': {Interval(12.0, 20.0, closed='right'): 402, Interval(20.0, 27.5, closed='right'): 3294, Interval(27.5, 35.0, closed='right'): 4448, Interval(35.0, 42.5, closed='right'): 3533, Interval(42.5, 49.5, closed='right'): 321}, 'mean': {Interval(12.0, 20.0, closed='right'): 0.918, Interval(20.0, 27.5, closed='right'): 0.838, Interval(27.5, 35.0, closed='right'): 0.784, Interval(35.0, 42.5, closed='right'): 0.74, Interval(42.5, 49.5, closed='right'): 0.598}}

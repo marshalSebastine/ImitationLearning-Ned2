@@ -1,0 +1,103 @@
+﻿
+######## stop.json: top-level type dict
+
+== classes_stop_as_class (stop_target stop_row, design classes)
+   without_path_01: right=0.5263 early=0.0526 never_stopped=0.3684 tuned_two_right=0.6316 tuned_two_early=0.1579 tuned_two_never_stopped=0.1579 tuned_two_stop_threshold=0.1 within_45_deg=0.7557 test_episodes=19
+   without_path_02: right=0.1591 early=0.3182 never_stopped=0.5227 tuned_two_right=0.1136 tuned_two_early=0.4773 tuned_two_never_stopped=0.3409 tuned_two_stop_threshold=0.15 within_45_deg=0.5299 test_episodes=44
+   without_path_03: right=0.3778 early=0.0 never_stopped=0.5333 tuned_two_right=0.4667 tuned_two_early=0.3778 tuned_two_never_stopped=0.0889 tuned_two_stop_threshold=0.05 within_45_deg=0.5651 test_episodes=45
+   without_path_04: right=0.3778 early=0.1333 never_stopped=0.4444 tuned_two_right=0.3778 tuned_two_early=0.3778 tuned_two_never_stopped=0.1333 tuned_two_stop_threshold=0.05 within_45_deg=0.5595 test_episodes=45
+   without_path_05: right=0.0667 early=0.1667 never_stopped=0.7667 tuned_two_right=0.0333 tuned_two_early=0.1333 tuned_two_never_stopped=0.8333 tuned_two_stop_threshold=0.3 within_45_deg=0.5832 test_episodes=30
+   without_path_06: right=0.04 early=0.0 never_stopped=0.96 tuned_two_right=0.28 tuned_two_early=0.12 tuned_two_never_stopped=0.56 tuned_two_stop_threshold=0.15 within_45_deg=0.4671 test_episodes=25
+   pooled episode counts: right=54 early=26 never_stopped=121 tuned_two_right=63 tuned_two_early=65 tuned_two_never_stopped=67 episodes=208
+
+== classes_stop_head_on_stop_picture (stop_target stop_row, design classes)
+   without_path_01: right=0.5263 early=0.1053 never_stopped=0.3684 tuned_two_right=0.6842 tuned_two_early=0.1579 tuned_two_never_stopped=0.1579 tuned_two_stop_threshold=0.15 within_45_deg=0.7223 test_episodes=19
+   without_path_02: right=0.2045 early=0.4773 never_stopped=0.25 tuned_two_right=0.2273 tuned_two_early=0.3182 tuned_two_never_stopped=0.4091 tuned_two_stop_threshold=0.5 within_45_deg=0.5371 test_episodes=44
+   without_path_03: right=0.4 early=0.0889 never_stopped=0.4667 tuned_two_right=0.5556 tuned_two_early=0.2222 tuned_two_never_stopped=0.1556 tuned_two_stop_threshold=0.1 within_45_deg=0.5636 test_episodes=45
+   without_path_04: right=0.4 early=0.1778 never_stopped=0.3333 tuned_two_right=0.3556 tuned_two_early=0.4 tuned_two_never_stopped=0.0889 tuned_two_stop_threshold=0.15 within_45_deg=0.5578 test_episodes=45
+   without_path_05: right=0.2333 early=0.3667 never_stopped=0.4 tuned_two_right=0.2667 tuned_two_early=0.2333 tuned_two_never_stopped=0.5 tuned_two_stop_threshold=0.4 within_45_deg=0.5524 test_episodes=30
+   without_path_06: right=0.16 early=0.04 never_stopped=0.8 tuned_two_right=0.2 tuned_two_early=0.2 tuned_two_never_stopped=0.6 tuned_two_stop_threshold=0.2 within_45_deg=0.4312 test_episodes=25
+   pooled episode counts: right=66 early=47 never_stopped=86 tuned_two_right=77 tuned_two_early=57 tuned_two_never_stopped=62 episodes=208
+
+== classes_stop_head_on_near_goal (stop_target at_goal, design classes)
+   without_path_01: right=0.0 early=0.9474 never_stopped=0.0526 tuned_two_right=0.4211 tuned_two_early=0.1579 tuned_two_never_stopped=0.2632 tuned_two_stop_threshold=0.8 within_45_deg=0.7522 test_episodes=19
+   without_path_02: right=0.2273 early=0.5455 never_stopped=0.1591 tuned_two_right=0.1818 tuned_two_early=0.1364 tuned_two_never_stopped=0.6364 tuned_two_stop_threshold=0.9 within_45_deg=0.5274 test_episodes=44
+   without_path_03: right=0.2 early=0.4889 never_stopped=0.0222 tuned_two_right=0.6222 tuned_two_early=0.2 tuned_two_never_stopped=0.0444 tuned_two_stop_threshold=0.7 within_45_deg=0.5619 test_episodes=45
+   without_path_04: right=0.2889 early=0.4889 never_stopped=0.0222 tuned_two_right=0.4444 tuned_two_early=0.2667 tuned_two_never_stopped=0.1111 tuned_two_stop_threshold=0.6 within_45_deg=0.569 test_episodes=45
+   without_path_05: right=0.0333 early=0.8 never_stopped=0.1667 tuned_two_right=0.0667 tuned_two_early=0.3667 tuned_two_never_stopped=0.5667 tuned_two_stop_threshold=0.9 within_45_deg=0.584 test_episodes=30
+   without_path_06: right=0.08 early=0.68 never_stopped=0.12 tuned_two_right=0.24 tuned_two_early=0.16 tuned_two_never_stopped=0.6 tuned_two_stop_threshold=0.8 within_45_deg=0.4306 test_episodes=25
+   pooled episode counts: right=35 early=127 never_stopped=18 tuned_two_right=72 tuned_two_early=45 tuned_two_never_stopped=72 episodes=208
+
+== exact_stop_head_on_stop_picture (stop_target stop_row, design exact)
+   without_path_01: right=0.4737 early=0.1053 never_stopped=0.4211 tuned_two_right=0.4211 tuned_two_early=0.3158 tuned_two_never_stopped=0.2632 tuned_two_stop_threshold=0.2 within_45_deg=0.7469 test_episodes=19
+   without_path_02: right=0.2273 early=0.2727 never_stopped=0.4091 tuned_two_right=0.2045 tuned_two_early=0.4545 tuned_two_never_stopped=0.2727 tuned_two_stop_threshold=0.15 within_45_deg=0.5835 test_episodes=44
+   without_path_03: right=0.3111 early=0.1111 never_stopped=0.5333 tuned_two_right=0.3556 tuned_two_early=0.1111 tuned_two_never_stopped=0.4889 tuned_two_stop_threshold=0.2 within_45_deg=0.6238 test_episodes=45
+   without_path_04: right=0.3111 early=0.5333 never_stopped=0.0667 tuned_two_right=0.0889 tuned_two_early=0.6889 tuned_two_never_stopped=0.0222 tuned_two_stop_threshold=0.05 within_45_deg=0.5481 test_episodes=45
+   without_path_05: right=0.1 early=0.2333 never_stopped=0.6667 tuned_two_right=0.1333 tuned_two_early=0.4333 tuned_two_never_stopped=0.4333 tuned_two_stop_threshold=0.15 within_45_deg=0.5633 test_episodes=30
+   without_path_06: right=0.32 early=0.2 never_stopped=0.48 tuned_two_right=0.12 tuned_two_early=0.48 tuned_two_never_stopped=0.32 tuned_two_stop_threshold=0.1 within_45_deg=0.4831 test_episodes=25
+   pooled episode counts: right=58 early=55 never_stopped=85 tuned_two_right=44 tuned_two_early=87 tuned_two_never_stopped=61 episodes=208
+
+== exact_stop_head_on_near_goal (stop_target at_goal, design exact)
+   without_path_01: right=0.1579 early=0.7368 never_stopped=0.0526 tuned_two_right=0.5789 tuned_two_early=0.1053 tuned_two_never_stopped=0.2105 tuned_two_stop_threshold=0.8 within_45_deg=0.7663 test_episodes=19
+   without_path_02: right=0.2273 early=0.3409 never_stopped=0.3182 tuned_two_right=0.2045 tuned_two_early=0.2045 tuned_two_never_stopped=0.4773 tuned_two_stop_threshold=0.5 within_45_deg=0.5734 test_episodes=44
+   without_path_03: right=0.2 early=0.4889 never_stopped=0.0 tuned_two_right=0.4889 tuned_two_early=0.3111 tuned_two_never_stopped=0.0444 tuned_two_stop_threshold=0.7 within_45_deg=0.5975 test_episodes=45
+   without_path_04: right=0.2444 early=0.4667 never_stopped=0.0222 tuned_two_right=0.3778 tuned_two_early=0.4 tuned_two_never_stopped=0.0222 tuned_two_stop_threshold=0.4 within_45_deg=0.5183 test_episodes=45
+   without_path_05: right=0.0667 early=0.8 never_stopped=0.1333 tuned_two_right=0.1 tuned_two_early=0.6333 tuned_two_never_stopped=0.2667 tuned_two_stop_threshold=0.8 within_45_deg=0.5743 test_episodes=30
+   without_path_06: right=0.16 early=0.24 never_stopped=0.52 tuned_two_right=0.16 tuned_two_early=0.0 tuned_two_never_stopped=0.84 tuned_two_stop_threshold=0.8 within_45_deg=0.4655 test_episodes=25
+   pooled episode counts: right=39 early=102 never_stopped=33 tuned_two_right=66 tuned_two_early=62 tuned_two_never_stopped=57 episodes=208
+
+######## designs.json: top-level type dict
+
+== classes_small_motion_dropped (stop_target stop_row, design classes)
+   without_path_01: right=0.2632 early=0.0 never_stopped=0.7368 tuned_two_right=0.4211 tuned_two_early=0.1053 tuned_two_never_stopped=0.4737 tuned_two_stop_threshold=0.15 within_45_deg=0.7311 test_episodes=19
+   without_path_02: right=0.2273 early=0.0909 never_stopped=0.6136 tuned_two_right=0.25 tuned_two_early=0.1818 tuned_two_never_stopped=0.4773 tuned_two_stop_threshold=0.15 within_45_deg=0.5017 test_episodes=44
+   without_path_03: right=0.2222 early=0.0 never_stopped=0.7333 tuned_two_right=0.5778 tuned_two_early=0.1333 tuned_two_never_stopped=0.2667 tuned_two_stop_threshold=0.05 within_45_deg=0.5885 test_episodes=45
+   without_path_04: right=0.3111 early=0.0667 never_stopped=0.6 tuned_two_right=0.3333 tuned_two_early=0.3556 tuned_two_never_stopped=0.1333 tuned_two_stop_threshold=0.05 within_45_deg=0.5545 test_episodes=45
+   without_path_05: right=0.0667 early=0.1667 never_stopped=0.7667 tuned_two_right=0.1 tuned_two_early=0.6667 tuned_two_never_stopped=0.2 tuned_two_stop_threshold=0.05 within_45_deg=0.5581 test_episodes=30
+   without_path_06: right=0.0 early=0.0 never_stopped=1.0 tuned_two_right=0.16 tuned_two_early=0.36 tuned_two_never_stopped=0.48 tuned_two_stop_threshold=0.1 within_45_deg=0.4279 test_episodes=25
+   pooled episode counts: right=41 early=12 never_stopped=149 tuned_two_right=67 tuned_two_early=61 tuned_two_never_stopped=66 episodes=208
+
+== classes_small_motion_next_move (stop_target stop_row, design classes)
+   without_path_01: right=0.5263 early=0.0526 never_stopped=0.3684 tuned_two_right=0.6316 tuned_two_early=0.1579 tuned_two_never_stopped=0.1579 tuned_two_stop_threshold=0.1 within_45_deg=0.7557 test_episodes=19
+   without_path_02: right=0.1591 early=0.3182 never_stopped=0.5227 tuned_two_right=0.1136 tuned_two_early=0.4773 tuned_two_never_stopped=0.3409 tuned_two_stop_threshold=0.15 within_45_deg=0.5299 test_episodes=44
+   without_path_03: right=0.3778 early=0.0 never_stopped=0.5333 tuned_two_right=0.4667 tuned_two_early=0.3778 tuned_two_never_stopped=0.0889 tuned_two_stop_threshold=0.05 within_45_deg=0.5651 test_episodes=45
+   without_path_04: right=0.3778 early=0.1333 never_stopped=0.4444 tuned_two_right=0.3778 tuned_two_early=0.3778 tuned_two_never_stopped=0.1333 tuned_two_stop_threshold=0.05 within_45_deg=0.5595 test_episodes=45
+   without_path_05: right=0.0667 early=0.1667 never_stopped=0.7667 tuned_two_right=0.0333 tuned_two_early=0.1333 tuned_two_never_stopped=0.8333 tuned_two_stop_threshold=0.3 within_45_deg=0.5832 test_episodes=30
+   without_path_06: right=0.04 early=0.0 never_stopped=0.96 tuned_two_right=0.28 tuned_two_early=0.12 tuned_two_never_stopped=0.56 tuned_two_stop_threshold=0.15 within_45_deg=0.4671 test_episodes=25
+   pooled episode counts: right=54 early=26 never_stopped=121 tuned_two_right=63 tuned_two_early=65 tuned_two_never_stopped=67 episodes=208
+
+== classes_small_motion_own_class (stop_target stop_row, design classes)
+   without_path_01: right=0.5263 early=0.1053 never_stopped=0.2632 tuned_two_right=0.2105 tuned_two_early=0.4211 tuned_two_never_stopped=0.1053 tuned_two_stop_threshold=0.05 within_45_deg=0.7399 test_episodes=19
+   without_path_02: right=0.2045 early=0.2045 never_stopped=0.5227 tuned_two_right=0.2273 tuned_two_early=0.1818 tuned_two_never_stopped=0.4773 tuned_two_stop_threshold=0.3 within_45_deg=0.5291 test_episodes=44
+   without_path_03: right=0.2444 early=0.0 never_stopped=0.7333 tuned_two_right=0.3778 tuned_two_early=0.0889 tuned_two_never_stopped=0.4889 tuned_two_stop_threshold=0.15 within_45_deg=0.5697 test_episodes=45
+   without_path_04: right=0.2 early=0.0444 never_stopped=0.7556 tuned_two_right=0.3333 tuned_two_early=0.2889 tuned_two_never_stopped=0.2444 tuned_two_stop_threshold=0.05 within_45_deg=0.5513 test_episodes=45
+   without_path_05: right=0.0667 early=0.0 never_stopped=0.9333 tuned_two_right=0.3667 tuned_two_early=0.2 tuned_two_never_stopped=0.4333 tuned_two_stop_threshold=0.1 within_45_deg=0.5427 test_episodes=30
+   without_path_06: right=0.0 early=0.0 never_stopped=1.0 tuned_two_right=0.2 tuned_two_early=0.44 tuned_two_never_stopped=0.32 tuned_two_stop_threshold=0.05 within_45_deg=0.4295 test_episodes=25
+   pooled episode counts: right=41 early=13 never_stopped=148 tuned_two_right=62 tuned_two_early=50 tuned_two_never_stopped=77 episodes=208
+
+== exact_step (stop_target stop_row, design exact)
+   without_path_01: right=0.4737 early=0.1053 never_stopped=0.4211 tuned_two_right=0.4211 tuned_two_early=0.3158 tuned_two_never_stopped=0.2632 tuned_two_stop_threshold=0.2 within_45_deg=0.7469 test_episodes=19
+   without_path_02: right=0.2273 early=0.2727 never_stopped=0.4091 tuned_two_right=0.2045 tuned_two_early=0.4545 tuned_two_never_stopped=0.2727 tuned_two_stop_threshold=0.15 within_45_deg=0.5835 test_episodes=44
+   without_path_03: right=0.3111 early=0.1111 never_stopped=0.5333 tuned_two_right=0.3556 tuned_two_early=0.1111 tuned_two_never_stopped=0.4889 tuned_two_stop_threshold=0.2 within_45_deg=0.6238 test_episodes=45
+   without_path_04: right=0.3111 early=0.5333 never_stopped=0.0667 tuned_two_right=0.0889 tuned_two_early=0.6889 tuned_two_never_stopped=0.0222 tuned_two_stop_threshold=0.05 within_45_deg=0.5481 test_episodes=45
+   without_path_05: right=0.1 early=0.2333 never_stopped=0.6667 tuned_two_right=0.1333 tuned_two_early=0.4333 tuned_two_never_stopped=0.4333 tuned_two_stop_threshold=0.15 within_45_deg=0.5633 test_episodes=30
+   without_path_06: right=0.32 early=0.2 never_stopped=0.48 tuned_two_right=0.12 tuned_two_early=0.48 tuned_two_never_stopped=0.32 tuned_two_stop_threshold=0.1 within_45_deg=0.4831 test_episodes=25
+   pooled episode counts: right=58 early=55 never_stopped=85 tuned_two_right=44 tuned_two_early=87 tuned_two_never_stopped=61 episodes=208
+
+== mixed_classes_and_exact (stop_target stop_row, design mixed)
+   without_path_01: right=0.2632 early=0.0 never_stopped=0.7368 tuned_two_right=0.5789 tuned_two_early=0.0526 tuned_two_never_stopped=0.3684 tuned_two_stop_threshold=0.15 within_45_deg=0.7575 test_episodes=19
+   without_path_02: right=0.2273 early=0.1364 never_stopped=0.5227 tuned_two_right=0.1136 tuned_two_early=0.7273 tuned_two_never_stopped=0.0909 tuned_two_stop_threshold=0.1 within_45_deg=0.5299 test_episodes=44
+   without_path_03: right=0.2889 early=0.0 never_stopped=0.6444 tuned_two_right=0.3111 tuned_two_early=0.0667 tuned_two_never_stopped=0.5778 tuned_two_stop_threshold=0.2 within_45_deg=0.5471 test_episodes=45
+   without_path_04: right=0.4444 early=0.1556 never_stopped=0.3333 tuned_two_right=0.2889 tuned_two_early=0.4444 tuned_two_never_stopped=0.0444 tuned_two_stop_threshold=0.1 within_45_deg=0.5424 test_episodes=45
+   without_path_05: right=0.1 early=0.0667 never_stopped=0.8333 tuned_two_right=0.1667 tuned_two_early=0.3667 tuned_two_never_stopped=0.4667 tuned_two_stop_threshold=0.1 within_45_deg=0.5528 test_episodes=30
+   without_path_06: right=0.08 early=0.0 never_stopped=0.92 tuned_two_right=0.24 tuned_two_early=0.2 tuned_two_never_stopped=0.48 tuned_two_stop_threshold=0.15 within_45_deg=0.4583 test_episodes=25
+   pooled episode counts: right=53 early=15 never_stopped=129 tuned_two_right=54 tuned_two_early=72 tuned_two_never_stopped=65 episodes=208
+
+== chunk_of_5_steps (stop_target stop_row, design chunk)
+   without_path_01: right=0.5789 early=0.0526 never_stopped=0.3158 tuned_two_right=0.6842 tuned_two_early=0.0526 tuned_two_never_stopped=0.1579 tuned_two_stop_threshold=0.15 within_45_deg=0.7768 test_episodes=19
+   without_path_02: right=0.2045 early=0.2955 never_stopped=0.3182 tuned_two_right=0.2045 tuned_two_early=0.1818 tuned_two_never_stopped=0.4318 tuned_two_stop_threshold=0.4 within_45_deg=0.5797 test_episodes=44
+   without_path_03: right=0.5111 early=0.1333 never_stopped=0.3111 tuned_two_right=0.4444 tuned_two_early=0.0667 tuned_two_never_stopped=0.4444 tuned_two_stop_threshold=0.4 within_45_deg=0.6191 test_episodes=45
+   without_path_04: right=0.2667 early=0.3556 never_stopped=0.2444 tuned_two_right=0.2222 tuned_two_early=0.5333 tuned_two_never_stopped=0.0667 tuned_two_stop_threshold=0.15 within_45_deg=0.5532 test_episodes=45
+   without_path_05: right=0.0 early=0.4667 never_stopped=0.5333 tuned_two_right=0.0333 tuned_two_early=0.7333 tuned_two_never_stopped=0.2333 tuned_two_stop_threshold=0.15 within_45_deg=0.5779 test_episodes=30
+   without_path_06: right=0.24 early=0.28 never_stopped=0.48 tuned_two_right=0.2 tuned_two_early=0.48 tuned_two_never_stopped=0.32 tuned_two_stop_threshold=0.15 within_45_deg=0.5357 test_episodes=25
+   pooled episode counts: right=61 early=57 never_stopped=73 tuned_two_right=58 tuned_two_early=70 tuned_two_never_stopped=60 episodes=208

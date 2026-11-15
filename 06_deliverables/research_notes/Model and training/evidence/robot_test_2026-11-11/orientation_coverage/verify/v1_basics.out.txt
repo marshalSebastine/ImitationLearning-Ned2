@@ -1,0 +1,105 @@
+rows 18032 episodes 209
+
+1. episodes per start kind:
+start_kind
+STD      72
+NE       42
+OL1      10
+SQL      10
+MID      10
+OR1       9
+OL1.5     8
+OR1.5     8
+TR10      7
+TL10      7
+TL15      6
+SQP       6
+X1        6
+TR15      5
+X2        3
+pictures per start kind:
+start_kind
+STD      7756
+OL1      1314
+OR1      1129
+MID      1003
+TR10      909
+TL10      831
+OR1.5     814
+OL1.5     810
+NE        805
+SQL       644
+TL15      576
+X1        519
+SQP       437
+TR15      427
+X2         58
+offset starts 35 turned starts 25
+
+SQP episodes: plan, start_end (after cleaning), plan_end:
+     plan_number start_end plan_end                   sheet_orientation
+1435       02-13         B        A  plan 02-13, end A, SQP, START MARK
+1499       02-14         B        A  plan 02-14, end A, SQP, START MARK
+1578       02-15         B        A  plan 02-15, end A, SQP, START MARK
+1643       02-16         B        B  plan 02-16, end B, SQP, START MARK
+1717       02-17         B        B  plan 02-17, end B, SQP, START MARK
+1809       02-18         B        B  plan 02-18, end B, SQP, START MARK
+SQL episodes:
+     plan_number start_end plan_end                   sheet_orientation
+2670       02-36         A        A  plan 02-36, end A, SQL, START MARK
+2744       02-37         A        A  plan 02-37, end A, SQL, START MARK
+2789       02-38         A        A  plan 02-38, end A, SQL, START MARK
+2851       02-39         A        A  plan 02-39, end A, SQL, START MARK
+2902       02-40         A        A  plan 02-40, end A, SQL, START MARK
+2976       02-41         B        B  plan 02-41, end B, SQL, START MARK
+3033       02-42         B        B  plan 02-42, end B, SQL, START MARK
+3102       02-43         B        B  plan 02-43, end B, SQL, START MARK
+3201       02-44         B        B  plan 02-44, end B, SQL, START MARK
+3260       02-45         B        B  plan 02-45, end B, SQL, START MARK
+
+2. start-mark episodes: 148  taught: 61
+  start mark: tip x 14.00 to 14.82 (median 14.02), tip y -1.50 to -0.83 (median -1.49), reach 14.1 to 14.8, joint 4 -0.7 to 1.5, |joint 4| > 10 in 0
+  taught: tip x 15.97 to 37.17 (median 30.64), tip y -17.63 to 12.33 (median -4.50), reach 16.0 to 37.7, joint 4 -88.6 to 70.0, |joint 4| > 10 in 33
+  raw row 0 of the same start-mark episodes: tip x 14.00 to 14.06, tip y -1.49 to -1.48, joint 4 -0.2 to 0.1
+  start-mark episodes whose first kept tip x differs from 14.0 by more than 0.3 cm:
+    plan_number start_kind  tip_x_m  tip_y_m  row_in_episode
+434       01-14        STD  0.14823 -0.00825               2
+
+3. joint 4: min -119.3, max 118.9, median |j4| 46.5, beyond 60: 36.5 %, beyond 90: 10.3 %, beyond 110: 2.2 %, beyond 117: 0.68 % (123 pictures)
+
+4. three-step paths (own rule: rows consecutive, at least 0.9 cm net): 15697 rows
+   within 45 of radial 42.1 %, 45 to 135 40.2 %, beyond 135 17.7 %
+   sideways left 3323, right 2995
+   in the picture: within 30 of the top 45.7 %, 30 to 60 20.4 %, 60 to 120 25.9 %, beyond 120 8.0 %
+
+5. moving steps (0.3 cm or more, no stop rows): 16008 (88.8 %)
+   reach of all pictures: min 13.0, max 48.5; beyond 42.5: 428 pictures, beyond 47.5: 19
+col_0         -150  -120  -90   -60   -30    0     30    60    90    120   150   180
+row_0                                                                               
+(12.0, 20.0]    26    20    71    75   182   570   237   101   115    29    26    55
+(20.0, 27.5]   227   253   429   270   332  1003   419   213   441   181   134   296
+(27.5, 35.0]   338   246   327   245   503  1167   559   289   543   283   307   485
+(35.0, 42.5]   245   272   486   314   334   768   349   323   611   312   243   379
+(42.5, 49.5]    34    29    67    23    35    35    13     8    52    21    22    36
+   moving steps outside 12 to 49.5 cm reach: 0
+   mid reach (20 to 42.5): smallest cell 134; near (12 to 20) sideways/back cells: [26, 20, 71, 75, 29, 26, 55]; far (42.5 to 49.5): [34, 29, 67, 23, 35, 35, 13, 8, 52, 21, 22, 36] sum 375
+   cells under 100 pictures: 19 of 60; share of moving steps in them 4.2 %
+
+6. rows twisting 6 degrees or more: 5085, median step 0.65 cm, under 0.5 cm 36 %
+   all non-stop rows: median step 1.06 cm, mean 0.94, under 0.5 cm 18.2 %, under 0.2 cm 5.4 %
+
+7. start-mark episodes (148): net direction of the first five moving steps from radial: within 20: 77, 20 to 45: 37, 45 to 90: 31, over 90: 3
+            count   min  median   max
+start_kind                           
+OL1            10  -3.5    53.0  95.4
+OL1.5           8  -9.3    58.9  71.4
+OR1             9 -75.7   -41.2 -25.8
+OR1.5           8 -62.3   -43.9  21.9
+SQL            10 -94.5    53.8  99.3
+SQP             6 -19.0    -7.8  72.3
+STD            72 -31.5     5.8  39.7
+TL10            7 -36.6   -10.3  49.8
+TL15            6 -32.8    -0.2  39.0
+TR10            7 -54.4     7.0  19.3
+TR15            5  13.0    28.8  36.2
+   taught starts: 61, |joint 4| at the start over 10 degrees in 33, joint 4 from -88.6 to 70.0

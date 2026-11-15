@@ -1,0 +1,47 @@
+A. frames.csv as recorded, rows that are not stop rows: 18312
+   step: median 1.053, mean 0.919; under 0.5 cm 20.4 %; under 0.2 cm 8.0 %; with a twist of 6 degrees or more: median 0.649; over 2 cm: 25 rows
+   without the steps over 2 cm: 1.2 cm or shorter 74.5 %; 1.0 cm or shorter 41.0 %; real moves (0.3 cm or more): median 1.088, 75th percentile 1.227, 90th 1.370, 99th 1.685
+   longest demonstration: plan 04-30 (path_04), 209 cm of tip path in 222 rows; at 0.66 cm per decision 317 decisions
+   rows and tip path per sheet (median over episodes):
+         episodes  rows_median  rows_most  path_median_cm  path_most_cm
+sheet                                                                  
+path_01        20         31.5         56            31.6          58.4
+path_02        45         66.0        104            64.2         114.1
+path_03        45        106.0        142            94.7         127.1
+path_04        45        168.0        226           139.8         209.4
+path_05        30        103.5        156           101.5         164.3
+path_06        25         82.0        129            78.7         126.4
+C. demonstrated forearm turn per cm per sheet: pooled 01 2.20, 02 2.68, 03 4.64, 04 5.51, 05 3.71, 06 4.58; median over episodes 01 1.56, 02 2.55, 03 4.64, 04 5.65, 05 3.44, 06 4.43
+
+B. what the model asked before the off-the-line decision of each failed run
+   run  3, decisions 0 to 2: asked median 0.41 cm, under 0.5 cm on 100 %; twist asked median size 4.9 degrees; driver over asked 2.4 times; last six before the mark 0.36 to 0.49 cm; after the mark median 0.55 cm (35 moves)
+   run  5, decisions 0 to 8: asked median 0.45 cm, under 0.5 cm on 67 %; twist asked median size 5.4 degrees; driver over asked 2.2 times; last six before the mark 0.42 to 0.47 cm; after the mark median 0.60 cm (50 moves)
+   run  6, decisions 0 to 9: asked median 0.81 cm, under 0.5 cm on 0 %; twist asked median size 1.4 degrees; driver over asked 1.2 times; last six before the mark 0.69 to 0.81 cm; after the mark median 0.23 cm (58 moves)
+   run  8, decisions 0 to 28: asked median 0.87 cm, under 0.5 cm on 0 %; twist asked median size 2.0 degrees; driver over asked 1.1 times; last six before the mark 0.65 to 0.88 cm; after the mark median 0.52 cm (11 moves)
+   run  9, decisions 0 to 15: asked median 0.47 cm, under 0.5 cm on 62 %; twist asked median size 5.2 degrees; driver over asked 2.1 times; last six before the mark 0.34 to 0.58 cm; after the mark median 0.49 cm (73 moves)
+   run 10, decisions 0 to 28: asked median 0.53 cm, under 0.5 cm on 38 %; twist asked median size 4.7 degrees; driver over asked 1.9 times; last six before the mark 0.53 to 0.68 cm; after the mark median 0.55 cm (44 moves)
+   run 6: joint 4 at decision 0 3.2, at decision 10 16.8 (turned +13.6), largest turn from the start 15.3 degrees at decision 58; sum of positive twists done in decisions 0 to 9: 16.4
+
+C. on the robot, per run: twist done per cm done, twist asked per cm asked, against the sheet's demonstrated turn per cm (pooled)
+   run  1 (01): done 1.05, asked 1.07, demonstrated 2.20 deg/cm; mean asked 0.94 cm, so own-length decisions for the path done: 26 against 25 moves (1.06 times)
+   run  2 (01): done 0.38, asked 0.35, demonstrated 2.20 deg/cm; mean asked 1.07 cm, so own-length decisions for the path done: 23 against 24 moves (0.95 times)
+   run  3 (02): done 2.45, asked 3.94, demonstrated 2.68 deg/cm; mean asked 0.61 cm, so own-length decisions for the path done: 61 against 38 moves (1.60 times)
+   run  4 (02): done 2.01, asked 2.40, demonstrated 2.68 deg/cm; mean asked 0.80 cm, so own-length decisions for the path done: 50 against 41 moves (1.23 times)
+   run  5 (03): done 3.16, asked 5.81, demonstrated 4.64 deg/cm; mean asked 0.54 cm, so own-length decisions for the path done: 110 against 59 moves (1.86 times)
+   run  6 (04): done 1.38, asked 3.58, demonstrated 5.51 deg/cm; mean asked 0.38 cm, so own-length decisions for the path done: 177 against 68 moves (2.61 times)
+   run  7 (05): done 2.78, asked 3.50, demonstrated 3.71 deg/cm; mean asked 0.78 cm, so own-length decisions for the path done: 112 against 88 moves (1.27 times)
+   run  8 (06): done 2.60, asked 3.20, demonstrated 4.58 deg/cm; mean asked 0.81 cm, so own-length decisions for the path done: 50 against 40 moves (1.24 times)
+   run  9 (03): done 3.28, asked 6.51, demonstrated 4.64 deg/cm; mean asked 0.50 cm, so own-length decisions for the path done: 180 against 89 moves (2.02 times)
+   run 10 (03): done 2.93, asked 5.56, demonstrated 4.64 deg/cm; mean asked 0.51 cm, so own-length decisions for the path done: 141 against 73 moves (1.93 times)
+
+D. the stall rule that is already in 02_code/model_mode.py (stall_steps 30, stall_extent_m 0.03, stall_twist_deg 15) on the tips as they really went
+   run  1: never stalled (26 pictures)
+   run  2: never stalled (25 pictures)
+   run  3: never stalled (38 pictures)
+   run  4: never stalled (42 pictures)
+   run  5: never stalled (60 pictures)
+   run  6: never stalled (69 pictures)
+   run  7: never stalled (89 pictures)
+   run  8: never stalled (41 pictures)
+   run  9: never stalled (90 pictures)
+   run 10: never stalled (74 pictures)

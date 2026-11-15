@@ -1,0 +1,135 @@
+PER RUN: were the pictures unfamiliar before the run went wrong? (every number is measured; the table it comes from is named in brackets)
+'unfamiliar' = above the 95 % point of the demonstrations' own distances on that sheet; E = model E's descriptors [novelty_model_e_per_picture.csv], fair = the fold model that never saw the sheet [novelty_fold_models_per_picture.csv]
+
+RUN 1 (sheet 01, model A, 26 pictures): reached the end; start 1.5 cm left; reached the end
+  start: tip +0.2 cm forward and +1.6 cm left of the demonstrations' start (1.6 cm away), forearm twist -1.8 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  the whole run, 26 pictures:
+      place among the demonstrations' own distances: E median 55, largest 97, unfamiliar 1 of 26; fair median 66, largest 89, unfamiliar 0 of 26
+      the 5 nearest demonstration pictures: 97 % from the same sheet; their demonstrated step 1.16 cm and twist 0.7 degrees (medians), model E asked 1.06 cm and 0.9 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 1 pictures, first at step 25, largest share 0.5 % [hoodie_check_per_picture.csv]
+  light and camera: brightness median 148.4 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +17.7 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 2 (sheet 01, model E, 25 pictures): reached the end; on the line; stopped at the end
+  start: tip +0.8 cm forward and +1.6 cm left of the demonstrations' start (1.8 cm away), forearm twist +6.1 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  the whole run, 25 pictures:
+      place among the demonstrations' own distances: E median 41, largest 83, unfamiliar 0 of 25; fair median 53, largest 75, unfamiliar 0 of 25
+      the 5 nearest demonstration pictures: 98 % from the same sheet; their demonstrated step 1.14 cm and twist 0.6 degrees (medians), model E asked 1.14 cm and 0.3 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): never in view [hoodie_check_per_picture.csv]
+  light and camera: brightness median 163.0 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +16.8 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 3 (sheet 02, model E, 38 pictures): went wrong; sheet lying straight; steered right; lost
+  start: tip +2.5 cm forward and +0.1 cm left of the demonstrations' start (2.5 cm away), forearm twist -1.0 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 0, puck off the line at step 5 (by eye, figures/failure_strip_run_03.png): asked 28 degrees right at step 0 while the arc leaves to the upper left
+  seen up to the first wrong decision (steps 0 to 0), 1 pictures:
+      place among the demonstrations' own distances: E median 76, largest 76, unfamiliar 0 of 1; fair median 72, largest 72, unfamiliar 0 of 1
+      the 5 nearest demonstration pictures: 0 % from the same sheet; their demonstrated step 0.48 cm and twist 6.3 degrees (medians), model E asked 0.36 cm and 5.3 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 1 to 4), 4 pictures:
+      place among the demonstrations' own distances: E median 83, largest 89, unfamiliar 0 of 4; fair median 67, largest 84, unfamiliar 0 of 4
+      the 5 nearest demonstration pictures: 90 % from the same sheet; their demonstrated step 1.06 cm and twist 1.8 degrees (medians), model E asked 0.41 cm and 3.6 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 5 on), 33 pictures:
+      place among the demonstrations' own distances: E median 94, largest 99, unfamiliar 16 of 33; fair median 87, largest 98, unfamiliar 5 of 33
+      the 5 nearest demonstration pictures: 53 % from the same sheet; their demonstrated step 1.12 cm and twist 1.7 degrees (medians), model E asked 0.55 cm and 2.0 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 15 pictures, first at step 23, largest share 9.5 %; in view in 0 of the pictures seen up to the first wrong decision [hoodie_check_per_picture.csv]
+  light and camera: brightness median 154.8 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +16.8 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 4 (sheet 02, model E, 42 pictures): reached the end; whole arc; stopped at the end
+  start: tip +1.0 cm forward and +3.7 cm left of the demonstrations' start (3.9 cm away), forearm twist +9.8 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  the whole run, 42 pictures:
+      place among the demonstrations' own distances: E median 44, largest 99, unfamiliar 5 of 42; fair median 40, largest 100, unfamiliar 3 of 42
+      the 5 nearest demonstration pictures: 94 % from the same sheet; their demonstrated step 1.07 cm and twist 2.0 degrees (medians), model E asked 0.86 cm and 1.7 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 22 pictures, first at step 20, largest share 15.1 % [hoodie_check_per_picture.csv]
+  light and camera: brightness median 138.0 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +16.0 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 5 (sheet 03, model E, 60 pictures): went wrong; overshot the first bend (hoodie?)
+  start: tip -1.8 cm forward and +2.5 cm left of the demonstrations' start (3.1 cm away), forearm twist -9.3 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 2, puck off the line at step 5 (by eye, figures/failure_strip_run_05.png): asked 22 then 54 degrees right from step 2 while the line bends left
+  seen up to the first wrong decision (steps 0 to 2), 3 pictures:
+      place among the demonstrations' own distances: E median 80, largest 80, unfamiliar 0 of 3; fair median 75, largest 82, unfamiliar 0 of 3
+      the 5 nearest demonstration pictures: 87 % from the same sheet; their demonstrated step 1.05 cm and twist 1.9 degrees (medians), model E asked 0.71 cm and 1.6 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 3 to 4), 2 pictures:
+      place among the demonstrations' own distances: E median 66, largest 73, unfamiliar 0 of 2; fair median 65, largest 72, unfamiliar 0 of 2
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 0.36 cm and twist 6.2 degrees (medians), model E asked 0.46 cm and 5.8 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 5 on), 55 pictures:
+      place among the demonstrations' own distances: E median 98, largest 100, unfamiliar 38 of 55; fair median 95, largest 100, unfamiliar 29 of 55
+      the 5 nearest demonstration pictures: 37 % from the same sheet; their demonstrated step 0.85 cm and twist 3.7 degrees (medians), model E asked 0.52 cm and 3.4 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 2 pictures, first at step 23, largest share 0.7 %; in view in 0 of the pictures seen up to the first wrong decision [hoodie_check_per_picture.csv]
+  light and camera: brightness median 152.7 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +17.0 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 6 (sheet 04, model E, 69 pictures): went wrong; stuck at the hairpin (hoodie)
+  start: tip +4.2 cm forward and +2.8 cm left of the demonstrations' start (5.1 cm away), forearm twist +3.2 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 14, puck off the line at step 16 (by eye, figures/failure_strip_run_06.png): asked 40 to 62 degrees right from step 14 at the sharp corner; the tip slid past the puck
+  seen up to the first wrong decision (steps 0 to 14), 15 pictures:
+      place among the demonstrations' own distances: E median 89, largest 99, unfamiliar 3 of 15; fair median 91, largest 95, unfamiliar 0 of 15
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 1.11 cm and twist 2.7 degrees (medians), model E asked 0.74 cm and 1.0 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 15 to 15), 1 pictures:
+      place among the demonstrations' own distances: E median 99, largest 99, unfamiliar 1 of 1; fair median 94, largest 94, unfamiliar 0 of 1
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 1.15 cm and twist 6.6 degrees (medians), model E asked 0.56 cm and 1.8 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 16 on), 53 pictures:
+      place among the demonstrations' own distances: E median 99, largest 100, unfamiliar 49 of 53; fair median 95, largest 99, unfamiliar 18 of 53
+      the 5 nearest demonstration pictures: 93 % from the same sheet; their demonstrated step 1.13 cm and twist 2.7 degrees (medians), model E asked 0.22 cm and 0.9 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 55 pictures, first at step 14, largest share 8.1 %; in view in 1 of the pictures seen up to the first wrong decision [hoodie_check_per_picture.csv]
+  light and camera: brightness median 138.7 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +15.7 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 7 (sheet 05, model E, 89 pictures): reached the end; whole alpha loop; stopped at the end
+  start: tip +1.9 cm forward and +3.5 cm left of the demonstrations' start (4.0 cm away), forearm twist -1.7 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  the whole run, 89 pictures:
+      place among the demonstrations' own distances: E median 69, largest 100, unfamiliar 10 of 89; fair median 68, largest 100, unfamiliar 12 of 89
+      the 5 nearest demonstration pictures: 97 % from the same sheet; their demonstrated step 1.16 cm and twist 3.0 degrees (medians), model E asked 0.82 cm and 2.4 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): never in view [hoodie_check_per_picture.csv]
+  light and camera: brightness median 147.1 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +15.6 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 8 (sheet 06, model E, 41 pictures): went wrong; left the dashed loop early
+  start: tip +2.0 cm forward and +2.5 cm left of the demonstrations' start (3.2 cm away), forearm twist +7.2 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 7, puck off the line at step 11 (by eye, figures/failure_strip_run_08.png): asked 19 to 38 degrees left from step 7, past the crossing, while the loop goes on straight and then right
+  seen up to the first wrong decision (steps 0 to 7), 8 pictures:
+      place among the demonstrations' own distances: E median 39, largest 74, unfamiliar 0 of 8; fair median 54, largest 71, unfamiliar 0 of 8
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 1.27 cm and twist 2.0 degrees (medians), model E asked 1.18 cm and 1.9 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 8 to 10), 3 pictures:
+      place among the demonstrations' own distances: E median 78, largest 79, unfamiliar 0 of 3; fair median 73, largest 84, unfamiliar 0 of 3
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 1.05 cm and twist 4.8 degrees (medians), model E asked 0.94 cm and 5.2 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 11 on), 30 pictures:
+      place among the demonstrations' own distances: E median 84, largest 100, unfamiliar 8 of 30; fair median 89, largest 100, unfamiliar 11 of 30
+      the 5 nearest demonstration pictures: 71 % from the same sheet; their demonstrated step 1.11 cm and twist 1.4 degrees (medians), model E asked 0.7 cm and 1.6 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): never in view [hoodie_check_per_picture.csv]
+  light and camera: brightness median 138.9 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +15.2 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 9 (sheet 03, model E, 90 pictures): went wrong; as run 5, nothing blue in view
+  start: tip +0.1 cm forward and +1.3 cm left of the demonstrations' start (1.3 cm away), forearm twist -5.2 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 2, puck off the line at step 5 (by eye, figures/failure_strip_run_09.png): asked 31 to 44 degrees right from step 2 while the line bends left
+  seen up to the first wrong decision (steps 0 to 2), 3 pictures:
+      place among the demonstrations' own distances: E median 70, largest 74, unfamiliar 0 of 3; fair median 66, largest 73, unfamiliar 0 of 3
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 1.09 cm and twist 2.8 degrees (medians), model E asked 0.7 cm and 4.1 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 3 to 4), 2 pictures:
+      place among the demonstrations' own distances: E median 70, largest 72, unfamiliar 0 of 2; fair median 66, largest 66, unfamiliar 0 of 2
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 0.46 cm and twist 6.7 degrees (medians), model E asked 0.47 cm and 6.1 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 5 on), 85 pictures:
+      place among the demonstrations' own distances: E median 98, largest 100, unfamiliar 68 of 85; fair median 96, largest 100, unfamiliar 49 of 85
+      the 5 nearest demonstration pictures: 47 % from the same sheet; their demonstrated step 0.83 cm and twist 5.0 degrees (medians), model E asked 0.49 cm and 3.1 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 11 pictures, first at step 16, largest share 1.3 %; in view in 0 of the pictures seen up to the first wrong decision [hoodie_check_per_picture.csv]
+  light and camera: brightness median 145.9 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +16.5 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+RUN 10 (sheet 03, model B, 74 pictures): went wrong; team of five; same overshoot
+  start: tip +1.8 cm forward and +2.7 cm left of the demonstrations' start (3.3 cm away), forearm twist -9.7 degrees (demonstrations: 0) [steps.csv, frames.csv]
+  went wrong: first wrong decision at step 2, puck off the line at step 5 (by eye, figures/failure_strip_run_10.png): asked 44 to 58 degrees right from step 2 while the line bends left
+  seen up to the first wrong decision (steps 0 to 2), 3 pictures:
+      place among the demonstrations' own distances: E median 83, largest 90, unfamiliar 0 of 3; fair median 82, largest 91, unfamiliar 0 of 3
+      the 5 nearest demonstration pictures: 87 % from the same sheet; their demonstrated step 1.05 cm and twist 1.1 degrees (medians), model E asked 0.76 cm and 0.9 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  between (steps 3 to 4), 2 pictures:
+      place among the demonstrations' own distances: E median 59, largest 62, unfamiliar 0 of 2; fair median 56, largest 59, unfamiliar 0 of 2
+      the 5 nearest demonstration pictures: 100 % from the same sheet; their demonstrated step 0.61 cm and twist 7.6 degrees (medians), model E asked 0.47 cm and 6.2 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  after the puck left the line (steps 5 on), 69 pictures:
+      place among the demonstrations' own distances: E median 97, largest 100, unfamiliar 40 of 69; fair median 95, largest 100, unfamiliar 38 of 69
+      the 5 nearest demonstration pictures: 53 % from the same sheet; their demonstrated step 0.89 cm and twist 2.7 degrees (medians), model E asked 0.51 cm and 2.0 degrees; the robot moved 1.00 cm [key_frames_neighbour_labels.csv]
+  hoodie (royal blue, more than 0.5 % of the picture): 21 pictures, first at step 45, largest share 4.7 %; in view in 0 of the pictures seen up to the first wrong decision [hoodie_check_per_picture.csv]
+  light and camera: brightness median 149.1 (training pictures: median 143.8, 5 % to 95 %: 119.2 to 157.6); bottom strip +16.1 px right of the 6.11 reference (last recording day +13.6) [setup_light_and_camera_per_picture.csv]; byte-identical consecutive pictures: 0 [stale_pictures_per_pair.csv]
+
+THE TWO CAMERA PERIODS IN THE TRAINING DATA (the audit: the camera moved on its mount on 8.11.26 between 18:07 and 19:33; the robot day's view is the later one, about 3 px further)
+sheet     training pictures: earlier view   later view   share in the later view
+path_01                               644            0                        0 %
+path_02                              2670            0                        0 %
+path_03                              3955            0                        0 %
+path_04                              4492         1735                       28 %
+path_05                                 0         2600                      100 %
+path_06                                 0         1936                      100 %
+
+written: per_run_summary.csv

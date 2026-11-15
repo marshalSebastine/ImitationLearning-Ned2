@@ -1,0 +1,16 @@
+== 1. the chunk's place 2 and 3 steps ahead against the demonstrated place (recipe E, held-out sheets) ==
+   1 step(s) ahead | all places: chunk error median 0.62 cm, demonstrated twist over these steps median 4.3 deg (90th percentile 8.3) | sharp bend: chunk error median 0.62 cm, demonstrated twist over these steps median 5.3 deg (90th percentile 8.8) | hairpin: chunk error median 0.55 cm, demonstrated twist over these steps median 6.2 deg (90th percentile 9.7)
+   2 step(s) ahead | all places: chunk error median 0.99 cm, demonstrated twist over these steps median 7.8 deg (90th percentile 15.3) | sharp bend: chunk error median 1.02 cm, demonstrated twist over these steps median 10.4 deg (90th percentile 16.4) | hairpin: chunk error median 0.87 cm, demonstrated twist over these steps median 12.5 deg (90th percentile 17.7)
+   3 step(s) ahead | all places: chunk error median 1.27 cm, demonstrated twist over these steps median 11.3 deg (90th percentile 22.2) | sharp bend: chunk error median 1.32 cm, demonstrated twist over these steps median 14.9 deg (90th percentile 23.6) | hairpin: chunk error median 1.16 cm, demonstrated twist over these steps median 19.0 deg (90th percentile 25.3)
+
+== 2. the backup model's move names (fold models on their held-out sheets, verifier's forward pass) ==
+direction outputs 9, names used ['forward', 'forward_left', 'forward_right', 'left', 'right', 'back', 'back_left', 'back_right']
+   straight    :  2328 pictures; top probability median 0.585; probability on names more than 90 deg from the top name: mean 0.033; pictures with 0.25 or more there: 2.3 %
+   gentle bend :  6664 pictures; top probability median 0.477; probability on names more than 90 deg from the top name: mean 0.054; pictures with 0.25 or more there: 3.4 %
+   sharp bend  :  6290 pictures; top probability median 0.459; probability on names more than 90 deg from the top name: mean 0.063; pictures with 0.25 or more there: 4.2 %
+   hairpin     :  1091 pictures; top probability median 0.486; probability on names more than 90 deg from the top name: mean 0.036; pictures with 0.25 or more there: 0.7 %
+   line end    :   804 pictures; top probability median 0.340; probability on names more than 90 deg from the top name: mean 0.160; pictures with 0.25 or more there: 22.6 %
+   all places  : 17177 pictures; top probability median 0.475; probability on names more than 90 deg from the top name: mean 0.058; pictures with 0.25 or more there: 4.3 %
+   the same model's exact step 0.0 to 0.3 cm:   977 pictures; top probability median 0.281; split pictures 43.2 %
+   the same model's exact step 0.3 to 0.7 cm:  9322 pictures; top probability median 0.424; split pictures 3.3 %
+   the same model's exact step 0.7 to 9.0 cm:  6878 pictures; top probability median 0.587; split pictures 0.1 %

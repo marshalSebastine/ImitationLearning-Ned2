@@ -1,0 +1,55 @@
+A  the visible share of the line's last centimetre (my own grid, from the analyst's two distances)
+   demonstrations (175): nothing visible in 97, some in 78, up to a tenth in 21, a tenth to a third in 28, more than a third in 29
+   robot run 1: visible share 100 %; 0 % of the demonstrations end further from the end's centre, so the run ends further away than 100 %
+   robot run 2: visible share 68 %; 6 % of the demonstrations end further from the end's centre, so the run ends further away than 94 %
+   robot run 4: visible share 11 %; 37 % of the demonstrations end further from the end's centre, so the run ends further away than 63 %
+   robot run 7: visible share 0 %; 90 % of the demonstrations end further from the end's centre, so the run ends further away than 10 %
+   by the 12 mm rule of config.py (centre within one puck radius): 161 of 175 demonstrations pass; robot runs passing: [4, 7]
+
+B  the last pictures before the demonstrated stop (the analyst's ../demonstration_last_steps_*.csv, reliable ends only)
+   episodes with a puck place 3 pictures before the stop and at the stop: 174; sideways move over those pictures: median 3.8 mm
+   more than 7 mm aside 3 pictures before the stop: 67; of these within 7 mm at the stop: 45
+   within 7 mm aside 3 pictures before the stop: 107; of these more than 7 mm aside at the stop: 17
+
+C  recoveries and whether an offset shrinks (the analyst's centring tables)
+   puck put aside, pictures  1 to  3: median 18.1 mm (36 pictures of 12 episodes)
+   puck put aside, pictures  4 to  6: median 17.8 mm (35 pictures of 12 episodes)
+   puck put aside, pictures  7 to 10: median 14.1 mm (42 pictures of 12 episodes)
+   puck put aside, pictures 11 to 15: median 4.6 mm (56 pictures of 12 episodes)
+   puck put aside, pictures 16 to 25: median 3.4 mm (114 pictures of 12 episodes)
+   offset of 7 mm or more, 5 steps later, demonstrations: 1166 steps, change median -2.9 mm, smaller by 2 mm or more in 55 %, larger by 2 mm or more in 23 %
+   offset of 7 mm or more, 5 steps later, robot runs 1, 2, 4, 7: 64 steps, change median +0.0 mm, smaller by 2 mm or more in 45 %, larger by 2 mm or more in 42 %
+   start kinds of the 210 episodes: {'STD': 71, 'NE': 42, 'OL1': 10, 'SQL': 10, 'MID': 10, 'OR1': 9, 'OL1.5': 8, 'OR1.5': 8, 'TR10': 7, 'TL10': 7, 'TL15': 6, 'SQP': 6, 'X1': 6, 'TR15': 5, 'X2': 3, 'none': 2}
+   puck put aside (OL1, OL1.5, OR1, OR1.5): 35; sampled by the analyst: 12 of 36
+
+D  how steeply the camera looks down on the puck at the robot's stops (the camera model with the analyst's correction)
+   run 1: the ray to the puck's top comes down at 66 degrees; the puck hides the table up to 13 mm beyond its far edge, that is 25 mm beyond its centre along the camera's view
+   run 2: the ray to the puck's top comes down at 65 degrees; the puck hides the table up to 13 mm beyond its far edge, that is 25 mm beyond its centre along the camera's view
+   run 4: the ray to the puck's top comes down at 64 degrees; the puck hides the table up to 14 mm beyond its far edge, that is 26 mm beyond its centre along the camera's view
+   run 7: the ray to the puck's top comes down at 63 degrees; the puck hides the table up to 15 mm beyond its far edge, that is 27 mm beyond its centre along the camera's view
+
+E  the puck's size: my top-face fit with two radii (pictures 4, 10, 16 and the stop of runs 2 and 4; root mean square misfit in px)
+   run 2 picture  4: radius 1.2 cm 1.2 px, 1.6 cm 6.8 px, 2.0 cm 12.4 px
+   run 2 picture 10: radius 1.2 cm 1.0 px, 1.6 cm 6.6 px, 2.0 cm 12.3 px
+   run 2 picture 16: radius 1.2 cm 1.4 px, 1.6 cm 7.0 px, 2.0 cm 12.8 px
+   run 2 picture 24: radius 1.2 cm 1.8 px, 1.6 cm 7.5 px, 2.0 cm 13.4 px
+   run 4 picture  4: radius 1.2 cm 1.2 px, 1.6 cm 6.8 px, 2.0 cm 12.5 px
+   run 4 picture 10: radius 1.2 cm 1.4 px, 1.6 cm 7.1 px, 2.0 cm 12.8 px
+   run 4 picture 16: radius 1.2 cm 1.5 px, 1.6 cm 7.1 px, 2.0 cm 12.8 px
+   run 4 picture 41: radius 1.2 cm 1.2 px, 1.6 cm 7.2 px, 2.0 cm 13.6 px
+
+F  does the stop picture show line ink close to the puck (my line mask, table points within 30 mm of my puck foot, anywhere round it)?
+   covered (centres at most 7 mm apart): 104 demonstrations; the stop picture shows 40 or more line pixels within 30 mm of the puck in 2
+   7 to 12 mm apart: 57 demonstrations; the stop picture shows 40 or more line pixels within 30 mm of the puck in 3
+   over 12 mm apart: 14 demonstrations; the stop picture shows 40 or more line pixels within 30 mm of the puck in 2
+   robot run 1, stop picture: 0 line pixels within 30 mm of the puck
+   robot run 2, stop picture: 0 line pixels within 30 mm of the puck
+   robot run 4, stop picture: 0 line pixels within 30 mm of the puck
+   robot run 7, stop picture: 0 line pixels within 30 mm of the puck
+
+G  how much a scatter of the measure lowers the share of covered ends (simulation, 200,000 draws)
+   if the measure scatters by 0 mm in each direction, the true spreads are 4.2 mm along and 6.0 mm across, and the true share of covered ends is 58 % (normal spreads assumed)
+   if the measure scatters by 2 mm in each direction, the true spreads are 3.7 mm along and 5.7 mm across, and the true share of covered ends is 63 % (normal spreads assumed)
+   if the measure scatters by 3 mm in each direction, the true spreads are 2.9 mm along and 5.2 mm across, and the true share of covered ends is 72 % (normal spreads assumed)
+
+NOTE (verifier): check F above failed as a check. My line mask is blind next to the hand: it found 0 line pixels in the stop picture of run 1, where the line and its round end are plainly visible to the left of the puck beside the block (looked at 03_data/model_runs/2026-11-11_172021_check_no_puck/frames/025.jpg). The counts of F must not be used.

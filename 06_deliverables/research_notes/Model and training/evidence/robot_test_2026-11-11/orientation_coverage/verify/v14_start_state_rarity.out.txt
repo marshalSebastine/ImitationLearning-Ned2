@@ -1,0 +1,5 @@
+pictures within 22 cm of the base axis: 2846; of these with |joint 4| of 15 or less: 1145
+  ... and the path 30 degrees or more off the picture's top: 365 pictures in 104 episodes; by start kind: {'STD': 97, 'OL1.5': 58, 'OL1': 53, 'OR1': 44, 'OR1.5': 39, 'SQL': 27, 'SQP': 14, 'TL10': 10, 'TR15': 6, 'TL15': 6, 'X1': 5, 'TR10': 4, 'MID': 2}
+  ... and the path 45 degrees or more off the picture's top: 243 pictures in 75 episodes; by start kind: {'OL1.5': 47, 'STD': 44, 'OL1': 40, 'OR1': 31, 'OR1.5': 28, 'SQL': 26, 'SQP': 7, 'TL10': 6, 'TL15': 5, 'X1': 5, 'TR15': 2, 'TR10': 2}
+  ... and the path 60 degrees or more off the picture's top: 172 pictures in 58 episodes; by start kind: {'OL1.5': 37, 'OL1': 30, 'STD': 28, 'OR1': 23, 'OR1.5': 19, 'SQL': 18, 'SQP': 5, 'TL10': 4, 'X1': 4, 'TL15': 2, 'TR15': 1, 'TR10': 1}
+  of the 45-degree group, within the first 8 kept rows of their episode: 153; these are mostly the free approach to a puck laid beside the line or on a square sheet

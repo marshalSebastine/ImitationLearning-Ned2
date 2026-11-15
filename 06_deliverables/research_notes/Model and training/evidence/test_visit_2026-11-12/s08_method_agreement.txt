@@ -1,0 +1,7 @@
+C - A: 649 pictures; mean -0.24 mm, median size 3.04 mm, 90th percentile 6.78 mm, largest 72.6 mm; over 5 mm in 154
+      over 12 mm by C 120, by A 94, by one and not the other 44
+C - B: 676 pictures; mean +1.35 mm, median size 2.27 mm, 90th percentile 4.22 mm, largest 7.2 mm; over 5 mm in 31
+      over 12 mm by C 120, by B 111, by one and not the other 15
+B - A: 650 pictures; mean -1.82 mm, median size 1.95 mm, 90th percentile 5.43 mm, largest 69.2 mm; over 5 mm in 76
+      over 12 mm by B 112, by A 94, by one and not the other 32
+along the line, C against B: median 1.41 mm, 90th percentile 3.90 mm

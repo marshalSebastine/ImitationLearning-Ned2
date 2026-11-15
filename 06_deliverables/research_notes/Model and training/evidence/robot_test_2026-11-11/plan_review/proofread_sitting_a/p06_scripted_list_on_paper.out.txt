@@ -1,0 +1,30 @@
+recorded start joints [-6.06, -41.87, -61.93, 0.0, 13.53, -6.15] degrees: tip at (14.01, -1.49) cm, 14.08 cm from the base, tip height 12.6 mm in the robot's frame, rod lean 0.3 degrees
+run scripted_predicted ended: stopped after 42 pictures and 41 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\proofread_sitting_a\simulated_runs\2026-11-11_234256_scripted_predicted
+
+step rule 'predicted', twists all one way (+5 x5, +10 x5 = +75 degrees): ending stopped after 42 pictures and 41 moves
+   logged tip travel in the three groups of ten: 10.00, 20.00, 30.01 mm (asked 10, 20, 30)
+   during the twists: forearm from +0.0 to +75.0 degrees; the logged tip strays at most 0.00 mm; rod lean planned up to 13.5 degrees (limit 58.0)
+   steps whose direction was 'kept' because the asked move was under 0.05 cm: 11
+run scripted_predicted ended: stopped after 42 pictures and 41 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\proofread_sitting_a\simulated_runs\2026-11-11_234306_scripted_predicted
+
+step rule 'predicted', twists all the other way (-75 degrees): ending stopped after 42 pictures and 41 moves
+   logged tip travel in the three groups of ten: 10.00, 20.00, 30.01 mm (asked 10, 20, 30)
+   during the twists: forearm from +0.0 to -75.0 degrees; the logged tip strays at most 0.00 mm; rod lean planned up to 13.5 degrees (limit 58.0)
+   steps whose direction was 'kept' because the asked move was under 0.05 cm: 11
+run scripted_predicted ended: stopped after 42 pictures and 41 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\proofread_sitting_a\simulated_runs\2026-11-11_234315_scripted_predicted
+
+step rule 'predicted', twists left and right in turn: ending stopped after 42 pictures and 41 moves
+   logged tip travel in the three groups of ten: 10.00, 20.00, 30.01 mm (asked 10, 20, 30)
+   during the twists: forearm from +0.0 to -5.0 degrees; the logged tip strays at most 0.00 mm; rod lean planned up to 10.5 degrees (limit 58.0)
+   steps whose direction was 'kept' because the asked move was under 0.05 cm: 11
+[step 33] refused: the rod would lean 59.6 degrees, above the limit of 58.0; the run ends here
+run scripted_fixed ended: refused after 34 pictures and 33 moves; logged in D:\AI_Project\.claude\worktrees\training-analysis\06_deliverables\research_notes\Model and training\evidence\robot_test_2026-11-11\plan_review\proofread_sitting_a\simulated_runs\2026-11-11_234324_scripted_fixed
+
+step rule 'fixed', twists left and right in turn: ending refused after 34 pictures and 33 moves
+   logged tip travel in the three groups of ten: 100.00, 100.00, 100.00 mm (asked 10, 20, 30)
+   during the twists: forearm from +0.0 to +5.0 degrees; the logged tip strays at most 30.00 mm; rod lean planned up to 59.6 degrees (limit 58.0)
+   REFUSED at picture 33: the rod would lean 59.6 degrees, above the limit of 58.0
+   steps whose direction was 'kept' because the asked move was under 0.05 cm: 4
+
+the joints during one twist in place of 10 degrees at the end of the 60 mm (on paper):
+   refusal: None; joints 1 to 3 change by [1.86, 0.01, 0.06] degrees, joint 4 by +10.0

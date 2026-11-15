@@ -1,0 +1,10 @@
+the range of the end's place over single reference views, per demonstration (smaller is better)
+after_move: 40 demonstrations with 4 or more reference pictures in every variant
+  'aside': camera as fitted median 6.8 mm; the period's own correction 5.3 mm; the other period's correction 5.3 mm; own correction smaller than as fitted in 25, larger in 3; own smaller than the other period's in 17, larger in 3
+  'short': camera as fitted median 6.1 mm; the period's own correction 6.0 mm; the other period's correction 6.1 mm; own correction smaller than as fitted in 10, larger in 15; own smaller than the other period's in 14, larger in 14
+before_move: 91 demonstrations with 4 or more reference pictures in every variant
+  'aside': camera as fitted median 6.5 mm; the period's own correction 6.2 mm; the other period's correction 6.3 mm; own correction smaller than as fitted in 20, larger in 14; own smaller than the other period's in 19, larger in 18
+  'short': camera as fitted median 7.8 mm; the period's own correction 7.3 mm; the other period's correction 8.0 mm; own correction smaller than as fitted in 18, larger in 10; own smaller than the other period's in 33, larger in 9
+both periods: 131 demonstrations with 4 or more reference pictures in every variant
+  'aside': camera as fitted median 6.6 mm; the period's own correction 5.9 mm; the other period's correction 6.2 mm; own correction smaller than as fitted in 45, larger in 17; own smaller than the other period's in 36, larger in 21
+  'short': camera as fitted median 7.0 mm; the period's own correction 6.9 mm; the other period's correction 7.4 mm; own correction smaller than as fitted in 28, larger in 25; own smaller than the other period's in 47, larger in 23

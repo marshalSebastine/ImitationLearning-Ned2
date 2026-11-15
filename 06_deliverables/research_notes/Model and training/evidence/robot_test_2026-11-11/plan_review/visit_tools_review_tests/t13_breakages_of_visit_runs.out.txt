@@ -1,0 +1,13 @@
+unbroken copy: all tests passed
+NOT CAUGHT: Ctrl+C at the Enter question starts the run all the same
+NOT CAUGHT: keys typed ahead are not thrown away before the Enter question
+NOT CAUGHT: on Ctrl+C the starter kills the run instead of waiting for it
+NOT CAUGHT: only the first 4 characters of the sha256 are compared
+NOT CAUGHT: only a team's first file is checked against its sha256
+caught: --again is not needed: a label with a run folder is started again -> AssertionError: a test that must start nothing was asked for Enter
+caught: a robot line is started without --fresh-keys -> D:\AI_Project\.venv\Scripts\python.exe D:\AI_Project\.claude\worktrees\training-analysis\02_code\model_mode.py robot --label check_team --ru
+caught: the run is started from another folder than 02_code -> AssertionError
+caught: a missing metrics file is not noticed -> AssertionError: a test that must start nothing was asked for Enter
+caught: --dry starts the run after printing the command -> AssertionError: a test that must start nothing was asked for Enter
+caught: the label is not passed on (model_mode names the folder itself) -> D:\AI_Project\.venv\Scripts\python.exe D:\AI_Project\.claude\worktrees\training-analysis\02_code\model_mode.py simulated --run-name resnet18
+NOT CAUGHT: the real-robot warning is not printed

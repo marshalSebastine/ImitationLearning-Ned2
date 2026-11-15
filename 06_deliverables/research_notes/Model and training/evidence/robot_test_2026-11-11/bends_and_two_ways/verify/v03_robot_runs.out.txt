@@ -1,0 +1,102 @@
+== 1. per run: what the model asked against what was driven (measured, steps.csv) ==
+run  1 172021_check_no_puck             moves  25 | asked median 0.98 cm, under 0.3 cm  4.0 % | asked path  23.5 cm, driven  25.0 cm | twist: sum of sizes asked  25.2 deg, per cm driven 1.01, per cm asked 1.07 | direction kept 0, turn clamped 0
+run  2 172421_E_sheet01_run1            moves  24 | asked median 1.14 cm, under 0.3 cm  4.2 % | asked path  25.6 cm, driven  24.0 cm | twist: sum of sizes asked   9.0 deg, per cm driven 0.37, per cm asked 0.35 | direction kept 0, turn clamped 0
+run  3 172743_E_sheet02_run1            moves  38 | asked median 0.53 cm, under 0.3 cm  0.0 % | asked path  23.1 cm, driven  38.0 cm | twist: sum of sizes asked  91.2 deg, per cm driven 2.40, per cm asked 3.94 | direction kept 0, turn clamped 0
+run  4 173036_E_sheet02_run2            moves  41 | asked median 0.87 cm, under 0.3 cm  2.4 % | asked path  32.9 cm, driven  41.0 cm | twist: sum of sizes asked  78.9 deg, per cm driven 1.92, per cm asked 2.40 | direction kept 0, turn clamped 0
+run  5 173549_E_sheet03_run1            moves  59 | asked median 0.55 cm, under 0.3 cm 11.9 % | asked path  31.9 cm, driven  59.0 cm | twist: sum of sizes asked 185.0 deg, per cm driven 3.14, per cm asked 5.81 | direction kept 0, turn clamped 0
+run  6 174108_E_sheet04_run1            moves  68 | asked median 0.31 cm, under 0.3 cm 50.0 % | asked path  26.0 cm, driven  68.0 cm | twist: sum of sizes asked  93.1 deg, per cm driven 1.37, per cm asked 3.58 | direction kept 3, turn clamped 0
+run  7 174448_E_sheet05_run1            moves  88 | asked median 0.83 cm, under 0.3 cm  9.1 % | asked path  68.9 cm, driven  88.0 cm | twist: sum of sizes asked 240.8 deg, per cm driven 2.74, per cm asked 3.50 | direction kept 0, turn clamped 0
+run  8 174936_E_sheet06_run1            moves  40 | asked median 0.82 cm, under 0.3 cm  2.5 % | asked path  32.3 cm, driven  40.0 cm | twist: sum of sizes asked 103.2 deg, per cm driven 2.58, per cm asked 3.20 | direction kept 0, turn clamped 0
+run  9 175203_E_sheet03_run2_no_hoodie  moves  89 | asked median 0.49 cm, under 0.3 cm 14.6 % | asked path  44.1 cm, driven  89.0 cm | twist: sum of sizes asked 287.1 deg, per cm driven 3.23, per cm asked 6.51 | direction kept 0, turn clamped 0
+run 10 175544_B_team5_sheet03           moves  73 | asked median 0.55 cm, under 0.3 cm 16.4 % | asked path  37.5 cm, driven  73.0 cm | twist: sum of sizes asked 208.4 deg, per cm driven 2.85, per cm asked 5.56 | direction kept 0, turn clamped 0
+
+== 2. the first 16 moves (first bend of sheets 03 and 04) ==
+run  5: asked 7.3 cm, driven 16.0 cm, ratio driven/asked 2.19; twist asked net -58 deg, sum of sizes 63; twist used net -58; asked length steps 3 to 7: 0.42 to 0.47 cm; forearm at start -9.3 deg; tip start (12.2, 1.0) cm
+run  9: asked 7.7 cm, driven 16.0 cm, ratio driven/asked 2.09; twist asked net -74 deg, sum of sizes 74; twist used net -74; asked length steps 3 to 7: 0.37 to 0.49 cm; forearm at start -5.2 deg; tip start (14.1, -0.2) cm
+run 10: asked 7.1 cm, driven 16.0 cm, ratio driven/asked 2.26; twist asked net -53 deg, sum of sizes 72; twist used net -53; asked length steps 3 to 7: 0.22 to 0.50 cm; forearm at start -9.7 deg; tip start (15.8, 1.2) cm
+run  6: asked 12.1 cm, driven 16.0 cm, ratio driven/asked 1.32; twist asked net +7 deg, sum of sizes 25; twist used net +7; asked length steps 3 to 7: 0.69 to 0.94 cm; forearm at start +3.2 deg; tip start (18.2, 1.3) cm
+
+== 3. run 6, steps 19 to 50 (the back-and-forth) ==
+answers 32; asked length median 0.16 cm, mean 0.16, sum 5.2 cm, under 0.3 cm 29 of 32
+reversals over 90 deg between consecutive answers: picture frame 20 of 31, table frame 20 of 31
+tip box: x 31.5 to 33.2 cm, y -3.7 to -0.3 cm (sides 1.7 x 3.3 cm, diagonal 3.8 cm)
+net travel first to last tip of these pictures: 1.0 cm over 31 moves; driven 31.0 cm; forearm -5.7 to +6.7 deg
+sign of twist against the camera's turning (run 6, all moves): correlation of the twist used with the change of picture heading -0.53
+answers to the picture's left: 17, twist positive in 82 %; answers to its right: 15, twist negative in 93 %
+whole run 6: reversals over 90 deg (picture frame) 24 of 67
+
+== 4. stall rules on the logged tips and forearm angles (first picture at which the rule would end the run) ==
+driver (30 pictures, diagonal 3 cm, 15 deg)  : run 1 never, run 2 never, run 3 never, run 4 never, run 5 never, run 6 never, run 7 never, run 8 never, run 9 never, run 10 never
+15 pictures, diagonal 4 cm, 15 deg           : run 1 never, run 2 never, run 3 never, run 4 never, run 5 never, run 6 picture 31, run 7 never, run 8 never, run 9 never, run 10 never
+15 pictures, longest side 4 cm, 15 deg       : run 1 never, run 2 never, run 3 never, run 4 never, run 5 never, run 6 picture 30, run 7 never, run 8 never, run 9 never, run 10 never
+12 pictures, net travel 1.5 cm, 15 deg       : run 1 never, run 2 never, run 3 never, run 4 never, run 5 never, run 6 picture 28, run 7 never, run 8 never, run 9 never, run 10 never
+run 6: smallest diagonal of the tip box over any 30 pictures in a row: 3.75 cm
+run 6: smallest diagonal of the tip box over any 20 pictures in a row: 3.08 cm
+run 6: smallest diagonal of the tip box over any 15 pictures in a row: 3.00 cm
+run 6: smallest diagonal of the tip box over any 12 pictures in a row: 2.15 cm
+run 1: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 13.83 cm
+run 2: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 14.10 cm
+run 3: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 11.62 cm
+run 4: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 13.21 cm
+run 5: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: none
+run 6: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 3.00 cm
+run 7: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 9.62 cm
+run 8: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 11.08 cm
+run 9: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 10.91 cm
+run 10: smallest 15-picture diagonal among windows with under 15 deg of forearm turn: 11.96 cm
+
+== 5. keep the last direction when the new one flips by more than 120 deg (open loop on the logged answers) ==
+run  1: fires  0 times, longest row 0, at steps []
+run  2: fires  0 times, longest row 0, at steps []
+run  3: fires  0 times, longest row 0, at steps []
+run  4: fires  0 times, longest row 0, at steps []
+run  5: fires  0 times, longest row 0, at steps []
+run  6: fires 17 times, longest row 2, at steps [19, 24, 25, 28, 29, 31, 33, 34, 36, 38, 39, 42, 44, 47, 48, 51, 53]
+run  7: fires  6 times, longest row 6, at steps [49, 50, 51, 52, 53, 54]
+run  8: fires  0 times, longest row 0, at steps []
+run  9: fires  1 times, longest row 1, at steps [30]
+run 10: fires  0 times, longest row 0, at steps []
+run 7, steps 45 to 56 (asked cm, asked direction on the table, twist, forearm):
+   step 45: 0.46 cm, table     -4 deg, picture    -50 deg, twist +2.4, forearm -7.2
+   step 46: 0.42 cm, table     +3 deg, picture    -38 deg, twist +2.4, forearm -4.6
+   step 47: 0.14 cm, table    -84 deg, picture   -123 deg, twist +5.3, forearm -1.9
+   step 48: 0.20 cm, table   -167 deg, picture   +161 deg, twist +6.3, forearm +3.5
+   step 49: 0.29 cm, table    +56 deg, picture    +29 deg, twist +5.4, forearm +9.9
+   step 50: 0.25 cm, table    +44 deg, picture    +21 deg, twist +5.0, forearm +15.5
+   step 51: 0.26 cm, table    +17 deg, picture     -1 deg, twist +5.3, forearm +20.7
+   step 52: 0.38 cm, table    +18 deg, picture     +5 deg, twist +5.9, forearm +26.1
+   step 53: 0.34 cm, table     +1 deg, picture     -5 deg, twist +6.1, forearm +32.2
+   step 54: 0.25 cm, table    -16 deg, picture    -15 deg, twist +6.2, forearm +38.5
+   step 55: 0.17 cm, table    -97 deg, picture    -89 deg, twist +5.8, forearm +44.7
+   step 56: 0.48 cm, table   -134 deg, picture   -119 deg, twist +4.5, forearm +50.5
+run 7, steps 42 to 60: forearm from -17.4 to +55.0 deg
+
+== 6. start poses: the runs against the demonstrations' standard start (frames.csv, first row of every episode) ==
+standard-start episodes: 71; tip x 14.00 to 14.04 cm (median 14.01), tip y -1.49 to -1.48 (median -1.49); joint 4 -0.08 to +0.09 deg
+all start kinds, first row: tip x, tip y (cm), joint 4 (deg), median and range
+   MID    n  10: x  25.3 ( 21.8 to  29.9), y  +3.5 ( -7.6 to +12.3), joint 4   -0.5 ( -51.5 to   -0.1)
+   NE     n  42: x  32.5 ( 22.5 to  37.1), y  -6.5 (-17.6 to  +7.4), joint 4   -0.1 ( -88.6 to  +70.0)
+   OL1    n  10: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  -0.1 to   +0.0)
+   OL1.5  n   8: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.1)
+   OR1    n   9: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  -0.2 to   +0.0)
+   OR1.5  n   8: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  -0.1 to   +0.0)
+   SQL    n  10: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.0)
+   SQP    n   6: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.0)
+   STD    n  71: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  -0.1 to   +0.1)
+   TL10   n   7: x  14.0 ( 14.0 to  14.1), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.0)
+   TL15   n   6: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.0)
+   TR10   n   7: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  +0.0 to   +0.0)
+   TR15   n   5: x  14.0 ( 14.0 to  14.0), y  -1.5 ( -1.5 to  -1.5), joint 4   +0.0 (  -0.1 to   +0.0)
+   X1     n   6: x  19.2 ( 16.0 to  22.8), y  -2.8 ( -5.6 to  -0.5), joint 4   -3.9 ( -19.4 to   +5.6)
+   X2     n   3: x  25.6 ( 25.6 to  25.6), y  +4.6 ( +4.6 to  +4.7), joint 4  +56.9 ( +56.9 to  +56.9)
+run  1: tip start (14.2, +0.1) cm, 1.6 cm from the standard start; forearm -1.8 deg; picture heading +1.8 deg; joints 5 and 6 +13.3, -6.1 deg
+run  2: tip start (14.8, +0.1) cm, 1.8 cm from the standard start; forearm +6.1 deg; picture heading -4.4 deg; joints 5 and 6 +13.5, -6.1 deg
+run  3: tip start (16.5, -1.4) cm, 2.5 cm from the standard start; forearm -1.0 deg; picture heading -4.2 deg; joints 5 and 6 +13.5, -6.1 deg
+run  4: tip start (15.0, +2.2) cm, 3.8 cm from the standard start; forearm +9.8 deg; picture heading +0.5 deg; joints 5 and 6 +13.4, -6.1 deg
+run  5: tip start (12.2, +1.0) cm, 3.1 cm from the standard start; forearm -9.3 deg; picture heading +11.7 deg; joints 5 and 6 +13.4, -6.1 deg
+run  6: tip start (18.2, +1.3) cm, 5.0 cm from the standard start; forearm +3.2 deg; picture heading +1.5 deg; joints 5 and 6 +13.4, -6.1 deg
+run  7: tip start (15.9, +2.0) cm, 4.0 cm from the standard start; forearm -1.7 deg; picture heading +8.5 deg; joints 5 and 6 +13.4, -6.1 deg
+run  8: tip start (16.0, +1.0) cm, 3.2 cm from the standard start; forearm +7.2 deg; picture heading -2.3 deg; joints 5 and 6 +13.5, -6.1 deg
+run  9: tip start (14.1, -0.2) cm, 1.3 cm from the standard start; forearm -5.2 deg; picture heading +3.2 deg; joints 5 and 6 +13.5, -6.1 deg
+run 10: tip start (15.8, +1.2) cm, 3.3 cm from the standard start; forearm -9.7 deg; picture heading +12.3 deg; joints 5 and 6 +13.4, -6.1 deg
+demonstrations, standard start, first row: picture heading median -6.1 deg (-6.2 to -6.0); joint 5 median +13.5, joint 6 median -6.1

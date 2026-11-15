@@ -1,0 +1,64 @@
+gap as the recordings' own (112 s)
+      warm-up run, not counted (sheet 01): 3 min
+      A1: fixed list of answers without the puck (30 small steps and 10 twists): 2 min
+      A1: the same with the puck on sheet 01: 2 min
+      A2: the measure at 20 places, two bare pictures and one with the puck (30 min, the checker's figure): 30 min
+      A3: model E, sheet 01, driver of 11.11, 3 runs: 9 min
+      A4: model E, fixed 1.0 cm, 5 short runs (27 cm budget): 14 min
+      A4: model E, fixed 0.65 cm, 5 short runs: 15 min
+      A4: model E, own length, 4 short runs: 12 min
+      A4: team of five, fixed 1.0 cm, 4 short runs: 11 min
+      A4: model without sheet 03, fixed 1.0 and 0.65 cm, 3 short runs each: 17 min
+      A5: sheet 04, model E, driver of 11.11, 3 short runs past the first hairpin (about 30 pictures): 9 min
+      A5: one full run of sheet 04 if the bends are passed (153 cm at 1.0 cm): 5 min
+   sitting A: 34 runs, 130 min of runs + 40 min (switching on and camera check 15, tape for sheets 01, 03 and 04: 15, checklists for the new movements 10) [guess] = 2.8 h; the plan says about 2.5 h
+      warm-up run, not counted: 3 min
+      B1: model E, sheet 01, chosen step (0.65 cm), 3 runs: 11 min
+      B2: sheet 05, model E, fixed 1.0 cm, 3 runs (105 cm): 14 min
+      B2: sheet 05, model E, chosen step, 3 runs: 16 min
+      B2: sheet 05, model without sheet 05, 3 runs (step not stated in the plan; 1.0 cm taken): 14 min
+      B3: sheet 03, model without it, fixed 1.0 cm, 3 runs (114 pictures): 14 min
+      B3: sheet 03, model without it, chosen step, 3 runs: 17 min
+      B3: new track 1, model E, fixed 1.0 cm, 3 runs (about 80 cm): 12 min
+      B3: new track 1, model E, chosen step, 3 runs: 14 min
+      B3: new track 2, model E, chosen step, 3 runs: 14 min
+      B4: our own print of sheet 01, model E, 2 runs: 7 min
+   sitting B: 30 runs, 136 min of runs + 60 min (switching on 15, tape for six lay-outs 30, repeated runs 15) [guess] = 3.3 h; the plan says about 2.5 h
+      warm-up run, not counted: 3 min
+      C1: near-end starts on sheets 02, 05, 06 and 03, 3 runs each (about 12 pictures): 37 min
+      C2: shapes 05 and 06, solid and dashed, 2 runs each (97 cm at 1.0 cm): 35 min
+      C3: sheet 01 at about 45 degrees, 2 starts, 2 runs each: 14 min
+   sitting C: 25 runs, 88 min of runs + 70 min (switching on 15, tape for nine lay-outs 45, repeated runs 10) [guess] = 2.6 h; the plan says about 2.0 h
+
+gap as the median of 11.11 (181 s)
+      warm-up run, not counted (sheet 01): 4 min
+      A1: fixed list of answers without the puck (30 small steps and 10 twists): 4 min
+      A1: the same with the puck on sheet 01: 4 min
+      A2: the measure at 20 places, two bare pictures and one with the puck (30 min, the checker's figure): 30 min
+      A3: model E, sheet 01, driver of 11.11, 3 runs: 12 min
+      A4: model E, fixed 1.0 cm, 5 short runs (27 cm budget): 20 min
+      A4: model E, fixed 0.65 cm, 5 short runs: 21 min
+      A4: model E, own length, 4 short runs: 17 min
+      A4: team of five, fixed 1.0 cm, 4 short runs: 16 min
+      A4: model without sheet 03, fixed 1.0 and 0.65 cm, 3 short runs each: 24 min
+      A5: sheet 04, model E, driver of 11.11, 3 short runs past the first hairpin (about 30 pictures): 12 min
+      A5: one full run of sheet 04 if the bends are passed (153 cm at 1.0 cm): 6 min
+   sitting A: 34 runs, 169 min of runs + 40 min (switching on and camera check 15, tape for sheets 01, 03 and 04: 15, checklists for the new movements 10) [guess] = 3.5 h; the plan says about 2.5 h
+      warm-up run, not counted: 4 min
+      B1: model E, sheet 01, chosen step (0.65 cm), 3 runs: 14 min
+      B2: sheet 05, model E, fixed 1.0 cm, 3 runs (105 cm): 17 min
+      B2: sheet 05, model E, chosen step, 3 runs: 20 min
+      B2: sheet 05, model without sheet 05, 3 runs (step not stated in the plan; 1.0 cm taken): 17 min
+      B3: sheet 03, model without it, fixed 1.0 cm, 3 runs (114 pictures): 17 min
+      B3: sheet 03, model without it, chosen step, 3 runs: 20 min
+      B3: new track 1, model E, fixed 1.0 cm, 3 runs (about 80 cm): 16 min
+      B3: new track 1, model E, chosen step, 3 runs: 18 min
+      B3: new track 2, model E, chosen step, 3 runs: 18 min
+      B4: our own print of sheet 01, model E, 2 runs: 9 min
+   sitting B: 30 runs, 170 min of runs + 60 min (switching on 15, tape for six lay-outs 30, repeated runs 15) [guess] = 3.8 h; the plan says about 2.5 h
+      warm-up run, not counted: 4 min
+      C1: near-end starts on sheets 02, 05, 06 and 03, 3 runs each (about 12 pictures): 50 min
+      C2: shapes 05 and 06, solid and dashed, 2 runs each (97 cm at 1.0 cm): 44 min
+      C3: sheet 01 at about 45 degrees, 2 starts, 2 runs each: 18 min
+   sitting C: 25 runs, 117 min of runs + 70 min (switching on 15, tape for nine lay-outs 45, repeated runs 10) [guess] = 3.1 h; the plan says about 2.0 h
+

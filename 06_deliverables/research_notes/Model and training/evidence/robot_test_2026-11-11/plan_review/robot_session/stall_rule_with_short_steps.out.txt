@@ -1,0 +1,20 @@
+================ E_recipe: fold models on the sheets they never saw, 209 demonstrations
+   own length, at most 1.0 cm   | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends  17 of 209 demonstrations ( 8.1 %),  11 before their last tenth | per sheet 01: 0/20, 02: 1/45, 03: 4/45, 04: 4/45, 05: 4/29, 06: 4/25
+   own length, at most 1.0 cm   | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 0.65 cm                | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 0.65 cm                | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 1.0 cm                 | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 1.0 cm                 | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   recorded steps               | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   recorded steps               | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+
+================ A_recipe: fold models on the sheets they never saw, 209 demonstrations
+   own length, at most 1.0 cm   | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends  29 of 209 demonstrations (13.9 %),  21 before their last tenth | per sheet 01: 1/20, 02: 0/45, 03: 7/45, 04: 11/45, 05: 7/29, 06: 3/25
+   own length, at most 1.0 cm   | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 0.65 cm                | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   1 of 209 demonstrations ( 0.5 %),   1 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 1/45, 05: 0/29, 06: 0/25
+   fixed 0.65 cm                | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 1.0 cm                 | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   fixed 1.0 cm                 | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   recorded steps               | the plan's rule (15 pictures, 4 cm, 15 degrees) | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+   recorded steps               | today's rule (30 pictures, 3 cm, 15 degrees)   | ends   0 of 209 demonstrations ( 0.0 %),   0 before their last tenth | per sheet 01: 0/20, 02: 0/45, 03: 0/45, 04: 0/45, 05: 0/29, 06: 0/25
+

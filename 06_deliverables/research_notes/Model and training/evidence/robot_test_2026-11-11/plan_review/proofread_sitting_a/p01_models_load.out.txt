@@ -1,0 +1,40 @@
+default model of the driver today: resnet18_model_1_all_sheets
+
+model E (all six sheets)
+   --run-name resnet18_model_4_chunk_stop_25_all_sheets   (a key of TRAINING_RUNS: True)
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 ed50157fd243
+   --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_4_chunk_stop_25_all_sheets\metrics.json   exists True
+   loaded: design chunk, split all, 1 network(s), stop weight 25.0, picture size [160, 120]
+   run 5 picture 000.jpg: forward +0.71 cm, left +0.01 cm, twist +1.6 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.40 cm, left -0.15 cm, twist -5.0 deg, stop chance 0.001
+   run 5 picture 020.jpg: forward +0.13 cm, left +0.81 cm, twist +1.4 deg, stop chance 0.000
+   against the answers logged on 11.11 in 2026-11-11_173549_E_sheet03_run1 (6 pictures): largest difference 0.00000  -> the same model as on 11.11
+
+team of five (model B)
+   --run-name resnet18_model_1_all_sheets   (a key of TRAINING_RUNS: True)
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 81cd3c3bbe93
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_2\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 27dc390c52e7
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_3\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 38fcab9156e5
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_4\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 3b22fd4d2aa7
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets_seed_5\checkpoints\all_sheets.pt   exists True, 51.1 MB, sha256 105e029a91d7
+   --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_model_1_all_sheets\metrics.json   exists True
+   loaded: design exact, split all, 5 network(s), stop weight 10.0, picture size [160, 120]
+   run 5 picture 000.jpg: forward +0.72 cm, left -0.06 cm, twist +1.5 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.35 cm, left -0.20 cm, twist -5.3 deg, stop chance 0.000
+   run 5 picture 020.jpg: forward +0.12 cm, left +0.52 cm, twist +2.8 deg, stop chance 0.001
+   against the answers logged on 11.11 in 2026-11-11_175544_B_team5_sheet03 (6 pictures): largest difference 0.00000  -> the same model as on 11.11
+
+model trained without sheet 03 (E recipe, first seed)
+   --run-name resnet18_chunk_stop_weight_25   (a key of TRAINING_RUNS: True)
+   --checkpoint ..\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\checkpoints\without_path_03.pt   exists True, 51.1 MB, sha256 7f83d0c781d7
+   --metrics ..\04_runs\gpu_ki014\2026-11-10_resnet18_chunk_stop_weight_25\metrics.json   exists True
+   loaded: design chunk, split sheets, 1 network(s), stop weight 25.0, picture size [160, 120]
+   run 5 picture 000.jpg: forward +0.84 cm, left -0.03 cm, twist +0.1 deg, stop chance 0.000
+   run 5 picture 008.jpg: forward +0.38 cm, left -0.27 cm, twist -4.7 deg, stop chance 0.002
+   run 5 picture 020.jpg: forward +0.28 cm, left +0.72 cm, twist +0.2 deg, stop chance 0.001
+
+wrong pairings, to see what the loader notices:
+   model E's checkpoint with the default run name (model 1, design exact): refused (RuntimeError: Error(s) in loading state_dict for PictureToMoveModel:)
+   the without-sheet-03 checkpoint under model E's run name: LOADS WITHOUT A WORD
+   the seed-2 without-sheet-03 checkpoint under the first seed's run name: LOADS WITHOUT A WORD
+   without_path_04.pt in place of without_path_03.pt: LOADS WITHOUT A WORD

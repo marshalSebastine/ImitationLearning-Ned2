@@ -1,0 +1,13 @@
+before the step (101 first pictures): x median +0.3, y median +2.6 (5th -0.7, 95th +6.7), least score 0.72
+after the step (48 first pictures): x median +14.9, y median +7.3 (5th +5.2, 95th +8.8), least score 0.79
+  172021_check_no_puck               x +17.5, y +9.9 (9 of 9 pictures with a score over 0.6)
+  172421_E_sheet01_run1              x +16.6, y +7.9 (9 of 9 pictures with a score over 0.6)
+  172743_E_sheet02_run1              x +16.9, y +7.3 (13 of 13 pictures with a score over 0.6)
+  173036_E_sheet02_run2              x +16.2, y -1.8 (14 of 14 pictures with a score over 0.6)
+  173549_E_sheet03_run1              x +18.3, y +7.7 (17 of 20 pictures with a score over 0.6)
+  174108_E_sheet04_run1              x +15.8, y +4.2 (23 of 23 pictures with a score over 0.6)
+  174448_E_sheet05_run1              x +16.4, y +6.8 (30 of 30 pictures with a score over 0.6)
+  174936_E_sheet06_run1              x +15.5, y -10.1 (14 of 14 pictures with a score over 0.6)
+  175203_E_sheet03_run2_no_hoodie    x +17.2, y +4.9 (30 of 30 pictures with a score over 0.6)
+  175544_B_team5_sheet03             x +16.2, y +3.8 (25 of 25 pictures with a score over 0.6)
+robot runs, median of the run medians: x +16.5, y +5.8

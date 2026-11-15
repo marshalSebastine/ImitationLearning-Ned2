@@ -1,0 +1,16 @@
+a) median demonstrated wrist by tenth of the episode, start-mark episodes:
+tenth       0     1     2     3     4     5     6     7     8     9
+sheet                                                              
+path_01  13.5  13.5  13.5  13.5  13.5  13.3  10.3  10.2  10.7  10.2
+path_02  13.6  13.6  13.5  13.5  13.5  13.4  13.4  13.4  13.3  11.7
+path_03  13.5  13.5  13.4  13.4  13.1  13.1  11.6  11.2  10.9  11.1
+path_04  13.5  13.5  13.5  13.4  13.4  13.3  13.0  13.1  13.4  13.2
+path_05  13.5  13.5  13.5  13.7  13.8  13.8  14.4  14.0  13.5  13.4
+path_06  13.5  13.5  13.6  16.7  19.5  14.7  20.1  22.5  28.0  27.9
+
+b) the tip at the driver's height instead of the demonstrated height (wrist as demonstrated), 400 random rows:
+   table point 5 cm ahead: shift median 2.4 px at 640, 90th 6.5, most 31.9; camera move median 3.6 mm (400 rows solved)
+
+c) predicted twist against demonstrated twist (saved predictions, sheets never seen):
+   E recipe: mean |predicted| 2.61 against mean |demonstrated| 4.11 degrees per step (ratio 0.64); on the 11720 steps that twist by 2 degrees or more: ratio 0.50, sign right 77.9 %
+   A recipe: mean |predicted| 2.69 against mean |demonstrated| 4.11 degrees per step (ratio 0.65); on the 11720 steps that twist by 2 degrees or more: ratio 0.52, sign right 78.5 %
