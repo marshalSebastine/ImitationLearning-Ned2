@@ -168,8 +168,18 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   with the comparison run list (`.../2026-11-14_comparison_runs.csv`); Marshal's model into the same list.
 - Open for Emranul: leave episode 14-02 out (skipped hairpin)? May made-up line ends be used (not demonstrated stops)?
   Make today's camera view the camera check's reference? Pilot feedback on the recording rules.
-- Blocked on: the safety copy to a second disk; a pull request of `emranul/training-analysis` into `main` (the
-  recording tool ran from this branch's worktree on 14.11.26).
+- Night of 14 to 15.11.26, robot look with model 10 (reference recipe on all data): sheet 01 stopped 1 cm left of the
+  end; sheet 02 fails in the standard lay-out where the rod tip is 43 cm and more from the base and goes better lying
+  landscape; sheet 04 better in the standard lay-out; on sheet 05 (laid as on 11.11) the round 1 model E works and
+  model 10 does not, so E stays the model for the six course sheets. Both models follow the puck and use the line
+  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); only 280 of 23,270 pictures show a puck
+  being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
+  second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
+- Blocked on: the merge into `main`. Tried on 15.11.26 at Emranul's request and stopped: `main` (Marshal's pull request
+  24 of 13.11) and this branch each bring a different program called `02_code/train_policy.py` and a different
+  `requirements_training.txt`; `config.py`, `test_recording_page.py` and `STATUS.md` conflict as well. One of the two
+  training programs has to be renamed, with Marshal, after the queues on ki-014 (which call this branch's
+  `train_policy.py`) have finished. The branch itself is pushed. Also: the safety copy to a second disk.
 - Cancelled 5.11 (Emranul): synthetic pictures from a Webots twin; code only on branch `emranul/synthetic-pictures`, not
   merged; findings in `claude_memory/project-synthetic-pictures.md`.
 
