@@ -2350,6 +2350,26 @@ NINTH_QUEUE = {
 for idea_name, idea in NINTH_QUEUE.items():
     TRAINING_RUNS[f"resnet18_full_mirror_after_h_16_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **idea)
 
+# 15.11.26, 18:30, the tenth queue, after the robot test (Emranul: "no mirror mix", "put more weight on the final frames
+# of score-3 episodes so the position of the puck is better at the stop"). On the robot, model 13 (no mirror) finished
+# both its runs and model 15 (mirror) steered too gently for sheet 05's loop, so model 15's recipe is run without the
+# mirrored pictures, with two seeds (the recipe's own seeds differ by 1.4 points and 4 right stops). The final steps:
+# the last 5 steps before the stop of the score-3 episodes count three times (the approach weight of the ninth queue
+# took 15 steps twice). Models 17 and 18 are the two trained on all sheets, chosen before any result, for the robot.
+TENTH_QUEUE = {
+    "no_mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.0)},
+    "no_mirror_seed_2": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.0), "seed": 10_11_26},
+    "final_steps_3": {"approach_weight": 3.0, "approach_rows": 5, "approach_scores": [3]},
+}
+for idea_name, idea in TENTH_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_mirror_after_h_16_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **idea)
+TRAINING_RUNS["resnet18_model_17_full_after_h_16_no_mirror_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **TENTH_QUEUE["no_mirror"])
+TRAINING_RUNS["resnet18_model_18_full_mirror_after_h_16_final_steps_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **TENTH_QUEUE["final_steps_3"])
+# the loop of sheet 05 is a course sheet, so the no-mirror recipe is also held out sheet by sheet
+TRAINING_RUNS["resnet18_full_after_h_16_no_mirror_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **TENTH_QUEUE["no_mirror"])
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
