@@ -177,6 +177,15 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); only 280 of 23,270 pictures show a puck
   being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
   second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
+- 15.11.26, 02:00 to 02:30 (Emranul at the robot, Marshal's handoff): first robot runs of Marshal's three round 2
+  policies, sheet 01 only (`06_deliverables/research_notes/Policy runs/2026-11-15_robot_test_round2_results.md`): rank
+  1 went to and fro from step 8; ranks 2 and 3 drove 20 cm straight and then got stuck at about 33 cm reach, where the
+  end effector hides the puck (the runner keeps the rod upright; the recordings lean it). The robot had to be restarted
+  once (its command service hung after run 1) and was calibrated automatically.
+- State on 15.11.26, 02:30: second and third queue on ki-014 (the third ends about 11:30); results come back with a
+  fetch-only login (`.../evidence/final_2026-11-14/ki014_scripts/final_fetch.cmd`). Stop fixes scored: none passes.
+  Next: score both queues on both yardsticks, build the look-ahead steering into the driver and rehearse it, drive
+  models 11 and 12 and the round 1 model E on the six course sheets in their good lay-outs.
 - Merged into `main` on 15.11.26 (asked for by Emranul): his training program is now `02_code/train_policy_emranul.py`
   (packages: `requirements_training_emranul.txt`), renamed so that it lives beside Marshal's `train_policy.py`; every
   script and the robot driver follow. The copy on ki-014 (`~/ai_project/02_code/train_policy.py`) keeps the old name

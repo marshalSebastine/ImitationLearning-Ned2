@@ -46,6 +46,17 @@ far-reach pictures counted three times, ConvNeXt-Tiny, ResNet-50, a third refere
 itself on ki-014 when the second queue ends (about 05:00) and should end late morning. Scripts: `final3.cmd`,
 `final_fetch.cmd` in `evidence/final_2026-11-14/ki014_scripts/`. Robot findings of the same night: [[project-reach-and-lay-out]].
 
+**State on 15.11.26, 02:30.** Merged into main (pull request 26); Emranul's trainer is `train_policy_emranul.py`
+(the copy on ki-014 is still `train_policy.py`; the next upload must send the new name and the queue scripts must call
+it). Third queue uploaded at 01:44 (52 jobs behind the second, ends about 11:30); fetch with `final_fetch.cmd`
+(password). Stop fixes scored on all 16 tracks: none reaches 20 right stops of 55 (made-up ends stop 5 to 20 cm early;
+mid-paper weighting 19 right but 1.5 points less steering). Robot, same night: model 10 is worse than model E on sheet
+05's loop (laid as on 11.11, both step sizes); the two-picture round 1 model drove the loop well and stopped 4.6 cm
+early; both models follow the puck and use the line about half as much; only 280 pictures show a puck brought back.
+Free gain found: steering by the look-ahead output scores +1 point within 45 and +2 to 2.5 within 30 degrees (both
+seeds), not yet in the driver. Emranul (15.11.26): no more recording, "make it better yourself"; he was disappointed
+by the loop. Marshal's three round 2 policies were driven on sheet 01 (results file in `Policy runs/`).
+
 **Model 9** (reference recipe on all 264 episodes, for the robot): 
 `04_runs/gpu_ki014/2026-11-14_resnet18_model_9_full_all_sheets/checkpoints/all_sheets.pt`, sha256 3eca52154e5a; loads
 in the robot driver (`ModelPolicy`), not yet driven on the robot.
