@@ -30,14 +30,17 @@ MOVES = ["forward", "forward_left", "forward", "forward_right", "left", "forward
 
 
 def write_made_up_raw_folder(raw_folder: Path) -> None:
-    """Two sheets, five episodes each, twelve steps each: drawn pictures with the puck moving, and a steps.csv."""
+    """
+    Two course sheets with five episodes each, and one round-2 track (path_11, an unseen track in config) with two;
+    twelve steps each: drawn pictures with the puck moving, and a steps.csv.
+    """
 
     angles = TRAINING_PARAMETERS["action_angles_deg"]
     columns = ["step", "frame", "frame_md5", "sharpness", "action", "source", "is_mistake", "is_lost", "forearm_label",
                "lean_label", "hand_label", "is_at_goal", "goal_distance_cm", "tip_forward_m", "tip_left_m", "forearm_change_deg",
                "lean_change_deg", "hand_change_deg", "rod_lean_deg", "forearm_turn_deg", "picture_heading_deg"]
-    for sheet in ("path_01_straight_line", "path_04_meander"):
-        for number in range(1, 6):
+    for sheet, episodes in (("path_01_straight_line", 5), ("path_04_meander", 5), ("path_11_T01_solid", 2)):
+        for number in range(1, episodes + 1):
             episode_folder = raw_folder / "2026-11-08_session_01_emranul" / f"{sheet}_episode_{number:03d}_plan_x_try_1_score_03"
             (episode_folder / "frames").mkdir(parents = True)
             rows = []
@@ -81,7 +84,7 @@ def prepared_folder(folder: Path) -> Dict:
 
     write_made_up_raw_folder(folder / "raw")
     build_dataset({"raw_folder": folder / "raw", "processed_folder": folder / "processed", "dataset_name": "tiny",
-                   "excluded_episodes": {}, "excluded_pictures": {}})
+                   "excluded_episodes": {}, "excluded_pictures": {}, "minimum_episodes_for_split": 3})
     return tiny_settings(folder)
 
 
@@ -91,7 +94,8 @@ def test_data_links_history_and_chunks() -> None:
     with tempfile.TemporaryDirectory() as folder:
         settings = prepared_folder(Path(folder))
         data = PolicyData(settings, chunk_length = 4, history_length = 3)
-        assert data.count == 2 * 5 * len(MOVES), data.count
+        assert data.count == (2 * 5 + 2) * len(MOVES), data.count
+        assert len(data.indices("unseen")) == 2 * len(MOVES), len(data.indices("unseen"))
         first = 0
         assert list(data.history[first]) == [first, first, first], data.history[first]
         assert list(data.history[first + 2]) == [first + 2, first + 1, first], data.history[first + 2]
@@ -134,6 +138,7 @@ def test_every_policy_trains_and_writes_its_run() -> None:
             result = train_one_run(model_name, 1, "test_batch", training_overrides = training, model_overrides = overrides, device_name = "cpu")
             assert result["status"] == "done" and 0.0 <= result["validation"]["hard_sheet_score"] <= 1.0, result
             assert "test" in result and set(result["validation"]["per_sheet"]) <= {"path_01", "path_04"}, result["validation"]
+            assert set(result["unseen"]["per_sheet"]) == {"path_11"}, result.get("unseen")
             run_folder = Path(folder) / "runs" / f"test_batch_{model_name}_seed1"
             assert (run_folder / "checkpoints" / "best.pt").exists() and (run_folder / "history.csv").exists()
         again = train_one_run("factorised_classifier", 1, "test_batch", training_overrides = settings, device_name = "cpu", is_done_skipped = True)
@@ -154,22 +159,49 @@ def test_held_out_sheet_is_scored_alone() -> None:
 
 
 def test_optuna_search_runs_and_trains_the_best() -> None:
-    """Two short trials, then the best settings trained in full; trial weights are deleted, the tuned run's are kept."""
+    """
+    Two short trials, then the best settings trained with every final seed; trial weights are deleted, the final runs'
+    kept. The history policy's search also tunes its previous-move dropout.
+    """
 
     with tempfile.TemporaryDirectory() as folder:
         settings = prepared_folder(Path(folder))
-        result = tune("tune_test", {"trials": 2, "hours": 0.1, "epochs": 1, "startup_trials": 5}, settings, device_name = "cpu")
-        assert result["trials_finished"] >= 1 and result["tuned"]["status"] == "done", result
+        result = tune("tune_test", {"model_name": "factorised_classifier", "trials": 2, "hours": 0.1, "epochs": 1,
+                                    "startup_trials": 5, "final_seeds": [1, 2]}, settings, device_name = "cpu")
+        assert result["trials_finished"] >= 1 and [run["seed"] for run in result["final"]] == [1, 2], result
+        assert "sheet_balance_power" in result["best_settings"], result["best_settings"]
         runs = Path(folder) / "runs"
-        assert not (runs / "tune_test_optuna_trial_000_seed1" / "checkpoints" / "best.pt").exists()
-        assert (runs / "tune_test_factorised_classifier_tuned_seed1" / "checkpoints" / "best.pt").exists()
-        assert (runs / "tune_test_optuna.md").exists() and (runs / "tune_test_optuna.db").exists()
+        assert not (runs / "tune_test_factorised_classifier_optuna_trial_000_seed1" / "checkpoints" / "best.pt").exists()
+        for seed in (1, 2):
+            assert (runs / f"tune_test_factorised_classifier_optuna_best_seed{seed}" / "checkpoints" / "best.pt").exists()
+        assert (runs / "tune_test_factorised_classifier_optuna.md").exists() and (runs / "tune_test_factorised_classifier_optuna.db").exists()
+        history = tune("tune_test", {"model_name": "history_classifier", "trials": 1, "hours": 0.1, "epochs": 1,
+                                     "startup_trials": 5, "final_seeds": [1]}, settings, device_name = "cpu")
+        assert "previous_move_dropout" in history["best_settings"], history["best_settings"]
+        assert history["final"][0]["model_parameters"]["previous_move_dropout"] == history["best_settings"]["previous_move_dropout"]
+
+
+def test_sheet_balance_power() -> None:
+    """Power 1 gives every sheet the same total weight, power 0 every picture the same weight."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        settings = prepared_folder(Path(folder))
+        data = PolicyData(settings)
+        indices = numpy.concatenate([data.indices("train"), data.indices("unseen")])
+        sheets = numpy.array([data.sheets[index] for index in indices])
+        for power, expected_equal_sheets in ((1.0, True), (0.0, False)):
+            data.parameters = dict(data.parameters, sheet_balance_power = power)
+            weights = data.sampling_weights(indices)
+            totals = [weights[sheets == sheet].sum() for sheet in sorted(set(sheets.tolist()))]
+            assert numpy.allclose(totals, totals[0]) == expected_equal_sheets, (power, totals)
+            if power == 0.0:
+                assert numpy.allclose(weights, 1.0), weights
 
 
 if __name__ == "__main__":
     for test in (test_data_links_history_and_chunks, test_exact_steps_are_named_like_the_recording_tool,
                  test_every_policy_trains_and_writes_its_run, test_held_out_sheet_is_scored_alone,
-                 test_optuna_search_runs_and_trains_the_best):
+                 test_optuna_search_runs_and_trains_the_best, test_sheet_balance_power):
         test()
         print(f"{test.__name__}: passed", flush = True)
     print("all tests passed")

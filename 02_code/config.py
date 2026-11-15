@@ -1353,7 +1353,9 @@ CLAUDE_OPERATOR_STUDY_PARAMETERS = {
 DATASET_PARAMETERS = {
     "raw_folder": RECORDING_PARAMETERS["raw_folder"],
     "processed_folder": "03_data/processed",
-    "dataset_name": "v01_main_data",
+    # v01 (13.11.26): the six course sheets. v02 (14.11.26): plus round 2, 55 episodes on 32 new tracks (T01 to T16, each
+    # solid as path_11 to path_26 and dashed as path_31 to path_46).
+    "dataset_name": "v02_main_data",
     "kept_statuses": ["completed"],
     "dropped_actions": ["small_motion"],
     "is_mistake_dropped": True,
@@ -1361,6 +1363,12 @@ DATASET_PARAMETERS = {
     "is_checksum_checked": True,
     "validation_share": 0.15,
     "test_share": 0.15,
+    # A sheet with fewer episodes than this goes to training whole (round 2 has 1 to 4 per track), so the six course
+    # sheets keep exactly the validation and test episodes of v01 and the batches stay comparable.
+    "minimum_episodes_for_split": 10,
+    # Unseen tracks (Marshal, 14.11.26): four round-2 track shapes, solid and dashed, never trained on, as the closest
+    # offline stand-in for the exam's unseen tracks. Chosen by a hash with the split seed: T01, T08, T11 and T15.
+    "unseen_sheets": ["path_11", "path_31", "path_18", "path_38", "path_21", "path_41", "path_25", "path_45"],
     "split_seed": 13_11_26,
     # The lighting notes were typed by hand; the first group whose word appears (lower case) wins, so the note
     # "ceiling lights (corrected ...: wrongly marked as natural light)" counts as ceiling.
@@ -1376,7 +1384,11 @@ DATASET_PARAMETERS = {
         "2026-11-08_session_01_emranul/path_04_meander_episode_032": "04-25: puck hardly visible in many pictures",
         "2026-11-08_session_01_emranul/path_04_meander_episode_033": "04-26: puck not visible in many pictures",
         "2026-11-08_session_01_emranul/path_04_meander_episode_046": "04-38: puck always not visible",
-        "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_008": "05-05: puck not visible in all pictures"
+        "2026-11-08_session_01_emranul/path_05_alpha_loop_episode_008": "05-05: puck not visible in all pictures",
+        # Round 2 (notes read 14.11.26):
+        "2026-11-14_session_01_emranul/path_18_T08_solid_episode_001": "18-01: puck went too far from the line, 'really worst episode'",
+        "2026-11-14_session_01_emranul/path_20_T10_solid_episode_002": "20-02: puck propelled by the arm",
+        "2026-11-14_session_01_emranul/path_24_T14_solid_episode_001": "24-01: puck adjusted by hand on the loop"
     },
     "excluded_pictures": {
         "2026-11-07_session_01_emranul/path_02_arc_episode_005": [["000"], "02-02: fingertips at the top left"],
@@ -1436,6 +1448,11 @@ TRAINING_PARAMETERS = {
     "class_weight_power": 0.5,
     "stop_weight_multiplier": 2.0,
     "is_sheet_balanced": True,
+    # How strongly sheets are balanced (14.11.26): a picture is drawn with weight (pictures of its sheet) ** -power. 1 makes
+    # every sheet equally likely (batches up to 2026-11-14_round2); with v02's 30 sheets that gives the six course sheets
+    # only a fifth of the training and repeats a 38-picture round-2 track as often as the 3,546-picture meander. 0 makes
+    # every picture equally likely; 0.5 lies between. Searched by Optuna since 14.11.26.
+    "sheet_balance_power": 1.0,
     "score_weights": {"1": 1.0, "2": 1.0, "3": 1.0},
     "loss_weights": {"move": 1.0, "forearm": 1.0, "lean": 0.5, "at_goal": 0.2, "exact": 1.0, "stop": 1.0},
     "hard_sheets": ["path_03", "path_04", "path_06"],
@@ -1448,6 +1465,12 @@ TRAINING_PARAMETERS = {
 # Each policy's own settings; "training" overrides TRAINING_PARAMETERS for that policy only.
 POLICY_MODEL_PARAMETERS = {
     "factorised_classifier": {"dropout": 0.2, "training": {}},
+    # The settings Optuna found on 13 to 14.11.26 (batch 2026-11-13_overnight, trial 26), as a policy of its own; "policy_class"
+    # names the network it uses.
+    "factorised_classifier_tuned": {"policy_class": "factorised_classifier", "dropout": 0.414,
+                                    "training": {"learning_rate": 3.93e-4, "weight_decay": 1.41e-4, "class_weight_power": 0.815,
+                                                 "colour_jitter": 0.185, "batch_size": 128,
+                                                 "score_weights": {"1": 0.739, "2": 1.0, "3": 1.0}}},
     "exact_step_regressor": {"dropout": 0.2, "huber_delta": 1.0, "training": {}},
     # The previous move is hidden at random in training, so the model cannot just repeat it (the copycat problem).
     "history_classifier": {"dropout": 0.2, "history_length": 3, "previous_move_dropout": 0.5, "training": {}},
@@ -1461,9 +1484,13 @@ POLICY_MODEL_PARAMETERS = {
 # Optuna search over the factorised classifier only (Marshal and Claude, 13.11.26: tune one family; only robot runs
 # choose between families). Each trial trains "epochs" epochs and may be stopped early by the median pruner; the study
 # is kept in a SQLite file, so a stopped night carries on where it ended. The best settings are then trained in full.
+# Since 14.11.26 (Marshal: "try tuning as well"): the history classifier by default (the best model), the sheet balance
+# and the history model's previous-move dropout searched too, and the best settings retrained with "final_seeds", so a
+# gain can be told apart from the luck of picking the best of many trials (batch 1: best trial 0.632, its retrain 0.619).
+# The score stays the validation hard-sheet score of the course sheets; the unseen tracks are never used to choose.
 OPTUNA_PARAMETERS = {
-    "model_name": "factorised_classifier",
-    "trials": 30,
+    "model_name": "history_classifier",
+    "trials": 40,
     "hours": 3.0,
     "epochs": 20,
     "startup_trials": 5,
@@ -1473,7 +1500,10 @@ OPTUNA_PARAMETERS = {
     "colour_jitter": [0.0, 0.35],
     "dropout": [0.0, 0.5],
     "score_1_weight": [0.25, 1.0],
-    "batch_size": [64, 128, 256]
+    "batch_size": [64, 128, 256],
+    "sheet_balance_power": [0.0, 1.0],
+    "previous_move_dropout": [0.2, 0.8],
+    "final_seeds": [1, 2, 3]
 }
 
 # Driving the robot with a trained policy (record_episodes.py --mode policy --checkpoint ..., run_policy.py; Marshal,

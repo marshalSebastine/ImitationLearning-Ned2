@@ -129,6 +129,21 @@ def test_splits_keep_each_episode_together() -> None:
         assert first == second
 
 
+def test_unseen_and_small_sheets_are_kept_whole() -> None:
+    """An unseen sheet goes whole to "unseen", a sheet with too few episodes whole to "train"."""
+
+    with tempfile.TemporaryDirectory() as folder:
+        raw_folder = Path(folder) / "raw"
+        for sheet, count in (("path_01_straight_line", 12), ("path_11_T01_solid", 3), ("path_12_T02_solid", 3)):
+            for number in range(1, count + 1):
+                write_episode(raw_folder, "2026-11-14_session_01_emranul", f"{sheet}_episode_{number:03d}_plan_x_try_1_score_03", ["forward", "stop"])
+        overrides = {"raw_folder": raw_folder, "processed_folder": Path(folder) / "processed", "dataset_name": "test",
+                     "excluded_episodes": {}, "excluded_pictures": {}, "unseen_sheets": ["path_11"], "minimum_episodes_for_split": 10}
+        counts = build_dataset(overrides)["counts"]["episodes_per_sheet_and_split"]
+        assert counts["path_11"] == {"unseen": 3} and counts["path_12"] == {"train": 3}, counts
+        assert set(counts["path_01"]) == {"train", "validation", "test"}, counts
+
+
 def test_existing_dataset_is_not_overwritten() -> None:
     """A second build under the same name stops unless overwriting is allowed."""
 
@@ -164,6 +179,8 @@ if __name__ == "__main__":
     print("test_rows_and_episodes_are_left_out_as_set: passed")
     test_splits_keep_each_episode_together()
     print("test_splits_keep_each_episode_together: passed")
+    test_unseen_and_small_sheets_are_kept_whole()
+    print("test_unseen_and_small_sheets_are_kept_whole: passed")
     test_existing_dataset_is_not_overwritten()
     print("test_existing_dataset_is_not_overwritten: passed")
     test_lighting_notes_and_small_sheets()
