@@ -331,8 +331,12 @@ def build_policy_model(
         model_parameters: Dict,
         is_pretrained: bool
 ) -> nn.Module:
-    """One of the five policies by name ("factorised_classifier", ..., "diffusion_policy")."""
+    """
+    One of the five policies by name ("factorised_classifier", ..., "diffusion_policy"), or a named variant whose
+    settings give its network as "policy_class" (for example "factorised_classifier_tuned").
+    """
 
-    if model_name not in POLICY_CLASSES:
-        raise ValueError(f"unknown model {model_name}; choose from {sorted(POLICY_CLASSES)}")
-    return POLICY_CLASSES[model_name](class_counts, model_parameters, is_pretrained)
+    policy_class = model_parameters.get("policy_class", model_name)
+    if policy_class not in POLICY_CLASSES:
+        raise ValueError(f"unknown model {policy_class}; choose from {sorted(POLICY_CLASSES)}")
+    return POLICY_CLASSES[policy_class](class_counts, model_parameters, is_pretrained)

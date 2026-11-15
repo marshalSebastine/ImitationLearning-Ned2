@@ -21,7 +21,7 @@ from config import TRAINING_PARAMETERS
 
 
 PROJECT_FOLDER = Path(__file__).resolve().parent.parent
-SPLIT_NAMES = ["train", "validation", "test", "held_out"]
+SPLIT_NAMES = ["train", "validation", "test", "held_out", "unseen"]
 
 
 def merged_training_parameters(training_parameters: Optional[Dict] = None) -> Dict:
@@ -211,13 +211,17 @@ class PolicyData:
 
 
     def sampling_weights(self, indices: numpy.ndarray) -> numpy.ndarray:
-        """How likely each training picture is drawn: every sheet equally likely when "is_sheet_balanced", else uniform."""
+        """
+        How likely each training picture is drawn: (pictures of its sheet) ** -"sheet_balance_power" when
+        "is_sheet_balanced" (1 = every sheet equally likely, 0 = every picture), else uniform.
+        """
 
         if not self.parameters["is_sheet_balanced"]:
             return numpy.ones(len(indices), dtype = numpy.float64)
         sheets = [self.sheets[index] for index in indices]
         per_sheet = {sheet: sheets.count(sheet) for sheet in set(sheets)}
-        return numpy.array([1.0 / per_sheet[sheet] for sheet in sheets], dtype = numpy.float64)
+        power = self.parameters.get("sheet_balance_power", 1.0)
+        return numpy.array([per_sheet[sheet] ** -power for sheet in sheets], dtype = numpy.float64)
 
 
     def score_weights(self) -> numpy.ndarray:
