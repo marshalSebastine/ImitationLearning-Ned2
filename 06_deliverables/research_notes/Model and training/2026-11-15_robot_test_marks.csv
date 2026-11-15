@@ -27,3 +27,10 @@ time,number,label,model_key,sheet,run_folder,line_kept,left_where,stop,puck_at_s
 2026-11-15 17:32:43,25,U11,15,PRINTED D09 dashed: loop and hairpin (never recorded),2026-11-15_172955_U11,yes,mostly yes,none,no,no,got trapped on the loop
 2026-11-15 17:35:25,25,U11,15,PRINTED D09 dashed: loop and hairpin (never recorded),2026-11-15_173323_U11,yes,,none,no,no,again after revolving the model is getting confusing and backtracking
 2026-11-15 17:36:44,26,U12,E,PRINTED D09 dashed: loop and hairpin (never recorded),2026-11-15_173557_U12,no,no,none,no,no,wrong direction
+2026-11-15 19:03:43,27,B1,13,05 (loop) AS ON 11.11,2026-11-15_190204_B1,no,first half was good,none,no,no,it didnt do the revolving thing on the loop
+2026-11-15 19:06:19,33,C1,17,05 (loop) AS ON 11.11,2026-11-15_190443_C1,no,mostly stayed and recovered well,early,no,no,stopped lowest dip of the looüp
+2026-11-15 19:08:40,34,C2,18,05 (loop) AS ON 11.11,2026-11-15_190656_C2,no,no,none,no,no,not revolving move
+2026-11-15 19:12:03,28,B2,13,PRINTED D03 solid: loop and medium bend (never recorded),2026-11-15_190955_B2,no,no,none,no,no,no
+2026-11-15 19:14:20,28,B2,13,PRINTED D03 solid: loop and medium bend (never recorded),2026-11-15_191248_B2,no,no,none,no,no,no
+2026-11-15 19:16:50,35,C3,17,PRINTED D03 solid: loop and medium bend (never recorded),2026-11-15_191505_C3,no,no,none,no,no,it didnt learn to revolve
+2026-11-15 19:19:03,36,C4,18,PRINTED D03 solid: loop and medium bend (never recorded),2026-11-15_191724_C4,no,no,none,no,no,revoling issues
