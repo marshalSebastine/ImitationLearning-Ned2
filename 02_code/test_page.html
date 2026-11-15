@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robot Tests</title>
+<style>
+  :root {
+    --page: #f6f5f1; --panel: #ffffff; --ink: #1f2421; --muted: #5d655f; --line: #d9dad3;
+    --accent: #1f6f5c; --accent-ink: #ffffff; --warn-bg: #fdf1dc; --warn-ink: #7a4b00;
+    --bad-bg: #fbe6e3; --bad-ink: #9b2c1f; --run-bg: #dff1ea; --run-ink: #14584a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #161917; --panel: #1f2421; --ink: #e8ebe8; --muted: #a2aaa4; --line: #363d38;
+      --accent: #4eb79d; --accent-ink: #0d1a16; --warn-bg: #3b2d12; --warn-ink: #f3cf8c;
+      --bad-bg: #43201b; --bad-ink: #f4b3a9; --run-bg: #173a31; --run-ink: #a9e5d3;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 20px; margin-bottom: 18px; }
+  h1 { margin: 0; font-size: 22px; font-weight: 650; }
+  h2 { margin: 0 0 12px; font-size: 15px; font-weight: 650; }
+  .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 16px; align-items: start; }
+  @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr.test { cursor: pointer; }
+  tr.test:hover { background: var(--page); }
+  tr.test.chosen { background: var(--run-bg); color: var(--run-ink); }
+  tr.part td { background: var(--page); font-weight: 650; }
+  .done { color: var(--accent); font-weight: 600; }
+  .muted, .hint { color: var(--muted); font-size: 12px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px 16px; margin: 0 0 12px; }
+  .facts dt { color: var(--muted); font-size: 12px; }
+  .facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+  .facts .wide { grid-column: 1 / -1; }
+  img.picture { width: 100%; max-width: 560px; display: block; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+  .check { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; }
+  .check input { margin: 3px 0 0; flex: none; width: 16px; height: 16px; accent-color: var(--accent); }
+  button { font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.primary { width: 100%; padding: 12px; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-size: 16px; }
+  .status { padding: 10px 12px; border-radius: 6px; font-weight: 600; background: var(--page); margin-bottom: 12px; }
+  .status.running { background: var(--run-bg); color: var(--run-ink); }
+  .message { display: none; margin: 12px 0 0; padding: 10px 12px; border-radius: 6px; background: var(--bad-bg); color: var(--bad-ink); }
+  .message.shown { display: block; }
+  .choices { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+  .choices label { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+  .choices label:has(input:checked) { border-color: var(--accent); background: var(--run-bg); color: var(--run-ink); }
+  .choices input { margin-right: 4px; accent-color: var(--accent); }
+  label.field { display: block; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  label.field input { display: block; width: 100%; margin-top: 4px; padding: 8px; font: inherit; font-weight: 400; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 6px; }
+  .question { font-size: 13px; font-weight: 600; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Robot Tests</h1>
+    <div class="muted"><a href="/">Back to recording</a> · <span id="run-list"></span></div>
+  </header>
+  <div class="status" id="status">Reading the list…</div>
+  <div class="layout">
+    <div>
+      <section>
+        <h2>Tests (click one)</h2>
+        <table>
+          <thead><tr><th>No.</th><th>Label</th><th>Model</th><th>Sheet</th><th>Done</th><th>Marks</th></tr></thead>
+          <tbody id="tests"></tbody>
+        </table>
+      </section>
+    </div>
+    <div>
+      <form id="marks" novalidate hidden>
+        <section>
+          <h2 id="marks-title">How did the test go?</h2>
+          <div class="question">Did the puck stay on the line?</div>
+          <div class="choices" id="choice-line_kept"></div>
+          <label class="field">If not: where did it leave the line? <input name="left_where" maxlength="200" placeholder="e.g. at the first bend, after 20 cm"></label>
+          <div class="question">Where did it stop?</div>
+          <div class="choices" id="choice-stop"></div>
+          <label class="field">Puck at the stop <input name="puck_at_stop" maxlength="200" placeholder="e.g. covers the end, 1 cm left"></label>
+          <div class="question">Finished? (puck covers the line end and stayed on the line all the way)</div>
+          <div class="choices" id="choice-finished"></div>
+          <label class="field">Remark <input name="remark" maxlength="200" placeholder="anything else"></label>
+          <button class="primary" type="submit">Save the marks</button>
+          <div class="message" id="marks-message"></div>
+        </section>
+      </form>
+      <section id="chosen" hidden>
+        <h2 id="chosen-title"></h2>
+        <dl class="facts" id="chosen-facts"></dl>
+        <img class="picture" id="chosen-picture" alt="How to lay the sheet">
+        <div class="hint" id="picture-hint"></div>
+        <div style="margin-top:12px">
+          <div class="check"><input type="checkbox" id="safe"><label for="safe">Checklist done: one program on the robot, stop button in reach, robot away from the table edge, sheet and puck laid as shown.</label></div>
+          <div class="check" id="again-row" hidden><input type="checkbox" id="again"><label for="again">Run it again (this test has a run already).</label></div>
+        </div>
+        <button class="primary" id="start" type="button" style="margin-top:8px">Start this test</button>
+        <div class="hint" id="again-hint" hidden style="color:var(--bad-ink);font-weight:600">This test has been run already. To run the NEXT test, click it in the list.</div>
+        <div class="hint" style="margin-top:6px">A window opens for the run: read the line there and press Enter in that window. During the run its keys work as always (Enter, g, Esc). When it says "Press any key", press a key to close it, then give the marks here.</div>
+        <div class="message" id="start-message"></div>
+      </section>
+    </div>
+  </div>
+</main>
+<script>
+  const models = {"E": "Model E (round 1)", "13": "Model 13 (hand corrections)", "14": "Model 14 (two pictures)", "15": "Model 15 (the mix)", "17": "Model 17 (no mirror)", "18": "Model 18 (final steps)", "19": "Model 19 (memory)", "20": "Model 20 (no mirror, memory)"};
+  const parts = {"A": "A: known sheets", "R": "R: recovery (puck beside the line)", "U": "U: printed tracks no model has seen"};
+  let state = null;
+  let chosen = null;
+
+  function element(tag, text, className) {
+    const node = document.createElement(tag);
+    if (text !== undefined) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  }
+
+  function marksText(marks) {
+    if (!marks) return "";
+    return (marks.finished === "yes" ? "finished" : "not finished") + "; stop " + marks.stop;
+  }
+
+  function drawList() {
+    const body = document.getElementById("tests");
+    body.textContent = "";
+    let lastPart = null;
+    for (const run of state.runs) {
+      const part = run.label[0];
+      if (part !== lastPart) {
+        lastPart = part;
+        const row = element("tr", undefined, "part");
+        const cell = element("td", parts[part] || part);
+        cell.colSpan = 6;
+        row.appendChild(cell);
+        body.appendChild(row);
+      }
+      const row = element("tr", undefined, "test" + (chosen === run.label ? " chosen" : ""));
+      row.appendChild(element("td", String(run.number)));
+      row.appendChild(element("td", run.label));
+      row.appendChild(element("td", models[run.model_key] || run.model_key));
+      row.appendChild(element("td", run.sheet));
+      row.appendChild(element("td", run.runs_done ? "✓ " + run.runs_done : "", "done"));
+      row.appendChild(element("td", marksText(run.marks)));
+      row.addEventListener("click", () => choose(run.label));
+      body.appendChild(row);
+    }
+  }
+
+  function choose(label) {
+    chosen = label;
+    const run = state.runs.find(item => item.label === label);
+    document.getElementById("chosen").hidden = false;
+    document.getElementById("chosen-title").textContent = "Test " + run.number + ": " + run.label;
+    const facts = document.getElementById("chosen-facts");
+    facts.textContent = "";
+    for (const [name, value, wide] of [["Model", models[run.model_key] || run.model_key], ["Step", (run.step_cm || "default") + " cm"],
+                                       ["Sheet", run.sheet, true], ["Lay-out", run.lay_out, true], ["Note", run.note, true]]) {
+      const box = element("div", undefined, wide ? "wide" : "");
+      box.appendChild(element("dt", name));
+      box.appendChild(element("dd", value));
+      facts.appendChild(box);
+    }
+    document.getElementById("chosen-picture").src = "/tests/picture?label=" + encodeURIComponent(label);
+    document.getElementById("picture-hint").textContent = label[0] === "U"
+      ? "The printed track (start = the end at the bottom, on the robot's side). Tape it once; the next test uses the same lay-out."
+      : "The camera's view at the start: lay the sheet and the puck like this. The run also lays this picture faintly over the live view.";
+    document.getElementById("again-row").hidden = !run.runs_done;
+    document.getElementById("again-hint").hidden = !run.runs_done;
+    document.getElementById("start").textContent = "Start test " + run.number + ": " + run.label + " with " + (models[run.model_key] || run.model_key);
+    document.getElementById("again").checked = false;
+    document.getElementById("safe").checked = false;
+    document.getElementById("start-message").classList.remove("shown");
+    drawList();
+    update();
+  }
+
+  function update() {
+    const status = document.getElementById("status");
+    if (state.is_running) {
+      status.textContent = (state.title || "A tool") + " is still open. When the run has ended, press any key in its black window to close it (it also closes by itself after 30 seconds); then the marks form appears here.";
+      status.className = "status running";
+    } else if (state.test_to_mark) {
+      status.textContent = "Test " + state.test_to_mark + " has ended: give its marks.";
+      status.className = "status running";
+    } else {
+      status.textContent = "Nothing is running. Click a test, check, and press Start.";
+      status.className = "status";
+    }
+    const button = document.getElementById("start");
+    button.disabled = state.is_running || !!state.test_to_mark || !chosen;
+    const form = document.getElementById("marks");
+    const shouldShow = !state.is_running && !!state.test_to_mark;
+    if (shouldShow && form.hidden) {
+      form.reset();
+      document.getElementById("marks-message").classList.remove("shown");
+    }
+    form.hidden = !shouldShow;
+    if (shouldShow) {
+      const run = state.runs.find(item => item.label === state.test_to_mark);
+      document.getElementById("marks-title").textContent = "How did test " + (run ? run.number + " (" + run.label + ", " + (models[run.model_key] || run.model_key) + ")" : state.test_to_mark) + " go?";
+    }
+  }
+
+  function drawChoices() {
+    for (const [name, values] of Object.entries(state.choices)) {
+      const box = document.getElementById("choice-" + name);
+      if (box.childElementCount) continue;
+      for (const value of values) {
+        const label = element("label");
+        const input = element("input");
+        input.type = "radio"; input.name = name; input.value = value;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(value));
+        box.appendChild(label);
+      }
+    }
+  }
+
+  async function refresh() {
+    try {
+      const answer = await fetch("/tests/list");
+      state = await answer.json();
+      if (answer.ok) {
+        document.getElementById("run-list").textContent = state.run_list.split(/[\\/]/).pop();
+        drawChoices();
+        drawList();
+        update();
+      }
+    } catch (error) {
+      document.getElementById("status").textContent = "The page lost its program (recording_page.py). Start it again.";
+    }
+  }
+
+  async function send(path, body, messageId) {
+    const message = document.getElementById(messageId);
+    message.classList.remove("shown");
+    const answer = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const result = await answer.json();
+    if (!answer.ok) {
+      message.textContent = result.error;
+      message.classList.add("shown");
+      return false;
+    }
+    return true;
+  }
+
+  document.getElementById("start").addEventListener("click", async () => {
+    if (!document.getElementById("safe").checked) {
+      const message = document.getElementById("start-message");
+      message.textContent = "Tick the checklist line first.";
+      message.classList.add("shown");
+      return;
+    }
+    await send("/tests/start", {label: chosen, is_again: document.getElementById("again").checked}, "start-message");
+    refresh();
+  });
+
+  document.getElementById("marks").addEventListener("submit", async event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const body = {label: state.test_to_mark};
+    for (const name of ["line_kept", "left_where", "stop", "puck_at_stop", "finished", "remark"]) body[name] = data.get(name) || "";
+    if (await send("/tests/marks", body, "marks-message")) {
+      event.target.hidden = true;
+      // the next test in the list is chosen, so that "Start" never runs the same test again by mistake
+      const index = state.runs.findIndex(item => item.label === body.label);
+      await refresh();
+      if (index >= 0 && index + 1 < state.runs.length) choose(state.runs[index + 1].label);
+    }
+  });
+
+  refresh();
+  setInterval(refresh, 2000);
+</script>
+</body>
+</html>

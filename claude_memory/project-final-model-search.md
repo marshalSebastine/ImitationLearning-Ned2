@@ -46,6 +46,52 @@ far-reach pictures counted three times, ConvNeXt-Tiny, ResNet-50, a third refere
 itself on ki-014 when the second queue ends (about 05:00) and should end late morning. Scripts: `final3.cmd`,
 `final_fetch.cmd` in `evidence/final_2026-11-14/ki014_scripts/`. Robot findings of the same night: [[project-reach-and-lay-out]].
 
+**State on 15.11.26, 02:30.** Merged into main (pull request 26); Emranul's trainer is `train_policy_emranul.py`
+(the copy on ki-014 is still `train_policy.py`; the next upload must send the new name and the queue scripts must call
+it). Third queue uploaded at 01:44 (52 jobs behind the second, ends about 11:30); fetch with `final_fetch.cmd`
+(password). Stop fixes scored on all 16 tracks: none reaches 20 right stops of 55 (made-up ends stop 5 to 20 cm early;
+mid-paper weighting 19 right but 1.5 points less steering). Robot, same night: model 10 is worse than model E on sheet
+05's loop (laid as on 11.11, both step sizes); the two-picture round 1 model drove the loop well and stopped 4.6 cm
+early; both models follow the puck and use the line about half as much; the claim "only 280 pictures show a puck brought
+back" was wrong (Emranul objected, 15.11.26: most episodes had h corrections): it counted only the 35 starts beside the
+line. Measured: 304 corrections by hand in 169 of 266 episodes (64 %); 2,094 training pictures in steps 2 to 8 after an
+h press (the robot brings the drifted puck back) and 2,369 in the 8 steps before one (the replay goes on while the puck
+drifts; trained on as good examples, only 34 marked as mistakes). Untested guess: those before-pictures teach the model
+to carry on beside the line; the test is to leave them out of training and of the scoring.
+Free gain found: steering by the look-ahead output scores +1 point within 45 and +2 to 2.5 within 30 degrees (both
+seeds), not yet in the driver. Emranul (15.11.26): no more recording, "make it better yourself"; he was disappointed
+by the loop. Marshal's three round 2 policies were driven on sheet 01 (results file in `Policy runs/`).
+
+**Hand-correction runs (15.11.26, 03:05; Emranul: "yes build it", "put more weight on the frames after h is pressed").**
+Built, tested and queued on ki-014 at 03:09 behind the third queue (fetch later with `final5_fetch.cmd`, one password): "before_correction_weight" 0 for the 5 steps before an h press, "after_correction_weight"
+3 for the 8 steps after it (`config.HAND_CORRECTIONS`), four runs on the 16 tracks, one on the six course sheets, robot
+candidates models 13 (one picture) and 14 (two pictures). One login with `final5.cmd` (in the evidence folder's
+`ki014_scripts`, working copy in the scratchpad) uploads into `02_code_5` on ki-014, queues 20 jobs behind the third queue
+and fetches everything; it calls `train_policy_emranul.py`. New measure (`score_hand_corrections.py`): the reference agrees
+with the demonstration on 83 % of all held-out pictures but on 58 % of those after an h press (two pictures: 65 %). Rule
+fixed before results: after-h pictures +5 points, path without before-h pictures not more than 1 point lower, stops not
+worse than the seed gap; then the robot decides (sheet 03 first).
+
+**Ideas kept for the next queue, not built (Emranul, 15.11.26, "keep it in mind").** (1) More weight on the steering of
+the last 10 to 20 steps of each episode, only in well-scored episodes (score 3, puck in the goal), so the puck covers the
+line end; the error audit (`error_audit.py`) shows 73 to 75 % agreement in the last 4 to 20 steps against 86 % earlier.
+The stop picture itself already counts 25 times and more weight there did not pass. (2) The model almost never steps
+back (right on 60 of 530 backwards pictures); first check whether the driver carries out a backwards step. (3) After the
+results: combine only the changes that pass their rule into one recipe and score and drive the mix as its own run; try
+after-h weight 5 if 3 helps. No negative weights (Emranul asked; weight 0 is the honest choice, explained to him).
+
+**15.11.26 evening: the revolving move (Emranul's name).** In loops the forearm (joint 4) must swing back from one side
+(about -70) through the middle to the other (+60), because a loop needs a full turn and joint 4 stops at 117. Model E
+does it on sheet 05 (asks +6 to +7 degrees a step); models 13, 15, 17, 18 ask +2 to +4 and wind on to -117. 153 of 265
+episodes contain such a swing; on held-out pictures the models ask 0.3 to 0.65 of the recorded turn (regression to the
+mean). Built: recurrent model (`SequencePictureModel`, 12 pictures 4 steps apart, robot 6 apart; models 21, 22),
+`swing_weight` (model 23), direction memory with its layer now trained (models 19, 20; the first model 19 had an
+untrained memory layer and is set aside as `2026-11-15_model_19_UNTRAINED_MEMORY_LAYER_do_not_use`). All on ki-016
+(found free; Marshal had said so); fetch with a fresh sent list. Emranul keeps the memory runs although the memory
+comes from joint angles (course rule "camera only" not settled). Next if recurrent fails: a mode-choosing head
+(forearm-turn classes with a fixed turn) and committing to a chunk during a swing; diffusion policy is the strongest
+known fix but more work. The recording page has a test part (/tests) with marks.
+
 **Model 9** (reference recipe on all 264 episodes, for the robot): 
 `04_runs/gpu_ki014/2026-11-14_resnet18_model_9_full_all_sheets/checkpoints/all_sheets.pt`, sha256 3eca52154e5a; loads
 in the robot driver (`ModelPolicy`), not yet driven on the robot.

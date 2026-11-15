@@ -174,9 +174,37 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   end; sheet 02 fails in the standard lay-out where the rod tip is 43 cm and more from the base and goes better lying
   landscape; sheet 04 better in the standard lay-out; on sheet 05 (laid as on 11.11) the round 1 model E works and
   model 10 does not, so E stays the model for the six course sheets. Both models follow the puck and use the line
-  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); only 280 of 23,270 pictures show a puck
-  being brought back onto the line. A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
+  about half as much (`.../evidence/night_look_2026-11-14/puck_test.py`); the claim written here that only 280 of
+  23,270 pictures show a puck being brought back was wrong (it counted only the 35 starts beside the line): 304
+  corrections by hand (h key) in 169 episodes give 2,094 training pictures in the steps after a correction, and 2,369
+  in the 8 steps before one, where the replay goes on while the puck drifts (Emranul's objection, checked 15.11.26,
+  section 11 of the search notes). A third queue (zoomed-in view, turned and mirrored pictures, larger networks, a
   second yardstick on the six course sheets, robot candidates models 11 and 12) is ready for ki-014.
+- 15.11.26, 02:00 to 02:30 (Emranul at the robot, Marshal's handoff): first robot runs of Marshal's three round 2
+  policies, sheet 01 only (`06_deliverables/research_notes/Policy runs/2026-11-15_robot_test_round2_results.md`): rank
+  1 went to and fro from step 8; ranks 2 and 3 drove 20 cm straight and then got stuck at about 33 cm reach, where the
+  end effector hides the puck (the runner keeps the rod upright; the recordings lean it). The robot had to be restarted
+  once (its command service hung after run 1) and was calibrated automatically.
+- 15.11.26, 03:05 (Emranul: "yes build it", "put more weight on the frames after h is pressed"): hand-correction
+  runs built, tested and queued on ki-014 at 03:09 behind the third queue (20 jobs, about 2.5 hours once they start): the steps before an h press
+  left out of training, the steps after it counted three times, robot candidates models 13 and 14; results come back through
+  the open login window, or later with `.../evidence/final_2026-11-14/ki014_scripts/final5_fetch.cmd` (one password).
+  New measure on recorded pictures (`score_hand_corrections.py`): the reference agrees with the demonstration on 83 %
+  of all pictures but on 58 % of the pictures after an h press. Section 12 of the search notes has the rule.
+- 15.11.26 evening (Emranul and Marshal at the robot, 38 runs; `.../Model and training/2026-11-15_robot_test_results.md`,
+  marks given on the recording page's new test part): model 15 (mirror, after-h weight, 16 rounds) keeps new printed
+  lines far better than model E, but every new model fails the revolving move: in loops the forearm must swing back
+  from about -70 to +60 degrees, model E does it on sheet 05, the others wind on to the joint limit of -117
+  (`2026-11-15_revolving_move.md`). Built and tested on the laptop: the direction memory (models 19 and 20; its layer
+  was not trained in the first try, fixed), the recurrent model (12 camera pictures through a GRU, models 21 and 22),
+  swing weighting (model 23). Queued on ki-016 (free; ki-014 was filled by another person's training): queues 11 and
+  13. To read: one fetch login to ki-016 with a NEW sent list (model 19 was retrained under the same name). No-mirror
+  scored worse than mirror on recorded pictures (0.828 against 0.856). Emranul keeps the memory runs although the
+  memory reads the arm's joints, not the camera (the course rule question is open).
+- State on 15.11.26, 02:30: second and third queue on ki-014 (the third ends about 11:30); results come back with a
+  fetch-only login (`.../evidence/final_2026-11-14/ki014_scripts/final_fetch.cmd`). Stop fixes scored: none passes.
+  Next: score both queues on both yardsticks, build the look-ahead steering into the driver and rehearse it, drive
+  models 11 and 12 and the round 1 model E on the six course sheets in their good lay-outs.
 - Merged into `main` on 15.11.26 (asked for by Emranul): his training program is now `02_code/train_policy_emranul.py`
   (packages: `requirements_training_emranul.txt`), renamed so that it lives beside Marshal's `train_policy.py`; every
   script and the robot driver follow. The copy on ki-014 (`~/ai_project/02_code/train_policy.py`) keeps the old name

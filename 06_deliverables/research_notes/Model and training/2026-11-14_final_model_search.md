@@ -194,3 +194,189 @@ are 0.808 and 0.800 path within 45 and 103 and 105 of 209 right stops). Model 12
 and model 11 are robot candidates. Until a model holds on both yardsticks and on the robot, the round 1 model E stays
 the model for the six known sheets. Every new robot model is first driven on the six course sheets in their good
 lay-outs before anything else is concluded from it.
+
+## 11. Corrections by hand (h key): a wrong count put right (15.11.26, 02:50; `evidence/night_look_2026-11-14/hand_corrections_check.py`)
+
+Emranul: "in more than 80 % of the episodes we had to press h and bring the puck back on the line; why is it 280
+pictures only?" He is right that the 280 was wrong. It counted the first eight pictures of the 35 episodes that start
+beside the line (OL and OR) and nothing else; the corrections by hand were never counted. What the h key does
+(`record_episodes.py`, `__reguide`): the replay stops, the arm is guided again by hand from where it stands, the puck is
+put back where it had drifted to, and the robot then replays the new path, so the pictures after an h press show the
+robot itself bringing the drifted puck back.
+
+Measured on the training index v03, with the reference model's own cleaning (22,646 pictures):
+
+| | Pictures | In the training set |
+|---|---|---|
+| h presses, by the episodes' own count | 309, in 170 of 266 episodes (64 %; round 1: 62 %, round 2: 71 %) | |
+| h presses found in the step tables (the waypoint counter starts again) | 304, in 169 episodes | |
+| the 8 steps before an h press | 2,410 | 2,369 (34 marked as a mistake with u) |
+| the first row after an h press (the robot stands; the cleaning drops it) | 304 | 0 |
+| steps 2 to 8 after an h press | 2,105 | 2,094 |
+| old count: first 8 pictures of the starts beside the line | 280 | |
+
+The steps after a correction really are different moves: in the first three, 92 % are not "forward" and the move
+points a median 106 degrees away from forward (the rod goes back and round the puck); in ordinary steps 58 % and 41
+degrees. Corrections lie late in an episode (half of them after 68 % of its steps) and mostly on sheets 02, 03 and 04
+(58, 59 and 68 of 304).
+
+Seen on eight corrections chosen evenly (`hand_corrections_strips_1.jpg`, `_2.jpg`; a look, not a measurement): in
+about half of them the puck is clearly beside the line in the pictures before the h press while the recorded move is
+"forward"; after the press the moves go back and sideways and the puck comes back over several steps. One strip
+(plan 04-35) shows a hand in the first two pictures after the press.
+
+What follows, and what does not:
+
+- Withdrawn: "the model does not come back to the line because there are almost no examples of it". There are about
+  2,100, a tenth of the training pictures.
+- A new guess, not tested: the pictures before an h press teach the opposite. They show a puck drifting off the line
+  with the robot carrying on, and nearly all of them (2,369) are trained on as good examples. On the robot the model,
+  once beside the line, stayed beside it for a long stretch (sheet 03). How many steps before each press the puck was
+  already off the line is not measured.
+- Model 11's "recovery" weighting covers only the 280 pictures, so it is narrower than it was meant to be.
+- A test that would decide it: the same recipe with the last steps before every h press left out of the training
+  (weight 0), with and without more weight on the steps after it. The yardstick must then leave those steps out of the
+  scoring too, because on them the recorded move is the drift, not the right move. Not built, not queued.
+
+## 12. Hand-correction runs, built and queued (15.11.26, built by 03:05, queued 03:09; Emranul: "yes build it", "put more weight on the frames after h is pressed")
+
+**A measure of coming back, on recorded pictures** (`evidence/final_2026-11-14/score_hand_corrections.py`, from the
+saved predictions of every run; numbers in `hand_correction_scores.json`). The path measure (within 45 degrees) on
+the 16 held-out tracks, by group of test pictures:
+
+| Run | All | Without the 5 steps before an h press | Only the 8 steps after an h press | Only the 5 steps before |
+|---|---|---|---|---|
+| reference, seed 1 | 0.832 | 0.839 | 0.575 (456 pictures) | 0.712 (257) |
+| reference, seed 2 | 0.844 | 0.851 | 0.592 | 0.751 |
+| two pictures (14 folds) | 0.845 | 0.854 | 0.647 (388); reference on the same folds 0.590 | 0.694 |
+
+So the model agrees with the demonstration on 83 % of all pictures but on only 58 to 59 % of the pictures in which the
+demonstration brings a drifted puck back: coming back is its weakest part, now with a number. The sentence in
+config.py (model 11) that held-out pictures cannot score a recovery was wrong. A caution: the moves after a correction go back and round
+the puck and are harder to tell from one picture, so this group need not reach 83 %.
+
+**What was built** (all off unless a run asks; the reference's pictures, order, weights and targets are identical to
+before, checked against the code of the last commit):
+
+- `training_targets.correction_steps`: every picture knows how many steps it lies before the next h press and after
+  the last one (305 corrections in the index; a correction is the row whose waypoint counter is 0 again).
+- `training_probes.training_arrays`: "before_correction_weight" for the last "before_correction_rows" steps before
+  an h press (0 leaves them out), "after_correction_weight" for the "after_correction_rows" steps after it.
+- Runs (`config.HAND_CORRECTIONS`), each on the 16 new tracks: without the 5 steps before (1,471 pictures at weight
+  0); the 8 steps after three times (2,321 pictures); both; both with 8 steps before left out (2,361 pictures). Both
+  changes also on the six course sheets, where most corrections lie (185 of 305 on sheets 02 to 04). Robot
+  candidates chosen before any result: model 13 (model 10 with both changes) and model 14 (the same with two
+  pictures).
+- Login scripts in `evidence/final_2026-11-14/ki014_scripts/`: `final5.cmd` (one password: uploads the code into its
+  own folder `02_code_5` on ki-014, so the third queue's jobs are not touched, queues 20 jobs behind the third queue
+  and fetches all results so far), `final5_fetch.cmd` (fetch only). About 2.5 hours of card time, calculated from the
+  third queue's pace. Rehearsed on the laptop: the scripts' syntax, the upload with only the five code files, and one
+  very short training of a new run. Not rehearsed beforehand: anything on ki-014.
+
+Queued on 15.11.26 at 03:09 (Emranul typed the password): "upload done", the check on ki-014 found the same counts as
+the laptop (22,646 pictures, 1,471 left out, 2,321 counted more), "20 jobs in the fifth queue; it starts when the
+third has finished". At that moment the second queue had ended 42 jobs and the third had not begun. The same login
+brought back the second queue's newer results: 16 rounds 0.839 and 16 of 55 right stops, ResNet-34 0.836 and 18 of
+55, score 1 left out (all 16 folds now) 0.838 and 14 of 55, 12 tracks (15 folds) 0.830 and 15 of 52; none passes the
+rule of section 3. On the pictures after an h press, 16 rounds reaches 0.627 against the reference's 0.575.
+
+**Rule for reading them, fixed before any result.** Against the reference on the same folds: a run is kept when the
+pictures after an h press gain at least 5 points (pooled; two seeds of the reference differ by 1.7 points, and 456
+pictures give about 2.3 points of chance) and the path measure without the steps before an h press does not lose
+more than 1 point, and it does not stop right less often by more than the seed gap (6 of 55). A recorded-picture
+gain is not yet a robot gain: the test that counts is models 13 and 14 against model 10 and model E on the robot,
+first on sheet 03, where the model stayed beside the line, with the puck also set down beside the line by hand.
+
+Why five steps: in eight picture strips the puck is visibly off the line from 3 to 5 steps before the press. That is
+a look, not a measurement, so the 8-step run shows how much the number matters.
+
+## 13. Where the reference model is wrong: an audit by situation (15.11.26, 03:55; `evidence/final_2026-11-14/error_audit.py`, `error_audit.csv`)
+
+Emranul, after finding the corrections by hand himself: "there are a lot of hidden things like this; you should find
+them". All 7,712 held-out path pictures of the reference (two seeds, 16 new tracks, round 2 episodes only) were put
+into groups by what the recording knows, and the path measure (within 45 degrees; 0.834 overall) read per group.
+The groups overlap, so a low group is a candidate, not a cause; two overlaps were taken apart.
+
+| Situation | Within 45 | Share of pictures |
+|---|---|---|
+| first 8 steps of an episode / after step 21 | 0.98 / 0.795 | 11 % / 76 % |
+| no h press before / 1 to 3 steps after one / 9 and more after one | 0.895 / 0.497 / 0.75 to 0.83 | 66 % / 5 % / 22 % |
+| rod tip under 25 cm from the base / 38 to 42 cm / over 42 cm | 0.956 / 0.773 / 0.757 | 16 % / 20 % / 12 % |
+| the demonstration moves backwards (135 to 180 degrees) | 0.472 | 6.9 % |
+| the path turns by more than 45 degrees at this step | 0.665 | 5.1 % |
+| rod lean under 20 degrees / over 40 | 0.938 / 0.773 | 22 % / 21 % |
+| episode score 3 / 2 / 1 | 0.888 / 0.834 / 0.785 | 21 % / 57 % / 22 % |
+
+Taken apart: (a) reach counts by itself: with no h press before, 0.973 under 25 cm falls to 0.808 over 42 cm;
+(b) an h press counts by itself: at the same reach, pictures 9 and more steps after one are still 6 to 13 points
+below pictures with none before; (c) the model almost never steps back: the demonstration goes backwards on 530
+pictures, the model answers backwards on 131 and is right on 60, also where no h press came before (0.538).
+
+No sign of a problem (differences within a few points): solid against dashed lines, step length, forearm twist,
+picture brightness. Not taken apart yet: picture sharpness (the two less sharp halves 0.79, the sharper 0.87 to
+0.89), which may only be reach again; path to the right (0.774) against to the left (0.824).
+
+Candidates this gives, and where they stand: far reach (weighting in the third queue; the lay-out rule costs no
+training); pictures after an h press (fifth queue); stepping back (new: nothing built; first to check is whether the
+driver would even carry out a backwards step); score 1 episodes (the run without them: +0.6 points, within chance).
+Limits: recorded pictures of round 2 tracks only, no course sheet, and agreeing with the demonstration is not the
+same as pushing well.
+
+## 14. Third and fifth queue read (15.11.26, 10:00; all queues finished on ki-014 at 08:31, results fetched whole)
+
+Queues: second ended 04:36 (4 jobs with exit 1: three of the 320-pixel jobs, one table-as-paper), third 04:36 to 07:08
+(20 of 52 jobs with exit 1 from 06:20 on: ResNet-50 and ConvNeXt-Tiny on the zoomed view not at all, ConvNeXt-Tiny 4
+folds, zoom seed 2 4 folds, zoom with turned and mirrored pictures 8 folds, seed 3 13 folds; the cause is not read
+yet, the job logs are on ki-014), fifth 07:08 to 08:31 (20 of 20 with exit 0).
+
+New tracks (16 folds unless said; reference 0.832 path within 45, 11 of 55 right stops, 0.839 without the steps
+before an h press, 0.575 on the steps after one):
+
+| Run | Path 45 | Right stops | Without before-h | After h |
+|---|---|---|---|---|
+| mirror | 0.844 | 16 | 0.852 | 0.616 |
+| turned 12 | 0.830 | 14 | 0.838 | 0.566 |
+| far reach 3 | 0.820 | 12 | 0.828 | 0.583 |
+| zoom | 0.824 | 10 | 0.828 | 0.583 |
+| zoom + turned + mirror (8 folds; reference on them 0.837, 3 of 25, 0.849, 0.599) | 0.873 | 4 of 25 | 0.879 | 0.693 |
+| seed 3 of the reference (13 folds; seed 1 on them 0.825, 10 of 45) | 0.825 | 15 of 45 | 0.833 | 0.550 |
+| after h x3 | 0.830 | 12 | 0.836 | 0.610 |
+| without 5 before h | 0.825 | 16 | 0.830 | 0.546 |
+| without 5 before h, after h x3 | 0.819 | 13 | 0.829 | 0.627 |
+| without 8 before h, after h x3 | 0.818 | 8 | 0.825 | 0.629 |
+
+Course sheets (6 folds, 209 episodes): reference 0.818, 106 right stops, without before-h 0.826, after h 0.576;
+zoom 0.828, 116, 0.835, 0.610; two pictures 0.835, 86 (78 never stopped), 0.844, 0.668; ResNet-34 0.825, 102, 0.834,
+0.609; without 5 before h with after h x3 0.807, 103, 0.819, 0.645.
+
+By the rules fixed beforehand: the hand-correction rule (after h +5 points, path without before-h not more than 1
+point lower, stops within the seed gap) is met by "without 5 before, after x3" on both yardsticks, on the new tracks
+only just (+5.2 and -1.0). Leaving the before-h steps out alone does not raise the after-h number (0.546); the gain
+comes from the weight on the after-h steps (0.610 alone). Eight steps left out is worse than five. By the search's
+first rule nothing passes clearly: mirror gains 1.2 points and 5 stops, which is the size of the gap between seeds
+(three seeds: 11, 17 and about 15 right stops). Far reach, turned pictures and the zoomed view alone show no gain on
+the new tracks; zoom gains 1 point and 10 stops on the course sheets. The strongest number, zoom with turned and
+mirrored pictures (+3.6 points, after h +9), rests on 8 of 16 folds and has to be completed before it counts. Two
+pictures steer best on both yardsticks and stop worst. Robot candidates trained: models 11, 12, 13 and 14.
+
+## 15. Combined recipes and the 3-step weighting read (15.11.26, 13:30; seventh queue ended 12:00, eighth 12:37, all fetched)
+
+New tracks (16 folds; reference 0.832 path within 45, 11 of 55 right stops, after an h press 0.575):
+
+| Run | Path 45 | Right stops | Without before-h | After h |
+|---|---|---|---|---|
+| mirror + after h x3 + 16 rounds (model 15's recipe) | 0.856 | 17 | 0.865 | 0.693 |
+| the same on the zoomed, turned view (model 16's recipe) | 0.846 | 12 | 0.856 | 0.700 |
+| last 3 steps before h at a third | 0.837 | 14 | 0.844 | 0.603 |
+| last 3 before h at a third + after h x3 | 0.823 | 9 | 0.830 | 0.612 |
+
+Course sheets (6 folds, 209 episodes; reference 0.818, 106 right, after h 0.576): model 15's recipe 0.834, 111 right
+(40 early, 50 never), after h 0.684; model 16's recipe 0.839, 107 right (32 early, 63 never), after h 0.670.
+
+By the search's first rule, model 15's recipe passes on the new tracks (+2.4 points path and +6 right stops; the seed
+gap is 1.2 points and 6 stops; against the best reference seed it is +1.2 points and equal stops) and holds on the
+course sheets (+1.6 points, +5 stops). It is the first recipe that gains on both yardsticks and on the steps after an h
+press. The zoomed version adds nothing on the new tracks and never stops more often on the course sheets; model 16
+cannot be driven anyway (the driver does not cut the zoomed picture). Emranul's 3-step weighting alone is a small
+plus within chance (+0.5 points, +3 stops); together with the after-h weight it is worse, so it is not combined.
+Model 15 (this recipe on all sheets) is the main robot candidate in the checklist of 15.11.26.

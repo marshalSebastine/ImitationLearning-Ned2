@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy
+import pandas
 import timm
 import torch
 
@@ -120,17 +121,141 @@ class PictureToMoveModel(torch.nn.Module):
         self.pooling = run_settings["pooling"]
         self.pooling_grid = tuple(run_settings["pooling_grid"])
         cells = self.pooling_grid[0] * self.pooling_grid[1] if self.pooling == "grid" else 1
-        self.head = ProbeHead(self.backbone.num_features * cells, output_sizes, run_settings["hidden_size"], run_settings["dropout"])
+        # 15.11.26: the direction memory ("memory_distances_cm"): where the tip was some cm of path ago, as arrows in
+        # the picture's frame with a known-flag each; a small layer turns them into "memory_hidden_size" numbers that
+        # join the picture's features before the head
+        self.memory_size = 3 * len(run_settings.get("memory_distances_cm") or [])
+        self.memory_scale_cm = float(run_settings.get("memory_scale_cm", 10.0))
+        memory_width = 0
+        if self.memory_size:
+            memory_width = int(run_settings["memory_hidden_size"])
+            self.memory_layer = torch.nn.Sequential(torch.nn.Linear(self.memory_size, memory_width), torch.nn.ReLU())
+        self.head = ProbeHead(self.backbone.num_features * cells + memory_width, output_sizes, run_settings["hidden_size"], run_settings["dropout"])
 
 
-    def forward(self, pictures: torch.Tensor) -> Dict[str, torch.Tensor]:
+    def forward(
+            self,
+            pictures: torch.Tensor,
+            memory: Optional[torch.Tensor] = None
+    ) -> Dict[str, torch.Tensor]:
+        """The outputs for a batch of pictures; a model with a direction memory takes it too (none = all unknown)."""
 
         feature_map = self.backbone.forward_features(pictures)
         if self.pooling == "grid":
             pooled = torch.nn.functional.adaptive_avg_pool2d(feature_map, self.pooling_grid).flatten(1)
         else:
             pooled = feature_map.mean(dim = (2, 3))
+        if self.memory_size:
+            if memory is None:
+                memory = torch.zeros(len(pooled), self.memory_size, device = pooled.device)
+            arrow_count = 2 * self.memory_size // 3
+            scaled = torch.cat([memory[:, :arrow_count] / self.memory_scale_cm, memory[:, arrow_count:]], dim = 1).to(pooled.dtype)
+            pooled = torch.cat([pooled, self.memory_layer(scaled)], dim = 1)
         return self.head(pooled)
+
+
+
+class SequencePictureModel(torch.nn.Module):
+
+    def __init__(
+            self,
+            run_settings: Dict,
+            output_sizes: Dict[str, int]
+    ):
+        """
+        The recurrent model (15.11.26): the backbone turns each of the last "sequence_frames" camera pictures (taken
+        "sequence_stride" steps apart, the newest last) into features, a GRU of "gru_size" reads them in order, and the
+        head answers from the GRU's last state together with the newest picture's own features. Only pictures are its
+        input, as the course demands; the sequence lets it see how the view has turned on the way (the forearm's
+        winding) and where it came from (the first or second pass of a loop).
+
+        Parameters
+        ----------
+        run_settings : dict
+            As for PictureToMoveModel, plus "sequence_frames", "sequence_gradient_frames" (the newest pictures the
+            backbone learns from; the older ones pass through it without gradient, to fit the card) and "gru_size".
+        output_sizes : dict of str to int
+            From ``design_outputs``.
+        """
+
+        super().__init__()
+        if run_settings["backbone"] == "small_cnn":
+            self.backbone = SmallConvolutionalBackbone(run_settings["small_cnn_channels"], 3)
+        else:
+            self.backbone = timm.create_model(run_settings["backbone"], pretrained = run_settings["is_pretrained"], num_classes = 0)
+        self.frame_count = int(run_settings["sequence_frames"])
+        self.gradient_frames = int(run_settings["sequence_gradient_frames"])
+        self.memory_size = 0
+        self.gru = torch.nn.GRU(self.backbone.num_features, int(run_settings["gru_size"]), batch_first = True)
+        self.head = ProbeHead(int(run_settings["gru_size"]) + self.backbone.num_features, output_sizes, run_settings["hidden_size"], run_settings["dropout"])
+
+
+    def picture_features(self, pictures: torch.Tensor) -> torch.Tensor:
+        """(pictures, 3, height, width) normalised input to (pictures, features), averaged over the feature map."""
+
+        return self.backbone.forward_features(pictures).mean(dim = (2, 3))
+
+
+    def answer_from_features(self, features: torch.Tensor) -> Dict[str, torch.Tensor]:
+        """(batch, frames, features), the oldest picture first, to the outputs at the newest picture."""
+
+        states, _ = self.gru(features)
+        return self.head(torch.cat([states[:, -1], features[:, -1]], dim = 1))
+
+
+    def forward(
+            self,
+            pictures: torch.Tensor,
+            memory: Optional[torch.Tensor] = None
+    ) -> Dict[str, torch.Tensor]:
+        """(batch, 3 x frames, height, width) with the newest picture in the first three channels (as stacked by
+        ``SequencePictures`` and augmented alike by ``augmented_pictures``)."""
+
+        batch, channels, height, width = pictures.shape
+        frames = pictures.view(batch, channels // 3, 3, height, width)
+        newest = self.picture_features(frames[:, :self.gradient_frames].reshape(-1, 3, height, width)).view(batch, self.gradient_frames, -1)
+        if frames.shape[1] > self.gradient_frames:
+            with torch.no_grad():
+                older = self.picture_features(frames[:, self.gradient_frames:].reshape(-1, 3, height, width)).view(batch, frames.shape[1] - self.gradient_frames, -1)
+            features = torch.cat([newest, older], dim = 1)
+        else:
+            features = newest
+        return self.answer_from_features(torch.flip(features, dims = [1]))
+
+
+
+class SequencePictures:
+
+    def __init__(
+            self,
+            cache: numpy.ndarray,
+            frames: pandas.DataFrame,
+            frame_count: int,
+            stride: int
+    ):
+        """
+        The picture sequences of the recurrent model, built when a batch asks for them: for each row the camera's
+        pictures 0, stride, 2 x stride, ... steps back (an episode's first picture repeats before it began), stacked as
+        channels with the newest first, like the two-picture model's input.
+        """
+
+        self.cache = torch.from_numpy(numpy.ascontiguousarray(cache))
+        lags = [stride * number for number in range(frame_count)]
+        self.indices = numpy.stack([previous_frame_indices(frames, lag) for lag in lags], axis = 1)
+
+
+    def __len__(self) -> int:
+
+        return len(self.indices)
+
+
+    def __getitem__(self, rows) -> torch.Tensor:
+
+        rows = numpy.atleast_1d(numpy.asarray(rows))
+        stacked = self.cache[torch.from_numpy(self.indices[rows].reshape(-1))]
+        count, frame_count = len(rows), self.indices.shape[1]
+        height, width = stacked.shape[1], stacked.shape[2]
+        return stacked.view(count, frame_count, height, width, 3).permute(0, 2, 3, 1, 4).reshape(count, height, width, 3 * frame_count)
 
 
 
@@ -666,13 +791,44 @@ def batch_targets(
 
 
 
+def memory_batch(
+        arrays: Dict[str, numpy.ndarray],
+        rows: numpy.ndarray,
+        is_mirrored: numpy.ndarray,
+        settings: Dict,
+        randomness_generator: Optional[numpy.random.Generator] = None
+) -> torch.Tensor:
+    """
+    The direction memory of a batch (15.11.26): mirrored where the picture was (the left components change sign); in
+    training ("randomness_generator" given) hidden for a share "memory_hide_probability" of the pictures (all zero, as
+    at a run's start), so that the picture keeps doing the work and the model cannot only repeat its past, and the known
+    arrows shaken by "memory_noise_cm", as the robot's own path is less tidy than a demonstration.
+    """
+
+    memory = arrays["memory"][rows].astype(numpy.float32).copy()
+    arrow_count = 2 * memory.shape[1] // 3
+    if is_mirrored.any():
+        memory[numpy.ix_(numpy.flatnonzero(is_mirrored), numpy.arange(1, arrow_count, 2))] *= -1.0
+    if randomness_generator is not None:
+        flags = numpy.repeat(memory[:, arrow_count:], 2, axis = 1)
+        memory[:, :arrow_count] += (randomness_generator.normal(0.0, settings["memory_noise_cm"], (len(rows), arrow_count)) * flags).astype(numpy.float32)
+        memory[randomness_generator.random(len(rows)) < settings["memory_hide_probability"]] = 0.0
+    return torch.from_numpy(memory)
+
+
+
 def model_outputs(
         model: PictureToMoveModel,
         pictures: torch.Tensor,
         rows: numpy.ndarray,
-        settings: Dict
+        settings: Dict,
+        arrays: Optional[Dict[str, numpy.ndarray]] = None,
+        is_memory_hidden: bool = False
 ) -> Dict[str, torch.Tensor]:
-    """Return the model's outputs for the given rows, without augmentation, in batches, on the processor."""
+    """
+    Return the model's outputs for the given rows, without augmentation, in batches, on the processor. A model with a
+    direction memory gets the rows' memory from ``arrays`` (none when ``is_memory_hidden``, the copycat check).
+    """
 
     model.eval()
     device = next(model.parameters()).device
@@ -681,7 +837,10 @@ def model_outputs(
         for start in range(0, len(rows), settings["evaluation_batch_size"]):
             batch_rows = rows[start:start + settings["evaluation_batch_size"]]
             inputs, _ = augmented_pictures(pictures[batch_rows], settings, numpy.random.default_rng(0), is_training = False)
-            parts.append({name: value.cpu() for name, value in model(inputs.to(device)).items()})
+            memory = None
+            if model.memory_size and not is_memory_hidden:
+                memory = memory_batch(arrays, batch_rows, numpy.zeros(len(batch_rows), dtype = bool), settings).to(device)
+            parts.append({name: value.cpu() for name, value in model(inputs.to(device), memory).items()})
     return {name: torch.cat([part[name] for part in parts]) for name in parts[0]}
 
 
@@ -717,9 +876,12 @@ def train_fold(
     randomness_generator = numpy.random.default_rng(seed)
     device = training_device(settings)
     output_sizes = design_outputs(settings["design"], len(class_names), settings["chunk_steps"], settings.get("is_stop_separate", False))
-    model = PictureToMoveModel(settings, output_sizes).to(device)
+    model_class = SequencePictureModel if settings.get("sequence_frames") else PictureToMoveModel
+    model = model_class(settings, output_sizes).to(device)
     backbone_parameters = list(model.backbone.parameters())
-    head_parameters = list(model.head.parameters())
+    # 15.11.26: every part outside the backbone (head, memory layer, recurrent layer) learns at the head's rate; before,
+    # only model.head was handed to the optimiser and the direction memory's own layer stayed at its random start
+    head_parameters = [value for name, value in model.named_parameters() if not name.startswith("backbone.")]
     backbone_rate = settings["learning_rate"] * (settings["backbone_learning_rate_factor"] if settings["is_pretrained"] else 1.0)
     optimiser = torch.optim.AdamW([{"params": backbone_parameters, "lr": backbone_rate}, {"params": head_parameters, "lr": settings["learning_rate"]}],
                                   weight_decay = settings["weight_decay"])
@@ -764,7 +926,8 @@ def train_fold(
             if is_ended is not None and is_ended.any():
                 batch = ended_targets(batch, is_ended)
             targets = {name: value.to(device) for name, value in batch.items()}
-            loss = head_losses(model(inputs.to(device)), targets, head_settings)
+            memory = memory_batch(arrays, rows, is_mirrored, settings, randomness_generator).to(device) if model.memory_size else None
+            loss = head_losses(model(inputs.to(device), memory), targets, head_settings)
             optimiser.zero_grad()
             loss.backward()
             optimiser.step()
@@ -776,7 +939,7 @@ def train_fold(
                             "seconds": round(time.perf_counter() - started, 1)})
             print(f"{settings['name']} | epoch {epoch + 1} | train {history[-1]['train_loss']} | {history[-1]['seconds']} s", flush = True)
             continue
-        outputs = model_outputs(model, pictures, validation_rows, settings)
+        outputs = model_outputs(model, pictures, validation_rows, settings, arrays)
         validation_targets = batch_targets(arrays, validation_rows, numpy.zeros(len(validation_rows), dtype = bool), mirror_class_index, direction_class_weights)
         validation_loss = float(head_losses(outputs, validation_targets, head_settings))
         history.append({"epoch": epoch + 1, "train_loss": round(epoch_loss / len(order), 4), "validation_loss": round(validation_loss, 4),
@@ -806,7 +969,7 @@ def milliseconds_per_picture(
 
     model.eval()
     height, width = settings["picture_size"][1], settings["picture_size"][0]
-    picture = torch.rand(1, 3 * settings.get("picture_count", 1), height, width)
+    picture = torch.rand(1, 3 * (settings.get("sequence_frames") or settings.get("picture_count", 1)), height, width)
     timings = []
     with torch.inference_mode():
         for repeat in range(23):
@@ -859,8 +1022,14 @@ def run_training(
         data_parameters["processed_folder"] = settings["processed_folder"]
     frames = load_training_frames(target_parameters, data_parameters)
     cache = numpy.load(Path(data_parameters["processed_folder"]) / f"images_{settings['picture_cache']}.npy", mmap_mode = "r")
-    pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
-    if settings.get("picture_count", 1) > 1:
+    if settings.get("sequence_frames"):
+        # 15.11.26: the recurrent model reads the whole cache once (1.3 GB) and stacks each batch's sequences on demand
+        if settings.get("memory_distances_cm") or settings.get("picture_count", 1) > 1:
+            raise ValueError("the recurrent model takes neither the direction memory nor a second stacked picture")
+        pictures = SequencePictures(numpy.array(cache), frames, settings["sequence_frames"], settings["sequence_stride"])
+    else:
+        pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
+    if settings.get("picture_count", 1) > 1 and not settings.get("sequence_frames"):
         # 14.11.26: the picture before each one (the camera's previous picture in the same episode, also where the
         # cleaning dropped that row; an episode's first picture is repeated), stacked behind it as three more channels
         earlier_pictures = [torch.from_numpy(numpy.array(cache[previous_frame_indices(frames, lag)]))
@@ -871,6 +1040,8 @@ def run_training(
         settings["normalisation"] = {"mean": list(data_configuration["mean"]), "std": list(data_configuration["std"])}
 
     arrays, class_names, is_moving = training_arrays(frames, settings, target_parameters)
+    if settings.get("memory_distances_cm") and settings["augmentation"].get("turn_most_deg", 0.0) > 0:
+        raise ValueError("the direction memory is not turned with turned pictures; switch one of them off")
     is_exam_model = settings["split"] == "all"
     if is_exam_model:
         # the exam model learns from every sheet and every episode; its test is the robot, not a held-out sheet
@@ -911,9 +1082,15 @@ def run_training(
             torch.save(model.state_dict(), run_folder / "checkpoints" / f"{fold['name']}.pt")
             print(f"{run_name} | {fold['name']} | trained on {len(train_rows)} pictures in {measures['minutes']} min", flush = True)
             continue
-        predictions = predictions_from_outputs(model_outputs(model, pictures, test_rows, settings), class_names, settings["stop_target"])
-        validation_predictions = predictions_from_outputs(model_outputs(model, pictures, validation_rows, settings), class_names, settings["stop_target"])
+        predictions = predictions_from_outputs(model_outputs(model, pictures, test_rows, settings, arrays), class_names, settings["stop_target"])
+        validation_predictions = predictions_from_outputs(model_outputs(model, pictures, validation_rows, settings, arrays), class_names, settings["stop_target"])
         measures = fold_measures(predictions, frames, test_rows, arrays, is_moving, validation_predictions, validation_rows)
+        if model.memory_size:
+            # the copycat check (15.11.26): the same test pictures with the memory hidden; a model that leans on its
+            # memory alone falls far below its score with the memory
+            hidden = predictions_from_outputs(model_outputs(model, pictures, test_rows, settings, arrays, is_memory_hidden = True), class_names, settings["stop_target"])
+            hidden_measures = fold_measures(hidden, frames, test_rows, arrays, is_moving)
+            measures.update({f"memory_hidden_{name}": hidden_measures.get(name) for name in ("path_within_45_deg", "within_45_deg", "fixed_two_episodes_stopped_right")})
         measures.update({"fold": fold["name"], "epochs_run": len(history), "minutes": round((time.perf_counter() - started) / 60.0, 1)})
         fold_results.append(measures)
         (run_folder / f"fold_{fold['name']}.json").write_text(json.dumps({"measures": measures, "history": history}, indent = 1), encoding = "utf-8")

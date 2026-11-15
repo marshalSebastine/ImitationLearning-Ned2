@@ -36,9 +36,7 @@ from config import (TRAINING_DATA_PARAMETERS, TRAINING_METRIC_PARAMETERS, TRAINI
                     TRAINING_TARGET_PARAMETERS)
 from training_metrics import (change_metrics, chunk_metrics, direction_metrics, stop_metrics, summarised_folds, tuned_stop_threshold,
                               twist_metrics)
-from training_targets import (DIRECTION_ANGLES_DEG, DIRECTION_NAMES, chunk_targets, class_weights, direction_targets,
-                              episode_folds, exact_step_targets, inner_validation_mask, leave_one_sheet_out_folds,
-                              load_training_frames, new_track_shapes, previous_rows, score_weights, stop_targets, twist_targets)
+from training_targets import (DIRECTION_ANGLES_DEG, DIRECTION_NAMES, chunk_targets, class_weights, direction_targets, episode_folds, exact_step_targets, inner_validation_mask, leave_one_sheet_out_folds, load_training_frames, memory_arrows, new_track_shapes, previous_rows, score_weights, stop_targets, twist_targets)
 
 TWIST_SIGNS = numpy.array([-1.0, 0.0, 1.0])
 
@@ -175,6 +173,57 @@ def design_outputs(
 
 
 
+def swing_rows(frames: pandas.DataFrame) -> numpy.ndarray:
+    """
+    Which rows lie in a forearm swing: from the last picture with the forearm beyond 35 degrees on one side to the
+    first beyond 35 degrees on the other side, within one episode (the revolving move of 15.11.26).
+    """
+
+    angle = numpy.degrees(frames["joint_4"].to_numpy(dtype = float))
+    episode_ids = frames["episode_id"].to_numpy()
+    is_swing = numpy.zeros(len(frames), dtype = bool)
+    side, start = 0, None
+    for row in range(len(frames)):
+        if row > 0 and episode_ids[row] != episode_ids[row - 1]:
+            side, start = 0, None
+        current = -1 if angle[row] <= -35.0 else (1 if angle[row] >= 35.0 else 0)
+        if not current:
+            continue
+        if side and current != side:
+            is_swing[start:row + 1] = True
+        side, start = current, row
+    return is_swing
+
+
+
+def correction_rows(
+        frames: pandas.DataFrame,
+        parameters: Dict
+) -> Tuple[numpy.ndarray, numpy.ndarray]:
+    """
+    Return which rows are the last steps before a correction by hand and which the first replayed steps after one.
+
+    Parameters
+    ----------
+    frames : pandas.DataFrame
+        From ``load_training_frames`` (with the columns of ``correction_steps``).
+    parameters : dict
+        Supplies "before_correction_rows" and "after_correction_rows".
+
+    Returns
+    -------
+    tuple of numpy.ndarray
+        Two boolean masks over the rows: before an h press, and after one.
+    """
+
+    steps_to_next = frames["steps_to_next_correction"].to_numpy(dtype = float)
+    steps_since = frames["steps_since_correction"].to_numpy(dtype = float)
+    is_before = (steps_to_next >= 1) & (steps_to_next <= parameters["before_correction_rows"])
+    is_after = (steps_since >= 1) & (steps_since <= parameters["after_correction_rows"])
+    return is_before, is_after
+
+
+
 def training_arrays(
         frames: pandas.DataFrame,
         parameters: Dict,
@@ -238,11 +287,42 @@ def training_arrays(
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("recovery_weight", 1.0) != 1.0:
         # 15.11.26: on the robot the model, once beside the line, stayed beside it for a long stretch (Emranul, sheet 03).
-        # The only recordings that show the puck being brought back are the starts beside the line (OL and OR, 35
-        # episodes of round 1, none of round 2); their first "recovery_rows" pictures, 1.2 % of all, count more.
+        # The starts beside the line (OL and OR, 35 episodes of round 1, none of round 2): their first
+        # "recovery_rows" pictures, 1.2 % of all, count more. Corrected 15.11.26 (Emranul): these are NOT the only
+        # recordings of a puck brought back; the 304 corrections by hand (h key) give about 2,100 more pictures, which
+        # this option does not weight (evidence/night_look_2026-11-14/hand_corrections_check.py).
         is_recovery = (frames["start_kind"].astype(str).str.startswith(("OL", "OR")) & (frames["row_in_episode"] < parameters["recovery_rows"])).to_numpy()
         arrays["sample_weight"] = numpy.where(is_recovery, arrays["sample_weight"] * parameters["recovery_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("before_correction_weight", 1.0) != 1.0 or parameters.get("after_correction_weight", 1.0) != 1.0:
+        # 15.11.26 (Emranul: "put more weight on the frames after h is pressed"): the "after_correction_rows" replayed
+        # steps after a correction by hand show the robot bringing the drifted puck back and count more; the last
+        # "before_correction_rows" steps before an h press show the replay going on while the puck drifts and count
+        # less (0 leaves them out). A row that is both (two corrections close together) counts as a step before.
+        is_before, is_after = correction_rows(frames, parameters)
+        weight = numpy.where(is_after, arrays["sample_weight"] * parameters.get("after_correction_weight", 1.0), arrays["sample_weight"])
+        weight = numpy.where(is_before, arrays["sample_weight"] * parameters.get("before_correction_weight", 1.0), weight)
+        arrays["sample_weight"] = weight.astype(arrays["sample_weight"].dtype)
+    if parameters.get("approach_weight", 1.0) != 1.0:
+        # 15.11.26 (Emranul: "put more weight into the last frames of each episode, so the puck covers the line"): the
+        # last "approach_rows" steps before the stop of the episodes scored in "approach_scores" count this many times.
+        # The audit found the model weakest 4 to 20 steps before the end (73 to 75 % against 86 % earlier); only well
+        # scored episodes, so that a puck ending beside the line end is not taught more.
+        steps_to_end = frames["steps_to_end"].to_numpy(dtype = float)
+        is_approach = ((steps_to_end >= 1) & (steps_to_end <= parameters["approach_rows"])
+                       & frames["score"].isin(parameters["approach_scores"]).to_numpy())
+        arrays["sample_weight"] = numpy.where(is_approach, arrays["sample_weight"] * parameters["approach_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("swing_weight", 1.0) != 1.0:
+        # 15.11.26, the revolving move: on the robot every model but E wound the forearm on to its limit in loops,
+        # where the demonstrators swing it back through the middle to the other side (from beyond 35 degrees on one
+        # side to beyond 35 on the other; 153 of 265 episodes, 3,090 of the course sheets' pictures). These swing
+        # pictures count "swing_weight" times (keyframe weighting, Wen and others 2021).
+        arrays["sample_weight"] = numpy.where(swing_rows(frames), arrays["sample_weight"] * parameters["swing_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("memory_distances_cm"):
+        # 15.11.26: the direction memory (where the tip was 2, 5 and 10 cm of path ago), an input beside the picture
+        arrays["memory"] = memory_arrows(frames, parameters["memory_distances_cm"])
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training

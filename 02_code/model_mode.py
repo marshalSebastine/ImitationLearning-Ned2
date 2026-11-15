@@ -72,8 +72,9 @@ from config import (MODEL_MODE_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, R
                     TRAINING_TARGET_PARAMETERS, pushing_height, start_pose)
 from record_episodes import forearm_camera_heading_rad, read_window_key, show_in_window
 from side_view_test import magnet_tip_and_lean, solve_with_wrist_fixed
-from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, SequencePictureModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs, predictions_from_outputs
+from training_targets import memory_from_path
 
 
 class ModelPolicy:
@@ -117,8 +118,12 @@ class ModelPolicy:
         output_sizes = design_outputs(self.settings["design"], len(self.class_names), self.settings["chunk_steps"],
                                       self.settings.get("is_stop_separate", False))
         self.models = []
+        # 15.11.26: the recurrent model reads its sequence of pictures from the features kept below
+        self.sequence_frames = int(self.settings.get("sequence_frames") or 0)
+        self.sequence_stride_robot = int(self.settings.get("sequence_stride_robot") or 1)
+        model_class = SequencePictureModel if self.sequence_frames else PictureToMoveModel
         for checkpoint in paths:
-            model = PictureToMoveModel(self.settings, output_sizes)
+            model = model_class(self.settings, output_sizes)
             model.load_state_dict(torch.load(checkpoint, map_location = "cpu"))
             model.eval()
             self.models.append(model)
@@ -126,12 +131,35 @@ class ModelPolicy:
         # 14.11.26: a model shown the previous picture too ("picture_count" 2) gets the picture of the step before
         self.picture_count = self.settings.get("picture_count", 1)
         self.earlier_pictures = []
+        self.memory_distances_cm = list(self.settings.get("memory_distances_cm") or [])
+        self.feature_history = [[] for _ in self.models]
 
 
     def forget_earlier_pictures(self) -> None:
         """Start a new run: its first picture is shown as its own previous picture, as an episode's first in training."""
 
         self.earlier_pictures = []
+        self.feature_history = [[] for _ in getattr(self, "models", [])]
+
+
+    def sequence_answer(
+            self,
+            model_number: int,
+            inputs: torch.Tensor
+    ) -> Dict[str, torch.Tensor]:
+        """
+        The recurrent model's answer (15.11.26): this picture's features join the run's kept features, and the GRU reads
+        "sequence_frames" of them, "sequence_stride_robot" steps apart (the robot's 0.65 cm steps against the recordings'
+        1 cm, so that the sequence spans about the same path as in training), the run's first picture standing in for
+        pictures not yet taken.
+        """
+
+        model = self.models[model_number]
+        history = self.feature_history[model_number]
+        history.append(model.picture_features(inputs)[0])
+        newest = len(history) - 1
+        chosen = [history[max(0, newest - self.sequence_stride_robot * number)] for number in range(self.sequence_frames)]
+        return model.answer_from_features(torch.stack(chosen[::-1])[None])
 
 
     def remember_picture(self, picture_bytes: bytes) -> None:
@@ -170,7 +198,11 @@ class ModelPolicy:
         return inputs
 
 
-    def decide(self, picture_bytes: bytes) -> Dict[str, float]:
+    def decide(
+            self,
+            picture_bytes: bytes,
+            memory: Optional[numpy.ndarray] = None
+    ) -> Dict[str, float]:
         """
         The model's answer to one picture.
 
@@ -188,10 +220,12 @@ class ModelPolicy:
         """
 
         inputs = self.picture_input(picture_bytes)
+        # 15.11.26: a model with a direction memory gets where the tip has been (see memory_now); None = unknown
+        memory_input = None if memory is None or not getattr(self, "memory_distances_cm", None) else torch.from_numpy(numpy.asarray(memory, dtype = numpy.float32)[None])
         exact_steps, stop_probabilities = [], []
         with torch.inference_mode():
-            for model in self.models:
-                outputs = model(inputs)
+            for model_number, model in enumerate(self.models):
+                outputs = self.sequence_answer(model_number, inputs) if getattr(self, "sequence_frames", 0) else model(inputs, memory_input)
                 predictions = predictions_from_outputs(outputs, self.class_names, self.settings["stop_target"])
                 exact_steps.append(outputs["exact"][0].numpy())
                 stop_probabilities.append(float(predictions["stop_probability"][0]))
@@ -586,6 +620,26 @@ class ModelRun:
         self.start_offset = start_offset
 
 
+    def memory_now(
+            self,
+            joints: List[float],
+            tips_and_twists: List[tuple]
+    ) -> Optional[numpy.ndarray]:
+        """
+        The direction memory for the next decision (15.11.26), for a model trained with one: the tip's places so far in
+        this run and the tip now, turned into the frame of the picture just taken (the same axes that turn the model's
+        step onto the table). None for a model without a memory.
+        """
+
+        distances_cm = getattr(self.policy, "memory_distances_cm", None)
+        if not distances_cm:
+            return None
+        up_xy, left_xy = picture_axes(joints)
+        tip_now = magnet_tip_and_lean(list(joints))[0][:2]
+        places = numpy.array([[x, y] for x, y, _ in tips_and_twists] + [list(tip_now)], dtype = float)
+        return memory_from_path(places, numpy.asarray(up_xy, dtype = float), numpy.asarray(left_xy, dtype = float), distances_cm)
+
+
     def run(self, label: str) -> Dict:
         """
         Push until the stop rule, the step budget, a refused step or Esc ends the run, then lift the tip. Every
@@ -617,7 +671,8 @@ class ModelRun:
                 picture_bytes = self.fresh_picture()
                 state = self.robot_link.read_state()
                 decision_started = time.perf_counter()
-                decision = self.policy.decide(picture_bytes)
+                memory = self.memory_now(state["joints"], tips_and_twists)
+                decision = self.policy.decide(picture_bytes, memory) if memory is not None else self.policy.decide(picture_bytes)
                 is_stopping = stop_rule.update(decision["stop_probability"])
                 planned = None if is_stopping else model_step(state["joints"], decision, last_direction_xy, self.parameters)
                 row = self.logged_row(folder, step, picture_bytes, state, decision, planned, time.perf_counter() - decision_started)

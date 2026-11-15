@@ -32,13 +32,14 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Dict, List, Optional
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 import cv2
 import numpy
 
 from check_pictures import check_episode_pictures
-from config import RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS, main_checkout_folder
+from config import MODEL_MODE_PARAMETERS, RECORDING_PAGE_PARAMETERS, RECORDING_PARAMETERS, main_checkout_folder
+from visit_runs import RunListProblem, checked_run, line_with_label, run_list_lines, runs_with_label
 
 
 CODE_FOLDER = Path(__file__).resolve().parent
@@ -338,6 +339,130 @@ def read_review_form(
 
 
 
+TEST_MARK_COLUMNS = ["time", "number", "label", "model_key", "sheet", "run_folder", "line_kept", "left_where", "stop", "puck_at_stop", "finished", "remark"]
+
+
+def read_test_marks(page_parameters: Dict = RECORDING_PAGE_PARAMETERS) -> Dict[str, Dict]:
+    """The latest marks of every test label from the marks file; empty when there is none yet."""
+
+    path = Path(page_parameters["test_marks"])
+    if not path.exists():
+        return {}
+    with open(path, encoding = "utf-8", newline = "") as file:
+        return {row["label"]: row for row in csv.DictReader(file)}
+
+
+def test_runs(page_parameters: Dict = RECORDING_PAGE_PARAMETERS) -> List[Dict]:
+    """
+    The test part's list (15.11.26): one entry per line of the test run list, numbered in the list's order, with how
+    often the label has been run and its latest marks.
+    """
+
+    marks = read_test_marks(page_parameters)
+    run_folder = Path(MODEL_MODE_PARAMETERS["run_folder"])
+    runs = []
+    for number, line in enumerate(run_list_lines(Path(page_parameters["test_run_list"])), start = 1):
+        runs.append({"number": number, "label": line["label"], "sheet": line["sheet"], "lay_out": line["lay_out"],
+                     "model_key": line["model_key"], "run_name": line["run_name"], "step_cm": line["step_cm"], "note": line["note"],
+                     "runs_done": len(runs_with_label(line["label"], run_folder)), "marks": marks.get(line["label"])})
+    return runs
+
+
+def test_line(
+        label: str,
+        page_parameters: Dict = RECORDING_PAGE_PARAMETERS
+) -> Dict[str, str]:
+    """The run list's line of ``label``; refused when the label is not in the list."""
+
+    try:
+        return line_with_label(run_list_lines(Path(page_parameters["test_run_list"])), str(label))
+    except RunListProblem as problem:
+        raise FormError(str(problem)) from problem
+
+
+def test_picture(
+        label: str,
+        page_parameters: Dict = RECORDING_PAGE_PARAMETERS
+) -> Optional[bytes]:
+    """
+    The picture to lay a test's sheet by, as PNG or JPEG bytes: the line's faint picture (the camera's view at the start
+    of a recording of that sheet), or for a printed new track ("PRINTED D03 solid: ...") the track's drawing.
+    """
+
+    line = test_line(label, page_parameters)
+    ghost = Path(line.get("ghost") or "")
+    if line.get("ghost") and ghost.is_file():
+        return ghost.read_bytes()
+    words = str(line["sheet"]).split()
+    if len(words) >= 3 and words[0] == "PRINTED":
+        import fitz
+        drawing = Path(page_parameters["test_track_folder"]) / f"{words[1]}_{words[2].rstrip(':')}.pdf"
+        if drawing.is_file():
+            return fitz.open(str(drawing))[0].get_pixmap(dpi = 40).tobytes("png")
+    return None
+
+
+def build_test_command(
+        form: Dict,
+        page_parameters: Dict = RECORDING_PAGE_PARAMETERS
+) -> str:
+    """
+    Check a test's line (its model files and their sha256, through visit_runs.checked_run) and build the command line
+    that runs it through visit_runs.py in a console window of its own, which stays open at the end until a key is
+    pressed. The run needs its own window: model_mode.py reads its keys (Enter, Esc, g) from the console it runs in.
+    """
+
+    label = str(form.get("label") or "")
+    line = test_line(label, page_parameters)
+    try:
+        checked_run(line)
+    except RunListProblem as problem:
+        raise FormError(f"Test {label} cannot start: {problem}") from problem
+    is_again = form.get("is_again") is True
+    if runs_with_label(label, Path(MODEL_MODE_PARAMETERS["run_folder"])) and not is_again:
+        raise FormError(f"Test {label} has been run already. Tick 'Run it again' to run it once more.")
+    command = [sys.executable, "-u", str(CODE_FOLDER / "visit_runs.py"), str(page_parameters["test_run_list"]), label] + (["--again"] if is_again else [])
+    # 15.11.26: the window waits up to 30 seconds (or a key) so that its last lines can be read, then closes by itself;
+    # with "pause" it stayed open, the page counted the test as running and the marks form never came (test A1)
+    # 15.11.26 (test U9 ended at once twice and nobody could read why): after an error the window stays open until a
+    # key is pressed, so its last lines can be read; after a good run it closes by itself after 30 seconds
+    return ('cmd /s /c "' + subprocess.list2cmdline(command) + ' & if errorlevel 1 (echo. & echo THE TEST DID NOT RUN OR ENDED WITH AN ERROR:'
+            ' read the lines above, then press a key & pause) else (echo. & timeout /t 30)"')
+
+
+def save_test_marks(
+        form: Dict,
+        page_parameters: Dict = RECORDING_PAGE_PARAMETERS
+) -> Dict[str, str]:
+    """Check a test's marks and add them as one row to the marks file (marks given again add a new row)."""
+
+    choices = page_parameters["test_mark_choices"]
+    label = str(form.get("label") or "")
+    line = test_line(label, page_parameters)
+    numbers = {run_line["label"]: number for number, run_line in enumerate(run_list_lines(Path(page_parameters["test_run_list"])), start = 1)}
+    row = {"time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "number": str(numbers[label]), "label": label,
+           "model_key": line["model_key"], "sheet": line["sheet"]}
+    for name in ("line_kept", "stop", "finished"):
+        value = str(form.get(name) or "")
+        if value not in choices[name]:
+            raise FormError(f"Choose a value for '{name.replace('_', ' ')}'.")
+        row[name] = value
+    row["left_where"] = clean_note(form, "left_where", "Where it left the line", is_required = row["line_kept"] == "no")
+    row["puck_at_stop"] = clean_note(form, "puck_at_stop", "Puck at the stop")
+    row["remark"] = clean_note(form, "remark", "Remark")
+    runs = runs_with_label(label, Path(MODEL_MODE_PARAMETERS["run_folder"]))
+    row["run_folder"] = runs[-1].name if runs else ""
+    path = Path(page_parameters["test_marks"])
+    is_new = not path.exists()
+    with open(path, "a", encoding = "utf-8", newline = "") as file:
+        writer = csv.DictWriter(file, fieldnames = TEST_MARK_COLUMNS)
+        if is_new:
+            writer.writeheader()
+        writer.writerow(row)
+    return row
+
+
+
 class ToolRunner:
 
     def __init__(
@@ -379,6 +504,7 @@ class ToolRunner:
         self.title = None
         self.command_text = None
         self.started_at = None
+        self.test_to_mark = None
 
 
     def is_running(self) -> bool:
@@ -478,6 +604,32 @@ class ToolRunner:
             return None
         return {"episode": folder.name, "sharpness": round(median), "limit": RECORDING_PAGE_PARAMETERS["sharpness_warning_below"],
                 "source": source}
+
+
+    def start_test(
+            self,
+            label: str,
+            command_line: str
+    ) -> None:
+        """
+        Start a robot test in a console window of its own (its keys go there), under the same one-tool-at-a-time rule as
+        everything else on the page; the page then asks for the test's marks.
+        """
+
+        if self.is_running():
+            raise FormError(f"{self.title} is still running. Finish it from its own window first.")
+        self.__look_for_finished_episode()
+        if self.episode_to_score:
+            raise FormError(f"Score {self.episode_to_score['episode']} first.")
+        self.log_folder.mkdir(parents = True, exist_ok = True)
+        self.started_at = datetime.datetime.now()
+        self.title = f"Test {label}"
+        self.command_text = command_line
+        self.log_path = self.log_folder / f"{self.started_at:%Y-%m-%d_%H%M%S_%f}_test_{re.sub(r'[^a-z0-9]+', '_', label.lower())}.log"
+        self.log_path.write_text(f"{command_line}\n\nThis test runs in its own window; its log is in its run folder (03_data/model_runs).\n", encoding = "utf-8")
+        flags = subprocess.CREATE_NEW_CONSOLE if sys.platform == "win32" else 0
+        self.process = subprocess.Popen(command_line, cwd = CODE_FOLDER, creationflags = flags, env = self.__tool_environment())
+        self.test_to_mark = label
 
 
     def start_recording(
@@ -864,6 +1016,24 @@ class PageRequestHandler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == "/":
             self.__send(HTTPStatus.OK, (CODE_FOLDER / "recording_page.html").read_bytes(), "text/html; charset=utf-8")
+        elif path == "/tests":
+            self.__send(HTTPStatus.OK, (CODE_FOLDER / "test_page.html").read_bytes(), "text/html; charset=utf-8")
+        elif path == "/tests/list":
+            status = self.runner.status()
+            self.__send_json(HTTPStatus.OK, {"runs": test_runs(), "is_running": status["is_running"], "title": status["title"],
+                                             "test_to_mark": self.runner.test_to_mark, "episode_to_score": status["episode_to_score"],
+                                             "choices": RECORDING_PAGE_PARAMETERS["test_mark_choices"],
+                                             "run_list": str(RECORDING_PAGE_PARAMETERS["test_run_list"])})
+        elif path == "/tests/picture":
+            label = parse_qs(urlparse(self.path).query).get("label", [""])[0]
+            try:
+                picture = test_picture(label)
+            except FormError:
+                picture = None
+            if picture:
+                self.__send(HTTPStatus.OK, picture, "image/png" if picture[:4] == b"\x89PNG" else "image/jpeg")
+            else:
+                self.__send_json(HTTPStatus.NOT_FOUND, {"error": "No picture for that test."})
         elif path == "/options":
             self.__send_json(HTTPStatus.OK, {
                 "operators": RECORDING_PAGE_PARAMETERS["operators"], "modes": RECORDING_PAGE_PARAMETERS["modes"],
@@ -925,6 +1095,12 @@ class PageRequestHandler(BaseHTTPRequestHandler):
                                   is_answered_from_page = True)
             elif path == "/press-enter":
                 self.runner.press_enter()
+            elif path == "/tests/start":
+                self.runner.start_test(str(form.get("label") or ""), build_test_command(form))
+            elif path == "/tests/marks":
+                save_test_marks(form)
+                if self.runner.test_to_mark == form.get("label"):
+                    self.runner.test_to_mark = None
             elif path == "/check-episodes":
                 self.runner.start("Check episodes", [sys.executable, "-u", str(CODE_FOLDER / "check_episodes.py")])
             else:
@@ -982,9 +1158,16 @@ class PageRequestHandler(BaseHTTPRequestHandler):
 
 class LocalPageServer(ThreadingHTTPServer):
 
+    # 15.11.26: a second page program must fail to start instead of sharing the port with the first one: on Windows the
+    # reuse flag let two programs listen on 8765, and the browser's requests went to either (the marks form of test A4
+    # came back after it was saved); SO_EXCLUSIVEADDRUSE refuses the second one
+    allow_reuse_address = False
+
     def server_bind(self) -> None:
         """Bind without looking up this computer's name, which can hang for a long time on some networks."""
 
+        if sys.platform == "win32":
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
         socketserver.TCPServer.server_bind(self)
         self.server_name, self.server_port = self.server_address[:2]
 

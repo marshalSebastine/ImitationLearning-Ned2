@@ -1,4 +1,1252 @@
 {
+ "12_tracks_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8351,
+   "episodes": 55,
+   "right": 15,
+   "early": 14,
+   "never": 24
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8311,
+   "episodes": 19,
+   "right": 0,
+   "early": 8,
+   "never": 11
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8497,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.7872,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T03": {
+    "path_within_45": 0.8426,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8128,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7973,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7759,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T07": {
+    "path_within_45": 0.8474,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8306,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.9211,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T10": {
+    "path_within_45": 0.8015,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8571,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T12": {
+    "path_within_45": 0.8194,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.8056,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.815,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T15": {
+    "path_within_45": 0.892,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.9058,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "16_rounds_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8387,
+   "episodes": 55,
+   "right": 16,
+   "early": 10,
+   "never": 24
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8346,
+   "episodes": 19,
+   "right": 2,
+   "early": 5,
+   "never": 12
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8693,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8723,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8596,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T04": {
+    "path_within_45": 0.7957,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8316,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7931,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T07": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T08": {
+    "path_within_45": 0.8469,
+    "episodes": 4,
+    "right": 0,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8246,
+    "episodes": 4,
+    "right": 4,
+    "early": 0,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.7978,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8348,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8222,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.7619,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.8213,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9408,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T16": {
+    "path_within_45": 0.9319,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "4_tracks_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8191,
+   "episodes": 55,
+   "right": 19,
+   "early": 20,
+   "never": 14
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8215,
+   "episodes": 19,
+   "right": 1,
+   "early": 8,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8301,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8298,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T03": {
+    "path_within_45": 0.8255,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T04": {
+    "path_within_45": 0.8213,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8282,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7586,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8306,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.7865,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8482,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.7889,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T13": {
+    "path_within_45": 0.7897,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.79,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.899,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8377,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "8_tracks_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8314,
+   "episodes": 55,
+   "right": 12,
+   "early": 20,
+   "never": 19
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.822,
+   "episodes": 19,
+   "right": 0,
+   "early": 11,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8366,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.7943,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8128,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T04": {
+    "path_within_45": 0.8809,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7732,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7517,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8599,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.9035,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.8127,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8884,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8028,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.8254,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.768,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.892,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8848,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "after_h_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8296,
+   "episodes": 55,
+   "right": 12,
+   "early": 18,
+   "never": 21
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.833,
+   "episodes": 19,
+   "right": 0,
+   "early": 8,
+   "never": 11
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8431,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8227,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8894,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.7872,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7869,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7759,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8105,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8013,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8947,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.8015,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8393,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T12": {
+    "path_within_45": 0.7972,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.7897,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.8339,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9199,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.8796,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "before_h_3_third_after_h_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8225,
+   "episodes": 55,
+   "right": 9,
+   "early": 21,
+   "never": 21
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8162,
+   "episodes": 19,
+   "right": 0,
+   "early": 11,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8562,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.7518,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.817,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7766,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T06": {
+    "path_within_45": 0.7379,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T07": {
+    "path_within_45": 0.8368,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.886,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T10": {
+    "path_within_45": 0.7753,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8259,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.7698,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.8245,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9303,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.9005,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "before_h_3_third_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8367,
+   "episodes": 55,
+   "right": 14,
+   "early": 20,
+   "never": 18
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.823,
+   "episodes": 19,
+   "right": 2,
+   "early": 8,
+   "never": 9
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8366,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.844,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8213,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8076,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T06": {
+    "path_within_45": 0.7897,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8211,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8947,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.794,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.875,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8028,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.7937,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T14": {
+    "path_within_45": 0.8056,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9129,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T16": {
+    "path_within_45": 0.9162,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "convnext_tiny_new_shapes": {
+  "all": {
+   "tracks": 4,
+   "path_within_45": 0.8075,
+   "episodes": 12,
+   "right": 6,
+   "early": 1,
+   "never": 3
+  },
+  "mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.8383,
+   "episodes": 3,
+   "right": 0,
+   "early": 1,
+   "never": 2
+  },
+  "reference_same_folds": {
+   "tracks": 4,
+   "path_within_45": 0.8249,
+   "episodes": 12,
+   "right": 4,
+   "early": 3,
+   "never": 4
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.8255,
+   "episodes": 3,
+   "right": 0,
+   "early": 1,
+   "never": 2
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8497,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.7589,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8383,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.783,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   }
+  }
+ },
+ "far_reach_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8201,
+   "episodes": 55,
+   "right": 12,
+   "early": 23,
+   "never": 16
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8275,
+   "episodes": 19,
+   "right": 0,
+   "early": 9,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.7908,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8468,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8128,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8041,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7517,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.7915,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8509,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.7978,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.817,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8278,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T13": {
+    "path_within_45": 0.8016,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.8056,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.899,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.9005,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
  "made_up_ends_10_new_shapes": {
   "all": {
    "tracks": 16,
@@ -591,6 +1839,1421 @@
    }
   }
  },
+ "mirror_after_h_16_24_rounds_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8577,
+   "episodes": 55,
+   "right": 14,
+   "early": 14,
+   "never": 23
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8548,
+   "episodes": 19,
+   "right": 3,
+   "early": 5,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.9542,
+    "episodes": 3,
+    "right": 1,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8794,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.9021,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T04": {
+    "path_within_45": 0.8851,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.811,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7517,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T07": {
+    "path_within_45": 0.8316,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T08": {
+    "path_within_45": 0.8534,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T10": {
+    "path_within_45": 0.8202,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.9018,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8333,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.8333,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8088,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9303,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8848,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_after_h_5_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8346,
+   "episodes": 55,
+   "right": 16,
+   "early": 16,
+   "never": 21
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8344,
+   "episodes": 19,
+   "right": 3,
+   "early": 7,
+   "never": 9
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8235,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.9007,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8638,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8383,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.811,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T08": {
+    "path_within_45": 0.8274,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T10": {
+    "path_within_45": 0.764,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8571,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8389,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T13": {
+    "path_within_45": 0.7738,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8088,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9303,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.911,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_approach_2_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8473,
+   "episodes": 55,
+   "right": 20,
+   "early": 10,
+   "never": 23
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8562,
+   "episodes": 19,
+   "right": 2,
+   "early": 5,
+   "never": 12
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.9346,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.844,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.9021,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.817,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8419,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7345,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8684,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T08": {
+    "path_within_45": 0.8274,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8509,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.7828,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8661,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8528,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.7976,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.8025,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9443,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.8901,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_final_steps_3_new_shapes": {
+  "all": {
+   "tracks": 2,
+   "path_within_45": 0.8336,
+   "episodes": 6,
+   "right": 2,
+   "early": 0,
+   "never": 3
+  },
+  "mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.811,
+   "episodes": 3,
+   "right": 0,
+   "early": 0,
+   "never": 3
+  },
+  "reference_same_folds": {
+   "tracks": 2,
+   "path_within_45": 0.8257,
+   "episodes": 6,
+   "right": 1,
+   "early": 1,
+   "never": 3
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.8213,
+   "episodes": 3,
+   "right": 0,
+   "early": 0,
+   "never": 3
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8562,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.811,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8558,
+   "episodes": 55,
+   "right": 17,
+   "early": 15,
+   "never": 20
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8539,
+   "episodes": 19,
+   "right": 1,
+   "early": 6,
+   "never": 12
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.902,
+    "episodes": 3,
+    "right": 1,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8936,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T03": {
+    "path_within_45": 0.8894,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8766,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8179,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7414,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8684,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8697,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8596,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.7753,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8705,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8722,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.8175,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.7994,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9547,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.8848,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_no_mirror_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8276,
+   "episodes": 55,
+   "right": 9,
+   "early": 12,
+   "never": 31
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.829,
+   "episodes": 19,
+   "right": 0,
+   "early": 4,
+   "never": 15
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8497,
+    "episodes": 3,
+    "right": 1,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8014,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8426,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T04": {
+    "path_within_45": 0.8,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7801,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7793,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T07": {
+    "path_within_45": 0.8526,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8534,
+    "episodes": 4,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T09": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.8127,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8661,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T12": {
+    "path_within_45": 0.8,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.7659,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.8119,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 2
+   },
+   "T15": {
+    "path_within_45": 0.9199,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.8901,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_after_h_16_no_mirror_seed_2_new_shapes": {
+  "all": {
+   "tracks": 1,
+   "path_within_45": 0.902,
+   "episodes": 3,
+   "right": 1,
+   "early": 0,
+   "never": 0
+  },
+  "mid_paper": {
+   "tracks": 0
+  },
+  "reference_same_folds": {
+   "tracks": 1,
+   "path_within_45": 0.8301,
+   "episodes": 3,
+   "right": 1,
+   "early": 1,
+   "never": 0
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 0
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.902,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   }
+  }
+ },
+ "mirror_after_h_16_seed_2_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8554,
+   "episodes": 55,
+   "right": 16,
+   "early": 13,
+   "never": 21
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8592,
+   "episodes": 19,
+   "right": 3,
+   "early": 5,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.9412,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.9078,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T03": {
+    "path_within_45": 0.9021,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.834,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8385,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7276,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8526,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T08": {
+    "path_within_45": 0.8534,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.886,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.8165,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 1
+   },
+   "T11": {
+    "path_within_45": 0.8839,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8389,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.7976,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.7586,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9477,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.9005,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "mirror_after_h_16_seed_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8416,
+   "episodes": 55,
+   "right": 20,
+   "early": 18,
+   "never": 16
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8444,
+   "episodes": 19,
+   "right": 2,
+   "early": 9,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.902,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.9007,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T03": {
+    "path_within_45": 0.9106,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8638,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7595,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T06": {
+    "path_within_45": 0.6828,
+    "episodes": 4,
+    "right": 4,
+    "early": 0,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8053,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T08": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.8277,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8125,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8222,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.8294,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8245,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9338,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8848,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "mirror_after_h_16_two_pictures_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8628,
+   "episodes": 55,
+   "right": 14,
+   "early": 8,
+   "never": 31
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.873,
+   "episodes": 19,
+   "right": 0,
+   "early": 5,
+   "never": 14
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8758,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.922,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8596,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8553,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8522,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.769,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T07": {
+    "path_within_45": 0.8211,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8509,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T10": {
+    "path_within_45": 0.8614,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8705,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8139,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T13": {
+    "path_within_45": 0.8889,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8401,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9547,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.9058,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "mirror_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8439,
+   "episodes": 55,
+   "right": 16,
+   "early": 22,
+   "never": 16
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8557,
+   "episodes": 19,
+   "right": 3,
+   "early": 8,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.902,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8014,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.9021,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8468,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8282,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7207,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T08": {
+    "path_within_45": 0.8306,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.794,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.875,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8472,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.8373,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8495,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9303,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8796,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   }
+  }
+ },
  "new_shapes": {
   "all": {
    "tracks": 16,
@@ -887,63 +3550,30 @@
    }
   }
  },
- "resnet34_new_shapes": {
+ "new_shapes_seed_3": {
   "all": {
-   "tracks": 1,
-   "path_within_45": 0.8235,
-   "episodes": 3,
-   "right": 3,
-   "early": 0,
-   "never": 0
-  },
-  "mid_paper": {
-   "tracks": 0
-  },
-  "reference_same_folds": {
-   "tracks": 1,
-   "path_within_45": 0.8301,
-   "episodes": 3,
-   "right": 1,
-   "early": 1,
-   "never": 0
-  },
-  "reference_same_folds_mid_paper": {
-   "tracks": 0
-  },
-  "tracks": {
-   "T01": {
-    "path_within_45": 0.8235,
-    "episodes": 3,
-    "right": 3,
-    "early": 0,
-    "never": 0
-   }
-  }
- },
- "score_1_off_new_shapes": {
-  "all": {
-   "tracks": 11,
-   "path_within_45": 0.8202,
-   "episodes": 37,
-   "right": 11,
-   "early": 13,
-   "never": 12
+   "tracks": 13,
+   "path_within_45": 0.8249,
+   "episodes": 45,
+   "right": 15,
+   "early": 15,
+   "never": 13
   },
   "mid_paper": {
    "tracks": 5,
-   "path_within_45": 0.8142,
+   "path_within_45": 0.8184,
    "episodes": 16,
-   "right": 0,
-   "early": 8,
+   "right": 1,
+   "early": 7,
    "never": 8
   },
   "reference_same_folds": {
-   "tracks": 11,
-   "path_within_45": 0.8238,
-   "episodes": 37,
-   "right": 7,
-   "early": 12,
-   "never": 16
+   "tracks": 13,
+   "path_within_45": 0.8248,
+   "episodes": 45,
+   "right": 10,
+   "early": 14,
+   "never": 18
   },
   "reference_same_folds_mid_paper": {
    "tracks": 5,
@@ -952,6 +3582,281 @@
    "right": 0,
    "early": 6,
    "never": 10
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8497,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8014,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8426,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8255,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7869,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T06": {
+    "path_within_45": 0.7483,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8404,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.9123,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.7978,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8482,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8056,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.8016,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "resnet34_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8361,
+   "episodes": 55,
+   "right": 18,
+   "early": 18,
+   "never": 18
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8317,
+   "episodes": 19,
+   "right": 1,
+   "early": 8,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8235,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8156,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8596,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8419,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7828,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8176,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8947,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.7753,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8795,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8306,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.7897,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.837,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.8606,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.9058,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "score_1_off_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8382,
+   "episodes": 55,
+   "right": 14,
+   "early": 17,
+   "never": 22
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8359,
+   "episodes": 19,
+   "right": 0,
+   "early": 10,
+   "never": 9
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
   },
   "tracks": {
    "T01": {
@@ -1024,12 +3929,47 @@
     "early": 3,
     "never": 0
    },
+   "T11": {
+    "path_within_45": 0.8795,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8139,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
    "T13": {
     "path_within_45": 0.7698,
     "episodes": 3,
     "right": 0,
     "early": 1,
     "never": 2
+   },
+   "T14": {
+    "path_within_45": 0.8401,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T15": {
+    "path_within_45": 0.9443,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T16": {
+    "path_within_45": 0.911,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
    }
   }
  },
@@ -1308,6 +4248,154 @@
    }
   }
  },
+ "turned_12_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8302,
+   "episodes": 55,
+   "right": 14,
+   "early": 15,
+   "never": 21
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8337,
+   "episodes": 19,
+   "right": 1,
+   "early": 8,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8235,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8652,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8638,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.783,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7973,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T06": {
+    "path_within_45": 0.7517,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8632,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8111,
+    "episodes": 4,
+    "right": 0,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8333,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.8052,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8393,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T12": {
+    "path_within_45": 0.8444,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.7421,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.8088,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9303,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.9215,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
  "two_pictures_new_shapes": {
   "all": {
    "tracks": 14,
@@ -1439,6 +4527,1022 @@
     "right": 0,
     "early": 0,
     "never": 3
+   }
+  }
+ },
+ "wide_320_new_shapes": {
+  "all": {
+   "tracks": 4,
+   "path_within_45": 0.8698,
+   "episodes": 15,
+   "right": 8,
+   "early": 3,
+   "never": 3
+  },
+  "mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.8502,
+   "episodes": 3,
+   "right": 0,
+   "early": 3,
+   "never": 0
+  },
+  "reference_same_folds": {
+   "tracks": 4,
+   "path_within_45": 0.855,
+   "episodes": 15,
+   "right": 5,
+   "early": 5,
+   "never": 4
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 1,
+   "path_within_45": 0.839,
+   "episodes": 3,
+   "right": 0,
+   "early": 3,
+   "never": 0
+  },
+  "tracks": {
+   "T09": {
+    "path_within_45": 0.9123,
+    "episodes": 4,
+    "right": 4,
+    "early": 0,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.8502,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8304,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8861,
+    "episodes": 4,
+    "right": 4,
+    "early": 0,
+    "never": 0
+   }
+  }
+ },
+ "without_before_h_5_after_h_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8192,
+   "episodes": 55,
+   "right": 13,
+   "early": 24,
+   "never": 16
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.813,
+   "episodes": 19,
+   "right": 1,
+   "early": 12,
+   "never": 6
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8562,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8298,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8766,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8213,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8144,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T06": {
+    "path_within_45": 0.7069,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.7789,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8502,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8333,
+    "episodes": 4,
+    "right": 2,
+    "early": 0,
+    "never": 2
+   },
+   "T10": {
+    "path_within_45": 0.7491,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8438,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.825,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 1
+   },
+   "T13": {
+    "path_within_45": 0.746,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.768,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9129,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8953,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "without_before_h_5_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8246,
+   "episodes": 55,
+   "right": 16,
+   "early": 20,
+   "never": 15
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8256,
+   "episodes": 19,
+   "right": 0,
+   "early": 11,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8235,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T03": {
+    "path_within_45": 0.8128,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T04": {
+    "path_within_45": 0.7915,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7938,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7517,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8526,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8599,
+    "episodes": 4,
+    "right": 2,
+    "early": 1,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8596,
+    "episodes": 4,
+    "right": 4,
+    "early": 0,
+    "never": 0
+   },
+   "T10": {
+    "path_within_45": 0.779,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8259,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8139,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T13": {
+    "path_within_45": 0.7817,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.8213,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9338,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8848,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "without_before_h_8_after_h_3_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8178,
+   "episodes": 55,
+   "right": 8,
+   "early": 23,
+   "never": 20
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.814,
+   "episodes": 19,
+   "right": 0,
+   "early": 11,
+   "never": 8
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8366,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.844,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8255,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 1,
+    "early": 2,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8041,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T06": {
+    "path_within_45": 0.7759,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8421,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8404,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T09": {
+    "path_within_45": 0.8158,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.779,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T11": {
+    "path_within_45": 0.8348,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T12": {
+    "path_within_45": 0.8056,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.7381,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T14": {
+    "path_within_45": 0.79,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.8955,
+    "episodes": 3,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T16": {
+    "path_within_45": 0.8482,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "zoom_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8241,
+   "episodes": 55,
+   "right": 10,
+   "early": 16,
+   "never": 25
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8128,
+   "episodes": 19,
+   "right": 0,
+   "early": 4,
+   "never": 15
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8627,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8298,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.8766,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.7319,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.7835,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7172,
+    "episodes": 4,
+    "right": 1,
+    "early": 3,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8684,
+    "episodes": 4,
+    "right": 0,
+    "early": 1,
+    "never": 3
+   },
+   "T08": {
+    "path_within_45": 0.8371,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.9035,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.7978,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
+   },
+   "T11": {
+    "path_within_45": 0.8616,
+    "episodes": 4,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T12": {
+    "path_within_45": 0.8139,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.7143,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8401,
+    "episodes": 4,
+    "right": 1,
+    "early": 2,
+    "never": 1
+   },
+   "T15": {
+    "path_within_45": 0.8362,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.911,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   }
+  }
+ },
+ "zoom_new_shapes_seed_2": {
+  "all": {
+   "tracks": 4,
+   "path_within_45": 0.8056,
+   "episodes": 15,
+   "right": 0,
+   "early": 6,
+   "never": 8
+  },
+  "mid_paper": {
+   "tracks": 2,
+   "path_within_45": 0.8271,
+   "episodes": 7,
+   "right": 0,
+   "early": 0,
+   "never": 7
+  },
+  "reference_same_folds": {
+   "tracks": 4,
+   "path_within_45": 0.7992,
+   "episodes": 15,
+   "right": 1,
+   "early": 4,
+   "never": 9
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 2,
+   "path_within_45": 0.8107,
+   "episodes": 7,
+   "right": 0,
+   "early": 0,
+   "never": 7
+  },
+  "tracks": {
+   "T05": {
+    "path_within_45": 0.7595,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.731,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 1
+   },
+   "T07": {
+    "path_within_45": 0.8947,
+    "episodes": 4,
+    "right": 0,
+    "early": 0,
+    "never": 4
+   },
+   "T08": {
+    "path_within_45": 0.8371,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   }
+  }
+ },
+ "zoom_turned_mirror_after_h_16_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.846,
+   "episodes": 55,
+   "right": 12,
+   "early": 18,
+   "never": 20
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8499,
+   "episodes": 19,
+   "right": 3,
+   "early": 3,
+   "never": 12
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.915,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8652,
+    "episodes": 3,
+    "right": 1,
+    "early": 0,
+    "never": 2
+   },
+   "T03": {
+    "path_within_45": 0.9106,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.8085,
+    "episodes": 3,
+    "right": 1,
+    "early": 1,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8007,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T06": {
+    "path_within_45": 0.7103,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8684,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T08": {
+    "path_within_45": 0.8371,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8333,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.7828,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8616,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.875,
+    "episodes": 4,
+    "right": 0,
+    "early": 2,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.8413,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8245,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.8955,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.9058,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   }
+  }
+ },
+ "zoom_turned_mirror_new_shapes": {
+  "all": {
+   "tracks": 16,
+   "path_within_45": 0.8443,
+   "episodes": 55,
+   "right": 16,
+   "early": 22,
+   "never": 15
+  },
+  "mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8483,
+   "episodes": 19,
+   "right": 3,
+   "early": 5,
+   "never": 10
+  },
+  "reference_same_folds": {
+   "tracks": 16,
+   "path_within_45": 0.8318,
+   "episodes": 55,
+   "right": 11,
+   "early": 16,
+   "never": 25
+  },
+  "reference_same_folds_mid_paper": {
+   "tracks": 6,
+   "path_within_45": 0.8329,
+   "episodes": 19,
+   "right": 0,
+   "early": 6,
+   "never": 13
+  },
+  "tracks": {
+   "T01": {
+    "path_within_45": 0.8627,
+    "episodes": 3,
+    "right": 2,
+    "early": 1,
+    "never": 0
+   },
+   "T02": {
+    "path_within_45": 0.8865,
+    "episodes": 3,
+    "right": 2,
+    "early": 0,
+    "never": 1
+   },
+   "T03": {
+    "path_within_45": 0.8723,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T04": {
+    "path_within_45": 0.783,
+    "episodes": 3,
+    "right": 3,
+    "early": 0,
+    "never": 0
+   },
+   "T05": {
+    "path_within_45": 0.8385,
+    "episodes": 3,
+    "right": 0,
+    "early": 1,
+    "never": 2
+   },
+   "T06": {
+    "path_within_45": 0.7,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T07": {
+    "path_within_45": 0.8316,
+    "episodes": 4,
+    "right": 3,
+    "early": 1,
+    "never": 0
+   },
+   "T08": {
+    "path_within_45": 0.8339,
+    "episodes": 4,
+    "right": 0,
+    "early": 3,
+    "never": 0
+   },
+   "T09": {
+    "path_within_45": 0.8947,
+    "episodes": 4,
+    "right": 3,
+    "early": 0,
+    "never": 1
+   },
+   "T10": {
+    "path_within_45": 0.8015,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 0
+   },
+   "T11": {
+    "path_within_45": 0.8661,
+    "episodes": 4,
+    "right": 2,
+    "early": 2,
+    "never": 0
+   },
+   "T12": {
+    "path_within_45": 0.8167,
+    "episodes": 4,
+    "right": 1,
+    "early": 1,
+    "never": 2
+   },
+   "T13": {
+    "path_within_45": 0.8294,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T14": {
+    "path_within_45": 0.8589,
+    "episodes": 4,
+    "right": 0,
+    "early": 4,
+    "never": 0
+   },
+   "T15": {
+    "path_within_45": 0.9164,
+    "episodes": 3,
+    "right": 0,
+    "early": 0,
+    "never": 3
+   },
+   "T16": {
+    "path_within_45": 0.9162,
+    "episodes": 3,
+    "right": 0,
+    "early": 2,
+    "never": 1
    }
   }
  },

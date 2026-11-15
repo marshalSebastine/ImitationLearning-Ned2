@@ -2229,9 +2229,10 @@ TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUN
                                                                     **THIRD_QUEUE["zoom"])
 
 # 15.11.26, 00:55, a robot candidate from the night's runs, not a comparison run: model 11 is model 10 with the two
-# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 pictures in which a
-# demonstration brings the puck back onto the line five times). The held-out pictures cannot score a recovery (every
-# test episode stays on its line), so its test is the robot, against model 10 on the same sheets.
+# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 first pictures of
+# the starts beside the line five times). Its test is the robot, against model 10 on the same sheets. Corrected
+# 15.11.26: those 280 are not the only pictures of a puck brought back; the about 2,100 pictures after a correction by
+# hand are not weighted here (see the hand-correction runs below).
 TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
 TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(
     TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], recovery_weight = 5.0, far_reach_weight = 3.0)
@@ -2251,6 +2252,161 @@ TRAINING_RUNS["resnet18_full_zoom_course_sheets"] = dict(TRAINING_RUNS["resnet18
 TRAINING_RUNS["resnet18_full_convnext_tiny_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["convnext_tiny"])
 TRAINING_RUNS["resnet18_full_resnet34_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], backbone = "resnet34.tv_in1k")
 TRAINING_RUNS["resnet18_model_12_full_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], picture_count = 2)
+
+# 15.11.26, 03:00, the corrections by hand (Emranul: "in more than 80 % of the episodes we had to press h and bring
+# the puck back on the line"; "put more weight on the frames after h is pressed"). Counted: 305 corrections in 169 of
+# 266 episodes; the 8 replayed steps after one show the robot bringing the drifted puck back (2,094 training
+# pictures); the steps before one show the replay going on while the puck drifts and are trained on as good examples
+# (2,369 pictures in the 8 steps before, 34 marked as mistakes). Guess to be tested: those before-pictures teach the
+# model to carry on beside the line, as it did on the robot. "before_correction_weight" is the weight of the last
+# "before_correction_rows" steps before an h press (0 leaves them out), "after_correction_weight" that of the
+# "after_correction_rows" steps after it. Five steps before is read from eight picture strips, in which the puck is
+# visibly off the line from 3 to 5 steps before the press; eight steps is run once to see how much the number matters.
+# The yardstick's path measure is read with the steps before an h press left out of the test pictures as well
+# (score_hand_corrections.py), for these runs and for the reference alike: on them the recorded move is the drift.
+TRAINING_RUN_PARAMETERS.update({"before_correction_weight": 1.0, "before_correction_rows": 5,
+                                "after_correction_weight": 1.0, "after_correction_rows": 8})
+HAND_CORRECTIONS = {
+    "without_before_h_5": {"before_correction_weight": 0.0},
+    "after_h_3": {"after_correction_weight": 3.0},
+    "without_before_h_5_after_h_3": {"before_correction_weight": 0.0, "after_correction_weight": 3.0},
+    "without_before_h_8_after_h_3": {"before_correction_weight": 0.0, "before_correction_rows": 8, "after_correction_weight": 3.0}
+}
+for idea_name, idea in HAND_CORRECTIONS.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+# most corrections lie on course sheets 02, 03 and 04 (185 of 305), so the second yardstick is the nearer test
+TRAINING_RUNS["resnet18_full_without_before_h_5_after_h_3_course_sheets"] = dict(
+    TRAINING_RUNS["resnet18_full_course_sheets"], **HAND_CORRECTIONS["without_before_h_5_after_h_3"])
+# robot candidates, chosen before any result: model 13 is model 10 with both changes, model 14 the same with the
+# picture before as well (the two-picture round 1 model drove sheet 05's loop best on the robot)
+TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **HAND_CORRECTIONS["without_before_h_5_after_h_3"])
+TRAINING_RUNS["resnet18_model_14_full_hand_corrections_two_pictures_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"], picture_count = 2)
+
+# 15.11.26, 10:10, combined recipes before the robot time (Emranul: "combine all this info and tune the model"). Only
+# parts that helped on recorded pictures go in, and each mix is scored as its own run, because gains need not add up:
+#   mirrored pictures (best single change: +1.2 points path, 16 right stops against 11, after an h press 0.616);
+#   the steps after an h press three times (0.575 to 0.610 alone; leaving out the steps before a press did not help
+#       by itself and cost path, so it is not in);
+#   16 rounds (0.839, 16 right stops, after an h press 0.627);
+#   and, in the second mix, the zoomed-in view with turned pictures (with mirror: 0.873 against 0.837 on 8 of 16
+#       folds, the other folds failed on ki-014).
+# "zoom_turned_mirror" is run again in full, so that the second mix can be compared with its own base. Models 15 and
+# 16 are the two mixes trained on all sheets, for the robot.
+COMBINED = {
+    "mirror_after_h_16": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.5),
+                          "after_correction_weight": 3.0, "epochs": 16},
+    "zoom_turned_mirror_after_h_16": dict(THIRD_QUEUE["zoom"],
+                                          augmentation = dict(TRAINING_RUN_PARAMETERS["augmentation"], turn_most_deg = 12.0, mirror_probability = 0.5),
+                                          after_correction_weight = 3.0, epochs = 16)
+}
+for idea_name, idea in COMBINED.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **idea)
+TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **COMBINED["mirror_after_h_16"])
+TRAINING_RUNS["resnet18_model_16_full_zoom_turned_mirror_after_h_16_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **COMBINED["zoom_turned_mirror_after_h_16"])
+
+# 15.11.26, 10:45 (Emranul, who pressed the key: "mostly we missed 2-3 frames which was getting bad ... put less weight
+# into this"). The audit agrees: the reference matches the recording on 61 % of the last 2 steps before an h press, 78 %
+# of steps 3 to 5 and 83 % of steps 6 to 10, so only the last 2 to 3 look unusual. The runs above left out 5 and 8
+# steps and so threw good examples away. Here only the last 3 steps count less (a third, not nothing: the puck drifts
+# gradually), once alone and once with the steps after a press three times.
+HAND_CORRECTIONS_3 = {
+    "before_h_3_third": {"before_correction_weight": 1.0 / 3.0, "before_correction_rows": 3},
+    "before_h_3_third_after_h_3": {"before_correction_weight": 1.0 / 3.0, "before_correction_rows": 3, "after_correction_weight": 3.0}
+}
+for idea_name, idea in HAND_CORRECTIONS_3.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+
+# 15.11.26, 13:45, the ninth queue (Emranul: "let's try all this"): every remaining idea, each added to model 15's
+# recipe alone ("mirror_after_h_16", which gained on both yardsticks), so that each is compared with that recipe:
+#   after h five times instead of three (Emranul's after-h weight, pushed further);
+#   the approach: the last 15 steps before the stop of the score-3 episodes count twice (Emranul's idea; 2,154
+#       pictures; the audit found 73 to 75 % agreement 4 to 20 steps before the end against 86 % earlier);
+#   24 rounds instead of 16 (8 to 16 helped);
+#   two pictures (best after-h numbers so far, worst stops);
+#   two more seeds of the recipe itself, to see whether its 0.856 was luck.
+TRAINING_RUN_PARAMETERS.update({"approach_weight": 1.0, "approach_rows": 15, "approach_scores": [3]})
+# 15.11.26 (Emranul at the robot: "integrate the whole thing in the recording tool: we click test 1, press the green
+# button, it selects which model to run, and we give marks afterwards"): the recording page's test part (/tests) offers
+# the lines of this run list, starts each through visit_runs.py in a window of its own, and writes the marks beside it.
+RECORDING_PAGE_PARAMETERS.update({
+    "test_run_list": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "2026-11-15_robot_test_runs.csv",
+    "test_marks": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "2026-11-15_robot_test_marks.csv",
+    "test_track_folder": Path(__file__).resolve().parent.parent / "06_deliverables" / "research_notes" / "Model and training" / "tracks_2026-11-12" / "development",
+    "test_mark_choices": {"line_kept": ["yes", "no"], "stop": ["on the end", "early", "past the end", "none"], "finished": ["yes", "no"]},
+})
+NINTH_QUEUE = {
+    "after_h_5": {"after_correction_weight": 5.0},
+    "approach_2": {"approach_weight": 2.0},
+    "24_rounds": {"epochs": 24},
+    "two_pictures": {"picture_count": 2},
+    "seed_2": {"seed": 10_11_26},
+    "seed_3": {"seed": 11_11_26}
+}
+for idea_name, idea in NINTH_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_mirror_after_h_16_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **idea)
+
+# 15.11.26, 18:30, the tenth queue, after the robot test (Emranul: "no mirror mix", "put more weight on the final frames
+# of score-3 episodes so the position of the puck is better at the stop"). On the robot, model 13 (no mirror) finished
+# both its runs and model 15 (mirror) steered too gently for sheet 05's loop, so model 15's recipe is run without the
+# mirrored pictures, with two seeds (the recipe's own seeds differ by 1.4 points and 4 right stops). The final steps:
+# the last 5 steps before the stop of the score-3 episodes count three times (the approach weight of the ninth queue
+# took 15 steps twice). Models 17 and 18 are the two trained on all sheets, chosen before any result, for the robot.
+TENTH_QUEUE = {
+    "no_mirror": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.0)},
+    "no_mirror_seed_2": {"augmentation": dict(TRAINING_RUN_PARAMETERS["augmentation"], mirror_probability = 0.0), "seed": 10_11_26},
+    "final_steps_3": {"approach_weight": 3.0, "approach_rows": 5, "approach_scores": [3]},
+}
+for idea_name, idea in TENTH_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_mirror_after_h_16_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **idea)
+TRAINING_RUNS["resnet18_model_17_full_after_h_16_no_mirror_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **TENTH_QUEUE["no_mirror"])
+TRAINING_RUNS["resnet18_model_18_full_mirror_after_h_16_final_steps_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **TENTH_QUEUE["final_steps_3"])
+# the loop of sheet 05 is a course sheet, so the no-mirror recipe is also held out sheet by sheet
+TRAINING_RUNS["resnet18_full_after_h_16_no_mirror_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **TENTH_QUEUE["no_mirror"])
+
+# 15.11.26, 19:00, the direction memory (Emranul: "give model 15 a sense of direction, so it is not confused on loops
+# or after a recovery, which takes 5 to 15 steps"). On the robot model 15 went round the new loops again and again and
+# turned back near line ends: one picture looks the same on the first and the second pass. Beside the picture the
+# model gets where the tip was 2, 5 and 10 cm of path ago (arrows in the picture's frame, with a known-flag each,
+# training_targets.memory_from_path), measured along the path so that recordings (about 1 cm a step) and robot (0.65
+# cm) agree. Against copying its own past (the copycat problem of imitation learning) the memory is hidden for 30 % of
+# the training pictures and shaken by 0.3 cm, and every test is also scored with the memory hidden ("memory_hidden_").
+TRAINING_RUN_PARAMETERS.update({"memory_distances_cm": [], "memory_hidden_size": 32, "memory_scale_cm": 10.0,
+                                "memory_hide_probability": 0.3, "memory_noise_cm": 0.3})
+DIRECTION_MEMORY = {"memory_distances_cm": [2.0, 5.0, 10.0]}
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_seed_2_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_new_shapes"], seed = 10_11_26)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_model_19_full_mirror_after_h_16_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **DIRECTION_MEMORY)
+TRAINING_RUNS["resnet18_model_20_full_after_h_16_no_mirror_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_17_full_after_h_16_no_mirror_all_sheets"], **DIRECTION_MEMORY)
+
+# 15.11.26, 20:00, the recurrent model and the revolving move (Emranul: "build the recurrent model tonight"; "all the
+# models are failing on the revolving move, without it loops are impossible, model E learned it"). Found in the robot
+# logs: in sheet 05's loop model E swings the forearm from about -70 back through the middle to +60 degrees (asking
+# +6 to +7 degrees a step), while models 13, 15, 17 and 18 ask +2 to +4, turn back and wind on to the limit of -117,
+# where they are stuck. On held-out pictures every recipe asks for only 0.3 to 0.65 of the recorded forearm turn in
+# the swings (regression to the mean). One picture cannot show how far the forearm has wound (the camera turns with
+# it); a sequence of pictures can. The recurrent model (SequencePictureModel) reads 12 pictures 4 steps apart (about
+# 44 cm of path in the recordings), on the robot 6 steps apart (0.65 cm against 1 cm steps). Only pictures are its
+# input. The swing pictures can also count more ("swing_weight", keyframe weighting).
+TRAINING_RUN_PARAMETERS.update({"sequence_frames": 0, "sequence_stride": 4, "sequence_gradient_frames": 2, "gru_size": 256,
+                                "sequence_stride_robot": 6, "swing_weight": 1.0})
+RECURRENT = {"sequence_frames": 12, "sequence_stride": 4, "sequence_stride_robot": 6}
+SWING_3 = {"swing_weight": 3.0}
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **RECURRENT)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_swing_3_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_new_shapes"], **SWING_3)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_swing_3_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **SWING_3)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **RECURRENT)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_swing_3_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_course_sheets"], **SWING_3)
+TRAINING_RUNS["resnet18_model_21_full_mirror_after_h_16_recurrent_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **RECURRENT)
+TRAINING_RUNS["resnet18_model_22_full_mirror_after_h_16_recurrent_swing_3_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_21_full_mirror_after_h_16_recurrent_all_sheets"], **SWING_3)
+TRAINING_RUNS["resnet18_model_23_full_mirror_after_h_16_swing_3_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **SWING_3)
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,

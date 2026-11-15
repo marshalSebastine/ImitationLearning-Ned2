@@ -1,0 +1,29 @@
+run,label,model,sheet,steps,turn_backs,revisited_steps,path_cm,stop_chance_last,stop_chance_highest,end,finished,stop_mark
+2026-11-15_154051_A1,A1,E,03 (two curves),152,0,11,98.6,0.85,0.85,stop,no,none
+2026-11-15_155028_A2,A2,15,03 (two curves),123,1,0,79.7,0.55,0.76,stop,no,on the end
+2026-11-15_155641_A3,A3,13,03 (two curves),107,0,0,68.9,0.81,0.81,stop,yes,on the end
+2026-11-15_160138_A4,A4,E,05 (loop) AS ON 11.11,94,0,9,93.0,0.84,0.84,stop,no,on the end
+2026-11-15_160557_A4,A4,E,05 (loop) AS ON 11.11,98,0,11,96.9,0.52,0.69,stop,no,past the end
+2026-11-15_161506_A5,A5,15,05 (loop) AS ON 11.11,70,0,0,44.8,0.79,0.79,stop,no,early
+2026-11-15_161816_A6,A6,15,05 (loop) AS ON 11.11,75,0,16,74.0,0.94,0.94,stop,no,on the end
+2026-11-15_162211_A7,A7,14,05 (loop) AS ON 11.11,66,0,0,42.6,0.91,0.91,stop,no,none
+2026-11-15_162619_A8,A8,E,02 (arc) LANDSCAPE,56,0,0,35.8,0.91,0.91,stop,yes,on the end
+2026-11-15_162858_A9,A9,15,02 (arc) LANDSCAPE,50,0,0,31.9,0.97,0.97,stop,yes,on the end
+2026-11-15_163123_A10,A10,15,01 (straight line),46,0,0,29.1,0.84,0.85,stop,no,past the end
+2026-11-15_163333_R1,R1,E,"01 (straight line), PUCK 1.5 cm LEFT of ",58,0,0,36.9,0.94,0.94,stop,yes,on the end
+2026-11-15_163637_R2,R2,15,"01 (straight line), PUCK 1.5 cm LEFT of ",55,0,0,35.4,0.95,0.95,stop,no,past the end
+2026-11-15_163944_R3,R3,13,"01 (straight line), PUCK 1.5 cm LEFT of ",45,0,0,28.7,0.91,0.91,stop,yes,on the end
+2026-11-15_164200_R4,R4,15,"01 (straight line), PUCK 1.5 cm RIGHT of",44,0,0,28.1,0.84,0.84,stop,no,past the end
+2026-11-15_164537_U1,U1,15,PRINTED D01 solid: gentle bends (never r,60,0,0,38.5,0.8,0.8,stop,yes,on the end
+2026-11-15_164842_U2,U2,E,PRINTED D01 solid: gentle bends (never r,49,0,0,31.1,0.71,0.71,stop,no,early
+2026-11-15_165117_U3,U3,15,PRINTED D02 solid: two sharp bends (neve,138,0,13,89.0,0.73,0.73,stop,no,past the end
+2026-11-15_165517_U4,U4,E,PRINTED D02 solid: two sharp bends (neve,61,0,0,38.9,0.74,0.74,stop,no,early
+2026-11-15_165749_U5,U5,15,PRINTED D06 solid: three corners (never ,114,0,6,73.6,0.96,0.96,stop,no,early
+2026-11-15_170206_U6,U6,E,PRINTED D06 solid: three corners (never ,60,0,0,38.3,0.57,0.57,stop,no,early
+2026-11-15_170519_U7,U7,15,PRINTED D04 dashed: hairpin and corner (,128,0,15,82.9,0.95,0.95,stop,no,early
+2026-11-15_171202_U8,U8,E,PRINTED D04 dashed: hairpin and corner (,71,0,0,45.3,0.89,0.89,stop,no,none
+2026-11-15_172126_U9,U9,15,PRINTED D03 solid: loop and medium bend ,173,0,45,111.9,0.77,0.77,stop,no,none
+2026-11-15_172537_U10,U10,E,PRINTED D03 solid: loop and medium bend ,105,1,8,67.7,0.94,0.94,stop,no,none
+2026-11-15_172955_U11,U11,15,PRINTED D09 dashed: loop and hairpin (ne,80,0,0,51.5,0.89,0.89,stop,no,none
+2026-11-15_173323_U11,U11,15,PRINTED D09 dashed: loop and hairpin (ne,84,0,0,54.0,0.0,0.03,model_step,no,none
+2026-11-15_173557_U12,U12,E,PRINTED D09 dashed: loop and hairpin (ne,32,0,0,20.1,0.0,0.0,model_step,no,none

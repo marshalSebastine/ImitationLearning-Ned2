@@ -648,6 +648,31 @@ def test_status_never_waits_for_git_and_reads_little() -> None:
         assert recording_page.read_log_tail(log_path, 200) == "short\nlog\n"
 
 
+def test_robot_tests_are_listed_checked_and_marked() -> None:
+    """15.11.26: the page's test part lists the test run list, refuses an unknown label, and writes the marks."""
+
+    from recording_page import build_test_command, read_test_marks, save_test_marks, test_picture, test_runs
+    runs = test_runs()
+    assert runs and runs[0]["number"] == 1, "the test run list must be offered in its order"
+    assert test_picture(runs[0]["label"]), "a test must show the picture to lay its sheet by"
+    command = build_test_command({"label": runs[0]["label"], "is_again": True})
+    assert "visit_runs.py" in command and "--again" in command and "timeout /t 30" in command and "errorlevel 1" in command
+    try:
+        build_test_command({"label": "no such label"})
+        raise AssertionError("an unknown test was started")
+    except FormError:
+        pass
+    with tempfile.TemporaryDirectory() as folder:
+        parameters = dict(RECORDING_PAGE_PARAMETERS, test_marks = Path(folder) / "marks.csv")
+        try:
+            save_test_marks({"label": runs[0]["label"], "line_kept": "no", "stop": "none", "finished": "no"}, parameters)
+            raise AssertionError("a run that left the line was marked without saying where")
+        except FormError:
+            pass
+        save_test_marks({"label": runs[0]["label"], "line_kept": "yes", "stop": "on the end", "finished": "yes"}, parameters)
+        assert read_test_marks(parameters)[runs[0]["label"]]["finished"] == "yes"
+
+
 if __name__ == "__main__":
     test_command_carries_the_form()
     test_notes_and_flags()
@@ -672,4 +697,5 @@ if __name__ == "__main__":
     test_saving_a_score_does_not_wait_for_the_picture_check()
     test_episode_is_offered_once_written()
     test_status_never_waits_for_git_and_reads_little()
+    test_robot_tests_are_listed_checked_and_marked()
     print("all tests passed")
