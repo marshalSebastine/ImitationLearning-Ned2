@@ -103,6 +103,7 @@
           <div class="check" id="again-row" hidden><input type="checkbox" id="again"><label for="again">Run it again (this test has a run already).</label></div>
         </div>
         <button class="primary" id="start" type="button" style="margin-top:8px">Start this test</button>
+        <div class="hint" id="again-hint" hidden style="color:var(--bad-ink);font-weight:600">This test has been run already. To run the NEXT test, click it in the list.</div>
         <div class="hint" style="margin-top:6px">A window opens for the run: read the line there and press Enter in that window. During the run its keys work as always (Enter, g, Esc). When it says "Press any key", press a key to close it, then give the marks here.</div>
         <div class="message" id="start-message"></div>
       </section>
@@ -172,6 +173,8 @@
       ? "The printed track (start = the end at the bottom, on the robot's side). Tape it once; the next test uses the same lay-out."
       : "The camera's view at the start: lay the sheet and the puck like this. The run also lays this picture faintly over the live view.";
     document.getElementById("again-row").hidden = !run.runs_done;
+    document.getElementById("again-hint").hidden = !run.runs_done;
+    document.getElementById("start").textContent = "Start test " + run.number + ": " + run.label + " with " + (models[run.model_key] || run.model_key);
     document.getElementById("again").checked = false;
     document.getElementById("safe").checked = false;
     document.getElementById("start-message").classList.remove("shown");
@@ -200,7 +203,10 @@
       document.getElementById("marks-message").classList.remove("shown");
     }
     form.hidden = !shouldShow;
-    if (shouldShow) document.getElementById("marks-title").textContent = "How did test " + state.test_to_mark + " go?";
+    if (shouldShow) {
+      const run = state.runs.find(item => item.label === state.test_to_mark);
+      document.getElementById("marks-title").textContent = "How did test " + (run ? run.number + " (" + run.label + ", " + (models[run.model_key] || run.model_key) + ")" : state.test_to_mark) + " go?";
+    }
   }
 
   function drawChoices() {
@@ -264,7 +270,10 @@
     for (const name of ["line_kept", "left_where", "stop", "puck_at_stop", "finished", "remark"]) body[name] = data.get(name) || "";
     if (await send("/tests/marks", body, "marks-message")) {
       event.target.hidden = true;
-      refresh();
+      // the next test in the list is chosen, so that "Start" never runs the same test again by mistake
+      const index = state.runs.findIndex(item => item.label === body.label);
+      await refresh();
+      if (index >= 0 && index + 1 < state.runs.length) choose(state.runs[index + 1].label);
     }
   });
 

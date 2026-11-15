@@ -1155,9 +1155,16 @@ class PageRequestHandler(BaseHTTPRequestHandler):
 
 class LocalPageServer(ThreadingHTTPServer):
 
+    # 15.11.26: a second page program must fail to start instead of sharing the port with the first one: on Windows the
+    # reuse flag let two programs listen on 8765, and the browser's requests went to either (the marks form of test A4
+    # came back after it was saved); SO_EXCLUSIVEADDRUSE refuses the second one
+    allow_reuse_address = False
+
     def server_bind(self) -> None:
         """Bind without looking up this computer's name, which can hang for a long time on some networks."""
 
+        if sys.platform == "win32":
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
         socketserver.TCPServer.server_bind(self)
         self.server_name, self.server_port = self.server_address[:2]
 
