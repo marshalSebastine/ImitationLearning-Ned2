@@ -2309,6 +2309,18 @@ TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"] = dict(
 TRAINING_RUNS["resnet18_model_16_full_zoom_turned_mirror_after_h_16_all_sheets"] = dict(
     TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **COMBINED["zoom_turned_mirror_after_h_16"])
 
+# 15.11.26, 10:45 (Emranul, who pressed the key: "mostly we missed 2-3 frames which was getting bad ... put less weight
+# into this"). The audit agrees: the reference matches the recording on 61 % of the last 2 steps before an h press, 78 %
+# of steps 3 to 5 and 83 % of steps 6 to 10, so only the last 2 to 3 look unusual. The runs above left out 5 and 8
+# steps and so threw good examples away. Here only the last 3 steps count less (a third, not nothing: the puck drifts
+# gradually), once alone and once with the steps after a press three times.
+HAND_CORRECTIONS_3 = {
+    "before_h_3_third": {"before_correction_weight": 1.0 / 3.0, "before_correction_rows": 3},
+    "before_h_3_third_after_h_3": {"before_correction_weight": 1.0 / 3.0, "before_correction_rows": 3, "after_correction_weight": 3.0}
+}
+for idea_name, idea in HAND_CORRECTIONS_3.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most
