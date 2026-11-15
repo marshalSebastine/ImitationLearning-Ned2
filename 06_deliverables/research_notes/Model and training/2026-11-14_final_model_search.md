@@ -321,3 +321,40 @@ training); pictures after an h press (fifth queue); stepping back (new: nothing 
 driver would even carry out a backwards step); score 1 episodes (the run without them: +0.6 points, within chance).
 Limits: recorded pictures of round 2 tracks only, no course sheet, and agreeing with the demonstration is not the
 same as pushing well.
+
+## 14. Third and fifth queue read (15.11.26, 10:00; all queues finished on ki-014 at 08:31, results fetched whole)
+
+Queues: second ended 04:36 (4 jobs with exit 1: three of the 320-pixel jobs, one table-as-paper), third 04:36 to 07:08
+(20 of 52 jobs with exit 1 from 06:20 on: ResNet-50 and ConvNeXt-Tiny on the zoomed view not at all, ConvNeXt-Tiny 4
+folds, zoom seed 2 4 folds, zoom with turned and mirrored pictures 8 folds, seed 3 13 folds; the cause is not read
+yet, the job logs are on ki-014), fifth 07:08 to 08:31 (20 of 20 with exit 0).
+
+New tracks (16 folds unless said; reference 0.832 path within 45, 11 of 55 right stops, 0.839 without the steps
+before an h press, 0.575 on the steps after one):
+
+| Run | Path 45 | Right stops | Without before-h | After h |
+|---|---|---|---|---|
+| mirror | 0.844 | 16 | 0.852 | 0.616 |
+| turned 12 | 0.830 | 14 | 0.838 | 0.566 |
+| far reach 3 | 0.820 | 12 | 0.828 | 0.583 |
+| zoom | 0.824 | 10 | 0.828 | 0.583 |
+| zoom + turned + mirror (8 folds; reference on them 0.837, 3 of 25, 0.849, 0.599) | 0.873 | 4 of 25 | 0.879 | 0.693 |
+| seed 3 of the reference (13 folds; seed 1 on them 0.825, 10 of 45) | 0.825 | 15 of 45 | 0.833 | 0.550 |
+| after h x3 | 0.830 | 12 | 0.836 | 0.610 |
+| without 5 before h | 0.825 | 16 | 0.830 | 0.546 |
+| without 5 before h, after h x3 | 0.819 | 13 | 0.829 | 0.627 |
+| without 8 before h, after h x3 | 0.818 | 8 | 0.825 | 0.629 |
+
+Course sheets (6 folds, 209 episodes): reference 0.818, 106 right stops, without before-h 0.826, after h 0.576;
+zoom 0.828, 116, 0.835, 0.610; two pictures 0.835, 86 (78 never stopped), 0.844, 0.668; ResNet-34 0.825, 102, 0.834,
+0.609; without 5 before h with after h x3 0.807, 103, 0.819, 0.645.
+
+By the rules fixed beforehand: the hand-correction rule (after h +5 points, path without before-h not more than 1
+point lower, stops within the seed gap) is met by "without 5 before, after x3" on both yardsticks, on the new tracks
+only just (+5.2 and -1.0). Leaving the before-h steps out alone does not raise the after-h number (0.546); the gain
+comes from the weight on the after-h steps (0.610 alone). Eight steps left out is worse than five. By the search's
+first rule nothing passes clearly: mirror gains 1.2 points and 5 stops, which is the size of the gap between seeds
+(three seeds: 11, 17 and about 15 right stops). Far reach, turned pictures and the zoomed view alone show no gain on
+the new tracks; zoom gains 1 point and 10 stops on the course sheets. The strongest number, zoom with turned and
+mirrored pictures (+3.6 points, after h +9), rests on 8 of 16 folds and has to be completed before it counts. Two
+pictures steer best on both yardsticks and stop worst. Robot candidates trained: models 11, 12, 13 and 14.
