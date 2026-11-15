@@ -165,3 +165,32 @@ robot: once the puck is beside the line, the model keeps pushing it where it is 
 line. The two models do not differ clearly in this. Whether model 10 is worse on the loop than the round 1 model is
 not settled by one run each with two things changed (model and step); run lines SE5F, S05F and SE5 separate them.
 A first version of this test had masks that left the puck and the line half visible; its numbers were thrown away.
+
+## 10. The loop (sheet 05): model 10 is worse than the round 1 model (15.11.26, 01:00 to 01:30, robot)
+
+| Run | Lay-out | Model | Step | Result (log; what Emranul saw) |
+|---|---|---|---|---|
+| S05, twice | from end A, loop far (9 recordings) | 10 | 0.65 cm | struggled; 127 steps and a stop; second time ended with Esc after 92 |
+| SE5F | from end A | E | 1 cm | bad; ended with Esc after 62 steps |
+| SE5 | from end A | E | 0.65 cm | bad; 138 steps and a stop |
+| SE5B | as on 11.11, loop near (the end with 21 recordings) | E | 1 cm | worked; 91 steps, forearm -74 to 61 degrees (on 11.11: 88 steps, -73 to 57) |
+| S05B | as on 11.11 | 10 | 0.65 cm | did not work; stopped after 66 steps, forearm to the -117 limit |
+| S05BF | as on 11.11 | 10 | 1 cm | failed again; stopped after 38 steps |
+
+The first four runs lay from the other end than the good run of 11.11: the run list's mistake (Claude chose "from end
+A" without checking how the sheet lay then), found by comparing the first pictures
+(`evidence/night_look_2026-11-14/sheet_05_starts_compared.jpg`). In the lay-out of 11.11 the round 1 model works and
+model 10 does not, with either step: model 10 is worse on this sheet. Its two runs end alike
+(`loop_model_10_early_stops.jpg`): it does not turn into the loop in time, pushes the puck to the paper's edge and
+stops there (stop chance 0.7 to 0.9 with the puck at the edge). On the 92 pictures of the good run the two models
+mostly agree (direction gap median 7 degrees, over 30 degrees on 5 pictures, twist gap never over 3 degrees); the gaps
+of 15 to 30 degrees lie where the line turns into the loop and where it leaves it, and on the robot a small gap there
+is enough. Why round 2 cost this is not tested; a guess is that more loops and bends of other shapes pull the answer at
+a crossing towards an average.
+
+Consequences: the 16-track yardstick cannot see such a loss, so the third queue also holds each of the six course
+sheets out once on the full data ("resnet18_full_course_sheets" and its variants; the round 1 numbers to compare with
+are 0.808 and 0.800 path within 45 and 103 and 105 of 209 right stops). Model 12 (model 10 with the picture before)
+and model 11 are robot candidates. Until a model holds on both yardsticks and on the robot, the round 1 model E stays
+the model for the six known sheets. Every new robot model is first driven on the six course sheets in their good
+lay-outs before anything else is concluded from it.

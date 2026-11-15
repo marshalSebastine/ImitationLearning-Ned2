@@ -2236,6 +2236,22 @@ TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
 TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(
     TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], recovery_weight = 5.0, far_reach_weight = 3.0)
 
+# 15.11.26, 01:40, from the robot: laid as on 11.11, the round 1 model (E) drove sheet 05's loop to the end again (91
+# steps), model 10 did not, with 0.65 cm and with 1 cm steps (it turned into the loop late, ran the puck to the paper's
+# edge and stopped there; Emranul: "it was perfect on the previous model and we made it worse"). The 16-track yardstick
+# cannot see this: it tests new tracks only. So a second yardstick beside it: each of the six COURSE sheets held out
+# once, trained on the other five and on all of round 2 ("split" "sheets", only the six course-sheet folds are run).
+# Against it stands the same recipe on round 1 alone (path within 45 0.808 and 0.800, stopped right 103 and 105 of
+# 209, two seeds on 11.11.26). A recipe for the exam has to hold on both yardsticks. Model 12 is model 10 with the
+# picture before as well (two pictures): at a crossing one picture cannot show which branch the puck came from.
+COURSE_SHEET_FOLDS = ["without_path_01", "without_path_02", "without_path_03", "without_path_04", "without_path_05", "without_path_06"]
+TRAINING_RUNS["resnet18_full_course_sheets"] = dict(TRAINING_RUNS["resnet18_chunk_stop_weight_25"], split = "sheets", **FULL_DATA, **WITHOUT_14_02)
+TRAINING_RUNS["resnet18_full_two_pictures_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], picture_count = 2)
+TRAINING_RUNS["resnet18_full_zoom_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["zoom"])
+TRAINING_RUNS["resnet18_full_convnext_tiny_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["convnext_tiny"])
+TRAINING_RUNS["resnet18_full_resnet34_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], backbone = "resnet34.tv_in1k")
+TRAINING_RUNS["resnet18_model_12_full_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], picture_count = 2)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

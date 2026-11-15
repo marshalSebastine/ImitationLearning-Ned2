@@ -20,8 +20,17 @@ B="without_T05 without_T06 without_T07 without_T08"
 C="without_T09 without_T10 without_T11 without_T12"
 D="without_T13 without_T14 without_T15 without_T16"
 { echo "resnet18_model_11_full_recovery_far_reach_all_sheets"
+echo "resnet18_model_12_full_two_pictures_all_sheets"
+P="without_path_01 without_path_02 without_path_03"
+Q="without_path_04 without_path_05 without_path_06"
+for run in resnet18_full_course_sheets resnet18_full_two_pictures_course_sheets; do
+  for folds in "$P" "$Q"; do echo "$run --folds $folds"; done
+done
 for run in resnet18_full_zoom_new_shapes resnet18_full_turned_12_new_shapes resnet18_full_mirror_new_shapes resnet18_full_far_reach_3_new_shapes resnet18_full_new_shapes_seed_3 resnet18_full_convnext_tiny_new_shapes resnet18_full_resnet50_new_shapes resnet18_full_zoom_new_shapes_seed_2 resnet18_full_zoom_turned_mirror_new_shapes resnet18_full_convnext_tiny_zoom_new_shapes; do
   for folds in "$A" "$B" "$C" "$D"; do echo "$run --folds $folds"; done
+done
+for run in resnet18_full_zoom_course_sheets resnet18_full_resnet34_course_sheets resnet18_full_convnext_tiny_course_sheets; do
+  for folds in "$P" "$Q"; do echo "$run --folds $folds"; done
 done; } > ../logs/final3_jobs.txt
 echo "$(wc -l < ../logs/final3_jobs.txt) jobs in the third queue; it starts when the second has finished"
 (nohup sh final3_queue.sh > ../logs/final3_queue.log 2>&1 < /dev/null &)
