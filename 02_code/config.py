@@ -2321,6 +2321,26 @@ HAND_CORRECTIONS_3 = {
 for idea_name, idea in HAND_CORRECTIONS_3.items():
     TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
 
+# 15.11.26, 13:45, the ninth queue (Emranul: "let's try all this"): every remaining idea, each added to model 15's
+# recipe alone ("mirror_after_h_16", which gained on both yardsticks), so that each is compared with that recipe:
+#   after h five times instead of three (Emranul's after-h weight, pushed further);
+#   the approach: the last 15 steps before the stop of the score-3 episodes count twice (Emranul's idea; 2,154
+#       pictures; the audit found 73 to 75 % agreement 4 to 20 steps before the end against 86 % earlier);
+#   24 rounds instead of 16 (8 to 16 helped);
+#   two pictures (best after-h numbers so far, worst stops);
+#   two more seeds of the recipe itself, to see whether its 0.856 was luck.
+TRAINING_RUN_PARAMETERS.update({"approach_weight": 1.0, "approach_rows": 15, "approach_scores": [3]})
+NINTH_QUEUE = {
+    "after_h_5": {"after_correction_weight": 5.0},
+    "approach_2": {"approach_weight": 2.0},
+    "24_rounds": {"epochs": 24},
+    "two_pictures": {"picture_count": 2},
+    "seed_2": {"seed": 10_11_26},
+    "seed_3": {"seed": 11_11_26}
+}
+for idea_name, idea in NINTH_QUEUE.items():
+    TRAINING_RUNS[f"resnet18_full_mirror_after_h_16_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **idea)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

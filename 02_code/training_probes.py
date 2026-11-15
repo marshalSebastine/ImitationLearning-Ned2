@@ -282,6 +282,16 @@ def training_arrays(
         weight = numpy.where(is_after, arrays["sample_weight"] * parameters.get("after_correction_weight", 1.0), arrays["sample_weight"])
         weight = numpy.where(is_before, arrays["sample_weight"] * parameters.get("before_correction_weight", 1.0), weight)
         arrays["sample_weight"] = weight.astype(arrays["sample_weight"].dtype)
+    if parameters.get("approach_weight", 1.0) != 1.0:
+        # 15.11.26 (Emranul: "put more weight into the last frames of each episode, so the puck covers the line"): the
+        # last "approach_rows" steps before the stop of the episodes scored in "approach_scores" count this many times.
+        # The audit found the model weakest 4 to 20 steps before the end (73 to 75 % against 86 % earlier); only well
+        # scored episodes, so that a puck ending beside the line end is not taught more.
+        steps_to_end = frames["steps_to_end"].to_numpy(dtype = float)
+        is_approach = ((steps_to_end >= 1) & (steps_to_end <= parameters["approach_rows"])
+                       & frames["score"].isin(parameters["approach_scores"]).to_numpy())
+        arrays["sample_weight"] = numpy.where(is_approach, arrays["sample_weight"] * parameters["approach_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training

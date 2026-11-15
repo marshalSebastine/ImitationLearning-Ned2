@@ -312,6 +312,12 @@ def test_steps_round_a_correction_by_hand() -> None:
     assert float(numpy.abs(changed["sample_weight"][is_before]).sum()) == 0.0, "the steps before an h press must not count"
     assert numpy.allclose(changed["sample_weight"][is_after], 3.0 * usual["sample_weight"][is_after]), "the steps after must count more"
     assert numpy.allclose(changed["sample_weight"][~(is_before | is_after)], usual["sample_weight"][~(is_before | is_after)])
+    marked["steps_to_end"] = marked.groupby("episode_id")["row_in_episode"].transform("max") - marked["row_in_episode"]
+    marked["score"] = numpy.where(marked["episode_id"] == "episode_0", 3, 2)
+    approach, _, _ = training_arrays(marked, dict(settings, approach_weight = 2.0, approach_rows = 2, approach_scores = [3]), target_parameters)
+    is_approach = ((marked["episode_id"] == "episode_0") & marked["steps_to_end"].between(1, 2)).to_numpy()
+    assert numpy.allclose(approach["sample_weight"][is_approach], 2.0 * usual["sample_weight"][is_approach]), "the approach must count more"
+    assert numpy.allclose(approach["sample_weight"][~is_approach], usual["sample_weight"][~is_approach]), "only score-3 approaches, not the stop row"
 
 
 def test_class_weights_favour_rare_classes() -> None:
