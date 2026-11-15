@@ -72,6 +72,14 @@ with the demonstration on 83 % of all held-out pictures but on 58 % of those aft
 fixed before results: after-h pictures +5 points, path without before-h pictures not more than 1 point lower, stops not
 worse than the seed gap; then the robot decides (sheet 03 first).
 
+**Ideas kept for the next queue, not built (Emranul, 15.11.26, "keep it in mind").** (1) More weight on the steering of
+the last 10 to 20 steps of each episode, only in well-scored episodes (score 3, puck in the goal), so the puck covers the
+line end; the error audit (`error_audit.py`) shows 73 to 75 % agreement in the last 4 to 20 steps against 86 % earlier.
+The stop picture itself already counts 25 times and more weight there did not pass. (2) The model almost never steps
+back (right on 60 of 530 backwards pictures); first check whether the driver carries out a backwards step. (3) After the
+results: combine only the changes that pass their rule into one recipe and score and drive the mix as its own run; try
+after-h weight 5 if 3 helps. No negative weights (Emranul asked; weight 0 is the honest choice, explained to him).
+
 **Model 9** (reference recipe on all 264 episodes, for the robot): 
 `04_runs/gpu_ki014/2026-11-14_resnet18_model_9_full_all_sheets/checkpoints/all_sheets.pt`, sha256 3eca52154e5a; loads
 in the robot driver (`ModelPolicy`), not yet driven on the robot.
