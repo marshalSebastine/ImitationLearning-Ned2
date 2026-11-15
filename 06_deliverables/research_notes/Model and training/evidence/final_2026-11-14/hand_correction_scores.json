@@ -4178,6 +4178,682 @@
     }
    }
   },
+  "mirror_after_h_16_after_h_5_new_shapes": {
+   "scores": {
+    "folds": 16,
+    "all": {
+     "mean": 0.8346,
+     "pooled": 0.8294,
+     "pictures": 3856
+    },
+    "without_before": {
+     "mean": 0.8468,
+     "pooled": 0.8433,
+     "pictures": 3599
+    },
+    "after": {
+     "mean": 0.6421,
+     "pooled": 0.6798,
+     "pictures": 456
+    },
+    "before": {
+     "mean": 0.6145,
+     "pooled": 0.6342,
+     "pictures": 257
+    }
+   },
+   "reference_same_folds": {
+    "folds": 16,
+    "all": {
+     "mean": 0.8318,
+     "pooled": 0.8262,
+     "pictures": 3856
+    },
+    "without_before": {
+     "mean": 0.8394,
+     "pooled": 0.8344,
+     "pictures": 3599
+    },
+    "after": {
+     "mean": 0.5842,
+     "pooled": 0.5746,
+     "pictures": 456
+    },
+    "before": {
+     "mean": 0.6833,
+     "pooled": 0.7121,
+     "pictures": 257
+    }
+   },
+   "folds": {
+    "without_T01": {
+     "all": [
+      126,
+      153
+     ],
+     "without_before": [
+      118,
+      143
+     ],
+     "after": [
+      15,
+      22
+     ],
+     "before": [
+      8,
+      10
+     ]
+    },
+    "without_T02": {
+     "all": [
+      127,
+      141
+     ],
+     "without_before": [
+      117,
+      130
+     ],
+     "after": [
+      14,
+      20
+     ],
+     "before": [
+      10,
+      11
+     ]
+    },
+    "without_T03": {
+     "all": [
+      203,
+      235
+     ],
+     "without_before": [
+      199,
+      227
+     ],
+     "after": [
+      8,
+      12
+     ],
+     "before": [
+      4,
+      8
+     ]
+    },
+    "without_T04": {
+     "all": [
+      197,
+      235
+     ],
+     "without_before": [
+      179,
+      209
+     ],
+     "after": [
+      40,
+      46
+     ],
+     "before": [
+      18,
+      26
+     ]
+    },
+    "without_T05": {
+     "all": [
+      236,
+      291
+     ],
+     "without_before": [
+      225,
+      272
+     ],
+     "after": [
+      30,
+      39
+     ],
+     "before": [
+      11,
+      19
+     ]
+    },
+    "without_T06": {
+     "all": [
+      203,
+      290
+     ],
+     "without_before": [
+      174,
+      239
+     ],
+     "after": [
+      52,
+      84
+     ],
+     "before": [
+      29,
+      51
+     ]
+    },
+    "without_T07": {
+     "all": [
+      164,
+      190
+     ],
+     "without_before": [
+      160,
+      182
+     ],
+     "after": [
+      11,
+      15
+     ],
+     "before": [
+      4,
+      8
+     ]
+    },
+    "without_T08": {
+     "all": [
+      254,
+      307
+     ],
+     "without_before": [
+      241,
+      291
+     ],
+     "after": [
+      19,
+      34
+     ],
+     "before": [
+      13,
+      16
+     ]
+    },
+    "without_T09": {
+     "all": [
+      96,
+      114
+     ],
+     "without_before": [
+      96,
+      111
+     ],
+     "after": [
+      2,
+      4
+     ],
+     "before": [
+      0,
+      3
+     ]
+    },
+    "without_T10": {
+     "all": [
+      204,
+      267
+     ],
+     "without_before": [
+      199,
+      259
+     ],
+     "after": [
+      2,
+      13
+     ],
+     "before": [
+      5,
+      8
+     ]
+    },
+    "without_T11": {
+     "all": [
+      192,
+      224
+     ],
+     "without_before": [
+      184,
+      212
+     ],
+     "after": [
+      10,
+      21
+     ],
+     "before": [
+      8,
+      12
+     ]
+    },
+    "without_T12": {
+     "all": [
+      302,
+      360
+     ],
+     "without_before": [
+      287,
+      334
+     ],
+     "after": [
+      38,
+      47
+     ],
+     "before": [
+      15,
+      26
+     ]
+    },
+    "without_T13": {
+     "all": [
+      195,
+      252
+     ],
+     "without_before": [
+      182,
+      234
+     ],
+     "after": [
+      15,
+      25
+     ],
+     "before": [
+      13,
+      18
+     ]
+    },
+    "without_T14": {
+     "all": [
+      258,
+      319
+     ],
+     "without_before": [
+      246,
+      295
+     ],
+     "after": [
+      30,
+      45
+     ],
+     "before": [
+      12,
+      24
+     ]
+    },
+    "without_T15": {
+     "all": [
+      267,
+      287
+     ],
+     "without_before": [
+      267,
+      287
+     ],
+     "after": [
+      0,
+      0
+     ],
+     "before": [
+      0,
+      0
+     ]
+    },
+    "without_T16": {
+     "all": [
+      174,
+      191
+     ],
+     "without_before": [
+      161,
+      174
+     ],
+     "after": [
+      24,
+      29
+     ],
+     "before": [
+      13,
+      17
+     ]
+    }
+   }
+  },
+  "mirror_after_h_16_approach_2_new_shapes": {
+   "scores": {
+    "folds": 16,
+    "all": {
+     "mean": 0.8473,
+     "pooled": 0.8423,
+     "pictures": 3856
+    },
+    "without_before": {
+     "mean": 0.8566,
+     "pooled": 0.8533,
+     "pictures": 3599
+    },
+    "after": {
+     "mean": 0.6532,
+     "pooled": 0.6711,
+     "pictures": 456
+    },
+    "before": {
+     "mean": 0.6719,
+     "pooled": 0.6887,
+     "pictures": 257
+    }
+   },
+   "reference_same_folds": {
+    "folds": 16,
+    "all": {
+     "mean": 0.8318,
+     "pooled": 0.8262,
+     "pictures": 3856
+    },
+    "without_before": {
+     "mean": 0.8394,
+     "pooled": 0.8344,
+     "pictures": 3599
+    },
+    "after": {
+     "mean": 0.5842,
+     "pooled": 0.5746,
+     "pictures": 456
+    },
+    "before": {
+     "mean": 0.6833,
+     "pooled": 0.7121,
+     "pictures": 257
+    }
+   },
+   "folds": {
+    "without_T01": {
+     "all": [
+      143,
+      153
+     ],
+     "without_before": [
+      135,
+      143
+     ],
+     "after": [
+      21,
+      22
+     ],
+     "before": [
+      8,
+      10
+     ]
+    },
+    "without_T02": {
+     "all": [
+      119,
+      141
+     ],
+     "without_before": [
+      110,
+      130
+     ],
+     "after": [
+      9,
+      20
+     ],
+     "before": [
+      9,
+      11
+     ]
+    },
+    "without_T03": {
+     "all": [
+      212,
+      235
+     ],
+     "without_before": [
+      207,
+      227
+     ],
+     "after": [
+      10,
+      12
+     ],
+     "before": [
+      5,
+      8
+     ]
+    },
+    "without_T04": {
+     "all": [
+      192,
+      235
+     ],
+     "without_before": [
+      175,
+      209
+     ],
+     "after": [
+      39,
+      46
+     ],
+     "before": [
+      17,
+      26
+     ]
+    },
+    "without_T05": {
+     "all": [
+      245,
+      291
+     ],
+     "without_before": [
+      232,
+      272
+     ],
+     "after": [
+      29,
+      39
+     ],
+     "before": [
+      13,
+      19
+     ]
+    },
+    "without_T06": {
+     "all": [
+      213,
+      290
+     ],
+     "without_before": [
+      175,
+      239
+     ],
+     "after": [
+      51,
+      84
+     ],
+     "before": [
+      38,
+      51
+     ]
+    },
+    "without_T07": {
+     "all": [
+      165,
+      190
+     ],
+     "without_before": [
+      160,
+      182
+     ],
+     "after": [
+      10,
+      15
+     ],
+     "before": [
+      5,
+      8
+     ]
+    },
+    "without_T08": {
+     "all": [
+      254,
+      307
+     ],
+     "without_before": [
+      240,
+      291
+     ],
+     "after": [
+      23,
+      34
+     ],
+     "before": [
+      14,
+      16
+     ]
+    },
+    "without_T09": {
+     "all": [
+      97,
+      114
+     ],
+     "without_before": [
+      96,
+      111
+     ],
+     "after": [
+      2,
+      4
+     ],
+     "before": [
+      1,
+      3
+     ]
+    },
+    "without_T10": {
+     "all": [
+      209,
+      267
+     ],
+     "without_before": [
+      204,
+      259
+     ],
+     "after": [
+      4,
+      13
+     ],
+     "before": [
+      5,
+      8
+     ]
+    },
+    "without_T11": {
+     "all": [
+      194,
+      224
+     ],
+     "without_before": [
+      186,
+      212
+     ],
+     "after": [
+      12,
+      21
+     ],
+     "before": [
+      8,
+      12
+     ]
+    },
+    "without_T12": {
+     "all": [
+      307,
+      360
+     ],
+     "without_before": [
+      290,
+      334
+     ],
+     "after": [
+      32,
+      47
+     ],
+     "before": [
+      17,
+      26
+     ]
+    },
+    "without_T13": {
+     "all": [
+      201,
+      252
+     ],
+     "without_before": [
+      186,
+      234
+     ],
+     "after": [
+      15,
+      25
+     ],
+     "before": [
+      15,
+      18
+     ]
+    },
+    "without_T14": {
+     "all": [
+      256,
+      319
+     ],
+     "without_before": [
+      247,
+      295
+     ],
+     "after": [
+      27,
+      45
+     ],
+     "before": [
+      9,
+      24
+     ]
+    },
+    "without_T15": {
+     "all": [
+      271,
+      287
+     ],
+     "without_before": [
+      271,
+      287
+     ],
+     "after": [
+      0,
+      0
+     ],
+     "before": [
+      0,
+      0
+     ]
+    },
+    "without_T16": {
+     "all": [
+      170,
+      191
+     ],
+     "without_before": [
+      157,
+      174
+     ],
+     "after": [
+      22,
+      29
+     ],
+     "before": [
+      13,
+      17
+     ]
+    }
+   }
+  },
   "mirror_after_h_16_new_shapes": {
    "scores": {
     "folds": 16,
@@ -4512,6 +5188,92 @@
      "before": [
       13,
       17
+     ]
+    }
+   }
+  },
+  "mirror_after_h_16_two_pictures_new_shapes": {
+   "scores": {
+    "folds": 2,
+    "all": {
+     "mean": 0.8989,
+     "pooled": 0.898,
+     "pictures": 294
+    },
+    "without_before": {
+     "mean": 0.9056,
+     "pooled": 0.9048,
+     "pictures": 273
+    },
+    "after": {
+     "mean": 0.7159,
+     "pooled": 0.7143,
+     "pictures": 42
+    },
+    "before": {
+     "mean": 0.8045,
+     "pooled": 0.8095,
+     "pictures": 21
+    }
+   },
+   "reference_same_folds": {
+    "folds": 2,
+    "all": {
+     "mean": 0.8264,
+     "pooled": 0.8265,
+     "pictures": 294
+    },
+    "without_before": {
+     "mean": 0.8465,
+     "pooled": 0.8462,
+     "pictures": 273
+    },
+    "after": {
+     "mean": 0.5023,
+     "pooled": 0.5,
+     "pictures": 42
+    },
+    "before": {
+     "mean": 0.5773,
+     "pooled": 0.5714,
+     "pictures": 21
+    }
+   },
+   "folds": {
+    "without_T01": {
+     "all": [
+      134,
+      153
+     ],
+     "without_before": [
+      127,
+      143
+     ],
+     "after": [
+      15,
+      22
+     ],
+     "before": [
+      7,
+      10
+     ]
+    },
+    "without_T02": {
+     "all": [
+      130,
+      141
+     ],
+     "without_before": [
+      120,
+      130
+     ],
+     "after": [
+      15,
+      20
+     ],
+     "before": [
+      10,
+      11
      ]
     }
    }
