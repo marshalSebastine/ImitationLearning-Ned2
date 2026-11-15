@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs the eleventh queue's jobs, up to three at a time, but starts one only when the card has at least 1800 MiB free;
+# Runs the eleventh queue's jobs, up to three at a time, but starts one only when the card has at least 1400 MiB free (one job used 1252 MiB on 15.11.26);
 # after a start it waits 90 seconds, so that the new job has taken its memory before the next look.
 cd ~/ai_project/02_code_5 || exit 1
 echo "$(wc -l < ../logs/final11_jobs.txt) jobs, up to three at a time when the card has room, started $(date)"
@@ -8,7 +8,7 @@ while read -r line; do
   while :; do
     free=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits | head -1 | tr -d ' ')
     running=$(pgrep -u "$(id -un)" -f "^[^ ]*python -u train_policy" | wc -l)
-    [ "$free" -ge 1800 ] && [ "$running" -lt 3 ] && break
+    [ "$free" -ge 1400 ] && [ "$running" -lt 3 ] && break
     sleep 30
   done
   set -- $line
