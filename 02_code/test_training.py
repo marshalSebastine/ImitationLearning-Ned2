@@ -278,6 +278,42 @@ def test_mid_paper_stop_pictures_count_more() -> None:
     assert numpy.allclose(without["sample_weight"][~is_left_out], usual["sample_weight"][~is_left_out])
 
 
+def test_steps_round_a_correction_by_hand() -> None:
+
+    from training_probes import training_arrays
+    from training_targets import correction_steps
+    # episode_0: the replay's waypoints 0 to 3, an h press, then the corrected path's waypoints 0 to 1 and the stop
+    frames = toy_frames()
+    frames = pandas.concat([frames, frames[frames["episode_id"] == "episode_0"].tail(1).assign(row_in_episode = 6)], ignore_index = True)
+    frames["waypoint"] = numpy.nan
+    frames.loc[frames["episode_id"] == "episode_0", "waypoint"] = [0, 1, 2, 3, 0, 1, numpy.nan]
+    frames.loc[frames["episode_id"] == "episode_1", "waypoint"] = [0, 1, 2, numpy.nan]
+    marked = correction_steps(frames.sample(frac = 1.0, random_state = 3))
+    first = marked[marked["episode_id"] == "episode_0"]
+    assert first["row_in_episode"].tolist() == list(range(7)), "the rows must come back in step order"
+    assert first["steps_to_next_correction"].fillna(-1).tolist() == [4, 3, 2, 1, 0, -1, -1]
+    assert first["steps_since_correction"].fillna(-1).tolist() == [-1, -1, -1, -1, 0, 1, 2]
+    second = marked[marked["episode_id"] == "episode_1"]
+    assert second["steps_to_next_correction"].isna().all() and second["steps_since_correction"].isna().all(), "no h press, no marks"
+
+    marked["score"] = 2
+    marked["goal_distance_cm"] = 0.0
+    marked["is_at_goal"] = 0
+    target_parameters = {"small_motion_rule": "next_move", "twist_threshold_deg": 2.0, "chunk_steps": 5}
+    settings = dict(TRAINING_RUN_PARAMETERS, design = "chunk")
+    assert settings["before_correction_weight"] == 1.0 and settings["after_correction_weight"] == 1.0, "both are off unless a run asks"
+    usual, _, _ = training_arrays(marked, settings, target_parameters)
+    changed, _, _ = training_arrays(marked, dict(settings, before_correction_weight = 0.0, before_correction_rows = 2,
+                                                 after_correction_weight = 3.0, after_correction_rows = 1), target_parameters)
+    is_first = (marked["episode_id"] == "episode_0").to_numpy()
+    row = marked["row_in_episode"].to_numpy()
+    is_before = is_first & numpy.isin(row, [2, 3])
+    is_after = is_first & (row == 5)
+    assert float(numpy.abs(changed["sample_weight"][is_before]).sum()) == 0.0, "the steps before an h press must not count"
+    assert numpy.allclose(changed["sample_weight"][is_after], 3.0 * usual["sample_weight"][is_after]), "the steps after must count more"
+    assert numpy.allclose(changed["sample_weight"][~(is_before | is_after)], usual["sample_weight"][~(is_before | is_after)])
+
+
 def test_class_weights_favour_rare_classes() -> None:
 
     weights = class_weights(numpy.array([0, 0, 0, 1, -1]), 3, 1.0)
@@ -350,7 +386,7 @@ if __name__ == "__main__":
                  test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures,
                  test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop,
                  test_turned_pictures_and_their_steps_turn_the_same_way, test_new_shape_folds_with_fewer_tracks,
-                 test_mid_paper_stop_pictures_count_more,
+                 test_mid_paper_stop_pictures_count_more, test_steps_round_a_correction_by_hand,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,
                  test_labels_match_the_recording_tool_on_real_data]:

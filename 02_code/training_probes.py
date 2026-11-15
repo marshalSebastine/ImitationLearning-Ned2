@@ -175,6 +175,34 @@ def design_outputs(
 
 
 
+def correction_rows(
+        frames: pandas.DataFrame,
+        parameters: Dict
+) -> Tuple[numpy.ndarray, numpy.ndarray]:
+    """
+    Return which rows are the last steps before a correction by hand and which the first replayed steps after one.
+
+    Parameters
+    ----------
+    frames : pandas.DataFrame
+        From ``load_training_frames`` (with the columns of ``correction_steps``).
+    parameters : dict
+        Supplies "before_correction_rows" and "after_correction_rows".
+
+    Returns
+    -------
+    tuple of numpy.ndarray
+        Two boolean masks over the rows: before an h press, and after one.
+    """
+
+    steps_to_next = frames["steps_to_next_correction"].to_numpy(dtype = float)
+    steps_since = frames["steps_since_correction"].to_numpy(dtype = float)
+    is_before = (steps_to_next >= 1) & (steps_to_next <= parameters["before_correction_rows"])
+    is_after = (steps_since >= 1) & (steps_since <= parameters["after_correction_rows"])
+    return is_before, is_after
+
+
+
 def training_arrays(
         frames: pandas.DataFrame,
         parameters: Dict,
@@ -245,6 +273,15 @@ def training_arrays(
         is_recovery = (frames["start_kind"].astype(str).str.startswith(("OL", "OR")) & (frames["row_in_episode"] < parameters["recovery_rows"])).to_numpy()
         arrays["sample_weight"] = numpy.where(is_recovery, arrays["sample_weight"] * parameters["recovery_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("before_correction_weight", 1.0) != 1.0 or parameters.get("after_correction_weight", 1.0) != 1.0:
+        # 15.11.26 (Emranul: "put more weight on the frames after h is pressed"): the "after_correction_rows" replayed
+        # steps after a correction by hand show the robot bringing the drifted puck back and count more; the last
+        # "before_correction_rows" steps before an h press show the replay going on while the puck drifts and count
+        # less (0 leaves them out). A row that is both (two corrections close together) counts as a step before.
+        is_before, is_after = correction_rows(frames, parameters)
+        weight = numpy.where(is_after, arrays["sample_weight"] * parameters.get("after_correction_weight", 1.0), arrays["sample_weight"])
+        weight = numpy.where(is_before, arrays["sample_weight"] * parameters.get("before_correction_weight", 1.0), weight)
+        arrays["sample_weight"] = weight.astype(arrays["sample_weight"].dtype)
     if parameters.get("weightless_episode_patterns"):
         # 14.11.26 (Emranul: "remove episode 14-02 as it skipped the thing"): these episodes stay on disk and in the
         # tests, so that numbers stay comparable, but no picture of them counts in training

@@ -237,3 +237,48 @@ What follows, and what does not:
 - A test that would decide it: the same recipe with the last steps before every h press left out of the training
   (weight 0), with and without more weight on the steps after it. The yardstick must then leave those steps out of the
   scoring too, because on them the recorded move is the drift, not the right move. Not built, not queued.
+
+## 12. Hand-correction runs, built and ready to queue (15.11.26, 03:40; Emranul: "yes build it", "put more weight on the frames after h is pressed")
+
+**A measure of coming back, on recorded pictures** (`evidence/final_2026-11-14/score_hand_corrections.py`, from the
+saved predictions of every run; numbers in `hand_correction_scores.json`). The path measure (within 45 degrees) on
+the 16 held-out tracks, by group of test pictures:
+
+| Run | All | Without the 5 steps before an h press | Only the 8 steps after an h press | Only the 5 steps before |
+|---|---|---|---|---|
+| reference, seed 1 | 0.832 | 0.839 | 0.575 (456 pictures) | 0.712 (257) |
+| reference, seed 2 | 0.844 | 0.851 | 0.592 | 0.751 |
+| two pictures (14 folds) | 0.845 | 0.854 | 0.647 (388); reference on the same folds 0.590 | 0.694 |
+
+So the model agrees with the demonstration on 83 % of all pictures but on only 58 to 59 % of the pictures in which the
+demonstration brings a drifted puck back: coming back is its weakest part, now with a number. The sentence in
+config.py (model 11) that held-out pictures cannot score a recovery was wrong. A caution: the moves after a correction go back and round
+the puck and are harder to tell from one picture, so this group need not reach 83 %.
+
+**What was built** (all off unless a run asks; the reference's pictures, order, weights and targets are identical to
+before, checked against the code of the last commit):
+
+- `training_targets.correction_steps`: every picture knows how many steps it lies before the next h press and after
+  the last one (305 corrections in the index; a correction is the row whose waypoint counter is 0 again).
+- `training_probes.training_arrays`: "before_correction_weight" for the last "before_correction_rows" steps before
+  an h press (0 leaves them out), "after_correction_weight" for the "after_correction_rows" steps after it.
+- Runs (`config.HAND_CORRECTIONS`), each on the 16 new tracks: without the 5 steps before (1,471 pictures at weight
+  0); the 8 steps after three times (2,321 pictures); both; both with 8 steps before left out (2,361 pictures). Both
+  changes also on the six course sheets, where most corrections lie (185 of 305 on sheets 02 to 04). Robot
+  candidates chosen before any result: model 13 (model 10 with both changes) and model 14 (the same with two
+  pictures).
+- Login scripts in `evidence/final_2026-11-14/ki014_scripts/`: `final5.cmd` (one password: uploads the code into its
+  own folder `02_code_5` on ki-014, so the third queue's jobs are not touched, queues 20 jobs behind the third queue
+  and fetches all results so far), `final5_fetch.cmd` (fetch only). About 2.5 hours of card time, calculated from the
+  third queue's pace. Rehearsed on the laptop: the scripts' syntax, the upload with only the five code files, and one
+  very short training of a new run. Not rehearsed: anything on ki-014.
+
+**Rule for reading them, fixed before any result.** Against the reference on the same folds: a run is kept when the
+pictures after an h press gain at least 5 points (pooled; two seeds of the reference differ by 1.7 points, and 456
+pictures give about 2.3 points of chance) and the path measure without the steps before an h press does not lose
+more than 1 point, and it does not stop right less often by more than the seed gap (6 of 55). A recorded-picture
+gain is not yet a robot gain: the test that counts is models 13 and 14 against model 10 and model E on the robot,
+first on sheet 03, where the model stayed beside the line, with the puck also set down beside the line by hand.
+
+Why five steps: in eight picture strips the puck is visibly off the line from 3 to 5 steps before the press. That is
+a look, not a measurement, so the 8-step run shows how much the number matters.

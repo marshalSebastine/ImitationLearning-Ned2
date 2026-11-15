@@ -185,6 +185,12 @@ Last updated: 6.11.26 by Marshal's session (recording page built; gamepad and ha
   1 went to and fro from step 8; ranks 2 and 3 drove 20 cm straight and then got stuck at about 33 cm reach, where the
   end effector hides the puck (the runner keeps the rod upright; the recordings lean it). The robot had to be restarted
   once (its command service hung after run 1) and was calibrated automatically.
+- 15.11.26, 03:40 (Emranul: "yes build it", "put more weight on the frames after h is pressed"): hand-correction
+  runs built, tested and ready, NOT yet queued (needs the VPN and Emranul's password): the steps before an h press
+  left out of training, the steps after it counted three times, robot candidates models 13 and 14; one login with
+  `.../evidence/final_2026-11-14/ki014_scripts/final5.cmd` queues them behind the third queue and fetches all results.
+  New measure on recorded pictures (`score_hand_corrections.py`): the reference agrees with the demonstration on 83 %
+  of all pictures but on 58 % of the pictures after an h press. Section 12 of the search notes has the rule.
 - State on 15.11.26, 02:30: second and third queue on ki-014 (the third ends about 11:30); results come back with a
   fetch-only login (`.../evidence/final_2026-11-14/ki014_scripts/final_fetch.cmd`). Stop fixes scored: none passes.
   Next: score both queues on both yardsticks, build the look-ahead steering into the driver and rehearse it, drive

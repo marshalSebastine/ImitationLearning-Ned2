@@ -2229,9 +2229,10 @@ TRAINING_RUNS["resnet18_full_convnext_tiny_zoom_new_shapes"] = dict(TRAINING_RUN
                                                                     **THIRD_QUEUE["zoom"])
 
 # 15.11.26, 00:55, a robot candidate from the night's runs, not a comparison run: model 11 is model 10 with the two
-# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 first pictures of the starts
-# beside the line five times; the about 2,100 pictures after a correction by hand are not weighted, found 15.11.26). The held-out pictures cannot score a recovery (every
-# test episode stays on its line), so its test is the robot, against model 10 on the same sheets.
+# kinds of picture counted more that the robot looked weakest at (far reach three times; the 280 first pictures of
+# the starts beside the line five times). Its test is the robot, against model 10 on the same sheets. Corrected
+# 15.11.26: those 280 are not the only pictures of a puck brought back; the about 2,100 pictures after a correction by
+# hand are not weighted here (see the hand-correction runs below).
 TRAINING_RUN_PARAMETERS.update({"recovery_weight": 1.0, "recovery_rows": 8})
 TRAINING_RUNS["resnet18_model_11_full_recovery_far_reach_all_sheets"] = dict(
     TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], recovery_weight = 5.0, far_reach_weight = 3.0)
@@ -2251,6 +2252,37 @@ TRAINING_RUNS["resnet18_full_zoom_course_sheets"] = dict(TRAINING_RUNS["resnet18
 TRAINING_RUNS["resnet18_full_convnext_tiny_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], **THIRD_QUEUE["convnext_tiny"])
 TRAINING_RUNS["resnet18_full_resnet34_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_course_sheets"], backbone = "resnet34.tv_in1k")
 TRAINING_RUNS["resnet18_model_12_full_two_pictures_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], picture_count = 2)
+
+# 15.11.26, 03:00, the corrections by hand (Emranul: "in more than 80 % of the episodes we had to press h and bring
+# the puck back on the line"; "put more weight on the frames after h is pressed"). Counted: 305 corrections in 169 of
+# 266 episodes; the 8 replayed steps after one show the robot bringing the drifted puck back (2,094 training
+# pictures); the steps before one show the replay going on while the puck drifts and are trained on as good examples
+# (2,369 pictures in the 8 steps before, 34 marked as mistakes). Guess to be tested: those before-pictures teach the
+# model to carry on beside the line, as it did on the robot. "before_correction_weight" is the weight of the last
+# "before_correction_rows" steps before an h press (0 leaves them out), "after_correction_weight" that of the
+# "after_correction_rows" steps after it. Five steps before is read from eight picture strips, in which the puck is
+# visibly off the line from 3 to 5 steps before the press; eight steps is run once to see how much the number matters.
+# The yardstick's path measure is read with the steps before an h press left out of the test pictures as well
+# (score_hand_corrections.py), for these runs and for the reference alike: on them the recorded move is the drift.
+TRAINING_RUN_PARAMETERS.update({"before_correction_weight": 1.0, "before_correction_rows": 5,
+                                "after_correction_weight": 1.0, "after_correction_rows": 8})
+HAND_CORRECTIONS = {
+    "without_before_h_5": {"before_correction_weight": 0.0},
+    "after_h_3": {"after_correction_weight": 3.0},
+    "without_before_h_5_after_h_3": {"before_correction_weight": 0.0, "after_correction_weight": 3.0},
+    "without_before_h_8_after_h_3": {"before_correction_weight": 0.0, "before_correction_rows": 8, "after_correction_weight": 3.0}
+}
+for idea_name, idea in HAND_CORRECTIONS.items():
+    TRAINING_RUNS[f"resnet18_full_{idea_name}_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_new_shapes"], **idea, **WITHOUT_14_02)
+# most corrections lie on course sheets 02, 03 and 04 (185 of 305), so the second yardstick is the nearer test
+TRAINING_RUNS["resnet18_full_without_before_h_5_after_h_3_course_sheets"] = dict(
+    TRAINING_RUNS["resnet18_full_course_sheets"], **HAND_CORRECTIONS["without_before_h_5_after_h_3"])
+# robot candidates, chosen before any result: model 13 is model 10 with both changes, model 14 the same with the
+# picture before as well (the two-picture round 1 model drove sheet 05's loop best on the robot)
+TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_10_full_without_14_02_all_sheets"], **HAND_CORRECTIONS["without_before_h_5_after_h_3"])
+TRAINING_RUNS["resnet18_model_14_full_hand_corrections_two_pictures_all_sheets"] = dict(
+    TRAINING_RUNS["resnet18_model_13_full_hand_corrections_all_sheets"], picture_count = 2)
 
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,

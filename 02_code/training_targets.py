@@ -70,7 +70,7 @@ def load_training_frames(
     parameters = merged_target_parameters(parameters)
     data_parameters = data_parameters or TRAINING_DATA_PARAMETERS
     data_folder = Path(data_parameters["processed_folder"])
-    frames = pandas.read_csv(data_folder / "frames.csv", low_memory = False)
+    frames = correction_steps(pandas.read_csv(data_folder / "frames.csv", low_memory = False))
     if parameters["is_audit_cleaning"]:
         frames = audit_cleaned_frames(frames, parameters, data_parameters)
     is_kept = frames["score"].isin(parameters["kept_scores"])
@@ -95,6 +95,41 @@ def load_training_frames(
     if parameters["corrected_start_end"] == "plan" and not parameters["is_audit_cleaning"]:
         frames["start_end"] = frames["plan_end"].where(frames["plan_end"].isin(["A", "B"]), frames["start_end"])
     frames = frames.sort_values(["episode_id", "row_in_episode"]).reset_index(drop = True)
+    return frames
+
+
+
+def correction_steps(
+        frames: pandas.DataFrame
+) -> pandas.DataFrame:
+    """
+    Add to every row how many steps it lies before the next correction by hand and after the last one.
+
+    In the exact replay the operator presses h when the puck has drifted: the arm is guided again by hand, the puck is
+    put back where it had drifted to, and the robot replays the new path from its first waypoint. So a correction is
+    the row inside an episode whose waypoint counter is 0 again. The rows before it show the replay going on while
+    the puck drifts; the rows after it show the robot bringing the puck back (15.11.26, Emranul: most episodes have
+    such corrections; 305 in the index of 14.11.26).
+
+    Parameters
+    ----------
+    frames : pandas.DataFrame
+        frames.csv as built by training_dataset.py.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The rows sorted by episode and step, with "steps_to_next_correction" (1 for the last row before an h press)
+        and "steps_since_correction" (0 for the standing row after it, 1 for the first replayed step); empty where
+        the episode has no correction after or before the row.
+    """
+
+    frames = frames.sort_values(["episode_id", "row_in_episode"]).reset_index(drop = True)
+    waypoint = frames["waypoint"] if "waypoint" in frames.columns else pandas.Series(numpy.nan, index = frames.index)
+    is_correction = (waypoint.fillna(-1) == 0) & (frames["row_in_episode"] > 0)
+    correction_row = frames["row_in_episode"].where(is_correction).groupby(frames["episode_id"], sort = False)
+    frames["steps_to_next_correction"] = correction_row.bfill() - frames["row_in_episode"]
+    frames["steps_since_correction"] = frames["row_in_episode"] - correction_row.ffill()
     return frames
 
 

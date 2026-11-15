@@ -62,6 +62,16 @@ Free gain found: steering by the look-ahead output scores +1 point within 45 and
 seeds), not yet in the driver. Emranul (15.11.26): no more recording, "make it better yourself"; he was disappointed
 by the loop. Marshal's three round 2 policies were driven on sheet 01 (results file in `Policy runs/`).
 
+**Hand-correction runs (15.11.26, 03:40; Emranul: "yes build it", "put more weight on the frames after h is pressed").**
+Built and tested, not yet queued: "before_correction_weight" 0 for the 5 steps before an h press, "after_correction_weight"
+3 for the 8 steps after it (`config.HAND_CORRECTIONS`), four runs on the 16 tracks, one on the six course sheets, robot
+candidates models 13 (one picture) and 14 (two pictures). One login with `final5.cmd` (in the evidence folder's
+`ki014_scripts`, working copy in the scratchpad) uploads into `02_code_5` on ki-014, queues 20 jobs behind the third queue
+and fetches everything; it calls `train_policy_emranul.py`. New measure (`score_hand_corrections.py`): the reference agrees
+with the demonstration on 83 % of all held-out pictures but on 58 % of those after an h press (two pictures: 65 %). Rule
+fixed before results: after-h pictures +5 points, path without before-h pictures not more than 1 point lower, stops not
+worse than the seed gap; then the robot decides (sheet 03 first).
+
 **Model 9** (reference recipe on all 264 episodes, for the robot): 
 `04_runs/gpu_ki014/2026-11-14_resnet18_model_9_full_all_sheets/checkpoints/all_sheets.pt`, sha256 3eca52154e5a; loads
 in the robot driver (`ModelPolicy`), not yet driven on the robot.
