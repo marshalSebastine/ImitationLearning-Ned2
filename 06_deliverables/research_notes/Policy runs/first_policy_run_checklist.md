@@ -32,12 +32,12 @@ Calculated: a forearm turn label becomes a 6 degree turn (the median of the labe
       `D:/AI_Project/.venv/Scripts/python.exe -m pip install torch torchvision`
 - [ ] The two weight files (not in git, about 45 MB each), from the GitHub release
       https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/tag/policies-2026-11-13-overnight
-      (SHA-256 sums in the release notes). In PowerShell, these four lines put them at exactly the right places:
+      (SHA-256 sums in the release notes; since 15.11.26 every file name starts with marshal_, to keep Marshal's models apart from Emranul's). In PowerShell, these four lines put them at exactly the right places:
 
       New-Item -ItemType Directory -Force D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints
-      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/history_classifier_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints/best.pt
+      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/marshal_history_classifier_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_history_classifier_seed1/checkpoints/best.pt
       New-Item -ItemType Directory -Force D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints
-      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/factorised_classifier_tuned_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints/best.pt
+      Invoke-WebRequest https://github.com/marshalSebastine/ImitationLearning-Ned2/releases/download/policies-2026-11-13-overnight/marshal_factorised_classifier_tuned_seed1_best.pt -OutFile D:/AI_Project/04_runs/2026-11-13_overnight_factorised_classifier_tuned_seed1/checkpoints/best.pt
 - [ ] Tests, in `D:/AI_Project/02_code`: `..\.venv\Scripts\python.exe test_run_policy.py` says "all tests passed"
       (about a minute), and `..\.venv\Scripts\python.exe test_record_episodes.py` too.
 - [ ] A dry run with the simulated robot, to see the windows and keys (nothing moves):
