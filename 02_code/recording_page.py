@@ -424,7 +424,10 @@ def build_test_command(
     command = [sys.executable, "-u", str(CODE_FOLDER / "visit_runs.py"), str(page_parameters["test_run_list"]), label] + (["--again"] if is_again else [])
     # 15.11.26: the window waits up to 30 seconds (or a key) so that its last lines can be read, then closes by itself;
     # with "pause" it stayed open, the page counted the test as running and the marks form never came (test A1)
-    return 'cmd /s /c "' + subprocess.list2cmdline(command) + ' & echo. & timeout /t 30"'
+    # 15.11.26 (test U9 ended at once twice and nobody could read why): after an error the window stays open until a
+    # key is pressed, so its last lines can be read; after a good run it closes by itself after 30 seconds
+    return ('cmd /s /c "' + subprocess.list2cmdline(command) + ' & if errorlevel 1 (echo. & echo THE TEST DID NOT RUN OR ENDED WITH AN ERROR:'
+            ' read the lines above, then press a key & pause) else (echo. & timeout /t 30)"')
 
 
 def save_test_marks(
