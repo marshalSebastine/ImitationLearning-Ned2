@@ -2386,6 +2386,28 @@ TRAINING_RUNS["resnet18_full_mirror_after_h_16_memory_course_sheets"] = dict(TRA
 TRAINING_RUNS["resnet18_model_19_full_mirror_after_h_16_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **DIRECTION_MEMORY)
 TRAINING_RUNS["resnet18_model_20_full_after_h_16_no_mirror_memory_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_17_full_after_h_16_no_mirror_all_sheets"], **DIRECTION_MEMORY)
 
+# 15.11.26, 20:00, the recurrent model and the revolving move (Emranul: "build the recurrent model tonight"; "all the
+# models are failing on the revolving move, without it loops are impossible, model E learned it"). Found in the robot
+# logs: in sheet 05's loop model E swings the forearm from about -70 back through the middle to +60 degrees (asking
+# +6 to +7 degrees a step), while models 13, 15, 17 and 18 ask +2 to +4, turn back and wind on to the limit of -117,
+# where they are stuck. On held-out pictures every recipe asks for only 0.3 to 0.65 of the recorded forearm turn in
+# the swings (regression to the mean). One picture cannot show how far the forearm has wound (the camera turns with
+# it); a sequence of pictures can. The recurrent model (SequencePictureModel) reads 12 pictures 4 steps apart (about
+# 44 cm of path in the recordings), on the robot 6 steps apart (0.65 cm against 1 cm steps). Only pictures are its
+# input. The swing pictures can also count more ("swing_weight", keyframe weighting).
+TRAINING_RUN_PARAMETERS.update({"sequence_frames": 0, "sequence_stride": 4, "sequence_gradient_frames": 2, "gru_size": 256,
+                                "sequence_stride_robot": 6, "swing_weight": 1.0})
+RECURRENT = {"sequence_frames": 12, "sequence_stride": 4, "sequence_stride_robot": 6}
+SWING_3 = {"swing_weight": 3.0}
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **RECURRENT)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_swing_3_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_new_shapes"], **SWING_3)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_swing_3_new_shapes"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_new_shapes"], **SWING_3)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_course_sheets"], **RECURRENT)
+TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_swing_3_course_sheets"] = dict(TRAINING_RUNS["resnet18_full_mirror_after_h_16_recurrent_course_sheets"], **SWING_3)
+TRAINING_RUNS["resnet18_model_21_full_mirror_after_h_16_recurrent_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **RECURRENT)
+TRAINING_RUNS["resnet18_model_22_full_mirror_after_h_16_recurrent_swing_3_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_21_full_mirror_after_h_16_recurrent_all_sheets"], **SWING_3)
+TRAINING_RUNS["resnet18_model_23_full_mirror_after_h_16_swing_3_all_sheets"] = dict(TRAINING_RUNS["resnet18_model_15_full_mirror_after_h_16_all_sheets"], **SWING_3)
+
 # The model mode (model_mode.py, 10.11.26): the robot pushes by itself with a trained model, following report section
 # 4.6. Each picture gives the exact step; the magnet tip moves a fixed "step_m" in its direction (in the picture's frame,
 # turned onto the table with the forearm camera's heading), the forearm twist follows the model by at most

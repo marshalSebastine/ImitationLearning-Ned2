@@ -72,7 +72,7 @@ from config import (MODEL_MODE_PARAMETERS, PUCK_PARAMETERS, PUSHER_PARAMETERS, R
                     TRAINING_TARGET_PARAMETERS, pushing_height, start_pose)
 from record_episodes import forearm_camera_heading_rad, read_window_key, show_in_window
 from side_view_test import magnet_tip_and_lean, solve_with_wrist_fixed
-from train_policy_emranul import PictureToMoveModel, augmented_pictures, merged_run_settings
+from train_policy_emranul import PictureToMoveModel, SequencePictureModel, augmented_pictures, merged_run_settings
 from training_probes import design_outputs, predictions_from_outputs
 from training_targets import memory_from_path
 
@@ -118,8 +118,12 @@ class ModelPolicy:
         output_sizes = design_outputs(self.settings["design"], len(self.class_names), self.settings["chunk_steps"],
                                       self.settings.get("is_stop_separate", False))
         self.models = []
+        # 15.11.26: the recurrent model reads its sequence of pictures from the features kept below
+        self.sequence_frames = int(self.settings.get("sequence_frames") or 0)
+        self.sequence_stride_robot = int(self.settings.get("sequence_stride_robot") or 1)
+        model_class = SequencePictureModel if self.sequence_frames else PictureToMoveModel
         for checkpoint in paths:
-            model = PictureToMoveModel(self.settings, output_sizes)
+            model = model_class(self.settings, output_sizes)
             model.load_state_dict(torch.load(checkpoint, map_location = "cpu"))
             model.eval()
             self.models.append(model)
@@ -128,12 +132,34 @@ class ModelPolicy:
         self.picture_count = self.settings.get("picture_count", 1)
         self.earlier_pictures = []
         self.memory_distances_cm = list(self.settings.get("memory_distances_cm") or [])
+        self.feature_history = [[] for _ in self.models]
 
 
     def forget_earlier_pictures(self) -> None:
         """Start a new run: its first picture is shown as its own previous picture, as an episode's first in training."""
 
         self.earlier_pictures = []
+        self.feature_history = [[] for _ in self.models]
+
+
+    def sequence_answer(
+            self,
+            model_number: int,
+            inputs: torch.Tensor
+    ) -> Dict[str, torch.Tensor]:
+        """
+        The recurrent model's answer (15.11.26): this picture's features join the run's kept features, and the GRU reads
+        "sequence_frames" of them, "sequence_stride_robot" steps apart (the robot's 0.65 cm steps against the recordings'
+        1 cm, so that the sequence spans about the same path as in training), the run's first picture standing in for
+        pictures not yet taken.
+        """
+
+        model = self.models[model_number]
+        history = self.feature_history[model_number]
+        history.append(model.picture_features(inputs)[0])
+        newest = len(history) - 1
+        chosen = [history[max(0, newest - self.sequence_stride_robot * number)] for number in range(self.sequence_frames)]
+        return model.answer_from_features(torch.stack(chosen[::-1])[None])
 
 
     def remember_picture(self, picture_bytes: bytes) -> None:
@@ -198,8 +224,8 @@ class ModelPolicy:
         memory_input = None if memory is None or not self.memory_distances_cm else torch.from_numpy(numpy.asarray(memory, dtype = numpy.float32)[None])
         exact_steps, stop_probabilities = [], []
         with torch.inference_mode():
-            for model in self.models:
-                outputs = model(inputs, memory_input)
+            for model_number, model in enumerate(self.models):
+                outputs = self.sequence_answer(model_number, inputs) if self.sequence_frames else model(inputs, memory_input)
                 predictions = predictions_from_outputs(outputs, self.class_names, self.settings["stop_target"])
                 exact_steps.append(outputs["exact"][0].numpy())
                 stop_probabilities.append(float(predictions["stop_probability"][0]))

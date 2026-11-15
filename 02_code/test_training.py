@@ -342,6 +342,31 @@ def test_direction_memory_points_back_along_the_path() -> None:
     assert 0.25 < (numpy.abs(hidden).sum(axis = 1) == 0).mean() < 0.35, "about 30 % must be hidden"
 
 
+def test_recurrent_model_reads_sequences_as_the_driver_does() -> None:
+
+    from train_policy_emranul import SequencePictures, SequencePictureModel
+    from training_probes import design_outputs, swing_rows
+    frames = pandas.DataFrame({"frame_index": [0, 1, 2, 3, 4, 5, 10, 11, 12], "row_in_episode": [0, 1, 2, 3, 4, 5, 0, 1, 2]})
+    cache = numpy.arange(13 * 2 * 2 * 3, dtype = numpy.uint8).reshape(13, 2, 2, 3)
+    sequences = SequencePictures(cache, frames, 3, 2)
+    assert sequences.indices.tolist() == [[0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 1, 0], [4, 2, 0], [5, 3, 1], [10, 10, 10], [11, 10, 10], [12, 10, 10]]
+    assert torch.equal(sequences[numpy.array([5])][0, :, :, 6:9], torch.from_numpy(cache[1])), "the oldest picture must come last"
+    settings = dict(TRAINING_RUN_PARAMETERS, backbone = "small_cnn", is_pretrained = False, sequence_frames = 4, sequence_gradient_frames = 1, design = "chunk")
+    model = SequencePictureModel(settings, design_outputs("chunk", 9, 5, False)).eval()
+    for value in model.head.parameters():
+        torch.nn.init.normal_(value, std = 0.05)
+    pictures = torch.rand(9, 3, 24, 32)
+    stacked = torch.cat([pictures[max(0, 8 - 2 * number)] for number in range(4)], dim = 0)[None]
+    with torch.inference_mode():
+        trained_way = model(stacked)["exact"]
+        features = [model.picture_features(pictures[index][None])[0] for index in range(9)]
+        driver_way = model.answer_from_features(torch.stack([features[max(0, 8 - 2 * number)] for number in range(4)][::-1])[None])["exact"]
+    assert torch.allclose(trained_way, driver_way, atol = 1e-5), "the driver must read the sequence as training does"
+    swings = swing_rows(pandas.DataFrame({"episode_id": ["a"] * 6 + ["b"] * 2, "joint_4": numpy.radians([0, -40, -20, 10, 40, 50, -40, 40])}))
+    # episode b swings too (-40 to 40); its first row does not join episode a's last one (50 degrees)
+    assert swings.tolist() == [False, True, True, True, True, False, True, True], swings
+
+
 def test_class_weights_favour_rare_classes() -> None:
 
     weights = class_weights(numpy.array([0, 0, 0, 1, -1]), 3, 1.0)
@@ -414,7 +439,7 @@ if __name__ == "__main__":
                  test_table_as_paper_repaints_only_the_table_of_the_chosen_pictures,
                  test_made_up_end_erases_the_line_ahead_of_the_puck_and_makes_a_stop,
                  test_turned_pictures_and_their_steps_turn_the_same_way, test_new_shape_folds_with_fewer_tracks,
-                 test_mid_paper_stop_pictures_count_more, test_steps_round_a_correction_by_hand, test_direction_memory_points_back_along_the_path,
+                 test_mid_paper_stop_pictures_count_more, test_steps_round_a_correction_by_hand, test_direction_memory_points_back_along_the_path, test_recurrent_model_reads_sequences_as_the_driver_does,
                  test_class_weights_favour_rare_classes, test_angle_measures,
                  test_stop_measures_count_early_stops, test_augmentation_off_only_normalises_and_mirror_flips_labels,
                  test_labels_match_the_recording_tool_on_real_data]:

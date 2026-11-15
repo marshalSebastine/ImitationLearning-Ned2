@@ -173,6 +173,29 @@ def design_outputs(
 
 
 
+def swing_rows(frames: pandas.DataFrame) -> numpy.ndarray:
+    """
+    Which rows lie in a forearm swing: from the last picture with the forearm beyond 35 degrees on one side to the
+    first beyond 35 degrees on the other side, within one episode (the revolving move of 15.11.26).
+    """
+
+    angle = numpy.degrees(frames["joint_4"].to_numpy(dtype = float))
+    episode_ids = frames["episode_id"].to_numpy()
+    is_swing = numpy.zeros(len(frames), dtype = bool)
+    side, start = 0, None
+    for row in range(len(frames)):
+        if row > 0 and episode_ids[row] != episode_ids[row - 1]:
+            side, start = 0, None
+        current = -1 if angle[row] <= -35.0 else (1 if angle[row] >= 35.0 else 0)
+        if not current:
+            continue
+        if side and current != side:
+            is_swing[start:row + 1] = True
+        side, start = current, row
+    return is_swing
+
+
+
 def correction_rows(
         frames: pandas.DataFrame,
         parameters: Dict
@@ -289,6 +312,13 @@ def training_arrays(
         is_approach = ((steps_to_end >= 1) & (steps_to_end <= parameters["approach_rows"])
                        & frames["score"].isin(parameters["approach_scores"]).to_numpy())
         arrays["sample_weight"] = numpy.where(is_approach, arrays["sample_weight"] * parameters["approach_weight"],
+                                              arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
+    if parameters.get("swing_weight", 1.0) != 1.0:
+        # 15.11.26, the revolving move: on the robot every model but E wound the forearm on to its limit in loops,
+        # where the demonstrators swing it back through the middle to the other side (from beyond 35 degrees on one
+        # side to beyond 35 on the other; 153 of 265 episodes, 3,090 of the course sheets' pictures). These swing
+        # pictures count "swing_weight" times (keyframe weighting, Wen and others 2021).
+        arrays["sample_weight"] = numpy.where(swing_rows(frames), arrays["sample_weight"] * parameters["swing_weight"],
                                               arrays["sample_weight"]).astype(arrays["sample_weight"].dtype)
     if parameters.get("memory_distances_cm"):
         # 15.11.26: the direction memory (where the tip was 2, 5 and 10 cm of path ago), an input beside the picture

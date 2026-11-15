@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy
+import pandas
 import timm
 import torch
 
@@ -151,6 +152,110 @@ class PictureToMoveModel(torch.nn.Module):
             scaled = torch.cat([memory[:, :arrow_count] / self.memory_scale_cm, memory[:, arrow_count:]], dim = 1).to(pooled.dtype)
             pooled = torch.cat([pooled, self.memory_layer(scaled)], dim = 1)
         return self.head(pooled)
+
+
+
+class SequencePictureModel(torch.nn.Module):
+
+    def __init__(
+            self,
+            run_settings: Dict,
+            output_sizes: Dict[str, int]
+    ):
+        """
+        The recurrent model (15.11.26): the backbone turns each of the last "sequence_frames" camera pictures (taken
+        "sequence_stride" steps apart, the newest last) into features, a GRU of "gru_size" reads them in order, and the
+        head answers from the GRU's last state together with the newest picture's own features. Only pictures are its
+        input, as the course demands; the sequence lets it see how the view has turned on the way (the forearm's
+        winding) and where it came from (the first or second pass of a loop).
+
+        Parameters
+        ----------
+        run_settings : dict
+            As for PictureToMoveModel, plus "sequence_frames", "sequence_gradient_frames" (the newest pictures the
+            backbone learns from; the older ones pass through it without gradient, to fit the card) and "gru_size".
+        output_sizes : dict of str to int
+            From ``design_outputs``.
+        """
+
+        super().__init__()
+        if run_settings["backbone"] == "small_cnn":
+            self.backbone = SmallConvolutionalBackbone(run_settings["small_cnn_channels"], 3)
+        else:
+            self.backbone = timm.create_model(run_settings["backbone"], pretrained = run_settings["is_pretrained"], num_classes = 0)
+        self.frame_count = int(run_settings["sequence_frames"])
+        self.gradient_frames = int(run_settings["sequence_gradient_frames"])
+        self.memory_size = 0
+        self.gru = torch.nn.GRU(self.backbone.num_features, int(run_settings["gru_size"]), batch_first = True)
+        self.head = ProbeHead(int(run_settings["gru_size"]) + self.backbone.num_features, output_sizes, run_settings["hidden_size"], run_settings["dropout"])
+
+
+    def picture_features(self, pictures: torch.Tensor) -> torch.Tensor:
+        """(pictures, 3, height, width) normalised input to (pictures, features), averaged over the feature map."""
+
+        return self.backbone.forward_features(pictures).mean(dim = (2, 3))
+
+
+    def answer_from_features(self, features: torch.Tensor) -> Dict[str, torch.Tensor]:
+        """(batch, frames, features), the oldest picture first, to the outputs at the newest picture."""
+
+        states, _ = self.gru(features)
+        return self.head(torch.cat([states[:, -1], features[:, -1]], dim = 1))
+
+
+    def forward(
+            self,
+            pictures: torch.Tensor,
+            memory: Optional[torch.Tensor] = None
+    ) -> Dict[str, torch.Tensor]:
+        """(batch, 3 x frames, height, width) with the newest picture in the first three channels (as stacked by
+        ``SequencePictures`` and augmented alike by ``augmented_pictures``)."""
+
+        batch, channels, height, width = pictures.shape
+        frames = pictures.view(batch, channels // 3, 3, height, width)
+        newest = self.picture_features(frames[:, :self.gradient_frames].reshape(-1, 3, height, width)).view(batch, self.gradient_frames, -1)
+        if frames.shape[1] > self.gradient_frames:
+            with torch.no_grad():
+                older = self.picture_features(frames[:, self.gradient_frames:].reshape(-1, 3, height, width)).view(batch, frames.shape[1] - self.gradient_frames, -1)
+            features = torch.cat([newest, older], dim = 1)
+        else:
+            features = newest
+        return self.answer_from_features(torch.flip(features, dims = [1]))
+
+
+
+class SequencePictures:
+
+    def __init__(
+            self,
+            cache: numpy.ndarray,
+            frames: pandas.DataFrame,
+            frame_count: int,
+            stride: int
+    ):
+        """
+        The picture sequences of the recurrent model, built when a batch asks for them: for each row the camera's
+        pictures 0, stride, 2 x stride, ... steps back (an episode's first picture repeats before it began), stacked as
+        channels with the newest first, like the two-picture model's input.
+        """
+
+        self.cache = torch.from_numpy(numpy.ascontiguousarray(cache))
+        lags = [stride * number for number in range(frame_count)]
+        self.indices = numpy.stack([previous_frame_indices(frames, lag) for lag in lags], axis = 1)
+
+
+    def __len__(self) -> int:
+
+        return len(self.indices)
+
+
+    def __getitem__(self, rows) -> torch.Tensor:
+
+        rows = numpy.atleast_1d(numpy.asarray(rows))
+        stacked = self.cache[torch.from_numpy(self.indices[rows].reshape(-1))]
+        count, frame_count = len(rows), self.indices.shape[1]
+        height, width = stacked.shape[1], stacked.shape[2]
+        return stacked.view(count, frame_count, height, width, 3).permute(0, 2, 3, 1, 4).reshape(count, height, width, 3 * frame_count)
 
 
 
@@ -771,9 +876,12 @@ def train_fold(
     randomness_generator = numpy.random.default_rng(seed)
     device = training_device(settings)
     output_sizes = design_outputs(settings["design"], len(class_names), settings["chunk_steps"], settings.get("is_stop_separate", False))
-    model = PictureToMoveModel(settings, output_sizes).to(device)
+    model_class = SequencePictureModel if settings.get("sequence_frames") else PictureToMoveModel
+    model = model_class(settings, output_sizes).to(device)
     backbone_parameters = list(model.backbone.parameters())
-    head_parameters = list(model.head.parameters())
+    # 15.11.26: every part outside the backbone (head, memory layer, recurrent layer) learns at the head's rate; before,
+    # only model.head was handed to the optimiser and the direction memory's own layer stayed at its random start
+    head_parameters = [value for name, value in model.named_parameters() if not name.startswith("backbone.")]
     backbone_rate = settings["learning_rate"] * (settings["backbone_learning_rate_factor"] if settings["is_pretrained"] else 1.0)
     optimiser = torch.optim.AdamW([{"params": backbone_parameters, "lr": backbone_rate}, {"params": head_parameters, "lr": settings["learning_rate"]}],
                                   weight_decay = settings["weight_decay"])
@@ -861,7 +969,7 @@ def milliseconds_per_picture(
 
     model.eval()
     height, width = settings["picture_size"][1], settings["picture_size"][0]
-    picture = torch.rand(1, 3 * settings.get("picture_count", 1), height, width)
+    picture = torch.rand(1, 3 * (settings.get("sequence_frames") or settings.get("picture_count", 1)), height, width)
     timings = []
     with torch.inference_mode():
         for repeat in range(23):
@@ -914,8 +1022,14 @@ def run_training(
         data_parameters["processed_folder"] = settings["processed_folder"]
     frames = load_training_frames(target_parameters, data_parameters)
     cache = numpy.load(Path(data_parameters["processed_folder"]) / f"images_{settings['picture_cache']}.npy", mmap_mode = "r")
-    pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
-    if settings.get("picture_count", 1) > 1:
+    if settings.get("sequence_frames"):
+        # 15.11.26: the recurrent model reads the whole cache once (1.3 GB) and stacks each batch's sequences on demand
+        if settings.get("memory_distances_cm") or settings.get("picture_count", 1) > 1:
+            raise ValueError("the recurrent model takes neither the direction memory nor a second stacked picture")
+        pictures = SequencePictures(numpy.array(cache), frames, settings["sequence_frames"], settings["sequence_stride"])
+    else:
+        pictures = torch.from_numpy(numpy.array(cache[frames["frame_index"].to_numpy()]))
+    if settings.get("picture_count", 1) > 1 and not settings.get("sequence_frames"):
         # 14.11.26: the picture before each one (the camera's previous picture in the same episode, also where the
         # cleaning dropped that row; an episode's first picture is repeated), stacked behind it as three more channels
         earlier_pictures = [torch.from_numpy(numpy.array(cache[previous_frame_indices(frames, lag)]))
