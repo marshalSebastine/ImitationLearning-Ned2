@@ -1,5 +1,5 @@
 @echo off
-echo Thirteenth login, on ki-016: uploads the new training code into its own folder on ki-016, queues the recurrent model, the swing weighting and the fixed direction memory (24 jobs) and fetches ALL results so far.
+echo Thirteenth login, on ki-016: uploads the new training code into its own folder on ki-016, queues the recurrent model, the swing weighting and the fixed direction memory (25 jobs) and fetches ALL results so far.
 echo Type the password ONCE when "password:" appears, press Enter, and then type nothing more in this window.
 set W=D:\AI_Project\.claude\worktrees\training-analysis\02_code
 set S=C:\Users\e7dc\AppData\Local\Temp\claude\1808d3456aab7b9a\997601d4-4a2e-4eb2-91d1-890ff53278fd\scratchpad\final

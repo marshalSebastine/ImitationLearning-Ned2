@@ -19,6 +19,7 @@ Q="without_path_04 without_path_05 without_path_06"
 echo "resnet18_model_22_full_mirror_after_h_16_recurrent_swing_3_all_sheets"
 echo "resnet18_model_23_full_mirror_after_h_16_swing_3_all_sheets"
 echo "resnet18_model_19_full_mirror_after_h_16_memory_all_sheets"
+echo "resnet18_model_20_full_after_h_16_no_mirror_memory_all_sheets"
 for folds in "$P" "$Q"; do echo "resnet18_full_mirror_after_h_16_recurrent_course_sheets --folds $folds"; done
 for idea in recurrent recurrent_swing_3 swing_3 memory; do
   for folds in "$A" "$B" "$C" "$D"; do echo "resnet18_full_mirror_after_h_16_${idea}_new_shapes --folds $folds"; done

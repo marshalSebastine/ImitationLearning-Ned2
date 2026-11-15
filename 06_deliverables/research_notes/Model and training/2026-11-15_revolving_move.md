@@ -75,6 +75,7 @@ sheet 06 21 of 25; round 2 30 episodes on 17 tracks. So the data holds the move;
 The course demands the robot's one camera as the only input. The direction memory (models 19 and 20) feeds the model
 the tip's past positions, which come from the arm's joints, not from the camera. Whether that is allowed is Emranul's
 and Marshal's call (or the professor's); the recurrent model reads only pictures and is safe either way.
+Emranul (15.11.26, evening): keep the memory runs. Models 19 and 20 are both in the thirteenth queue.
 
 ## 6. Next, if the recurrent model does not swing
 
