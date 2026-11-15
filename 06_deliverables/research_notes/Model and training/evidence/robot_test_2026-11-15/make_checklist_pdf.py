@@ -37,7 +37,7 @@ CHECKLIST_PARAMETERS = {
         "Stop button in reach. Robot away from the table edge.",
         "Motors off (FreeMotion) before anyone touches the arm. Never push on a held arm.",
         "Camera and its focus ring are NOT touched. Same table, taping and ceiling lights as the recordings.",
-        "Printed: validation_01 to validation_04 from the test_tracks folder, A4, 100 % size (not 'fit to page').",
+        "Printed: test_tracks/unseen_tracks_print_A4.pdf (6 pages: validation 1 to 4, practice 4 and 5), 100 % size. Number on the BACK.",
         "A ruler on the table for the recovery runs (puck 1.5 cm beside the line).",
     ],
     "each_run": [
